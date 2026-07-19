@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { inquirySchema, bookingSchema } from "@/lib/contact-schema";
 import { verifyTurnstileToken } from "@/lib/turnstile";
 import { sendMail, inquiryThankYouEmail, bookingThankYouEmail } from "@/lib/mailer";
+import { prisma } from "@/lib/db";
 
 // ─── POST /api/contact ───────────────────────────────────────────────────
 // Body: { kind: "inquiry" | "booking", ...payload }
-// Ported from original -contactFunction.ts (Supabase insert removed; mail kept)
+// Ported from original -contactFunction.ts. Saves lead to DB + sends emails.
 
 export async function POST(req: NextRequest) {
   let body: any;
@@ -27,13 +28,32 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1. Verify Turnstile
+    // 1. Verify Turnstile (skip in dev if no secret configured)
     const verify = await verifyTurnstileToken(parsed.data.turnstileToken);
     if (!verify.success) {
       return NextResponse.json({ error: verify.error || "CAPTCHA failed" }, { status: 400 });
     }
 
-    // 2. Send thank-you email (best-effort)
+    // 2. Persist lead to DB (so CRM can pick it up)
+    try {
+      await prisma.lead.create({
+        data: {
+          name: parsed.data.name,
+          email: parsed.data.email,
+          phone: parsed.data.company || "", // no separate phone field in schema
+          serviceInterest: parsed.data.service,
+          message: parsed.data.message,
+          status: "New",
+          source: "Contact Form",
+          sourcePage: "/contact",
+        },
+      });
+    } catch (e) {
+      console.error("[contact/inquiry] DB save failed:", e);
+      // Continue — email still works
+    }
+
+    // 3. Send thank-you email (best-effort)
     try {
       const ec = inquiryThankYouEmail(parsed.data.name);
       await sendMail({ to: parsed.data.email, subject: ec.subject, html: ec.html });
@@ -41,7 +61,7 @@ export async function POST(req: NextRequest) {
       console.error("[contact/inquiry] email failed:", e);
     }
 
-    // 3. Notify internal team
+    // 4. Notify internal team
     try {
       await sendMail({
         to: process.env.LEADS_EMAIL || "Info@clicktaketech.com",
@@ -73,13 +93,27 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1. Verify Turnstile
     const verify = await verifyTurnstileToken(parsed.data.turnstileToken);
     if (!verify.success) {
       return NextResponse.json({ error: verify.error || "CAPTCHA failed" }, { status: 400 });
     }
 
-    // 2. Send thank-you email
+    // Persist as a lead with booking context
+    try {
+      await prisma.lead.create({
+        data: {
+          name: parsed.data.name,
+          email: parsed.data.email,
+          message: `Discovery call booked for ${parsed.data.date} at ${parsed.data.time}`,
+          status: "New",
+          source: "Contact Form",
+          sourcePage: "/contact",
+        },
+      });
+    } catch (e) {
+      console.error("[contact/booking] DB save failed:", e);
+    }
+
     try {
       const ec = bookingThankYouEmail(parsed.data.name, parsed.data.date, parsed.data.time);
       await sendMail({ to: parsed.data.email, subject: ec.subject, html: ec.html });
@@ -87,7 +121,6 @@ export async function POST(req: NextRequest) {
       console.error("[contact/booking] email failed:", e);
     }
 
-    // 3. Notify internal team
     try {
       await sendMail({
         to: process.env.LEADS_EMAIL || "Info@clicktaketech.com",
