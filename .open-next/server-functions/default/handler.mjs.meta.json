@@ -5504,7 +5504,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/.prisma/client/index.js": {
-      "bytes": 159602,
+      "bytes": 159753,
       "imports": [
         {
           "path": ".open-next/server-functions/default/node_modules/@prisma/client/runtime/library.js",
@@ -12324,7 +12324,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js": {
-      "bytes": 90851,
+      "bytes": 90596,
       "imports": [
         {
           "path": ".open-next/cloudflare-templates/shims/throw.js",
@@ -13810,11 +13810,6 @@
           "path": ".open-next/server-functions/default/.next/server/chunks/node_modules_next_dist_esm_build_templates_app-route_ae175ba5.js",
           "kind": "require-call",
           "original": "/home/z/my-project/.open-next/server-functions/default/.next/server/chunks/node_modules_next_dist_esm_build_templates_app-route_ae175ba5.js"
-        },
-        {
-          "path": "/home/z/my-project/.open-next/server-functions/default/node_modules/.prisma/client/query_engine_bg.wasm",
-          "kind": "dynamic-import",
-          "external": true
         },
         {
           "path": "<runtime>",
@@ -13825,7 +13820,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js": {
-      "bytes": 90841,
+      "bytes": 90586,
       "imports": [
         {
           "path": ".open-next/cloudflare-templates/shims/throw.js",
@@ -15311,11 +15306,6 @@
           "path": ".open-next/server-functions/default/.next/server/chunks/node_modules_next_dist_esm_build_templates_app-route_ae175ba5.js",
           "kind": "require-call",
           "original": "/home/z/my-project/.open-next/server-functions/default/.next/server/chunks/node_modules_next_dist_esm_build_templates_app-route_ae175ba5.js"
-        },
-        {
-          "path": "/home/z/my-project/.open-next/server-functions/default/node_modules/.prisma/client/query_engine_bg.wasm",
-          "kind": "dynamic-import",
-          "external": true
         },
         {
           "path": "<runtime>",
@@ -20666,11 +20656,6 @@
           "external": true
         },
         {
-          "path": "/home/z/my-project/.open-next/server-functions/default/node_modules/.prisma/client/query_engine_bg.wasm",
-          "kind": "dynamic-import",
-          "external": true
-        },
-        {
           "path": "path",
           "kind": "require-call",
           "external": true
@@ -20678,11 +20663,6 @@
         {
           "path": "url",
           "kind": "require-call",
-          "external": true
-        },
-        {
-          "path": "/home/z/my-project/.open-next/server-functions/default/node_modules/.prisma/client/query_engine_bg.wasm",
-          "kind": "dynamic-import",
           "external": true
         },
         {
@@ -21924,7 +21904,7 @@
           "bytesInOutput": 201205
         },
         ".open-next/server-functions/default/node_modules/.prisma/client/index.js": {
-          "bytesInOutput": 140482
+          "bytesInOutput": 140648
         },
         ".open-next/server-functions/default/node_modules/.prisma/client/default.js": {
           "bytesInOutput": 167
@@ -22824,10 +22804,10 @@
           "bytesInOutput": 13914
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js": {
-          "bytesInOutput": 48256
+          "bytesInOutput": 47999
         },
         ".open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js": {
-          "bytesInOutput": 48208
+          "bytesInOutput": 47951
         },
         ".open-next/server-functions/default/.next/server/app/api/admin/providers/failover/route.js": {
           "bytesInOutput": 734
@@ -23163,7 +23143,7 @@
           "bytesInOutput": 82082
         }
       },
-      "bytes": 9848126
+      "bytes": 9847778
     }
   }
 }

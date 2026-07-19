@@ -1,6 +1,8 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["schemaEngineDriverAdapters"]
+  provider = "prisma-client-js"
+  // driverAdapters + queryCompiler are stable in Prisma 6.10+ — no preview flag needed.
+  // Together they remove the 2.2MB WASM query engine from the bundle by
+  // compiling Prisma queries in pure JS and routing SQL through @prisma/adapter-pg.
 }
 
 datasource db {
