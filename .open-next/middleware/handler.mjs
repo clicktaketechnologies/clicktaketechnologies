@@ -752,7 +752,7 @@ var require_root_of_the_server_25fe7590 = __commonJS({
     "use strict";
     (globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["chunks/[root-of-the-server]__25fe7590._.js", 28042, (e, t, r) => {
       "use strict";
-      var n = Object.defineProperty, i = Object.getOwnPropertyDescriptor, a = Object.getOwnPropertyNames, o = Object.prototype.hasOwnProperty, s = {}, l = { RequestCookies: () => g, ResponseCookies: () => v, parseCookie: () => d, parseSetCookie: () => p, stringifyCookie: () => c };
+      var n = Object.defineProperty, i = Object.getOwnPropertyDescriptor, o = Object.getOwnPropertyNames, a = Object.prototype.hasOwnProperty, s = {}, l = { RequestCookies: () => g, ResponseCookies: () => v, parseCookie: () => d, parseSetCookie: () => p, stringifyCookie: () => c };
       for (var u in l) n(s, u, { get: l[u], enumerable: true });
       function c(e2) {
         var t2;
@@ -778,16 +778,16 @@ var require_root_of_the_server_25fe7590 = __commonJS({
       }
       function p(e2) {
         if (!e2) return;
-        let [[t2, r2], ...n2] = d(e2), { domain: i2, expires: a2, httponly: o2, maxage: s2, path: l2, samesite: u2, secure: c2, partitioned: p2, priority: g2 } = Object.fromEntries(n2.map(([e3, t3]) => [e3.toLowerCase().replace(/-/g, ""), t3]));
+        let [[t2, r2], ...n2] = d(e2), { domain: i2, expires: o2, httponly: a2, maxage: s2, path: l2, samesite: u2, secure: c2, partitioned: p2, priority: g2 } = Object.fromEntries(n2.map(([e3, t3]) => [e3.toLowerCase().replace(/-/g, ""), t3]));
         {
-          var v2, b, m = { name: t2, value: decodeURIComponent(r2), domain: i2, ...a2 && { expires: new Date(a2) }, ...o2 && { httpOnly: true }, ..."string" == typeof s2 && { maxAge: Number(s2) }, path: l2, ...u2 && { sameSite: h.includes(v2 = (v2 = u2).toLowerCase()) ? v2 : void 0 }, ...c2 && { secure: true }, ...g2 && { priority: f.includes(b = (b = g2).toLowerCase()) ? b : void 0 }, ...p2 && { partitioned: true } };
+          var v2, b, m = { name: t2, value: decodeURIComponent(r2), domain: i2, ...o2 && { expires: new Date(o2) }, ...a2 && { httpOnly: true }, ..."string" == typeof s2 && { maxAge: Number(s2) }, path: l2, ...u2 && { sameSite: h.includes(v2 = (v2 = u2).toLowerCase()) ? v2 : void 0 }, ...c2 && { secure: true }, ...g2 && { priority: f.includes(b = (b = g2).toLowerCase()) ? b : void 0 }, ...p2 && { partitioned: true } };
           let e3 = {};
           for (let t3 in m) m[t3] && (e3[t3] = m[t3]);
           return e3;
         }
       }
       t.exports = ((e2, t2, r2, s2) => {
-        if (t2 && "object" == typeof t2 || "function" == typeof t2) for (let l2 of a(t2)) o.call(e2, l2) || l2 === r2 || n(e2, l2, { get: () => t2[l2], enumerable: !(s2 = i(t2, l2)) || s2.enumerable });
+        if (t2 && "object" == typeof t2 || "function" == typeof t2) for (let l2 of o(t2)) a.call(e2, l2) || l2 === r2 || n(e2, l2, { get: () => t2[l2], enumerable: !(s2 = i(t2, l2)) || s2.enumerable });
         return e2;
       })(n({}, "__esModule", { value: true }), s);
       var h = ["strict", "lax", "none"], f = ["low", "medium", "high"], g = class {
@@ -840,19 +840,19 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           const i2 = null != (n2 = null != (r2 = null == (t2 = e2.getSetCookie) ? void 0 : t2.call(e2)) ? r2 : e2.get("set-cookie")) ? n2 : [];
           for (const e3 of Array.isArray(i2) ? i2 : function(e4) {
             if (!e4) return [];
-            var t3, r3, n3, i3, a2, o2 = [], s2 = 0;
+            var t3, r3, n3, i3, o2, a2 = [], s2 = 0;
             function l2() {
               for (; s2 < e4.length && /\s/.test(e4.charAt(s2)); ) s2 += 1;
               return s2 < e4.length;
             }
             for (; s2 < e4.length; ) {
-              for (t3 = s2, a2 = false; l2(); ) if ("," === (r3 = e4.charAt(s2))) {
+              for (t3 = s2, o2 = false; l2(); ) if ("," === (r3 = e4.charAt(s2))) {
                 for (n3 = s2, s2 += 1, l2(), i3 = s2; s2 < e4.length && "=" !== (r3 = e4.charAt(s2)) && ";" !== r3 && "," !== r3; ) s2 += 1;
-                s2 < e4.length && "=" === e4.charAt(s2) ? (a2 = true, s2 = i3, o2.push(e4.substring(t3, n3)), t3 = s2) : s2 = n3 + 1;
+                s2 < e4.length && "=" === e4.charAt(s2) ? (o2 = true, s2 = i3, a2.push(e4.substring(t3, n3)), t3 = s2) : s2 = n3 + 1;
               } else s2 += 1;
-              (!a2 || s2 >= e4.length) && o2.push(e4.substring(t3, e4.length));
+              (!o2 || s2 >= e4.length) && a2.push(e4.substring(t3, e4.length));
             }
-            return o2;
+            return a2;
           }(i2)) {
             const t3 = p(e3);
             t3 && this._parsed.set(t3.name, t3);
@@ -897,16 +897,16 @@ var require_root_of_the_server_25fe7590 = __commonJS({
     }, 59110, (e, t, r) => {
       (() => {
         "use strict";
-        let r2, n, i, a, o;
+        let r2, n, i, o, a;
         var s, l, u, c, d, p, h, f, g, v, b, m, _, w, y, x, S = { 491: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.ContextAPI = void 0;
-          let n2 = r3(223), i2 = r3(172), a2 = r3(930), o2 = "context", s2 = new n2.NoopContextManager();
+          let n2 = r3(223), i2 = r3(172), o2 = r3(930), a2 = "context", s2 = new n2.NoopContextManager();
           class l2 {
             static getInstance() {
               return this._instance || (this._instance = new l2()), this._instance;
             }
             setGlobalContextManager(e3) {
-              return (0, i2.registerGlobal)(o2, e3, a2.DiagAPI.instance());
+              return (0, i2.registerGlobal)(a2, e3, o2.DiagAPI.instance());
             }
             active() {
               return this._getContextManager().active();
@@ -918,40 +918,40 @@ var require_root_of_the_server_25fe7590 = __commonJS({
               return this._getContextManager().bind(e3, t3);
             }
             _getContextManager() {
-              return (0, i2.getGlobal)(o2) || s2;
+              return (0, i2.getGlobal)(a2) || s2;
             }
             disable() {
-              this._getContextManager().disable(), (0, i2.unregisterGlobal)(o2, a2.DiagAPI.instance());
+              this._getContextManager().disable(), (0, i2.unregisterGlobal)(a2, o2.DiagAPI.instance());
             }
           }
           t2.ContextAPI = l2;
         }, 930: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.DiagAPI = void 0;
-          let n2 = r3(56), i2 = r3(912), a2 = r3(957), o2 = r3(172);
+          let n2 = r3(56), i2 = r3(912), o2 = r3(957), a2 = r3(172);
           class s2 {
             constructor() {
               function e3(e4) {
                 return function(...t4) {
-                  let r4 = (0, o2.getGlobal)("diag");
+                  let r4 = (0, a2.getGlobal)("diag");
                   if (r4) return r4[e4](...t4);
                 };
               }
               const t3 = this;
-              t3.setLogger = (e4, r4 = { logLevel: a2.DiagLogLevel.INFO }) => {
+              t3.setLogger = (e4, r4 = { logLevel: o2.DiagLogLevel.INFO }) => {
                 var n3, s3, l2;
                 if (e4 === t3) {
                   let e5 = Error("Cannot use diag as the logger for itself. Please use a DiagLogger implementation like ConsoleDiagLogger or a custom implementation");
                   return t3.error(null != (n3 = e5.stack) ? n3 : e5.message), false;
                 }
                 "number" == typeof r4 && (r4 = { logLevel: r4 });
-                let u2 = (0, o2.getGlobal)("diag"), c2 = (0, i2.createLogLevelDiagLogger)(null != (s3 = r4.logLevel) ? s3 : a2.DiagLogLevel.INFO, e4);
+                let u2 = (0, a2.getGlobal)("diag"), c2 = (0, i2.createLogLevelDiagLogger)(null != (s3 = r4.logLevel) ? s3 : o2.DiagLogLevel.INFO, e4);
                 if (u2 && !r4.suppressOverrideMessage) {
                   let e5 = null != (l2 = Error().stack) ? l2 : "<failed to generate stacktrace>";
                   u2.warn(`Current logger will be overwritten from ${e5}`), c2.warn(`Current logger will overwrite one already registered from ${e5}`);
                 }
-                return (0, o2.registerGlobal)("diag", c2, t3, true);
+                return (0, a2.registerGlobal)("diag", c2, t3, true);
               }, t3.disable = () => {
-                (0, o2.unregisterGlobal)("diag", t3);
+                (0, a2.unregisterGlobal)("diag", t3);
               }, t3.createComponentLogger = (e4) => new n2.DiagComponentLogger(e4), t3.verbose = e3("verbose"), t3.debug = e3("debug"), t3.info = e3("info"), t3.warn = e3("warn"), t3.error = e3("error");
             }
             static instance() {
@@ -961,31 +961,31 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           t2.DiagAPI = s2;
         }, 653: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.MetricsAPI = void 0;
-          let n2 = r3(660), i2 = r3(172), a2 = r3(930), o2 = "metrics";
+          let n2 = r3(660), i2 = r3(172), o2 = r3(930), a2 = "metrics";
           class s2 {
             static getInstance() {
               return this._instance || (this._instance = new s2()), this._instance;
             }
             setGlobalMeterProvider(e3) {
-              return (0, i2.registerGlobal)(o2, e3, a2.DiagAPI.instance());
+              return (0, i2.registerGlobal)(a2, e3, o2.DiagAPI.instance());
             }
             getMeterProvider() {
-              return (0, i2.getGlobal)(o2) || n2.NOOP_METER_PROVIDER;
+              return (0, i2.getGlobal)(a2) || n2.NOOP_METER_PROVIDER;
             }
             getMeter(e3, t3, r4) {
               return this.getMeterProvider().getMeter(e3, t3, r4);
             }
             disable() {
-              (0, i2.unregisterGlobal)(o2, a2.DiagAPI.instance());
+              (0, i2.unregisterGlobal)(a2, o2.DiagAPI.instance());
             }
           }
           t2.MetricsAPI = s2;
         }, 181: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.PropagationAPI = void 0;
-          let n2 = r3(172), i2 = r3(874), a2 = r3(194), o2 = r3(277), s2 = r3(369), l2 = r3(930), u2 = "propagation", c2 = new i2.NoopTextMapPropagator();
+          let n2 = r3(172), i2 = r3(874), o2 = r3(194), a2 = r3(277), s2 = r3(369), l2 = r3(930), u2 = "propagation", c2 = new i2.NoopTextMapPropagator();
           class d2 {
             constructor() {
-              this.createBaggage = s2.createBaggage, this.getBaggage = o2.getBaggage, this.getActiveBaggage = o2.getActiveBaggage, this.setBaggage = o2.setBaggage, this.deleteBaggage = o2.deleteBaggage;
+              this.createBaggage = s2.createBaggage, this.getBaggage = a2.getBaggage, this.getActiveBaggage = a2.getActiveBaggage, this.setBaggage = a2.setBaggage, this.deleteBaggage = a2.deleteBaggage;
             }
             static getInstance() {
               return this._instance || (this._instance = new d2()), this._instance;
@@ -993,10 +993,10 @@ var require_root_of_the_server_25fe7590 = __commonJS({
             setGlobalPropagator(e3) {
               return (0, n2.registerGlobal)(u2, e3, l2.DiagAPI.instance());
             }
-            inject(e3, t3, r4 = a2.defaultTextMapSetter) {
+            inject(e3, t3, r4 = o2.defaultTextMapSetter) {
               return this._getGlobalPropagator().inject(e3, t3, r4);
             }
-            extract(e3, t3, r4 = a2.defaultTextMapGetter) {
+            extract(e3, t3, r4 = o2.defaultTextMapGetter) {
               return this._getGlobalPropagator().extract(e3, t3, r4);
             }
             fields() {
@@ -1012,10 +1012,10 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           t2.PropagationAPI = d2;
         }, 997: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.TraceAPI = void 0;
-          let n2 = r3(172), i2 = r3(846), a2 = r3(139), o2 = r3(607), s2 = r3(930), l2 = "trace";
+          let n2 = r3(172), i2 = r3(846), o2 = r3(139), a2 = r3(607), s2 = r3(930), l2 = "trace";
           class u2 {
             constructor() {
-              this._proxyTracerProvider = new i2.ProxyTracerProvider(), this.wrapSpanContext = a2.wrapSpanContext, this.isSpanContextValid = a2.isSpanContextValid, this.deleteSpan = o2.deleteSpan, this.getSpan = o2.getSpan, this.getActiveSpan = o2.getActiveSpan, this.getSpanContext = o2.getSpanContext, this.setSpan = o2.setSpan, this.setSpanContext = o2.setSpanContext;
+              this._proxyTracerProvider = new i2.ProxyTracerProvider(), this.wrapSpanContext = o2.wrapSpanContext, this.isSpanContextValid = o2.isSpanContextValid, this.deleteSpan = a2.deleteSpan, this.getSpan = a2.getSpan, this.getActiveSpan = a2.getActiveSpan, this.getSpanContext = a2.getSpanContext, this.setSpan = a2.setSpan, this.setSpanContext = a2.setSpanContext;
             }
             static getInstance() {
               return this._instance || (this._instance = new u2()), this._instance;
@@ -1038,11 +1038,11 @@ var require_root_of_the_server_25fe7590 = __commonJS({
         }, 277: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.deleteBaggage = t2.setBaggage = t2.getActiveBaggage = t2.getBaggage = void 0;
           let n2 = r3(491), i2 = (0, r3(780).createContextKey)("OpenTelemetry Baggage Key");
-          function a2(e3) {
+          function o2(e3) {
             return e3.getValue(i2) || void 0;
           }
-          t2.getBaggage = a2, t2.getActiveBaggage = function() {
-            return a2(n2.ContextAPI.getInstance().active());
+          t2.getBaggage = o2, t2.getActiveBaggage = function() {
+            return o2(n2.ContextAPI.getInstance().active());
           }, t2.setBaggage = function(e3, t3) {
             return e3.setValue(i2, t3);
           }, t2.deleteBaggage = function(e3) {
@@ -1083,11 +1083,11 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           Object.defineProperty(t2, "__esModule", { value: true }), t2.baggageEntryMetadataSymbol = void 0, t2.baggageEntryMetadataSymbol = Symbol("BaggageEntryMetadata");
         }, 369: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.baggageEntryMetadataFromString = t2.createBaggage = void 0;
-          let n2 = r3(930), i2 = r3(993), a2 = r3(830), o2 = n2.DiagAPI.instance();
+          let n2 = r3(930), i2 = r3(993), o2 = r3(830), a2 = n2.DiagAPI.instance();
           t2.createBaggage = function(e3 = {}) {
             return new i2.BaggageImpl(new Map(Object.entries(e3)));
           }, t2.baggageEntryMetadataFromString = function(e3) {
-            return "string" != typeof e3 && (o2.error(`Cannot create baggage metadata from unknown type: ${typeof e3}`), e3 = ""), { __TYPE__: a2.baggageEntryMetadataSymbol, toString: () => e3 };
+            return "string" != typeof e3 && (a2.error(`Cannot create baggage metadata from unknown type: ${typeof e3}`), e3 = ""), { __TYPE__: o2.baggageEntryMetadataSymbol, toString: () => e3 };
           };
         }, 67: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.context = void 0, t2.context = r3(491).ContextAPI.getInstance();
@@ -1188,23 +1188,23 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           Object.defineProperty(t2, "__esModule", { value: true }), t2.DiagLogLevel = void 0, (r3 = t2.DiagLogLevel || (t2.DiagLogLevel = {}))[r3.NONE = 0] = "NONE", r3[r3.ERROR = 30] = "ERROR", r3[r3.WARN = 50] = "WARN", r3[r3.INFO = 60] = "INFO", r3[r3.DEBUG = 70] = "DEBUG", r3[r3.VERBOSE = 80] = "VERBOSE", r3[r3.ALL = 9999] = "ALL";
         }, 172: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.unregisterGlobal = t2.getGlobal = t2.registerGlobal = void 0;
-          let n2 = r3(200), i2 = r3(521), a2 = r3(130), o2 = i2.VERSION.split(".")[0], s2 = Symbol.for(`opentelemetry.js.api.${o2}`), l2 = n2._globalThis;
+          let n2 = r3(200), i2 = r3(521), o2 = r3(130), a2 = i2.VERSION.split(".")[0], s2 = Symbol.for(`opentelemetry.js.api.${a2}`), l2 = n2._globalThis;
           t2.registerGlobal = function(e3, t3, r4, n3 = false) {
-            var a3;
-            let o3 = l2[s2] = null != (a3 = l2[s2]) ? a3 : { version: i2.VERSION };
-            if (!n3 && o3[e3]) {
+            var o3;
+            let a3 = l2[s2] = null != (o3 = l2[s2]) ? o3 : { version: i2.VERSION };
+            if (!n3 && a3[e3]) {
               let t4 = Error(`@opentelemetry/api: Attempted duplicate registration of API: ${e3}`);
               return r4.error(t4.stack || t4.message), false;
             }
-            if (o3.version !== i2.VERSION) {
-              let t4 = Error(`@opentelemetry/api: Registration of version v${o3.version} for ${e3} does not match previously registered API v${i2.VERSION}`);
+            if (a3.version !== i2.VERSION) {
+              let t4 = Error(`@opentelemetry/api: Registration of version v${a3.version} for ${e3} does not match previously registered API v${i2.VERSION}`);
               return r4.error(t4.stack || t4.message), false;
             }
-            return o3[e3] = t3, r4.debug(`@opentelemetry/api: Registered a global for ${e3} v${i2.VERSION}.`), true;
+            return a3[e3] = t3, r4.debug(`@opentelemetry/api: Registered a global for ${e3} v${i2.VERSION}.`), true;
           }, t2.getGlobal = function(e3) {
             var t3, r4;
             let n3 = null == (t3 = l2[s2]) ? void 0 : t3.version;
-            if (n3 && (0, a2.isCompatible)(n3)) return null == (r4 = l2[s2]) ? void 0 : r4[e3];
+            if (n3 && (0, o2.isCompatible)(n3)) return null == (r4 = l2[s2]) ? void 0 : r4[e3];
           }, t2.unregisterGlobal = function(e3, t3) {
             t3.debug(`@opentelemetry/api: Unregistering a global for ${e3} v${i2.VERSION}.`);
             let r4 = l2[s2];
@@ -1213,28 +1213,28 @@ var require_root_of_the_server_25fe7590 = __commonJS({
         }, 130: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.isCompatible = t2._makeCompatibilityCheck = void 0;
           let n2 = r3(521), i2 = /^(\d+)\.(\d+)\.(\d+)(-(.+))?$/;
-          function a2(e3) {
+          function o2(e3) {
             let t3 = /* @__PURE__ */ new Set([e3]), r4 = /* @__PURE__ */ new Set(), n3 = e3.match(i2);
             if (!n3) return () => false;
-            let a3 = { major: +n3[1], minor: +n3[2], patch: +n3[3], prerelease: n3[4] };
-            if (null != a3.prerelease) return function(t4) {
+            let o3 = { major: +n3[1], minor: +n3[2], patch: +n3[3], prerelease: n3[4] };
+            if (null != o3.prerelease) return function(t4) {
               return t4 === e3;
             };
-            function o2(e4) {
+            function a2(e4) {
               return r4.add(e4), false;
             }
             return function(e4) {
               if (t3.has(e4)) return true;
               if (r4.has(e4)) return false;
               let n4 = e4.match(i2);
-              if (!n4) return o2(e4);
+              if (!n4) return a2(e4);
               let s2 = { major: +n4[1], minor: +n4[2], patch: +n4[3], prerelease: n4[4] };
-              if (null != s2.prerelease || a3.major !== s2.major) return o2(e4);
-              if (0 === a3.major) return a3.minor === s2.minor && a3.patch <= s2.patch ? (t3.add(e4), true) : o2(e4);
-              return a3.minor <= s2.minor ? (t3.add(e4), true) : o2(e4);
+              if (null != s2.prerelease || o3.major !== s2.major) return a2(e4);
+              if (0 === o3.major) return o3.minor === s2.minor && o3.patch <= s2.patch ? (t3.add(e4), true) : a2(e4);
+              return o3.minor <= s2.minor ? (t3.add(e4), true) : a2(e4);
             };
           }
-          t2._makeCompatibilityCheck = a2, t2.isCompatible = a2(n2.VERSION);
+          t2._makeCompatibilityCheck = o2, t2.isCompatible = o2(n2.VERSION);
         }, 886: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.metrics = void 0, t2.metrics = r3(653).MetricsAPI.getInstance();
         }, 901: (e2, t2) => {
@@ -1275,16 +1275,16 @@ var require_root_of_the_server_25fe7590 = __commonJS({
             }
           }
           t2.NoopCounterMetric = i2;
-          class a2 extends n2 {
+          class o2 extends n2 {
             add(e3, t3) {
             }
           }
-          t2.NoopUpDownCounterMetric = a2;
-          class o2 extends n2 {
+          t2.NoopUpDownCounterMetric = o2;
+          class a2 extends n2 {
             record(e3, t3) {
             }
           }
-          t2.NoopHistogramMetric = o2;
+          t2.NoopHistogramMetric = a2;
           class s2 {
             addCallback(e3) {
             }
@@ -1300,7 +1300,7 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           t2.NoopObservableGaugeMetric = u2;
           class c2 extends s2 {
           }
-          t2.NoopObservableUpDownCounterMetric = c2, t2.NOOP_METER = new r3(), t2.NOOP_COUNTER_METRIC = new i2(), t2.NOOP_HISTOGRAM_METRIC = new o2(), t2.NOOP_UP_DOWN_COUNTER_METRIC = new a2(), t2.NOOP_OBSERVABLE_COUNTER_METRIC = new l2(), t2.NOOP_OBSERVABLE_GAUGE_METRIC = new u2(), t2.NOOP_OBSERVABLE_UP_DOWN_COUNTER_METRIC = new c2(), t2.createNoopMeter = function() {
+          t2.NoopObservableUpDownCounterMetric = c2, t2.NOOP_METER = new r3(), t2.NOOP_COUNTER_METRIC = new i2(), t2.NOOP_HISTOGRAM_METRIC = new a2(), t2.NOOP_UP_DOWN_COUNTER_METRIC = new o2(), t2.NOOP_OBSERVABLE_COUNTER_METRIC = new l2(), t2.NOOP_OBSERVABLE_GAUGE_METRIC = new u2(), t2.NOOP_OBSERVABLE_UP_DOWN_COUNTER_METRIC = new c2(), t2.createNoopMeter = function() {
             return t2.NOOP_METER;
           };
         }, 660: (e2, t2, r3) => {
@@ -1392,19 +1392,19 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           };
         }, 614: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.NoopTracer = void 0;
-          let n2 = r3(491), i2 = r3(607), a2 = r3(403), o2 = r3(139), s2 = n2.ContextAPI.getInstance();
+          let n2 = r3(491), i2 = r3(607), o2 = r3(403), a2 = r3(139), s2 = n2.ContextAPI.getInstance();
           t2.NoopTracer = class {
             startSpan(e3, t3, r4 = s2.active()) {
               var n3;
-              if (null == t3 ? void 0 : t3.root) return new a2.NonRecordingSpan();
+              if (null == t3 ? void 0 : t3.root) return new o2.NonRecordingSpan();
               let l2 = r4 && (0, i2.getSpanContext)(r4);
-              return "object" == typeof (n3 = l2) && "string" == typeof n3.spanId && "string" == typeof n3.traceId && "number" == typeof n3.traceFlags && (0, o2.isSpanContextValid)(l2) ? new a2.NonRecordingSpan(l2) : new a2.NonRecordingSpan();
+              return "object" == typeof (n3 = l2) && "string" == typeof n3.spanId && "string" == typeof n3.traceId && "number" == typeof n3.traceFlags && (0, a2.isSpanContextValid)(l2) ? new o2.NonRecordingSpan(l2) : new o2.NonRecordingSpan();
             }
             startActiveSpan(e3, t3, r4, n3) {
-              let a3, o3, l2;
+              let o3, a3, l2;
               if (arguments.length < 2) return;
-              2 == arguments.length ? l2 = t3 : 3 == arguments.length ? (a3 = t3, l2 = r4) : (a3 = t3, o3 = r4, l2 = n3);
-              let u2 = null != o3 ? o3 : s2.active(), c2 = this.startSpan(e3, a3, u2), d2 = (0, i2.setSpan)(u2, c2);
+              2 == arguments.length ? l2 = t3 : 3 == arguments.length ? (o3 = t3, l2 = r4) : (o3 = t3, a3 = r4, l2 = n3);
+              let u2 = null != a3 ? a3 : s2.active(), c2 = this.startSpan(e3, o3, u2), d2 = (0, i2.setSpan)(u2, c2);
               return s2.with(d2, l2, void 0, c2);
             }
           };
@@ -1461,17 +1461,17 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           Object.defineProperty(t2, "__esModule", { value: true }), t2.SamplingDecision = void 0, (r3 = t2.SamplingDecision || (t2.SamplingDecision = {}))[r3.NOT_RECORD = 0] = "NOT_RECORD", r3[r3.RECORD = 1] = "RECORD", r3[r3.RECORD_AND_SAMPLED = 2] = "RECORD_AND_SAMPLED";
         }, 607: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.getSpanContext = t2.setSpanContext = t2.deleteSpan = t2.setSpan = t2.getActiveSpan = t2.getSpan = void 0;
-          let n2 = r3(780), i2 = r3(403), a2 = r3(491), o2 = (0, n2.createContextKey)("OpenTelemetry Context Key SPAN");
+          let n2 = r3(780), i2 = r3(403), o2 = r3(491), a2 = (0, n2.createContextKey)("OpenTelemetry Context Key SPAN");
           function s2(e3) {
-            return e3.getValue(o2) || void 0;
+            return e3.getValue(a2) || void 0;
           }
           function l2(e3, t3) {
-            return e3.setValue(o2, t3);
+            return e3.setValue(a2, t3);
           }
           t2.getSpan = s2, t2.getActiveSpan = function() {
-            return s2(a2.ContextAPI.getInstance().active());
+            return s2(o2.ContextAPI.getInstance().active());
           }, t2.setSpan = l2, t2.deleteSpan = function(e3) {
-            return e3.deleteValue(o2);
+            return e3.deleteValue(a2);
           }, t2.setSpanContext = function(e3, t3) {
             return l2(e3, new i2.NonRecordingSpan(t3));
           }, t2.getSpanContext = function(e3) {
@@ -1503,8 +1503,8 @@ var require_root_of_the_server_25fe7590 = __commonJS({
               !(e3.length > 512) && (this._internalState = e3.split(",").reverse().reduce((e4, t3) => {
                 let r4 = t3.trim(), i3 = r4.indexOf("=");
                 if (-1 !== i3) {
-                  let a2 = r4.slice(0, i3), o2 = r4.slice(i3 + 1, t3.length);
-                  (0, n2.validateKey)(a2) && (0, n2.validateValue)(o2) && e4.set(a2, o2);
+                  let o2 = r4.slice(0, i3), a2 = r4.slice(i3 + 1, t3.length);
+                  (0, n2.validateKey)(o2) && (0, n2.validateValue)(a2) && e4.set(o2, a2);
                 }
                 return e4;
               }, /* @__PURE__ */ new Map()), this._internalState.size > 32 && (this._internalState = new Map(Array.from(this._internalState.entries()).reverse().slice(0, 32))));
@@ -1520,11 +1520,11 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           t2.TraceStateImpl = i2;
         }, 564: (e2, t2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.validateValue = t2.validateKey = void 0;
-          let r3 = "[_0-9a-z-*/]", n2 = `[a-z]${r3}{0,255}`, i2 = `[a-z0-9]${r3}{0,240}@[a-z]${r3}{0,13}`, a2 = RegExp(`^(?:${n2}|${i2})$`), o2 = /^[ -~]{0,255}[!-~]$/, s2 = /,|=/;
+          let r3 = "[_0-9a-z-*/]", n2 = `[a-z]${r3}{0,255}`, i2 = `[a-z0-9]${r3}{0,240}@[a-z]${r3}{0,13}`, o2 = RegExp(`^(?:${n2}|${i2})$`), a2 = /^[ -~]{0,255}[!-~]$/, s2 = /,|=/;
           t2.validateKey = function(e3) {
-            return a2.test(e3);
+            return o2.test(e3);
           }, t2.validateValue = function(e3) {
-            return o2.test(e3) && !s2.test(e3);
+            return a2.test(e3) && !s2.test(e3);
           };
         }, 98: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.createTraceState = void 0;
@@ -1541,12 +1541,12 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           Object.defineProperty(t2, "__esModule", { value: true }), t2.SpanKind = void 0, (r3 = t2.SpanKind || (t2.SpanKind = {}))[r3.INTERNAL = 0] = "INTERNAL", r3[r3.SERVER = 1] = "SERVER", r3[r3.CLIENT = 2] = "CLIENT", r3[r3.PRODUCER = 3] = "PRODUCER", r3[r3.CONSUMER = 4] = "CONSUMER";
         }, 139: (e2, t2, r3) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.wrapSpanContext = t2.isSpanContextValid = t2.isValidSpanId = t2.isValidTraceId = void 0;
-          let n2 = r3(476), i2 = r3(403), a2 = /^([0-9a-f]{32})$/i, o2 = /^[0-9a-f]{16}$/i;
+          let n2 = r3(476), i2 = r3(403), o2 = /^([0-9a-f]{32})$/i, a2 = /^[0-9a-f]{16}$/i;
           function s2(e3) {
-            return a2.test(e3) && e3 !== n2.INVALID_TRACEID;
+            return o2.test(e3) && e3 !== n2.INVALID_TRACEID;
           }
           function l2(e3) {
-            return o2.test(e3) && e3 !== n2.INVALID_SPANID;
+            return a2.test(e3) && e3 !== n2.INVALID_SPANID;
           }
           t2.isValidTraceId = s2, t2.isValidSpanId = l2, t2.isSpanContextValid = function(e3) {
             return s2(e3.traceId) && l2(e3.spanId);
@@ -1625,21 +1625,21 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           return n.diag;
         } }), i = E(886), Object.defineProperty(R, "metrics", { enumerable: true, get: function() {
           return i.metrics;
-        } }), a = E(939), Object.defineProperty(R, "propagation", { enumerable: true, get: function() {
-          return a.propagation;
-        } }), o = E(845), Object.defineProperty(R, "trace", { enumerable: true, get: function() {
-          return o.trace;
-        } }), R.default = { context: r2.context, diag: n.diag, metrics: i.metrics, propagation: a.propagation, trace: o.trace }, t.exports = R;
+        } }), o = E(939), Object.defineProperty(R, "propagation", { enumerable: true, get: function() {
+          return o.propagation;
+        } }), a = E(845), Object.defineProperty(R, "trace", { enumerable: true, get: function() {
+          return a.trace;
+        } }), R.default = { context: r2.context, diag: n.diag, metrics: i.metrics, propagation: o.propagation, trace: a.trace }, t.exports = R;
       })();
     }, 71498, (e, t, r) => {
       (() => {
         "use strict";
         "u" > typeof __nccwpck_require__ && (__nccwpck_require__.ab = "/ROOT/node_modules/next/dist/compiled/cookie/");
-        var e2, r2, n, i, a = {};
-        a.parse = function(t2, r3) {
+        var e2, r2, n, i, o = {};
+        o.parse = function(t2, r3) {
           if ("string" != typeof t2) throw TypeError("argument str must be a string");
-          for (var i2 = {}, a2 = t2.split(n), o = (r3 || {}).decode || e2, s = 0; s < a2.length; s++) {
-            var l = a2[s], u = l.indexOf("=");
+          for (var i2 = {}, o2 = t2.split(n), a = (r3 || {}).decode || e2, s = 0; s < o2.length; s++) {
+            var l = o2[s], u = l.indexOf("=");
             if (!(u < 0)) {
               var c = l.substr(0, u).trim(), d = l.substr(++u, l.length).trim();
               '"' == d[0] && (d = d.slice(1, -1)), void 0 == i2[c] && (i2[c] = function(e3, t3) {
@@ -1648,35 +1648,35 @@ var require_root_of_the_server_25fe7590 = __commonJS({
                 } catch (t4) {
                   return e3;
                 }
-              }(d, o));
+              }(d, a));
             }
           }
           return i2;
-        }, a.serialize = function(e3, t2, n2) {
-          var a2 = n2 || {}, o = a2.encode || r2;
-          if ("function" != typeof o) throw TypeError("option encode is invalid");
+        }, o.serialize = function(e3, t2, n2) {
+          var o2 = n2 || {}, a = o2.encode || r2;
+          if ("function" != typeof a) throw TypeError("option encode is invalid");
           if (!i.test(e3)) throw TypeError("argument name is invalid");
-          var s = o(t2);
+          var s = a(t2);
           if (s && !i.test(s)) throw TypeError("argument val is invalid");
           var l = e3 + "=" + s;
-          if (null != a2.maxAge) {
-            var u = a2.maxAge - 0;
+          if (null != o2.maxAge) {
+            var u = o2.maxAge - 0;
             if (isNaN(u) || !isFinite(u)) throw TypeError("option maxAge is invalid");
             l += "; Max-Age=" + Math.floor(u);
           }
-          if (a2.domain) {
-            if (!i.test(a2.domain)) throw TypeError("option domain is invalid");
-            l += "; Domain=" + a2.domain;
+          if (o2.domain) {
+            if (!i.test(o2.domain)) throw TypeError("option domain is invalid");
+            l += "; Domain=" + o2.domain;
           }
-          if (a2.path) {
-            if (!i.test(a2.path)) throw TypeError("option path is invalid");
-            l += "; Path=" + a2.path;
+          if (o2.path) {
+            if (!i.test(o2.path)) throw TypeError("option path is invalid");
+            l += "; Path=" + o2.path;
           }
-          if (a2.expires) {
-            if ("function" != typeof a2.expires.toUTCString) throw TypeError("option expires is invalid");
-            l += "; Expires=" + a2.expires.toUTCString();
+          if (o2.expires) {
+            if ("function" != typeof o2.expires.toUTCString) throw TypeError("option expires is invalid");
+            l += "; Expires=" + o2.expires.toUTCString();
           }
-          if (a2.httpOnly && (l += "; HttpOnly"), a2.secure && (l += "; Secure"), a2.sameSite) switch ("string" == typeof a2.sameSite ? a2.sameSite.toLowerCase() : a2.sameSite) {
+          if (o2.httpOnly && (l += "; HttpOnly"), o2.secure && (l += "; Secure"), o2.sameSite) switch ("string" == typeof o2.sameSite ? o2.sameSite.toLowerCase() : o2.sameSite) {
             case true:
             case "strict":
               l += "; SameSite=Strict";
@@ -1691,25 +1691,25 @@ var require_root_of_the_server_25fe7590 = __commonJS({
               throw TypeError("option sameSite is invalid");
           }
           return l;
-        }, e2 = decodeURIComponent, r2 = encodeURIComponent, n = /; */, i = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/, t.exports = a;
+        }, e2 = decodeURIComponent, r2 = encodeURIComponent, n = /; */, i = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/, t.exports = o;
       })();
     }, 99734, (e, t, r) => {
       (() => {
         "use strict";
-        let e2, r2, n, i, a;
-        var o = { 993: (e3) => {
+        let e2, r2, n, i, o;
+        var a = { 993: (e3) => {
           var t2 = Object.prototype.hasOwnProperty, r3 = "~";
           function n2() {
           }
           function i2(e4, t3, r4) {
             this.fn = e4, this.context = t3, this.once = r4 || false;
           }
-          function a2(e4, t3, n3, a3, o3) {
+          function o2(e4, t3, n3, o3, a3) {
             if ("function" != typeof n3) throw TypeError("The listener must be a function");
-            var s3 = new i2(n3, a3 || e4, o3), l2 = r3 ? r3 + t3 : t3;
+            var s3 = new i2(n3, o3 || e4, a3), l2 = r3 ? r3 + t3 : t3;
             return e4._events[l2] ? e4._events[l2].fn ? e4._events[l2] = [e4._events[l2], s3] : e4._events[l2].push(s3) : (e4._events[l2] = s3, e4._eventsCount++), e4;
           }
-          function o2(e4, t3) {
+          function a2(e4, t3) {
             0 == --e4._eventsCount ? e4._events = new n2() : delete e4._events[t3];
           }
           function s2() {
@@ -1724,12 +1724,12 @@ var require_root_of_the_server_25fe7590 = __commonJS({
             var t3 = r3 ? r3 + e4 : e4, n3 = this._events[t3];
             if (!n3) return [];
             if (n3.fn) return [n3.fn];
-            for (var i3 = 0, a3 = n3.length, o3 = Array(a3); i3 < a3; i3++) o3[i3] = n3[i3].fn;
-            return o3;
+            for (var i3 = 0, o3 = n3.length, a3 = Array(o3); i3 < o3; i3++) a3[i3] = n3[i3].fn;
+            return a3;
           }, s2.prototype.listenerCount = function(e4) {
             var t3 = r3 ? r3 + e4 : e4, n3 = this._events[t3];
             return n3 ? n3.fn ? 1 : n3.length : 0;
-          }, s2.prototype.emit = function(e4, t3, n3, i3, a3, o3) {
+          }, s2.prototype.emit = function(e4, t3, n3, i3, o3, a3) {
             var s3 = r3 ? r3 + e4 : e4;
             if (!this._events[s3]) return false;
             var l2, u2, c = this._events[s3], d = arguments.length;
@@ -1744,9 +1744,9 @@ var require_root_of_the_server_25fe7590 = __commonJS({
                 case 4:
                   return c.fn.call(c.context, t3, n3, i3), true;
                 case 5:
-                  return c.fn.call(c.context, t3, n3, i3, a3), true;
+                  return c.fn.call(c.context, t3, n3, i3, o3), true;
                 case 6:
-                  return c.fn.call(c.context, t3, n3, i3, a3, o3), true;
+                  return c.fn.call(c.context, t3, n3, i3, o3, a3), true;
               }
               for (u2 = 1, l2 = Array(d - 1); u2 < d; u2++) l2[u2 - 1] = arguments[u2];
               c.fn.apply(c.context, l2);
@@ -1772,23 +1772,23 @@ var require_root_of_the_server_25fe7590 = __commonJS({
             }
             return true;
           }, s2.prototype.on = function(e4, t3, r4) {
-            return a2(this, e4, t3, r4, false);
+            return o2(this, e4, t3, r4, false);
           }, s2.prototype.once = function(e4, t3, r4) {
-            return a2(this, e4, t3, r4, true);
+            return o2(this, e4, t3, r4, true);
           }, s2.prototype.removeListener = function(e4, t3, n3, i3) {
-            var a3 = r3 ? r3 + e4 : e4;
-            if (!this._events[a3]) return this;
-            if (!t3) return o2(this, a3), this;
-            var s3 = this._events[a3];
-            if (s3.fn) s3.fn !== t3 || i3 && !s3.once || n3 && s3.context !== n3 || o2(this, a3);
+            var o3 = r3 ? r3 + e4 : e4;
+            if (!this._events[o3]) return this;
+            if (!t3) return a2(this, o3), this;
+            var s3 = this._events[o3];
+            if (s3.fn) s3.fn !== t3 || i3 && !s3.once || n3 && s3.context !== n3 || a2(this, o3);
             else {
               for (var l2 = 0, u2 = [], c = s3.length; l2 < c; l2++) (s3[l2].fn !== t3 || i3 && !s3[l2].once || n3 && s3[l2].context !== n3) && u2.push(s3[l2]);
-              u2.length ? this._events[a3] = 1 === u2.length ? u2[0] : u2 : o2(this, a3);
+              u2.length ? this._events[o3] = 1 === u2.length ? u2[0] : u2 : a2(this, o3);
             }
             return this;
           }, s2.prototype.removeAllListeners = function(e4) {
             var t3;
-            return e4 ? (t3 = r3 ? r3 + e4 : e4, this._events[t3] && o2(this, t3)) : (this._events = new n2(), this._eventsCount = 0), this;
+            return e4 ? (t3 = r3 ? r3 + e4 : e4, this._events[t3] && a2(this, t3)) : (this._events = new n2(), this._eventsCount = 0), this;
           }, s2.prototype.off = s2.prototype.removeListener, s2.prototype.addListener = s2.prototype.on, s2.prefixed = r3, s2.EventEmitter = s2, e3.exports = s2;
         }, 213: (e3) => {
           e3.exports = (e4, t2) => (t2 = t2 || (() => {
@@ -1803,8 +1803,8 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           Object.defineProperty(t2, "__esModule", { value: true }), t2.default = function(e4, t3, r3) {
             let n2 = 0, i2 = e4.length;
             for (; i2 > 0; ) {
-              let a2 = i2 / 2 | 0, o2 = n2 + a2;
-              0 >= r3(e4[o2], t3) ? (n2 = ++o2, i2 -= a2 + 1) : i2 = a2;
+              let o2 = i2 / 2 | 0, a2 = n2 + o2;
+              0 >= r3(e4[a2], t3) ? (n2 = ++a2, i2 -= o2 + 1) : i2 = o2;
             }
             return n2;
           };
@@ -1839,33 +1839,33 @@ var require_root_of_the_server_25fe7590 = __commonJS({
               super(e4), this.name = "TimeoutError";
             }
           }
-          let a2 = (e4, t3, r4) => new Promise((a3, o2) => {
+          let o2 = (e4, t3, r4) => new Promise((o3, a2) => {
             if ("number" != typeof t3 || t3 < 0) throw TypeError("Expected `milliseconds` to be a positive number");
-            if (t3 === 1 / 0) return void a3(e4);
+            if (t3 === 1 / 0) return void o3(e4);
             let s2 = setTimeout(() => {
               if ("function" == typeof r4) {
                 try {
-                  a3(r4());
+                  o3(r4());
                 } catch (e5) {
-                  o2(e5);
+                  a2(e5);
                 }
                 return;
               }
               let n3 = "string" == typeof r4 ? r4 : `Promise timed out after ${t3} milliseconds`, s3 = r4 instanceof Error ? r4 : new i2(n3);
-              "function" == typeof e4.cancel && e4.cancel(), o2(s3);
+              "function" == typeof e4.cancel && e4.cancel(), a2(s3);
             }, t3);
-            n2(e4.then(a3, o2), () => {
+            n2(e4.then(o3, a2), () => {
               clearTimeout(s2);
             });
           });
-          e3.exports = a2, e3.exports.default = a2, e3.exports.TimeoutError = i2;
+          e3.exports = o2, e3.exports.default = o2, e3.exports.TimeoutError = i2;
         } }, s = {};
         function l(e3) {
           var t2 = s[e3];
           if (void 0 !== t2) return t2.exports;
           var r3 = s[e3] = { exports: {} }, n2 = true;
           try {
-            o[e3](r3, r3.exports, l), n2 = false;
+            a[e3](r3, r3.exports, l), n2 = false;
           } finally {
             n2 && delete s[e3];
           }
@@ -1874,11 +1874,11 @@ var require_root_of_the_server_25fe7590 = __commonJS({
         l.ab = "/ROOT/node_modules/next/dist/compiled/p-queue/";
         var u = {};
         Object.defineProperty(u, "__esModule", { value: true }), e2 = l(993), r2 = l(816), n = l(821), i = () => {
-        }, a = new r2.TimeoutError(), u.default = class extends e2 {
+        }, o = new r2.TimeoutError(), u.default = class extends e2 {
           constructor(e3) {
-            var t2, r3, a2, o2;
+            var t2, r3, o2, a2;
             if (super(), this._intervalCount = 0, this._intervalEnd = 0, this._pendingCount = 0, this._resolveEmpty = i, this._resolveIdle = i, !("number" == typeof (e3 = Object.assign({ carryoverConcurrencyCount: false, intervalCap: 1 / 0, interval: 0, concurrency: 1 / 0, autoStart: true, queueClass: n.default }, e3)).intervalCap && e3.intervalCap >= 1)) throw TypeError(`Expected \`intervalCap\` to be a number from 1 and up, got \`${null != (r3 = null == (t2 = e3.intervalCap) ? void 0 : t2.toString()) ? r3 : ""}\` (${typeof e3.intervalCap})`);
-            if (void 0 === e3.interval || !(Number.isFinite(e3.interval) && e3.interval >= 0)) throw TypeError(`Expected \`interval\` to be a finite number >= 0, got \`${null != (o2 = null == (a2 = e3.interval) ? void 0 : a2.toString()) ? o2 : ""}\` (${typeof e3.interval})`);
+            if (void 0 === e3.interval || !(Number.isFinite(e3.interval) && e3.interval >= 0)) throw TypeError(`Expected \`interval\` to be a finite number >= 0, got \`${null != (a2 = null == (o2 = e3.interval) ? void 0 : o2.toString()) ? a2 : ""}\` (${typeof e3.interval})`);
             this._carryoverConcurrencyCount = e3.carryoverConcurrencyCount, this._isIntervalIgnored = e3.intervalCap === 1 / 0 || 0 === e3.interval, this._intervalCap = e3.intervalCap, this._interval = e3.interval, this._queue = new e3.queueClass(), this._queueClass = e3.queueClass, this.concurrency = e3.concurrency, this._timeout = e3.timeout, this._throwOnTimeout = true === e3.throwOnTimeout, this._isPaused = false === e3.autoStart;
           }
           get _doesIntervalAllowAnother() {
@@ -1938,19 +1938,19 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           }
           async add(e3, t2 = {}) {
             return new Promise((n2, i2) => {
-              let o2 = async () => {
+              let a2 = async () => {
                 this._pendingCount++, this._intervalCount++;
                 try {
-                  let o3 = void 0 === this._timeout && void 0 === t2.timeout ? e3() : r2.default(Promise.resolve(e3()), void 0 === t2.timeout ? this._timeout : t2.timeout, () => {
-                    (void 0 === t2.throwOnTimeout ? this._throwOnTimeout : t2.throwOnTimeout) && i2(a);
+                  let a3 = void 0 === this._timeout && void 0 === t2.timeout ? e3() : r2.default(Promise.resolve(e3()), void 0 === t2.timeout ? this._timeout : t2.timeout, () => {
+                    (void 0 === t2.throwOnTimeout ? this._throwOnTimeout : t2.throwOnTimeout) && i2(o);
                   });
-                  n2(await o3);
+                  n2(await a3);
                 } catch (e4) {
                   i2(e4);
                 }
                 this._next();
               };
-              this._queue.enqueue(o2, t2), this._tryToStartAnother(), this.emit("add");
+              this._queue.enqueue(a2, t2), this._tryToStartAnother(), this.emit("add");
             });
           }
           async addAll(e3, t2) {
@@ -2014,20 +2014,20 @@ var require_root_of_the_server_25fe7590 = __commonJS({
         return s;
       } };
       for (var i in n) Object.defineProperty(r, i, { enumerable: true, get: n[i] });
-      let a = new (e.r(78500)).AsyncLocalStorage();
-      function o(e2, t2) {
+      let o = new (e.r(78500)).AsyncLocalStorage();
+      function a(e2, t2) {
         let r2 = t2.header(e2, "next-test-proxy-port");
         if (!r2) return;
         let n2 = t2.url(e2);
         return { url: n2, proxyPort: Number(r2), testData: t2.header(e2, "next-test-data") || "" };
       }
       function s(e2, t2, r2) {
-        let n2 = o(e2, t2);
-        return n2 ? a.run(n2, r2) : r2();
+        let n2 = a(e2, t2);
+        return n2 ? o.run(n2, r2) : r2();
       }
       function l(e2, t2) {
-        let r2 = a.getStore();
-        return r2 || (e2 && t2 ? o(e2, t2) : void 0);
+        let r2 = o.getStore();
+        return r2 || (e2 && t2 ? a(e2, t2) : void 0);
       }
     }, 28325, (e, t, r) => {
       "use strict";
@@ -2040,23 +2040,23 @@ var require_root_of_the_server_25fe7590 = __commonJS({
       }, reader: function() {
         return s;
       } };
-      for (var a in i) Object.defineProperty(r, a, { enumerable: true, get: i[a] });
-      let o = e.r(25085), s = { url: (e2) => e2.url, header: (e2, t2) => e2.headers.get(t2) };
+      for (var o in i) Object.defineProperty(r, o, { enumerable: true, get: i[o] });
+      let a = e.r(25085), s = { url: (e2) => e2.url, header: (e2, t2) => e2.headers.get(t2) };
       async function l(e2, t2) {
-        let { url: r2, method: i2, headers: a2, body: o2, cache: s2, credentials: l2, integrity: u2, mode: c2, redirect: d, referrer: p, referrerPolicy: h } = t2;
-        return { testData: e2, api: "fetch", request: { url: r2, method: i2, headers: [...Array.from(a2), ["next-test-stack", function() {
+        let { url: r2, method: i2, headers: o2, body: a2, cache: s2, credentials: l2, integrity: u2, mode: c2, redirect: d, referrer: p, referrerPolicy: h } = t2;
+        return { testData: e2, api: "fetch", request: { url: r2, method: i2, headers: [...Array.from(o2), ["next-test-stack", function() {
           let e3 = (Error().stack ?? "").split("\n");
           for (let t3 = 1; t3 < e3.length; t3++) if (e3[t3].length > 0) {
             e3 = e3.slice(t3);
             break;
           }
           return (e3 = (e3 = (e3 = e3.filter((e4) => !e4.includes("/next/dist/"))).slice(0, 5)).map((e4) => e4.replace("webpack-internal:///(rsc)/", "").trim())).join("    ");
-        }()]], body: o2 ? n.Buffer.from(await t2.arrayBuffer()).toString("base64") : null, cache: s2, credentials: l2, integrity: u2, mode: c2, redirect: d, referrer: p, referrerPolicy: h } };
+        }()]], body: a2 ? n.Buffer.from(await t2.arrayBuffer()).toString("base64") : null, cache: s2, credentials: l2, integrity: u2, mode: c2, redirect: d, referrer: p, referrerPolicy: h } };
       }
       async function u(e2, t2) {
-        let r2 = (0, o.getTestReqInfo)(t2, s);
+        let r2 = (0, a.getTestReqInfo)(t2, s);
         if (!r2) return e2(t2);
-        let { testData: i2, proxyPort: a2 } = r2, u2 = await l(i2, t2), c2 = await e2(`http://localhost:${a2}`, { method: "POST", body: JSON.stringify(u2), next: { internal: true } });
+        let { testData: i2, proxyPort: o2 } = r2, u2 = await l(i2, t2), c2 = await e2(`http://localhost:${o2}`, { method: "POST", body: JSON.stringify(u2), next: { internal: true } });
         if (!c2.ok) throw Object.defineProperty(Error(`Proxy request failed: ${c2.status}`), "__NEXT_ERROR_CODE", { value: "E146", enumerable: false, configurable: true });
         let d = await c2.json(), { api: p } = d;
         switch (p) {
@@ -2091,18 +2091,18 @@ var require_root_of_the_server_25fe7590 = __commonJS({
         return l;
       } };
       for (var i in n) Object.defineProperty(r, i, { enumerable: true, get: n[i] });
-      let a = e.r(25085), o = e.r(28325);
+      let o = e.r(25085), a = e.r(28325);
       function s() {
-        return (0, o.interceptFetch)(e.g.fetch);
+        return (0, a.interceptFetch)(e.g.fetch);
       }
       function l(e2) {
-        return (t2, r2) => (0, a.withRequest)(t2, o.reader, () => e2(t2, r2));
+        return (t2, r2) => (0, o.withRequest)(t2, a.reader, () => e2(t2, r2));
       }
     }, 64445, (e, t, r) => {
       var n = { 226: function(t2, r2) {
         !function(n2, i2) {
           "use strict";
-          var a2 = "function", o = "undefined", s = "object", l = "string", u = "major", c = "model", d = "name", p = "type", h = "vendor", f = "version", g = "architecture", v = "console", b = "mobile", m = "tablet", _ = "smarttv", w = "wearable", y = "embedded", x = "Amazon", S = "Apple", O = "ASUS", E = "BlackBerry", R = "Browser", C = "Chrome", P = "Firefox", T = "Google", N = "Huawei", I = "Microsoft", k = "Motorola", M = "Opera", A = "Samsung", j = "Sharp", L = "Sony", D = "Xiaomi", q = "Zebra", U = "Facebook", $ = "Chromium OS", B = "Mac OS", V = function(e2, t3) {
+          var o2 = "function", a = "undefined", s = "object", l = "string", u = "major", c = "model", d = "name", p = "type", h = "vendor", f = "version", g = "architecture", v = "console", b = "mobile", m = "tablet", _ = "smarttv", w = "wearable", y = "embedded", x = "Amazon", S = "Apple", O = "ASUS", E = "BlackBerry", R = "Browser", C = "Chrome", P = "Firefox", T = "Google", N = "Huawei", I = "Microsoft", k = "Motorola", M = "Opera", A = "Samsung", j = "Sharp", L = "Sony", D = "Xiaomi", q = "Zebra", U = "Facebook", $ = "Chromium OS", B = "Mac OS", V = function(e2, t3) {
             var r3 = {};
             for (var n3 in e2) t3[n3] && t3[n3].length % 2 == 0 ? r3[n3] = t3[n3].concat(e2[n3]) : r3[n3] = e2[n3];
             return r3;
@@ -2114,11 +2114,11 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           }, W = function(e2) {
             return e2.toLowerCase();
           }, z = function(e2, t3) {
-            if (typeof e2 === l) return e2 = e2.replace(/^\s\s*/, ""), typeof t3 === o ? e2 : e2.substring(0, 350);
+            if (typeof e2 === l) return e2 = e2.replace(/^\s\s*/, ""), typeof t3 === a ? e2 : e2.substring(0, 350);
           }, X = function(e2, t3) {
-            for (var r3, n3, i3, o2, l2, u2, c2 = 0; c2 < t3.length && !l2; ) {
+            for (var r3, n3, i3, a2, l2, u2, c2 = 0; c2 < t3.length && !l2; ) {
               var d2 = t3[c2], p2 = t3[c2 + 1];
-              for (r3 = n3 = 0; r3 < d2.length && !l2 && d2[r3]; ) if (l2 = d2[r3++].exec(e2)) for (i3 = 0; i3 < p2.length; i3++) u2 = l2[++n3], typeof (o2 = p2[i3]) === s && o2.length > 0 ? 2 === o2.length ? typeof o2[1] == a2 ? this[o2[0]] = o2[1].call(this, u2) : this[o2[0]] = o2[1] : 3 === o2.length ? typeof o2[1] !== a2 || o2[1].exec && o2[1].test ? this[o2[0]] = u2 ? u2.replace(o2[1], o2[2]) : void 0 : this[o2[0]] = u2 ? o2[1].call(this, u2, o2[2]) : void 0 : 4 === o2.length && (this[o2[0]] = u2 ? o2[3].call(this, u2.replace(o2[1], o2[2])) : void 0) : this[o2] = u2 || void 0;
+              for (r3 = n3 = 0; r3 < d2.length && !l2 && d2[r3]; ) if (l2 = d2[r3++].exec(e2)) for (i3 = 0; i3 < p2.length; i3++) u2 = l2[++n3], typeof (a2 = p2[i3]) === s && a2.length > 0 ? 2 === a2.length ? typeof a2[1] == o2 ? this[a2[0]] = a2[1].call(this, u2) : this[a2[0]] = a2[1] : 3 === a2.length ? typeof a2[1] !== o2 || a2[1].exec && a2[1].test ? this[a2[0]] = u2 ? u2.replace(a2[1], a2[2]) : void 0 : this[a2[0]] = u2 ? a2[1].call(this, u2, a2[2]) : void 0 : 4 === a2.length && (this[a2[0]] = u2 ? a2[3].call(this, u2.replace(a2[1], a2[2])) : void 0) : this[a2] = u2 || void 0;
               c2 += 2;
             }
           }, F = function(e2, t3) {
@@ -2128,16 +2128,16 @@ var require_root_of_the_server_25fe7590 = __commonJS({
             return e2;
           }, K = { ME: "4.90", "NT 3.11": "NT3.51", "NT 4.0": "NT4.0", 2e3: "NT 5.0", XP: ["NT 5.1", "NT 5.2"], Vista: "NT 6.0", 7: "NT 6.1", 8: "NT 6.2", 8.1: "NT 6.3", 10: ["NT 6.4", "NT 10.0"], RT: "ARM" }, Q = { browser: [[/\b(?:crmo|crios)\/([\w\.]+)/i], [f, [d, "Chrome"]], [/edg(?:e|ios|a)?\/([\w\.]+)/i], [f, [d, "Edge"]], [/(opera mini)\/([-\w\.]+)/i, /(opera [mobiletab]{3,6})\b.+version\/([-\w\.]+)/i, /(opera)(?:.+version\/|[\/ ]+)([\w\.]+)/i], [d, f], [/opios[\/ ]+([\w\.]+)/i], [f, [d, M + " Mini"]], [/\bopr\/([\w\.]+)/i], [f, [d, M]], [/(kindle)\/([\w\.]+)/i, /(lunascape|maxthon|netfront|jasmine|blazer)[\/ ]?([\w\.]*)/i, /(avant |iemobile|slim)(?:browser)?[\/ ]?([\w\.]*)/i, /(ba?idubrowser)[\/ ]?([\w\.]+)/i, /(?:ms|\()(ie) ([\w\.]+)/i, /(flock|rockmelt|midori|epiphany|silk|skyfire|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark|qupzilla|falkon|rekonq|puffin|brave|whale(?!.+naver)|qqbrowserlite|qq|duckduckgo)\/([-\w\.]+)/i, /(heytap|ovi)browser\/([\d\.]+)/i, /(weibo)__([\d\.]+)/i], [d, f], [/(?:\buc? ?browser|(?:juc.+)ucweb)[\/ ]?([\w\.]+)/i], [f, [d, "UC" + R]], [/microm.+\bqbcore\/([\w\.]+)/i, /\bqbcore\/([\w\.]+).+microm/i], [f, [d, "WeChat(Win) Desktop"]], [/micromessenger\/([\w\.]+)/i], [f, [d, "WeChat"]], [/konqueror\/([\w\.]+)/i], [f, [d, "Konqueror"]], [/trident.+rv[: ]([\w\.]{1,9})\b.+like gecko/i], [f, [d, "IE"]], [/ya(?:search)?browser\/([\w\.]+)/i], [f, [d, "Yandex"]], [/(avast|avg)\/([\w\.]+)/i], [[d, /(.+)/, "$1 Secure " + R], f], [/\bfocus\/([\w\.]+)/i], [f, [d, P + " Focus"]], [/\bopt\/([\w\.]+)/i], [f, [d, M + " Touch"]], [/coc_coc\w+\/([\w\.]+)/i], [f, [d, "Coc Coc"]], [/dolfin\/([\w\.]+)/i], [f, [d, "Dolphin"]], [/coast\/([\w\.]+)/i], [f, [d, M + " Coast"]], [/miuibrowser\/([\w\.]+)/i], [f, [d, "MIUI " + R]], [/fxios\/([-\w\.]+)/i], [f, [d, P]], [/\bqihu|(qi?ho?o?|360)browser/i], [[d, "360 " + R]], [/(oculus|samsung|sailfish|huawei)browser\/([\w\.]+)/i], [[d, /(.+)/, "$1 " + R], f], [/(comodo_dragon)\/([\w\.]+)/i], [[d, /_/g, " "], f], [/(electron)\/([\w\.]+) safari/i, /(tesla)(?: qtcarbrowser|\/(20\d\d\.[-\w\.]+))/i, /m?(qqbrowser|baiduboxapp|2345Explorer)[\/ ]?([\w\.]+)/i], [d, f], [/(metasr)[\/ ]?([\w\.]+)/i, /(lbbrowser)/i, /\[(linkedin)app\]/i], [d], [/((?:fban\/fbios|fb_iab\/fb4a)(?!.+fbav)|;fbav\/([\w\.]+);)/i], [[d, U], f], [/(kakao(?:talk|story))[\/ ]([\w\.]+)/i, /(naver)\(.*?(\d+\.[\w\.]+).*\)/i, /safari (line)\/([\w\.]+)/i, /\b(line)\/([\w\.]+)\/iab/i, /(chromium|instagram)[\/ ]([-\w\.]+)/i], [d, f], [/\bgsa\/([\w\.]+) .*safari\//i], [f, [d, "GSA"]], [/musical_ly(?:.+app_?version\/|_)([\w\.]+)/i], [f, [d, "TikTok"]], [/headlesschrome(?:\/([\w\.]+)| )/i], [f, [d, C + " Headless"]], [/ wv\).+(chrome)\/([\w\.]+)/i], [[d, C + " WebView"], f], [/droid.+ version\/([\w\.]+)\b.+(?:mobile safari|safari)/i], [f, [d, "Android " + R]], [/(chrome|omniweb|arora|[tizenoka]{5} ?browser)\/v?([\w\.]+)/i], [d, f], [/version\/([\w\.\,]+) .*mobile\/\w+ (safari)/i], [f, [d, "Mobile Safari"]], [/version\/([\w(\.|\,)]+) .*(mobile ?safari|safari)/i], [f, d], [/webkit.+?(mobile ?safari|safari)(\/[\w\.]+)/i], [d, [f, F, { "1.0": "/8", 1.2: "/1", 1.3: "/3", "2.0": "/412", "2.0.2": "/416", "2.0.3": "/417", "2.0.4": "/419", "?": "/" }]], [/(webkit|khtml)\/([\w\.]+)/i], [d, f], [/(navigator|netscape\d?)\/([-\w\.]+)/i], [[d, "Netscape"], f], [/mobile vr; rv:([\w\.]+)\).+firefox/i], [f, [d, P + " Reality"]], [/ekiohf.+(flow)\/([\w\.]+)/i, /(swiftfox)/i, /(icedragon|iceweasel|camino|chimera|fennec|maemo browser|minimo|conkeror|klar)[\/ ]?([\w\.\+]+)/i, /(seamonkey|k-meleon|icecat|iceape|firebird|phoenix|palemoon|basilisk|waterfox)\/([-\w\.]+)$/i, /(firefox)\/([\w\.]+)/i, /(mozilla)\/([\w\.]+) .+rv\:.+gecko\/\d+/i, /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|sleipnir|obigo|mosaic|(?:go|ice|up)[\. ]?browser)[-\/ ]?v?([\w\.]+)/i, /(links) \(([\w\.]+)/i, /panasonic;(viera)/i], [d, f], [/(cobalt)\/([\w\.]+)/i], [d, [f, /master.|lts./, ""]]], cpu: [[/(?:(amd|x(?:(?:86|64)[-_])?|wow|win)64)[;\)]/i], [[g, "amd64"]], [/(ia32(?=;))/i], [[g, W]], [/((?:i[346]|x)86)[;\)]/i], [[g, "ia32"]], [/\b(aarch64|arm(v?8e?l?|_?64))\b/i], [[g, "arm64"]], [/\b(arm(?:v[67])?ht?n?[fl]p?)\b/i], [[g, "armhf"]], [/windows (ce|mobile); ppc;/i], [[g, "arm"]], [/((?:ppc|powerpc)(?:64)?)(?: mac|;|\))/i], [[g, /ower/, "", W]], [/(sun4\w)[;\)]/i], [[g, "sparc"]], [/((?:avr32|ia64(?=;))|68k(?=\))|\barm(?=v(?:[1-7]|[5-7]1)l?|;|eabi)|(?=atmel )avr|(?:irix|mips|sparc)(?:64)?\b|pa-risc)/i], [[g, W]]], device: [[/\b(sch-i[89]0\d|shw-m380s|sm-[ptx]\w{2,4}|gt-[pn]\d{2,4}|sgh-t8[56]9|nexus 10)/i], [c, [h, A], [p, m]], [/\b((?:s[cgp]h|gt|sm)-\w+|sc[g-]?[\d]+a?|galaxy nexus)/i, /samsung[- ]([-\w]+)/i, /sec-(sgh\w+)/i], [c, [h, A], [p, b]], [/(?:\/|\()(ip(?:hone|od)[\w, ]*)(?:\/|;)/i], [c, [h, S], [p, b]], [/\((ipad);[-\w\),; ]+apple/i, /applecoremedia\/[\w\.]+ \((ipad)/i, /\b(ipad)\d\d?,\d\d?[;\]].+ios/i], [c, [h, S], [p, m]], [/(macintosh);/i], [c, [h, S]], [/\b(sh-?[altvz]?\d\d[a-ekm]?)/i], [c, [h, j], [p, b]], [/\b((?:ag[rs][23]?|bah2?|sht?|btv)-a?[lw]\d{2})\b(?!.+d\/s)/i], [c, [h, N], [p, m]], [/(?:huawei|honor)([-\w ]+)[;\)]/i, /\b(nexus 6p|\w{2,4}e?-[atu]?[ln][\dx][012359c][adn]?)\b(?!.+d\/s)/i], [c, [h, N], [p, b]], [/\b(poco[\w ]+)(?: bui|\))/i, /\b; (\w+) build\/hm\1/i, /\b(hm[-_ ]?note?[_ ]?(?:\d\w)?) bui/i, /\b(redmi[\-_ ]?(?:note|k)?[\w_ ]+)(?: bui|\))/i, /\b(mi[-_ ]?(?:a\d|one|one[_ ]plus|note lte|max|cc)?[_ ]?(?:\d?\w?)[_ ]?(?:plus|se|lite)?)(?: bui|\))/i], [[c, /_/g, " "], [h, D], [p, b]], [/\b(mi[-_ ]?(?:pad)(?:[\w_ ]+))(?: bui|\))/i], [[c, /_/g, " "], [h, D], [p, m]], [/; (\w+) bui.+ oppo/i, /\b(cph[12]\d{3}|p(?:af|c[al]|d\w|e[ar])[mt]\d0|x9007|a101op)\b/i], [c, [h, "OPPO"], [p, b]], [/vivo (\w+)(?: bui|\))/i, /\b(v[12]\d{3}\w?[at])(?: bui|;)/i], [c, [h, "Vivo"], [p, b]], [/\b(rmx[12]\d{3})(?: bui|;|\))/i], [c, [h, "Realme"], [p, b]], [/\b(milestone|droid(?:[2-4x]| (?:bionic|x2|pro|razr))?:?( 4g)?)\b[\w ]+build\//i, /\bmot(?:orola)?[- ](\w*)/i, /((?:moto[\w\(\) ]+|xt\d{3,4}|nexus 6)(?= bui|\)))/i], [c, [h, k], [p, b]], [/\b(mz60\d|xoom[2 ]{0,2}) build\//i], [c, [h, k], [p, m]], [/((?=lg)?[vl]k\-?\d{3}) bui| 3\.[-\w; ]{10}lg?-([06cv9]{3,4})/i], [c, [h, "LG"], [p, m]], [/(lm(?:-?f100[nv]?|-[\w\.]+)(?= bui|\))|nexus [45])/i, /\blg[-e;\/ ]+((?!browser|netcast|android tv)\w+)/i, /\blg-?([\d\w]+) bui/i], [c, [h, "LG"], [p, b]], [/(ideatab[-\w ]+)/i, /lenovo ?(s[56]000[-\w]+|tab(?:[\w ]+)|yt[-\d\w]{6}|tb[-\d\w]{6})/i], [c, [h, "Lenovo"], [p, m]], [/(?:maemo|nokia).*(n900|lumia \d+)/i, /nokia[-_ ]?([-\w\.]*)/i], [[c, /_/g, " "], [h, "Nokia"], [p, b]], [/(pixel c)\b/i], [c, [h, T], [p, m]], [/droid.+; (pixel[\daxl ]{0,6})(?: bui|\))/i], [c, [h, T], [p, b]], [/droid.+ (a?\d[0-2]{2}so|[c-g]\d{4}|so[-gl]\w+|xq-a\w[4-7][12])(?= bui|\).+chrome\/(?![1-6]{0,1}\d\.))/i], [c, [h, L], [p, b]], [/sony tablet [ps]/i, /\b(?:sony)?sgp\w+(?: bui|\))/i], [[c, "Xperia Tablet"], [h, L], [p, m]], [/ (kb2005|in20[12]5|be20[12][59])\b/i, /(?:one)?(?:plus)? (a\d0\d\d)(?: b|\))/i], [c, [h, "OnePlus"], [p, b]], [/(alexa)webm/i, /(kf[a-z]{2}wi|aeo[c-r]{2})( bui|\))/i, /(kf[a-z]+)( bui|\)).+silk\//i], [c, [h, x], [p, m]], [/((?:sd|kf)[0349hijorstuw]+)( bui|\)).+silk\//i], [[c, /(.+)/g, "Fire Phone $1"], [h, x], [p, b]], [/(playbook);[-\w\),; ]+(rim)/i], [c, h, [p, m]], [/\b((?:bb[a-f]|st[hv])100-\d)/i, /\(bb10; (\w+)/i], [c, [h, E], [p, b]], [/(?:\b|asus_)(transfo[prime ]{4,10} \w+|eeepc|slider \w+|nexus 7|padfone|p00[cj])/i], [c, [h, O], [p, m]], [/ (z[bes]6[027][012][km][ls]|zenfone \d\w?)\b/i], [c, [h, O], [p, b]], [/(nexus 9)/i], [c, [h, "HTC"], [p, m]], [/(htc)[-;_ ]{1,2}([\w ]+(?=\)| bui)|\w+)/i, /(zte)[- ]([\w ]+?)(?: bui|\/|\))/i, /(alcatel|geeksphone|nexian|panasonic(?!(?:;|\.))|sony(?!-bra))[-_ ]?([-\w]*)/i], [h, [c, /_/g, " "], [p, b]], [/droid.+; ([ab][1-7]-?[0178a]\d\d?)/i], [c, [h, "Acer"], [p, m]], [/droid.+; (m[1-5] note) bui/i, /\bmz-([-\w]{2,})/i], [c, [h, "Meizu"], [p, b]], [/(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron)[-_ ]?([-\w]*)/i, /(hp) ([\w ]+\w)/i, /(asus)-?(\w+)/i, /(microsoft); (lumia[\w ]+)/i, /(lenovo)[-_ ]?([-\w]+)/i, /(jolla)/i, /(oppo) ?([\w ]+) bui/i], [h, c, [p, b]], [/(kobo)\s(ereader|touch)/i, /(archos) (gamepad2?)/i, /(hp).+(touchpad(?!.+tablet)|tablet)/i, /(kindle)\/([\w\.]+)/i, /(nook)[\w ]+build\/(\w+)/i, /(dell) (strea[kpr\d ]*[\dko])/i, /(le[- ]+pan)[- ]+(\w{1,9}) bui/i, /(trinity)[- ]*(t\d{3}) bui/i, /(gigaset)[- ]+(q\w{1,9}) bui/i, /(vodafone) ([\w ]+)(?:\)| bui)/i], [h, c, [p, m]], [/(surface duo)/i], [c, [h, I], [p, m]], [/droid [\d\.]+; (fp\du?)(?: b|\))/i], [c, [h, "Fairphone"], [p, b]], [/(u304aa)/i], [c, [h, "AT&T"], [p, b]], [/\bsie-(\w*)/i], [c, [h, "Siemens"], [p, b]], [/\b(rct\w+) b/i], [c, [h, "RCA"], [p, m]], [/\b(venue[\d ]{2,7}) b/i], [c, [h, "Dell"], [p, m]], [/\b(q(?:mv|ta)\w+) b/i], [c, [h, "Verizon"], [p, m]], [/\b(?:barnes[& ]+noble |bn[rt])([\w\+ ]*) b/i], [c, [h, "Barnes & Noble"], [p, m]], [/\b(tm\d{3}\w+) b/i], [c, [h, "NuVision"], [p, m]], [/\b(k88) b/i], [c, [h, "ZTE"], [p, m]], [/\b(nx\d{3}j) b/i], [c, [h, "ZTE"], [p, b]], [/\b(gen\d{3}) b.+49h/i], [c, [h, "Swiss"], [p, b]], [/\b(zur\d{3}) b/i], [c, [h, "Swiss"], [p, m]], [/\b((zeki)?tb.*\b) b/i], [c, [h, "Zeki"], [p, m]], [/\b([yr]\d{2}) b/i, /\b(dragon[- ]+touch |dt)(\w{5}) b/i], [[h, "Dragon Touch"], c, [p, m]], [/\b(ns-?\w{0,9}) b/i], [c, [h, "Insignia"], [p, m]], [/\b((nxa|next)-?\w{0,9}) b/i], [c, [h, "NextBook"], [p, m]], [/\b(xtreme\_)?(v(1[045]|2[015]|[3469]0|7[05])) b/i], [[h, "Voice"], c, [p, b]], [/\b(lvtel\-)?(v1[12]) b/i], [[h, "LvTel"], c, [p, b]], [/\b(ph-1) /i], [c, [h, "Essential"], [p, b]], [/\b(v(100md|700na|7011|917g).*\b) b/i], [c, [h, "Envizen"], [p, m]], [/\b(trio[-\w\. ]+) b/i], [c, [h, "MachSpeed"], [p, m]], [/\btu_(1491) b/i], [c, [h, "Rotor"], [p, m]], [/(shield[\w ]+) b/i], [c, [h, "Nvidia"], [p, m]], [/(sprint) (\w+)/i], [h, c, [p, b]], [/(kin\.[onetw]{3})/i], [[c, /\./g, " "], [h, I], [p, b]], [/droid.+; (cc6666?|et5[16]|mc[239][23]x?|vc8[03]x?)\)/i], [c, [h, q], [p, m]], [/droid.+; (ec30|ps20|tc[2-8]\d[kx])\)/i], [c, [h, q], [p, b]], [/smart-tv.+(samsung)/i], [h, [p, _]], [/hbbtv.+maple;(\d+)/i], [[c, /^/, "SmartTV"], [h, A], [p, _]], [/(nux; netcast.+smarttv|lg (netcast\.tv-201\d|android tv))/i], [[h, "LG"], [p, _]], [/(apple) ?tv/i], [h, [c, S + " TV"], [p, _]], [/crkey/i], [[c, C + "cast"], [h, T], [p, _]], [/droid.+aft(\w)( bui|\))/i], [c, [h, x], [p, _]], [/\(dtv[\);].+(aquos)/i, /(aquos-tv[\w ]+)\)/i], [c, [h, j], [p, _]], [/(bravia[\w ]+)( bui|\))/i], [c, [h, L], [p, _]], [/(mitv-\w{5}) bui/i], [c, [h, D], [p, _]], [/Hbbtv.*(technisat) (.*);/i], [h, c, [p, _]], [/\b(roku)[\dx]*[\)\/]((?:dvp-)?[\d\.]*)/i, /hbbtv\/\d+\.\d+\.\d+ +\([\w\+ ]*; *([\w\d][^;]*);([^;]*)/i], [[h, z], [c, z], [p, _]], [/\b(android tv|smart[- ]?tv|opera tv|tv; rv:)\b/i], [[p, _]], [/(ouya)/i, /(nintendo) ([wids3utch]+)/i], [h, c, [p, v]], [/droid.+; (shield) bui/i], [c, [h, "Nvidia"], [p, v]], [/(playstation [345portablevi]+)/i], [c, [h, L], [p, v]], [/\b(xbox(?: one)?(?!; xbox))[\); ]/i], [c, [h, I], [p, v]], [/((pebble))app/i], [h, c, [p, w]], [/(watch)(?: ?os[,\/]|\d,\d\/)[\d\.]+/i], [c, [h, S], [p, w]], [/droid.+; (glass) \d/i], [c, [h, T], [p, w]], [/droid.+; (wt63?0{2,3})\)/i], [c, [h, q], [p, w]], [/(quest( 2| pro)?)/i], [c, [h, U], [p, w]], [/(tesla)(?: qtcarbrowser|\/[-\w\.]+)/i], [h, [p, y]], [/(aeobc)\b/i], [c, [h, x], [p, y]], [/droid .+?; ([^;]+?)(?: bui|\) applew).+? mobile safari/i], [c, [p, b]], [/droid .+?; ([^;]+?)(?: bui|\) applew).+?(?! mobile) safari/i], [c, [p, m]], [/\b((tablet|tab)[;\/]|focus\/\d(?!.+mobile))/i], [[p, m]], [/(phone|mobile(?:[;\/]| [ \w\/\.]*safari)|pda(?=.+windows ce))/i], [[p, b]], [/(android[-\w\. ]{0,9});.+buil/i], [c, [h, "Generic"]]], engine: [[/windows.+ edge\/([\w\.]+)/i], [f, [d, "EdgeHTML"]], [/webkit\/537\.36.+chrome\/(?!27)([\w\.]+)/i], [f, [d, "Blink"]], [/(presto)\/([\w\.]+)/i, /(webkit|trident|netfront|netsurf|amaya|lynx|w3m|goanna)\/([\w\.]+)/i, /ekioh(flow)\/([\w\.]+)/i, /(khtml|tasman|links)[\/ ]\(?([\w\.]+)/i, /(icab)[\/ ]([23]\.[\d\.]+)/i, /\b(libweb)/i], [d, f], [/rv\:([\w\.]{1,9})\b.+(gecko)/i], [f, d]], os: [[/microsoft (windows) (vista|xp)/i], [d, f], [/(windows) nt 6\.2; (arm)/i, /(windows (?:phone(?: os)?|mobile))[\/ ]?([\d\.\w ]*)/i, /(windows)[\/ ]?([ntce\d\. ]+\w)(?!.+xbox)/i], [d, [f, F, K]], [/(win(?=3|9|n)|win 9x )([nt\d\.]+)/i], [[d, "Windows"], [f, F, K]], [/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac|; opera)/i, /ios;fbsv\/([\d\.]+)/i, /cfnetwork\/.+darwin/i], [[f, /_/g, "."], [d, "iOS"]], [/(mac os x) ?([\w\. ]*)/i, /(macintosh|mac_powerpc\b)(?!.+haiku)/i], [[d, B], [f, /_/g, "."]], [/droid ([\w\.]+)\b.+(android[- ]x86|harmonyos)/i], [f, d], [/(android|webos|qnx|bada|rim tablet os|maemo|meego|sailfish)[-\/ ]?([\w\.]*)/i, /(blackberry)\w*\/([\w\.]*)/i, /(tizen|kaios)[\/ ]([\w\.]+)/i, /\((series40);/i], [d, f], [/\(bb(10);/i], [f, [d, E]], [/(?:symbian ?os|symbos|s60(?=;)|series60)[-\/ ]?([\w\.]*)/i], [f, [d, "Symbian"]], [/mozilla\/[\d\.]+ \((?:mobile|tablet|tv|mobile; [\w ]+); rv:.+ gecko\/([\w\.]+)/i], [f, [d, P + " OS"]], [/web0s;.+rt(tv)/i, /\b(?:hp)?wos(?:browser)?\/([\w\.]+)/i], [f, [d, "webOS"]], [/watch(?: ?os[,\/]|\d,\d\/)([\d\.]+)/i], [f, [d, "watchOS"]], [/crkey\/([\d\.]+)/i], [f, [d, C + "cast"]], [/(cros) [\w]+(?:\)| ([\w\.]+)\b)/i], [[d, $], f], [/panasonic;(viera)/i, /(netrange)mmh/i, /(nettv)\/(\d+\.[\w\.]+)/i, /(nintendo|playstation) ([wids345portablevuch]+)/i, /(xbox); +xbox ([^\);]+)/i, /\b(joli|palm)\b ?(?:os)?\/?([\w\.]*)/i, /(mint)[\/\(\) ]?(\w*)/i, /(mageia|vectorlinux)[; ]/i, /([kxln]?ubuntu|debian|suse|opensuse|gentoo|arch(?= linux)|slackware|fedora|mandriva|centos|pclinuxos|red ?hat|zenwalk|linpus|raspbian|plan 9|minix|risc os|contiki|deepin|manjaro|elementary os|sabayon|linspire)(?: gnu\/linux)?(?: enterprise)?(?:[- ]linux)?(?:-gnu)?[-\/ ]?(?!chrom|package)([-\w\.]*)/i, /(hurd|linux) ?([\w\.]*)/i, /(gnu) ?([\w\.]*)/i, /\b([-frentopcghs]{0,5}bsd|dragonfly)[\/ ]?(?!amd|[ix346]{1,2}86)([\w\.]*)/i, /(haiku) (\w+)/i], [d, f], [/(sunos) ?([\w\.\d]*)/i], [[d, "Solaris"], f], [/((?:open)?solaris)[-\/ ]?([\w\.]*)/i, /(aix) ((\d)(?=\.|\)| )[\w\.])*/i, /\b(beos|os\/2|amigaos|morphos|openvms|fuchsia|hp-ux|serenityos)/i, /(unix) ?([\w\.]*)/i], [d, f]] }, J = function(e2, t3) {
             if (typeof e2 === s && (t3 = e2, e2 = void 0), !(this instanceof J)) return new J(e2, t3).getResult();
-            var r3 = typeof n2 !== o && n2.navigator ? n2.navigator : void 0, i3 = e2 || (r3 && r3.userAgent ? r3.userAgent : ""), v2 = r3 && r3.userAgentData ? r3.userAgentData : void 0, _2 = t3 ? V(Q, t3) : Q, w2 = r3 && r3.userAgent == i3;
+            var r3 = typeof n2 !== a && n2.navigator ? n2.navigator : void 0, i3 = e2 || (r3 && r3.userAgent ? r3.userAgent : ""), v2 = r3 && r3.userAgentData ? r3.userAgentData : void 0, _2 = t3 ? V(Q, t3) : Q, w2 = r3 && r3.userAgent == i3;
             return this.getBrowser = function() {
               var e3, t4 = {};
-              return t4[d] = void 0, t4[f] = void 0, X.call(t4, i3, _2.browser), t4[u] = typeof (e3 = t4[f]) === l ? e3.replace(/[^\d\.]/g, "").split(".")[0] : void 0, w2 && r3 && r3.brave && typeof r3.brave.isBrave == a2 && (t4[d] = "Brave"), t4;
+              return t4[d] = void 0, t4[f] = void 0, X.call(t4, i3, _2.browser), t4[u] = typeof (e3 = t4[f]) === l ? e3.replace(/[^\d\.]/g, "").split(".")[0] : void 0, w2 && r3 && r3.brave && typeof r3.brave.isBrave == o2 && (t4[d] = "Brave"), t4;
             }, this.getCPU = function() {
               var e3 = {};
               return e3[g] = void 0, X.call(e3, i3, _2.cpu), e3;
             }, this.getDevice = function() {
               var e3 = {};
-              return e3[h] = void 0, e3[c] = void 0, e3[p] = void 0, X.call(e3, i3, _2.device), w2 && !e3[p] && v2 && v2.mobile && (e3[p] = b), w2 && "Macintosh" == e3[c] && r3 && typeof r3.standalone !== o && r3.maxTouchPoints && r3.maxTouchPoints > 2 && (e3[c] = "iPad", e3[p] = m), e3;
+              return e3[h] = void 0, e3[c] = void 0, e3[p] = void 0, X.call(e3, i3, _2.device), w2 && !e3[p] && v2 && v2.mobile && (e3[p] = b), w2 && "Macintosh" == e3[c] && r3 && typeof r3.standalone !== a && r3.maxTouchPoints && r3.maxTouchPoints > 2 && (e3[c] = "iPad", e3[p] = m), e3;
             }, this.getEngine = function() {
               var e3 = {};
               return e3[d] = void 0, e3[f] = void 0, X.call(e3, i3, _2.engine), e3;
@@ -2152,10 +2152,10 @@ var require_root_of_the_server_25fe7590 = __commonJS({
               return i3 = typeof e3 === l && e3.length > 350 ? z(e3, 350) : e3, this;
             }, this.setUA(i3), this;
           };
-          if (J.VERSION = "1.0.35", J.BROWSER = H([d, f, u]), J.CPU = H([g]), J.DEVICE = H([c, h, p, v, b, _, m, w, y]), J.ENGINE = J.OS = H([d, f]), typeof r2 !== o) t2.exports && (r2 = t2.exports = J), r2.UAParser = J;
-          else if (typeof define === a2 && define.amd) e.r, void 0 !== J && e.v(J);
-          else typeof n2 !== o && (n2.UAParser = J);
-          var Y = typeof n2 !== o && (n2.jQuery || n2.Zepto);
+          if (J.VERSION = "1.0.35", J.BROWSER = H([d, f, u]), J.CPU = H([g]), J.DEVICE = H([c, h, p, v, b, _, m, w, y]), J.ENGINE = J.OS = H([d, f]), typeof r2 !== a) t2.exports && (r2 = t2.exports = J), r2.UAParser = J;
+          else if (typeof define === o2 && define.amd) e.r, void 0 !== J && e.v(J);
+          else typeof n2 !== a && (n2.UAParser = J);
+          var Y = typeof n2 !== a && (n2.jQuery || n2.Zepto);
           if (Y && !Y.ua) {
             var Z = new J();
             Y.ua = Z.getResult(), Y.ua.get = function() {
@@ -2168,18 +2168,18 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           }
         }(this);
       } }, i = {};
-      function a(e2) {
+      function o(e2) {
         var t2 = i[e2];
         if (void 0 !== t2) return t2.exports;
-        var r2 = i[e2] = { exports: {} }, o = true;
+        var r2 = i[e2] = { exports: {} }, a = true;
         try {
-          n[e2].call(r2.exports, r2, r2.exports, a), o = false;
+          n[e2].call(r2.exports, r2, r2.exports, o), a = false;
         } finally {
-          o && delete i[e2];
+          a && delete i[e2];
         }
         return r2.exports;
       }
-      a.ab = "/ROOT/node_modules/next/dist/compiled/ua-parser-js/", t.exports = a(226);
+      o.ab = "/ROOT/node_modules/next/dist/compiled/ua-parser-js/", t.exports = o(226);
     }, 8946, (e, t, r) => {
       "use strict";
       var n = { H: null, A: null };
@@ -2191,8 +2191,8 @@ var require_root_of_the_server_25fe7590 = __commonJS({
         }
         return "Minified React error #" + e2 + "; visit " + t2 + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
       }
-      var a = Array.isArray;
-      function o() {
+      var o = Array.isArray;
+      function a() {
       }
       var s = Symbol.for("react.transitional.element"), l = Symbol.for("react.portal"), u = Symbol.for("react.fragment"), c = Symbol.for("react.strict_mode"), d = Symbol.for("react.profiler"), p = Symbol.for("react.forward_ref"), h = Symbol.for("react.suspense"), f = Symbol.for("react.memo"), g = Symbol.for("react.lazy"), v = Symbol.for("react.activity"), b = Symbol.for("react.view_transition"), m = Symbol.iterator, _ = Object.prototype.hasOwnProperty, w = Object.assign;
       function y(e2, t2, r2) {
@@ -2233,12 +2233,12 @@ var require_root_of_the_server_25fe7590 = __commonJS({
                   return e3((v2 = t3._init)(t3._payload), r3, n3, u3, c2);
               }
           }
-          if (v2) return c2 = c2(t3), v2 = "" === u3 ? "." + O(t3, 0) : u3, a(c2) ? (n3 = "", null != v2 && (n3 = v2.replace(S, "$&/") + "/"), e3(c2, r3, n3, "", function(e4) {
+          if (v2) return c2 = c2(t3), v2 = "" === u3 ? "." + O(t3, 0) : u3, o(c2) ? (n3 = "", null != v2 && (n3 = v2.replace(S, "$&/") + "/"), e3(c2, r3, n3, "", function(e4) {
             return e4;
           })) : null != c2 && (x(c2) && (d2 = c2, p2 = n3 + (null == c2.key || t3 && t3.key === c2.key ? "" : ("" + c2.key).replace(S, "$&/") + "/") + v2, c2 = y(d2.type, p2, d2.props)), r3.push(c2)), 1;
           v2 = 0;
           var b2 = "" === u3 ? "." : u3 + ":";
-          if (a(t3)) for (var _2 = 0; _2 < t3.length; _2++) f2 = b2 + O(u3 = t3[_2], _2), v2 += e3(u3, r3, n3, f2, c2);
+          if (o(t3)) for (var _2 = 0; _2 < t3.length; _2++) f2 = b2 + O(u3 = t3[_2], _2), v2 += e3(u3, r3, n3, f2, c2);
           else if ("function" == typeof (_2 = null === (h2 = t3) || "object" != typeof h2 ? null : "function" == typeof (h2 = m && h2[m] || h2["@@iterator"]) ? h2 : null)) for (t3 = _2.call(t3), _2 = 0; !(u3 = t3.next()).done; ) f2 = b2 + O(u3 = u3.value, _2++), v2 += e3(u3, r3, n3, f2, c2);
           else if ("object" === f2) {
             if ("function" == typeof t3.then) return e3(function(e4) {
@@ -2248,7 +2248,7 @@ var require_root_of_the_server_25fe7590 = __commonJS({
                 case "rejected":
                   throw e4.reason;
                 default:
-                  switch ("string" == typeof e4.status ? e4.then(o, o) : (e4.status = "pending", e4.then(function(t4) {
+                  switch ("string" == typeof e4.status ? e4.then(a, a) : (e4.status = "pending", e4.then(function(t4) {
                     "pending" === e4.status && (e4.status = "fulfilled", e4.value = t4);
                   }, function(t4) {
                     "pending" === e4.status && (e4.status = "rejected", e4.reason = t4);
@@ -2309,11 +2309,11 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           var r2 = t2.getCacheForType(C);
           void 0 === (t2 = r2.get(e2)) && (t2 = P(), r2.set(e2, t2)), r2 = 0;
           for (var i2 = arguments.length; r2 < i2; r2++) {
-            var a2 = arguments[r2];
-            if ("function" == typeof a2 || "object" == typeof a2 && null !== a2) {
-              var o2 = t2.o;
-              null === o2 && (t2.o = o2 = /* @__PURE__ */ new WeakMap()), void 0 === (t2 = o2.get(a2)) && (t2 = P(), o2.set(a2, t2));
-            } else null === (o2 = t2.p) && (t2.p = o2 = /* @__PURE__ */ new Map()), void 0 === (t2 = o2.get(a2)) && (t2 = P(), o2.set(a2, t2));
+            var o2 = arguments[r2];
+            if ("function" == typeof o2 || "object" == typeof o2 && null !== o2) {
+              var a2 = t2.o;
+              null === a2 && (t2.o = a2 = /* @__PURE__ */ new WeakMap()), void 0 === (t2 = a2.get(o2)) && (t2 = P(), a2.set(o2, t2));
+            } else null === (a2 = t2.p) && (t2.p = a2 = /* @__PURE__ */ new Map()), void 0 === (t2 = a2.get(o2)) && (t2 = P(), a2.set(o2, t2));
           }
           if (1 === t2.s) return t2.v;
           if (2 === t2.s) throw t2.v;
@@ -2331,26 +2331,26 @@ var require_root_of_the_server_25fe7590 = __commonJS({
         return null;
       }, r.cloneElement = function(e2, t2, r2) {
         if (null == e2) throw Error(i(267, e2));
-        var n2 = w({}, e2.props), a2 = e2.key;
-        if (null != t2) for (o2 in void 0 !== t2.key && (a2 = "" + t2.key), t2) _.call(t2, o2) && "key" !== o2 && "__self" !== o2 && "__source" !== o2 && ("ref" !== o2 || void 0 !== t2.ref) && (n2[o2] = t2[o2]);
-        var o2 = arguments.length - 2;
-        if (1 === o2) n2.children = r2;
-        else if (1 < o2) {
-          for (var s2 = Array(o2), l2 = 0; l2 < o2; l2++) s2[l2] = arguments[l2 + 2];
+        var n2 = w({}, e2.props), o2 = e2.key;
+        if (null != t2) for (a2 in void 0 !== t2.key && (o2 = "" + t2.key), t2) _.call(t2, a2) && "key" !== a2 && "__self" !== a2 && "__source" !== a2 && ("ref" !== a2 || void 0 !== t2.ref) && (n2[a2] = t2[a2]);
+        var a2 = arguments.length - 2;
+        if (1 === a2) n2.children = r2;
+        else if (1 < a2) {
+          for (var s2 = Array(a2), l2 = 0; l2 < a2; l2++) s2[l2] = arguments[l2 + 2];
           n2.children = s2;
         }
-        return y(e2.type, a2, n2);
+        return y(e2.type, o2, n2);
       }, r.createElement = function(e2, t2, r2) {
-        var n2, i2 = {}, a2 = null;
-        if (null != t2) for (n2 in void 0 !== t2.key && (a2 = "" + t2.key), t2) _.call(t2, n2) && "key" !== n2 && "__self" !== n2 && "__source" !== n2 && (i2[n2] = t2[n2]);
-        var o2 = arguments.length - 2;
-        if (1 === o2) i2.children = r2;
-        else if (1 < o2) {
-          for (var s2 = Array(o2), l2 = 0; l2 < o2; l2++) s2[l2] = arguments[l2 + 2];
+        var n2, i2 = {}, o2 = null;
+        if (null != t2) for (n2 in void 0 !== t2.key && (o2 = "" + t2.key), t2) _.call(t2, n2) && "key" !== n2 && "__self" !== n2 && "__source" !== n2 && (i2[n2] = t2[n2]);
+        var a2 = arguments.length - 2;
+        if (1 === a2) i2.children = r2;
+        else if (1 < a2) {
+          for (var s2 = Array(a2), l2 = 0; l2 < a2; l2++) s2[l2] = arguments[l2 + 2];
           i2.children = s2;
         }
-        if (e2 && e2.defaultProps) for (n2 in o2 = e2.defaultProps) void 0 === i2[n2] && (i2[n2] = o2[n2]);
-        return y(e2, a2, i2);
+        if (e2 && e2.defaultProps) for (n2 in a2 = e2.defaultProps) void 0 === i2[n2] && (i2[n2] = a2[n2]);
+        return y(e2, o2, i2);
       }, r.createRef = function() {
         return { current: null };
       }, r.forwardRef = function(e2) {
@@ -2379,7 +2379,7 @@ var require_root_of_the_server_25fe7590 = __commonJS({
         return "_ENTRIES" in globalThis && _ENTRIES.middleware_instrumentation && await _ENTRIES.middleware_instrumentation;
       }
       let i = null;
-      async function a() {
+      async function o() {
         if ("phase-production-build" === process.env.NEXT_PHASE) return;
         i || (i = n());
         let e10 = await i;
@@ -2389,7 +2389,7 @@ var require_root_of_the_server_25fe7590 = __commonJS({
           throw e11.message = `An error occurred while loading instrumentation hook: ${e11.message}`, e11;
         }
       }
-      async function o(...e10) {
+      async function a(...e10) {
         let t2 = await n();
         try {
           var r2;
@@ -2400,7 +2400,7 @@ var require_root_of_the_server_25fe7590 = __commonJS({
       }
       let s = null;
       function l() {
-        return s || (s = a()), s;
+        return s || (s = o()), s;
       }
       function u(e10) {
         return `The edge runtime does not support Node.js '${e10}' module.
@@ -2452,19 +2452,19 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
       }
       let h = "_N_T_", f = { shared: "shared", reactServerComponents: "rsc", serverSideRendering: "ssr", actionBrowser: "action-browser", apiNode: "api-node", apiEdge: "api-edge", middleware: "middleware", instrument: "instrument", edgeAsset: "edge-asset", appPagesBrowser: "app-pages-browser", pagesDirBrowser: "pages-dir-browser", pagesDirEdge: "pages-dir-edge", pagesDirNode: "pages-dir-node" };
       function g(e10) {
-        var t2, r2, n2, i2, a2, o2 = [], s2 = 0;
+        var t2, r2, n2, i2, o2, a2 = [], s2 = 0;
         function l2() {
           for (; s2 < e10.length && /\s/.test(e10.charAt(s2)); ) s2 += 1;
           return s2 < e10.length;
         }
         for (; s2 < e10.length; ) {
-          for (t2 = s2, a2 = false; l2(); ) if ("," === (r2 = e10.charAt(s2))) {
+          for (t2 = s2, o2 = false; l2(); ) if ("," === (r2 = e10.charAt(s2))) {
             for (n2 = s2, s2 += 1, l2(), i2 = s2; s2 < e10.length && "=" !== (r2 = e10.charAt(s2)) && ";" !== r2 && "," !== r2; ) s2 += 1;
-            s2 < e10.length && "=" === e10.charAt(s2) ? (a2 = true, s2 = i2, o2.push(e10.substring(t2, n2)), t2 = s2) : s2 = n2 + 1;
+            s2 < e10.length && "=" === e10.charAt(s2) ? (o2 = true, s2 = i2, a2.push(e10.substring(t2, n2)), t2 = s2) : s2 = n2 + 1;
           } else s2 += 1;
-          (!a2 || s2 >= e10.length) && o2.push(e10.substring(t2, e10.length));
+          (!o2 || s2 >= e10.length) && a2.push(e10.substring(t2, e10.length));
         }
-        return o2;
+        return a2;
       }
       function v(e10) {
         let t2 = {}, r2 = [];
@@ -2537,8 +2537,8 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
         n2 || (n2 = t2.map((e11) => e11.toLowerCase()), P.set(t2, n2));
         let i2 = e10.split("/", 2);
         if (!i2[1]) return { pathname: e10 };
-        let a2 = i2[1].toLowerCase(), o2 = n2.indexOf(a2);
-        return o2 < 0 ? { pathname: e10 } : (r2 = t2[o2], { pathname: e10 = e10.slice(r2.length + 1) || "/", detectedLocale: r2 });
+        let o2 = i2[1].toLowerCase(), a2 = n2.indexOf(o2);
+        return a2 < 0 ? { pathname: e10 } : (r2 = t2[a2], { pathname: e10 = e10.slice(r2.length + 1) || "/", detectedLocale: r2 });
       }
       let N = /(?!^https?:\/\/)(127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}|\[::1\]|localhost)/;
       function I(e10, t2) {
@@ -2552,24 +2552,24 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
         }
         analyze() {
           var e10, t2, r2, n2, i2;
-          let a2 = function(e11, t3) {
-            let { basePath: r3, i18n: n3, trailingSlash: i3 } = t3.nextConfig ?? {}, a3 = { pathname: e11, trailingSlash: "/" !== e11 ? e11.endsWith("/") : i3 };
-            r3 && C(a3.pathname, r3) && (a3.pathname = function(e12, t4) {
+          let o2 = function(e11, t3) {
+            let { basePath: r3, i18n: n3, trailingSlash: i3 } = t3.nextConfig ?? {}, o3 = { pathname: e11, trailingSlash: "/" !== e11 ? e11.endsWith("/") : i3 };
+            r3 && C(o3.pathname, r3) && (o3.pathname = function(e12, t4) {
               if (!C(e12, t4)) return e12;
               let r4 = e12.slice(t4.length);
               return r4.startsWith("/") ? r4 : `/${r4}`;
-            }(a3.pathname, r3), a3.basePath = r3);
-            let o3 = a3.pathname;
-            if (a3.pathname.startsWith("/_next/data/") && a3.pathname.endsWith(".json")) {
-              let e12 = a3.pathname.replace(/^\/_next\/data\//, "").replace(/\.json$/, "").split("/");
-              a3.buildId = e12[0], o3 = "index" !== e12[1] ? `/${e12.slice(1).join("/")}` : "/", true === t3.parseData && (a3.pathname = o3);
+            }(o3.pathname, r3), o3.basePath = r3);
+            let a3 = o3.pathname;
+            if (o3.pathname.startsWith("/_next/data/") && o3.pathname.endsWith(".json")) {
+              let e12 = o3.pathname.replace(/^\/_next\/data\//, "").replace(/\.json$/, "").split("/");
+              o3.buildId = e12[0], a3 = "index" !== e12[1] ? `/${e12.slice(1).join("/")}` : "/", true === t3.parseData && (o3.pathname = a3);
             }
             if (n3) {
-              let e12 = t3.i18nProvider ? t3.i18nProvider.analyze(a3.pathname) : T(a3.pathname, n3.locales);
-              a3.locale = e12.detectedLocale, a3.pathname = e12.pathname ?? a3.pathname, !e12.detectedLocale && a3.buildId && (e12 = t3.i18nProvider ? t3.i18nProvider.analyze(o3) : T(o3, n3.locales)).detectedLocale && (a3.locale = e12.detectedLocale);
+              let e12 = t3.i18nProvider ? t3.i18nProvider.analyze(o3.pathname) : T(o3.pathname, n3.locales);
+              o3.locale = e12.detectedLocale, o3.pathname = e12.pathname ?? o3.pathname, !e12.detectedLocale && o3.buildId && (e12 = t3.i18nProvider ? t3.i18nProvider.analyze(a3) : T(a3, n3.locales)).detectedLocale && (o3.locale = e12.detectedLocale);
             }
-            return a3;
-          }(this[k].url.pathname, { nextConfig: this[k].options.nextConfig, parseData: true, i18nProvider: this[k].options.i18nProvider }), o2 = function(e11, t3) {
+            return o3;
+          }(this[k].url.pathname, { nextConfig: this[k].options.nextConfig, parseData: true, i18nProvider: this[k].options.i18nProvider }), a2 = function(e11, t3) {
             let r3;
             if (t3?.host && !Array.isArray(t3.host)) r3 = t3.host.toString().split(":", 1)[0];
             else {
@@ -2578,13 +2578,13 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
             }
             return r3.toLowerCase();
           }(this[k].url, this[k].options.headers);
-          this[k].domainLocale = this[k].options.i18nProvider ? this[k].options.i18nProvider.detectDomainLocale(o2) : function(e11, t3, r3) {
+          this[k].domainLocale = this[k].options.i18nProvider ? this[k].options.i18nProvider.detectDomainLocale(a2) : function(e11, t3, r3) {
             if (e11) {
               for (let n3 of (r3 && (r3 = r3.toLowerCase()), e11)) if (t3 === n3.domain?.split(":", 1)[0].toLowerCase() || r3 === n3.defaultLocale.toLowerCase() || n3.locales?.some((e12) => e12.toLowerCase() === r3)) return n3;
             }
-          }(null == (t2 = this[k].options.nextConfig) || null == (e10 = t2.i18n) ? void 0 : e10.domains, o2);
+          }(null == (t2 = this[k].options.nextConfig) || null == (e10 = t2.i18n) ? void 0 : e10.domains, a2);
           let s2 = (null == (r2 = this[k].domainLocale) ? void 0 : r2.defaultLocale) || (null == (i2 = this[k].options.nextConfig) || null == (n2 = i2.i18n) ? void 0 : n2.defaultLocale);
-          this[k].url.pathname = a2.pathname, this[k].defaultLocale = s2, this[k].basePath = a2.basePath ?? "", this[k].buildId = a2.buildId, this[k].locale = a2.locale ?? s2, this[k].trailingSlash = a2.trailingSlash;
+          this[k].url.pathname = o2.pathname, this[k].defaultLocale = s2, this[k].basePath = o2.basePath ?? "", this[k].buildId = o2.buildId, this[k].locale = o2.locale ?? s2, this[k].trailingSlash = o2.trailingSlash;
         }
         formatPathname() {
           var e10;
@@ -2765,8 +2765,8 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
               case "delete":
               case "set":
                 return (...i3) => {
-                  let a2 = Reflect.apply(e11[n3], e11, i3), o2 = new Headers(r2);
-                  return a2 instanceof z.ResponseCookies && r2.set("x-middleware-set-cookie", a2.getAll().map((e12) => (0, z.stringifyCookie)(e12)).join(",")), Y(t2, o2), a2;
+                  let o2 = Reflect.apply(e11[n3], e11, i3), a2 = new Headers(r2);
+                  return o2 instanceof z.ResponseCookies && r2.set("x-middleware-set-cookie", o2.getAll().map((e12) => (0, z.stringifyCookie)(e12)).join(",")), Y(t2, a2), o2;
                 };
               default:
                 return K.get(e11, n3, i2);
@@ -2812,16 +2812,16 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
           throw new ei();
         }
       }
-      class ea extends Headers {
+      class eo extends Headers {
         constructor(e10) {
           super(), this.headers = new Proxy(e10, { get(t2, r2, n2) {
             if ("symbol" == typeof r2) return K.get(t2, r2, n2);
-            let i2 = r2.toLowerCase(), a2 = Object.keys(e10).find((e11) => e11.toLowerCase() === i2);
-            if (void 0 !== a2) return K.get(t2, a2, n2);
+            let i2 = r2.toLowerCase(), o2 = Object.keys(e10).find((e11) => e11.toLowerCase() === i2);
+            if (void 0 !== o2) return K.get(t2, o2, n2);
           }, set(t2, r2, n2, i2) {
             if ("symbol" == typeof r2) return K.set(t2, r2, n2, i2);
-            let a2 = r2.toLowerCase(), o2 = Object.keys(e10).find((e11) => e11.toLowerCase() === a2);
-            return K.set(t2, o2 ?? r2, n2, i2);
+            let o2 = r2.toLowerCase(), a2 = Object.keys(e10).find((e11) => e11.toLowerCase() === o2);
+            return K.set(t2, a2 ?? r2, n2, i2);
           }, has(t2, r2) {
             if ("symbol" == typeof r2) return K.has(t2, r2);
             let n2 = r2.toLowerCase(), i2 = Object.keys(e10).find((e11) => e11.toLowerCase() === n2);
@@ -2848,7 +2848,7 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
           return Array.isArray(e10) ? e10.join(", ") : e10;
         }
         static from(e10) {
-          return e10 instanceof Headers ? e10 : new ea(e10);
+          return e10 instanceof Headers ? e10 : new eo(e10);
         }
         append(e10, t2) {
           let r2 = this.headers[e10];
@@ -2892,21 +2892,21 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
           return this.entries();
         }
       }
-      let eo = Object.defineProperty(Error("Invariant: AsyncLocalStorage accessed in runtime where it is not available"), "__NEXT_ERROR_CODE", { value: "E504", enumerable: false, configurable: true });
+      let ea = Object.defineProperty(Error("Invariant: AsyncLocalStorage accessed in runtime where it is not available"), "__NEXT_ERROR_CODE", { value: "E504", enumerable: false, configurable: true });
       class es {
         disable() {
-          throw eo;
+          throw ea;
         }
         getStore() {
         }
         run() {
-          throw eo;
+          throw ea;
         }
         exit() {
-          throw eo;
+          throw ea;
         }
         enterWith() {
-          throw eo;
+          throw ea;
         }
         static bind(e10) {
           return e10;
@@ -2944,7 +2944,7 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
         static wrap(e10, t2) {
           let r2 = new z.ResponseCookies(new Headers());
           for (let t3 of e10.getAll()) r2.set(t3);
-          let n2 = [], i2 = /* @__PURE__ */ new Set(), a2 = () => {
+          let n2 = [], i2 = /* @__PURE__ */ new Set(), o2 = () => {
             let e11 = ec.getStore();
             if (e11 && (e11.pathWasRevalidated = 1), n2 = r2.getAll().filter((e12) => i2.has(e12.name)), t2) {
               let e12 = [];
@@ -2954,7 +2954,7 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
               }
               t2(e12);
             }
-          }, o2 = new Proxy(r2, { get(e11, t3, r3) {
+          }, a2 = new Proxy(r2, { get(e11, t3, r3) {
             switch (t3) {
               case eh:
                 return n2;
@@ -2962,25 +2962,25 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
                 return function(...t4) {
                   i2.add("string" == typeof t4[0] ? t4[0] : t4[0].name);
                   try {
-                    return e11.delete(...t4), o2;
+                    return e11.delete(...t4), a2;
                   } finally {
-                    a2();
+                    o2();
                   }
                 };
               case "set":
                 return function(...t4) {
                   i2.add("string" == typeof t4[0] ? t4[0] : t4[0].name);
                   try {
-                    return e11.set(...t4), o2;
+                    return e11.set(...t4), a2;
                   } finally {
-                    a2();
+                    o2();
                   }
                 };
               default:
                 return K.get(e11, t3, r3);
             }
           } });
-          return o2;
+          return a2;
         }
       }
       function eg(e10, t2) {
@@ -3022,32 +3022,32 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
           return ek.with(i2, t2);
         }
         trace(...e10) {
-          let [t2, r2, n2] = e10, { fn: i2, options: a2 } = "function" == typeof r2 ? { fn: r2, options: {} } : { fn: n2, options: { ...r2 } }, o2 = a2.spanName ?? t2;
-          if (!eP.has(t2) && "1" !== process.env.NEXT_OTEL_VERBOSE || a2.hideSpan) return i2();
-          let s2 = this.getSpanContext((null == a2 ? void 0 : a2.parentSpan) ?? this.getActiveScopeSpan());
+          let [t2, r2, n2] = e10, { fn: i2, options: o2 } = "function" == typeof r2 ? { fn: r2, options: {} } : { fn: n2, options: { ...r2 } }, a2 = o2.spanName ?? t2;
+          if (!eP.has(t2) && "1" !== process.env.NEXT_OTEL_VERBOSE || o2.hideSpan) return i2();
+          let s2 = this.getSpanContext((null == o2 ? void 0 : o2.parentSpan) ?? this.getActiveScopeSpan());
           s2 || (s2 = (null == ek ? void 0 : ek.active()) ?? eD);
           let l2 = s2.getValue(eB), u2 = "number" != typeof l2 || !e$.has(l2), c2 = eV++;
-          return a2.attributes = { "next.span_name": o2, "next.span_type": t2, ...a2.attributes }, ek.with(s2.setValue(eB, c2), () => this.getTracerInstance().startActiveSpan(o2, a2, (e11) => {
+          return o2.attributes = { "next.span_name": a2, "next.span_type": t2, ...o2.attributes }, ek.with(s2.setValue(eB, c2), () => this.getTracerInstance().startActiveSpan(a2, o2, (e11) => {
             let r3;
             eI && t2 && eT.has(t2) && (r3 = "performance" in globalThis && "measure" in performance ? globalThis.performance.now() : void 0);
-            let n3 = false, o3 = () => {
+            let n3 = false, a3 = () => {
               !n3 && (n3 = true, e$.delete(c2), r3 && performance.measure(`${eI}:next-${(t2.split(".").pop() || "").replace(/[A-Z]/g, (e12) => "-" + e12.toLowerCase())}`, { start: r3, end: performance.now() }));
             };
-            if (u2 && e$.set(c2, new Map(Object.entries(a2.attributes ?? {}))), i2.length > 1) try {
+            if (u2 && e$.set(c2, new Map(Object.entries(o2.attributes ?? {}))), i2.length > 1) try {
               return i2(e11, (t3) => eU(e11, t3));
             } catch (t3) {
               throw eU(e11, t3), t3;
             } finally {
-              o3();
+              a3();
             }
             try {
               let t3 = i2(e11);
               if (eN(t3)) return t3.then((t4) => (e11.end(), t4)).catch((t4) => {
                 throw eU(e11, t4), t4;
-              }).finally(o3);
-              return e11.end(), o3(), t3;
+              }).finally(a3);
+              return e11.end(), a3(), t3;
             } catch (t3) {
-              throw eU(e11, t3), o3(), t3;
+              throw eU(e11, t3), a3(), t3;
             }
           }));
         }
@@ -3056,11 +3056,11 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
           return eP.has(r2) || "1" === process.env.NEXT_OTEL_VERBOSE ? function() {
             let e11 = n2;
             "function" == typeof e11 && "function" == typeof i2 && (e11 = e11.apply(this, arguments));
-            let a2 = arguments.length - 1, o2 = arguments[a2];
-            if ("function" != typeof o2) return t2.trace(r2, e11, () => i2.apply(this, arguments));
+            let o2 = arguments.length - 1, a2 = arguments[o2];
+            if ("function" != typeof a2) return t2.trace(r2, e11, () => i2.apply(this, arguments));
             {
-              let n3 = t2.getContext().bind(ek.active(), o2);
-              return t2.trace(r2, e11, (e12, t3) => (arguments[a2] = function(e13) {
+              let n3 = t2.getContext().bind(ek.active(), a2);
+              return t2.trace(r2, e11, (e12, t3) => (arguments[o2] = function(e13) {
                 return null == t3 || t3(e13), n3.apply(this, arguments);
               }, i2.apply(this, arguments)));
             }
@@ -3090,11 +3090,11 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
       class ez {
         constructor(e10, t2, r2, n2) {
           var i2;
-          const a2 = e10 && function(e11, t3) {
-            let r3 = ea.from(e11.headers);
+          const o2 = e10 && function(e11, t3) {
+            let r3 = eo.from(e11.headers);
             return { isOnDemandRevalidate: r3.get("x-prerender-revalidate") === t3.previewModeId, revalidateOnlyGenerated: r3.has("x-prerender-revalidate-if-generated") };
-          }(t2, e10).isOnDemandRevalidate, o2 = null == (i2 = r2.get(eW)) ? void 0 : i2.value;
-          this._isEnabled = !!(!a2 && o2 && e10 && o2 === e10.previewModeId), this._previewModeId = null == e10 ? void 0 : e10.previewModeId, this._mutableCookies = n2;
+          }(t2, e10).isOnDemandRevalidate, a2 = null == (i2 = r2.get(eW)) ? void 0 : i2.value;
+          this._isEnabled = !!(!o2 && a2 && e10 && a2 === e10.previewModeId), this._previewModeId = null == e10 ? void 0 : e10.previewModeId, this._mutableCookies = n2;
         }
         get isEnabled() {
           return this._isEnabled;
@@ -3134,14 +3134,14 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
           return await t2();
         } finally {
           var n2, i2;
-          let t3, a2, o2 = (n2 = r2, i2 = e2(e10), t3 = new Set(n2.pendingRevalidatedTags.map((e11) => {
+          let t3, o2, a2 = (n2 = r2, i2 = e2(e10), t3 = new Set(n2.pendingRevalidatedTags.map((e11) => {
             let t4 = "object" == typeof e11.profile ? JSON.stringify(e11.profile) : e11.profile || "";
             return `${e11.tag}:${t4}`;
-          })), a2 = new Set(n2.pendingRevalidateWrites), { pendingRevalidatedTags: i2.pendingRevalidatedTags.filter((e11) => {
+          })), o2 = new Set(n2.pendingRevalidateWrites), { pendingRevalidatedTags: i2.pendingRevalidatedTags.filter((e11) => {
             let r3 = "object" == typeof e11.profile ? JSON.stringify(e11.profile) : e11.profile || "";
             return !t3.has(`${e11.tag}:${r3}`);
-          }), pendingRevalidates: Object.fromEntries(Object.entries(i2.pendingRevalidates).filter(([e11]) => !(e11 in n2.pendingRevalidates))), pendingRevalidateWrites: i2.pendingRevalidateWrites.filter((e11) => !a2.has(e11)) });
-          await e4(e10, o2);
+          }), pendingRevalidates: Object.fromEntries(Object.entries(i2.pendingRevalidates).filter(([e11]) => !(e11 in n2.pendingRevalidates))), pendingRevalidateWrites: i2.pendingRevalidateWrites.filter((e11) => !o2.has(e11)) });
+          await e4(e10, a2);
         }
       }
       function e2(e10) {
@@ -3151,29 +3151,29 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
         if (0 === e10.length) return;
         let n2 = function() {
           if (eZ[eY]) return eZ[eY].values();
-        }(), i2 = [], a2 = /* @__PURE__ */ new Map();
+        }(), i2 = [], o2 = /* @__PURE__ */ new Map();
         for (let t3 of e10) {
           let e11, r3 = t3.profile;
-          for (let [t4] of a2) if ("string" == typeof t4 && "string" == typeof r3 && t4 === r3 || "object" == typeof t4 && "object" == typeof r3 && JSON.stringify(t4) === JSON.stringify(r3) || t4 === r3) {
+          for (let [t4] of o2) if ("string" == typeof t4 && "string" == typeof r3 && t4 === r3 || "object" == typeof t4 && "object" == typeof r3 && JSON.stringify(t4) === JSON.stringify(r3) || t4 === r3) {
             e11 = t4;
             break;
           }
           let n3 = e11 || r3;
-          a2.has(n3) || a2.set(n3, []), a2.get(n3).push(t3.tag);
+          o2.has(n3) || o2.set(n3, []), o2.get(n3).push(t3.tag);
         }
-        for (let [e11, s2] of a2) {
-          let a3;
+        for (let [e11, s2] of o2) {
+          let o3;
           if (e11) {
             let t3;
             if ("object" == typeof e11) t3 = e11;
             else if ("string" == typeof e11) {
-              var o2;
-              if (!(t3 = null == r2 || null == (o2 = r2.cacheLifeProfiles) ? void 0 : o2[e11])) throw Object.defineProperty(Error(`Invalid profile provided "${e11}" must be configured under cacheLife in next.config or be "max"`), "__NEXT_ERROR_CODE", { value: "E873", enumerable: false, configurable: true });
+              var a2;
+              if (!(t3 = null == r2 || null == (a2 = r2.cacheLifeProfiles) ? void 0 : a2[e11])) throw Object.defineProperty(Error(`Invalid profile provided "${e11}" must be configured under cacheLife in next.config or be "max"`), "__NEXT_ERROR_CODE", { value: "E873", enumerable: false, configurable: true });
             }
-            t3 && (a3 = { expire: t3.expire });
+            t3 && (o3 = { expire: t3.expire });
           }
-          for (let t3 of n2 || []) e11 ? i2.push(null == t3.updateTags ? void 0 : t3.updateTags.call(t3, s2, a3)) : i2.push(null == t3.updateTags ? void 0 : t3.updateTags.call(t3, s2));
-          t2 && i2.push(t2.revalidateTag(s2, a3));
+          for (let t3 of n2 || []) e11 ? i2.push(null == t3.updateTags ? void 0 : t3.updateTags.call(t3, s2, o3)) : i2.push(null == t3.updateTags ? void 0 : t3.updateTags.call(t3, s2));
+          t2 && i2.push(t2.revalidateTag(s2, o3));
         }
         await Promise.all(i2);
       }
@@ -3198,14 +3198,14 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
           r2 && this.workUnitStores.add(r2);
           let n2 = e9.getStore(), i2 = n2 ? n2.rootTaskSpawnPhase : null == r2 ? void 0 : r2.phase;
           this.runCallbacksOnClosePromise || (this.runCallbacksOnClosePromise = this.runCallbacksOnClose(), this.waitUntil(this.runCallbacksOnClosePromise));
-          let a2 = (t2 = async () => {
+          let o2 = (t2 = async () => {
             try {
               await e9.run({ rootTaskSpawnPhase: i2 }, () => e10());
             } catch (e11) {
               this.reportTaskError("function", e11);
             }
           }, el ? el.bind(t2) : es.bind(t2));
-          this.callbackQueue.add(a2);
+          this.callbackQueue.add(o2);
         }
         async runCallbacksOnClose() {
           return await new Promise((e10) => this.onClose(e10)), this.runCallbacks();
@@ -3291,14 +3291,14 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
           throw Object.defineProperty(new c({ page: this.sourcePage }), "__NEXT_ERROR_CODE", { value: "E394", enumerable: false, configurable: true });
         }
       }
-      let ti = { keys: (e10) => Array.from(e10.keys()), get: (e10, t2) => e10.get(t2) ?? void 0 }, ta = (e10, t2) => eG().withPropagatedContext(e10.headers, t2, ti), to = false;
+      let ti = { keys: (e10) => Array.from(e10.keys()), get: (e10, t2) => e10.get(t2) ?? void 0 }, to = (e10, t2) => eG().withPropagatedContext(e10.headers, t2, ti), ta = false;
       async function ts(t2) {
-        var r2, n2, i2, a2;
-        let o2, s2, u2, c2, d2;
+        var r2, n2, i2, o2;
+        let a2, s2, u2, c2, d2;
         !function() {
-          if (!to && (to = true, "true" === process.env.NEXT_PRIVATE_TEST_PROXY)) {
+          if (!ta && (ta = true, "true" === process.env.NEXT_PRIVATE_TEST_PROXY)) {
             let { interceptTestApis: t3, wrapRequestHandler: r3 } = e.r(94165);
-            t3(), ta = r3(ta);
+            t3(), to = r3(to);
           }
         }(), await l();
         let p2 = void 0 !== globalThis.__BUILD_MANIFEST;
@@ -3330,28 +3330,28 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
         let _2 = h2.searchParams.get(en), y2 = new tn({ page: t2.page, input: ((c2 = (u2 = "string" == typeof h2) ? new URL(h2) : h2).searchParams.delete(en), u2 ? c2.toString() : c2).toString(), init: { body: t2.request.body, headers: g2, method: t2.request.method, nextConfig: t2.request.nextConfig, signal: t2.request.signal } });
         v2 && Object.defineProperty(y2, "__isData", { enumerable: false, value: true }), !globalThis.__incrementalCacheShared && t2.IncrementalCache && (globalThis.__incrementalCache = new t2.IncrementalCache({ CurCacheHandler: t2.incrementalCacheHandler, minimalMode: true, fetchCacheKeyPrefix: "", dev: false, requestHeaders: t2.request.headers, getPrerenderManifest: () => ({ version: -1, routes: {}, dynamicRoutes: {}, notFoundRoutes: [], preview: te() }) }));
         let S2 = t2.request.waitUntil ?? (null == (r2 = null == (d2 = globalThis[tt]) ? void 0 : d2.get()) ? void 0 : r2.waitUntil), O2 = new x({ request: y2, page: t2.page, context: S2 ? { waitUntil: S2 } : void 0 });
-        if ((o2 = await ta(y2, () => {
+        if ((a2 = await to(y2, () => {
           if ("/middleware" === t2.page || "/src/middleware" === t2.page || "/proxy" === t2.page || "/src/proxy" === t2.page) {
             let e10 = O2.waitUntil.bind(O2), r3 = new e8();
             return eG().trace(eC.execute, { spanName: `middleware ${y2.method}`, attributes: { "http.target": y2.nextUrl.pathname, "http.method": y2.method } }, async () => {
               try {
-                var n3, i3, a3, o3, l2, u3;
+                var n3, i3, o3, a3, l2, u3;
                 let c3 = te(), d3 = await tr("/", y2.nextUrl, null), p3 = (l2 = y2.nextUrl, u3 = (e11) => {
                   s2 = e11;
-                }, function(e11, t3, r4, n4, i4, a4, o4, s3, l3, u4, c4, d4) {
+                }, function(e11, t3, r4, n4, i4, o4, a4, s3, l3, u4, c4, d4) {
                   function p4(e12) {
                     r4 && r4.setHeader("Set-Cookie", e12);
                   }
                   let h4 = {};
-                  return { type: "request", phase: e11, implicitTags: a4, url: { pathname: n4.pathname, search: n4.search ?? "" }, rootParams: i4, get headers() {
+                  return { type: "request", phase: e11, implicitTags: o4, url: { pathname: n4.pathname, search: n4.search ?? "" }, rootParams: i4, get headers() {
                     return h4.headers || (h4.headers = function(e12) {
-                      let t4 = ea.from(e12);
+                      let t4 = eo.from(e12);
                       for (let e13 of er) t4.delete(e13);
-                      return ea.seal(t4);
+                      return eo.seal(t4);
                     }(t3.headers)), h4.headers;
                   }, get cookies() {
                     if (!h4.cookies) {
-                      let e12 = new z.RequestCookies(ea.from(t3.headers));
+                      let e12 = new z.RequestCookies(eo.from(t3.headers));
                       eX(t3, e12), h4.cookies = ep.seal(e12);
                     }
                     return h4.cookies;
@@ -3360,7 +3360,7 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
                   }, get mutableCookies() {
                     if (!h4.mutableCookies) {
                       var f3, g3;
-                      let e12, n5 = (f3 = t3.headers, g3 = o4 || (r4 ? p4 : void 0), e12 = new z.RequestCookies(ea.from(f3)), ef.wrap(e12, g3));
+                      let e12, n5 = (f3 = t3.headers, g3 = a4 || (r4 ? p4 : void 0), e12 = new z.RequestCookies(eo.from(f3)), ef.wrap(e12, g3));
                       eX(t3, n5), h4.mutableCookies = n5;
                     }
                     return h4.mutableCookies;
@@ -3387,9 +3387,9 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
                   }, get draftMode() {
                     return h4.draftMode || (h4.draftMode = new ez(l3, t3, this.cookies, this.mutableCookies)), h4.draftMode;
                   }, renderResumeDataCache: null, isHmrRefresh: u4, serverComponentsHmrCache: c4 || globalThis.__serverComponentsHmrCache, devFallbackParams: null };
-                }("action", y2, void 0, l2, {}, d3, u3, null, c3, false, void 0, null)), h3 = function({ page: e11, renderOpts: t3, isPrefetchRequest: r4, buildId: n4, previouslyRevalidatedTags: i4, nonce: a4 }) {
-                  var o4;
-                  let s3 = !t3.shouldWaitOnAllReady && !t3.supportsDynamicResponse && !t3.isDraftMode && !t3.isPossibleServerAction, l3 = t3.dev ?? false, u4 = l3 || s3 && (!!process.env.NEXT_DEBUG_BUILD || "1" === process.env.NEXT_SSG_FETCH_METRICS), c4 = { isStaticGeneration: s3, page: e11, route: (o4 = e11.split("/").reduce((e12, t4, r5, n5) => t4 ? "(" === t4[0] && t4.endsWith(")") || "@" === t4[0] || ("page" === t4 || "route" === t4) && r5 === n5.length - 1 ? e12 : `${e12}/${t4}` : e12, "")).startsWith("/") ? o4 : `/${o4}`, incrementalCache: t3.incrementalCache || globalThis.__incrementalCache, cacheLifeProfiles: t3.cacheLifeProfiles, isBuildTimePrerendering: t3.nextExport, hasReadableErrorStacks: t3.hasReadableErrorStacks, fetchCache: t3.fetchCache, isOnDemandRevalidate: t3.isOnDemandRevalidate, isDraftMode: t3.isDraftMode, isPrefetchRequest: r4, buildId: n4, reactLoadableManifest: (null == t3 ? void 0 : t3.reactLoadableManifest) || {}, assetPrefix: (null == t3 ? void 0 : t3.assetPrefix) || "", nonce: a4, afterContext: function(e12) {
+                }("action", y2, void 0, l2, {}, d3, u3, null, c3, false, void 0, null)), h3 = function({ page: e11, renderOpts: t3, isPrefetchRequest: r4, buildId: n4, previouslyRevalidatedTags: i4, nonce: o4 }) {
+                  var a4;
+                  let s3 = !t3.shouldWaitOnAllReady && !t3.supportsDynamicResponse && !t3.isDraftMode && !t3.isPossibleServerAction, l3 = t3.dev ?? false, u4 = l3 || s3 && (!!process.env.NEXT_DEBUG_BUILD || "1" === process.env.NEXT_SSG_FETCH_METRICS), c4 = { isStaticGeneration: s3, page: e11, route: (a4 = e11.split("/").reduce((e12, t4, r5, n5) => t4 ? "(" === t4[0] && t4.endsWith(")") || "@" === t4[0] || ("page" === t4 || "route" === t4) && r5 === n5.length - 1 ? e12 : `${e12}/${t4}` : e12, "")).startsWith("/") ? a4 : `/${a4}`, incrementalCache: t3.incrementalCache || globalThis.__incrementalCache, cacheLifeProfiles: t3.cacheLifeProfiles, isBuildTimePrerendering: t3.nextExport, hasReadableErrorStacks: t3.hasReadableErrorStacks, fetchCache: t3.fetchCache, isOnDemandRevalidate: t3.isOnDemandRevalidate, isDraftMode: t3.isDraftMode, isPrefetchRequest: r4, buildId: n4, reactLoadableManifest: (null == t3 ? void 0 : t3.reactLoadableManifest) || {}, assetPrefix: (null == t3 ? void 0 : t3.assetPrefix) || "", nonce: o4, afterContext: function(e12) {
                     let { waitUntil: t4, onClose: r5, onAfterTaskError: n5 } = e12;
                     return new e6({ waitUntil: t4, onClose: r5, onTaskError: n5 });
                   }(t3), cacheComponentsEnabled: t3.cacheComponents, dev: l3, previouslyRevalidatedTags: i4, refreshTagsByCacheKind: function() {
@@ -3400,7 +3400,7 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
                     return e12(...t4);
                   }, shouldTrackFetchMetrics: u4, reactServerErrorsByDigest: /* @__PURE__ */ new Map() };
                   return t3.store = c4, c4;
-                }({ page: "/", renderOpts: { cacheLifeProfiles: null == (i3 = t2.request.nextConfig) || null == (n3 = i3.experimental) ? void 0 : n3.cacheLife, cacheComponents: false, experimental: { isRoutePPREnabled: false, authInterrupts: !!(null == (o3 = t2.request.nextConfig) || null == (a3 = o3.experimental) ? void 0 : a3.authInterrupts) }, supportsDynamicResponse: true, waitUntil: e10, onClose: r3.onClose.bind(r3), onAfterTaskError: void 0 }, isPrefetchRequest: "1" === y2.headers.get(et), buildId: f2 ?? "", previouslyRevalidatedTags: [] });
+                }({ page: "/", renderOpts: { cacheLifeProfiles: null == (i3 = t2.request.nextConfig) || null == (n3 = i3.experimental) ? void 0 : n3.cacheLife, cacheComponents: false, experimental: { isRoutePPREnabled: false, authInterrupts: !!(null == (a3 = t2.request.nextConfig) || null == (o3 = a3.experimental) ? void 0 : o3.authInterrupts) }, supportsDynamicResponse: true, waitUntil: e10, onClose: r3.onClose.bind(r3), onAfterTaskError: void 0 }, isPrefetchRequest: "1" === y2.headers.get(et), buildId: f2 ?? "", previouslyRevalidatedTags: [] });
                 return await ec.run(h3, () => eF.run(p3, t2.handler, y2, O2));
               } finally {
                 setTimeout(() => {
@@ -3410,27 +3410,27 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
             });
           }
           return t2.handler(y2, O2);
-        })) && !(o2 instanceof Response)) throw Object.defineProperty(TypeError("Expected an instance of Response to be returned"), "__NEXT_ERROR_CODE", { value: "E567", enumerable: false, configurable: true });
-        o2 && s2 && o2.headers.set("set-cookie", s2);
-        let E2 = null == o2 ? void 0 : o2.headers.get("x-middleware-rewrite");
-        if (o2 && E2 && (b2 || !p2)) {
+        })) && !(a2 instanceof Response)) throw Object.defineProperty(TypeError("Expected an instance of Response to be returned"), "__NEXT_ERROR_CODE", { value: "E567", enumerable: false, configurable: true });
+        a2 && s2 && a2.headers.set("set-cookie", s2);
+        let E2 = null == a2 ? void 0 : a2.headers.get("x-middleware-rewrite");
+        if (a2 && E2 && (b2 || !p2)) {
           let e10 = new M(E2, { forceLocale: true, headers: t2.request.headers, nextConfig: t2.request.nextConfig });
-          p2 || e10.host !== y2.nextUrl.host || (e10.buildId = f2 || e10.buildId, o2.headers.set("x-middleware-rewrite", String(e10)));
+          p2 || e10.host !== y2.nextUrl.host || (e10.buildId = f2 || e10.buildId, a2.headers.set("x-middleware-rewrite", String(e10)));
           let { url: r3, isRelative: s3 } = ee(e10.toString(), h2.toString());
-          !p2 && v2 && o2.headers.set("x-nextjs-rewrite", r3);
-          let l2 = !s3 && (null == (a2 = t2.request.nextConfig) || null == (i2 = a2.experimental) || null == (n2 = i2.clientParamParsingOrigins) ? void 0 : n2.some((t3) => new RegExp(t3).test(e10.origin)));
-          b2 && (s3 || l2) && (h2.pathname !== e10.pathname && o2.headers.set("x-nextjs-rewritten-path", e10.pathname), h2.search !== e10.search && o2.headers.set("x-nextjs-rewritten-query", e10.search.slice(1)));
+          !p2 && v2 && a2.headers.set("x-nextjs-rewrite", r3);
+          let l2 = !s3 && (null == (o2 = t2.request.nextConfig) || null == (i2 = o2.experimental) || null == (n2 = i2.clientParamParsingOrigins) ? void 0 : n2.some((t3) => new RegExp(t3).test(e10.origin)));
+          b2 && (s3 || l2) && (h2.pathname !== e10.pathname && a2.headers.set("x-nextjs-rewritten-path", e10.pathname), h2.search !== e10.search && a2.headers.set("x-nextjs-rewritten-query", e10.search.slice(1)));
         }
-        if (o2 && E2 && b2 && _2) {
+        if (a2 && E2 && b2 && _2) {
           let e10 = new URL(E2);
-          e10.searchParams.has(en) || (e10.searchParams.set(en, _2), o2.headers.set("x-middleware-rewrite", e10.toString()));
+          e10.searchParams.has(en) || (e10.searchParams.set(en, _2), a2.headers.set("x-middleware-rewrite", e10.toString()));
         }
-        let R2 = null == o2 ? void 0 : o2.headers.get("Location");
-        if (o2 && R2 && !p2) {
+        let R2 = null == a2 ? void 0 : a2.headers.get("Location");
+        if (a2 && R2 && !p2) {
           let e10 = new M(R2, { forceLocale: false, headers: t2.request.headers, nextConfig: t2.request.nextConfig });
-          o2 = new Response(o2.body, o2), e10.host === h2.host && (e10.buildId = f2 || e10.buildId, o2.headers.set("Location", ee(e10, h2).url)), v2 && (o2.headers.delete("Location"), o2.headers.set("x-nextjs-redirect", ee(e10.toString(), h2.toString()).url));
+          a2 = new Response(a2.body, a2), e10.host === h2.host && (e10.buildId = f2 || e10.buildId, a2.headers.set("Location", ee(e10, h2).url)), v2 && (a2.headers.delete("Location"), a2.headers.set("x-nextjs-redirect", ee(e10.toString(), h2.toString()).url));
         }
-        let C2 = o2 || Z.next(), P2 = C2.headers.get("x-middleware-override-headers"), T2 = [];
+        let C2 = a2 || Z.next(), P2 = C2.headers.get("x-middleware-override-headers"), T2 = [];
         if (P2) {
           for (let [e10, t3] of m2) C2.headers.set(`x-middleware-request-${e10}`, t3), T2.push(e10);
           T2.length > 0 && C2.headers.set("x-middleware-override-headers", P2 + "," + T2.join(","));
@@ -3441,30 +3441,36 @@ Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime`;
       e.i(64445), "u" < typeof URLPattern || URLPattern;
       var tl = e.i(40049);
       if (/* @__PURE__ */ new WeakMap(), tl.default.unstable_postpone, false === ("Route %%% needs to bail out of prerendering at this point because it used ^^^. React throws this special object to indicate where. It should not be caught by your own try/catch. Learn more: https://nextjs.org/docs/messages/ppr-caught-error".includes("needs to bail out of prerendering at this point because it used") && "Route %%% needs to bail out of prerendering at this point because it used ^^^. React throws this special object to indicate where. It should not be caught by your own try/catch. Learn more: https://nextjs.org/docs/messages/ppr-caught-error".includes("Learn more: https://nextjs.org/docs/messages/ppr-caught-error"))) throw Object.defineProperty(Error("Invariant: isDynamicPostpone misidentified a postpone reason. This is a bug in Next.js"), "__NEXT_ERROR_CODE", { value: "E296", enumerable: false, configurable: true });
-      function tu(e10) {
-        let { pathname: t2 } = e10.nextUrl;
+      RegExp(`\\n\\s+at Suspense \\(<anonymous>\\)(?:(?!\\n\\s+at (?:body|div|main|section|article|aside|header|footer|nav|form|p|span|h1|h2|h3|h4|h5|h6) \\(<anonymous>\\))[\\s\\S])*?\\n\\s+at __next_root_layout_boundary__ \\([^\\n]*\\)`), RegExp(`\\n\\s+at __next_metadata_boundary__[\\n\\s]`), RegExp(`\\n\\s+at __next_viewport_boundary__[\\n\\s]`), RegExp(`\\n\\s+at __next_outlet_boundary__[\\n\\s]`), e.s([], 85835), e.i(85835);
+      let tu = "clicktaketech.com";
+      function tc(e10) {
+        let { pathname: t2, hostname: r2, protocol: n2 } = e10.nextUrl;
+        if (r2 === `www.${tu}`) {
+          let t3 = new URL(e10.url);
+          return t3.hostname = tu, Z.redirect(t3, 308);
+        }
         if ("/admin/login" === t2 || "/admin/create-admin" === t2 || "/admin/forgot-password" === t2) return Z.next();
         if (!(e10.cookies.get("next-auth.session-token")?.value || e10.cookies.get("__Secure-next-auth.session-token")?.value)) {
-          let r2 = new URL("/admin/login", e10.url);
-          return r2.searchParams.set("callbackUrl", t2), Z.redirect(r2);
+          let r3 = new URL("/admin/login", e10.url);
+          return r3.searchParams.set("callbackUrl", t2), Z.redirect(r3);
         }
         return Z.next();
       }
-      RegExp(`\\n\\s+at Suspense \\(<anonymous>\\)(?:(?!\\n\\s+at (?:body|div|main|section|article|aside|header|footer|nav|form|p|span|h1|h2|h3|h4|h5|h6) \\(<anonymous>\\))[\\s\\S])*?\\n\\s+at __next_root_layout_boundary__ \\([^\\n]*\\)`), RegExp(`\\n\\s+at __next_metadata_boundary__[\\n\\s]`), RegExp(`\\n\\s+at __next_viewport_boundary__[\\n\\s]`), RegExp(`\\n\\s+at __next_outlet_boundary__[\\n\\s]`), e.s([], 85835), e.i(85835), e.s(["config", 0, { matcher: ["/admin/:path*", "/api/admin/:path*"] }, "middleware", () => tu], 96592);
-      var tc = e.i(96592);
+      e.s(["config", 0, { matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|woff|woff2|ttf|eot|otf|map|txt|xml).*$).*)"] }, "middleware", () => tc], 96592);
+      var td = e.i(96592);
       Object.values({ NOT_FOUND: 404, FORBIDDEN: 403, UNAUTHORIZED: 401 });
-      let td = { ...tc }, tp = "/middleware", th = td.middleware || td.default;
-      if ("function" != typeof th) throw new class extends Error {
+      let tp = { ...td }, th = "/middleware", tf = tp.middleware || tp.default;
+      if ("function" != typeof tf) throw new class extends Error {
         constructor(e10) {
           super(e10), this.stack = "";
         }
-      }(`The Middleware file "${tp}" must export a function named \`middleware\` or a default function.`);
-      e.s(["default", 0, (e10) => ts({ ...e10, page: tp, handler: async (...e11) => {
+      }(`The Middleware file "${th}" must export a function named \`middleware\` or a default function.`);
+      e.s(["default", 0, (e10) => ts({ ...e10, page: th, handler: async (...e11) => {
         try {
-          return await th(...e11);
+          return await tf(...e11);
         } catch (i2) {
           let t2 = e11[0], r2 = new URL(t2.url), n2 = r2.pathname + r2.search;
-          throw await o(i2, { path: n2, method: t2.method, headers: Object.fromEntries(t2.headers.entries()) }, { routerKind: "Pages Router", routePath: "/proxy", routeType: "proxy", revalidateReason: void 0 }), i2;
+          throw await a(i2, { path: n2, method: t2.method, headers: Object.fromEntries(t2.headers.entries()) }, { routerKind: "Pages Router", routePath: "/proxy", routeType: "proxy", revalidateReason: void 0 }), i2;
         }
       } })], 58217);
     }]);
@@ -3867,7 +3873,7 @@ var init_edgeFunctionHandler = __esm({
   "node_modules/@opennextjs/aws/dist/core/edgeFunctionHandler.js"() {
     globalThis._ENTRIES = {};
     globalThis.self = globalThis;
-    globalThis._ROUTES = [{ "name": "middleware", "page": "/", "regex": ["^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/admin(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(\\\\.json)?[\\/#\\?]?$", "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/api\\/admin(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(\\\\.json)?[\\/#\\?]?$"] }];
+    globalThis._ROUTES = [{ "name": "middleware", "page": "/", "regex": ["^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!_next\\/static|_next\\/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|woff|woff2|ttf|eot|otf|map|txt|xml).*$).*))(\\\\.json)?[\\/#\\?]?$"] }];
     require_node_modules_next_dist_esm_build_templates_edge_wrapper_78fa9d6a();
     require_root_of_the_server_25fe7590();
     require_turbopack_node_modules_next_dist_esm_build_templates_edge_wrapper_99e3e1b8();
@@ -4043,11 +4049,11 @@ var NEXT_DIR = path.join(__dirname, ".next");
 var OPEN_NEXT_DIR = path.join(__dirname, ".open-next");
 debug({ NEXT_DIR, OPEN_NEXT_DIR });
 var NextConfig = { "distDir": ".next", "cacheComponents": false, "htmlLimitedBots": "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight", "assetPrefix": "", "output": "standalone", "trailingSlash": false, "images": { "deviceSizes": [640, 750, 828, 1080, 1200, 1920, 2048, 3840], "imageSizes": [32, 48, 64, 96, 128, 256, 384], "path": "/_next/image", "loader": "default", "loaderFile": "", "domains": [], "disableStaticImages": false, "minimumCacheTTL": 14400, "formats": ["image/webp"], "maximumRedirects": 3, "dangerouslyAllowLocalIP": false, "dangerouslyAllowSVG": false, "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;", "contentDispositionType": "attachment", "localPatterns": [{ "pathname": "**", "search": "" }], "remotePatterns": [], "qualities": [75], "unoptimized": false }, "reactMaxHeadersLength": 6e3, "cacheLife": { "default": { "stale": 300, "revalidate": 900, "expire": 4294967294 }, "seconds": { "stale": 30, "revalidate": 1, "expire": 60 }, "minutes": { "stale": 300, "revalidate": 60, "expire": 3600 }, "hours": { "stale": 300, "revalidate": 3600, "expire": 86400 }, "days": { "stale": 300, "revalidate": 86400, "expire": 604800 }, "weeks": { "stale": 300, "revalidate": 604800, "expire": 2592e3 }, "max": { "stale": 300, "revalidate": 2592e3, "expire": 31536e3 } }, "basePath": "", "expireTime": 31536e3, "generateEtags": true, "poweredByHeader": true, "cacheHandlers": {}, "cacheMaxMemorySize": 52428800, "compress": true, "i18n": null, "httpAgentOptions": { "keepAlive": true }, "pageExtensions": ["tsx", "ts", "jsx", "js"], "useFileSystemPublicRoutes": true, "experimental": { "ppr": false, "staleTimes": { "dynamic": 0, "static": 300 }, "dynamicOnHover": false, "inlineCss": false, "authInterrupts": false, "fetchCacheKeyPrefix": "", "isrFlushToDisk": true, "optimizeCss": false, "nextScriptWorkers": false, "disableOptimizedLoading": false, "largePageDataBytes": 128e3, "serverComponentsHmrCache": true, "caseSensitiveRoutes": false, "validateRSCRequestHeaders": false, "useSkewCookie": false, "preloadEntriesOnStart": true, "hideLogsAfterAbort": false, "removeUncaughtErrorAndRejectionListeners": false, "imgOptConcurrency": null, "imgOptMaxInputPixels": 268402689, "imgOptSequentialRead": null, "imgOptSkipMetadata": null, "imgOptTimeoutInSeconds": 7, "proxyClientMaxBodySize": 10485760, "trustHostHeader": false, "isExperimentalCompile": false }, "skipTrailingSlashRedirect": false, "serverExternalPackages": [] };
-var BuildId = "g96hJIH0q9wayd8N0xChs";
+var BuildId = "p-PUSK9EGieIIegz8qDdW";
 var RoutesManifest = { "basePath": "", "rewrites": { "beforeFiles": [], "afterFiles": [], "fallback": [] }, "redirects": [{ "source": "/:path+/", "destination": "/:path+", "internal": true, "priority": true, "statusCode": 308, "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$" }], "routes": { "static": [{ "page": "/", "regex": "^/(?:/)?$", "routeKeys": {}, "namedRegex": "^/(?:/)?$" }, { "page": "/_global-error", "regex": "^/_global\\-error(?:/)?$", "routeKeys": {}, "namedRegex": "^/_global\\-error(?:/)?$" }, { "page": "/_not-found", "regex": "^/_not\\-found(?:/)?$", "routeKeys": {}, "namedRegex": "^/_not\\-found(?:/)?$" }, { "page": "/about", "regex": "^/about(?:/)?$", "routeKeys": {}, "namedRegex": "^/about(?:/)?$" }, { "page": "/admin", "regex": "^/admin(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin(?:/)?$" }, { "page": "/admin/cms", "regex": "^/admin/cms(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/cms(?:/)?$" }, { "page": "/admin/create-admin", "regex": "^/admin/create\\-admin(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/create\\-admin(?:/)?$" }, { "page": "/admin/crm", "regex": "^/admin/crm(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/crm(?:/)?$" }, { "page": "/admin/email", "regex": "^/admin/email(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/email(?:/)?$" }, { "page": "/admin/forgot-password", "regex": "^/admin/forgot\\-password(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/forgot\\-password(?:/)?$" }, { "page": "/admin/login", "regex": "^/admin/login(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/login(?:/)?$" }, { "page": "/admin/providers", "regex": "^/admin/providers(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/providers(?:/)?$" }, { "page": "/admin/roles", "regex": "^/admin/roles(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/roles(?:/)?$" }, { "page": "/admin/security", "regex": "^/admin/security(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/security(?:/)?$" }, { "page": "/admin/seo", "regex": "^/admin/seo(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/seo(?:/)?$" }, { "page": "/admin/services", "regex": "^/admin/services(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/services(?:/)?$" }, { "page": "/admin/settings", "regex": "^/admin/settings(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/settings(?:/)?$" }, { "page": "/admin/team-careers", "regex": "^/admin/team\\-careers(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/team\\-careers(?:/)?$" }, { "page": "/admin/theme", "regex": "^/admin/theme(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/theme(?:/)?$" }, { "page": "/admin/typography", "regex": "^/admin/typography(?:/)?$", "routeKeys": {}, "namedRegex": "^/admin/typography(?:/)?$" }, { "page": "/api", "regex": "^/api(?:/)?$", "routeKeys": {}, "namedRegex": "^/api(?:/)?$" }, { "page": "/api/admin/backgrounds", "regex": "^/api/admin/backgrounds(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/backgrounds(?:/)?$" }, { "page": "/api/admin/email/logs", "regex": "^/api/admin/email/logs(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/email/logs(?:/)?$" }, { "page": "/api/admin/email/providers", "regex": "^/api/admin/email/providers(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/email/providers(?:/)?$" }, { "page": "/api/admin/email/send-test", "regex": "^/api/admin/email/send\\-test(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/email/send\\-test(?:/)?$" }, { "page": "/api/admin/emails", "regex": "^/api/admin/emails(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/emails(?:/)?$" }, { "page": "/api/admin/forgot-password", "regex": "^/api/admin/forgot\\-password(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/forgot\\-password(?:/)?$" }, { "page": "/api/admin/leads", "regex": "^/api/admin/leads(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/leads(?:/)?$" }, { "page": "/api/admin/nav-links", "regex": "^/api/admin/nav\\-links(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/nav\\-links(?:/)?$" }, { "page": "/api/admin/pages", "regex": "^/api/admin/pages(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/pages(?:/)?$" }, { "page": "/api/admin/providers", "regex": "^/api/admin/providers(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/providers(?:/)?$" }, { "page": "/api/admin/providers/failover", "regex": "^/api/admin/providers/failover(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/providers/failover(?:/)?$" }, { "page": "/api/admin/providers/health", "regex": "^/api/admin/providers/health(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/providers/health(?:/)?$" }, { "page": "/api/admin/roles", "regex": "^/api/admin/roles(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/roles(?:/)?$" }, { "page": "/api/admin/security", "regex": "^/api/admin/security(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/security(?:/)?$" }, { "page": "/api/admin/seo", "regex": "^/api/admin/seo(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/seo(?:/)?$" }, { "page": "/api/admin/services", "regex": "^/api/admin/services(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/services(?:/)?$" }, { "page": "/api/admin/settings", "regex": "^/api/admin/settings(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/settings(?:/)?$" }, { "page": "/api/admin/team", "regex": "^/api/admin/team(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/team(?:/)?$" }, { "page": "/api/admin/themes", "regex": "^/api/admin/themes(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/themes(?:/)?$" }, { "page": "/api/admin/typography", "regex": "^/api/admin/typography(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/typography(?:/)?$" }, { "page": "/api/admin/users", "regex": "^/api/admin/users(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/admin/users(?:/)?$" }, { "page": "/api/contact", "regex": "^/api/contact(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/contact(?:/)?$" }, { "page": "/api/cron/provider-health", "regex": "^/api/cron/provider\\-health(?:/)?$", "routeKeys": {}, "namedRegex": "^/api/cron/provider\\-health(?:/)?$" }, { "page": "/contact", "regex": "^/contact(?:/)?$", "routeKeys": {}, "namedRegex": "^/contact(?:/)?$" }, { "page": "/legal/cookies", "regex": "^/legal/cookies(?:/)?$", "routeKeys": {}, "namedRegex": "^/legal/cookies(?:/)?$" }, { "page": "/legal/privacy", "regex": "^/legal/privacy(?:/)?$", "routeKeys": {}, "namedRegex": "^/legal/privacy(?:/)?$" }, { "page": "/legal/terms", "regex": "^/legal/terms(?:/)?$", "routeKeys": {}, "namedRegex": "^/legal/terms(?:/)?$" }, { "page": "/portfolio", "regex": "^/portfolio(?:/)?$", "routeKeys": {}, "namedRegex": "^/portfolio(?:/)?$" }, { "page": "/resources", "regex": "^/resources(?:/)?$", "routeKeys": {}, "namedRegex": "^/resources(?:/)?$" }, { "page": "/robots.txt", "regex": "^/robots\\.txt(?:/)?$", "routeKeys": {}, "namedRegex": "^/robots\\.txt(?:/)?$" }, { "page": "/sitemap.xml", "regex": "^/sitemap\\.xml(?:/)?$", "routeKeys": {}, "namedRegex": "^/sitemap\\.xml(?:/)?$" }], "dynamic": [{ "page": "/api/admin/leads/[id]", "regex": "^/api/admin/leads/([^/]+?)(?:/)?$", "routeKeys": { "nxtPid": "nxtPid" }, "namedRegex": "^/api/admin/leads/(?<nxtPid>[^/]+?)(?:/)?$" }, { "page": "/api/admin/pages/[id]", "regex": "^/api/admin/pages/([^/]+?)(?:/)?$", "routeKeys": { "nxtPid": "nxtPid" }, "namedRegex": "^/api/admin/pages/(?<nxtPid>[^/]+?)(?:/)?$" }, { "page": "/api/admin/providers/[id]", "regex": "^/api/admin/providers/([^/]+?)(?:/)?$", "routeKeys": { "nxtPid": "nxtPid" }, "namedRegex": "^/api/admin/providers/(?<nxtPid>[^/]+?)(?:/)?$" }, { "page": "/api/admin/roles/[id]", "regex": "^/api/admin/roles/([^/]+?)(?:/)?$", "routeKeys": { "nxtPid": "nxtPid" }, "namedRegex": "^/api/admin/roles/(?<nxtPid>[^/]+?)(?:/)?$" }, { "page": "/api/admin/services/[id]", "regex": "^/api/admin/services/([^/]+?)(?:/)?$", "routeKeys": { "nxtPid": "nxtPid" }, "namedRegex": "^/api/admin/services/(?<nxtPid>[^/]+?)(?:/)?$" }, { "page": "/api/admin/themes/[id]", "regex": "^/api/admin/themes/([^/]+?)(?:/)?$", "routeKeys": { "nxtPid": "nxtPid" }, "namedRegex": "^/api/admin/themes/(?<nxtPid>[^/]+?)(?:/)?$" }, { "page": "/api/admin/users/[id]", "regex": "^/api/admin/users/([^/]+?)(?:/)?$", "routeKeys": { "nxtPid": "nxtPid" }, "namedRegex": "^/api/admin/users/(?<nxtPid>[^/]+?)(?:/)?$" }, { "page": "/api/auth/[...nextauth]", "regex": "^/api/auth/(.+?)(?:/)?$", "routeKeys": { "nxtPnextauth": "nxtPnextauth" }, "namedRegex": "^/api/auth/(?<nxtPnextauth>.+?)(?:/)?$" }, { "page": "/services/[[...slug]]", "regex": "^/services(?:/(.+?))?(?:/)?$", "routeKeys": { "nxtPslug": "nxtPslug" }, "namedRegex": "^/services(?:/(?<nxtPslug>.+?))?(?:/)?$" }], "data": { "static": [], "dynamic": [] } }, "locales": [] };
 var ConfigHeaders = [];
-var PrerenderManifest = { "version": 4, "routes": { "/_global-error": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/_global-error", "dataRoute": "/_global-error.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/_not-found": { "initialStatus": 404, "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/_not-found", "dataRoute": "/_not-found.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/about": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/about", "dataRoute": "/about.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/admin/create-admin": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/admin/create-admin", "dataRoute": "/admin/create-admin.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/admin/forgot-password": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/admin/forgot-password", "dataRoute": "/admin/forgot-password.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/admin/login": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/admin/login", "dataRoute": "/admin/login.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/contact": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/contact", "dataRoute": "/contact.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/legal/cookies": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/legal/cookies", "dataRoute": "/legal/cookies.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/legal/privacy": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/legal/privacy", "dataRoute": "/legal/privacy.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/legal/terms": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/legal/terms", "dataRoute": "/legal/terms.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/", "dataRoute": "/index.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/portfolio": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/portfolio", "dataRoute": "/portfolio.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/resources": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/resources", "dataRoute": "/resources.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/robots.txt": { "initialHeaders": { "cache-control": "public, max-age=0, must-revalidate", "content-type": "text/plain", "x-next-cache-tags": "_N_T_/layout,_N_T_/robots.txt/layout,_N_T_/robots.txt/route,_N_T_/robots.txt" }, "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/robots.txt", "dataRoute": null, "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/ai/chatbots": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/ai/chatbots.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/ai/cv-nlp": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/ai/cv-nlp.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/ai/llm": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/ai/llm.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/ai/prompt-engineering": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/ai/prompt-engineering.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/creative/graphic-design": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/creative/graphic-design.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/creative/video-production": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/creative/video-production.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/digital-marketing/content-strategy": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/digital-marketing/content-strategy.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/digital-marketing/cro": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/digital-marketing/cro.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/digital-marketing/paid-advertising": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/digital-marketing/paid-advertising.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/seo": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/seo.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/starter-kit": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/starter-kit.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/web/auth": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/web/auth.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/web/full-stack": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/web/full-stack.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/web/python-backend": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/web/python-backend.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/web/saas": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/web/saas.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/sitemap.xml": { "initialHeaders": { "cache-control": "public, max-age=0, must-revalidate", "content-type": "application/xml", "x-next-cache-tags": "_N_T_/layout,_N_T_/sitemap.xml/layout,_N_T_/sitemap.xml/route,_N_T_/sitemap.xml" }, "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/sitemap.xml", "dataRoute": null, "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] } }, "dynamicRoutes": { "/services/[[...slug]]": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "routeRegex": "^/services(?:/(.+?))?(?:/)?$", "dataRoute": "/services/[[...slug]].rsc", "fallback": null, "fallbackRouteParams": [], "dataRouteRegex": "^/services(?:/(.+?))?\\.rsc$", "prefetchDataRoute": null, "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] } }, "notFoundRoutes": [], "preview": { "previewModeId": "7d539ade9093c9580e5c34cfe5229975", "previewModeSigningKey": "f3e9235bea2c25aa775bb79835d1f40166d2b4a27a54ad2975599bba9959d990", "previewModeEncryptionKey": "6fd4e41bb604ade07a27d971daef23fae86b3bd4cdd712b85b4da35ee28d36df" } };
-var MiddlewareManifest = { "version": 3, "middleware": { "/": { "files": ["server/edge/chunks/node_modules_next_dist_esm_build_templates_edge-wrapper_78fa9d6a.js", "server/edge/chunks/[root-of-the-server]__25fe7590._.js", "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_99e3e1b8.js"], "name": "middleware", "page": "/", "matchers": [{ "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/admin(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(\\\\.json)?[\\/#\\?]?$", "originalSource": "/admin/:path*" }, { "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/api\\/admin(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(\\\\.json)?[\\/#\\?]?$", "originalSource": "/api/admin/:path*" }], "wasm": [], "assets": [], "env": { "__NEXT_BUILD_ID": "g96hJIH0q9wayd8N0xChs", "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "BliVRTAsSNurAZ2jSaR1ZF9mIs+qekyjNcDTpZQIRCM=", "__NEXT_PREVIEW_MODE_ID": "7d539ade9093c9580e5c34cfe5229975", "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "6fd4e41bb604ade07a27d971daef23fae86b3bd4cdd712b85b4da35ee28d36df", "__NEXT_PREVIEW_MODE_SIGNING_KEY": "f3e9235bea2c25aa775bb79835d1f40166d2b4a27a54ad2975599bba9959d990" } } }, "sortedMiddleware": ["/"], "functions": {} };
+var PrerenderManifest = { "version": 4, "routes": { "/_global-error": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/_global-error", "dataRoute": "/_global-error.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/_not-found": { "initialStatus": 404, "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/_not-found", "dataRoute": "/_not-found.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/about": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/about", "dataRoute": "/about.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/admin/create-admin": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/admin/create-admin", "dataRoute": "/admin/create-admin.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/admin/forgot-password": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/admin/forgot-password", "dataRoute": "/admin/forgot-password.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/admin/login": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/admin/login", "dataRoute": "/admin/login.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/contact": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/contact", "dataRoute": "/contact.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/legal/cookies": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/legal/cookies", "dataRoute": "/legal/cookies.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/legal/privacy": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/legal/privacy", "dataRoute": "/legal/privacy.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/legal/terms": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/legal/terms", "dataRoute": "/legal/terms.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/", "dataRoute": "/index.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/portfolio": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/portfolio", "dataRoute": "/portfolio.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/resources": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/resources", "dataRoute": "/resources.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/robots.txt": { "initialHeaders": { "cache-control": "public, max-age=0, must-revalidate", "content-type": "text/plain", "x-next-cache-tags": "_N_T_/layout,_N_T_/robots.txt/layout,_N_T_/robots.txt/route,_N_T_/robots.txt" }, "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/robots.txt", "dataRoute": null, "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/ai/chatbots": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/ai/chatbots.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/ai/cv-nlp": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/ai/cv-nlp.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/ai/llm": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/ai/llm.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/ai/prompt-engineering": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/ai/prompt-engineering.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/creative/graphic-design": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/creative/graphic-design.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/creative/video-production": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/creative/video-production.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/digital-marketing/content-strategy": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/digital-marketing/content-strategy.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/digital-marketing/cro": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/digital-marketing/cro.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/digital-marketing/paid-advertising": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/digital-marketing/paid-advertising.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/seo": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/seo.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/starter-kit": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/starter-kit.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/web/auth": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/web/auth.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/web/full-stack": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/web/full-stack.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/web/python-backend": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/web/python-backend.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/services/web/saas": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/services/[[...slug]]", "dataRoute": "/services/web/saas.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/sitemap.xml": { "initialHeaders": { "cache-control": "public, max-age=0, must-revalidate", "content-type": "application/xml", "x-next-cache-tags": "_N_T_/layout,_N_T_/sitemap.xml/layout,_N_T_/sitemap.xml/route,_N_T_/sitemap.xml" }, "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/sitemap.xml", "dataRoute": null, "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] } }, "dynamicRoutes": { "/services/[[...slug]]": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "routeRegex": "^/services(?:/(.+?))?(?:/)?$", "dataRoute": "/services/[[...slug]].rsc", "fallback": null, "fallbackRouteParams": [], "dataRouteRegex": "^/services(?:/(.+?))?\\.rsc$", "prefetchDataRoute": null, "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] } }, "notFoundRoutes": [], "preview": { "previewModeId": "6ffe513735b6ba611bea34a44386d2df", "previewModeSigningKey": "082e0bd046883d42c6f1044d21f0c80dbeb8277dec38270639c40de8cc30228b", "previewModeEncryptionKey": "db4e994a4e611ad1a9b7ccf00685014e985d7ff9bc431ea858ad570eaef6de33" } };
+var MiddlewareManifest = { "version": 3, "middleware": { "/": { "files": ["server/edge/chunks/node_modules_next_dist_esm_build_templates_edge-wrapper_78fa9d6a.js", "server/edge/chunks/[root-of-the-server]__25fe7590._.js", "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_99e3e1b8.js"], "name": "middleware", "page": "/", "matchers": [{ "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!_next\\/static|_next\\/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|woff|woff2|ttf|eot|otf|map|txt|xml).*$).*))(\\\\.json)?[\\/#\\?]?$", "originalSource": "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|woff|woff2|ttf|eot|otf|map|txt|xml).*$).*)" }], "wasm": [], "assets": [], "env": { "__NEXT_BUILD_ID": "p-PUSK9EGieIIegz8qDdW", "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "pDc26va8QyJR0y4/Eq4StGS1CFB1+s/FIaCnkCIUGWE=", "__NEXT_PREVIEW_MODE_ID": "6ffe513735b6ba611bea34a44386d2df", "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "db4e994a4e611ad1a9b7ccf00685014e985d7ff9bc431ea858ad570eaef6de33", "__NEXT_PREVIEW_MODE_SIGNING_KEY": "082e0bd046883d42c6f1044d21f0c80dbeb8277dec38270639c40de8cc30228b" } } }, "sortedMiddleware": ["/"], "functions": {} };
 var AppPathRoutesManifest = { "/_global-error/page": "/_global-error", "/_not-found/page": "/_not-found", "/about/page": "/about", "/admin/cms/page": "/admin/cms", "/admin/create-admin/page": "/admin/create-admin", "/admin/crm/page": "/admin/crm", "/admin/email/page": "/admin/email", "/admin/forgot-password/page": "/admin/forgot-password", "/admin/login/page": "/admin/login", "/admin/page": "/admin", "/admin/providers/page": "/admin/providers", "/admin/roles/page": "/admin/roles", "/admin/security/page": "/admin/security", "/admin/seo/page": "/admin/seo", "/admin/services/page": "/admin/services", "/admin/settings/page": "/admin/settings", "/admin/team-careers/page": "/admin/team-careers", "/admin/theme/page": "/admin/theme", "/admin/typography/page": "/admin/typography", "/api/admin/backgrounds/route": "/api/admin/backgrounds", "/api/admin/email/logs/route": "/api/admin/email/logs", "/api/admin/email/providers/route": "/api/admin/email/providers", "/api/admin/email/send-test/route": "/api/admin/email/send-test", "/api/admin/emails/route": "/api/admin/emails", "/api/admin/forgot-password/route": "/api/admin/forgot-password", "/api/admin/leads/[id]/route": "/api/admin/leads/[id]", "/api/admin/leads/route": "/api/admin/leads", "/api/admin/nav-links/route": "/api/admin/nav-links", "/api/admin/pages/[id]/route": "/api/admin/pages/[id]", "/api/admin/pages/route": "/api/admin/pages", "/api/admin/providers/[id]/route": "/api/admin/providers/[id]", "/api/admin/providers/failover/route": "/api/admin/providers/failover", "/api/admin/providers/health/route": "/api/admin/providers/health", "/api/admin/providers/route": "/api/admin/providers", "/api/admin/roles/[id]/route": "/api/admin/roles/[id]", "/api/admin/roles/route": "/api/admin/roles", "/api/admin/security/route": "/api/admin/security", "/api/admin/seo/route": "/api/admin/seo", "/api/admin/services/[id]/route": "/api/admin/services/[id]", "/api/admin/services/route": "/api/admin/services", "/api/admin/settings/route": "/api/admin/settings", "/api/admin/team/route": "/api/admin/team", "/api/admin/themes/[id]/route": "/api/admin/themes/[id]", "/api/admin/themes/route": "/api/admin/themes", "/api/admin/typography/route": "/api/admin/typography", "/api/admin/users/[id]/route": "/api/admin/users/[id]", "/api/admin/users/route": "/api/admin/users", "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]", "/api/contact/route": "/api/contact", "/api/cron/provider-health/route": "/api/cron/provider-health", "/api/route": "/api", "/contact/page": "/contact", "/legal/cookies/page": "/legal/cookies", "/legal/privacy/page": "/legal/privacy", "/legal/terms/page": "/legal/terms", "/page": "/", "/portfolio/page": "/portfolio", "/resources/page": "/resources", "/robots.txt/route": "/robots.txt", "/services/[[...slug]]/page": "/services/[[...slug]]", "/sitemap.xml/route": "/sitemap.xml" };
 var FunctionsConfigManifest = { "version": 1, "functions": { "/api/admin/providers/health": {}, "/api/cron/provider-health": {} } };
 var PagesManifest = { "/404": "pages/404.html", "/500": "pages/500.html" };

@@ -11,22 +11,18 @@
       "page": "/",
       "matchers": [
         {
-          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/admin(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(\\\\.json)?[\\/#\\?]?$",
-          "originalSource": "/admin/:path*"
-        },
-        {
-          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/api\\/admin(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(\\\\.json)?[\\/#\\?]?$",
-          "originalSource": "/api/admin/:path*"
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!_next\\/static|_next\\/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|woff|woff2|ttf|eot|otf|map|txt|xml).*$).*))(\\\\.json)?[\\/#\\?]?$",
+          "originalSource": "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|woff|woff2|ttf|eot|otf|map|txt|xml).*$).*)"
         }
       ],
       "wasm": [],
       "assets": [],
       "env": {
-        "__NEXT_BUILD_ID": "g96hJIH0q9wayd8N0xChs",
-        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "BliVRTAsSNurAZ2jSaR1ZF9mIs+qekyjNcDTpZQIRCM=",
-        "__NEXT_PREVIEW_MODE_ID": "7d539ade9093c9580e5c34cfe5229975",
-        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "6fd4e41bb604ade07a27d971daef23fae86b3bd4cdd712b85b4da35ee28d36df",
-        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "f3e9235bea2c25aa775bb79835d1f40166d2b4a27a54ad2975599bba9959d990"
+        "__NEXT_BUILD_ID": "p-PUSK9EGieIIegz8qDdW",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "pDc26va8QyJR0y4/Eq4StGS1CFB1+s/FIaCnkCIUGWE=",
+        "__NEXT_PREVIEW_MODE_ID": "6ffe513735b6ba611bea34a44386d2df",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "db4e994a4e611ad1a9b7ccf00685014e985d7ff9bc431ea858ad570eaef6de33",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "082e0bd046883d42c6f1044d21f0c80dbeb8277dec38270639c40de8cc30228b"
       }
     }
   },
