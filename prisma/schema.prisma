@@ -339,6 +339,8 @@ model JobOpening {
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
+  applications JobApplication[]
+
   @@index([isActive])
   @@map("job_openings")
 }
@@ -354,6 +356,8 @@ model JobApplication {
   status      String   @default("Submitted") // Submitted | Reviewed | Interview | Offer | Rejected
   notes       String   @default("")
   createdAt   DateTime @default(now()) @map("created_at")
+
+  job         JobOpening @relation(fields: [jobId], references: [id], onDelete: Cascade)
 
   @@index([jobId])
   @@index([status])
