@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { inquirySchema, bookingSchema } from "@/lib/contact-schema";
 import { verifyTurnstileToken } from "@/lib/turnstile";
-import { sendMail, inquiryThankYouEmail, bookingThankYouEmail } from "@/lib/mailer";
+import { sendMail, inquiryThankYouEmail, bookingThankYouEmail, leadNotificationEmail } from "@/lib/mailer";
 import { prisma } from "@/lib/db";
 
 // ─── POST /api/contact ───────────────────────────────────────────────────
 // Body: { kind: "inquiry" | "booking", ...payload }
-// Ported from original -contactFunction.ts. Saves lead to DB + sends emails.
+// Saves lead to DB + sends emails via multi-provider chain (Phase 2).
 
 export async function POST(req: NextRequest) {
   let body: any;
@@ -53,29 +53,37 @@ export async function POST(req: NextRequest) {
       // Continue — email still works
     }
 
-    // 3. Send thank-you email (best-effort)
+    // 3. Send thank-you email (best-effort) via multi-provider chain
     try {
       const ec = inquiryThankYouEmail(parsed.data.name);
-      await sendMail({ to: parsed.data.email, subject: ec.subject, html: ec.html });
+      await sendMail({
+        to: parsed.data.email,
+        subject: ec.subject,
+        html: ec.html,
+        tags: ["inquiry", "thank-you"],
+        metadata: { leadName: parsed.data.name, kind: "inquiry" },
+      });
     } catch (e) {
-      console.error("[contact/inquiry] email failed:", e);
+      console.error("[contact/inquiry] thank-you email failed:", e);
     }
 
-    // 4. Notify internal team
+    // 4. Notify internal team — use shared lead notification template
     try {
+      const ec = leadNotificationEmail({
+        kind: "inquiry",
+        name: parsed.data.name,
+        email: parsed.data.email,
+        company: parsed.data.company,
+        service: parsed.data.service,
+        budget: parsed.data.budget,
+        message: parsed.data.message,
+      });
       await sendMail({
         to: process.env.LEADS_EMAIL || "Info@clicktaketech.com",
-        subject: `New Inquiry: ${parsed.data.service} — ${parsed.data.name}`,
-        html: `
-          <h2>New project inquiry</h2>
-          <p><strong>Name:</strong> ${parsed.data.name}</p>
-          <p><strong>Email:</strong> ${parsed.data.email}</p>
-          <p><strong>Company:</strong> ${parsed.data.company || "—"}</p>
-          <p><strong>Service:</strong> ${parsed.data.service}</p>
-          <p><strong>Budget:</strong> ${parsed.data.budget}</p>
-          <p><strong>Message:</strong></p>
-          <blockquote>${parsed.data.message}</blockquote>
-        `,
+        subject: ec.subject,
+        html: ec.html,
+        tags: ["inquiry", "internal", "lead-notification"],
+        metadata: { leadName: parsed.data.name, kind: "inquiry", internal: "true" },
       });
     } catch (e) {
       console.error("[contact/inquiry] internal notify failed:", e);
@@ -116,22 +124,31 @@ export async function POST(req: NextRequest) {
 
     try {
       const ec = bookingThankYouEmail(parsed.data.name, parsed.data.date, parsed.data.time);
-      await sendMail({ to: parsed.data.email, subject: ec.subject, html: ec.html });
+      await sendMail({
+        to: parsed.data.email,
+        subject: ec.subject,
+        html: ec.html,
+        tags: ["booking", "thank-you"],
+        metadata: { leadName: parsed.data.name, kind: "booking" },
+      });
     } catch (e) {
       console.error("[contact/booking] email failed:", e);
     }
 
     try {
+      const ec = leadNotificationEmail({
+        kind: "booking",
+        name: parsed.data.name,
+        email: parsed.data.email,
+        date: parsed.data.date,
+        time: parsed.data.time,
+      });
       await sendMail({
         to: process.env.LEADS_EMAIL || "Info@clicktaketech.com",
-        subject: `New Booking: ${parsed.data.name} — ${parsed.data.date} ${parsed.data.time}`,
-        html: `
-          <h2>New discovery call booked</h2>
-          <p><strong>Name:</strong> ${parsed.data.name}</p>
-          <p><strong>Email:</strong> ${parsed.data.email}</p>
-          <p><strong>Date:</strong> ${parsed.data.date}</p>
-          <p><strong>Time:</strong> ${parsed.data.time}</p>
-        `,
+        subject: ec.subject,
+        html: ec.html,
+        tags: ["booking", "internal", "lead-notification"],
+        metadata: { leadName: parsed.data.name, kind: "booking", internal: "true" },
       });
     } catch (e) {
       console.error("[contact/booking] internal notify failed:", e);
