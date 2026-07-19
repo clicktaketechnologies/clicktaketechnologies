@@ -21,6 +21,7 @@ import {
   Package,
   Briefcase,
   Sparkles,
+  Server,
 } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { toast } from "sonner";
@@ -36,6 +37,7 @@ const NAV_ITEMS = [
   { href: "/admin/crm", label: "Lead CRM", icon: Users, perm: "readLeads" },
   { href: "/admin/roles", label: "User Roles (RBAC)", icon: Shield, perm: "manageRBAC" },
   { href: "/admin/email", label: "Email Center", icon: Mail, perm: "readLeads" },
+  { href: "/admin/providers", label: "Storage & Email Providers", icon: Server, perm: "manageSettings" },
   { href: "/admin/seo", label: "SEO & Analytics", icon: Globe, perm: "readCMS" },
   { href: "/admin/settings", label: "Config Settings", icon: Settings, perm: "manageSettings" },
   { href: "/admin/security", label: "Security & Logs", icon: ShieldAlert, perm: "manageRBAC" },

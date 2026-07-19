@@ -643,3 +643,83 @@ model Post {
 
   @@map("posts")
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Multi-Provider Architecture — Storage, Media CDN, Email
+// Provider-agnostic adapters with admin-configurable failover chains.
+// ─────────────────────────────────────────────────────────────────────────────
+
+model ProviderConfig {
+  id              String   @id @default(cuid())
+  category        String   // "media" | "storage" | "email"
+  providerId      String   // "brevo" | "cloudflare-r2" | etc.
+  displayName     String
+  isActive        Boolean  @default(false) @map("is_active")
+  priority        Int      @default(0)
+  credentials     String   @default("{}") // JSON, AES-256-GCM encrypted at rest
+  config          String   @default("{}") // JSON, non-secret config (host, port, region, etc.)
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@unique([category, providerId])
+  @@index([category, isActive, priority])
+  @@map("provider_configs")
+}
+
+model ProviderHealth {
+  id              String   @id @default(cuid())
+  providerId      String   @unique
+  category        String
+  status          String   @default("healthy") // "healthy" | "degraded" | "down"
+  latencyMs       Int?     @map("latency_ms")
+  lastCheckedAt   DateTime @default(now()) @map("last_checked_at")
+  lastError       String?  @map("last_error")
+  errorCount5min  Int      @default(0) @map("error_count_5min")
+  cooldownUntil   DateTime? @map("cooldown_until")
+
+  @@index([category, status])
+  @@map("provider_health")
+}
+
+model ProviderUsage {
+  id              String   @id @default(cuid())
+  providerId      String
+  category        String
+  metric          String   // "requests" | "bandwidthBytes" | "storageBytes" | "emailSent"
+  value           BigInt
+  recordedAt      DateTime @default(now()) @map("recorded_at")
+
+  @@index([providerId, metric, recordedAt])
+  @@map("provider_usage")
+}
+
+model EmailLog {
+  id              String   @id @default(cuid())
+  messageId       String?  @map("message_id")
+  providerId      String
+  toAddress       String   @map("to_address")
+  subject         String
+  status          String   @default("sent") // "sent" | "failed" | "bounced" | "deferred"
+  errorMessage    String?  @map("error_message")
+  metadata        String   @default("{}")
+  sentAt          DateTime @default(now()) @map("sent_at")
+
+  @@index([providerId, sentAt])
+  @@index([status, sentAt])
+  @@map("email_logs")
+}
+
+model StorageObject {
+  id              String   @id @default(cuid())
+  key             String   @unique
+  contentType     String   @map("content_type")
+  sizeBytes       BigInt   @map("size_bytes")
+  primaryProvider String   @map("primary_provider")
+  replicatedTo    String   @default("[]") // JSON array
+  uploadedBy      String?  @map("uploaded_by")
+  metadata        String   @default("{}")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@index([primaryProvider])
+  @@map("storage_objects")
+}
