@@ -2,14 +2,39 @@ import type { Metadata } from "next";
 import { AboutPage } from "@/components/site/pages/about-page";
 
 export const metadata: Metadata = {
-  title: "About — A Multi-Region Digital Agency | ClickTake Technologies",
+  title: "About ClickTake — AI-Powered Digital Agency in Birmingham · Multan · Austin · Dubai",
   description:
-    "ClickTake Technologies is an AI-powered digital agency with teams in Birmingham, Multan, Austin and Dubai. Learn about our story, values, and the team building the next generation of digital products.",
+    "ClickTake Technologies is a multi-region AI-powered digital agency founded in 2020. With registered HQ in Birmingham UK and engineering hubs in Multan (Pakistan), Austin TX (USA) and Dubai (UAE), we ship AI products, SaaS platforms and growth systems for ambitious brands across four continents. Meet the team, values and story behind ClickTake.",
+  keywords: [
+    "about ClickTake Technologies",
+    "digital agency Birmingham",
+    "AI agency UK",
+    "software company Pakistan",
+    "web development Austin Texas",
+    "digital agency Dubai UAE",
+    "Multi-region digital agency",
+    "remote-first engineering team",
+    "AI product development company",
+    "ClickTake team",
+  ],
   alternates: { canonical: "https://www.clicktaketech.com/about" },
   openGraph: {
-    title: "About — ClickTake Technologies",
-    description: "A multi-region digital agency engineering AI-powered products across four continents.",
+    title: "About ClickTake — Multi-Region AI-Powered Digital Agency",
+    description:
+      "Founded 2020. Teams in Birmingham, Multan, Austin and Dubai. Building AI-powered websites, SaaS platforms and growth systems across four continents.",
     url: "https://www.clicktaketech.com/about",
+    type: "website",
+    locale: "en_GB",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About ClickTake Technologies",
+    description:
+      "Multi-region AI-powered digital agency — Birmingham · Multan · Austin · Dubai. Founded 2020.",
+  },
+  other: {
+    "geo.region": "GB-PK-US-AE",
+    "geo.placename": "Birmingham, Multan, Austin, Dubai",
   },
 };
 

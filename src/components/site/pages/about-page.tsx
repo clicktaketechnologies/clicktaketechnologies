@@ -25,7 +25,7 @@ export function AboutPage() {
       <ScrollProgressBar />
       <Navbar />
 
-      <main className="relative z-10 pt-32 pb-32">
+      <main className="relative z-10 pt-28 sm:pt-32 pb-24 sm:pb-32">
         {/* HERO */}
         <section className="mx-auto max-w-7xl px-4">
           <motion.div
@@ -34,15 +34,15 @@ export function AboutPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-4 py-1.5 text-xs backdrop-blur-xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
               About ClickTake
             </div>
-            <h1 className="mt-4 font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="mt-3 sm:mt-4 font-display text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight leading-tight">
               We connect ambitious brands{" "}
               <span className="gradient-text">in a better way.</span>
             </h1>
-            <p className="mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed">
               ClickTake Technologies is an AI-powered digital agency founded in {SITE.founded}.
               We engineer websites, SaaS platforms, mobile apps and growth systems for brands across
               the UK (Birmingham), Pakistan (Multan), USA (Austin) and Dubai — with a single team
@@ -51,7 +51,7 @@ export function AboutPage() {
           </motion.div>
 
           {/* Stats */}
-          <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="mt-8 sm:mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {ABOUT_STATS.map((s, i) => {
               const Icon = ICONS[s.icon] || Code2;
               return (
@@ -60,13 +60,13 @@ export function AboutPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-card/60 p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30"
+                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-card/60 p-4 sm:p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30"
                 >
-                  <div className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${s.color} text-white shadow-lg`}>
-                    <Icon className="h-5 w-5" />
+                  <div className={`mb-3 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-br ${s.color} text-white shadow-lg`}>
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
-                  <div className="text-3xl font-black gradient-text">{s.val}</div>
-                  <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
+                  <div className="text-2xl sm:text-3xl font-black gradient-text">{s.val}</div>
+                  <div className="mt-1 text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground">
                     {s.label}
                   </div>
                 </motion.div>
@@ -76,18 +76,18 @@ export function AboutPage() {
         </section>
 
         {/* VALUES */}
-        <section className="mx-auto max-w-7xl px-4 mt-24">
+        <section className="mx-auto max-w-7xl px-4 mt-16 sm:mt-24">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-4 py-1.5 text-xs backdrop-blur-xl uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl uppercase tracking-[0.18em] text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
               What we believe
             </div>
-            <h2 className="mt-5 font-display text-3xl sm:text-4xl font-bold tracking-tight">
+            <h2 className="mt-4 sm:mt-5 font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
               Three principles that govern every engagement.
             </h2>
           </motion.div>

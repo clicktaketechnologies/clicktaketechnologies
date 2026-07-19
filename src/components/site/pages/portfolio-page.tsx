@@ -17,7 +17,7 @@ export function PortfolioPage() {
       <ScrollProgressBar />
       <Navbar />
 
-      <main className="relative z-10 pt-32 pb-32">
+      <main className="relative z-10 pt-28 sm:pt-32 pb-24 sm:pb-32">
         <section className="mx-auto max-w-7xl px-4">
           {/* Header */}
           <motion.div
@@ -26,22 +26,23 @@ export function PortfolioPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-4 py-1.5 text-xs backdrop-blur-xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
               Selected Work
             </div>
-            <h1 className="mt-4 font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="mt-3 sm:mt-4 font-display text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight leading-tight">
               Case studies from{" "}
               <span className="gradient-text">four continents.</span>
             </h1>
-            <p className="mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed">
               Headless e-commerce, AI dashboards, brand systems and growth campaigns —
-              shipped for ambitious brands across the UK, Pakistan, USA and Dubai.
+              shipped for ambitious brands across the UK (Birmingham, London), Pakistan (Multan, Lahore),
+              USA (Austin, NYC) and Dubai (UAE).
             </p>
           </motion.div>
 
           {/* Grid */}
-          <div className="mt-14 grid gap-7 md:grid-cols-2">
+          <div className="mt-10 sm:mt-14 grid gap-5 sm:gap-7 md:grid-cols-2">
             {WORK_CASES.map((p, i) => (
               <motion.div
                 key={p.title}

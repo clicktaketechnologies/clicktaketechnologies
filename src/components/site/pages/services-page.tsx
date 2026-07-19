@@ -25,7 +25,9 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Brain, Bot, Wand2, Eye,
   Server, Layers, Shield, Cloud,
   Search, PenTool, Megaphone, TrendingUp,
-  Palette, Video, Rocket: Sparkles,
+  Palette, Video,
+  Rocket: Sparkles,
+  Sparkles,
 };
 
 const fadeUp = {
@@ -66,7 +68,7 @@ export function ServicesPage() {
       <ScrollProgressBar />
       <Navbar />
 
-      <main className="relative z-10 pt-32 pb-32">
+      <main className="relative z-10 pt-28 sm:pt-32 pb-24 sm:pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* HERO HEADER */}
           <motion.div
@@ -84,7 +86,7 @@ export function ServicesPage() {
             <motion.h1
               variants={fadeUp}
               custom={1}
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95]"
+              className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[0.95] sm:leading-[0.95]"
             >
               Services built for{" "}
               <span className="bg-gradient-to-r from-brand-cyan via-brand-magenta to-brand-pink bg-clip-text text-transparent">
@@ -95,19 +97,19 @@ export function ServicesPage() {
             <motion.p
               variants={fadeUp}
               custom={2}
-              className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl leading-relaxed"
+              className="mt-5 sm:mt-6 text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl leading-relaxed"
             >
-              From AI and full-stack development to brand, video, and growth marketing — every service is built around one objective: measurable business outcomes.
+              From AI and full-stack development to brand, video, and growth marketing — every service is built around one objective: measurable business outcomes for brands in the UK, Pakistan, USA and Dubai.
             </motion.p>
 
             {/* Stats strip */}
-            <motion.div variants={fadeUp} custom={3} className="mt-10 flex flex-wrap gap-x-10 gap-y-4">
+            <motion.div variants={fadeUp} custom={3} className="mt-8 sm:mt-10 grid grid-cols-2 sm:flex sm:flex-wrap gap-x-6 sm:gap-x-10 gap-y-4">
               {stats.map((s) => (
                 <div key={s.label}>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-brand-cyan to-brand-magenta bg-clip-text text-transparent">
+                  <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-brand-cyan to-brand-magenta bg-clip-text text-transparent">
                     {s.value}
                   </div>
-                  <div className="text-xs text-muted-foreground mt-0.5">{s.label}</div>
+                  <div className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">{s.label}</div>
                 </div>
               ))}
             </motion.div>
@@ -119,32 +121,32 @@ export function ServicesPage() {
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-16"
+              className="mt-12 sm:mt-16"
             >
               <Link
                 href="/services/starter-kit"
-                className="group relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 rounded-3xl border border-amber-500/30 bg-gradient-to-br from-amber-500/8 via-pink-500/5 to-brand-magenta/8 backdrop-blur-xl p-8 transition-all duration-300 hover:border-amber-500/60 hover:shadow-[0_0_60px_rgba(245,158,11,0.12)] overflow-hidden"
+                className="group relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 rounded-3xl border border-amber-500/30 bg-gradient-to-br from-amber-500/8 via-pink-500/5 to-brand-magenta/8 backdrop-blur-xl p-5 sm:p-8 transition-all duration-300 hover:border-amber-500/60 hover:shadow-[0_0_60px_rgba(245,158,11,0.12)] overflow-hidden"
               >
                 <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-amber-500/8 blur-3xl" />
                 <div className="pointer-events-none absolute -left-8 -bottom-8 h-48 w-48 rounded-full bg-brand-pink/8 blur-3xl" />
 
-                <div className="relative flex items-center gap-5">
-                  <div className="h-14 w-14 shrink-0 grid place-items-center rounded-2xl bg-gradient-to-br from-amber-500 to-brand-pink shadow-lg shadow-amber-500/25">
-                    <Sparkles className="h-7 w-7 text-white" />
+                <div className="relative flex items-start sm:items-center gap-4 sm:gap-5 min-w-0">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 shrink-0 grid place-items-center rounded-2xl bg-gradient-to-br from-amber-500 to-brand-pink shadow-lg shadow-amber-500/25">
+                    <Sparkles className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-bold uppercase tracking-widest text-amber-400">Flagship Offering</span>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-amber-400">Flagship Offering</span>
                       <span className="rounded-full bg-amber-500/20 border border-amber-500/30 px-2 py-0.5 text-[10px] font-semibold text-amber-400 uppercase tracking-wider">Most Popular</span>
                     </div>
-                    <div className="text-2xl sm:text-3xl font-bold">{starterKit.title}</div>
-                    <div className="text-sm text-muted-foreground mt-1">
+                    <div className="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight">{starterKit.title}</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground mt-1 line-clamp-2">
                       {starterKit.detailed_description || starterKit.description}
                     </div>
                   </div>
                 </div>
 
-                <div className="relative flex items-center gap-3 shrink-0">
+                <div className="relative flex items-center gap-3 shrink-0 self-end sm:self-auto">
                   <div className="hidden sm:flex flex-col gap-1 text-right">
                     <div className="text-xs text-muted-foreground">Typically live in</div>
                     <div className="text-sm font-bold text-amber-400">90 days</div>
@@ -158,7 +160,7 @@ export function ServicesPage() {
           )}
 
           {/* SERVICE GROUPS */}
-          <div className="mt-20 space-y-24">
+          <div className="mt-16 sm:mt-20 space-y-16 sm:space-y-24">
             {groups.map((g) => (
               <motion.section
                 key={g.id}
@@ -167,17 +169,17 @@ export function ServicesPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-                  <div>
-                    <div className={`text-xs font-bold uppercase tracking-widest ${g.accentColor} mb-2`}>
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
+                  <div className="min-w-0">
+                    <div className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest ${g.accentColor} mb-2`}>
                       {g.eyebrow}
                     </div>
-                    <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">{g.title}</h2>
-                    <p className="mt-2 text-muted-foreground max-w-xl leading-relaxed">{g.description}</p>
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">{g.title}</h2>
+                    <p className="mt-2 text-sm sm:text-base text-muted-foreground max-w-xl leading-relaxed">{g.description}</p>
                   </div>
                 </div>
 
-                <div className={`grid sm:grid-cols-2 ${g.items.length === 4 ? "lg:grid-cols-4" : g.items.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2 max-w-2xl"} gap-4`}>
+                <div className={`grid sm:grid-cols-2 ${g.items.length === 4 ? "lg:grid-cols-4" : g.items.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2 max-w-2xl"} gap-3 sm:gap-4`}>
                   {g.items.map((item, ii) => {
                     const Icon = item.icon;
                     return (
@@ -223,7 +225,7 @@ export function ServicesPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mt-28 relative rounded-3xl border border-border bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl p-12 md:p-16 text-center overflow-hidden"
+            className="mt-20 sm:mt-28 relative rounded-3xl border border-border bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl p-8 sm:p-12 md:p-16 text-center overflow-hidden"
           >
             <div className="pointer-events-none absolute inset-0">
               <div className="absolute top-0 left-1/4 h-48 w-48 bg-brand-cyan/10 blur-3xl rounded-full" />
@@ -231,26 +233,26 @@ export function ServicesPage() {
             </div>
 
             <div className="relative">
-              <div className="text-xs font-bold uppercase tracking-widest text-brand-cyan mb-4">Not sure where to start?</div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+              <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-brand-cyan mb-3 sm:mb-4">Not sure where to start?</div>
+              <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight mb-3 sm:mb-4">
                 Let&apos;s figure out what<br />
                 <span className="bg-gradient-to-r from-brand-cyan via-brand-magenta to-brand-pink bg-clip-text text-transparent">
                   your business actually needs.
                 </span>
               </h2>
-              <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8">
+              <p className="text-sm sm:text-lg text-muted-foreground max-w-xl mx-auto mb-6 sm:mb-8">
                 Book a free 30-minute discovery call. We&apos;ll understand your goals, gaps, and budget — then tell you exactly which services will move the needle fastest.
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-cyan to-brand-magenta px-8 py-4 font-semibold text-white shadow-lg hover:scale-105 transition-transform text-base"
+                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-cyan to-brand-magenta px-6 sm:px-8 py-3 sm:py-4 font-semibold text-white shadow-lg hover:scale-105 transition-transform text-sm sm:text-base"
                 >
-                  Book a free discovery call <ArrowUpRight className="h-5 w-5" />
+                  Book a free discovery call <ArrowUpRight className="h-4 sm:h-5 w-4 sm:w-5" />
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-8 py-4 font-semibold backdrop-blur hover:bg-secondary transition-colors text-base"
+                  className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-6 sm:px-8 py-3 sm:py-4 font-semibold backdrop-blur hover:bg-secondary transition-colors text-sm sm:text-base"
                 >
                   View pricing
                 </Link>
