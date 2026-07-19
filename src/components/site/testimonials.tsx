@@ -41,12 +41,12 @@ export function Testimonials() {
                 </blockquote>
                 <figcaption className="mt-6 flex items-center gap-3">
                   <div className="grid h-12 w-12 place-items-center rounded-full gradient-bg text-sm font-bold text-white shadow-lg">
-                    {t.avatar}
+                    {t.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
                   </div>
                   <div>
                     <div className="text-sm font-bold">{t.name}</div>
                     <div className="text-xs text-muted-foreground">
-                      {t.title} · {t.location}
+                      {t.role} · {t.location}
                     </div>
                   </div>
                 </figcaption>
