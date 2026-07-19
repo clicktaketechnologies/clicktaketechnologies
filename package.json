@@ -10,7 +10,16 @@
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:reset": "prisma migrate reset"
+    "db:reset": "prisma migrate reset",
+    "build:cloudflare": "bunx opennextjs-cloudflare build",
+    "deploy:cloudflare": "bun run build:cloudflare && bunx wrangler deploy",
+    "deploy:staging": "bun run build:cloudflare && bunx wrangler deploy --env staging",
+    "deploy:worker": "cd workers/cloudflare && bunx wrangler deploy",
+    "tail": "bunx wrangler tail",
+    "migrate:media": "bunx tsx scripts/migrate-public-to-storage.ts",
+    "migrate:media:commit": "bunx tsx scripts/migrate-public-to-storage.ts --commit",
+    "test:integration": "bunx tsx --test tests/integration/providers.test.ts",
+    "test:integration:verbose": "bunx tsx --test --test-reporter=spec tests/integration/providers.test.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1090.0",

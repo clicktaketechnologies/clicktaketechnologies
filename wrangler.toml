@@ -1,0 +1,60 @@
+# Cloudflare Pages deployment config for the ClickTake Next.js app.
+#
+# Uses @opennextjs/cloudflare to deploy the App Router + API routes + ISR
+# as a single Cloudflare Worker (workers + static assets).
+#
+# First-time setup:
+#   bun add -D @opennextjs/cloudflare wrangler
+#   bunx opennextjs-cloudflare build        # produces .open-next/
+#   bunx wrangler deploy                    # publishes .open-next/ to Cloudflare
+#
+# Re-deploy:
+#   bun run deploy:cloudflare
+#
+# Stream logs:
+#   bunx wrangler tail
+
+name = "clicktake-web"
+main = ".open-next/worker.js"
+compatibility_date = "2026-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Assets (static files from .open-next/assets) are served directly by Cloudflare
+# without invoking the Worker — fast + free.
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+# Limits + observability
+[limits]
+cpu_ms = 50
+
+[observability]
+enabled = true
+
+# Production environment — set via dashboard or `wrangler secret put`.
+# Required vars:
+#   - DATABASE_URL                (Supabase Postgres connection string)
+#   - NEXTAUTH_SECRET             (random 32+ char string)
+#   - NEXTAUTH_URL                (https://clicktaketech.com)
+#   - PROVIDER_CREDENTIALS_ENCRYPTION_KEY  (64-char hex — generate with `openssl rand -hex 32`)
+#   - MAIL_FROM                   ("ClickTake <noreply@clicktaketech.com>")
+#
+# Optional (depending on which integrations you use):
+#   - TURNSTILE_SECRET_KEY, NEXT_PUBLIC_TURNSTILE_SITE_KEY
+#   - SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+#   - GITHUB_ID, GITHUB_SECRET (for OAuth)
+#   - GOOGLE_ID, GOOGLE_SECRET
+#
+# Use `wrangler secret put <NAME>` for each — values are encrypted at rest.
+
+# Staging environment — mirrors prod with its own DB / secrets.
+[env.staging]
+name = "clicktake-web-staging"
+# Routes / custom domain configured in dashboard.
+
+# Cron triggers — scheduled provider health checks every 5 minutes.
+# Hits /api/cron/provider-health which probes every configured provider
+# and sends an alert email if any are degraded/down.
+[triggers]
+crons = ["*/5 * * * *"]

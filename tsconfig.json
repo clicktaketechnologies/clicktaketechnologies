@@ -37,6 +37,10 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "workers",
+    "open-next.config.ts",
+    "examples",
+    "skills"
   ]
 }
