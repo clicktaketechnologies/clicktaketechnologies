@@ -1,0 +1,79 @@
+***REMOVED*** Cloudflare Worker — Media CDN Failover Router
+***REMOVED***
+***REMOVED*** Deploy:
+***REMOVED***   cd workers/cloudflare
+***REMOVED***   npx wrangler deploy
+***REMOVED***
+***REMOVED*** Required env vars (set via `wrangler secret put` or dashboard):
+***REMOVED***   MEDIA_CONFIG  JSON string with provider chain (see example below)
+***REMOVED***
+***REMOVED*** Required bindings:
+***REMOVED***   R2_BUCKET         R2 bucket used as last-resort fallback (media-failover-fallback)
+***REMOVED***   MEDIA_CONFIG_KV   Optional KV namespace for hot-reloadable provider chain
+
+name = "media-failover"
+main = "media-failover-router.ts"
+compatibility_date = "2026-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+***REMOVED*** Route: bind media.clicktaketech.com to this worker (configure in dashboard
+***REMOVED*** or uncomment + edit after the worker is deployed).
+***REMOVED*** routes = [
+***REMOVED***   { pattern = "media.clicktaketech.com/*", zone_name = "clicktaketech.com" }
+***REMOVED*** ]
+
+***REMOVED*** R2 bucket as last-resort fallback when every CDN origin is unreachable.
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "media-failover-fallback"
+preview_bucket_name = "media-failover-fallback-preview"
+
+***REMOVED*** Optional KV namespace — lets you update the provider chain without redeploying.
+[[kv_namespaces]]
+binding = "MEDIA_CONFIG_KV"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+***REMOVED*** Default provider chain (overridable via KV at runtime).
+***REMOVED*** Edit this JSON to match your active CDN providers (priority: lower = tried first).
+[vars]
+MEDIA_CONFIG = """
+{
+  "providers": [
+    {
+      "id": "cloudflare",
+      "priority": 1,
+      "baseUrl": "https://imagedelivery.net"
+    },
+    {
+      "id": "cloudinary",
+      "priority": 2,
+      "baseUrl": "https://res.cloudinary.com/<your-cloud>/image/fetch"
+    },
+    {
+      "id": "imagekit",
+      "priority": 3,
+      "baseUrl": "https://ik.imagekit.io/<your-id>"
+    },
+    {
+      "id": "uploadcare",
+      "priority": 4,
+      "baseUrl": "https://ucarecdn.com"
+    },
+    {
+      "id": "twicpics",
+      "priority": 5,
+      "baseUrl": "https://<your-sub>.twic.pics"
+    }
+  ],
+  "fallbackTtl": 3600
+}
+"""
+
+***REMOVED*** Observability — enable logs + analytics
+[observability]
+enabled = true
+
+***REMOVED*** Smart placement — run the worker close to the origin (Cloudflare Images / R2)
+***REMOVED*** when those are the dominant backends.
+[placement]
+mode = "smart"

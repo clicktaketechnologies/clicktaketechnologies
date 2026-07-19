@@ -1,0 +1,60 @@
+***REMOVED*** Cloudflare Pages deployment config for the ClickTake Next.js app.
+***REMOVED***
+***REMOVED*** Uses @opennextjs/cloudflare to deploy the App Router + API routes + ISR
+***REMOVED*** as a single Cloudflare Worker (workers + static assets).
+***REMOVED***
+***REMOVED*** First-time setup:
+***REMOVED***   bun add -D @opennextjs/cloudflare wrangler
+***REMOVED***   bunx opennextjs-cloudflare build        ***REMOVED*** produces .open-next/
+***REMOVED***   bunx wrangler deploy                    ***REMOVED*** publishes .open-next/ to Cloudflare
+***REMOVED***
+***REMOVED*** Re-deploy:
+***REMOVED***   bun run deploy:cloudflare
+***REMOVED***
+***REMOVED*** Stream logs:
+***REMOVED***   bunx wrangler tail
+
+name = "clicktake-web"
+main = ".open-next/worker.js"
+compatibility_date = "2026-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+***REMOVED*** Assets (static files from .open-next/assets) are served directly by Cloudflare
+***REMOVED*** without invoking the Worker — fast + free.
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+***REMOVED*** Limits + observability
+[limits]
+cpu_ms = 50
+
+[observability]
+enabled = true
+
+***REMOVED*** Production environment — set via dashboard or `wrangler secret put`.
+***REMOVED*** Required vars:
+***REMOVED***   - DATABASE_URL                (Supabase Postgres connection string)
+***REMOVED***   - NEXTAUTH_SECRET             (random 32+ char string)
+***REMOVED***   - NEXTAUTH_URL                (https://clicktaketech.com)
+***REMOVED***   - PROVIDER_CREDENTIALS_ENCRYPTION_KEY  (64-char hex — generate with `openssl rand -hex 32`)
+***REMOVED***   - MAIL_FROM                   ("ClickTake <noreply@clicktaketech.com>")
+***REMOVED***
+***REMOVED*** Optional (depending on which integrations you use):
+***REMOVED***   - TURNSTILE_SECRET_KEY, NEXT_PUBLIC_TURNSTILE_SITE_KEY
+***REMOVED***   - SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+***REMOVED***   - GITHUB_ID, GITHUB_SECRET (for OAuth)
+***REMOVED***   - GOOGLE_ID, GOOGLE_SECRET
+***REMOVED***
+***REMOVED*** Use `wrangler secret put <NAME>` for each — values are encrypted at rest.
+
+***REMOVED*** Staging environment — mirrors prod with its own DB / secrets.
+[env.staging]
+name = "clicktake-web-staging"
+***REMOVED*** Routes / custom domain configured in dashboard.
+
+***REMOVED*** Cron triggers — scheduled provider health checks every 5 minutes.
+***REMOVED*** Hits /api/cron/provider-health which probes every configured provider
+***REMOVED*** and sends an alert email if any are degraded/down.
+[triggers]
+crons = ["*/5 * * * *"]
