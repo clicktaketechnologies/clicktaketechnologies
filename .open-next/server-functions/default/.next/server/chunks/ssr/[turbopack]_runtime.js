@@ -1104,7 +1104,7 @@ module.exports = (sourcePath)=>({
 
   async function loadWasmChunk(chunkPath) {
     switch (chunkPath) {
-      case "/home/z/my-project/.open-next/server-functions/default/node_modules/.prisma/client/query_engine_bg.wasm": return (await import("/home/z/my-project/.open-next/server-functions/default/node_modules/.prisma/client/query_engine_bg.wasm")).default;
+
       default:
         throw new Error(`Unknown wasm chunk: ${chunkPath}`);
     }
