@@ -1,8 +1,9 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// ─────────────────────────────────────────────────────────────────────────────
+// ClickTake Technologies — Full Prisma schema
+// Ported from the original Supabase migration (supabase/migration.sql).
+// All 32 tables + enums preserved. SQLite-compatible for dev;
+// swap datasource provider to "postgresql" for production.
+// ─────────────────────────────────────────────────────────────────────────────
 
 generator client {
   provider = "prisma-client-js"
@@ -13,20 +14,628 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// CMS — Pages, Media, Blogs, Backgrounds, Nav, Typography, Themes
+// ─────────────────────────────────────────────────────────────────────────────
+
+model Page {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  content         String   @default("") // HTML content from rich text editor
+  blocks          String   @default("[]") // JSON array of layout blocks
+  isPublished     Boolean  @default(false) @map("is_published")
+  metaTitle       String?  @map("meta_title")
+  metaDescription String?  @map("meta_description")
+  canonicalUrl    String?  @map("canonical_url")
+  ogImageUrl      String?  @map("og_image_url")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@index([slug])
+  @@map("pages")
+}
+
+model CmsMedia {
+  id         String   @id @default(cuid())
+  filename   String
+  url        String
+  mimeType   String   @map("mime_type")
+  size       Int      @default(0) // bytes
+  altText    String?  @map("alt_text")
+  folder     String   @default("/")
+  uploadedBy String?  @map("uploaded_by")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([folder])
+  @@map("cms_media")
+}
+
+model CmsBlog {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  excerpt      String   @default("")
+  content      String   @default("") // HTML
+  coverImage   String?  @map("cover_image")
+  category     String   @default("General")
+  tags         String   @default("[]") // JSON array
+  authorId     String?  @map("author_id")
+  isPublished  Boolean  @default(false) @map("is_published")
+  publishedAt  DateTime? @map("published_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([slug])
+  @@index([category])
+  @@map("cms_blogs")
+}
+
+model CmsBackground {
+  id              String   @id @default(cuid())
+  section         String   @unique // "hero", "about", "services", "contact", etc.
+  bgType          String   @default("gradient") @map("bg_type") // gradient | image | video
+  gradient        String?  // CSS gradient string
+  imageUrl        String?  @map("image_url")
+  videoDesktop    String?  @map("video_desktop")
+  videoTablet     String?  @map("video_tablet")
+  videoMobile     String?  @map("video_mobile")
+  overlayColor    String?  @map("overlay_color")
+  overlayOpacity  Int      @default(0) @map("overlay_opacity") // 0-100
+  overlayBlendMode String? @map("overlay_blend_mode")
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("cms_backgrounds")
+}
+
+model CmsNavLink {
+  id           String   @id @default(cuid())
+  label        String
+  href         String
+  isPage       Boolean  @default(false) @map("is_page")
+  mega         Boolean  @default(false)
+  displayOrder Int      @default(0) @map("display_order")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@index([displayOrder])
+  @@map("cms_nav_links")
+}
+
+model CmsTypography {
+  id             String   @id @default(cuid())
+  element        String   @unique // heading_h1, heading_h2, body, nav, button, quote, code, pricing_number
+  fontFamily     String   @map("font_family")
+  fontWeight     String   @default("400") @map("font_weight") // comma-separated: "400,500,700"
+  fontSize       String?  @map("font_size") // e.g. "16px", "2rem"
+  lineHeight     String?  @map("line_height")
+  letterSpacing  String?  @map("letter_spacing")
+  fontSource     String   @default("system") @map("font_source") // system | google | custom
+  fontFileUrl    String?  @map("font_file_url")
+  fontFileFormat String?  @map("font_file_format")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("cms_typography")
+}
+
+model CmsFontPreset {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String   @default("")
+  config      String   @default("{}") // JSON: { elements: { heading_h1: {...}, ... } }
+  isBuiltin   Boolean  @default(false) @map("is_builtin")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("cms_font_presets")
+}
+
+model CmsTheme {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  mode         String   @default("dark") // light | dark
+  primary      String   @default("#136DFF")
+  accent       String   @default("#FF53A9")
+  background   String?
+  foreground   String?
+  muted        String?
+  border       String?
+  card         String?
+  config       String   @default("{}") // JSON: full token map
+  isActive     Boolean  @default(false) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("cms_themes")
+}
+
+model CmsThemePreset {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String   @default("")
+  mode        String   @default("dark")
+  config      String   @default("{}") // JSON: full color palette
+  isBuiltin   Boolean  @default(false) @map("is_builtin")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("cms_theme_presets")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CRM — Leads
+// ─────────────────────────────────────────────────────────────────────────────
+
+model Lead {
+  id              String   @id @default(cuid())
+  name            String
+  email           String
+  phone           String   @default("")
+  serviceInterest String?  @map("service_interest")
+  message         String   @default("")
+  status          String   @default("New") // New | Contacted | Qualified | Proposal | Converted | Closed
+  sourcePage      String?  @map("source_page")
+  source          String   @default("Contact Form") // Contact Form | Careers Portal | Resource Download | Webinar | Newsletter | Other
+  notes           String   @default("")
+  internalNotes   String   @default("") @map("internal_notes")
+  assignedTo      String?  @map("assigned_to")
+  deletedAt       DateTime? @map("deleted_at")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([assignedTo])
+  @@map("leads")
+}
+
+model AdminNotification {
+  id        String   @id @default(cuid())
+  type      String   @default("info") // info | success | warning | error
+  title     String
+  message   String
+  link      String?
+  read      Boolean  @default(false)
+  userId    String?  @map("user_id") // null = broadcast
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([read])
+  @@index([userId])
+  @@map("admin_notifications")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Email — Templates, Workflows, SMTP Logs
+// ─────────────────────────────────────────────────────────────────────────────
+
+model EmailTemplate {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  subject     String
+  htmlContent String   @map("html_content")
+  textContent String?  @map("text_content")
+  variables   String   @default("[]") // JSON: ["name", "date", ...]
+  category    String   @default("general") // inquiry | booking | newsletter | internal
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("email_templates")
+}
+
+model EmailWorkflow {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String   @default("")
+  trigger     String   @default("manual") // manual | on_lead_create | on_status_change
+  steps       String   @default("[]") // JSON: [{ templateId, delayHours }]
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("email_workflows")
+}
+
+model SmtpLog {
+  id         String   @id @default(cuid())
+  type       String   @default("dispatch") // handshake | dispatch | error | config
+  toEmail    String   @map("to_email")
+  fromEmail  String?  @map("from_email")
+  subject    String?
+  templateId String?  @map("template_id")
+  status     String   @default("sent") // sent | failed | queued
+  error      String?
+  messageId  String?  @map("message_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@index([status])
+  @@map("smtp_logs")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SEO — Per-page meta, sitemap config, robots config
+// ─────────────────────────────────────────────────────────────────────────────
+
+model SeoPageMeta {
+  id               String   @id @default(cuid())
+  path             String   @unique // "/about", "/services/ai/llm", etc.
+  title            String?
+  description      String?
+  canonicalUrl     String?  @map("canonical_url")
+  ogImageUrl       String?  @map("og_image_url")
+  ogTitle          String?  @map("og_title")
+  ogDescription    String?  @map("og_description")
+  twitterCard      String?  @default("summary_large_image") @map("twitter_card")
+  keywords         String   @default("[]") // JSON array
+  noindex          Boolean  @default(false)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@index([path])
+  @@map("seo_page_meta")
+}
+
+model SeoSitemapConfig {
+  id            String   @id @default(cuid())
+  baseUrl       String   @default("https://www.clicktaketech.com") @map("base_url")
+  includePages  Boolean  @default(true) @map("include_pages")
+  includeServices Boolean @default(true) @map("include_services")
+  includeBlogs  Boolean  @default(true) @map("include_blogs")
+  includePortfolio Boolean @default(true) @map("include_portfolio")
+  changefreq    String   @default("weekly")
+  priority      String   @default("0.7")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("seo_sitemap_config")
+}
+
+model SeoRobotsConfig {
+  id           String   @id @default(cuid())
+  userAgent    String   @default("*") @map("user_agent")
+  allowAll     Boolean  @default(true) @map("allow_all")
+  disallowPaths String  @default("/admin,/api") @map("disallow_paths") // comma-separated
+  sitemapUrl   String   @default("https://www.clicktaketech.com/sitemap.xml") @map("sitemap_url")
+  crawlDelay   Int?     @map("crawl_delay")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("seo_robots_config")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Team & Careers
+// ─────────────────────────────────────────────────────────────────────────────
+
+model TeamMember {
+  id           String   @id @default(cuid())
+  fullName     String   @map("full_name")
+  roleTitle    String   @map("role_title")
+  bio          String   @default("")
+  linkedinUrl  String?  @map("linkedin_url")
+  githubUrl    String?  @map("github_url")
+  avatarUrl    String?  @map("avatar_url")
+  displayOrder Int      @default(0) @map("display_order")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([displayOrder])
+  @@map("team_members")
+}
+
+model JobOpening {
+  id           String   @id @default(cuid())
+  title        String
+  department   String   @default("General")
+  location     String   @default("Remote")
+  type         String   @default("Full-time") // Full-time | Part-time | Contract | Internship
+  description  String   @default("")
+  requirements String   @default("[]") // JSON array
+  salaryRange  String?  @map("salary_range")
+  isActive     Boolean  @default(true) @map("is_active")
+  closingDate  DateTime? @map("closing_date")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([isActive])
+  @@map("job_openings")
+}
+
+model JobApplication {
+  id          String   @id @default(cuid())
+  jobId       String   @map("job_id")
+  fullName    String   @map("full_name")
+  email       String
+  phone       String?
+  resumeUrl   String?  @map("resume_url")
+  coverLetter String?  @map("cover_letter")
+  status      String   @default("Submitted") // Submitted | Reviewed | Interview | Offer | Rejected
+  notes       String   @default("")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([jobId])
+  @@index([status])
+  @@map("job_applications")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Portfolio & Testimonials
+// ─────────────────────────────────────────────────────────────────────────────
+
+model PortfolioItem {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  client        String   @default("")
+  category      String   @default("Web Development") // Web | AI | Marketing | Creative
+  industry      String   @default("")
+  excerpt       String   @default("")
+  description   String   @default("")
+  coverImage    String?  @map("cover_image")
+  gallery       String   @default("[]") // JSON array of image URLs
+  results       String   @default("[]") // JSON: [{ label, value }]
+  technologies  String   @default("[]") // JSON array
+  liveUrl       String?  @map("live_url")
+  caseStudyUrl  String?  @map("case_study_url")
+  isFeatured    Boolean  @default(false) @map("is_featured")
+  isPublished   Boolean  @default(true) @map("is_published")
+  displayOrder  Int      @default(0) @map("display_order")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@index([category])
+  @@index([isFeatured])
+  @@map("portfolio_items")
+}
+
+model Testimonial {
+  id           String   @id @default(cuid())
+  clientName   String   @map("client_name")
+  clientTitle  String?  @map("client_title")
+  clientCompany String? @map("client_company")
+  avatarUrl    String?  @map("avatar_url")
+  quote        String
+  rating       Int      @default(5) // 1-5
+  serviceId    String?  @map("service_id")
+  isFeatured   Boolean  @default(false) @map("is_featured")
+  isPublished  Boolean  @default(true) @map("is_published")
+  displayOrder Int      @default(0) @map("display_order")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@index([isPublished])
+  @@map("testimonials")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Resources (blog/guides/webinars)
+// ─────────────────────────────────────────────────────────────────────────────
+
+model Resource {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  type         String   @default("blog") // blog | guide | webinar
+  excerpt      String   @default("")
+  content      String   @default("") // HTML or markdown
+  coverImage   String?  @map("cover_image")
+  fileUrl      String?  @map("file_url") // for downloadable guides
+  videoUrl     String?  @map("video_url") // for webinars
+  category     String   @default("General")
+  tags         String   @default("[]") // JSON array
+  authorId     String?  @map("author_id")
+  status       String   @default("Upcoming") // for webinars: Upcoming | On-Demand
+  isPublished  Boolean  @default(false) @map("is_published")
+  publishedAt  DateTime? @map("published_at")
+  downloadCount Int     @default(0) @map("download_count")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([type])
+  @@index([isPublished])
+  @@map("resources")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Auth & RBAC
+// ─────────────────────────────────────────────────────────────────────────────
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  fullName     String   @map("full_name")
+  roleId       String?  @map("role_id")
+  status       String   @default("Active") // Active | Inactive
+  avatarUrl    String?  @map("avatar_url")
+  lastLoginAt  DateTime? @map("last_login_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  role         AdminRole? @relation(fields: [roleId], references: [id], onDelete: SetNull)
+
+  @@index([email])
+  @@map("admin_users")
+}
+
+model AdminRole {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String   @default("")
+  color       String   @default("#136DFF")
+  isSystem    Boolean  @default(false) @map("is_system")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  users       AdminUser[]
+  permissions RolePermission[]
+
+  @@map("admin_roles")
+}
+
+model RolePermission {
+  id            String   @id @default(cuid())
+  roleId        String   @map("role_id")
+  permissionKey String   @map("permission_key")
+  allowed       Boolean  @default(true)
+
+  role          AdminRole @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, permissionKey])
+  @@index([roleId])
+  @@map("role_permissions")
+}
+
+model SecuritySetting {
+  id                  String   @id @default(cuid()) @map("pk")
+  key                 String   @unique
+  value               String
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@map("security_settings")
+}
+
+model SecurityLog {
+  id          String   @id @default(cuid())
+  type        String   @default("info") // info | warning | error | critical
+  event       String   // login_success | login_failed | permission_denied | password_changed | ip_blocked
+  userId      String?  @map("user_id")
+  ipAddress   String?  @map("ip_address")
+  userAgent   String?  @map("user_agent")
+  metadata    String   @default("{}") // JSON
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([event])
+  @@index([createdAt])
+  @@map("security_logs")
+}
+
+model BlockedIp {
+  id          String   @id @default(cuid())
+  ipAddress   String   @unique @map("ip_address")
+  reason      String   @default("")
+  blockedBy   String?  @map("blocked_by")
+  expiresAt   DateTime? @map("expires_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("blocked_ips")
+}
+
+model Backup {
+  id         String   @id @default(cuid())
+  filename   String
+  sizeBytes  Int      @map("size_bytes")
+  status     String   @default("completed") // in_progress | completed | failed
+  type       String   @default("manual") // manual | scheduled
+  createdBy  String?  @map("created_by")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("backups")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Analytics & Audit
+// ─────────────────────────────────────────────────────────────────────────────
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  referrer  String?
+  userAgent String?  @map("user_agent")
+  country   String?
+  city      String?
+  sessionId String?  @map("session_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([path])
+  @@index([createdAt])
+  @@map("page_views")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?  @map("user_id")
+  userName  String?  @map("user_name")
+  action    String   // e.g. "page.create", "lead.update", "service.delete"
+  entity    String?  // e.g. "Page", "Lead", "Service"
+  entityId  String?  @map("entity_id")
+  details   String   @default("{}") // JSON
+  ipAddress String?  @map("ip_address")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+model SiteSetting {
+  id    String   @id @default(cuid()) @map("pk")
+  key   String   @unique
+  value String
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("site_settings")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Services (full model matching original servicesService.ts)
+// ─────────────────────────────────────────────────────────────────────────────
+
+model Service {
+  id                   String   @id @default(cuid())
+  slug                 String   @unique
+  category             String   // ai | web | marketing | creative | starter-kit
+  categoryLabel        String?  @map("category_label")
+  title                String
+  description          String   @default("")
+  detailedDescription  String   @default("") @map("detailed_description")
+  iconName             String   @default("Sparkles") @map("icon_name")
+  imageUrl             String?  @map("image_url")
+  gradient             String?  // tailwind gradient classes
+  glow                 String?
+  eyebrow              String?
+  items                String   @default("[]") // JSON: bullet items
+  results              String   @default("[]") // JSON: [{ label, value }]
+  differentiators      String   @default("[]") // JSON
+  deliverables         String   @default("[]") // JSON
+  faq                  String   @default("[]") // JSON: [{ q, a }]
+  processSteps         String   @default("[]") // JSON: [{ step, title, description }]
+  pricingPackages      String   @default("[]") // JSON: [{ level, price, days, features }]
+  displayOrder         Int      @default(0) @map("display_order")
+  isPublished          Boolean  @default(true) @map("is_published")
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+
+  @@index([category])
+  @@index([displayOrder])
+  @@map("services")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Backwards-compat models (from initial scaffold — keep for now)
+// ─────────────────────────────────────────────────────────────────────────────
+
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
 }
 
 model Post {
   id        String   @id @default(cuid())
   title     String
   content   String?
-  published Boolean  @default(false)
-  authorId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  published Boolean  @default(false) @map("published")
+  authorId  String   @map("author_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("posts")
 }

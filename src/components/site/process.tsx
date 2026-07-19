@@ -42,7 +42,7 @@ export function Process() {
                   </span>
                 </div>
                 <h3 className="mt-4 text-lg font-bold">{s.title}</h3>
-                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{s.description}</p>
+                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
 
                 {/* Connector arrow */}
                 {i < PROCESS_STEPS.length - 1 && (
