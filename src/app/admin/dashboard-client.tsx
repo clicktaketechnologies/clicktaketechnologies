@@ -13,19 +13,107 @@ import {
   ArrowUpRight,
   ChevronRight,
 } from "lucide-react";
-import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip as ChartTooltip,
-  CartesianGrid,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
 import { Card } from "@/components/ui/card";
+
+// ─── Inline SVG chart helpers (zero-dep, replaces recharts ~400KB) ─────────
+
+function MiniLineChart({ data, height = 220 }: { data: { date: string; count: number }[]; height?: number }) {
+  if (data.length === 0) {
+    return <div className="grid h-full place-items-center text-xs text-muted-foreground">No data yet</div>;
+  }
+  const width = 600;
+  const padX = 32;
+  const padY = 16;
+  const max = Math.max(1, ...data.map((d) => d.count));
+  const stepX = (width - padX * 2) / Math.max(1, data.length - 1);
+  const points = data.map((d, i) => {
+    const x = padX + i * stepX;
+    const y = padY + (height - padY * 2) * (1 - d.count / max);
+    return { x, y, ...d };
+  });
+  const pathD = points
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`)
+    .join(" ");
+  const areaD = `${pathD} L ${points[points.length - 1].x.toFixed(1)} ${height - padY} L ${points[0].x.toFixed(1)} ${height - padY} Z`;
+  const yTicks = [0, Math.ceil(max / 2), max];
+  return (
+    <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" className="h-full w-full">
+      <defs>
+        <linearGradient id="leadGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#136DFF" stopOpacity="0.4" />
+          <stop offset="95%" stopColor="#FF53A9" stopOpacity="0.05" />
+        </linearGradient>
+      </defs>
+      {/* Grid */}
+      {yTicks.map((t, i) => {
+        const y = padY + (height - padY * 2) * (1 - t / max);
+        return (
+          <g key={i}>
+            <line x1={padX} x2={width - padX} y1={y} y2={y} stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
+            <text x={padX - 8} y={y + 3} textAnchor="end" fontSize="10" fill="rgba(255,255,255,0.4)">{t}</text>
+          </g>
+        );
+      })}
+      {/* Area + line */}
+      <path d={areaD} fill="url(#leadGradient)" />
+      <path d={pathD} fill="none" stroke="#136DFF" strokeWidth="2" />
+      {/* Dots */}
+      {points.map((p, i) => (
+        <circle key={i} cx={p.x} cy={p.y} r="3" fill="#FF53A9" />
+      ))}
+      {/* X labels (first, middle, last) */}
+      {[0, Math.floor(data.length / 2), data.length - 1].map((idx, i) => {
+        const p = points[idx];
+        if (!p) return null;
+        return (
+          <text key={i} x={p.x} y={height - 4} textAnchor="middle" fontSize="10" fill="rgba(255,255,255,0.4)">
+            {p.date.slice(5)}
+          </text>
+        );
+      })}
+    </svg>
+  );
+}
+
+function MiniDonutChart({ data, size = 160 }: { data: { name: string; value: number }[]; size?: number }) {
+  const total = data.reduce((s, d) => s + d.value, 0);
+  if (total === 0) {
+    return <div className="grid h-full place-items-center text-xs text-muted-foreground">No leads yet</div>;
+  }
+  const radius = 60;
+  const inner = 38;
+  const cx = size / 2;
+  const cy = size / 2;
+  let angle = -Math.PI / 2;
+  const segments = data.map((d) => {
+    const slice = (d.value / total) * Math.PI * 2;
+    const a0 = angle;
+    const a1 = angle + slice;
+    angle = a1;
+    const x0 = cx + radius * Math.cos(a0);
+    const y0 = cy + radius * Math.sin(a0);
+    const x1 = cx + radius * Math.cos(a1);
+    const y1 = cy + radius * Math.sin(a1);
+    const xi0 = cx + inner * Math.cos(a1);
+    const yi0 = cy + inner * Math.sin(a1);
+    const xi1 = cx + inner * Math.cos(a0);
+    const yi1 = cy + inner * Math.sin(a0);
+    const large = slice > Math.PI ? 1 : 0;
+    const path = `M ${x0} ${y0} A ${radius} ${radius} 0 ${large} 1 ${x1} ${y1} L ${xi0} ${yi0} A ${inner} ${inner} 0 ${large} 0 ${xi1} ${yi1} Z`;
+    return { path, color: STATUS_COLORS[d.name] || "#6B7280", name: d.name, value: d.value };
+  });
+  return (
+    <svg viewBox={`0 0 ${size} ${size}`} className="h-full w-full">
+      {segments.map((s, i) => (
+        <path key={i} d={s.path} fill={s.color}>
+          <title>{`${s.name}: ${s.value}`}</title>
+        </path>
+      ))}
+      <text x={cx} y={cy - 4} textAnchor="middle" fontSize="20" fontWeight="700" fill="currentColor">{total}</text>
+      <text x={cx} y={cy + 14} textAnchor="middle" fontSize="10" fill="rgba(255,255,255,0.5)">total</text>
+    </svg>
+  );
+}
 
 type Stats = {
   leadsCount: number;
@@ -170,36 +258,7 @@ export function AdminDashboardClient({
             </Link>
           </div>
           <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={chartData}>
-                <defs>
-                  <linearGradient id="leadGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#136DFF" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#FF53A9" stopOpacity={0.1} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="date" stroke="rgba(255,255,255,0.4)" fontSize={11} />
-                <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} allowDecimals={false} />
-                <ChartTooltip
-                  contentStyle={{
-                    backgroundColor: "rgba(20,20,30,0.95)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    borderRadius: "8px",
-                    fontSize: "12px",
-                  }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="count"
-                  stroke="#136DFF"
-                  strokeWidth={2}
-                  dot={{ fill: "#FF53A9", r: 3 }}
-                  activeDot={{ r: 5 }}
-                  fill="url(#leadGradient)"
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <MiniLineChart data={chartData} />
           </div>
         </Card>
 
@@ -207,33 +266,7 @@ export function AdminDashboardClient({
           <h3 className="text-sm font-semibold">Lead Status</h3>
           <p className="text-xs text-muted-foreground">Pipeline distribution</p>
           <div className="mt-4 h-48">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={statusCounts}
-                  dataKey="value"
-                  nameKey="name"
-                  innerRadius={40}
-                  outerRadius={70}
-                  paddingAngle={3}
-                >
-                  {statusCounts.map((entry) => (
-                    <Cell
-                      key={entry.name}
-                      fill={STATUS_COLORS[entry.name] || "#6B7280"}
-                    />
-                  ))}
-                </Pie>
-                <ChartTooltip
-                  contentStyle={{
-                    backgroundColor: "rgba(20,20,30,0.95)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    borderRadius: "8px",
-                    fontSize: "12px",
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+            <MiniDonutChart data={statusCounts} />
           </div>
           <div className="mt-3 space-y-1">
             {statusCounts.map((s) => (

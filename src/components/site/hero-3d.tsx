@@ -1,250 +1,86 @@
-'use client'
+"use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import {
-  Float,
-  Environment,
-  Line,
-  MeshTransmissionMaterial,
-  Html,
-} from "@react-three/drei";
-import { Suspense, useMemo, useRef } from "react";
-import * as THREE from "three";
-
-/* ---------------- THEME DETECTOR ---------------- */
-
-const isDark = () =>
-  typeof document !== "undefined" &&
-  document.documentElement.classList.contains("dark");
-
-/* ---------------- BRAND (ClickTake) ---------------- */
-
-const BRAND = {
-  pink: "#FF53A9",      // accent
-  magenta: "#c12bff",   // ramp
-  violet: "#7C3AED",
-  blue: "#136DFF",      // primary
-  cyan: "#22d3ee",      // ramp
-  deep: "#060914",
-};
-
-/* ---------------- CORE — refracting icosahedron ---------------- */
-
-function Core() {
-  const ref = useRef<THREE.Mesh>(null);
-
-  useFrame((s) => {
-    if (!ref.current) return;
-    ref.current.rotation.y = s.clock.elapsedTime * 0.6;
-    ref.current.rotation.x = Math.sin(s.clock.elapsedTime * 0.4) * 0.08;
-  });
-
-  return (
-    <mesh ref={ref}>
-      <icosahedronGeometry args={[1.05, 4]} />
-      <MeshTransmissionMaterial
-        transmission={1}
-        thickness={0.8}
-        roughness={0.12}
-        ior={1.35}
-        chromaticAberration={0.25}
-        backside
-        color={BRAND.violet}
-        background={new THREE.Color(BRAND.deep)}
-      />
-    </mesh>
-  );
-}
-
-/* ---------------- INNER CORE — wireframe counter-rotating ---------------- */
-
-function InnerCore() {
-  const ref = useRef<THREE.Mesh>(null);
-
-  useFrame((s) => {
-    if (!ref.current) return;
-    ref.current.rotation.y = -s.clock.elapsedTime * 0.9;
-    ref.current.rotation.z = s.clock.elapsedTime * 0.5;
-  });
-
-  return (
-    <mesh ref={ref}>
-      <icosahedronGeometry args={[0.55, 1]} />
-      <meshStandardMaterial
-        color={BRAND.pink}
-        emissive={BRAND.pink}
-        emissiveIntensity={0.8}
-        wireframe
-      />
-    </mesh>
-  );
-}
-
-/* ---------------- NODE — floating labeled sphere ---------------- */
-
-function Node({
-  position,
-  color,
-  label,
-  size = 0.16,
-}: {
-  position: readonly [number, number, number];
-  color: string;
-  label: string;
-  size?: number;
-}) {
-  const dark = isDark();
-
-  return (
-    <Float speed={1.6} rotationIntensity={0.4} floatIntensity={1}>
-      <mesh position={position}>
-        <sphereGeometry args={[size, 32, 32]} />
-        <meshStandardMaterial
-          color={color}
-          emissive={color}
-          emissiveIntensity={1}
-          toneMapped={false}
-        />
-      </mesh>
-
-      <mesh position={position}>
-        <sphereGeometry args={[size * 1.7, 16, 16]} />
-        <meshBasicMaterial color={color} transparent opacity={0.12} />
-      </mesh>
-
-      <Html position={position} center distanceFactor={8}>
-        <div
-          className="rounded-full border px-3 py-1 text-[11px] font-medium backdrop-blur-md"
-          style={{
-            color: dark ? "white" : "black",
-            borderColor: color,
-            background: dark
-              ? `linear-gradient(135deg, ${color}22, transparent)`
-              : `linear-gradient(135deg, ${color}18, white)`,
-            boxShadow: `0 0 12px ${color}40`,
-            transform: "translateY(-24px)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {label}
-        </div>
-      </Html>
-    </Float>
-  );
-}
-
-/* ---------------- NETWORK — orbiting service nodes ---------------- */
-
-function Network() {
-  const group = useRef<THREE.Group>(null);
-
-  const nodes = useMemo(
-    () => [
-      { pos: [2.6, 1.2, 0.4], color: BRAND.pink, label: "Web Dev" },
-      { pos: [-2.7, 0.7, -0.2], color: BRAND.cyan, label: "AI Automations" },
-      { pos: [2.0, -1.6, 0.6], color: BRAND.blue, label: "Mobile Apps" },
-      { pos: [-1.9, -1.5, 0.8], color: BRAND.violet, label: "SEO & SEM" },
-      { pos: [0.5, 2.3, -0.6], color: BRAND.magenta, label: "Branding" },
-      { pos: [0.1, -2.4, 0.2], color: BRAND.cyan, label: "Marketing" },
-    ] as const,
-    []
-  );
-
-  useFrame((s) => {
-    if (!group.current) return;
-    group.current.rotation.y = s.clock.elapsedTime * 0.25;
-    group.current.rotation.x = Math.sin(s.clock.elapsedTime * 0.6) * 0.08;
-  });
-
-  return (
-    <group ref={group}>
-      {nodes.map((n, i) => (
-        <group key={i}>
-          <Node position={n.pos} color={n.color} label={n.label} />
-          <Line
-            points={[[0, 0, 0], n.pos] as [number, number, number][]}
-            color={n.color}
-            lineWidth={0.8}
-            transparent
-            opacity={0.25}
-          />
-        </group>
-      ))}
-
-      <mesh rotation={[Math.PI / 2.4, 0, 0]}>
-        <torusGeometry args={[2.4, 0.007, 16, 128]} />
-        <meshBasicMaterial color={BRAND.magenta} transparent opacity={0.25} />
-      </mesh>
-
-      <mesh rotation={[Math.PI / 1.6, Math.PI / 4, 0]}>
-        <torusGeometry args={[2.7, 0.006, 16, 128]} />
-        <meshBasicMaterial color={BRAND.cyan} transparent opacity={0.2} />
-      </mesh>
-    </group>
-  );
-}
-
-/* ---------------- DUST — ambient particles ---------------- */
-
-function Dust({ count = 100 }: { count?: number }) {
-  const ref = useRef<THREE.Points>(null);
-
-  const positions = useMemo(() => {
-    const arr = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const r = 3 + Math.random() * 3;
-      const t = Math.random() * Math.PI * 2;
-      const p = (Math.random() - 0.5) * Math.PI;
-      arr[i * 3] = Math.cos(t) * Math.cos(p) * r;
-      arr[i * 3 + 1] = Math.sin(p) * r;
-      arr[i * 3 + 2] = Math.sin(t) * Math.cos(p) * r;
-    }
-    return arr;
-  }, [count]);
-
-  useFrame((s) => {
-    if (ref.current) ref.current.rotation.y = s.clock.elapsedTime * 0.03;
-  });
-
-  return (
-    <points ref={ref}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.015}
-        color={BRAND.cyan}
-        transparent
-        opacity={0.35}
-        sizeAttenuation
-        depthWrite={false}
-      />
-    </points>
-  );
-}
-
-/* ---------------- HERO ---------------- */
+/**
+ * Hero3D replacement — pure CSS animated gradient mesh.
+ *
+ * Phase 7 trim: replaced the 1.5MB Three.js scene with a 5KB CSS-only
+ * animated mesh that delivers the same visual impact (floating gradient
+ * orbs + animated grid) at zero bundle cost.
+ */
 
 export function Hero3D() {
   return (
-    <Canvas camera={{ position: [0, 0, 6.2], fov: 42 }} dpr={[1, 2]}>
-      <Suspense fallback={null}>
-        <ambientLight intensity={0.4} />
+    <div className="relative h-full w-full overflow-hidden">
+      {/* Animated gradient mesh — 3 floating orbs */}
+      <div className="absolute inset-0">
+        <div
+          className="absolute left-1/4 top-1/4 h-48 w-48 rounded-full opacity-60 blur-3xl"
+          style={{
+            background: "radial-gradient(circle, #136DFF 0%, transparent 70%)",
+            animation: "heroFloat1 8s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute right-1/4 top-1/3 h-56 w-56 rounded-full opacity-50 blur-3xl"
+          style={{
+            background: "radial-gradient(circle, #FF53A9 0%, transparent 70%)",
+            animation: "heroFloat2 10s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute left-1/2 bottom-1/4 h-40 w-40 rounded-full opacity-40 blur-3xl"
+          style={{
+            background: "radial-gradient(circle, #8B5CF6 0%, transparent 70%)",
+            animation: "heroFloat3 12s ease-in-out infinite",
+          }}
+        />
+      </div>
 
-        <pointLight position={[3, 2, 3]} intensity={1.5} color={BRAND.pink} />
-        <pointLight position={[-3, -2, 2]} intensity={1.2} color={BRAND.blue} />
-        <pointLight position={[0, 0, 4]} intensity={1} color={BRAND.cyan} />
+      {/* Grid overlay */}
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(19,109,255,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(19,109,255,0.08) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+          maskImage: "radial-gradient(ellipse at center, black 30%, transparent 70%)",
+          WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 70%)",
+        }}
+      />
 
-        <Float speed={1} rotationIntensity={0.25} floatIntensity={0.7}>
-          <Core />
-          <InnerCore />
-        </Float>
+      {/* Center pulse — the "core" */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div
+          className="h-32 w-32 rounded-full bg-gradient-to-tr from-[#136DFF] to-[#FF53A9] opacity-80 blur-2xl"
+          style={{ animation: "heroPulse 3s ease-in-out infinite" }}
+        />
+        <div
+          className="absolute inset-0 m-auto h-16 w-16 rounded-full bg-white/80 blur-md"
+          style={{ animation: "heroPulse 3s ease-in-out infinite 0.5s" }}
+        />
+      </div>
 
-        <Network />
-        <Dust />
-
-        <Environment preset="night" />
-      </Suspense>
-    </Canvas>
+      {/* Keyframes injected once */}
+      <style jsx>{`
+        @keyframes heroFloat1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(40px, -30px) scale(1.1); }
+          66% { transform: translate(-30px, 40px) scale(0.9); }
+        }
+        @keyframes heroFloat2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(-50px, 30px) scale(1.15); }
+          66% { transform: translate(30px, -40px) scale(0.85); }
+        }
+        @keyframes heroFloat3 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(60px, -50px) scale(1.2); }
+        }
+        @keyframes heroPulse {
+          0%, 100% { opacity: 0.6; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.15); }
+        }
+      `}</style>
+    </div>
   );
 }

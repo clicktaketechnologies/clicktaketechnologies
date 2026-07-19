@@ -12,7 +12,7 @@ var config = {
       queue: "direct"
     }
   },
-  edgeExternals: ["node:crypto"],
+  edgeExternals: ["node:crypto", "cloudflare:sockets", "cloudflare:workers", "pg-cloudflare"],
   middleware: {
     external: true,
     override: {
@@ -23,6 +23,10 @@ var config = {
       tagCache: "dummy",
       queue: "direct"
     }
+  },
+  cloudflare: {
+    useWorkerdCondition: true,
+    dangerousDisableConfigValidation: true
   }
 };
 var open_next_config_default = config;

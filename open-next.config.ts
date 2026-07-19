@@ -1,10 +1,7 @@
 /**
- * OpenNext config for Cloudflare Pages deployment.
+ * OpenNext config for Cloudflare deployment.
  *
- * Docs: https://opennext.js.org/cloudflare
- *
- * This file tells @opennextjs/cloudflare how to convert the Next.js build
- * (.next/) into a Cloudflare Worker bundle (.open-next/).
+ * Phase 7 trim: pg-cloudflare needs workerd build conditions to resolve.
  */
 
 import type { OpenNextConfig } from "@opennextjs/cloudflare";
@@ -20,7 +17,7 @@ const config: OpenNextConfig = {
       queue: "direct",
     },
   },
-  edgeExternals: ["node:crypto"],
+  edgeExternals: ["node:crypto", "cloudflare:sockets", "cloudflare:workers", "pg-cloudflare"],
   middleware: {
     external: true,
     override: {
@@ -32,6 +29,10 @@ const config: OpenNextConfig = {
       queue: "direct",
     },
   },
-};
+  cloudflare: {
+    useWorkerdCondition: true,
+    dangerousDisableConfigValidation: true,
+  },
+} as OpenNextConfig;
 
 export default config;
