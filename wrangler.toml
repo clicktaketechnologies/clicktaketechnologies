@@ -19,6 +19,20 @@ main = ".open-next/worker.js"
 compatibility_date = "2026-01-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Custom domains — Cloudflare auto-creates + manages the DNS records and
+# provisions Universal SSL certs. No manual DNS step required.
+# This needs the `#worker:edit` permission (already on our token).
+# Note: removes the workers.dev preview URL — uncomment `workers_dev = true`
+# below if you want both.
+routes = [
+  { pattern = "clicktaketech.com", custom_domain = true },
+  { pattern = "www.clicktaketech.com", custom_domain = true },
+]
+
+# Keep the workers.dev URL accessible too (useful for testing + as a
+# fallback if the custom domain has issues). Comment out to disable.
+workers_dev = true
+
 # Assets (static files from .open-next/assets) are served directly by Cloudflare
 # without invoking the Worker — fast + free.
 [assets]
