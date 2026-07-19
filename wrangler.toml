@@ -25,10 +25,7 @@ compatibility_flags = ["nodejs_compat"]
 directory = ".open-next/assets"
 binding = "ASSETS"
 
-# Limits + observability
-[limits]
-cpu_ms = 50
-
+# Observability — enable logs + analytics
 [observability]
 enabled = true
 
@@ -49,9 +46,9 @@ enabled = true
 # Use `wrangler secret put <NAME>` for each — values are encrypted at rest.
 
 # Staging environment — mirrors prod with its own DB / secrets.
-[env.staging]
-name = "clicktake-web-staging"
-# Routes / custom domain configured in dashboard.
+# Uncomment after the first deploy succeeds and you've set up staging secrets.
+# [env.staging]
+# name = "clicktake-web-staging"
 
 # Cron triggers — scheduled provider health checks every 5 minutes.
 # Hits /api/cron/provider-health which probes every configured provider
