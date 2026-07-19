@@ -115,19 +115,35 @@ export function BackgroundScene() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { alpha: false })!;
+    if (!ctx) return;
 
     let W = 0, H = 0;
     let sceneData = build(0, 0);
 
-    // Pre-render static background to an offscreen canvas
+    // Pre-render static background to an offscreen canvas.
+    // Always starts as null so the frame loop knows to skip drawImage
+    // until a real, non-zero-size background has been painted.
     let bgCanvas: HTMLCanvasElement | null = null;
+    let bgReady = false;
 
     const buildBg = () => {
+      // Guard against zero-size canvases — Firefox throws InvalidStateError
+      // when drawImage is called with an empty source canvas.
+      if (W <= 0 || H <= 0) {
+        bgCanvas = null;
+        bgReady = false;
+        return;
+      }
       const dark = darkRef.current;
       bgCanvas = document.createElement("canvas");
       bgCanvas.width = W;
       bgCanvas.height = H;
-      const bCtx = bgCanvas.getContext("2d")!;
+      const bCtx = bgCanvas.getContext("2d");
+      if (!bCtx) {
+        bgCanvas = null;
+        bgReady = false;
+        return;
+      }
 
       if (dark) {
         bCtx.fillStyle = "#060914";
@@ -181,11 +197,17 @@ export function BackgroundScene() {
         bCtx.beginPath(); bCtx.moveTo(0, y); bCtx.lineTo(W, y); bCtx.stroke();
       }
       bCtx.restore();
+
+      // Mark bg as ready only after a successful, non-zero paint.
+      bgReady = true;
     };
 
     const resize = () => {
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
+      // Clamp to >=1 to avoid 0×0 canvas (Firefox throws InvalidStateError on drawImage)
+      W = Math.max(1, window.innerWidth || 1);
+      H = Math.max(1, window.innerHeight || 1);
+      canvas.width = W;
+      canvas.height = H;
       sceneData = build(W, H);
       buildBg();
     };
@@ -294,7 +316,24 @@ export function BackgroundScene() {
       const t = ts * 0.001;
       const { nodes, edges, streams, pulses } = sceneData;
 
-      if (bgCanvas) ctx.drawImage(bgCanvas, 0, 0);
+      // Defensive guard: never call drawImage on a null/empty source canvas.
+      // Firefox throws InvalidStateError if the source canvas has 0 width/height
+      // or hasn't been drawn to yet. We only draw when bgReady is true AND the
+      // canvas has positive dimensions.
+      if (bgReady && bgCanvas && bgCanvas.width > 0 && bgCanvas.height > 0 && W > 0 && H > 0) {
+        try {
+          ctx.drawImage(bgCanvas, 0, 0);
+        } catch {
+          // If drawImage fails (e.g. tainted canvas / race), fall back to fill.
+          bgReady = false;
+          ctx.fillStyle = darkRef.current ? "#060914" : "#f0f6ff";
+          ctx.fillRect(0, 0, W, H);
+        }
+      } else {
+        // No bg yet — paint a flat fallback so the animation has a base layer.
+        ctx.fillStyle = darkRef.current ? "#060914" : "#f0f6ff";
+        ctx.fillRect(0, 0, W, H);
+      }
 
       ctx.save();
       drawEdges(nodes, edges);

@@ -86,11 +86,28 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] px-2 py-2 backdrop-blur-xl whitespace-nowrap">
+          {/* Desktop nav — visible on lg+, but link density adapts to viewport */}
+          <nav className="hidden lg:flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.03] px-1.5 py-1.5 backdrop-blur-xl whitespace-nowrap max-w-[62vw] xl:max-w-none overflow-hidden">
             {NAV_LINKS.map((l: NavLink) => {
               const isAnchor = l.href.startsWith("#") || l.href.includes("#");
               const isMega = !!l.mega;
+
+              // Secondary anchors (Process / Testimonials) only show on xl+
+              const isSecondaryAnchor = l.href === "/#process" || l.href === "/#testimonials";
+              if (isSecondaryAnchor) {
+                return (
+                  <span key={l.href} className="hidden xl:contents">
+                    <Link
+                      href={l.href}
+                      onClick={() => handleSectionClick(l.href)}
+                      className="group relative rounded-full px-3 xl:px-4 py-2 text-[13px] font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap"
+                    >
+                      {l.label}
+                      <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-brand-cyan to-brand-magenta transition-all group-hover:w-8" />
+                    </Link>
+                  </span>
+                );
+              }
 
               if (isMega) {
                 return (
@@ -102,14 +119,14 @@ export function Navbar() {
                   >
                     <Link
                       href={l.href}
-                      className="group relative rounded-full px-4 py-2.5 text-sm font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap flex items-center"
+                      className="group relative rounded-full px-3 xl:px-4 py-2 text-[13px] font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap flex items-center"
                     >
                       {l.label}
                       <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-brand-cyan to-brand-magenta transition-all group-hover:w-8" />
                       <ChevronDown className={`ml-1 inline h-4 w-4 transition-transform ${megaOpen ? "rotate-180" : ""}`} />
                     </Link>
 
-                    {/* MEGA MENU — 4-column grid */}
+                    {/* MEGA MENU — responsive 4-column grid */}
                     <AnimatePresence>
                       {megaOpen && (
                         <motion.div
@@ -117,16 +134,17 @@ export function Navbar() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
+                          className="absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50"
                         >
-                          <div className="w-[880px] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-6">
-                            <div className="grid grid-cols-4 gap-6">
+                          <div className="w-[min(920px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-5 sm:p-6">
+                            {/* 4-column grid → collapses to 2 columns on smaller laptop screens */}
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-4">
                               {Array.from(serviceGroups.entries()).map(([cat, items]) => {
                                 const cfg = CATEGORY_DISPLAY[cat];
                                 if (!cfg) return null;
                                 return (
-                                  <div key={cat}>
-                                    <div className={`mb-3 text-[10px] font-bold uppercase tracking-widest ${cfg.accentColor}`}>
+                                  <div key={cat} className="min-w-0">
+                                    <div className={`mb-2.5 text-[10px] font-bold uppercase tracking-widest ${cfg.accentColor} px-1`}>
                                       {cfg.group}
                                     </div>
                                     <div className="space-y-0.5">
@@ -134,11 +152,15 @@ export function Navbar() {
                                         <Link
                                           key={item.slug}
                                           href={`/services/${item.slug}`}
-                                          className="block rounded-lg px-3 py-2 hover:bg-secondary transition"
+                                          className="group/item block rounded-lg px-2.5 py-1.5 hover:bg-secondary transition"
                                           onClick={() => setMegaOpen(false)}
                                         >
-                                          <div className="text-sm font-semibold leading-snug">{item.title}</div>
-                                          <div className="text-xs text-muted-foreground mt-0.5">{item.description}</div>
+                                          <div className="text-[13px] font-semibold leading-snug group-hover/item:text-foreground text-foreground/90 line-clamp-2">
+                                            {item.title}
+                                          </div>
+                                          <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight line-clamp-2">
+                                            {item.description}
+                                          </div>
                                         </Link>
                                       ))}
                                     </div>
@@ -152,17 +174,17 @@ export function Navbar() {
                               <Link
                                 href="/services/starter-kit"
                                 onClick={() => setMegaOpen(false)}
-                                className="mt-5 flex items-center justify-between rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 p-4 hover:from-amber-500/25 hover:to-brand-pink/25 transition"
+                                className="mt-5 flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 p-3 sm:p-4 hover:from-amber-500/25 hover:to-brand-pink/25 transition"
                               >
-                                <div>
-                                  <div className="flex items-center gap-2 text-sm font-bold">
-                                    <Sparkles className="h-4 w-4 text-amber-400" />
-                                    {STARTER_KIT.title}
-                                    <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white">
+                                <div className="min-w-0">
+                                  <div className="flex items-center gap-2 text-sm font-bold flex-wrap">
+                                    <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
+                                    <span className="truncate">{STARTER_KIT.title}</span>
+                                    <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white shrink-0">
                                       FLAGSHIP
                                     </span>
                                   </div>
-                                  <div className="text-xs text-muted-foreground mt-0.5">
+                                  <div className="text-xs text-muted-foreground mt-1 line-clamp-1">
                                     {STARTER_KIT.description}
                                   </div>
                                 </div>
@@ -182,7 +204,7 @@ export function Navbar() {
                   <button
                     key={l.label}
                     onClick={() => handleSectionClick(l.href.includes("#") ? "#" + l.href.split("#")[1] : l.href)}
-                    className="group relative rounded-full px-4 py-2.5 text-sm font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap"
+                    className="group relative rounded-full px-3 xl:px-4 py-2 text-[13px] font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap"
                   >
                     {l.label}
                     <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-brand-cyan to-brand-magenta transition-all group-hover:w-8" />
@@ -194,7 +216,7 @@ export function Navbar() {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="group relative rounded-full px-4 py-2.5 text-sm font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap"
+                  className="group relative rounded-full px-3 xl:px-4 py-2 text-[13px] font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap"
                 >
                   {l.label}
                   <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-brand-cyan to-brand-magenta transition-all group-hover:w-8" />
@@ -204,18 +226,18 @@ export function Navbar() {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <ThemeToggle />
             <a
               href="tel:+447391653377"
-              className="hidden xl:inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-muted-foreground hover:text-foreground transition"
+              className="hidden 2xl:inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition"
             >
               <Phone className="h-4 w-4" />
               +44 7391 653377
             </a>
             <a
               href="/contact"
-              className="hidden sm:inline-flex items-center gap-2 rounded-full gradient-bg px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-[1.03] transition"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-full gradient-bg px-4 sm:px-5 py-2 sm:py-2.5 text-[13px] sm:text-sm font-semibold text-white shadow-lg hover:scale-[1.03] transition"
             >
               Book a Call <ArrowUpRight className="h-4 w-4" />
             </a>
@@ -236,28 +258,29 @@ export function Navbar() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="mt-2 rounded-2xl glass-strong p-3 lg:hidden max-h-[80vh] overflow-y-auto"
+              className="mt-2 rounded-2xl glass-strong p-3 lg:hidden max-h-[85vh] overflow-y-auto no-scrollbar"
             >
               <Link href="/" className="block px-4 py-3 rounded-xl hover:bg-white/5 font-semibold text-sm">
                 Home
               </Link>
 
-              {/* Mobile: services grouped by category */}
+              {/* Mobile: services grouped by category — accordion-style */}
               {Array.from(serviceGroups.entries()).map(([cat, items]) => {
                 const cfg = CATEGORY_DISPLAY[cat];
                 if (!cfg) return null;
                 return (
                   <div key={cat} className="mt-2">
-                    <div className={`px-4 py-1 text-[10px] font-bold uppercase tracking-widest ${cfg.accentColor}`}>
+                    <div className={`px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest ${cfg.accentColor}`}>
                       {cfg.group}
                     </div>
                     {items.map((item) => (
                       <Link
                         key={item.slug}
                         href={`/services/${item.slug}`}
-                        className="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm"
+                        className="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm leading-tight"
                       >
-                        {item.title}
+                        <div className="font-medium">{item.title}</div>
+                        <div className="text-[11px] text-muted-foreground mt-0.5 line-clamp-1">{item.description}</div>
                       </Link>
                     ))}
                   </div>
@@ -269,19 +292,37 @@ export function Navbar() {
                   href="/services/starter-kit"
                   className="mt-2 flex items-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 text-sm font-semibold"
                 >
-                  <Sparkles className="h-4 w-4 text-amber-400" />
-                  {STARTER_KIT.title}
-                  <span className="ml-auto text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white">
+                  <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
+                  <span className="truncate flex-1">{STARTER_KIT.title}</span>
+                  <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white shrink-0">
                     FLAGSHIP
                   </span>
                 </Link>
               )}
 
-              <div className="border-t border-border mt-3 pt-3 space-y-1">
+              <div className="border-t border-border mt-3 pt-3 space-y-0.5">
                 <Link href="/portfolio" className="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm">Work</Link>
                 <Link href="/resources" className="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm">Resources</Link>
                 <Link href="/about" className="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm">About</Link>
                 <Link href="/contact" className="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm">Contact</Link>
+              </div>
+
+              {/* Mobile contact block */}
+              <div className="mt-3 grid grid-cols-1 gap-2">
+                <a
+                  href="tel:+447391653377"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/5 bg-white/[0.02] text-sm"
+                >
+                  <Phone className="h-4 w-4 text-brand-blue" />
+                  +44 7391 653377 (UK)
+                </a>
+                <a
+                  href="tel:+923069753003"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/5 bg-white/[0.02] text-sm"
+                >
+                  <Phone className="h-4 w-4 text-brand-pink" />
+                  +92 306 9753003 (PK)
+                </a>
               </div>
 
               <div className="mt-3 flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3">

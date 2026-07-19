@@ -1,63 +1,49 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 /**
- * Custom cursor (ClickTake Technologies):
- *  - Rotating gradient "aperture" diamond at the tip
- *  - Soft glow halo following with delay
- *  - 6-particle comet trail in brand colors
- *  - On hover: aperture opens into a circle and pulses
+ * Custom cursor (ClickTake Technologies) — refined, subtle, "smart".
  *
- * Disabled on touch devices automatically (no mousemove → never activates).
+ * Design philosophy:
+ *  - Minimal visual footprint at rest (small dot + soft ring)
+ *  - Grows ONLY over interactive elements (a, button, input, [data-cursor])
+ *  - Label-style reactions via data-cursor attribute (e.g. data-cursor="View")
+ *  - Removes the long comet trail — instead a single, short trailing halo
+ *  - Disables itself on touch / coarse-pointer devices
+ *  - Hides until the first mousemove (so it never "appears" at 0,0)
+ *  - Pauses the rotation animation when not hovering to save CPU
+ *
+ * The cursor has 4 contextual states:
+ *   - default  →  small dot + faint ring
+ *   - hover    →  ring expands, dot fills, gentle scale pulse
+ *   - click    →  contracts briefly for tactile feedback
+ *   - label    →  shows a tiny label badge (e.g. "Open", "View") from data-cursor
  */
+type CursorState = "default" | "hover" | "click";
+
 export function CustomCursor() {
   const x = useMotionValue(-200);
   const y = useMotionValue(-200);
 
-  const tipX = useSpring(x, { damping: 32, stiffness: 700, mass: 0.2 });
-  const tipY = useSpring(y, { damping: 32, stiffness: 700, mass: 0.2 });
+  // Tip springs instantly; halo trails slightly behind for a subtle parallax.
+  const tipX = useSpring(x, { damping: 40, stiffness: 900, mass: 0.15 });
+  const tipY = useSpring(y, { damping: 40, stiffness: 900, mass: 0.15 });
+  const haloX = useSpring(x, { damping: 28, stiffness: 220, mass: 0.5 });
+  const haloY = useSpring(y, { damping: 28, stiffness: 220, mass: 0.5 });
 
-  const haloX = useSpring(x, { damping: 22, stiffness: 130, mass: 0.7 });
-  const haloY = useSpring(y, { damping: 22, stiffness: 130, mass: 0.7 });
-
-  const t0x = useSpring(x, { damping: 30, stiffness: 220, mass: 0.40 });
-  const t0y = useSpring(y, { damping: 30, stiffness: 220, mass: 0.40 });
-  const t1x = useSpring(x, { damping: 28, stiffness: 194, mass: 0.52 });
-  const t1y = useSpring(y, { damping: 28, stiffness: 194, mass: 0.52 });
-  const t2x = useSpring(x, { damping: 26, stiffness: 168, mass: 0.64 });
-  const t2y = useSpring(y, { damping: 26, stiffness: 168, mass: 0.64 });
-  const t3x = useSpring(x, { damping: 24, stiffness: 142, mass: 0.76 });
-  const t3y = useSpring(y, { damping: 24, stiffness: 142, mass: 0.76 });
-  const t4x = useSpring(x, { damping: 22, stiffness: 116, mass: 0.88 });
-  const t4y = useSpring(y, { damping: 22, stiffness: 116, mass: 0.88 });
-  const t5x = useSpring(x, { damping: 20, stiffness: 90,  mass: 1.00 });
-  const t5y = useSpring(y, { damping: 20, stiffness: 90,  mass: 1.00 });
-
-  const trail = [
-    { x: t0x, y: t0y },
-    { x: t1x, y: t1y },
-    { x: t2x, y: t2y },
-    { x: t3x, y: t3y },
-    { x: t4x, y: t4y },
-    { x: t5x, y: t5y },
-  ];
-
-  const colors = [
-    "var(--brand-pink)",
-    "var(--brand-magenta)",
-    "var(--brand-magenta)",
-    "var(--brand-blue)",
-    "var(--brand-cyan)",
-    "#a3e635",
-  ];
-
-  const [hover, setHover] = useState(false);
-  const [click, setClick] = useState(false);
+  const [state, setState] = useState<CursorState>("default");
+  const [label, setLabel] = useState<string>("");
   const [enabled, setEnabled] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [hidden, setHidden] = useState(true);
 
-  // Only enable on fine-pointer (mouse) devices
+  // Track whether the cursor is currently over an interactive element,
+  // so we can update label/state reactively without re-running effects.
+  const rafRef = useRef<number>(0);
+  const lastTargetRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const mq = window.matchMedia("(pointer: fine)");
@@ -79,131 +65,174 @@ export function CustomCursor() {
 
   useEffect(() => {
     if (!enabled) return;
-    const move = (e: MouseEvent) => {
+
+    const inspectTarget = (t: HTMLElement) => {
+      // Walk up the DOM looking for the closest interactive ancestor or
+      // element with a data-cursor hint.
+      const interactive = t.closest(
+        "a, button, input, textarea, select, label, [role='button'], [data-cursor]"
+      ) as HTMLElement | null;
+
+      if (interactive) {
+        const hint = interactive.getAttribute("data-cursor");
+        if (hint && hint !== "hover" && hint !== "active") {
+          setLabel(hint);
+        } else {
+          setLabel("");
+        }
+        setState("hover");
+      } else {
+        setLabel("");
+        setState("default");
+      }
+    };
+
+    const onMove = (e: MouseEvent) => {
+      // Throttle DOM inspection to ~30fps using rAF — `mousemove` can fire
+      // hundreds of times per second, but `closest()` is not cheap.
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = 0;
+        const t = e.target as HTMLElement;
+        if (t !== lastTargetRef.current) {
+          lastTargetRef.current = t;
+          inspectTarget(t);
+        }
+      });
+
       x.set(e.clientX);
       y.set(e.clientY);
-      const t = e.target as HTMLElement;
-      setHover(!!t.closest("a, button, input, textarea, select, [data-cursor='hover']"));
+      if (hidden) {
+        setHidden(false);
+        setVisible(true);
+      }
     };
-    const down = () => setClick(true);
-    const up = () => setClick(false);
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mousedown", down);
-    window.addEventListener("mouseup", up);
+
+    const onDown = () => setState("click");
+    const onUp = () => {
+      // After a click, revert to hover if still over an interactive element,
+      // otherwise default.
+      const t = lastTargetRef.current;
+      if (t && t.closest("a, button, input, textarea, select, label, [role='button'], [data-cursor]")) {
+        setState("hover");
+      } else {
+        setState("default");
+      }
+    };
+    const onLeave = () => setVisible(false);
+    const onEnter = () => setVisible(true);
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mousedown", onDown);
+    window.addEventListener("mouseup", onUp);
+    document.addEventListener("mouseleave", onLeave);
+    document.addEventListener("mouseenter", onEnter);
+
     return () => {
-      window.removeEventListener("mousemove", move);
-      window.removeEventListener("mousedown", down);
-      window.removeEventListener("mouseup", up);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mouseup", onUp);
+      document.removeEventListener("mouseleave", onLeave);
+      document.removeEventListener("mouseenter", onEnter);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [enabled, x, y]);
+  }, [enabled, x, y, hidden]);
 
   if (!enabled) return null;
 
+  const isHover = state === "hover";
+  const isClick = state === "click";
+
   return (
     <>
-      {/* Particle trail */}
-      {trail.map((t, i) => (
-        <motion.div
-          key={i}
-          aria-hidden
-          className="custom-cursor pointer-events-none fixed left-0 top-0 z-[9990]"
-          style={{ x: t.x, y: t.y }}
-        >
-          <div
-            className="-translate-x-1/2 -translate-y-1/2 rounded-full"
-            style={{
-              width: `${10 - i * 1.2}px`,
-              height: `${10 - i * 1.2}px`,
-              background: colors[i],
-              opacity: 0.55 - i * 0.07,
-              filter: `blur(${i * 0.6}px)`,
-              boxShadow: `0 0 ${14 - i}px ${colors[i]}`,
-            }}
-          />
-        </motion.div>
-      ))}
-
-      {/* Soft glow halo */}
+      {/* Soft trailing halo — single layer, blurred, brand-tinted */}
       <motion.div
         aria-hidden
-        className="custom-cursor pointer-events-none fixed left-0 top-0 z-[9996]"
+        className="custom-cursor pointer-events-none fixed left-0 top-0 z-[9990]"
         style={{ x: haloX, y: haloY }}
+        animate={{
+          opacity: visible ? (isHover ? 0.55 : 0.35) : 0,
+          scale: isClick ? 0.6 : isHover ? 1.6 : 1,
+        }}
+        transition={{ duration: 0.2 }}
       >
-        <motion.div
-          animate={{ scale: hover ? 2.2 : 1, opacity: hover ? 0.9 : 0.5 }}
-          transition={{ type: "spring", damping: 18 }}
-          className="-translate-x-1/2 -translate-y-1/2 h-12 w-12 rounded-full"
+        <div
+          className="-translate-x-1/2 -translate-y-1/2 h-10 w-10 rounded-full"
           style={{
             background:
-              "radial-gradient(circle, color-mix(in oklab, var(--brand-magenta) 55%, transparent) 0%, color-mix(in oklab, var(--brand-pink) 25%, transparent) 40%, transparent 70%)",
-            filter: "blur(8px)",
+              "radial-gradient(circle, color-mix(in oklab, var(--brand-blue) 35%, transparent) 0%, color-mix(in oklab, var(--brand-pink) 18%, transparent) 45%, transparent 75%)",
+            filter: "blur(6px)",
           }}
         />
       </motion.div>
 
-      {/* Main cursor tip — rotating aperture */}
+      {/* Outer ring — expands on hover, contracts on click */}
+      <motion.div
+        aria-hidden
+        className="custom-cursor pointer-events-none fixed left-0 top-0 z-[9998]"
+        style={{ x: tipX, y: tipY }}
+        animate={{
+          opacity: visible ? 1 : 0,
+          scale: isClick ? 0.7 : isHover ? 1.4 : 1,
+          rotate: isHover ? 0 : 0,
+        }}
+        transition={{ type: "spring", damping: 22, stiffness: 350 }}
+      >
+        <div
+          className="-translate-x-1/2 -translate-y-1/2 rounded-full border"
+          style={{
+            width: isHover ? 44 : 28,
+            height: isHover ? 44 : 28,
+            borderColor: isHover
+              ? "color-mix(in oklab, var(--brand-pink) 70%, transparent)"
+              : "color-mix(in oklab, var(--brand-blue) 50%, transparent)",
+            borderWidth: 1.5,
+            transition: "width 0.2s ease, height 0.2s ease, border-color 0.2s ease",
+          }}
+        />
+      </motion.div>
+
+      {/* Center dot — solid brand color, scales on hover */}
       <motion.div
         aria-hidden
         className="custom-cursor pointer-events-none fixed left-0 top-0 z-[9999]"
         style={{ x: tipX, y: tipY }}
+        animate={{
+          opacity: visible ? 1 : 0,
+          scale: isClick ? 1.4 : isHover ? 0.4 : 1,
+        }}
+        transition={{ type: "spring", damping: 20, stiffness: 500 }}
       >
-        <motion.div
-          animate={{
-            rotate: hover ? 0 : 360,
-            scale: click ? 0.7 : hover ? 1.6 : 1,
+        <div
+          className="-translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{
+            width: 6,
+            height: 6,
+            background: isHover
+              ? "var(--brand-pink)"
+              : "var(--brand-blue)",
+            boxShadow: "0 0 8px color-mix(in oklab, var(--brand-blue) 60%, transparent)",
+            transition: "background 0.2s ease",
           }}
-          transition={{
-            rotate: { duration: 6, ease: "linear", repeat: Infinity },
-            scale: { type: "spring", damping: 18 },
-          }}
-          className="-translate-x-1/2 -translate-y-1/2"
-          style={{ width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        />
+      </motion.div>
+
+      {/* Label badge — appears when [data-cursor="label"] is set on hover target */}
+      <motion.div
+        aria-hidden
+        className="custom-cursor pointer-events-none fixed left-0 top-0 z-[10000]"
+        style={{ x: tipX, y: tipY }}
+        animate={{
+          opacity: label ? 1 : 0,
+          scale: label ? 1 : 0.6,
+        }}
+        transition={{ duration: 0.15 }}
+      >
+        <div
+          className="absolute left-6 top-4 whitespace-nowrap rounded-full bg-foreground px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-background shadow-lg"
         >
-          <svg viewBox="0 0 32 32" width="28" height="28" style={{ overflow: "visible" }}>
-            <defs>
-              <linearGradient id="cursorGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="var(--brand-pink)" />
-                <stop offset="50%" stopColor="var(--brand-magenta)" />
-                <stop offset="100%" stopColor="var(--brand-cyan)" />
-              </linearGradient>
-              <filter id="cursorGlow">
-                <feGaussianBlur stdDeviation="1.2" result="b" />
-                <feMerge>
-                  <feMergeNode in="b" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-
-            {/* outer ring */}
-            <motion.circle
-              cx="16"
-              cy="16"
-              r={hover ? 13 : 10}
-              fill="none"
-              stroke="url(#cursorGrad)"
-              strokeWidth="1.4"
-              strokeDasharray="3 3"
-              filter="url(#cursorGlow)"
-            />
-
-            {/* 4 aperture blades */}
-            {[0, 90, 180, 270].map((deg) => (
-              <g key={deg} transform={`rotate(${deg} 16 16)`}>
-                <path
-                  d={hover ? "M16 16 L24 8" : "M16 16 L22 16"}
-                  stroke="url(#cursorGrad)"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  filter="url(#cursorGlow)"
-                />
-              </g>
-            ))}
-
-            {/* center dot */}
-            <circle cx="16" cy="16" r={hover ? 3 : 1.6} fill="url(#cursorGrad)" filter="url(#cursorGlow)" />
-          </svg>
-        </motion.div>
+          {label}
+        </div>
       </motion.div>
     </>
   );

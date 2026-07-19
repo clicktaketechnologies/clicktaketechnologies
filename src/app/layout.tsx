@@ -23,29 +23,35 @@ export const metadata: Metadata = {
     template: "%s | ClickTake Technologies",
   },
   description:
-    "ClickTake Technologies builds AI-powered websites, mobile apps, SaaS platforms and growth systems for ambitious brands across the UK (Birmingham), Pakistan, USA and Dubai. Custom software, intelligent automation and conversion-driven marketing under one roof.",
+    "ClickTake Technologies builds AI-powered websites, mobile apps, SaaS platforms and growth systems for ambitious brands across the UK (Birmingham), Pakistan (Multan, Lahore, Karachi), USA (Austin TX) and Dubai (UAE). Custom software, intelligent automation, LLMs, chatbots, and conversion-driven marketing under one roof. 120+ projects shipped. Free 30-minute consultation.",
   keywords: [
     "ClickTake Technologies",
     "AI development agency UK",
     "software company Birmingham",
-    "web development Pakistan",
-    "mobile app development USA",
-    "digital agency Dubai",
-    "SaaS development",
+    "web development Pakistan Multan",
+    "mobile app development USA Austin",
+    "digital agency Dubai UAE",
+    "SaaS development company",
     "AI automation agency",
+    "custom LLM development",
     "SEO services Birmingham",
     "custom software development",
+    "Next.js agency UK",
+    "PPC management Austin",
+    "brand design Dubai",
+    "ChatGPT chatbots for business",
+    "starter kit for startups",
   ],
-  authors: [{ name: "ClickTake Technologies" }],
+  authors: [{ name: "ClickTake Technologies", url: SITE.url }],
   creator: "ClickTake Technologies",
   publisher: "ClickTake Technologies",
   alternates: {
     canonical: SITE.url,
   },
   openGraph: {
-    title: "ClickTake Technologies — AI-Powered Digital Agency",
+    title: "ClickTake Technologies — AI-Powered Digital Agency | UK · PK · USA · Dubai",
     description:
-      "Custom software, AI automation and growth marketing for brands in the UK, Pakistan, USA and Dubai. Built by ClickTake Technologies.",
+      "Custom software, AI automation and growth marketing for brands in the UK, Pakistan, USA and Dubai. 120+ projects shipped. Free 30-min consult. Built by ClickTake Technologies.",
     url: SITE.url,
     siteName: SITE.name,
     type: "website",
@@ -65,7 +71,15 @@ export const metadata: Metadata = {
       follow: true,
       "max-image-preview": "large",
       "max-snippet": -1,
+      "max-video-preview": -1,
     },
+  },
+  category: "technology",
+  other: {
+    "geo.region": "GB-PK-US-AE",
+    "geo.placename": "Birmingham, Multan, Austin, Dubai",
+    "geo.position": "52.4862;-1.8904",
+    ICB: "Technology / Software / AI",
   },
 };
 
@@ -89,8 +103,10 @@ const themeInitScript = `
 `;
 
 /**
- * JSON-LD structured data (Organization schema) — ported from the original
- * ClickTake Vite project's __root.tsx. Helps Google rich results.
+ * JSON-LD structured data — multi-location Organization + LocalBusiness
+ * schemas for each regional office. Ported & enriched from the original
+ * ClickTake Vite project's __root.tsx. Helps Google rich results and
+ * local SEO across UK, Pakistan, USA and Dubai.
  */
 const jsonLd = {
   "@context": "https://schema.org",
@@ -98,22 +114,66 @@ const jsonLd = {
   name: SITE.name,
   url: SITE.url,
   email: SITE.email,
+  description:
+    "AI-powered digital agency engineering websites, SaaS platforms, mobile apps and growth systems for ambitious brands across the UK, Pakistan, USA and Dubai.",
+  foundingDate: "2020",
+  slogan: SITE.tagline,
   telephone: SITE.phones.map((p) => p.value).join(", "),
+  contactPoint: SITE.phones.map((p) => ({
+    "@type": "ContactPoint",
+    contactType: "sales",
+    telephone: p.value,
+    areaServed: p.label,
+    availableLanguage: ["English"],
+  })),
   address: SITE.locations.map((l) => ({
     "@type": "PostalAddress",
     addressLocality: l.city,
     addressCountry: l.country,
+    streetAddress: l.address,
   })),
-  areaServed: SITE.locations.map((l) => l.country),
+  areaServed: SITE.locations.map((l) => ({
+    "@type": "Place",
+    name: l.country,
+  })),
   sameAs: SITE.socials.map((s) => s.href),
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "sales",
-    email: SITE.email,
-    telephone: SITE.phones[0].value,
-    availableLanguage: ["English"],
-  },
+  knowsAbout: [
+    "Artificial Intelligence",
+    "Large Language Models",
+    "SaaS Development",
+    "Web Development",
+    "Search Engine Optimization",
+    "Digital Marketing",
+    "Brand Design",
+    "Video Production",
+  ],
 };
+
+// LocalBusiness sub-schema per regional office — Google uses these for
+// local-pack results in each market (Birmingham, Multan, Austin, Dubai).
+const localBusinessJsonLd = SITE.locations.map((l) => ({
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: `${SITE.name} — ${l.city}`,
+  parentOrganization: { "@type": "Organization", name: SITE.name },
+  url: SITE.url,
+  telephone: l.phone,
+  image: `${SITE.url}/clicktake-logo.png`,
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: l.address,
+    addressLocality: l.city,
+    addressCountry: l.country,
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: parseFloat(l.coords.split("°")[0]),
+    longitude: parseFloat(l.coords.split(",")[1]?.split("°")[0] || "0"),
+  },
+  openingHours: l.hours,
+  areaServed: l.country,
+}));
 
 export default function RootLayout({
   children,
@@ -128,6 +188,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {localBusinessJsonLd.map((lb, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(lb) }}
+          />
+        ))}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
