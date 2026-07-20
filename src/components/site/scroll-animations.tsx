@@ -140,7 +140,9 @@ const VARIANTS: Record<RevealVariant, VariantConfig> = {
 };
 
 /* ────────────────────────────────────────────────────────────── */
-/* SectionReveal — re-animates on upward scroll too (once: false)
+/* SectionReveal — animates ONCE on first view (was `once: false`
+ * which re-triggered on every upward scroll, causing massive reflow
+ * cost and contributing to the site-wide hang).
 /* ────────────────────────────────────────────────────────────── */
 
 interface SectionRevealProps {
@@ -161,9 +163,13 @@ export function SectionReveal({
     const ref = useRef<HTMLDivElement>(null);
 
     const inView = useInView(ref, {
-        once: false,
+        once: true,
         margin: "-60px 0px -60px 0px",
     });
+
+    // Hooks must be called unconditionally — call useParallax always and just
+    // ignore the result when parallaxSpeed is 0 (no parallax overlay rendered).
+    const parallaxY = useParallax(parallaxSpeed);
 
     const v = VARIANTS[variant];
 
@@ -188,7 +194,7 @@ export function SectionReveal({
                 <motion.div
                     aria-hidden
                     className="pointer-events-none absolute inset-0"
-                    style={{ y: useParallax(parallaxSpeed) }}
+                    style={{ y: parallaxY }}
                 />
             )}
         </motion.div>
@@ -282,7 +288,7 @@ export function SectionDivider({ flip = false }: { flip?: boolean }) {
         <motion.div
             initial={{ scaleX: 0, opacity: 0 }}
             whileInView={{ scaleX: 1, opacity: 1 }}
-            viewport={{ once: false, margin: "-20px" }}
+            viewport={{ once: true, margin: "-20px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             style={{ originX: flip ? 1 : 0 }}
             className="mx-auto h-px w-full max-w-7xl bg-gradient-to-r from-transparent via-foreground/10 to-transparent"

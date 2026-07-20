@@ -75,10 +75,10 @@ export default function AdminLoginForm() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-12">
-      {/* Background glow */}
+      {/* Background glow — blur reduced from 3xl to 2xl for GPU perf */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 left-1/2 size-[40rem] -translate-x-1/2 rounded-full bg-brand-blue/20 blur-3xl" />
-        <div className="absolute bottom-0 right-0 size-[30rem] rounded-full bg-brand-pink/20 blur-3xl" />
+        <div className="absolute -top-40 left-1/2 size-[28rem] -translate-x-1/2 rounded-full bg-brand-blue/20 blur-2xl" />
+        <div className="absolute bottom-0 right-0 size-[22rem] rounded-full bg-brand-pink/20 blur-2xl" />
       </div>
 
       <motion.div

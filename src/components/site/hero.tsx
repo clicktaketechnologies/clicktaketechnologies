@@ -19,12 +19,13 @@ const Hero3D = dynamic(() => import("./hero-3d").then(m => m.Hero3D), {
 export function Hero() {
   return (
     <section id="home" className="relative min-h-screen overflow-hidden pt-28 sm:pt-32 pb-16">
-      {/* Hero gradient layers */}
+      {/* Hero gradient layers — blur radius reduced from 120px → 60px to avoid
+          GPU memory pressure on integrated graphics / low-end devices. */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="absolute inset-0 grid-bg opacity-40" />
-        <div className="absolute -top-32 -left-32 h-[36rem] w-[36rem] rounded-full bg-[#136DFF]/20 blur-[120px] animate-pulse-glow" />
+        <div className="absolute -top-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-[#136DFF]/20 blur-[60px] animate-pulse-glow" />
         <div
-          className="absolute top-1/3 -right-32 h-[32rem] w-[32rem] rounded-full bg-[#FF53A9]/20 blur-[120px] animate-pulse-glow"
+          className="absolute top-1/3 -right-32 h-[24rem] w-[24rem] rounded-full bg-[#FF53A9]/20 blur-[60px] animate-pulse-glow"
           style={{ animationDelay: "1.5s" }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background" />

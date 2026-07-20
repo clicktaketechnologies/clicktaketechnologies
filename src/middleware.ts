@@ -6,7 +6,7 @@ import { NextResponse, type NextRequest } from "next/server";
 const CANONICAL_HOST = "clicktaketech.com";
 
 export function middleware(req: NextRequest) {
-  const { pathname, hostname, protocol } = req.nextUrl;
+  const { pathname, hostname } = req.nextUrl;
 
   // 1. Canonical redirect: www → apex (308 = permanent, preserves method)
   //    Skip on the workers.dev preview URL + localhost (dev) so we can test
@@ -20,7 +20,12 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(apexUrl, 308);
   }
 
-  // 2. Only guard admin routes (not the login/signup pages themselves)
+  // 2. Admin route protection — only guard /admin/* paths.
+  //    (Auth pages themselves must remain reachable so the user can log in.)
+  if (!pathname.startsWith("/admin")) {
+    return NextResponse.next();
+  }
+
   const isAuthPage =
     pathname === "/admin/login" ||
     pathname === "/admin/create-admin" ||
@@ -46,7 +51,13 @@ export const config = {
   // Run middleware on admin routes + apex canonical redirect.
   // The www→apex redirect needs to match all paths so any deep link on www
   // (e.g. www.clicktaketech.com/services/ai) redirects to the apex version.
+  //
+  // CRITICAL: `api/.*` MUST be excluded. Without this exclusion, the middleware
+  // intercepts POST /api/auth/callback/credentials (the NextAuth login callback),
+  // sees no session cookie (user is logging in!), and redirects to /admin/login —
+  // so login can NEVER succeed. Same applies to every /api/admin/* route used by
+  // the admin UI (e.g. POST /api/admin/users from /admin/create-admin).
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|woff|woff2|ttf|eot|otf|map|txt|xml).*$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|api/.*|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|woff|woff2|ttf|eot|otf|map|txt|xml).*$).*)",
   ],
 };
