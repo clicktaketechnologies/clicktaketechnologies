@@ -1,11 +1,21 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters", "queryCompiler"]
+  previewFeatures = ["driverAdapters"]
   // driverAdapters: routes SQL through @prisma/adapter-pg (pg-cloudflare on Workers).
-  // queryCompiler: compiles Prisma queries in pure JS — eliminates the 2.2MB WASM
-  //   query engine entirely. Without this, Prisma still bundles query_engine_bg.wasm
-  //   which pushes the Worker past the Cloudflare Free plan's 3 MiB limit.
-  // Together: pure-JS Prisma on Cloudflare Workers, no native binaries, no WASM.
+  //
+  // NOTE: We import PrismaClient from `@prisma/client/wasm` (NOT `@prisma/client`)
+  // in src/lib/db.ts. The `/wasm` endpoint uses the wasm-engine-edge.js runtime,
+  // which loads query_engine_bg.wasm directly — no native binary needed.
+  //
+  // The `queryCompiler` preview feature is NOT needed when using @prisma/client/wasm
+  // (the WASM engine handles both query compilation AND execution). It's only
+  // needed when using `@prisma/client` (library.js) which we don't use.
+  //
+  // PREREQUISITE: requires @prisma/client 6.19.3+ — the 6.19.2 release was
+  // missing query_engine_bg.postgresql.wasm-base64.js from the package, which
+  // made `prisma generate` fail. Fixed in 6.19.3.
+  // Also requires scripts/patch-prisma-wasm-mjs.sh to create the missing
+  // wasm.mjs shim (another 6.19.3 packaging bug).
 }
 
 datasource db {
