@@ -74,7 +74,7 @@ export function Navbar() {
             {/* Next.js Image would over-optimize the brand mark; use plain img with explicit size to avoid CLS */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/clicktake-logo.png"
+              src="/clicktake-logo.webp"
               alt="ClickTake Technologies"
               width={44}
               height={44}

@@ -399,7 +399,7 @@ export const WORK_CASES = [
       "Full headless rebuild with AI-driven product recommendations and a custom checkout flow. Delivered a 3× faster storefront and record-breaking BFCM sales.",
     metric: "+312% revenue",
     tags: ["Shopify", "Next.js", "AI Recs"],
-    image: "/image1.png",
+    image: "/image1.webp",
     glow: "hover:shadow-cyan-500/20",
     url: "/portfolio#lumen-commerce",
     location: "Birmingham, UK",
