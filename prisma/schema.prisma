@@ -1,8 +1,11 @@
 generator client {
-  provider = "prisma-client-js"
-  // driverAdapters + queryCompiler are stable in Prisma 6.10+ — no preview flag needed.
-  // Together they remove the 2.2MB WASM query engine from the bundle by
-  // compiling Prisma queries in pure JS and routing SQL through @prisma/adapter-pg.
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters", "queryCompiler"]
+  // driverAdapters: routes SQL through @prisma/adapter-pg (pg-cloudflare on Workers).
+  // queryCompiler: compiles Prisma queries in pure JS — eliminates the 2.2MB WASM
+  //   query engine entirely. Without this, Prisma still bundles query_engine_bg.wasm
+  //   which pushes the Worker past the Cloudflare Free plan's 3 MiB limit.
+  // Together: pure-JS Prisma on Cloudflare Workers, no native binaries, no WASM.
 }
 
 datasource db {
