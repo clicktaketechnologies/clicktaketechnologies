@@ -19,7 +19,7 @@ export function Footer() {
               <div className="relative h-12 w-12 overflow-hidden rounded-2xl border border-white/10 shadow-lg transition-all duration-500 group-hover:rotate-6 group-hover:scale-105">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/clicktake-logo.png"
+                  src="/clicktake-logo.webp"
                   alt="ClickTake Technologies"
                   className="h-full w-full object-cover"
                 />
