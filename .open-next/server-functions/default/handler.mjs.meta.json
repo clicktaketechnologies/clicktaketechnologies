@@ -5504,7 +5504,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/.prisma/client/index.js": {
-      "bytes": 159753,
+      "bytes": 160041,
       "imports": [
         {
           "path": ".open-next/server-functions/default/node_modules/@prisma/client/runtime/library.js",
@@ -21919,7 +21919,7 @@
           "bytesInOutput": 201205
         },
         ".open-next/server-functions/default/node_modules/.prisma/client/index.js": {
-          "bytesInOutput": 140648
+          "bytesInOutput": 140910
         },
         ".open-next/server-functions/default/node_modules/.prisma/client/default.js": {
           "bytesInOutput": 167
@@ -23161,7 +23161,7 @@
           "bytesInOutput": 82127
         }
       },
-      "bytes": 9874094
+      "bytes": 9874356
     }
   }
 }

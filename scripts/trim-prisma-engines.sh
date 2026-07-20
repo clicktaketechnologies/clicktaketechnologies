@@ -1,28 +1,13 @@
 ***REMOVED***!/bin/bash
-***REMOVED*** Prisma engine trimmer — removes WASM/native engines that are unused on Cloudflare
-***REMOVED*** Workers when running in `driverAdapters` + `queryCompiler` mode.
+***REMOVED*** Prisma engine trimmer — removes unused engines for Cloudflare Workers.
 ***REMOVED***
-***REMOVED*** After `prisma generate`, the @prisma/client package ships ~30MB of engine
-***REMOVED*** files for 5 database backends × 2 file types × 2 formats. On Cloudflare
-***REMOVED*** Workers with the @prisma/adapter-pg driver adapter + queryCompiler,
-***REMOVED*** Prisma compiles queries in pure JS and the adapter speaks SQL directly
-***REMOVED*** to Postgres — NO WASM engine is needed at runtime.
-***REMOVED***
-***REMOVED*** This script removes:
-***REMOVED***   - All non-postgresql WASM engine base64 bundles (cockroachdb/sqlserver/mysql/sqlite)
-***REMOVED***   - The native Node library engine (.so.node, .dll, .dylib, .exe) — unused on Workers
-***REMOVED***   - The standalone query_engine_bg.wasm — queryCompiler mode doesn't use it
-***REMOVED***   - The postgresql WASM base64 bundles — only referenced by generator-build (build-time)
-***REMOVED***   - Stubs `wasm-worker-loader.mjs` to a no-op so esbuild doesn't bundle the .wasm file
-***REMOVED***
-***REMOVED*** It KEEPS:
-***REMOVED***   - The generated client.js / index.js / index.d.ts (the actual client)
-***REMOVED***   - @prisma/client/runtime/wasm-engine-edge.js (used at runtime for type imports)
-***REMOVED***
-***REMOVED*** Re-run any time. Idempotent. Safe to run on dev machines too — the local
-***REMOVED*** `prisma generate` will repopulate files on the next install if needed.
-***REMOVED*** (When developing locally on Node, set PRISMA_FORCE_WASM=0 to use the
-***REMOVED*** library engine; or just re-run `prisma generate` to repopulate engines.)
+***REMOVED*** In Prisma 6.19 with driverAdapters + queryCompiler preview features:
+***REMOVED*** - The WASM query compiler (query_engine_bg.wasm + base64 bundles) IS needed
+***REMOVED***   at runtime — it compiles Prisma queries into SQL.
+***REMOVED*** - The native library engine (libquery_engine-*.so.node) is NOT needed —
+***REMOVED***   the adapter handles SQL execution directly.
+***REMOVED*** - Non-postgres WASM bundles (mysql, cockroachdb, sqlserver, sqlite) are not
+***REMOVED***   needed since we only use postgres.
 
 set -e
 
@@ -31,13 +16,17 @@ GEN_DIR="node_modules/.prisma/client"
 
 echo "==> Trimming unused Prisma engines"
 
-***REMOVED*** 1. Remove ALL WASM engine base64 bundles (none are imported at runtime in
-***REMOVED***    queryCompiler mode — only by the generator-build, which is build-time)
+***REMOVED*** 1. Remove non-postgres WASM base64 bundles (mysql, cockroachdb, sqlserver, sqlite)
 if [ -d "$RUNTIME_DIR" ]; then
-  find "$RUNTIME_DIR" -type f -name "*.wasm-base64.*" -delete -print 2>/dev/null || true
+  find "$RUNTIME_DIR" -type f \( \
+    -name "query_compiler_bg.cockroachdb.wasm-base64.*" -o \
+    -name "query_compiler_bg.mysql.wasm-base64.*" -o \
+    -name "query_compiler_bg.sqlserver.wasm-base64.*" -o \
+    -name "query_compiler_bg.sqlite.wasm-base64.*" \
+  \) -delete -print 2>/dev/null || true
 fi
 
-***REMOVED*** 2. Remove native Node library engine binaries (huge — 17MB+ each, unused on Workers)
+***REMOVED*** 2. Remove native Node library engine binaries (unused with driverAdapters)
 if [ -d "$GEN_DIR" ]; then
   find "$GEN_DIR" -type f \( \
     -name "libquery_engine-*.so.node" -o \
@@ -47,41 +36,7 @@ if [ -d "$GEN_DIR" ]; then
   \) -delete -print 2>/dev/null || true
 fi
 
-***REMOVED*** 3. Remove the standalone WASM engine — queryCompiler mode doesn't use it
-if [ -f "$GEN_DIR/query_engine_bg.wasm" ]; then
-  rm -f "$GEN_DIR/query_engine_bg.wasm"
-  echo "  removed $GEN_DIR/query_engine_bg.wasm"
-fi
-
-***REMOVED*** 4. Stub the workerd WASM loader so esbuild doesn't try to bundle the .wasm file.
-***REMOVED***    The original: `export default import('./query_engine_bg.wasm')`
-***REMOVED***    Our stub: throws a clear error IF ever called (which it shouldn't be in
-***REMOVED***    queryCompiler mode). This breaks the import chain at the last hop and
-***REMOVED***    prevents the 2.2MB WASM from being included in the Worker bundle.
-cat > "$GEN_DIR/wasm-worker-loader.mjs" <<'STUB'
-// Stubbed by scripts/trim-prisma-engines.sh
-// In queryCompiler + driverAdapter mode, this loader is never invoked.
-// If you see this error at runtime, the Prisma client is trying to use the
-// WASM query engine — set `previewFeatures = ["queryCompiler"]` in schema.prisma
-// and pass a driver adapter to PrismaClient.
-export default Promise.reject(new Error(
-  "Prisma WASM engine loader stubbed out. Use @prisma/adapter-pg + queryCompiler mode. " +
-  "See scripts/trim-prisma-engines.sh for details."
-));
-STUB
-
-cat > "$GEN_DIR/wasm-edge-light-loader.mjs" <<'STUB'
-// Stubbed by scripts/trim-prisma-engines.sh (edge-light variant)
-export default Promise.reject(new Error(
-  "Prisma WASM engine loader stubbed out. Use @prisma/adapter-pg + queryCompiler mode."
-));
-STUB
-
-echo "  stubbed wasm-worker-loader.mjs + wasm-edge-light-loader.mjs"
 echo "==> Done"
-echo ""
-echo "Remaining @prisma/client/runtime WASM bundles:"
-ls -lh "$RUNTIME_DIR"/*.wasm-base64.* 2>/dev/null | awk '{print "  " $5 "  " $9}' || echo "  (none)"
 echo ""
 echo "Remaining .prisma/client/ files:"
 ls -lh "$GEN_DIR" 2>/dev/null | awk '{print "  " $5 "  " $9}' || echo "  (none)"
