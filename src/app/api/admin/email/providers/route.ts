@@ -21,7 +21,7 @@ export async function GET() {
   const health = await prisma.providerHealth.findMany({
     where: { category: "email" },
   });
-  const healthMap = new Map(health.map((h) => [h.providerId, h]));
+  const healthMap = new Map<string, any>(health.map((h: any) => [h.providerId, h] as [string, any]));
 
   // Recent send counts per provider (last 24h)
   const since = new Date(Date.now() - 24 * 60 * 60 * 1000);

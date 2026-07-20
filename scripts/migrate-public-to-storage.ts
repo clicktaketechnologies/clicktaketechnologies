@@ -23,13 +23,11 @@
 
 import { promises as fs } from "fs";
 import path from "path";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../src/lib/db";
 
 // ─── Bootstrap: load .env so DATABASE_URL is available ──────────────────────
 import { config as loadEnv } from "dotenv";
 loadEnv({ path: path.resolve(process.cwd(), ".env") });
-
-const prisma = new PrismaClient();
 
 // ─── Args ───────────────────────────────────────────────────────────────────
 const args = new Set(process.argv.slice(2));
@@ -203,4 +201,4 @@ main()
     console.error("Migration failed:", err);
     process.exit(1);
   })
-  .finally(() => prisma.$disconnect());
+  .finally(() => process.exit(0));

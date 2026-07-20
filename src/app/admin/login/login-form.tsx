@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { motion } from "framer-motion";
@@ -9,13 +9,15 @@ import { Shield, Eye, EyeOff, Lock, Mail, ArrowRight, Sparkles, CheckCircle2 } f
 import { toast } from "sonner";
 
 /**
- * Inner login form — consumes useSearchParams so must live inside <Suspense>.
- * (Mounted by /admin/login/page.tsx)
+ * Inner login form. Reads callbackUrl from window.location.search at submit
+ * time — this avoids useSearchParams() which forces Next.js into
+ * BAILOUT_TO_CLIENT_SIDE_RENDERING and leaves the prerendered HTML as a bare
+ * spinner (so the login form never reaches users with JS disabled or with
+ * hydration errors). With this approach the entire form is server-rendered
+ * and visible in the initial HTML.
  */
 export default function AdminLoginForm() {
   const router = useRouter();
-  const params = useSearchParams();
-  const callbackUrl = params.get("callbackUrl") || "/admin";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,6 +56,14 @@ export default function AdminLoginForm() {
 
     setIsLoading(true);
     try {
+      // Read callbackUrl at submit time from the browser URL — avoids
+      // useSearchParams() which triggers client-side bailout.
+      let callbackUrl = "/admin";
+      if (typeof window !== "undefined") {
+        const url = new URL(window.location.href);
+        const cb = url.searchParams.get("callbackUrl");
+        if (cb) callbackUrl = cb;
+      }
       const res = await signIn("credentials", {
         email: email.toLowerCase(),
         password,

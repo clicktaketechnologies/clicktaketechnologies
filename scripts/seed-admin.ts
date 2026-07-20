@@ -1,9 +1,7 @@
 // Standalone seed script — creates default super-admin + system roles.
 // Run with: bun run scripts/seed-admin.ts
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../src/lib/db";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
 
 const SYSTEM_ROLES = [
   {
@@ -84,5 +82,6 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect();
+    // Drizzle uses a pg Pool — no $disconnect method; just exit.
+    process.exit(0);
   });

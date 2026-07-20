@@ -1,22 +1,19 @@
 "use client";
 
-import { Suspense } from "react";
 import AdminLoginForm from "./login-form";
 
 /**
- * Page wrapper — Suspense boundary is REQUIRED because the form uses
- * useSearchParams() (Next.js 16 build requirement for static export).
+ * Admin login page.
+ *
+ * NOTE: Previously wrapped <AdminLoginForm /> in <Suspense> because the form
+ * consumed useSearchParams(). That triggered BAILOUT_TO_CLIENT_SIDE_RENDERING,
+ * so the prerendered HTML only contained the Suspense fallback spinner and
+ * the actual form never reached the user (broken admin login).
+ *
+ * The form now reads callbackUrl from window.location.search inside its submit
+ * handler, so useSearchParams is gone, no Suspense is needed, and the form is
+ * rendered server-side and shipped in the initial HTML.
  */
 export default function AdminLoginPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex min-h-screen items-center justify-center bg-background">
-          <div className="size-8 animate-spin rounded-full border-2 border-brand-blue/30 border-t-brand-blue" />
-        </div>
-      }
-    >
-      <AdminLoginForm />
-    </Suspense>
-  );
+  return <AdminLoginForm />;
 }

@@ -43,7 +43,7 @@ export async function GET() {
 
   // Attach latest health status
   const health = await prisma.providerHealth.findMany();
-  const healthMap = new Map(health.map((h) => [h.providerId, h]));
+  const healthMap = new Map<string, any>(health.map((h: any) => [h.providerId, h] as [string, any]));
   const withHealth = masked.map((m) => ({
     ...m,
     health: healthMap.get(m.providerId)
