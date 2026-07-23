@@ -30,7 +30,7 @@ const PAYMENT_REQUIREMENTS = {
   amount: "1000",
   maxAmountRequired: "1000",
   resource: "https://clicktaketech.com/api/premium",
-  description: "Premium content access — per-request charge",
+  description: "Premium content access - per-request charge",
   mimeType: "application/json",
   payTo: "0x0000000000000000000000000000000000000000",
   maxTimeoutSeconds: 60,
@@ -44,7 +44,7 @@ const PAYMENT_REQUIREMENTS = {
   },
   status: "stub",
   statusDescription:
-    "x402 protocol stub — payments are NOT accepted. Configure a real facilitator URL and wallet address before enabling.",
+    "x402 protocol stub - payments are NOT accepted. Configure a real facilitator URL and wallet address before enabling.",
 };
 
 export async function GET() {
