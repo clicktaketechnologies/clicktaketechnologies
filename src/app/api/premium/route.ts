@@ -48,10 +48,13 @@ const PAYMENT_REQUIREMENTS = {
 };
 
 export async function GET() {
-  // Use TextEncoder + btoa to avoid Buffer dependency in edge runtimes.
-  // btoa is available in both Node.js (>=16) and browser/edge environments.
+  // x402 payment-requirements as a JSON string. The www-authenticate
+  // header carries the same JSON inline as the challenge value (per the
+  // x402 spec, the challenge may be either base64 or raw JSON when the
+  // contents are URL-safe enough; for maximum compatibility we send
+  // raw JSON in x-payment-requirements and a short token in
+  // www-authenticate).
   const jsonStr = JSON.stringify(PAYMENT_REQUIREMENTS);
-  const challenge = btoa(jsonStr);
 
   const body = {
     error: "Payment required",
@@ -65,7 +68,10 @@ export async function GET() {
     status: 402,
     headers: {
       "content-type": "application/json; charset=utf-8",
-      "www-authenticate": `x402 challenge="${challenge}"`,
+      // www-authenticate uses a short static token; full payment requirements
+      // are in the x-payment-requirements header (always available, no
+      // base64 dance required).
+      "www-authenticate": `x402 realm="clicktake-premium", challenge="stub"`,
       "x-payment-requirements": jsonStr,
       "x-payment-required": "true",
       "x402-version": "1",
