@@ -10,17 +10,18 @@ import { ScrollProgressBar, ScrollToTop } from "@/components/site/scroll-animati
 /**
  * 404 page metadata.
  *
- * - `robots.index: false` ensures the 404 page itself is never indexed.
- * - `alternates.canonical` is intentionally omitted so no canonical tag is
- *   emitted. Pointing a 404 canonical at the homepage creates a soft-404
- *   signal in Google Search Console (Google treats it as "this URL is
- *   basically the homepage, so don't index it as a separate page" — which
- *   then hides the real 404 from reports).
+ * - Next.js automatically injects `<meta name="robots" content="noindex">`
+ *   on not-found pages, so we don't set `robots` here (avoids duplicate
+ *   meta robots tags in the HTML head).
+ * - `alternates.canonical` is set to an empty string to override the
+ *   layout's homepage canonical. A 404 page has no canonical URL —
+ *   pointing it at the homepage creates a soft-404 signal. With HTTP 404
+ *   status + noindex + no canonical, Google drops the URL cleanly.
  * - Title is short and explicit so the 404 is recognizable in SERPs and tabs.
  */
 export const metadata: Metadata = {
   title: "Page not found (404)",
-  robots: { index: false, follow: false },
+  alternates: { canonical: "" },
 };
 
 export default function NotFound() {

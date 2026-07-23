@@ -133,6 +133,13 @@ async function fetchFromWorker(request, url) {
 
 /**
  * Forward /admin* and /api* requests to Vercel.
+ *
+ * FIX-E (audit): stamps X-Robots-Tag: noindex, nofollow so admin pages and
+ *                 JSON API responses are never indexed.
+ * FIX-I (audit): stamps baseline security headers (HSTS, X-Frame-Options,
+ *                 X-Content-Type-Options, Referrer-Policy, Permissions-Policy)
+ *                 since this Worker bypasses the Next.js middleware that
+ *                 applies them on the public-site Worker.
  */
 async function proxyToBackend(request, url, backendUrl) {
   const target = new URL(url.pathname + url.search, backendUrl);
@@ -159,6 +166,12 @@ async function proxyToBackend(request, url, backendUrl) {
     respHeaders.set("x-proxied-to", "vercel-edge");
     respHeaders.set("x-edge-proxy", "clicktake-edge-proxy");
 
+    // FIX-E: prevent indexing of admin + API responses
+    respHeaders.set("x-robots-tag", "noindex, nofollow");
+
+    // FIX-I: baseline security headers (mirrors src/middleware.ts)
+    stampSecurityHeaders(respHeaders);
+
     return new Response(upstream.body, {
       status: upstream.status,
       statusText: upstream.statusText,
@@ -178,6 +191,24 @@ async function proxyToBackend(request, url, backendUrl) {
       }
     );
   }
+}
+
+/**
+ * FIX-I (audit): baseline security headers — mirrors the set in
+ * src/middleware.ts so admin/API responses get the same protection
+ * as public HTML pages. CSP is intentionally omitted (needs per-route
+ * allowlist work).
+ */
+function stampSecurityHeaders(h) {
+  h.set("strict-transport-security", "max-age=63072000; includeSubDomains; preload");
+  h.set("x-frame-options", "SAMEORIGIN");
+  h.set("x-content-type-options", "nosniff");
+  h.set("referrer-policy", "strict-origin-when-cross-origin");
+  h.set(
+    "permissions-policy",
+    "camera=(), microphone=(), geolocation=(), browsing-topics=(), interest-cohort=()"
+  );
+  h.delete("x-powered-by");
 }
 
 /**

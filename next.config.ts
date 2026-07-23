@@ -19,6 +19,9 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   reactStrictMode: false,
+  // FIX-I (audit): suppress the X-Powered-By: Next.js header at the source.
+  // Middleware can't delete it because Next.js sets it AFTER middleware runs.
+  poweredByHeader: false,
 };
 
 export default nextConfig;
