@@ -38,13 +38,29 @@ export function Navbar() {
     setExpandedCategory(null);
   }, [pathname]);
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll when mobile menu is open — uses position:fixed trick
+  // to prevent iOS Safari rubber-band scroll bleed.
   useEffect(() => {
-    if (open) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => { document.body.style.overflow = prev; };
-    }
+    if (!open) return;
+    const scrollY = window.scrollY;
+    const prev = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+    };
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+    return () => {
+      document.body.style.overflow = prev.overflow;
+      document.body.style.position = prev.position;
+      document.body.style.top = prev.top;
+      document.body.style.width = prev.width;
+      // Restore scroll position (position:fixed resets it)
+      window.scrollTo(0, scrollY);
+    };
   }, [open]);
 
   /* ── Group services by category (excluding starter-kit) ── */
@@ -98,7 +114,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop nav — visible on lg+, but link density adapts to viewport */}
-          <nav className="hidden lg:flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.03] px-1.5 py-1.5 backdrop-blur-xl whitespace-nowrap max-w-[62vw] xl:max-w-none overflow-hidden">
+          <nav className="hidden lg:flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.03] px-1.5 py-1.5 backdrop-blur-xl whitespace-nowrap max-w-[58vw] xl:max-w-none overflow-hidden">
             {NAV_LINKS.map((l: NavLink) => {
               const isAnchor = l.href.startsWith("#") || l.href.includes("#");
               const isMega = !!l.mega;
@@ -277,16 +293,18 @@ export function Navbar() {
                 onClick={() => setOpen(false)}
                 className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
               />
-              {/* Full-height slide-down panel — fills viewport below the header bar */}
+              {/* Full-height slide-down panel — fills viewport below the header bar.
+                  Uses dynamic viewport height (100dvh) so mobile browser chrome
+                  (address bar) doesn't cause overflow on iOS Safari. */}
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="fixed left-0 right-0 top-[72px] bottom-0 z-50 lg:hidden flex flex-col"
+                className="fixed left-0 right-0 top-[64px] sm:top-[72px] bottom-0 z-50 lg:hidden flex flex-col"
               >
-                <div className="flex-1 overflow-y-auto overscroll-contain glass-strong border-t border-border mx-2 mb-2 rounded-2xl">
-                  <div className="p-3 space-y-1">
+                <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain glass-strong border-t border-border mx-2 mb-2 rounded-2xl">
+                  <div className="p-3 space-y-1 pb-[max(1rem,env(safe-area-inset-bottom))]">
                     <Link
                       href="/"
                       onClick={() => setOpen(false)}
