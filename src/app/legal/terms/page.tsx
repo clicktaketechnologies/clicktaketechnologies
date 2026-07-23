@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import { FileText } from "lucide-react";
 import { LegalPage } from "@/components/site/pages/legal-page";
+import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
   title: "Terms of Service — ClickTake Technologies",
   description:
     "Review the Terms of Service and contract parameters for working with ClickTake Technologies Ltd.",
-  alternates: { canonical: "https://www.clicktaketech.com/legal/terms" },
+  alternates: { canonical: "https://clicktaketech.com/legal/terms" },
 };
 
 export default function Page() {
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: "Terms of Service", path: "/legal/terms" },
+  ]);
   return (
-    <LegalPage
+    <>
+      <JsonLd data={breadcrumb} />
+      <LegalPage
       icon={<FileText className="h-6 w-6" />}
       title="Terms of Service"
       lastUpdated="May 26, 2026"
@@ -109,5 +115,6 @@ export default function Page() {
         },
       ]}
     />
+    </>
   );
 }

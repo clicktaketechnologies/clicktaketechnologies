@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AboutPage } from "@/components/site/pages/about-page";
+import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
   title: "About ClickTake — AI-Powered Digital Agency in Birmingham · Multan · Austin · Dubai",
@@ -17,12 +18,12 @@ export const metadata: Metadata = {
     "AI product development company",
     "ClickTake team",
   ],
-  alternates: { canonical: "https://www.clicktaketech.com/about" },
+  alternates: { canonical: "https://clicktaketech.com/about" },
   openGraph: {
     title: "About ClickTake — Multi-Region AI-Powered Digital Agency",
     description:
       "Founded 2020. Teams in Birmingham, Multan, Austin and Dubai. Building AI-powered websites, SaaS platforms and growth systems across four continents.",
-    url: "https://www.clicktaketech.com/about",
+    url: "https://clicktaketech.com/about",
     type: "website",
     locale: "en_GB",
   },
@@ -39,5 +40,13 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <AboutPage />;
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: "About", path: "/about" },
+  ]);
+  return (
+    <>
+      <JsonLd data={breadcrumb} />
+      <AboutPage />
+    </>
+  );
 }

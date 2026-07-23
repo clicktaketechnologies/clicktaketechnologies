@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     template: "%s | ClickTake Technologies",
   },
   description:
-    "ClickTake Technologies builds AI-powered websites, mobile apps, SaaS platforms and growth systems for ambitious brands across the UK (Birmingham), Pakistan (Multan, Lahore, Karachi), USA (Austin TX) and Dubai (UAE). Custom software, intelligent automation, LLMs, chatbots, and conversion-driven marketing under one roof. 120+ projects shipped. Free 30-minute consultation.",
+    "ClickTake Technologies builds AI-powered websites, SaaS platforms, mobile apps and growth systems for brands across the UK, Pakistan, USA and Dubai. 120+ projects shipped.",
   keywords: [
     "ClickTake Technologies",
     "AI development agency UK",
@@ -71,12 +71,21 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     type: "website",
     locale: "en_GB",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "ClickTake Technologies — AI-Powered Digital Agency. Web · AI · Mobile · SaaS · Growth Marketing. Offices in Birmingham, Multan, Austin and Dubai.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "ClickTake Technologies — AI-Powered Digital Agency",
     description:
       "Custom software, AI automation and growth marketing for brands in the UK, Pakistan, USA and Dubai.",
+    images: ["/og-default.png"],
   },
   robots: {
     index: true,

@@ -121,6 +121,12 @@ export async function middleware(req: NextRequest) {
 
   // 2. Backend proxy — if BACKEND_URL is set, forward /api/* and /admin/* to
   //    the Render backend. This keeps DB code off the CF Worker entirely.
+  //
+  //    FIX-E (audit): /admin/* and /api/* responses get X-Robots-Tag:
+  //    noindex, nofollow so JSON endpoints and admin pages are never
+  //    indexed even if a crawler somehow reaches them.
+  //    FIX-I (audit): security headers added to every response (see
+  //    stampSecurityHeaders helper below).
   const backendUrl = process.env.BACKEND_URL;
   if (backendUrl && (pathname.startsWith("/api/") || pathname.startsWith("/admin"))) {
     const target = new URL(pathname + req.nextUrl.search, backendUrl);
@@ -144,6 +150,9 @@ export async function middleware(req: NextRequest) {
       // about the Body already being consumed.
       const respHeaders = new Headers(upstream.headers);
       respHeaders.set("x-proxied-to", "render");
+      // FIX-E: noindex admin + API responses
+      respHeaders.set("x-robots-tag", "noindex, nofollow");
+      stampSecurityHeaders(respHeaders);
       return new Response(upstream.body, {
         status: upstream.status,
         statusText: upstream.statusText,
@@ -164,10 +173,35 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  /**
+   * FIX-I (audit): stamp baseline security headers on every response.
+   *
+   * These are the headers that are safe to apply globally without breaking
+   * any page. Content-Security-Policy is intentionally omitted — it needs
+   * a per-route allowlist (inline scripts, fonts, analytics, etc.) and is
+   * deferred to a separate pass.
+   */
+  function stampSecurityHeaders(h: Headers) {
+    h.set("strict-transport-security", "max-age=63072000; includeSubDomains; preload");
+    h.set("x-frame-options", "SAMEORIGIN");
+    h.set("x-content-type-options", "nosniff");
+    h.set("referrer-policy", "strict-origin-when-cross-origin");
+    h.set(
+      "permissions-policy",
+      "camera=(), microphone=(), geolocation=(), browsing-topics=(), interest-cohort=()"
+    );
+    // Remove the X-Powered-By header that Next.js sets — minor info leak.
+    h.delete("x-powered-by");
+  }
+
   // 3. Agent-readiness: inject RFC 8288 Link header on public HTML pages
   //    so AI agents can discover the API catalog, OpenAPI spec, OAuth
   //    metadata, MCP server card, agent skills, and auth.md. Also set
   //    Vary: Accept so caches distinguish HTML from markdown variants.
+  //    FIX-I: stamp security headers on every HTML response too.
+  //    FIX-E: if the path is /admin/* or /api/* (and we did NOT proxy),
+  //    add X-Robots-Tag: noindex so local route handlers are also
+  //    protected from indexing.
   function htmlWithLinkHeaders() {
     const res = NextResponse.next();
     // Only stamp Link headers on HTML responses for non-asset paths. The
@@ -181,6 +215,11 @@ export async function middleware(req: NextRequest) {
       res.headers.set("link", linkHeader());
       res.headers.append("vary", "Accept");
     }
+    // FIX-E: local (non-proxied) admin + API routes also get noindex
+    if (pathname.startsWith("/api/") || pathname.startsWith("/admin")) {
+      res.headers.set("x-robots-tag", "noindex, nofollow");
+    }
+    stampSecurityHeaders(res.headers);
     return res;
   }
 

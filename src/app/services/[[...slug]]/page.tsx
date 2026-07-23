@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ServiceDetailPage } from "@/components/site/pages/service-detail-page";
-import { SERVICES, CATEGORY_STYLES } from "@/lib/site-data";
+import { SERVICES, CATEGORY_STYLES, SITE } from "@/lib/site-data";
+import {
+  JsonLd,
+  buildServiceJsonLd,
+  buildBreadcrumbJsonLd,
+} from "@/components/site/json-ld";
 
 interface Params { params: Promise<{ slug?: string[] }> }
 
@@ -54,10 +59,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   if (!slug) {
     return {
-      title: "Services — AI · Web · Marketing · Creative | ClickTake Technologies",
+      title: "Services — AI · Web · Marketing · Creative",
       description:
         "Browse all ClickTake Technologies services across four practice areas: AI & Machine Learning, Web Development, Digital Marketing, and Creative. Custom LLMs, chatbots, SaaS platforms, SEO, paid ads, branding and video — delivered from offices in Birmingham, Multan, Austin and Dubai.",
-      alternates: { canonical: "https://www.clicktaketech.com/services" },
+      alternates: { canonical: "https://clicktaketech.com/services" },
       keywords: [
         "ClickTake services",
         "AI development services",
@@ -72,10 +77,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const service = SERVICES.find((s) => s.slug === joined);
   if (!service) return { title: "Service not found" };
 
+  // FIX-G: title intentionally omits "| ClickTake Technologies" suffix —
+  // the root layout's title.template adds it once.
   const cat = CATEGORY_STYLES[service.category];
-  const title = `${service.title} — ${cat?.eyebrow || "ClickTake Services"} | ClickTake Technologies`;
+  const title = `${service.title} — ${cat?.eyebrow || "ClickTake Services"}`;
   const description = `${service.detailed_description || service.description} Available across the UK (Birmingham, London, Manchester), Pakistan (Multan, Lahore, Karachi, Islamabad), USA (Austin, New York, San Francisco) and Dubai (UAE, MENA region). Book a free 30-minute consultation with ClickTake Technologies.`;
-  const url = `https://www.clicktaketech.com/services/${service.slug}`;
+  const url = `https://clicktaketech.com/services/${service.slug}`;
 
   return {
     title,
@@ -114,11 +121,38 @@ export default async function Page({ params }: Params) {
   // /services  (no slug) — render index page
   if (!slug || slug.length === 0) {
     const { ServicesPage } = await import("@/components/site/pages/services-page");
-    return <ServicesPage />;
+    const breadcrumb = buildBreadcrumbJsonLd([
+      { name: "Services", path: "/services" },
+    ]);
+    return (
+      <>
+        <JsonLd data={breadcrumb} />
+        <ServicesPage />
+      </>
+    );
   }
 
   const joined = slug.join("/");
   const service = SERVICES.find((s) => s.slug === joined);
   if (!service) notFound();
-  return <ServiceDetailPage service={service} />;
+
+  const cat = CATEGORY_STYLES[service.category];
+  const serviceSchema = buildServiceJsonLd({
+    name: service.title,
+    description: service.detailed_description || service.description,
+    slug: service.slug,
+    category: cat?.eyebrow || "Service",
+    providerName: SITE.name,
+  });
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: "Services", path: "/services" },
+    { name: cat?.eyebrow || "Service", path: `/services/${service.slug.split("/")[0]}` },
+    { name: service.title, path: `/services/${service.slug}` },
+  ]);
+  return (
+    <>
+      <JsonLd data={[serviceSchema, breadcrumb]} />
+      <ServiceDetailPage service={service} />
+    </>
+  );
 }

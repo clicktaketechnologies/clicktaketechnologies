@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import { Cookie } from "lucide-react";
 import { LegalPage } from "@/components/site/pages/legal-page";
+import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
   title: "Cookie Policy — ClickTake Technologies",
   description:
     "How ClickTake Technologies uses cookies and similar technologies on our website, and how you can control them.",
-  alternates: { canonical: "https://www.clicktaketech.com/legal/cookies" },
+  alternates: { canonical: "https://clicktaketech.com/legal/cookies" },
 };
 
 export default function Page() {
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: "Cookie Policy", path: "/legal/cookies" },
+  ]);
   return (
-    <LegalPage
+    <>
+      <JsonLd data={breadcrumb} />
+      <LegalPage
       icon={<Cookie className="h-6 w-6" />}
       title="Cookie Policy"
       lastUpdated="May 26, 2026"
@@ -85,5 +91,6 @@ export default function Page() {
         },
       ]}
     />
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactPage } from "@/components/site/pages/contact-page";
+import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
   title: "Contact ClickTake — Birmingham · Multan · Austin · Dubai | Free 30-min Consult",
@@ -17,12 +18,12 @@ export const metadata: Metadata = {
     "callback request software agency",
     "ClickTake email phone",
   ],
-  alternates: { canonical: "https://www.clicktaketech.com/contact" },
+  alternates: { canonical: "https://clicktaketech.com/contact" },
   openGraph: {
     title: "Contact ClickTake Technologies — Free 30-min Consultation",
     description:
       "Project inquiry form, discovery-call scheduler and full office details across UK, Pakistan, USA and Dubai. 24-hour response guarantee.",
-    url: "https://www.clicktaketech.com/contact",
+    url: "https://clicktaketech.com/contact",
     type: "website",
     locale: "en_GB",
   },
@@ -39,5 +40,13 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ContactPage />;
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: "Contact", path: "/contact" },
+  ]);
+  return (
+    <>
+      <JsonLd data={breadcrumb} />
+      <ContactPage />
+    </>
+  );
 }

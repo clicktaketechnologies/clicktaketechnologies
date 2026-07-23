@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PortfolioPage } from "@/components/site/pages/portfolio-page";
+import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
   title: "Portfolio & Case Studies — AI · Web · Growth | Birmingham · Multan · Austin · Dubai",
@@ -17,12 +18,12 @@ export const metadata: Metadata = {
     "digital agency work examples",
     "ClickTake client work",
   ],
-  alternates: { canonical: "https://www.clicktaketech.com/portfolio" },
+  alternates: { canonical: "https://clicktaketech.com/portfolio" },
   openGraph: {
     title: "Portfolio — Case Studies from ClickTake Technologies",
     description:
       "Headless commerce, AI dashboards, brand systems and growth campaigns shipped across UK, Pakistan, USA and Dubai.",
-    url: "https://www.clicktaketech.com/portfolio",
+    url: "https://clicktaketech.com/portfolio",
     type: "website",
     locale: "en_GB",
   },
@@ -39,5 +40,13 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <PortfolioPage />;
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: "Portfolio", path: "/portfolio" },
+  ]);
+  return (
+    <>
+      <JsonLd data={breadcrumb} />
+      <PortfolioPage />
+    </>
+  );
 }
