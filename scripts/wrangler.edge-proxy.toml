@@ -1,0 +1,8 @@
+name = "clicktake-edge-proxy"
+main = "edge-proxy-worker.js"
+compatibility_date = "2026-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Routes are managed via the Cloudflare dashboard / API — most-specific-wins
+# pattern overrides the wildcard /* route on clicktake-web. See worklog for
+# the route attachment commands.
