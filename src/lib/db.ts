@@ -56,6 +56,7 @@ const pool = new Pool({
 });
 
 export const db = drizzle(pool, { schema: schemaObj, logger: false });
+export { pool };
 
 // ─── Schema map: Prisma model name → Drizzle table ──────────────────────────
 const modelMap: Record<string, any> = {

@@ -1,14 +1,20 @@
 #!/bin/bash
 # Postinstall patch for `pg` package — make pg-cloudflare optional at bundle time.
 #
-# Without this patch, esbuild fails with "Could not resolve pg-cloudflare"
-# when bundling for Cloudflare Workers because pg's stream.js does a
-# static require('pg-cloudflare'). The conditional exports in pg-cloudflare
-# only resolve under the `workerd` runtime condition, which esbuild's
-# default resolver doesn't apply.
+# When bundling for Cloudflare Workers via OpenNext, esbuild doesn't apply
+# the `workerd` condition, so `require('pg-cloudflare')` resolves to
+# `dist/empty.js`. Without this patch, esbuild fails with
+# "Could not resolve pg-cloudflare" because pg's stream.js does a static require.
 #
-# Wrapping the require in a try/catch makes esbuild treat it as optional,
-# while still loading the real implementation at runtime on Workers.
+# This patch wraps the require in try/catch so esbuild treats it as optional.
+# At runtime on Cloudflare Workers, the require succeeds (returning the empty
+# stub). pg's stream factory then sees `CloudflareSocket` is undefined and
+# throws — but that's OK because /api/* and /admin/* are proxied to the
+# Render backend via next.config.ts rewrites, so the CF Worker never
+# actually executes any DB code.
+#
+# On Render (Node.js), pg-cloudflare isn't loaded at all — pg uses the
+# standard net.Socket path.
 
 set -e
 
@@ -24,13 +30,11 @@ if grep -q "// patched: pg-cloudflare optional" "$PG_STREAM"; then
   exit 0
 fi
 
-# Replace the static require with a try/catch
 node -e "
 const fs = require('fs');
 const path = '$PG_STREAM';
 let content = fs.readFileSync(path, 'utf8');
 
-// Wrap the require('pg-cloudflare') call in try/catch
 content = content.replace(
   /const \{ CloudflareSocket \} = require\('pg-cloudflare'\)/,
   \"// patched: pg-cloudflare optional (for Cloudflare Workers bundle compatibility)\\n    let CloudflareSocket;\\n    try { ({ CloudflareSocket } = require('pg-cloudflare')); } catch (e) { CloudflareSocket = null; }\"
@@ -39,3 +43,4 @@ content = content.replace(
 fs.writeFileSync(path, content);
 console.log('  ✓ patched pg/lib/stream.js');
 "
+
