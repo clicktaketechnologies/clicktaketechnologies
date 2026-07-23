@@ -207,9 +207,11 @@ export async function POST(req: NextRequest) {
 async function run(req: NextRequest): Promise<NextResponse> {
   const authHeader = req.headers.get("authorization") || "";
   const cfCron = req.headers.get("x-cf-cron");
+  // Vercel Cron doesn't allow custom headers — accept token as ?token= query param too
+  const queryToken = req.nextUrl.searchParams.get("token") || "";
   if (CRON_SECRET) {
     const bearer = authHeader.replace(/^Bearer\s+/i, "");
-    if (bearer !== CRON_SECRET && cfCron !== "1") {
+    if (bearer !== CRON_SECRET && cfCron !== "1" && queryToken !== CRON_SECRET) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
   }

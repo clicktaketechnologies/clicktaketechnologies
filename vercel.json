@@ -4,8 +4,8 @@
   "regions": ["sfo1"],
   "crons": [
     {
-      "path": "/api/cron/provider-health",
-      "schedule": "0 * * * *"
+      "path": "/api/cron/provider-health?token=bc5897828779be9dac20963c",
+      "schedule": "0 9 * * *"
     }
   ]
 }
