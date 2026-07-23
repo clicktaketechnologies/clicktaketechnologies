@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight, ChevronDown, Phone, Sparkles } from "lucide-react";
+import { Menu, X, ArrowUpRight, ChevronDown, ChevronRight, Phone, Sparkles } from "lucide-react";
 import { NAV_LINKS, SERVICES, STARTER_KIT, CATEGORY_STYLES, type ServiceItem } from "@/lib/site-data";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -22,6 +22,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -34,7 +35,17 @@ export function Navbar() {
   useEffect(() => {
     setOpen(false);
     setMegaOpen(false);
+    setExpandedCategory(null);
   }, [pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [open]);
 
   /* ── Group services by category (excluding starter-kit) ── */
   const serviceGroups = useMemo(() => {
@@ -67,22 +78,22 @@ export function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? "py-2" : "py-4"}`}
     >
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="flex items-center justify-between rounded-2xl px-5 py-3 transition-all duration-500 glass">
+      <div className="mx-auto max-w-7xl px-3 sm:px-4">
+        <div className="flex items-center justify-between rounded-2xl px-3 sm:px-5 py-2.5 sm:py-3 transition-all duration-500 glass">
           {/* Logo — real ClickTake logo (200×200 transparent PNG) */}
-          <Link href="/" className="flex items-center gap-2 group shrink-0" aria-label="ClickTake Technologies — Home">
+          <Link href="/" className="flex items-center gap-2 group shrink-0 min-w-0" aria-label="ClickTake Technologies — Home">
             {/* Next.js Image would over-optimize the brand mark; use plain img with explicit size to avoid CLS */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/clicktake-logo.webp"
               alt="ClickTake Technologies"
-              width={44}
-              height={44}
-              className="h-11 w-11 object-contain drop-shadow-[0_2px_8px_rgba(19,109,255,0.35)] group-hover:scale-105 transition-transform duration-300"
+              width={40}
+              height={40}
+              className="h-9 w-9 sm:h-11 sm:w-11 object-contain drop-shadow-[0_2px_8px_rgba(19,109,255,0.35)] group-hover:scale-105 transition-transform duration-300 shrink-0"
             />
-            <div className="flex flex-col leading-none">
-              <span className="text-base font-bold tracking-tight">ClickTake</span>
-              <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Technologies</span>
+            <div className="flex flex-col leading-none min-w-0">
+              <span className="text-sm sm:text-base font-bold tracking-tight truncate">ClickTake</span>
+              <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Technologies</span>
             </div>
           </Link>
 
@@ -227,7 +238,9 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            <ThemeToggle />
+            <div className="hidden sm:block">
+              <ThemeToggle />
+            </div>
             <a
               href="tel:+447391653377"
               className="hidden 2xl:inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition"
@@ -243,100 +256,148 @@ export function Navbar() {
             </a>
             <button
               onClick={() => setOpen(!open)}
-              className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-card/80 lg:hidden"
+              className="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-full border border-white/10 bg-card/80 lg:hidden shrink-0"
               aria-label="Toggle menu"
+              aria-expanded={open}
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile menu — full-screen overlay with scroll */}
         <AnimatePresence>
           {open && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="mt-2 rounded-2xl glass-strong p-3 lg:hidden max-h-[85vh] overflow-y-auto no-scrollbar"
-            >
-              <Link href="/" className="block px-4 py-3 rounded-xl hover:bg-white/5 font-semibold text-sm">
-                Home
-              </Link>
-
-              {/* Mobile: services grouped by category — accordion-style */}
-              {Array.from(serviceGroups.entries()).map(([cat, items]) => {
-                const cfg = CATEGORY_DISPLAY[cat];
-                if (!cfg) return null;
-                return (
-                  <div key={cat} className="mt-2">
-                    <div className={`px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest ${cfg.accentColor}`}>
-                      {cfg.group}
-                    </div>
-                    {items.map((item) => (
-                      <Link
-                        key={item.slug}
-                        href={`/services/${item.slug}`}
-                        className="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm leading-tight"
-                      >
-                        <div className="font-medium">{item.title}</div>
-                        <div className="text-[11px] text-muted-foreground mt-0.5 line-clamp-1">{item.description}</div>
-                      </Link>
-                    ))}
-                  </div>
-                );
-              })}
-
-              {STARTER_KIT && (
-                <Link
-                  href="/services/starter-kit"
-                  className="mt-2 flex items-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 text-sm font-semibold"
-                >
-                  <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
-                  <span className="truncate flex-1">{STARTER_KIT.title}</span>
-                  <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white shrink-0">
-                    FLAGSHIP
-                  </span>
-                </Link>
-              )}
-
-              <div className="border-t border-border mt-3 pt-3 space-y-0.5">
-                <Link href="/portfolio" className="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm">Work</Link>
-                <Link href="/resources" className="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm">Resources</Link>
-                <Link href="/about" className="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm">About</Link>
-                <Link href="/contact" className="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm">Contact</Link>
-              </div>
-
-              {/* Mobile contact block */}
-              <div className="mt-3 grid grid-cols-1 gap-2">
-                <a
-                  href="tel:+447391653377"
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/5 bg-white/[0.02] text-sm"
-                >
-                  <Phone className="h-4 w-4 text-brand-blue" />
-                  +44 7391 653377 (UK)
-                </a>
-                <a
-                  href="tel:+923069753003"
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/5 bg-white/[0.02] text-sm"
-                >
-                  <Phone className="h-4 w-4 text-brand-pink" />
-                  +92 306 9753003 (PK)
-                </a>
-              </div>
-
-              <div className="mt-3 flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3">
-                <span className="text-xs uppercase tracking-widest text-muted-foreground">Theme</span>
-                <ThemeToggle />
-              </div>
-
-              <a
-                href="/contact"
-                className="mt-3 flex items-center justify-center gap-2 rounded-full gradient-bg py-3 font-semibold text-white text-sm"
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setOpen(false)}
+                className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              />
+              {/* Full-height slide-down panel — fills viewport below the header bar */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="fixed left-0 right-0 top-[72px] bottom-0 z-50 lg:hidden flex flex-col"
               >
-                Book a Call <ArrowUpRight className="h-4 w-4" />
-              </a>
-            </motion.div>
+                <div className="flex-1 overflow-y-auto overscroll-contain glass-strong border-t border-border mx-2 mb-2 rounded-2xl">
+                  <div className="p-3 space-y-1">
+                    <Link
+                      href="/"
+                      onClick={() => setOpen(false)}
+                      className="block px-4 py-3 rounded-xl hover:bg-white/5 font-semibold text-base"
+                    >
+                      Home
+                    </Link>
+
+                    {/* Services — accordion-style, collapsed by default to save space */}
+                    <button
+                      onClick={() => setExpandedCategory(expandedCategory === "__services" ? null : "__services")}
+                      className="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 font-semibold text-base"
+                    >
+                      <span>Services</span>
+                      <ChevronDown className={`h-5 w-5 transition-transform ${expandedCategory === "__services" ? "rotate-180" : ""}`} />
+                    </button>
+                    <AnimatePresence>
+                      {expandedCategory === "__services" && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pl-3 pr-1 pb-2 space-y-3">
+                            {Array.from(serviceGroups.entries()).map(([cat, items]) => {
+                              const cfg = CATEGORY_DISPLAY[cat];
+                              if (!cfg) return null;
+                              return (
+                                <div key={cat}>
+                                  <div className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest ${cfg.accentColor}`}>
+                                    {cfg.group}
+                                  </div>
+                                  {items.map((item) => (
+                                    <Link
+                                      key={item.slug}
+                                      href={`/services/${item.slug}`}
+                                      onClick={() => setOpen(false)}
+                                      className="flex items-start gap-2 px-3 py-2 rounded-lg hover:bg-white/5 text-sm leading-tight"
+                                    >
+                                      <ChevronRight className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
+                                      <div className="min-w-0 flex-1">
+                                        <div className="font-medium">{item.title}</div>
+                                        <div className="text-[11px] text-muted-foreground mt-0.5 line-clamp-1">{item.description}</div>
+                                      </div>
+                                    </Link>
+                                  ))}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {STARTER_KIT && (
+                      <Link
+                        href="/services/starter-kit"
+                        onClick={() => setOpen(false)}
+                        className="mt-1 flex items-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 text-sm font-semibold"
+                      >
+                        <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
+                        <span className="truncate flex-1">{STARTER_KIT.title}</span>
+                        <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white shrink-0">
+                          FLAGSHIP
+                        </span>
+                      </Link>
+                    )}
+
+                    <div className="border-t border-border mt-2 pt-2 space-y-0.5">
+                      <Link href="/portfolio" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Work</Link>
+                      <Link href="/resources" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Resources</Link>
+                      <Link href="/about" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">About</Link>
+                      <Link href="/contact" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Contact</Link>
+                    </div>
+
+                    {/* Mobile contact block */}
+                    <div className="mt-2 grid grid-cols-1 gap-2">
+                      <a
+                        href="tel:+447391653377"
+                        className="flex items-center gap-2 px-4 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm"
+                      >
+                        <Phone className="h-4 w-4 text-brand-blue shrink-0" />
+                        <span className="truncate">+44 7391 653377 (UK)</span>
+                      </a>
+                      <a
+                        href="tel:+923069753003"
+                        className="flex items-center gap-2 px-4 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm"
+                      >
+                        <Phone className="h-4 w-4 text-brand-pink shrink-0" />
+                        <span className="truncate">+92 306 9753003 (PK)</span>
+                      </a>
+                    </div>
+
+                    <div className="mt-2 flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3">
+                      <span className="text-xs uppercase tracking-widest text-muted-foreground">Theme</span>
+                      <ThemeToggle />
+                    </div>
+
+                    <a
+                      href="/contact"
+                      onClick={() => setOpen(false)}
+                      className="mt-2 flex items-center justify-center gap-2 rounded-full gradient-bg py-3.5 font-semibold text-white text-base"
+                    >
+                      Book a Call <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </div>
