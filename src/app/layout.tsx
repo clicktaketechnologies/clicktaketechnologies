@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Providers } from "@/components/providers";
 import { SITE } from "@/lib/site-data";
+import { WebMCPProvider } from "@/components/webmcp/webmcp-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -222,6 +223,9 @@ export default function RootLayout({
           <Providers>
             {children}
             <Toaster />
+            {/* Expose site tools to AI agents via the WebMCP browser API
+                (experimental, Chrome only). No-ops in unsupported browsers. */}
+            <WebMCPProvider />
           </Providers>
         </ThemeProvider>
       </body>
