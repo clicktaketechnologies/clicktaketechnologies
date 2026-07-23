@@ -141,30 +141,55 @@ export function linkHeader(): string {
 }
 
 /**
- * DNS-AID record recommendations (informational).
+ * DNS-AID records — published via Cloudflare DNS API on 2026-07-23.
  *
- * Cloudflare partial DNS setups cannot DNSSEC-sign zones that are signed
- * by the registrar, and our zone is currently unsigned. The recommended
- * records below should be published once DNSSEC is enabled.
+ * Records (RFC 9460 SVCB/HTTPS ServiceMode):
+ *   _index._agents.clicktaketech.com.  3600  HTTPS  1 clicktaketech.com. alpn="h2"
+ *   _a2a._agents.clicktaketech.com.    3600  HTTPS  1 clicktaketech.com. alpn="h2"
+ *   _mcp._agents.clicktaketech.com.    3600  SVCB   1 clicktaketech.com. alpn="h2"
  *
- * Recommended SVCB/HTTPS records (draft-mozleywilliams-dnsop-dnsaid):
- *   _index._agents.clicktaketech.com.  HTTPS 0 . alpn="h2" endpoint="clicktaketech.com"
- *   _a2a._agents.clicktaketech.com.    HTTPS 0 . alpn="h2" endpoint="clicktaketech.com"
+ * DNSSEC:
+ *   Status: enabled on Cloudflare zone (algorithm 13 / ECDSAP256SHA256)
+ *   DS record (must be added at the registrar to complete the chain of trust):
+ *     clicktaketech.com. 3600 IN DS 2371 13 2 3D28255721ADD758FDC45DA89543F27A23D5B3F5B895F2F831EEF1CA12266CFA
  *
- * Then sign the parent zone with DNSSEC.
+ * Until the DS record is added at the registrar, DNSSEC status will remain
+ * "pending" and validating resolvers will treat the zone as unsigned.
  */
-export const DNS_AID_RECOMMENDATIONS = {
+export const DNS_AID_RECORDS = {
+  published: true,
   records: [
     {
       name: "_index._agents.clicktaketech.com",
-      type: "SVCB",
-      values: { alpn: "h2", endpoint: "clicktaketech.com" },
+      type: "HTTPS",
+      priority: 1,
+      target: "clicktaketech.com.",
+      params: { alpn: "h2" },
+      purpose: "DNS-AID entrypoint — advertises the agent discovery endpoint",
     },
     {
       name: "_a2a._agents.clicktaketech.com",
+      type: "HTTPS",
+      priority: 1,
+      target: "clicktaketech.com.",
+      params: { alpn: "h2" },
+      purpose: "A2A — agent-to-agent discovery via MCP server card",
+    },
+    {
+      name: "_mcp._agents.clicktaketech.com",
       type: "SVCB",
-      values: { alpn: "h2", endpoint: "clicktaketech.com" },
+      priority: 1,
+      target: "clicktaketech.com.",
+      params: { alpn: "h2" },
+      purpose: "MCP Streamable HTTP transport at /api/mcp",
     },
   ],
-  requiresDnssec: true,
+  dnssec: {
+    cloudflareStatus: "pending",
+    algorithm: "ECDSAP256SHA256",
+    keyTag: 2371,
+    dsRecord:
+      "clicktaketech.com. 3600 IN DS 2371 13 2 3D28255721ADD758FDC45DA89543F27A23D5B3F5B895F2F831EEF1CA12266CFA",
+    note: "Add the DS record at the registrar (e.g., Namecheap, GoDaddy) to complete DNSSEC chain of trust.",
+  },
 } as const;

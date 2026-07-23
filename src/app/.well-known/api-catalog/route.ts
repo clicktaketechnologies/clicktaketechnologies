@@ -31,6 +31,34 @@ export async function GET() {
       "service-doc": [{ href: AGENT.apiDocsUrl, type: "text/html" }],
       status: [{ href: AGENT.healthUrl, type: "application/json" }],
     },
+    {
+      anchor: AGENT.origin + "/api/premium",
+      "service-desc": [
+        { href: AGENT.openApiUrl + "#/paths/~1premium~1get", type: "application/vnd.oai.openapi+json;version=3.1" },
+      ],
+      "service-doc": [{ href: "https://x402.org", type: "text/html" }],
+      status: [{ href: AGENT.healthUrl, type: "application/json" }],
+      "payment-protocol": [
+        { href: "https://x402.org", type: "text/html", name: "x402" },
+      ],
+    },
+    {
+      anchor: AGENT.origin + "/.well-known/ucp",
+      "service-desc": [{ href: "https://ucp.dev/specification/overview/", type: "text/html" }],
+      "service-doc": [{ href: "https://ucp.dev", type: "text/html" }],
+    },
+    {
+      anchor: AGENT.origin + "/.well-known/acp.json",
+      "service-desc": [
+        { href: "https://agenticcommerce.dev", type: "text/html" },
+      ],
+      "service-doc": [
+        {
+          href: "https://github.com/agentic-commerce-protocol/agentic-commerce-protocol/blob/main/rfcs/rfc.discovery.md",
+          type: "text/html",
+        },
+      ],
+    },
   ];
 
   return NextResponse.json(

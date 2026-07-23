@@ -122,6 +122,18 @@ export async function GET() {
               },
             },
           },
+          // MPP (Machine Payment Protocol) extension — declares this operation
+          // is free (no charge). Required by MPP-aware agents to know whether
+          // payment is expected before invoking the operation.
+          // @see https://mpp.dev
+          "x-payment-info": {
+            intent: "none",
+            method: [],
+            amount: 0,
+            currency: "USD",
+            description:
+              "Lead submission is free. No payment required.",
+          },
           responses: {
             "201": {
               description: "Lead created",
@@ -143,10 +155,66 @@ export async function GET() {
           },
         },
       },
+      "/premium": {
+        get: {
+          tags: ["premium"],
+          summary: "Premium content endpoint (x402 payment required)",
+          description:
+            "Premium-tier endpoint protected by the x402 HTTP payment protocol. Returns HTTP 402 with payment requirements that AI agents can fulfill automatically. Payments are NOT currently accepted — this endpoint is a protocol stub demonstrating x402 detection. Real facilitator URL and wallet address must be configured before enabling.",
+          externalDocs: {
+            description: "x402 protocol specification",
+            url: "https://x402.org",
+          },
+          // MPP extension for the payable operation
+          "x-payment-info": {
+            intent: "charge",
+            method: ["tempo", "lightning"],
+            amount: 0.01,
+            currency: "USD",
+            description:
+              "Premium content access. Per-request charge via x402.",
+          },
+          responses: {
+            "200": {
+              description: "Premium content (after payment verified)",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      content: { type: "string" },
+                      tier: { type: "string", enum: ["premium"] },
+                    },
+                  },
+                },
+              },
+            },
+            "402": {
+              description: "Payment Required (x402)",
+              headers: {
+                "WWW-Authenticate": {
+                  schema: { type: "string" },
+                  description: "x402 payment challenge",
+                },
+                "x-payment-requirements": {
+                  schema: { type: "string" },
+                  description: "JSON-encoded x402 payment requirements",
+                },
+              },
+            },
+          },
+        },
+      },
       "/services": {
         get: {
           tags: ["content"],
           summary: "List service offerings",
+          "x-payment-info": {
+            intent: "none",
+            method: [],
+            amount: 0,
+            currency: "USD",
+          },
           responses: {
             "200": {
               description: "Service catalog",
@@ -166,6 +234,12 @@ export async function GET() {
         get: {
           tags: ["content"],
           summary: "List portfolio projects",
+          "x-payment-info": {
+            intent: "none",
+            method: [],
+            amount: 0,
+            currency: "USD",
+          },
           parameters: [
             {
               name: "industry",
@@ -198,6 +272,12 @@ export async function GET() {
         get: {
           tags: ["content"],
           summary: "List regional offices",
+          "x-payment-info": {
+            intent: "none",
+            method: [],
+            amount: 0,
+            currency: "USD",
+          },
           responses: {
             "200": {
               description: "Office directory",
@@ -217,6 +297,12 @@ export async function GET() {
         get: {
           tags: ["search"],
           summary: "Full-text site search",
+          "x-payment-info": {
+            intent: "none",
+            method: [],
+            amount: 0,
+            currency: "USD",
+          },
           parameters: [
             {
               name: "q",
@@ -263,6 +349,12 @@ export async function GET() {
         get: {
           tags: ["health"],
           summary: "Service health probe",
+          "x-payment-info": {
+            intent: "none",
+            method: [],
+            amount: 0,
+            currency: "USD",
+          },
           responses: {
             "200": {
               description: "Service is healthy",

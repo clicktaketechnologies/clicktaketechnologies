@@ -7,20 +7,77 @@ import { AGENT } from "@/lib/agent-config";
  * first-party access to ClickTake Technologies APIs. Mirrors the agent_auth
  * block in /.well-known/oauth-authorization-server.
  *
+ * The YAML frontmatter at the top of the markdown is the machine-readable
+ * `agent_auth` metadata block per the auth.md spec — agents can parse it
+ * without reading the human-readable sections below.
+ *
  * @see https://workos.com/auth.md
  * @see https://github.com/workos/auth.md
  */
 export const dynamic = "force-static";
 
 export function GET() {
-  const md = `# auth.md — ClickTake Technologies
+  const today = new Date().toISOString().split("T")[0];
+  const md = `---
+# auth.md frontmatter — machine-readable agent_auth metadata
+# Spec: https://workos.com/auth.md
+schema: "https://workos.com/auth.md/schema/v1"
+origin: "${AGENT.origin}"
+contact: "${AGENT.contactEmail}"
+last_updated: "${today}"
+agent_auth:
+  register_uri: "${AGENT.origin}/admin/register-agent"
+  documentation_uri: "${AGENT.authMdUrl}"
+  supported_identity_types:
+    - service
+    - user_assisted
+    - user_managed
+  credential_types_supported:
+    - api_key
+    - oauth_access_token
+    - oidc_id_token
+  claims_endpoint: "${AGENT.origin}/api/auth/claims"
+  revocation_uri: "${AGENT.origin}/api/auth/revoke"
+  authorization_server: "${AGENT.authorizationServerUrl}"
+  protected_resource: "${AGENT.protectedResourceUrl}"
+oauth:
+  issuer: "${AGENT.oauthIssuer}"
+  authorization_endpoint: "${AGENT.origin}/api/auth/signin"
+  token_endpoint: "${AGENT.origin}/api/auth/token"
+  jwks_uri: "${AGENT.origin}/.well-known/jwks.json"
+  registration_endpoint: "${AGENT.origin}/api/auth/register"
+  introspection_endpoint: "${AGENT.origin}/api/auth/introspect"
+  revocation_endpoint: "${AGENT.origin}/api/auth/revoke"
+  scopes_supported:
+    - openid
+    - profile
+    - email
+    - "read:projects"
+    - "write:leads"
+    - "read:portfolio"
+  grant_types_supported:
+    - authorization_code
+    - refresh_token
+    - client_credentials
+mcp:
+  server_card: "${AGENT.mcpServerCardUrl}"
+  transport_endpoint: "${AGENT.mcpEndpoint}"
+agent_skills:
+  discovery_index: "${AGENT.agentSkillsUrl}"
+rate_limits:
+  public_read: "60 req/min per IP"
+  authenticated_read: "600 req/min per token"
+  write: "30 req/min per token"
+---
+
+# auth.md — ClickTake Technologies
 
 This document describes how AI agents authenticate with and register for
 access to ClickTake Technologies APIs and tools.
 
 > Site: ${AGENT.origin}
 > Contact: ${AGENT.contactEmail}
-> Last updated: ${new Date().toISOString().split("T")[0]}
+> Last updated: ${today}
 
 ## 1. Authentication methods
 
