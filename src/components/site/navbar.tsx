@@ -88,10 +88,7 @@ export function Navbar() {
   };
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+    <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? "py-2" : "py-4"}`}
     >
       <div className="mx-auto max-w-7xl px-3 sm:px-4">
@@ -419,6 +416,6 @@ export function Navbar() {
           )}
         </AnimatePresence>
       </div>
-    </motion.header>
+    </header>
   );
 }
