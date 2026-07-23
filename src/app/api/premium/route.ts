@@ -22,6 +22,7 @@ import { NextResponse } from "next/server";
  * @see https://docs.x402.org
  */
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 const PAYMENT_REQUIREMENTS = {
   scheme: "exact",
@@ -47,7 +48,15 @@ const PAYMENT_REQUIREMENTS = {
     "x402 protocol stub — payments are NOT accepted. Configure a real facilitator URL and wallet address before enabling.",
 };
 
+/** Base64-encode a string without using Buffer (works in nodejs + edge runtimes). */
+function base64(s: string): string {
+  if (typeof btoa === "function") return btoa(s);
+  // Node.js fallback (when btoa is unavailable)
+  return Buffer.from(s, "utf-8").toString("base64");
+}
+
 export async function GET() {
+  const challenge = base64(JSON.stringify(PAYMENT_REQUIREMENTS));
   return NextResponse.json(
     {
       error: "Payment required",
@@ -60,9 +69,7 @@ export async function GET() {
       status: 402,
       headers: {
         "content-type": "application/json; charset=utf-8",
-        "www-authenticate": `x402 challenge="${Buffer.from(
-          JSON.stringify(PAYMENT_REQUIREMENTS)
-        ).toString("base64")}"`,
+        "www-authenticate": `x402 challenge="${challenge}"`,
         "x-payment-requirements": JSON.stringify(PAYMENT_REQUIREMENTS),
         "x-payment-required": "true",
         "x402-version": "1",
@@ -85,3 +92,4 @@ export async function OPTIONS() {
     },
   });
 }
+
