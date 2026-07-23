@@ -11,7 +11,7 @@ export default async function RbacPage() {
   if (!session?.user) redirect("/admin/login?callbackUrl=/admin/roles");
   if (!hasPermission(session.user, "manageRBAC")) redirect("/admin");
 
-  const [users, roles] = await Promise.all([
+  const [users, roles, roleUserCounts] = await Promise.all([
     prisma.adminUser.findMany({
       include: { role: true },
       orderBy: { createdAt: "desc" },
@@ -19,11 +19,20 @@ export default async function RbacPage() {
     prisma.adminRole.findMany({
       include: {
         permissions: true,
-        _count: { select: { users: true } },
       },
       orderBy: { createdAt: "asc" },
     }),
+    // Drizzle shim doesn't support Prisma's _count syntax — fetch separately
+    prisma.adminUser.findMany({
+      select: { roleId: true },
+    }),
   ]);
+
+  // Build role -> user count map manually
+  const userCountByRole: Record<string, number> = {};
+  for (const u of roleUserCounts) {
+    if (u.roleId) userCountByRole[u.roleId] = (userCountByRole[u.roleId] || 0) + 1;
+  }
 
   return (
     <RbacClient
@@ -44,7 +53,7 @@ export default async function RbacPage() {
         description: r.description,
         color: r.color,
         isSystem: r.isSystem,
-        userCount: r._count.users,
+        userCount: userCountByRole[r.id] || 0,
         permissions: r.permissions.map((p) => p.permissionKey),
       }))}
       availablePermissions={ALL_PERMISSIONS}

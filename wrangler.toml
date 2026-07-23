@@ -19,14 +19,24 @@ main = ".open-next/worker.js"
 compatibility_date = "2026-01-01"
 compatibility_flags = ["nodejs_compat"]
 
-***REMOVED*** Custom domains — Cloudflare auto-creates + manages the DNS records and
-***REMOVED*** provisions Universal SSL certs. No manual DNS step required.
-***REMOVED*** This needs the `***REMOVED***worker:edit` permission (already on our token).
-***REMOVED*** Note: removes the workers.dev preview URL — uncomment `workers_dev = true`
-***REMOVED*** below if you want both.
+***REMOVED*** Custom domains — managed manually via Cloudflare dashboard or API,
+***REMOVED*** NOT via wrangler deploy. This is because the apex domain's DNS A record
+***REMOVED*** points to Vercel (not Cloudflare), and we route traffic to the Worker
+***REMOVED*** via a Worker Route on the wildcard pattern below + Cloudflare's "flare"-style
+***REMOVED*** proxy. Wrangler's `custom_domain = true` option fights with this setup.
+***REMOVED***
+***REMOVED*** To re-attach the custom domain after a fresh deploy, use the Cloudflare API:
+***REMOVED***   POST /accounts/{acct}/workers/domains
+***REMOVED***   { "environment": "production", "hostname": "clicktaketech.com",
+***REMOVED***     "zone_id": "...", "service": "clicktake-web" }
+***REMOVED***
+***REMOVED*** For now, the Worker is reachable at:
+***REMOVED***   https://clicktake-web.<account-subdomain>.workers.dev
+***REMOVED*** (kept alive by `workers_dev = true` below)
+
 routes = [
-  { pattern = "clicktaketech.com", custom_domain = true },
-  { pattern = "www.clicktaketech.com", custom_domain = true },
+  { pattern = "clicktaketech.com/*", zone_name = "clicktaketech.com" },
+  { pattern = "www.clicktaketech.com/*", zone_name = "clicktaketech.com" },
 ]
 
 ***REMOVED*** Keep the workers.dev URL accessible too (useful for testing + as a
