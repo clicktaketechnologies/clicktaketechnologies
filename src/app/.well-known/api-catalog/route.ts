@@ -18,10 +18,10 @@ export async function GET() {
   const linkset = [
     {
       anchor: AGENT.origin + "/api",
-      service-desc: [
+      "service-desc": [
         { href: AGENT.openApiUrl, type: "application/vnd.oai.openapi+json;version=3.1" },
       ],
-      service-doc: [{ href: AGENT.apiDocsUrl, type: "text/html" }],
+      "service-doc": [{ href: AGENT.apiDocsUrl, type: "text/html" }],
       status: [{ href: AGENT.healthUrl, type: "application/json" }],
       "api-catalog": [{ href: AGENT.apiCatalogUrl, type: "application/linkset+json" }],
     },
