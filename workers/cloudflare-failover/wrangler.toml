@@ -1,0 +1,25 @@
+name = "clicktake-failover"
+main = "worker.js"
+compatibility_date = "2025-07-24"
+account_id = ""  # set yours, or rely on CLOUDFLARE_ACCOUNT_ID env var
+
+# Routes — make this Worker handle ALL traffic to clicktaketech.com
+# (set up via Cloudflare dashboard OR custom_domain below)
+routes = [
+  { pattern = "clicktaketech.com/*", zone_name = "clicktaketech.com" },
+  { pattern = "www.clicktaketech.com/*", zone_name = "clicktaketech.com" },
+]
+
+# Backend configuration — fill these in via `wrangler secret put` or dashboard
+# Don't put real URLs in [vars] if they're private. These are public endpoints though.
+[vars]
+PRIMARY_BACKEND = "https://clicktaketech.com"           # ← your cPanel URL (e.g. https://server.host.com/~user/ or your actual domain)
+SECONDARY_BACKEND = "https://clicktake.vercel.app"      # ← your Vercel backup URL
+HEALTH_PATH = "/api/health"
+PRIMARY_TIMEOUT_MS = "5000"
+COOLDOWN_SEC = "60"
+HEALTH_PROBE_SEC = "15"
+
+# Observability — logs to Cloudflare dashboard (free)
+[observability]
+enabled = true
