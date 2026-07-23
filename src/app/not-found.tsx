@@ -1,10 +1,27 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowLeft, Home } from "lucide-react";
 import { BackgroundScene } from "@/components/site/background-scene";
 import { CustomCursor } from "@/components/site/custom-cursor";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { ScrollProgressBar, ScrollToTop } from "@/components/site/scroll-animations";
+
+/**
+ * 404 page metadata.
+ *
+ * - `robots.index: false` ensures the 404 page itself is never indexed.
+ * - `alternates.canonical` is intentionally omitted so no canonical tag is
+ *   emitted. Pointing a 404 canonical at the homepage creates a soft-404
+ *   signal in Google Search Console (Google treats it as "this URL is
+ *   basically the homepage, so don't index it as a separate page" — which
+ *   then hides the real 404 from reports).
+ * - Title is short and explicit so the 404 is recognizable in SERPs and tabs.
+ */
+export const metadata: Metadata = {
+  title: "Page not found (404)",
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (

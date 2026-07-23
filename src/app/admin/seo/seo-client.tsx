@@ -227,7 +227,7 @@ function MetaEditorModal({ meta, onClose, onSaved }: { meta: Meta | null; onClos
 
 function SitemapConfig({ initial, canWrite }: { initial: Props["sitemap"]; canWrite: boolean }) {
   const [form, setForm] = useState({
-    baseUrl: initial?.baseUrl || "https://www.clicktaketech.com",
+    baseUrl: initial?.baseUrl || "https://clicktaketech.com",
     includePages: initial?.includePages ?? true,
     includeServices: initial?.includeServices ?? true,
     includeBlogs: initial?.includeBlogs ?? true,
@@ -291,7 +291,7 @@ function RobotsConfig({ initial, canWrite }: { initial: Props["robots"]; canWrit
     userAgent: initial?.userAgent || "*",
     allowAll: initial?.allowAll ?? true,
     disallowPaths: initial?.disallowPaths || "/admin,/api",
-    sitemapUrl: initial?.sitemapUrl || "https://www.clicktaketech.com/sitemap.xml",
+    sitemapUrl: initial?.sitemapUrl || "https://clicktaketech.com/sitemap.xml",
     crawlDelay: initial?.crawlDelay || 0,
   });
   const [saving, setSaving] = useState(false);

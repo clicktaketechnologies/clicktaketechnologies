@@ -1,7 +1,21 @@
 import type { MetadataRoute } from "next";
-import { SERVICES, RESOURCES } from "@/lib/site-data";
+import { SERVICES, SITE } from "@/lib/site-data";
 
-const BASE = "https://www.clicktaketech.com";
+/**
+ * Sitemap.
+ *
+ * Canonical host is the apex domain (https://clicktaketech.com). The www
+ * subdomain 308-redirects to apex via middleware, so emitting www URLs in
+ * the sitemap would force Googlebot through a redirect on every page —
+ * wasting crawl budget and diluting canonical signals.
+ *
+ * Resource article URLs (/resources/<slug>) are intentionally omitted
+ * because no /resources/[slug]/page.tsx route exists yet — the RESOURCES
+ * array only feeds the listing card on /resources. Including them would
+ * produce 7 sitemap 404s in GSC. When the article route is built, re-enable
+ * the resourceRoutes block below.
+ */
+const BASE = SITE.url; // https://clicktaketech.com
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -25,12 +39,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
   }));
 
-  const resourceRoutes = RESOURCES.map((r) => ({
-    url: `${BASE}/resources/${r.slug}`,
-    priority: 0.5,
-    changeFrequency: "monthly" as const,
-    lastModified: now,
-  }));
+  // NOTE: /resources/<slug> routes omitted — see comment at top of file.
+  // When /resources/[slug]/page.tsx ships, uncomment this block:
+  //
+  //   const resourceRoutes = RESOURCES.map((r) => ({
+  //     url: `${BASE}/resources/${r.slug}`,
+  //     priority: 0.5,
+  //     changeFrequency: "monthly" as const,
+  //     lastModified: now,
+  //   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...resourceRoutes];
+  return [...staticRoutes, ...serviceRoutes];
 }

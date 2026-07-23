@@ -4,8 +4,8 @@
 
 export const SITE = {
   name: "ClickTake Technologies",
-  domain: "www.clicktaketech.com",
-  url: "https://www.clicktaketech.com",
+  domain: "clicktaketech.com",
+  url: "https://clicktaketech.com",
   email: "Info@clicktaketech.com",
   phones: [
     { label: "Pakistan", value: "+92 306 9753003", href: "tel:+923069753003" },

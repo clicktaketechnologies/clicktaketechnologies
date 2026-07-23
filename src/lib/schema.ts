@@ -290,7 +290,7 @@ export const seoPageMeta = pgTable(
 // ─── SEO Sitemap Config ─────────────────────────────────────────────────────
 export const seoSitemapConfig = pgTable("seo_sitemap_config", {
   id: text("id").primaryKey().$defaultFn(cuid),
-  baseUrl: text("base_url").default("https://www.clicktaketech.com"),
+  baseUrl: text("base_url").default("https://clicktaketech.com"),
   includePages: boolean("include_pages").default(true),
   includeServices: boolean("include_services").default(true),
   includeBlogs: boolean("include_blogs").default(true),
@@ -306,7 +306,7 @@ export const seoRobotsConfig = pgTable("seo_robots_config", {
   userAgent: text("user_agent").default("*"),
   allowAll: boolean("allow_all").default(true),
   disallowPaths: text("disallow_paths").default("/admin,/api"),
-  sitemapUrl: text("sitemap_url").default("https://www.clicktaketech.com/sitemap.xml"),
+  sitemapUrl: text("sitemap_url").default("https://clicktaketech.com/sitemap.xml"),
   crawlDelay: integer("crawl_delay"),
   updatedAt: timestamp("updated_at").defaultNow(),
 });

@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import { ShieldCheck, Lock } from "lucide-react";
 import { LegalPage } from "@/components/site/pages/legal-page";
+import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — ClickTake Technologies",
   description:
     "Read the privacy policy and data protection terms for ClickTake Technologies. Learn how we handle your business information.",
-  alternates: { canonical: "https://www.clicktaketech.com/legal/privacy" },
+  alternates: { canonical: "https://clicktaketech.com/legal/privacy" },
 };
 
 export default function Page() {
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: "Privacy Policy", path: "/legal/privacy" },
+  ]);
   return (
-    <LegalPage
+    <>
+      <JsonLd data={breadcrumb} />
+      <LegalPage
       icon={<ShieldCheck className="h-6 w-6" />}
       title="Privacy Policy"
       lastUpdated="May 26, 2026"
@@ -85,5 +91,6 @@ export default function Page() {
         },
       ]}
     />
+    </>
   );
 }

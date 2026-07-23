@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { ResourcesPage } from "@/components/site/pages/resources-page";
+import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
-  title: "Resources — Playbooks & Guides for Founders | ClickTake Technologies",
+  title: "Resources — Playbooks & Guides for Founders",
   description:
     "Practical playbooks, guides and comparisons from ClickTake Technologies. Topics include AI adoption, LLM fine-tuning, SEO for SaaS, headless commerce, hiring engineering talent, and market entry for UK, Pakistan, USA and Dubai. Written for founders shipping digital products — not vanity content.",
   keywords: [
@@ -17,12 +18,12 @@ export const metadata: Metadata = {
     "USA SaaS market entry",
     "ClickTake guides",
   ],
-  alternates: { canonical: "https://www.clicktaketech.com/resources" },
+  alternates: { canonical: "https://clicktaketech.com/resources" },
   openGraph: {
     title: "Resources — Playbooks & Guides | ClickTake Technologies",
     description:
       "Practical playbooks on AI, SEO, headless commerce, hiring and market entry — written for founders in the UK, Pakistan, USA and Dubai.",
-    url: "https://www.clicktaketech.com/resources",
+    url: "https://clicktaketech.com/resources",
     type: "website",
     locale: "en_GB",
   },
@@ -39,5 +40,13 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ResourcesPage />;
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: "Resources", path: "/resources" },
+  ]);
+  return (
+    <>
+      <JsonLd data={breadcrumb} />
+      <ResourcesPage />
+    </>
+  );
 }

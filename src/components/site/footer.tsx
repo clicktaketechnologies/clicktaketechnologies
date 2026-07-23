@@ -146,7 +146,7 @@ export function Footer() {
               href={SITE.url}
               className="inline-flex items-center gap-1 hover:text-foreground transition"
             >
-              www.clicktaketech.com <ArrowUpRight className="h-3 w-3" />
+              clicktaketech.com <ArrowUpRight className="h-3 w-3" />
             </a>
           </div>
         </div>

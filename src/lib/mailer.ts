@@ -102,7 +102,7 @@ export function inquiryThankYouEmail(name: string) {
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: ***REMOVED***333; line-height: 1.6;">
         <h2 style="color: ***REMOVED***136DFF;">Thanks for reaching out, ${name}!</h2>
         <p>We've received your project inquiry and a senior member of our team will get back to you within 24 hours.</p>
-        <p>In the meantime, feel free to browse our <a href="https://www.clicktaketech.com/services" style="color: ***REMOVED***136DFF;">services</a> or <a href="https://www.clicktaketech.com/portfolio" style="color: ***REMOVED***136DFF;">portfolio</a>.</p>
+        <p>In the meantime, feel free to browse our <a href="https://clicktaketech.com/services" style="color: ***REMOVED***136DFF;">services</a> or <a href="https://clicktaketech.com/portfolio" style="color: ***REMOVED***136DFF;">portfolio</a>.</p>
         <hr style="border: none; border-top: 1px solid ***REMOVED***E5E7EB; margin: 32px 0;" />
         <p style="font-size: 12px; color: ***REMOVED***6B7280;">Best regards,<br><strong>ClickTake Technologies</strong></p>
       </div>
