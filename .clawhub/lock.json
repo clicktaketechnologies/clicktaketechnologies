@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "ahrefs-mcp": {
+      "version": "1.0.0",
+      "installedAt": 1784844092334,
+      "ownerHandle": "jonathan-sokol"
+    },
+    "technical-seo-checker": {
+      "version": "18.0.0",
+      "installedAt": 1784844117232,
+      "ownerHandle": "aaron-he-zhu"
+    }
+  }
+}
