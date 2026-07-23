@@ -5,16 +5,31 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { motion } from "framer-motion";
-import { Shield, Eye, EyeOff, Lock, Mail, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+import {
+  Shield,
+  Eye,
+  EyeOff,
+  Lock,
+  Mail,
+  ArrowRight,
+  CheckCircle2,
+  Fingerprint,
+  KeyRound,
+  AlertCircle,
+} from "lucide-react";
 import { toast } from "sonner";
 
 /**
- * Inner login form. Reads callbackUrl from window.location.search at submit
- * time — this avoids useSearchParams() which forces Next.js into
- * BAILOUT_TO_CLIENT_SIDE_RENDERING and leaves the prerendered HTML as a bare
- * spinner (so the login form never reaches users with JS disabled or with
- * hydration errors). With this approach the entire form is server-rendered
- * and visible in the initial HTML.
+ * Admin login form.
+ *
+ * Reads callbackUrl at submit time from window.location.search to avoid
+ * useSearchParams() (which forces Next.js into client-side bailout and
+ * leaves the prerendered HTML as a bare spinner).
+ *
+ * NOTE: Demo credentials are NO LONGER displayed on the page. Production
+ * admins receive their credentials through secure channels (env vars +
+ * direct outreach). Showing credentials on a public login page is a
+ * critical information disclosure vulnerability.
  */
 export default function AdminLoginForm() {
   const router = useRouter();
@@ -56,8 +71,6 @@ export default function AdminLoginForm() {
 
     setIsLoading(true);
     try {
-      // Read callbackUrl at submit time from the browser URL — avoids
-      // useSearchParams() which triggers client-side bailout.
       let callbackUrl = "/admin";
       if (typeof window !== "undefined") {
         const url = new URL(window.location.href);
@@ -85,10 +98,18 @@ export default function AdminLoginForm() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-12">
-      {/* Background glow — blur reduced from 3xl to 2xl for GPU perf */}
+      {/* Background glow + animated gradient orbs */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 left-1/2 size-[28rem] -translate-x-1/2 rounded-full bg-brand-blue/20 blur-2xl" />
-        <div className="absolute bottom-0 right-0 size-[22rem] rounded-full bg-brand-pink/20 blur-2xl" />
+        <div className="absolute -top-40 left-1/2 size-[32rem] -translate-x-1/2 rounded-full bg-brand-blue/20 blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-0 size-[24rem] rounded-full bg-brand-pink/20 blur-3xl animate-pulse [animation-delay:1s]" />
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
       </div>
 
       <motion.div
@@ -97,12 +118,18 @@ export default function AdminLoginForm() {
         transition={{ duration: 0.5 }}
         className="relative z-10 w-full max-w-md"
       >
-        <div className="rounded-2xl border border-border/60 bg-card/60 p-8 shadow-2xl backdrop-blur-xl">
-          {/* Logo */}
+        <div className="rounded-2xl border border-border/60 bg-card/70 p-8 shadow-2xl backdrop-blur-xl">
+          {/* Logo + heading */}
           <div className="mb-8 flex flex-col items-center text-center">
-            <div className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue to-brand-pink text-white shadow-lg shadow-brand-blue/30">
-              <Shield className="size-7" />
-            </div>
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.4 }}
+              className="mb-4 flex size-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue to-brand-pink text-white shadow-lg shadow-brand-blue/40 relative overflow-hidden"
+            >
+              <Shield className="size-8 relative z-10" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent" />
+            </motion.div>
             <h1 className="text-2xl font-bold tracking-tight">Admin Portal</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Sign in to ClickTake Technologies control center
@@ -112,58 +139,85 @@ export default function AdminLoginForm() {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div className="space-y-2">
-              <label htmlFor="email" className="text-xs font-medium text-muted-foreground">
+              <label
+                htmlFor="email"
+                className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+              >
                 Email address
               </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <div className="relative group">
+                <Mail className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-brand-blue" />
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@clicktaketech.com"
+                  placeholder="you@company.com"
                   autoComplete="email"
-                  className="w-full rounded-lg border border-border/60 bg-background/60 py-2.5 pl-10 pr-3 text-sm outline-none transition-colors focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20"
+                  className="w-full rounded-xl border border-border/60 bg-background/60 py-3 pl-11 pr-3 text-sm outline-none transition-all focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 hover:border-border"
                 />
               </div>
-              {emailError && <p className="text-xs text-red-500">{emailError}</p>}
+              {emailError && (
+                <p className="flex items-center gap-1.5 text-xs text-red-500">
+                  <AlertCircle className="size-3.5" />
+                  {emailError}
+                </p>
+              )}
             </div>
 
             {/* Password */}
             <div className="space-y-2">
-              <label htmlFor="password" className="text-xs font-medium text-muted-foreground">
+              <label
+                htmlFor="password"
+                className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+              >
                 Password
               </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <div className="relative group">
+                <Lock className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-brand-blue" />
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
+                  placeholder="••••••••••"
                   autoComplete="current-password"
-                  className="w-full rounded-lg border border-border/60 bg-background/60 py-2.5 pl-10 pr-10 text-sm outline-none transition-colors focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20"
+                  className="w-full rounded-xl border border-border/60 bg-background/60 py-3 pl-11 pr-11 text-sm outline-none transition-all focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 hover:border-border"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   aria-label={showPassword ? "Hide password" : "Show password"}
+                  tabIndex={-1}
                 >
-                  {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                  {showPassword ? (
+                    <EyeOff className="size-4" />
+                  ) : (
+                    <Eye className="size-4" />
+                  )}
                 </button>
               </div>
-              {passwordError && <p className="text-xs text-red-500">{passwordError}</p>}
+              {passwordError && (
+                <p className="flex items-center gap-1.5 text-xs text-red-500">
+                  <AlertCircle className="size-3.5" />
+                  {passwordError}
+                </p>
+              )}
             </div>
 
             <div className="flex items-center justify-between text-xs">
-              <label className="flex items-center gap-2 text-muted-foreground">
-                <input type="checkbox" className="rounded border-border" />
+              <label className="flex items-center gap-2 text-muted-foreground cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  className="size-3.5 rounded border-border accent-brand-blue"
+                />
                 Remember me
               </label>
-              <Link href="/admin/forgot-password" className="text-brand-blue hover:underline">
+              <Link
+                href="/admin/forgot-password"
+                className="text-brand-blue hover:underline font-medium"
+              >
                 Forgot password?
               </Link>
             </div>
@@ -171,44 +225,64 @@ export default function AdminLoginForm() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-brand-blue to-brand-pink py-2.5 text-sm font-medium text-white shadow-lg shadow-brand-blue/30 transition-all hover:shadow-xl hover:shadow-brand-pink/30 disabled:opacity-50"
+              className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-brand-blue to-brand-pink py-3 text-sm font-semibold text-white shadow-lg shadow-brand-blue/30 transition-all hover:shadow-xl hover:shadow-brand-pink/40 disabled:opacity-50 disabled:cursor-not-allowed"
             >
+              {/* Shimmer effect */}
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
               {isLoading ? (
                 <>
                   <div className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                  Signing in...
+                  <span className="relative">Signing in...</span>
                 </>
               ) : (
                 <>
-                  Sign in to Admin
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                  <span className="relative">Sign in to Admin</span>
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 relative" />
                 </>
               )}
             </button>
           </form>
 
-          {/* Demo credentials hint */}
-          <div className="mt-6 rounded-lg border border-dashed border-border/60 bg-muted/30 p-3 text-xs text-muted-foreground">
-            <div className="mb-1 flex items-center gap-1.5 font-medium text-foreground">
-              <Sparkles className="size-3.5 text-brand-pink" />
-              Default super-admin
+          {/* Security notice — replaces the old credential display */}
+          <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-border/40 bg-muted/20 p-3.5 text-xs text-muted-foreground">
+            <Fingerprint className="size-4 shrink-0 text-brand-blue mt-0.5" />
+            <div>
+              <div className="font-semibold text-foreground mb-0.5">
+                Authorized access only
+              </div>
+              <div className="leading-relaxed">
+                This portal is restricted to ClickTake staff. All sign-in
+                attempts are logged. Need credentials? Contact your
+                administrator.
+              </div>
             </div>
-            <div>Email: <code className="text-brand-blue">admin@clicktaketech.com</code></div>
-            <div>Password: <code className="text-brand-blue">Admin@2026</code></div>
-            <div className="mt-1 text-[10px]">Change these immediately in production via env vars.</div>
           </div>
 
           <div className="mt-6 text-center text-xs text-muted-foreground">
             Don&apos;t have an account?{" "}
-            <Link href="/admin/create-admin" className="text-brand-blue hover:underline">
+            <Link
+              href="/admin/create-admin"
+              className="text-brand-blue hover:underline font-medium"
+            >
               Request access
             </Link>
           </div>
         </div>
 
-        <div className="mt-6 flex items-center justify-center gap-2 text-xs text-muted-foreground">
-          <CheckCircle2 className="size-3.5 text-emerald-500" />
-          Protected by ClickTake Security · RBAC enforced
+        {/* Trust badges */}
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] text-muted-foreground">
+          <div className="flex items-center gap-1.5">
+            <CheckCircle2 className="size-3.5 text-emerald-500" />
+            RBAC enforced
+          </div>
+          <div className="flex items-center gap-1.5">
+            <KeyRound className="size-3.5 text-amber-500" />
+            Encrypted at rest
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Shield className="size-3.5 text-brand-blue" />
+            Audit logged
+          </div>
         </div>
       </motion.div>
     </div>
