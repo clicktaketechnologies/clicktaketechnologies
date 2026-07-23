@@ -1,5 +1,7 @@
 // Standalone seed script — creates default super-admin + system roles.
 // Run with: bun run scripts/seed-admin.ts
+import { config } from "dotenv";
+config({ path: ".env", override: true }); // force override system env
 import { prisma } from "../src/lib/db";
 import bcrypt from "bcryptjs";
 

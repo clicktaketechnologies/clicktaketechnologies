@@ -46,17 +46,51 @@ import {
 import * as schemaObj from "./schema";
 
 // ─── Drizzle client ─────────────────────────────────────────────────────────
-const connectionString =
-  process.env.DATABASE_URL || process.env.DIRECT_URL || "";
+// Lazy-initialized so that runtime env var overrides (e.g. when running seed
+// scripts that call dotenv.config({ override: true }) AFTER the module loads)
+// are honored.
+let _pool: Pool | null = null;
+let _db: ReturnType<typeof drizzle> | null = null;
 
-const pool = new Pool({
-  connectionString,
-  max: 1,
-  allowExitOnIdle: false,
+function getPool(): Pool {
+  if (!_pool) {
+    const connectionString =
+      process.env.DATABASE_URL || process.env.DIRECT_URL || "";
+    _pool = new Pool({
+      connectionString,
+      max: 1,
+      allowExitOnIdle: false,
+    });
+  }
+  return _pool;
+}
+
+function getDb() {
+  if (!_db) {
+    _db = drizzle(getPool(), { schema: schemaObj, logger: false });
+  }
+  return _db;
+}
+
+// For backwards compat with code that imports { db, pool } directly:
+export const db = new Proxy({} as ReturnType<typeof drizzle>, {
+  get(_t, prop) {
+    const realDb = getDb();
+    return (realDb as any)[prop];
+  },
 });
 
-export const db = drizzle(pool, { schema: schemaObj, logger: false });
-export { pool };
+export const pool = new Proxy({} as Pool, {
+  get(_t, prop) {
+    const realPool = getPool();
+    return (realPool as any)[prop];
+  },
+});
+
+// Also export a getter for code that needs the raw drizzle instance
+export function getRawDb() {
+  return getDb();
+}
 
 // ─── Schema map: Prisma model name → Drizzle table ──────────────────────────
 const modelMap: Record<string, any> = {
@@ -300,11 +334,38 @@ function splitNested(data: any): {
 }
 
 // ─── Model factory ──────────────────────────────────────────────────────────
+// Drizzle's relational query API exposes per-table finders under db.query.<name>
+// where <name> is the camelCase VARIABLE name from the schema export (e.g.
+// "adminUsers" — note the plural, matching `export const adminUsers = ...`),
+// NOT the snake_case DB table name ("admin_users") and NOT the singular
+// Prisma-style model name ("adminUser"). The Drizzle symbol `drizzle:Name`
+// returns the snake_case DB name, so we map back to the actual export key
+// by iterating schemaObj's exports.
+let _relationalKeyMap: Record<string, string> | null = null;
+function getRelationalKeyMap(): Record<string, string> {
+  if (!_relationalKeyMap) {
+    _relationalKeyMap = {};
+    // schemaObj's exports are the schema variable names (adminUsers, adminRoles, etc.)
+    for (const [exportName, table] of Object.entries(schemaObj)) {
+      // Skip relation definitions (e.g. adminUsersRelations) and the `schema` aggregate.
+      if (exportName.endsWith("Relations") || exportName === "schema") continue;
+      if (table && typeof table === "object" && Symbol.for("drizzle:Name") in table) {
+        const dbTableName = (table as any)[Symbol.for("drizzle:Name")];
+        _relationalKeyMap[dbTableName] = exportName;
+      }
+    }
+  }
+  return _relationalKeyMap;
+}
+
 function makeModel(modelName: string, table: any) {
-  // Drizzle's relational query API exposes per-table finders under db.query.<name>.
-  // The name is the TABLE name (e.g. "adminUsers"), not the model name ("adminUser").
   const tableName = table[Symbol.for("drizzle:Name")];
-  const relationalQuery: any = (db as any).query?.[tableName];
+  // Look up the relational query by the camelCase schema-export variable name.
+  // Done lazily so the map is populated by the time any model method is called.
+  const getRelationalQuery = (): any => {
+    const key = getRelationalKeyMap()[tableName];
+    return (getDb() as any).query?.[key];
+  };
 
   return {
     async findUnique(opts: {
@@ -313,15 +374,15 @@ function makeModel(modelName: string, table: any) {
       select?: Record<string, boolean>;
     }): Promise<any> {
       const cond = buildWhere(table, opts.where);
-      if (opts.include && relationalQuery) {
-        const row = await relationalQuery.findFirst({
+      if (opts.include && getRelationalQuery()) {
+        const row = await getRelationalQuery().findFirst({
           where: cond,
           with: toWith(opts.include),
           columns: opts.select ? toColumns(opts.select) : undefined,
         });
         return row || null;
       }
-      let q: any = db.select().from(table);
+      let q: any = getDb().select().from(table);
       if (cond) q = q.where(cond);
       q = q.limit(1);
       const rows = await q;
@@ -335,10 +396,10 @@ function makeModel(modelName: string, table: any) {
       orderBy?: any;
       select?: Record<string, boolean>;
       distinct?: any;
-    }): Promise<any> {
+    } = {}): Promise<any> {
       const cond = buildWhere(table, opts.where);
-      if (opts.include && relationalQuery) {
-        const row = await relationalQuery.findFirst({
+      if (opts.include && getRelationalQuery()) {
+        const row = await getRelationalQuery().findFirst({
           where: cond,
           with: toWith(opts.include),
           orderBy: toRelationalOrderBy(table, opts.orderBy),
@@ -346,7 +407,7 @@ function makeModel(modelName: string, table: any) {
         });
         return row || null;
       }
-      let q: any = db.select(opts.select ? toColumnsForSelect(table, opts.select) : undefined).from(table);
+      let q: any = getDb().select(opts.select ? toColumnsForSelect(table, opts.select) : undefined).from(table);
       if (cond) q = q.where(cond);
       q = applyOrderBy(q, table, opts.orderBy);
       q = q.limit(1);
@@ -365,8 +426,8 @@ function makeModel(modelName: string, table: any) {
       select?: Record<string, boolean>;
     }): Promise<any[]> {
       const cond = buildWhere(table, opts.where);
-      if (opts.include && relationalQuery) {
-        const rows = await relationalQuery.findMany({
+      if (opts.include && getRelationalQuery()) {
+        const rows = await getRelationalQuery().findMany({
           where: cond,
           with: toWith(opts.include),
           orderBy: toRelationalOrderBy(table, opts.orderBy),
@@ -376,7 +437,7 @@ function makeModel(modelName: string, table: any) {
         });
         return rows;
       }
-      let q: any = db.select(
+      let q: any = getDb().select(
         opts.select ? toColumnsForSelect(table, opts.select) : undefined
       ).from(table);
       if (cond) q = q.where(cond);
@@ -398,7 +459,7 @@ function makeModel(modelName: string, table: any) {
       if ("updatedAt" in table && flat.updatedAt === undefined) {
         flat.updatedAt = new Date();
       }
-      const insertedRows: any[] = (await db.insert(table).values(flat).returning()) as any[];
+      const insertedRows: any[] = (await getDb().insert(table).values(flat).returning()) as any[];
       const row = insertedRows[0];
       if (!row) return null;
 
@@ -425,14 +486,14 @@ function makeModel(modelName: string, table: any) {
             if ("updatedAt" in targetTable && item.updatedAt === undefined) {
               item.updatedAt = new Date();
             }
-            await db.insert(targetTable).values(item);
+            await getDb().insert(targetTable).values(item);
           }
         }
       }
 
-      if (opts.include && relationalQuery) {
+      if (opts.include && getRelationalQuery()) {
         // Re-read to attach relations
-        return relationalQuery.findFirst({
+        return getRelationalQuery().findFirst({
           where: eq(table.id, row.id),
           with: toWith(opts.include),
         });
@@ -453,7 +514,7 @@ function makeModel(modelName: string, table: any) {
         }
         return flat;
       });
-      const result: any[] = (await db.insert(table).values(cleaned).returning()) as any[];
+      const result: any[] = (await getDb().insert(table).values(cleaned).returning()) as any[];
       return { count: result.length };
     },
 
@@ -473,8 +534,8 @@ function makeModel(modelName: string, table: any) {
         .where(cond || undefined)
         .returning()) as any[];
       if (rows.length === 0) return null;
-      if (opts.include && relationalQuery) {
-        return relationalQuery.findFirst({
+      if (opts.include && getRelationalQuery()) {
+        return getRelationalQuery().findFirst({
           where: eq(table.id, rows[0].id),
           with: toWith(opts.include),
         });
@@ -549,8 +610,8 @@ function makeModel(modelName: string, table: any) {
           .where(cond || undefined)
           .returning()) as any[];
         const row = updatedRows[0];
-        if (opts.include && relationalQuery) {
-          return relationalQuery.findFirst({
+        if (opts.include && getRelationalQuery()) {
+          return getRelationalQuery().findFirst({
             where: eq(table.id, row.id),
             with: toWith(opts.include),
           });
@@ -600,7 +661,7 @@ function makeModel(modelName: string, table: any) {
           if (table[f]) sel[`${agg}_${f}`] = aggMap[agg](table[f]);
         }
       }
-      let q: any = db.select(sel).from(table);
+      let q: any = getDb().select(sel).from(table);
       if (cond) q = q.where(cond);
       const groupCols = opts.by.map((f) => table[f]).filter(Boolean);
       if (groupCols.length) q = q.groupBy(...groupCols);
@@ -656,6 +717,8 @@ function toColumnsForSelect(table: any, select: any): any {
 // We hard-code the small set of relations the codebase actually uses for
 // nested creates. (Nested creates are rare — only the seed-admin path uses
 // `adminRole.create({ ... permissions: { create: [...] } })`.)
+// Keys are the camelCase MODEL name (adminRoles), but the shim's runtime
+// tableName is the snake_case DB table name (admin_roles). Accept both.
 const RELATION_MAP: Record<
   string,
   Record<string, { target: string; fkColumn: string }>
@@ -663,12 +726,32 @@ const RELATION_MAP: Record<
   adminRoles: {
     permissions: { target: "rolePermissions", fkColumn: "roleId" },
   },
+  admin_roles: {
+    permissions: { target: "role_permissions", fkColumn: "roleId" },
+  },
   adminUsers: {
     role: { target: "adminRoles", fkColumn: "roleId" },
+  },
+  admin_users: {
+    role: { target: "admin_roles", fkColumn: "roleId" },
   },
   jobOpenings: {
     applications: { target: "jobApplications", fkColumn: "jobId" },
   },
+  job_openings: {
+    applications: { target: "job_applications", fkColumn: "jobId" },
+  },
+};
+
+// Map a snake_case DB table name (used by RELATION_MAP values' target field
+// at runtime) back to the modelMap key (camelCase, SINGULAR) so we can look
+// up the actual Drizzle table object.
+const SNAKE_TO_CAMEL_MODEL: Record<string, string> = {
+  admin_roles: "adminRole",
+  role_permissions: "rolePermission",
+  admin_users: "adminUser",
+  job_openings: "jobOpening",
+  job_applications: "jobApplication",
 };
 
 function findTargetTableForRelation(
@@ -677,7 +760,15 @@ function findTargetTableForRelation(
 ): any | null {
   const rel = RELATION_MAP[tableName]?.[relName];
   if (!rel) return null;
-  return (modelMap as any)[rel.target] || null;
+  // rel.target may be camelCase plural (rolePermissions), snake_case plural
+  // (role_permissions), or camelCase singular. Normalize via the snake→camel
+  // map first, then fall back to direct lookup.
+  const targetKey = SNAKE_TO_CAMEL_MODEL[rel.target] || rel.target;
+  return (
+    (modelMap as any)[targetKey] ||
+    (modelMap as any)[rel.target] ||
+    null
+  );
 }
 
 function findFkColumnForRelation(
