@@ -27,19 +27,19 @@ const PAYMENT_REQUIREMENTS = {
   scheme: "exact",
   network: "base",
   asset: "USDC",
-  amount: "1000", // 0.01 USDC in atomic units (6 decimals)
+  amount: "1000",
   maxAmountRequired: "1000",
   resource: "https://clicktaketech.com/api/premium",
   description: "Premium content access — per-request charge",
   mimeType: "application/json",
-  payTo: "0x0000000000000000000000000000000000000000", // placeholder — no real wallet
+  payTo: "0x0000000000000000000000000000000000000000",
   maxTimeoutSeconds: 60,
   separator: ",",
   signingMessage: null,
   facilitator: {
     name: "stub",
     version: "0.0.0",
-    url: "https://facilitator.example.com", // placeholder — no real facilitator
+    url: "https://facilitator.example.com",
     requiresCallback: false,
   },
   status: "stub",
@@ -48,31 +48,22 @@ const PAYMENT_REQUIREMENTS = {
 };
 
 export async function GET() {
-  // x402 payment-requirements as a JSON string. The www-authenticate
-  // header carries the same JSON inline as the challenge value (per the
-  // x402 spec, the challenge may be either base64 or raw JSON when the
-  // contents are URL-safe enough; for maximum compatibility we send
-  // raw JSON in x-payment-requirements and a short token in
-  // www-authenticate).
-  const jsonStr = JSON.stringify(PAYMENT_REQUIREMENTS);
-
-  const body = {
+  const body = JSON.stringify({
     error: "Payment required",
     x402_version: 1,
     payment_requirements: PAYMENT_REQUIREMENTS,
     documentation: "https://x402.org",
     implementation_status: "stub",
-  };
+  });
 
-  return NextResponse.json(body, {
+  // Use raw Response instead of NextResponse.json to bypass any
+  // NextResponse wrapper behavior that might cause issues.
+  return new Response(body, {
     status: 402,
     headers: {
       "content-type": "application/json; charset=utf-8",
-      // www-authenticate uses a short static token; full payment requirements
-      // are in the x-payment-requirements header (always available, no
-      // base64 dance required).
       "www-authenticate": `x402 realm="clicktake-premium", challenge="stub"`,
-      "x-payment-requirements": jsonStr,
+      "x-payment-requirements": JSON.stringify(PAYMENT_REQUIREMENTS),
       "x-payment-required": "true",
       "x402-version": "1",
       "access-control-allow-origin": "*",
