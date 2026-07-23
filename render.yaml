@@ -23,7 +23,7 @@ services:
     plan: starter  # free | starter | standard
     region: oregon  # closest to your users
     branch: main
-    repo: https://github.com/clicktake/clicktake-web  # UPDATE to your repo
+    repo: https://github.com/clicktaketechnologies/clicktaketechnologies
     autoDeploy: true
     healthCheckPath: /api/health
     buildCommand: |
