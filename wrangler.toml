@@ -43,6 +43,14 @@ binding = "ASSETS"
 [observability]
 enabled = true
 
+***REMOVED*** Public env vars (inlined at build time, safe to expose to client)
+[vars]
+NEXT_PUBLIC_SUPABASE_URL = "https://crejzifwpcnjqghlbbdf.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY = "***REDACTED_SUPABASE_ANON_KEY***"
+NEXT_PUBLIC_TURNSTILE_SITE_KEY = "0x4AAAAAADpHuqrF417pgTBa"
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = "dwioesu97"
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET = "contact_uploads"
+
 ***REMOVED*** Production environment — set via dashboard or `wrangler secret put`.
 ***REMOVED*** Required vars:
 ***REMOVED***   - DATABASE_URL                (Supabase Postgres connection string)
