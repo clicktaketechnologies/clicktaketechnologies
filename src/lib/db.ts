@@ -424,7 +424,7 @@ function makeModel(modelName: string, table: any) {
       skip?: number;
       distinct?: any;
       select?: Record<string, boolean>;
-    }): Promise<any[]> {
+    } = {}): Promise<any[]> {
       const cond = buildWhere(table, opts.where);
       if (opts.include && getRelationalQuery()) {
         const rows = await getRelationalQuery().findMany({
