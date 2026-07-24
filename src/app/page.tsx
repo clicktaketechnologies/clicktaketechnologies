@@ -1,10 +1,10 @@
 import { Navbar } from "@/components/site/navbar";
 import { Hero } from "@/components/site/hero";
 import { Services } from "@/components/site/services";
-import { Work } from "@/components/site/work";
+import { WhyChoose } from "@/components/site/why-choose";
 import { Process } from "@/components/site/process";
 import { Testimonials } from "@/components/site/testimonials";
-import { About } from "@/components/site/about";
+import { Faq } from "@/components/site/faq";
 import { Contact } from "@/components/site/contact";
 import { Footer } from "@/components/site/footer";
 import { BackgroundScene } from "@/components/site/background-scene";
@@ -16,6 +16,11 @@ import {
   SectionDivider,
 } from "@/components/site/scroll-animations";
 
+/* Homepage — new design (Task ID: new-design-rebuild).
+ * Section order: Hero → Services (category tabs) → Why Choose (NEW) →
+ * Process (6-step) → Testimonials (kept) → FAQ (NEW) → Final CTA (simplified).
+ * Work + About sections removed; their content is now reachable via the
+ * Resources + Company mega menus in the navbar. */
 export default function Home() {
   return (
     <ScrollProvider>
@@ -39,7 +44,7 @@ export default function Home() {
 
           <SectionDivider flip />
 
-          <Work />
+          <WhyChoose />
 
           <SectionDivider />
 
@@ -51,7 +56,7 @@ export default function Home() {
 
           <SectionDivider />
 
-          <About />
+          <Faq />
 
           <SectionDivider flip />
 
