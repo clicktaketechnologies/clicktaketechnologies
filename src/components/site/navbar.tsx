@@ -669,7 +669,7 @@ export function Navbar() {
               href="/contact"
               className="hidden sm:inline-flex items-center gap-1.5 rounded-full gradient-bg px-4 sm:px-5 py-2 sm:py-2.5 text-[13px] sm:text-sm font-semibold text-white shadow-lg hover:scale-[1.03] transition"
             >
-              Book a Call <ArrowUpRight className="h-4 w-4" />
+              Book Free Consultation <ArrowUpRight className="h-4 w-4" />
             </a>
             <button
               onClick={() => setOpen(!open)}
@@ -932,7 +932,7 @@ export function Navbar() {
                       onClick={() => setOpen(false)}
                       className="mt-2 flex items-center justify-center gap-2 rounded-full gradient-bg py-3.5 font-semibold text-white text-base"
                     >
-                      Book a Call <ArrowUpRight className="h-4 w-4" />
+                      Book Free Consultation <ArrowUpRight className="h-4 w-4" />
                     </a>
                   </div>
                 </div>
