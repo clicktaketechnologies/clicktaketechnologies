@@ -166,7 +166,7 @@ export function NxDesignClient({ canWrite }: Props) {
 
   // Load current config from API
   useEffect(() => {
-    fetch("/api/admin/design-system")
+    fetch("/api/admin/designtokens")
       .then((r) => r.json())
       .then((data) => {
         if (data.config) setConfig(data.config);
@@ -204,7 +204,7 @@ ${previewMode === "light" ? lightVars : darkVars}
   const handleSave = async () => {
     setSaving(true);
     try {
-      const res = await fetch("/api/admin/design-system", {
+      const res = await fetch("/api/admin/designtokens", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(config),
