@@ -4,7 +4,7 @@ import { LegalPage } from "@/components/site/pages/legal-page";
 import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — ClickTake Technologies",
+  title: "Privacy Policy",
   description:
     "Read the privacy policy and data protection terms for ClickTake Technologies. Learn how we handle your business information.",
   alternates: { canonical: "https://clicktaketech.com/legal/privacy" },

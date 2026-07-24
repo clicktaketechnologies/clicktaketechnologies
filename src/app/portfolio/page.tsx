@@ -3,7 +3,7 @@ import { PortfolioPage } from "@/components/site/pages/portfolio-page";
 import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
-  title: "Portfolio & Case Studies — AI · Web · Growth | Birmingham · Multan · Austin · Dubai",
+  title: "Portfolio — Client Case Studies",
   description:
     "Selected case studies from ClickTake Technologies — headless e-commerce, AI chatbots, SaaS dashboards, brand systems and growth campaigns delivered for clients across the UK (Birmingham, London), Pakistan (Lahore, Karachi), USA (Austin, NYC) and Dubai (UAE). Real metrics, real outcomes. Filter by service category: AI & Machine Learning, Web Development, Digital Marketing, Creative.",
   keywords: [

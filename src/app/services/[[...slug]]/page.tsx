@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   if (!slug) {
     return {
-      title: "Services — AI · Web · Marketing · Creative",
+      title: "Services — AI · Web · Marketing",
       description:
         "Browse all ClickTake Technologies services across four practice areas: AI & Machine Learning, Web Development, Digital Marketing, and Creative. Custom LLMs, chatbots, SaaS platforms, SEO, paid ads, branding and video — delivered from offices in Birmingham, Multan, Austin and Dubai.",
       alternates: { canonical: "https://clicktaketech.com/services" },
