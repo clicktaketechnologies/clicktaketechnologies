@@ -13,7 +13,7 @@ const PRIORITIES = [
     id: "delivery",
     title: "Faster Delivery",
     short: "Ship in weeks, not quarters",
-    color: "#FF6B35",
+    color: "#FF53A9",
     headline: "From kickoff to launch in 30 days.",
     body: "Sprint-based delivery with weekly demos. Senior engineers only — no juniors learning on your dime. We use reusable starter kits (auth, billing, admin) so 60% of the boilerplate is already done before we write a single line of your business logic.",
     points: [
@@ -27,7 +27,7 @@ const PRIORITIES = [
     id: "ai",
     title: "AI-First Engineering",
     short: "Automation built into the stack",
-    color: "#3B82F6",
+    color: "#136DFF",
     headline: "Every project ships with AI baked in.",
     body: "We don't bolt on a chatbot at the end. Our default stack includes RAG pipelines, vector search, LLM-powered content workflows and agentic automations — so your product is ready for the next decade, not the last one.",
     points: [
@@ -55,7 +55,7 @@ const PRIORITIES = [
     id: "global",
     title: "Global Delivery",
     short: "UK PM · Pakistan engineering",
-    color: "#EC4899",
+    color: "#FF53A9",
     headline: "UK-based PMs. Pakistan-based engineers. 24/7 progress.",
     body: "You get a Birmingham-based account manager who speaks your timezone and a Multan-based engineering team that ships while you sleep. Four offices across UK, Pakistan, USA and Dubai mean there's always someone awake on your project.",
     points: [

@@ -13,7 +13,7 @@ const TESTIMONIALS = [
     role: "CEO, FinTech Startup",
     location: "London, UK",
     avatar: "SM",
-    color: "#FF6B35",
+    color: "#FF53A9",
     rating: 5,
   },
   {
@@ -23,7 +23,7 @@ const TESTIMONIALS = [
     role: "COO, E-commerce Group",
     location: "Dubai, UAE",
     avatar: "AR",
-    color: "#3B82F6",
+    color: "#136DFF",
     rating: 5,
   },
   {
@@ -43,7 +43,7 @@ const TESTIMONIALS = [
     role: "CTO, HealthTech",
     location: "Multan, PK",
     avatar: "FK",
-    color: "#EC4899",
+    color: "#FF53A9",
     rating: 5,
   },
   {
@@ -102,7 +102,7 @@ export function NxTestimonials() {
           >
             <div className="flex items-center gap-0.5">
               {[1, 2, 3, 4, 5].map((i) => (
-                <Star key={i} className="h-4 w-4 fill-[#FF6B35] text-[#FF6B35]" />
+                <Star key={i} className="h-4 w-4 fill-[#FF53A9] text-[#FF53A9]" />
               ))}
             </div>
             <span>5.0 average on Clutch, GoodFirms &amp; Google</span>
@@ -118,7 +118,7 @@ export function NxTestimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
-              className="relative p-6 sm:p-7 rounded-2xl border nx-bd nx-surface hover:shadow-xl hover:-translate-y-1 hover:border-[#FF6B35]/40 transition-all flex flex-col"
+              className="relative p-6 sm:p-7 rounded-2xl border nx-bd nx-surface hover:shadow-xl hover:-translate-y-1 hover:border-[#FF53A9]/40 transition-all flex flex-col"
             >
               {/* Quote icon + rating */}
               <div className="flex items-center justify-between mb-4">
@@ -130,7 +130,7 @@ export function NxTestimonials() {
                   {Array.from({ length: t.rating }).map((_, idx) => (
                     <Star
                       key={idx}
-                      className="h-3.5 w-3.5 fill-[#FF6B35] text-[#FF6B35]"
+                      className="h-3.5 w-3.5 fill-[#FF53A9] text-[#FF53A9]"
                     />
                   ))}
                 </div>

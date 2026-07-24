@@ -13,7 +13,7 @@ const STEPS = [
     title: "Discovery & Audit",
     duration: "Week 1",
     body: "We map your goals, competitors, and current stack. You leave with a written technical spec, scope, and fixed quote — no NDA-walled sales meetings.",
-    color: "#FF6B35",
+    color: "#FF53A9",
   },
   {
     n: "02",
@@ -21,7 +21,7 @@ const STEPS = [
     title: "Design & Prototype",
     duration: "Week 1–2",
     body: "Wireframes → Figma → clickable prototype in 5 business days. You sign off on every screen before any code is written.",
-    color: "#EC4899",
+    color: "#FF53A9",
   },
   {
     n: "03",
@@ -29,7 +29,7 @@ const STEPS = [
     title: "Build Sprint",
     duration: "Week 2–4",
     body: "Senior engineers ship in 2-week sprints. You get a Friday demo every week, access to the GitHub repo, and a dedicated Slack channel.",
-    color: "#3B82F6",
+    color: "#136DFF",
   },
   {
     n: "04",
@@ -62,8 +62,8 @@ export function NxProcess() {
     <section className="relative py-24 sm:py-32 nx-navy-gradient overflow-hidden">
       {/* Decorative dot grid + orb */}
       <div className="absolute inset-0 nx-dot-grid opacity-30 pointer-events-none" />
-      <div className="absolute top-1/4 -right-20 h-96 w-96 rounded-full bg-[#FF6B35]/10 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 -left-20 h-96 w-96 rounded-full bg-[#3B82F6]/10 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 -right-20 h-96 w-96 rounded-full bg-[#FF53A9]/10 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 -left-20 h-96 w-96 rounded-full bg-[#136DFF]/10 blur-3xl pointer-events-none" />
 
       <div className="relative mx-auto max-w-6xl px-4 lg:px-8">
         {/* Header */}
@@ -72,9 +72,9 @@ export function NxProcess() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 nx-eyebrow text-[#FF8A5C]"
+            className="inline-flex items-center gap-2 nx-eyebrow text-[#FF8AC4]"
           >
-            <span className="h-1 w-8 rounded-full bg-[#FF6B35]" />
+            <span className="h-1 w-8 rounded-full bg-[#FF53A9]" />
             How we work
           </motion.div>
           <motion.h2
@@ -122,7 +122,7 @@ export function NxProcess() {
                   {/* Node on the line */}
                   <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 z-10">
                     <div
-                      className="h-3 w-3 rounded-full ring-4 ring-[#0F1A35]"
+                      className="h-3 w-3 rounded-full ring-4 ring-[#100820]"
                       style={{ background: s.color }}
                     />
                   </div>

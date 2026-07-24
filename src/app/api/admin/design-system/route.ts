@@ -18,44 +18,46 @@ export const NX_DESIGN_KEY = "nx_design";
 
 // Default token values — match the values defined in globals.css.
 // Used when no admin override has been saved yet.
+// Brand: ClickTake — #136DFF (blue), #FF53A9 (pink), #9B3DFF (purple).
+// Dark palette: #0A0612 / #100820 / #16102A.
 export const NX_DEFAULTS = {
-  // Brand accents
-  "--nx-orange": "#FF6B35",
-  "--nx-orange-soft": "#FF8A5C",
-  "--nx-orange-deep": "#E55319",
-  "--nx-electric": "#3B82F6",
-  "--nx-electric-soft": "#60A5FA",
-  // Navy palette (always-dark sections: hero, navbar, footer, CTA)
-  "--nx-navy-900": "#0A1124",
-  "--nx-navy-800": "#0F1A35",
-  "--nx-navy-700": "#162347",
-  "--nx-navy-600": "#1E2F5C",
+  // Brand accents — pink primary, blue secondary, purple tertiary
+  "--nx-orange": "#FF53A9",            // alias of --nx-brand-pink (primary CTA)
+  "--nx-orange-soft": "#FF8AC4",       // alias of --nx-brand-pink-soft
+  "--nx-orange-deep": "#E0197A",       // alias of --nx-brand-pink-deep (hover)
+  "--nx-electric": "#136DFF",          // alias of --nx-brand-blue
+  "--nx-electric-soft": "#4A90D9",     // alias of --nx-brand-blue-soft
+  // Dark hero/footer palette (always-dark sections)
+  "--nx-navy-900": "#0A0612",
+  "--nx-navy-800": "#100820",
+  "--nx-navy-700": "#16102A",
+  "--nx-navy-600": "#1E1640",
   // Light-mode surfaces (default when no .dark class)
   light: {
     "--nx-surface": "#FFFFFF",
-    "--nx-surface-alt": "#F8FAFC",
-    "--nx-surface-muted": "#F1F5F9",
-    "--nx-border": "#E2E8F0",
-    "--nx-border-strong": "#CBD5E1",
-    "--nx-ink": "#0A1124",
-    "--nx-ink-soft": "#475569",
-    "--nx-ink-muted": "#94A3B8",
+    "--nx-surface-alt": "#F8F6FC",
+    "--nx-surface-muted": "#F1EDF8",
+    "--nx-border": "#E5E0EE",
+    "--nx-border-strong": "#CBD0E1",
+    "--nx-ink": "#0A0612",
+    "--nx-ink-soft": "#4A3B5C",
+    "--nx-ink-muted": "#8C7B95",
   },
   // Dark-mode surfaces (when html.dark is applied)
   dark: {
-    "--nx-surface": "#0F1A35",
-    "--nx-surface-alt": "#162347",
-    "--nx-surface-muted": "#1E2F5C",
+    "--nx-surface": "#100820",
+    "--nx-surface-alt": "#16102A",
+    "--nx-surface-muted": "#1E1640",
     "--nx-border": "rgba(255, 255, 255, 0.08)",
     "--nx-border-strong": "rgba(255, 255, 255, 0.16)",
-    "--nx-ink": "#F8FAFC",
-    "--nx-ink-soft": "#CBD5E1",
-    "--nx-ink-muted": "#94A3B8",
+    "--nx-ink": "#F4F0FF",
+    "--nx-ink-soft": "#B5A8C8",
+    "--nx-ink-muted": "#7A6B95",
   },
   // Status accents
   "--nx-green": "#10B981",
   "--nx-yellow": "#F59E0B",
-  "--nx-pink": "#EC4899",
+  "--nx-pink": "#FF53A9",
 } as const;
 
 export type NxDesignConfig = typeof NX_DEFAULTS;

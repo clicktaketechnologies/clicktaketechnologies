@@ -72,7 +72,7 @@ export function NxCta() {
         >
           <Link
             href="/contact"
-            className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm sm:text-base font-black text-[#E55319] shadow-xl hover:scale-[1.03] transition"
+            className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm sm:text-base font-black text-[#E0197A] shadow-xl hover:scale-[1.03] transition"
           >
             Book Free Consultation
             <ArrowRight className="h-4 w-4 nx-arrow" />

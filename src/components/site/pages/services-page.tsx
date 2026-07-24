@@ -91,18 +91,18 @@ export function ServicesPage() {
           >
             <Link
               href="/services/starter-kit"
-              className="group relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 rounded-3xl border border-[#FF6B35]/30 nx-surface-alt p-5 sm:p-8 transition-all duration-300 hover:border-[#FF6B35]/60 overflow-hidden"
+              className="group relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 rounded-3xl border border-[#FF53A9]/30 nx-surface-alt p-5 sm:p-8 transition-all duration-300 hover:border-[#FF53A9]/60 overflow-hidden"
             >
-              <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[#FF6B35]/8 blur-3xl" />
+              <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[#FF53A9]/8 blur-3xl" />
 
               <div className="relative flex items-start sm:items-center gap-4 sm:gap-5 min-w-0">
-                <div className="h-12 w-12 sm:h-14 sm:w-14 shrink-0 grid place-items-center rounded-2xl nx-orange-gradient shadow-lg shadow-[#FF6B35]/25">
+                <div className="h-12 w-12 sm:h-14 sm:w-14 shrink-0 grid place-items-center rounded-2xl nx-orange-gradient shadow-lg shadow-[#FF53A9]/25">
                   <Sparkles className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
-                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#FF6B35]">Flagship Offering</span>
-                    <span className="rounded-full bg-[#FF6B35]/20 border border-[#FF6B35]/30 px-2 py-0.5 text-[10px] font-semibold text-[#FF6B35] uppercase tracking-wider">Most Popular</span>
+                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#FF53A9]">Flagship Offering</span>
+                    <span className="rounded-full bg-[#FF53A9]/20 border border-[#FF53A9]/30 px-2 py-0.5 text-[10px] font-semibold text-[#FF53A9] uppercase tracking-wider">Most Popular</span>
                   </div>
                   <div className="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight nx-text">{starterKit.title}</div>
                   <div className="text-xs sm:text-sm nx-text-soft mt-1 line-clamp-2">
@@ -114,10 +114,10 @@ export function ServicesPage() {
               <div className="relative flex items-center gap-3 shrink-0 self-end sm:self-auto">
                 <div className="hidden sm:flex flex-col gap-1 text-right">
                   <div className="text-xs nx-text-muted">Typically live in</div>
-                  <div className="text-sm font-bold text-[#FF6B35]">90 days</div>
+                  <div className="text-sm font-bold text-[#FF53A9]">90 days</div>
                 </div>
-                <div className="h-10 w-10 rounded-full border border-[#FF6B35]/40 bg-[#FF6B35]/10 grid place-items-center transition-all group-hover:bg-[#FF6B35]/20 group-hover:scale-110">
-                  <ArrowUpRight className="h-5 w-5 text-[#FF6B35]" />
+                <div className="h-10 w-10 rounded-full border border-[#FF53A9]/40 bg-[#FF53A9]/10 grid place-items-center transition-all group-hover:bg-[#FF53A9]/20 group-hover:scale-110">
+                  <ArrowUpRight className="h-5 w-5 text-[#FF53A9]" />
                 </div>
               </div>
             </Link>
@@ -204,7 +204,7 @@ export function ServicesPage() {
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-6 sm:px-8 py-3 sm:py-4 font-bold text-[#E55319] shadow-lg hover:scale-105 transition-transform text-sm sm:text-base"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 sm:px-8 py-3 sm:py-4 font-bold text-[#E0197A] shadow-lg hover:scale-105 transition-transform text-sm sm:text-base"
               >
                 Book a free discovery call <ArrowUpRight className="h-4 sm:h-5 w-4 sm:w-5" />
               </Link>

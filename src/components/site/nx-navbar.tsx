@@ -74,7 +74,7 @@ export function NxNavbar() {
         ref={navRef}
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
           scrolled || !isHome
-            ? "bg-[#0A1124]/85 backdrop-blur-xl border-b border-white/10"
+            ? "bg-[#0A0612]/85 backdrop-blur-xl border-b border-[#FF53A9]/15"
             : "bg-transparent"
         }`}
       >
@@ -82,10 +82,10 @@ export function NxNavbar() {
           <div className="flex items-center justify-between h-16 lg:h-18">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="ClickTake home">
-              <div className="h-9 w-9 rounded-lg nx-orange-gradient grid place-items-center font-black text-white text-sm">
+              <div className="h-9 w-9 rounded-lg nx-brand-gradient grid place-items-center font-black text-white text-sm shadow-[0_0_20px_rgba(255,83,169,0.3),0_0_40px_rgba(19,109,255,0.15)]">
                 C
               </div>
-              <span className="text-lg font-black tracking-tight text-white hidden sm:block">
+              <span className="text-lg font-black tracking-tight text-white hidden sm:block nx-text-brand-grad">
                 ClickTake
               </span>
             </Link>
@@ -113,7 +113,7 @@ export function NxNavbar() {
                       }}
                       aria-expanded={hasMega ? isActive : undefined}
                       aria-haspopup={hasMega ? "true" : undefined}
-                      className={`flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold transition ${
+                      className={`flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold transition relative ${
                         isActive || pathname.startsWith(link.href)
                           ? "text-white bg-white/10"
                           : "text-white/70 hover:text-white hover:bg-white/5"
@@ -170,14 +170,14 @@ export function NxNavbar() {
                 onMouseLeave={() => setMega(null)}
                 className="absolute left-0 right-0 top-full hidden lg:block"
               >
-                <div className="mx-4 lg:mx-8 mt-2 rounded-2xl bg-[#0F1A35] border border-white/10 shadow-2xl overflow-hidden">
+                <div className="mx-4 lg:mx-8 mt-2 rounded-2xl bg-[#100820] border border-[#FF53A9]/15 shadow-2xl overflow-hidden">
                   {mega === "services" && (
                     <div className="grid grid-cols-4 gap-6 p-8">
                       {[
-                        { cat: "marketing", label: "Digital Marketing", color: "#10B981" },
-                        { cat: "web", label: "Web & Software", color: "#3B82F6" },
-                        { cat: "ai", label: "AI & Automation", color: "#FF6B35" },
-                        { cat: "creative", label: "Creative & Brand", color: "#EC4899" },
+                        { cat: "marketing", label: "Digital Marketing", color: "#FF53A9" },
+                        { cat: "web", label: "Web & Software", color: "#136DFF" },
+                        { cat: "ai", label: "AI & Automation", color: "#9B3DFF" },
+                        { cat: "creative", label: "Creative & Brand", color: "#FF8AC4" },
                       ].map((col) => (
                         <div key={col.cat}>
                           <div className="flex items-center gap-2 mb-3">
@@ -189,7 +189,7 @@ export function NxNavbar() {
                               <li key={s.slug}>
                                 <Link
                                   href={`/services/${s.slug}`}
-                                  className="block text-sm text-white/70 hover:text-[#FF8A5C] transition group"
+                                  className="block text-sm text-white/70 hover:text-[#FF8AC4] transition group"
                                 >
                                   <span className="font-medium">{s.title}</span>
                                 </Link>
@@ -199,7 +199,7 @@ export function NxNavbar() {
                         </div>
                       ))}
                       {/* Footer row with CTA */}
-                      <div className="col-span-4 mt-4 pt-6 border-t border-white/10 flex items-center justify-between">
+                      <div className="col-span-4 mt-4 pt-6 border-t border-[#FF53A9]/10 flex items-center justify-between">
                         <p className="text-sm text-white/60">
                           Not sure what you need? Book a free 30-min consultation.
                         </p>
@@ -223,7 +223,7 @@ export function NxNavbar() {
                         >
                           <div className="flex items-center justify-between mb-2">
                             <span className="font-bold text-white">{sol.title}</span>
-                            <ArrowRight className="h-4 w-4 text-white/40 group-hover:text-[#FF8A5C] group-hover:translate-x-1 transition" />
+                            <ArrowRight className="h-4 w-4 text-white/40 group-hover:text-[#FF8AC4] group-hover:translate-x-1 transition" />
                           </div>
                           <p className="text-xs text-white/60 leading-relaxed line-clamp-2">
                             {sol.summary || sol.audience || "Custom solution for your industry."}
@@ -238,25 +238,25 @@ export function NxNavbar() {
                       <div>
                         <div className="nx-eyebrow text-white/40 mb-3">Showcase</div>
                         <ul className="space-y-2.5">
-                          <li><Link href="/portfolio" className="text-sm text-white/70 hover:text-[#FF8A5C] transition">Portfolio</Link></li>
-                          <li><Link href="/case-studies" className="text-sm text-white/70 hover:text-[#FF8A5C] transition">Case Studies</Link></li>
-                          <li><Link href="/team" className="text-sm text-white/70 hover:text-[#FF8A5C] transition">Our Team</Link></li>
+                          <li><Link href="/portfolio" className="text-sm text-white/70 hover:text-[#FF8AC4] transition">Portfolio</Link></li>
+                          <li><Link href="/case-studies" className="text-sm text-white/70 hover:text-[#FF8AC4] transition">Case Studies</Link></li>
+                          <li><Link href="/team" className="text-sm text-white/70 hover:text-[#FF8AC4] transition">Our Team</Link></li>
                         </ul>
                       </div>
                       <div>
                         <div className="nx-eyebrow text-white/40 mb-3">Learn</div>
                         <ul className="space-y-2.5">
-                          <li><Link href="/blog" className="text-sm text-white/70 hover:text-[#FF8A5C] transition">Blog</Link></li>
-                          <li><Link href="/pricing" className="text-sm text-white/70 hover:text-[#FF8A5C] transition">Pricing</Link></li>
-                          <li><Link href="/about" className="text-sm text-white/70 hover:text-[#FF8A5C] transition">About Us</Link></li>
+                          <li><Link href="/blog" className="text-sm text-white/70 hover:text-[#FF8AC4] transition">Blog</Link></li>
+                          <li><Link href="/pricing" className="text-sm text-white/70 hover:text-[#FF8AC4] transition">Pricing</Link></li>
+                          <li><Link href="/about" className="text-sm text-white/70 hover:text-[#FF8AC4] transition">About Us</Link></li>
                         </ul>
                       </div>
                       <div>
                         <div className="nx-eyebrow text-white/40 mb-3">Company</div>
                         <ul className="space-y-2.5">
-                          <li><Link href="/careers" className="text-sm text-white/70 hover:text-[#FF8A5C] transition">Careers</Link></li>
-                          <li><Link href="/contact" className="text-sm text-white/70 hover:text-[#FF8A5C] transition">Contact</Link></li>
-                          <li><Link href="/legal" className="text-sm text-white/70 hover:text-[#FF8A5C] transition">Legal</Link></li>
+                          <li><Link href="/careers" className="text-sm text-white/70 hover:text-[#FF8AC4] transition">Careers</Link></li>
+                          <li><Link href="/contact" className="text-sm text-white/70 hover:text-[#FF8AC4] transition">Contact</Link></li>
+                          <li><Link href="/legal" className="text-sm text-white/70 hover:text-[#FF8AC4] transition">Legal</Link></li>
                         </ul>
                       </div>
                     </div>
@@ -289,12 +289,12 @@ export function NxNavbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-[#0A1124] border-l border-white/10 overflow-y-auto"
+              className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-[#0A0612] border-l border-[#FF53A9]/15 overflow-y-auto"
             >
-              <div className="flex items-center justify-between p-5 border-b border-white/10">
+              <div className="flex items-center justify-between p-5 border-b border-[#FF53A9]/15">
                 <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-lg nx-orange-gradient grid place-items-center font-black text-white text-sm">C</div>
-                  <span className="font-black text-white">ClickTake</span>
+                  <div className="h-8 w-8 rounded-lg nx-brand-gradient grid place-items-center font-black text-white text-sm">C</div>
+                  <span className="font-black text-white nx-text-brand-grad">ClickTake</span>
                 </div>
                 <button
                   onClick={() => setMobileOpen(false)}
@@ -314,7 +314,7 @@ export function NxNavbar() {
                     {link.label}
                   </Link>
                 ))}
-                <div className="pt-4 mt-4 border-t border-white/10 space-y-3">
+                <div className="pt-4 mt-4 border-t border-[#FF53A9]/15 space-y-3">
                   <Link
                     href="/contact"
                     className="block nx-btn-orange text-center px-5 py-3.5 text-sm"
@@ -323,7 +323,7 @@ export function NxNavbar() {
                   </Link>
                   <Link
                     href="/contact"
-                    className="block text-center px-5 py-3 text-sm font-semibold text-white/70 border border-white/10 rounded-full"
+                    className="block text-center px-5 py-3 text-sm font-semibold text-white/70 border border-white/15 rounded-full"
                   >
                     Sign In
                   </Link>

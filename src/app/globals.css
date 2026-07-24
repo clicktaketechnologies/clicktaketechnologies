@@ -406,6 +406,11 @@
    ensure foreground colors are always readable against the active background,
    regardless of which mode is active.
 
+   IMPORTANT — these rules are intentionally UNLAYERED so they win over
+   @layer utilities rules. This means gradient-text utility classes
+   (.nx-text-hero-grad, .nx-text-brand-grad, .nx-text-orange-grad) must use
+   !important on their color:transparent to override this safety net.
+
    IMPORTANT — Button-specific safety:
    The previous version set `color: var(--foreground)` on `button` and `a`
    tags directly, which had unintended consequences:
@@ -421,8 +426,13 @@
 body, p, h1, h2, h3, h4, h5, h6, li, td, th, label, blockquote, strong, em, small {
   color: var(--foreground);
 }
-/* Span only — skip a/button/input/textarea/select so utility classes win */
-span:not(.text-white):not(.text-foreground):not(.text-muted-foreground):not(.text-primary):not(.text-brand-blue):not(.text-brand-pink):not(.text-brand-cyan):not(.text-brand-magenta):not(.text-amber-400):not(.text-emerald-400) {
+/* Span only — skip a/button/input/textarea/select so utility classes win.
+   NOTE: also skip spans with nx-text-*-grad classes (gradient text) so the
+   color:transparent !important from those classes wins over the inherit rule.
+   The :not() chain has very high specificity (0,13,1) so without these
+   exceptions, gradient text would inherit the parent color instead of
+   showing the gradient. */
+span:not(.text-white):not(.text-foreground):not(.text-muted-foreground):not(.text-primary):not(.text-brand-blue):not(.text-brand-pink):not(.text-brand-cyan):not(.text-brand-magenta):not(.text-amber-400):not(.text-emerald-400):not(.nx-text-hero-grad):not(.nx-text-brand-grad):not(.nx-text-orange-grad) {
   color: inherit;
 }
 /* Inputs should always use foreground on the input background for visibility */
@@ -547,68 +557,88 @@ html:not(.dark).theme-custom-light body {
 }
 
 
-/* ─── NEW DESIGN SYSTEM (2024 rebuild — competitor-inspired) ───────────────
-   Inspired by: Vention (split hero + floating cards), Index.dev (navy +
-   orange + bento), Future Processing (orange CTA blocks + split-view
-   panels), Itransition (pill tags + dark stat sections), Brocoders (bold
-   heavy type + organic accents). Token names prefixed `--nx-*` to avoid
-   collision with existing brand tokens. */
+/* ─── NEW DESIGN SYSTEM (ClickTake Brand — blue + pink + purple) ──────────
+   Brand colors: #136DFF (blue), #FF53A9 (pink), #9B3DFF (purple).
+   Dark palette: #0A0612 / #100820 / #16102A (with surface variants).
+   Light palette: clean white surfaces with dark ink text.
+   Inspired by the clicktake-final.html design — gradient text, 3D floating
+   cards, particle canvas, pink/blue/purple accent system. */
 
 :root {
-  /* Navy hero / dark section backgrounds */
-  --nx-navy-900: #0A1124;
-  --nx-navy-800: #0F1A35;
-  --nx-navy-700: #162347;
-  --nx-navy-600: #1E2F5C;
-  /* Orange CTA accent (Vention / Future Processing / Index.dev style) */
-  --nx-orange: #FF6B35;
-  --nx-orange-soft: #FF8A5C;
-  --nx-orange-deep: #E55319;
-  /* Electric blue secondary accent */
-  --nx-electric: #3B82F6;
-  --nx-electric-soft: #60A5FA;
+  /* Dark hero / always-dark section backgrounds — tri-stop dark palette */
+  --nx-navy-900: #0A0612;
+  --nx-navy-800: #100820;
+  --nx-navy-700: #16102A;
+  --nx-navy-600: #1E1640;
+  /* Brand accents — pink primary, blue secondary, purple tertiary */
+  --nx-brand-pink: #FF53A9;
+  --nx-brand-pink-soft: #FF8AC4;
+  --nx-brand-pink-deep: #E0197A;
+  --nx-brand-blue: #136DFF;
+  --nx-brand-blue-soft: #4A90D9;
+  --nx-brand-blue-deep: #0E58D6;
+  --nx-brand-purple: #9B3DFF;
+  /* Backward-compat aliases (so existing components keep working) */
+  --nx-orange: #FF53A9;
+  --nx-orange-soft: #FF8AC4;
+  --nx-orange-deep: #E0197A;
+  --nx-electric: #136DFF;
+  --nx-electric-soft: #4A90D9;
   /* Surface tokens for cards on light bg */
   --nx-surface: #FFFFFF;
-  --nx-surface-alt: #F8FAFC;
-  --nx-surface-muted: #F1F5F9;
-  --nx-border: #E2E8F0;
-  --nx-border-strong: #CBD5E1;
+  --nx-surface-alt: #F8F6FC;
+  --nx-surface-muted: #F1EDF8;
+  --nx-border: #E5E0EE;
+  --nx-border-strong: #CBD0E1;
   /* Text */
-  --nx-ink: #0A1124;
-  --nx-ink-soft: #475569;
-  --nx-ink-muted: #94A3B8;
+  --nx-ink: #0A0612;
+  --nx-ink-soft: #4A3B5C;
+  --nx-ink-muted: #8C7B95;
   /* Success / accents */
   --nx-green: #10B981;
   --nx-yellow: #F59E0B;
-  --nx-pink: #EC4899;
+  --nx-pink: #FF53A9;
+  /* Gradients — used by hero text, buttons, accent borders */
+  --nx-grad-brand: linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%);
+  --nx-grad-pink-blue: linear-gradient(135deg, #FF53A9 0%, #136DFF 100%);
+  --nx-grad-blue-purple: linear-gradient(135deg, #136DFF 0%, #9B3DFF 100%);
+  --nx-grad-hero-text: linear-gradient(135deg, #FFFFFF 0%, rgba(200, 190, 255, 0.9) 100%);
+  /* Glow shadows */
+  --nx-glow-pink: 0 6px 24px rgba(255, 83, 169, 0.35);
+  --nx-glow-blue: 0 6px 24px rgba(19, 109, 255, 0.35);
+  --nx-glow-purple: 0 6px 24px rgba(155, 61, 255, 0.3);
 }
 
 .dark {
-  --nx-surface: #0F1A35;
-  --nx-surface-alt: #162347;
-  --nx-surface-muted: #1E2F5C;
+  --nx-surface: #100820;
+  --nx-surface-alt: #16102A;
+  --nx-surface-muted: #1E1640;
   --nx-border: rgba(255, 255, 255, 0.08);
   --nx-border-strong: rgba(255, 255, 255, 0.16);
-  --nx-ink: #F8FAFC;
-  --nx-ink-soft: #CBD5E1;
-  --nx-ink-muted: #94A3B8;
+  --nx-ink: #F4F0FF;
+  --nx-ink-soft: #B5A8C8;
+  --nx-ink-muted: #7A6B95;
 }
 
 @layer utilities {
-  /* Navy hero background with subtle radial glows */
+  /* Hero background — tri-stop dark with pink/blue/purple radial glows */
   .nx-hero-bg {
     background:
-      radial-gradient(ellipse 60% 50% at 20% 0%, rgba(255, 107, 53, 0.18) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 60% at 100% 30%, rgba(59, 130, 246, 0.22) 0%, transparent 60%),
-      linear-gradient(180deg, #0A1124 0%, #0F1A35 100%);
+      radial-gradient(ellipse 60% 50% at 20% 0%, rgba(255, 83, 169, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 100% 30%, rgba(19, 109, 255, 0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 50% 100%, rgba(155, 61, 255, 0.15) 0%, transparent 60%),
+      linear-gradient(180deg, #0A0612 0%, #100820 100%);
   }
-  /* Orange → red gradient for CTA banners */
+  /* Pink → blue brand gradient for CTA banners */
   .nx-orange-gradient {
-    background: linear-gradient(135deg, #FF6B35 0%, #E55319 100%);
+    background: linear-gradient(135deg, #FF53A9 0%, #E0197A 100%);
   }
-  /* Navy → deep-blue gradient for dark sections */
+  .nx-brand-gradient {
+    background: linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%);
+  }
+  /* Dark → deep gradient for dark sections */
   .nx-navy-gradient {
-    background: linear-gradient(180deg, #0F1A35 0%, #0A1124 100%);
+    background: linear-gradient(180deg, #100820 0%, #0A0612 100%);
   }
   /* Card with hover lift */
   .nx-card {
@@ -619,10 +649,10 @@ html:not(.dark).theme-custom-light body {
   }
   .nx-card-hover:hover {
     transform: translateY(-4px);
-    border-color: var(--nx-orange);
-    box-shadow: 0 20px 40px -16px rgba(10, 17, 36, 0.18);
+    border-color: var(--nx-brand-pink);
+    box-shadow: 0 20px 40px -16px rgba(255, 83, 169, 0.18);
   }
-  /* Dark-on-dark card for navy sections */
+  /* Dark-on-dark card for hero/navy sections */
   .nx-card-dark {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -633,21 +663,21 @@ html:not(.dark).theme-custom-light body {
   .nx-card-dark:hover {
     transform: translateY(-4px);
     background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 107, 53, 0.5);
+    border-color: rgba(255, 83, 169, 0.5);
   }
-  /* Pill button — orange */
+  /* Pill button — pink primary CTA */
   .nx-btn-orange {
-    background: var(--nx-orange);
+    background: linear-gradient(135deg, #FF53A9 0%, #E0197A 100%);
     color: #ffffff;
     border-radius: 9999px;
     font-weight: 700;
     transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 10px 30px -10px rgba(255, 107, 53, 0.5);
+    box-shadow: 0 10px 30px -10px rgba(255, 83, 169, 0.5);
   }
   .nx-btn-orange:hover {
-    background: var(--nx-orange-deep);
+    background: linear-gradient(135deg, #E0197A 0%, #136DFF 100%);
     transform: translateY(-1px);
-    box-shadow: 0 14px 36px -10px rgba(255, 107, 53, 0.65);
+    box-shadow: 0 14px 36px -10px rgba(255, 83, 169, 0.65);
   }
   /* Outline button — for use on dark backgrounds */
   .nx-btn-outline-light {
@@ -659,27 +689,46 @@ html:not(.dark).theme-custom-light body {
     transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
   }
   .nx-btn-outline-light:hover {
-    border-color: #ffffff;
-    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--nx-brand-blue);
+    color: var(--nx-brand-blue-soft);
+    background: rgba(19, 109, 255, 0.08);
     transform: translateY(-1px);
   }
-  /* Orange → transparent text gradient */
+  /* Pink → blue text gradient (replaces orange) */
   .nx-text-orange-grad {
-    background: linear-gradient(135deg, #FF8A5C 0%, #FF6B35 100%);
+    background: linear-gradient(135deg, #FF8AC4 0%, #FF53A9 50%, #136DFF 100%);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
+    color: transparent !important;
+  }
+  /* Brand tri-stop text gradient (pink → purple → blue) */
+  .nx-text-brand-grad {
+    background: linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+  }
+  /* Hero text — white → soft lavender gradient (matches h1-line1 from design) */
+  .nx-text-hero-grad {
+    background: linear-gradient(135deg, #FFFFFF 0%, rgba(200, 190, 255, 0.9) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
   }
   /* Subtle dotted grid background for dark sections */
   .nx-dot-grid {
     background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
     background-size: 24px 24px;
   }
-  /* Stat number — oversized bold */
+  /* Stat number — oversized bold with gradient text */
   .nx-stat-num {
     font-weight: 900;
     letter-spacing: -0.04em;
     line-height: 1;
+    background: linear-gradient(135deg, #FF53A9, #136DFF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   /* Section eyebrow label */
   .nx-eyebrow {
@@ -727,9 +776,9 @@ html:not(.dark).theme-custom-light body {
 .group:hover .nx-arrow { transform: translateX(4px); }
 
 /* ─── NEW DESIGN: Page scope — supports both light & dark ─────────────────
-   The new competitor-inspired design (nx-* components) uses --nx-* tokens
+   The new ClickTake brand design (nx-* components) uses --nx-* tokens
    for adaptive surfaces and text. Under .dark on <html>, the tokens flip
-   to dark navy surfaces with light text — so the same design renders
+   to dark palette surfaces with light text — so the same design renders
    correctly in both light and dark mode.
 
    .theme-nx is applied on the page wrapper to scope the design language.
@@ -737,53 +786,53 @@ html:not(.dark).theme-custom-light body {
 .theme-nx {
   /* Adaptive surface/text tokens — these are overridden by html.dark below. */
   --nx-surface: #FFFFFF;
-  --nx-surface-alt: #F8FAFC;
-  --nx-surface-muted: #F1F5F9;
-  --nx-border: #E2E8F0;
-  --nx-border-strong: #CBD5E1;
-  --nx-ink: #0A1124;
-  --nx-ink-soft: #475569;
-  --nx-ink-muted: #94A3B8;
+  --nx-surface-alt: #F8F6FC;
+  --nx-surface-muted: #F1EDF8;
+  --nx-border: #E5E0EE;
+  --nx-border-strong: #CBD0E1;
+  --nx-ink: #0A0612;
+  --nx-ink-soft: #4A3B5C;
+  --nx-ink-muted: #8C7B95;
   --background: #FFFFFF;
-  --foreground: #0A1124;
+  --foreground: #0A0612;
   --card: #FFFFFF;
-  --card-foreground: #0A1124;
-  --muted: #F1F5F9;
-  --muted-foreground: #64748B;
-  --border: #E2E8F0;
+  --card-foreground: #0A0612;
+  --muted: #F1EDF8;
+  --muted-foreground: #8C7B95;
+  --border: #E5E0EE;
   min-height: 100vh;
 }
 
-/* When the site is in dark mode, flip --nx-* tokens to navy surfaces so the
-   new design renders with proper contrast (dark cards + light text). */
+/* When the site is in dark mode, flip --nx-* tokens to dark palette surfaces
+   so the new design renders with proper contrast (dark cards + light text). */
 html.dark .theme-nx {
-  --nx-surface: #0F1A35;
-  --nx-surface-alt: #162347;
-  --nx-surface-muted: #1E2F5C;
+  --nx-surface: #100820;
+  --nx-surface-alt: #16102A;
+  --nx-surface-muted: #1E1640;
   --nx-border: rgba(255, 255, 255, 0.08);
   --nx-border-strong: rgba(255, 255, 255, 0.16);
-  --nx-ink: #F8FAFC;
-  --nx-ink-soft: #CBD5E1;
-  --nx-ink-muted: #94A3B8;
-  --background: #0A1124;
-  --foreground: #F8FAFC;
-  --card: #0F1A35;
-  --card-foreground: #F8FAFC;
-  --muted: #1E2F5C;
-  --muted-foreground: #94A3B8;
+  --nx-ink: #F4F0FF;
+  --nx-ink-soft: #B5A8C8;
+  --nx-ink-muted: #7A6B95;
+  --background: #0A0612;
+  --foreground: #F4F0FF;
+  --card: #100820;
+  --card-foreground: #F4F0FF;
+  --muted: #1E1640;
+  --muted-foreground: #7A6B95;
   --border: rgba(255, 255, 255, 0.08);
-  background: #0A1124;
-  color: #F8FAFC;
+  background: #0A0612;
+  color: #F4F0FF;
 }
 
 /* Backward compat: legacy class name from previous version */
 .theme-nx-light {
   --nx-surface: #FFFFFF;
-  --nx-surface-alt: #F8FAFC;
-  --nx-surface-muted: #F1F5F9;
-  --nx-border: #E2E8F0;
-  --nx-border-strong: #CBD5E1;
-  --nx-ink: #0A1124;
-  --nx-ink-soft: #475569;
-  --nx-ink-muted: #94A3B8;
+  --nx-surface-alt: #F8F6FC;
+  --nx-surface-muted: #F1EDF8;
+  --nx-border: #E5E0EE;
+  --nx-border-strong: #CBD0E1;
+  --nx-ink: #0A0612;
+  --nx-ink-soft: #4A3B5C;
+  --nx-ink-muted: #8C7B95;
 }

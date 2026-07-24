@@ -26,9 +26,9 @@ type TabId = "marketing" | "web" | "ai" | "creative" | "essentials";
 
 const TABS: { id: TabId; label: string; icon: string; color: string }[] = [
   { id: "marketing",  label: "Digital Marketing",  icon: "Megaphone",  color: "#10B981" },
-  { id: "web",        label: "Web & Software",     icon: "Code2",      color: "#3B82F6" },
-  { id: "ai",         label: "AI & Automation",    icon: "Brain",      color: "#FF6B35" },
-  { id: "creative",   label: "Creative & Brand",   icon: "Palette",    color: "#EC4899" },
+  { id: "web",        label: "Web & Software",     icon: "Code2",      color: "#136DFF" },
+  { id: "ai",         label: "AI & Automation",    icon: "Brain",      color: "#FF53A9" },
+  { id: "creative",   label: "Creative & Brand",   icon: "Palette",    color: "#FF53A9" },
   { id: "essentials", label: "Business Essentials",icon: "Rocket",     color: "#F59E0B" },
 ];
 
@@ -142,7 +142,7 @@ export function NxServices() {
                 >
                   <Link
                     href={href}
-                    className={`group h-full p-6 flex flex-col rounded-2xl border nx-bd nx-surface hover:shadow-xl hover:-translate-y-1 hover:border-[#FF6B35]/40 transition-all ${
+                    className={`group h-full p-6 flex flex-col rounded-2xl border nx-bd nx-surface hover:shadow-xl hover:-translate-y-1 hover:border-[#FF53A9]/40 transition-all ${
                       isFeatured ? "min-h-[280px]" : ""
                     }`}
                   >

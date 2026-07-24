@@ -95,7 +95,7 @@ export function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="group rounded-2xl border nx-bd nx-surface p-5 transition-all duration-300 hover:border-[#FF6B35]/40 hover:-translate-y-1"
+              className="group rounded-2xl border nx-bd nx-surface p-5 transition-all duration-300 hover:border-[#FF53A9]/40 hover:-translate-y-1"
             >
               <div className="text-3xl mb-3">{l.flag}</div>
               <div className="text-lg font-bold nx-text">{l.city}</div>
@@ -121,7 +121,7 @@ export function AboutPage() {
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-bold text-[#E55319] shadow-xl hover:scale-105 transition"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-bold text-[#E0197A] shadow-xl hover:scale-105 transition"
               >
                 Start a project <ArrowUpRight className="h-4 w-4" />
               </Link>

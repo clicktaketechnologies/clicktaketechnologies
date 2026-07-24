@@ -48,9 +48,9 @@ const FOOTER_LINKS = {
 
 export function NxFooter() {
   return (
-    <footer className="relative bg-[#0A1124] text-white overflow-hidden">
+    <footer className="relative bg-[#0A0612] text-white overflow-hidden">
       {/* Top decorative gradient line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-[#FF6B35]/50 to-transparent" />
+      <div className="h-px bg-gradient-to-r from-transparent via-[#FF53A9]/50 to-transparent" />
       {/* Subtle dot grid */}
       <div className="absolute inset-0 nx-dot-grid opacity-20 pointer-events-none" />
 
@@ -61,10 +61,10 @@ export function NxFooter() {
           <div className="lg:col-span-4">
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <div className="h-10 w-10 rounded-lg nx-orange-gradient grid place-items-center font-black text-white">
+              <div className="h-10 w-10 rounded-lg nx-brand-gradient grid place-items-center font-black text-white shadow-[0_0_20px_rgba(255,83,169,0.3),0_0_40px_rgba(19,109,255,0.15)]">
                 C
               </div>
-              <span className="text-xl font-black tracking-tight">
+              <span className="text-xl font-black tracking-tight nx-text-brand-grad">
                 ClickTake
               </span>
             </div>
@@ -88,7 +88,7 @@ export function NxFooter() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.name}
-                    className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 grid place-items-center text-white/70 hover:bg-[#FF6B35] hover:text-white hover:border-[#FF6B35] transition"
+                    className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 grid place-items-center text-white/70 hover:bg-[#FF53A9] hover:text-white hover:border-[#FF53A9] transition"
                   >
                     <Icon className="h-4 w-4" />
                   </a>
@@ -105,7 +105,7 @@ export function NxFooter() {
                 <li key={l.label}>
                   <Link
                     href={l.href}
-                    className="text-sm text-white/70 hover:text-[#FF8A5C] transition"
+                    className="text-sm text-white/70 hover:text-[#FF8AC4] transition"
                   >
                     {l.label}
                   </Link>
@@ -121,7 +121,7 @@ export function NxFooter() {
                 <li key={l.label}>
                   <Link
                     href={l.href}
-                    className="text-sm text-white/70 hover:text-[#FF8A5C] transition"
+                    className="text-sm text-white/70 hover:text-[#FF8AC4] transition"
                   >
                     {l.label}
                   </Link>
@@ -137,7 +137,7 @@ export function NxFooter() {
                 <li key={l.label}>
                   <Link
                     href={l.href}
-                    className="text-sm text-white/70 hover:text-[#FF8A5C] transition"
+                    className="text-sm text-white/70 hover:text-[#FF8AC4] transition"
                   >
                     {l.label}
                   </Link>
@@ -154,7 +154,7 @@ export function NxFooter() {
                   href={`mailto:${SITE.email}`}
                   className="group flex items-start gap-3 text-sm text-white/70 hover:text-white transition"
                 >
-                  <Mail className="h-4 w-4 text-[#FF8A5C] mt-0.5 shrink-0" />
+                  <Mail className="h-4 w-4 text-[#FF8AC4] mt-0.5 shrink-0" />
                   <span className="break-all">{SITE.email}</span>
                 </a>
               </li>
@@ -164,7 +164,7 @@ export function NxFooter() {
                     href={p.href}
                     className="group flex items-start gap-3 text-sm text-white/70 hover:text-white transition"
                   >
-                    <Phone className="h-4 w-4 text-[#FF8A5C] mt-0.5 shrink-0" />
+                    <Phone className="h-4 w-4 text-[#FF8AC4] mt-0.5 shrink-0" />
                     <span>
                       <span className="block text-xs text-white/40">{p.label}</span>
                       {p.value}
@@ -174,7 +174,7 @@ export function NxFooter() {
               ))}
               <li>
                 <div className="flex items-start gap-3 text-sm text-white/70">
-                  <MapPin className="h-4 w-4 text-[#FF8A5C] mt-0.5 shrink-0" />
+                  <MapPin className="h-4 w-4 text-[#FF8AC4] mt-0.5 shrink-0" />
                   <span>
                     {SITE.locations.map((l) => (
                       <span key={l.city} className="block text-xs">
@@ -189,15 +189,15 @@ export function NxFooter() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-14 pt-8 border-t border-[#FF53A9]/15 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs text-white/40 text-center sm:text-left">
             © {new Date().getFullYear()} {SITE.name}. All rights reserved.
             <span className="hidden sm:inline"> · Built in-house with Next.js + Supabase.</span>
           </div>
           <div className="flex items-center gap-5 text-xs text-white/50">
-            <Link href="/legal" className="hover:text-white transition">Privacy</Link>
-            <Link href="/legal" className="hover:text-white transition">Terms</Link>
-            <Link href="/legal" className="hover:text-white transition">Cookies</Link>
+            <Link href="/legal" className="hover:text-[#FF8AC4] transition">Privacy</Link>
+            <Link href="/legal" className="hover:text-[#FF8AC4] transition">Terms</Link>
+            <Link href="/legal" className="hover:text-[#FF8AC4] transition">Cookies</Link>
           </div>
         </div>
       </div>
