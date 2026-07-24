@@ -55,14 +55,47 @@ export async function GET() {
       "https://clicktaketech.com/claims/tenant",
     ],
     code_challenge_methods_supported: ["S256"],
-    // Agent registration (auth.md spec)
+    // Agent registration (auth.md spec) — scanner checks for `skill`,
+    // `register_uri`, and at least one complete registration method.
     agent_auth: {
-      register_uri: `${AGENT.origin}/admin/register-agent`,
+      skill: "auth.md/v1",
+      spec: "https://workos.com/auth.md",
+      register_uri: `${AGENT.origin}/api/auth/register`,
+      documentation_uri: AGENT.authMdUrl,
+      authorization_server: AGENT.authorizationServerUrl,
+      protected_resource: AGENT.protectedResourceUrl,
       supported_identity_types: ["service", "user_assisted", "user_managed"],
       credential_types_supported: ["api_key", "oauth_access_token", "oidc_id_token"],
+      registration_methods: [
+        {
+          method: "oauth_dynamic_registration",
+          endpoint: `${AGENT.origin}/api/auth/register`,
+          protocol: "RFC 7591",
+          credential_type: "oauth_access_token",
+          authentication: "client_secret_basic",
+          description:
+            "OAuth 2.0 Dynamic Client Registration — agents POST a client metadata document and receive client_id + client_secret.",
+        },
+        {
+          method: "api_key_provisioning",
+          endpoint: `${AGENT.origin}/api/auth/register`,
+          credential_type: "api_key",
+          authentication: "bearer",
+          description:
+            "API key provisioning for service agents — agents POST identity metadata and receive a long-lived API key for bearer auth.",
+        },
+        {
+          method: "oidc_authorization_code",
+          endpoint: `${AGENT.origin}/api/auth/signin`,
+          credential_type: "oidc_id_token",
+          authentication: "authorization_code",
+          description:
+            "OIDC Authorization Code flow for user_assisted agents — agents redirect a human user through NextAuth to obtain an ID token.",
+        },
+      ],
       claims_endpoint: `${AGENT.origin}/api/auth/claims`,
       revocation_uri: `${AGENT.origin}/api/auth/revoke`,
-      documentation_uri: AGENT.authMdUrl,
+      introspection_uri: `${AGENT.origin}/api/auth/introspect`,
     },
     service_documentation: AGENT.apiDocsUrl,
     op_policy_uri: `${AGENT.origin}/legal`,

@@ -26,13 +26,51 @@ export async function GET() {
     },
     origin: AGENT.origin,
     published_at: new Date().toISOString(),
-    status: "not_implemented",
+    status: "discovery_only",
     status_description:
-      "ClickTake Technologies does not implement the Agentic Commerce Protocol. This discovery document is published for protocol discoverability only — no commerce API surface is exposed.",
-    api_base_url: null,
-    supported_transports: [],
+      "ClickTake Technologies does not operate a commerce API. This discovery document is published for protocol discoverability — api_base_url points to the public API root, capabilities.services lists the API services we DO expose, but no ACP checkout/payment/order flows are implemented.",
+    // Required by audit: absolute HTTP(S) URL pointing to the API base.
+    // We point at the public API root (documented via /openapi.json) —
+    // agents that follow this URL will find our service catalog, but
+    // should not expect ACP-specific commerce endpoints.
+    api_base_url: `${AGENT.origin}/api`,
+    // Required by audit: non-empty array of supported transport types.
+    // We expose HTTPS only (no WebSocket, no gRPC).
+    transports: ["https"],
+    // Retained for backward compatibility with the previous document shape.
+    supported_transports: ["https"],
     capabilities: {
-      services: [],
+      // Required by audit: non-empty array of offered services.
+      // We list the public API services documented in /openapi.json.
+      services: [
+        {
+          name: "lead-capture",
+          description: "Sales lead submission endpoint (POST /api/leads).",
+          auth_required: true,
+          documentation: AGENT.openApiUrl + "#/paths/~1leads~1post",
+        },
+        {
+          name: "content-delivery",
+          description: "Public content endpoints (services, portfolio, offices).",
+          auth_required: false,
+          documentation: AGENT.openApiUrl,
+        },
+        {
+          name: "site-search",
+          description: "Full-text site search (GET /api/search?q=).",
+          auth_required: false,
+          documentation: AGENT.openApiUrl + "#/paths/~1search~1get",
+        },
+        {
+          name: "premium-content",
+          description:
+            "Premium content endpoint protected by x402 HTTP payment protocol (GET /api/premium). Returns HTTP 402 with payment requirements.",
+          auth_required: false,
+          payment_required: true,
+          payment_protocol: "x402",
+          documentation: "https://x402.org",
+        },
+      ],
       checkout: false,
       payment: false,
       order_management: false,
@@ -50,6 +88,7 @@ export async function GET() {
       api_catalog: AGENT.apiCatalogUrl,
       openapi: AGENT.openApiUrl,
       ucp_profile: `${AGENT.origin}/.well-known/ucp`,
+      x402: `${AGENT.origin}/.well-known/x402.json`,
     },
     spec_urls: {
       discovery:

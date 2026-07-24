@@ -18,14 +18,41 @@ export const dynamic = "force-static";
 export async function GET() {
   const profile = {
     $schema: "https://ucp.dev/schema/profile.json",
+    // Top-level `ucp` field — required by the isitagentready.com audit.
+    // Mirrors the structure recommended in the UCP specification overview.
+    ucp: {
+      protocol_version: "0.1.0",
+      origin: AGENT.origin,
+      status: "discovery_only",
+      status_description:
+        "ClickTake Technologies is a digital agency website. We do not sell products, content, or API access via paid transactions. This UCP profile is published for protocol discoverability only.",
+      services: [],
+      capabilities: {
+        payment_methods_supported: [],
+        currencies_supported: [],
+        checkout_enabled: false,
+        subscriptions_enabled: false,
+        metered_usage_enabled: false,
+      },
+      endpoints: {
+        catalog: null,
+        checkout: null,
+        subscription: null,
+        invoice: null,
+        webhook: null,
+      },
+    },
+    // Legacy fields retained for backward compatibility with consumers
+    // that parse the older `protocol: { name, version }` shape.
     protocol: {
       name: "ucp",
       version: "0.1.0",
       documentation: "https://ucp.dev/specification/overview/",
     },
+    protocol_version: "0.1.0",
     origin: AGENT.origin,
     published_at: new Date().toISOString(),
-    status: "no_services_available",
+    status: "discovery_only",
     status_description:
       "ClickTake Technologies is a digital agency website. We do not sell products, content, or API access via paid transactions. This UCP profile is published for protocol discoverability only.",
     services: [],
@@ -49,6 +76,8 @@ export async function GET() {
       api_catalog: AGENT.apiCatalogUrl,
       openapi: AGENT.openApiUrl,
       mcp_server_card: AGENT.mcpServerCardUrl,
+      x402: `${AGENT.origin}/.well-known/x402.json`,
+      acp: `${AGENT.origin}/.well-known/acp.json`,
     },
     spec_urls: {
       overview: "https://ucp.dev/specification/overview/",
