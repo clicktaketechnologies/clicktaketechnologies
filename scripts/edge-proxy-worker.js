@@ -13,7 +13,7 @@
  * https://clicktaketech.com so cookie domain validation passes.
  */
 
-const BACKEND_URL = "https://clicktaketechnologies-kp5r.vercel.app";
+const BACKEND_URL = "https://clicktaketechnologies.vercel.app";
 const WORKER_DEV_URL = "https://clicktake-web.clicktake-web.workers.dev";
 
 export default {
