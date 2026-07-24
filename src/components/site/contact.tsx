@@ -419,9 +419,13 @@ export function Contact() {
 /* ─── Helpers ───────────────────────────────────────────── */
 
 function inputClass(hasError: boolean): string {
+  // Theme-aware: uses semantic tokens so the input is visible in BOTH
+  // light mode (bg-background, border-border) and dark mode (overridden
+  // by .dark in globals.css). Previously used bg-white/[0.03] which is
+  // invisible on a white light-mode background.
   const base =
-    "w-full rounded-xl border bg-white/[0.03] px-4 py-2.5 text-sm placeholder:text-muted-foreground/60 transition focus:outline-none focus:ring-2 focus:ring-[#136DFF]/30";
-  const border = hasError ? "border-red-500/60" : "border-white/10 focus:border-[#136DFF]";
+    "w-full rounded-xl border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/60 transition focus:outline-none focus:ring-2 focus:ring-[#136DFF]/30";
+  const border = hasError ? "border-red-500/60" : "border-border focus:border-[#136DFF]";
   return `${base} ${border}`;
 }
 

@@ -6,7 +6,7 @@ export const SITE = {
   name: "ClickTake Technologies",
   domain: "clicktaketech.com",
   url: "https://clicktaketech.com",
-  email: "Info@clicktaketech.com",
+  email: "info@clicktaketech.com",
   phones: [
     { label: "Pakistan", value: "+92 306 9753003", href: "tel:+923069753003" },
     { label: "United Kingdom", value: "+44 7391 653377", href: "tel:+447391653377" },
@@ -28,7 +28,7 @@ export const SITE = {
       flag: "🇵🇰",
       note: "Engineering & delivery hub — serving Lahore, Karachi, Islamabad & beyond",
       coords: "30.1575° N, 71.5249° E",
-      address: "Office #12, B.C.G Chowk, Paracha Street, Multan 60600",
+      address: "Office #12, B.C.G Chowk, Paracha Street, Multan, Punjab 60600, Pakistan",
       hours: "Mon-Sat: 09:30 AM - 09:00 PM PKT",
       phone: "+92 306 9753003",
     },
@@ -58,17 +58,17 @@ export const SITE = {
     { name: "Instagram", href: "https://www.instagram.com/clicktaketechnologiesuk/", icon: "instagram" },
     { name: "LinkedIn", href: "https://www.linkedin.com/company/click-take-technologies/", icon: "linkedin" },
     { name: "YouTube", href: "https://www.youtube.com/channel/UCt527M4hxeFOavWdXSRTsdw", icon: "youtube" },
-    { name: "TikTok", href: "https://tiktok.com/@clicktaketech", icon: "tiktok" },
-    { name: "Pinterest", href: "https://pinterest.com/clicktaketech", icon: "pinterest" },
-    { name: "Threads", href: "https://threads.net/@clicktaketech", icon: "threads" },
-    { name: "Tumblr", href: "https://clicktaketech.tumblr.com", icon: "tumblr" },
+    { name: "TikTok", href: "https://www.tiktok.com/@clicktaketechtechnologiesuk", icon: "tiktok" },
+    { name: "Pinterest", href: "https://uk.pinterest.com/clicktaketechtechnologies/", icon: "pinterest" },
+    { name: "Threads", href: "https://www.threads.com/@clicktaketech", icon: "threads" },
+    { name: "Tumblr", href: "https://www.tumblr.com/clicktaketechtechnologies", icon: "tumblr" },
   ],
   brand: {
     primary: "#136DFF",
     accent: "#FF53A9",
   },
   tagline: "Connecting in a better way",
-  founded: 2020,
+  founded: 2019,
 } as const;
 
 // ─── NAV LINKS (mix of in-page anchors and routed pages, matching original) ──

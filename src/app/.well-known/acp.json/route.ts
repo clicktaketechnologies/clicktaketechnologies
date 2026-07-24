@@ -39,35 +39,58 @@ export async function GET() {
     transports: ["https"],
     // Retained for backward compatibility with the previous document shape.
     supported_transports: ["https"],
+    // Top-level `services` array — some ACP schema validators look here
+    // instead of under `capabilities.services`. We publish BOTH shapes
+    // (this array of strings + the richer capabilities.services objects
+    // below) so any conformant parser finds the data.
+    services: ["lead-capture", "content-delivery", "site-search", "premium-content"],
     capabilities: {
       // Required by audit: non-empty array of offered services.
-      // We list the public API services documented in /openapi.json.
-      services: [
+      // The isitagentready.com audit's ACP validator expects an array of
+      // STRING service identifiers (matching the UCP `services` shape that
+      // also passes). We previously tried objects with id/name/type/endpoint
+      // fields — that was rejected. Strings pass.
+      services: ["lead-capture", "content-delivery", "site-search", "premium-content"],
+      // Rich per-service detail moved here for agents that want the full
+      // picture. The audit doesn't validate this field.
+      services_detailed: [
         {
-          name: "lead-capture",
+          id: "lead-capture",
+          name: "Lead Capture",
+          type: "api",
           description: "Sales lead submission endpoint (POST /api/leads).",
           auth_required: true,
+          endpoint: `${AGENT.origin}/api/leads`,
           documentation: AGENT.openApiUrl + "#/paths/~1leads~1post",
         },
         {
-          name: "content-delivery",
+          id: "content-delivery",
+          name: "Content Delivery",
+          type: "api",
           description: "Public content endpoints (services, portfolio, offices).",
           auth_required: false,
+          endpoint: `${AGENT.origin}/api`,
           documentation: AGENT.openApiUrl,
         },
         {
-          name: "site-search",
+          id: "site-search",
+          name: "Site Search",
+          type: "api",
           description: "Full-text site search (GET /api/search?q=).",
           auth_required: false,
+          endpoint: `${AGENT.origin}/api/search`,
           documentation: AGENT.openApiUrl + "#/paths/~1search~1get",
         },
         {
-          name: "premium-content",
+          id: "premium-content",
+          name: "Premium Content (x402)",
+          type: "paid-api",
           description:
             "Premium content endpoint protected by x402 HTTP payment protocol (GET /api/premium). Returns HTTP 402 with payment requirements.",
           auth_required: false,
           payment_required: true,
           payment_protocol: "x402",
+          endpoint: `${AGENT.origin}/api/premium`,
           documentation: "https://x402.org",
         },
       ],

@@ -19,8 +19,12 @@ export async function GET() {
   const profile = {
     $schema: "https://ucp.dev/schema/profile.json",
     // Top-level `ucp` field — required by the isitagentready.com audit.
-    // Mirrors the structure recommended in the UCP specification overview.
+    // The audit expects `ucp.version` (not `ucp.protocol_version`); we
+    // publish BOTH for backward compatibility with consumers that follow
+    // the UCP spec overview (which uses protocol_version) AND with the
+    // isitagentready.com audit (which expects `version`).
     ucp: {
+      version: "0.1.0",
       protocol_version: "0.1.0",
       origin: AGENT.origin,
       status: "discovery_only",

@@ -142,7 +142,7 @@ const jsonLd = {
   email: SITE.email,
   description:
     "AI-powered digital agency engineering websites, SaaS platforms, mobile apps and growth systems for ambitious brands across the UK, Pakistan, USA and Dubai.",
-  foundingDate: "2020",
+  foundingDate: "2019",
   slogan: SITE.tagline,
   telephone: SITE.phones.map((p) => p.value).join(", "),
   contactPoint: SITE.phones.map((p) => ({
