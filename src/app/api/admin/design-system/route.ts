@@ -1,4 +1,4 @@
-// /api/admin/nx-design — manage the competitor-inspired new design system tokens
+// /api/admin/design-system — manage the competitor-inspired new design system tokens
 //
 // Stores a single JSON blob in SiteSetting under key="nx_design" containing
 // overrides for the --nx-* CSS variables used by the new homepage + inner pages.

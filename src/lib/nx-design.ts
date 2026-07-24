@@ -7,7 +7,7 @@
 // tokens from globals.css apply).
 
 import { prisma } from "@/lib/db";
-import { NX_DEFAULTS, NX_DESIGN_KEY } from "@/app/api/admin/nx-design/route";
+import { NX_DEFAULTS, NX_DESIGN_KEY } from "@/app/api/admin/design-system/route";
 
 type NxConfig = typeof NX_DEFAULTS;
 
