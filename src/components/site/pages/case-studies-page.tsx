@@ -6,6 +6,7 @@ import{
   NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
 import { Nx3DScene } from "../nx-3d-scene";
 import { Nx3DCharacter } from "../nx-3d-character";
+import { TiltCard } from "@/components/site/tilt-card";
 import { motion } from "framer-motion";
 import {
   ArrowUpRight, Sparkles, MapPin, Clock, TrendingUp, CheckCircle2,
@@ -38,54 +39,58 @@ const STATUS_LABELS: Record<string, { label: string; color: string }> = {
 function CaseStudyCard({ cs }: { cs: CaseStudy }) {
   const status = STATUS_LABELS[cs.result_status] || STATUS_LABELS.pending;
   return (
-    <Link
-      href={`/case-studies/${cs.slug}`}
-      className="group flex flex-col rounded-2xl border border-border bg-card/40 backdrop-blur-md overflow-hidden hover:border-primary/40 hover:bg-card/60 transition"
+    <TiltCard
+      className="group/tilt flex flex-col rounded-2xl border border-border bg-card/40 backdrop-blur-md overflow-hidden hover:border-primary/40 transition-colors"
+      glow={true}
+      shine={true}
+      maxTilt={8}
     >
-      <div className="h-40 bg-gradient-to-br from-brand-blue via-brand-magenta to-brand-pink relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="absolute top-3 left-3 flex flex-col gap-2">
-          <span className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-black">
-            {cs.industry}
-          </span>
-          <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${status.color}`}>
-            {status.label}
-          </span>
-        </div>
-        <div className="absolute bottom-3 left-3 right-3">
-          <div className="text-sm font-bold text-white leading-tight">{cs.client}</div>
-          <div className="text-[11px] text-white/80 mt-0.5 flex items-center gap-1">
-            <MapPin className="h-3 w-3" /> {cs.location}
+      <Link href={`/case-studies/${cs.slug}`} className="contents">
+        <div className="h-40 bg-gradient-to-br from-brand-blue via-brand-magenta to-brand-pink relative overflow-hidden">
+          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute top-3 left-3 flex flex-col gap-2">
+            <span className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-black">
+              {cs.industry}
+            </span>
+            <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${status.color}`}>
+              {status.label}
+            </span>
+          </div>
+          <div className="absolute bottom-3 left-3 right-3">
+            <div className="text-sm font-bold text-white leading-tight">{cs.client}</div>
+            <div className="text-[11px] text-white/80 mt-0.5 flex items-center gap-1">
+              <MapPin className="h-3 w-3" /> {cs.location}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex-1 p-5">
-        <h3 className="text-base sm:text-lg font-bold leading-tight group-hover:text-foreground text-foreground/90 line-clamp-2">
-          {cs.challenge.split(".")[0]}.
-        </h3>
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {cs.services.slice(0, 3).map((s) => (
-            <span
-              key={s}
-              className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-2 py-0.5 text-[10px] font-medium"
-            >
-              {SERVICE_LABELS[s] || s}
-            </span>
-          ))}
+        <div className="flex-1 p-5">
+          <h3 className="text-base sm:text-lg font-bold leading-tight group-hover/tilt:text-foreground text-foreground/90 line-clamp-2">
+            {cs.challenge.split(".")[0]}.
+          </h3>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {cs.services.slice(0, 3).map((s) => (
+              <span
+                key={s}
+                className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-2 py-0.5 text-[10px] font-medium"
+              >
+                {SERVICE_LABELS[s] || s}
+              </span>
+            ))}
+          </div>
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            {cs.metrics.slice(0, 2).map((m) => (
+              <div
+                key={m.label}
+                className="rounded-lg border border-border bg-secondary/30 px-2.5 py-1.5"
+              >
+                <div className="text-[10px] text-muted-foreground uppercase tracking-widest">{m.label}</div>
+                <div className="text-sm font-bold leading-tight">{m.value}</div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          {cs.metrics.slice(0, 2).map((m) => (
-            <div
-              key={m.label}
-              className="rounded-lg border border-border bg-secondary/30 px-2.5 py-1.5"
-            >
-              <div className="text-[10px] text-muted-foreground uppercase tracking-widest">{m.label}</div>
-              <div className="text-sm font-bold leading-tight">{m.value}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Link>
+      </Link>
+    </TiltCard>
   );
 }
 

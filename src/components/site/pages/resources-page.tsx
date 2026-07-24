@@ -7,6 +7,7 @@ import{
   NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
 import { Nx3DScene } from "../nx-3d-scene";
 import { Nx3DCharacter } from "../nx-3d-character";
+import { TiltCard } from "@/components/site/tilt-card";
 import { RESOURCES } from "@/lib/site-data";
 
 export function ResourcesPage() {
@@ -49,30 +50,37 @@ export function ResourcesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="group relative overflow-hidden rounded-2xl border ct-divider bg-card/60 backdrop-blur-xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl"
               >
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
-                  <span className="rounded-full border ct-divider ct-surface px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                    {r.category}
-                  </span>
-                  <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                    <Clock className="h-3 w-3" /> {r.readTime}
-                  </span>
-                </div>
-                <h2 className="font-display text-base sm:text-lg font-bold leading-snug group-hover:text-primary transition">
-                  {r.title}
-                </h2>
-                <p className="mt-2 sm:mt-3 text-xs sm:text-sm leading-relaxed text-muted-foreground line-clamp-3">
-                  {r.excerpt}
-                </p>
-                <div className="mt-4 sm:mt-5 flex items-center justify-between">
-                  <Link
-                    href={`/resources/${r.slug}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:gap-2 transition-all"
-                  >
-                    Read article <ArrowUpRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
+                <TiltCard
+                  className="group/tilt h-full overflow-hidden rounded-2xl border ct-divider bg-card/60 backdrop-blur-xl p-5 sm:p-6 transition-colors duration-300 hover:border-primary/30"
+                  glow={true}
+                  shine={true}
+                  maxTilt={10}
+                  as="article"
+                >
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
+                    <span className="rounded-full border ct-divider ct-surface px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      {r.category}
+                    </span>
+                    <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                      <Clock className="h-3 w-3" /> {r.readTime}
+                    </span>
+                  </div>
+                  <h2 className="font-display text-base sm:text-lg font-bold leading-snug group-hover/tilt:text-primary transition">
+                    {r.title}
+                  </h2>
+                  <p className="mt-2 sm:mt-3 text-xs sm:text-sm leading-relaxed text-muted-foreground line-clamp-3">
+                    {r.excerpt}
+                  </p>
+                  <div className="mt-4 sm:mt-5 flex items-center justify-between">
+                    <Link
+                      href={`/resources/${r.slug}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary group-hover/tilt:gap-2 transition-all"
+                    >
+                      Read article <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </TiltCard>
               </motion.article>
             ))}
           </div>

@@ -12,6 +12,7 @@ import{
   NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
 import { Nx3DScene } from "../nx-3d-scene";
 import { Nx3DCharacter } from "../nx-3d-character";
+import { TiltCard } from "@/components/site/tilt-card";
 import { TurnstileWidget } from "../turnstile-widget";
 import { toast } from "sonner";
 import {
@@ -433,25 +434,30 @@ export function ContactPage() {
             {CONTACT_METHODS.map((m, i) => {
               const Icon = ICONS[m.icon] || Mail;
               return (
-                <motion.a
+                <motion.div
                   key={m.href}
-                  href={m.href}
-                  target="_blank"
-                  rel="noreferrer"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-border/60 bg-card/50 p-4 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-glow"
                 >
-                  <div className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${m.glow} text-white shadow-lg`}>
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{m.label}</div>
-                    <div className="mt-1 truncate font-medium text-foreground">{m.value}</div>
-                  </div>
-                </motion.a>
+                  <TiltCard
+                    className="group/tilt flex items-center gap-4 overflow-hidden rounded-2xl border border-border/60 bg-card/50 p-4 backdrop-blur-md transition-colors duration-300 hover:border-primary/40"
+                    glow={true}
+                    shine={true}
+                    maxTilt={8}
+                  >
+                    <a href={m.href} target="_blank" rel="noreferrer" className="contents">
+                      <div className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${m.glow} text-white shadow-lg`}>
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{m.label}</div>
+                        <div className="mt-1 truncate font-medium text-foreground">{m.value}</div>
+                      </div>
+                    </a>
+                  </TiltCard>
+                </motion.div>
               );
             })}
           </div>

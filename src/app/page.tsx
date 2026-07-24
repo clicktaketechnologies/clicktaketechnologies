@@ -1,3 +1,5 @@
+'use client'
+
 import { NxNavbar } from "@/components/site/nx-navbar";
 import { NxHero } from "@/components/site/nx-hero";
 import { NxLogoCloud } from "@/components/site/nx-logo-cloud";
@@ -10,6 +12,28 @@ import { NxFaq } from "@/components/site/nx-faq";
 import { NxCta } from "@/components/site/nx-cta";
 import { NxFooter } from "@/components/site/nx-footer";
 import { Nx3DScene } from "@/components/site/nx-3d-scene";
+import { ScrollProgress } from "@/components/site/scroll-progress";
+import { Marquee } from "@/components/site/marquee";
+import dynamic from "next/dynamic";
+
+/* Three.js ambient background — lazy-loaded, client-only.
+ * Renders the wireframe torus knot + particle field + icosahedron + mouse
+ * parallax from clicktake-3d-v3.html. SSR is disabled (three.js needs window). */
+const NxThreeScene = dynamic(
+  () => import("@/components/site/nx-three-scene").then((m) => m.NxThreeScene),
+  { ssr: false }
+);
+
+const MARQUEE_ITEMS = [
+  "Digital Marketing",
+  "Web Development",
+  "SEO & PPC",
+  "Brand Identity",
+  "Social Media",
+  "AI Solutions",
+  "Video Production",
+  "E-Commerce",
+];
 
 /* Homepage — NEW competitor-inspired redesign (2024).
  *
@@ -32,7 +56,10 @@ import { Nx3DScene } from "@/components/site/nx-3d-scene";
  *
  * 3D design: Each major section is wrapped in a relative container with a
  * Nx3DScene background (floating geometric shapes in brand colors) for a
- * cohesive 3D feel across the entire page.
+ * cohesive 3D feel across the entire page. The homepage also mounts a
+ * full-screen NxThreeScene (Three.js) behind the hero — wireframe torus
+ * knot + 1400-particle field + mouse parallax — matching the
+ * clicktake-3d-v3.html reference.
  *
  * DARK MODE: The .theme-nx wrapper exposes --nx-* tokens that flip under
  * html.dark. Hero/CTA/Footer are always-dark (intentional). Light-surface
@@ -41,10 +68,16 @@ import { Nx3DScene } from "@/components/site/nx-3d-scene";
  * contrast in both light and dark mode. */
 export default function Home() {
   return (
-    <div className="theme-nx min-h-screen nx-surface nx-text">
+    <div className="theme-nx min-h-screen nx-surface nx-text relative">
+      {/* Top scroll-progress bar (gradient pink → purple) */}
+      <ScrollProgress />
+      {/* Full-screen Three.js ambient background — torus knot + particles + icosahedron */}
+      <NxThreeScene />
       <NxNavbar />
-      <main>
+      <main className="relative z-10">
         <NxHero />
+        {/* Brand marquee band — scrolling services list */}
+        <Marquee items={MARQUEE_ITEMS} />
         <NxLogoCloud />
         {/* Stats — with 3D floating accents */}
         <div className="relative overflow-hidden">

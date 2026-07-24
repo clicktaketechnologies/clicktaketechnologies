@@ -8,6 +8,15 @@ import { NxFooter } from "./nx-footer"
 import { ScrollProgressBar, ScrollToTop } from "./scroll-animations"
 import { Nx3DCharacter } from "./nx-3d-character"
 import { Nx3DScene } from "./nx-3d-scene"
+import dynamic from "next/dynamic"
+
+/* Three.js ambient background for inner pages — lighter than the homepage
+ * version: torus knot is hidden (would clutter), only particles + icosahedron
+ * + wireframe spheres drift in the background. Lazy-loaded, client-only. */
+const NxThreeScene = dynamic(
+  () => import("./nx-three-scene").then((m) => m.NxThreeScene),
+  { ssr: false }
+)
 
 /* NX PAGE LAYOUT — wraps every inner page with the new competitor-inspired
  * design system. Provides:
@@ -31,9 +40,12 @@ type NxPageLayoutProps = {
 
 export function NxPageLayout({ children, mainClassName = "" }: NxPageLayoutProps) {
   return (
-    <div className="theme-nx min-h-screen nx-surface nx-text">
+    <div className="theme-nx min-h-screen nx-surface nx-text relative">
+      {/* Three.js ambient background — particles + icosahedron + wireframe spheres only
+          (torus knot hidden to avoid clutter on inner pages). */}
+      <NxThreeScene hideTorusKnot particleCount={600} />
       <NxNavbar />
-      <main className={mainClassName}>{children}</main>
+      <main className={`relative z-10 ${mainClassName}`}>{children}</main>
       <NxFooter />
       <ScrollProgressBar />
       <ScrollToTop />
