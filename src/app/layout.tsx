@@ -113,17 +113,51 @@ export const metadata: Metadata = {
  * FOUC-prevention: runs before React hydrates. Reads the saved theme from
  * localStorage (written by next-themes under the "theme" key) and applies
  * the .dark class to <html> immediately, so the very first paint matches
- * what the user previously chose. Defaults to dark.
+ * what the user previously chose.
+ *
+ * Supports 4 modes: dark (default), light, system, custom.
+ * - system: reads prefers-color-scheme
+ * - custom: applies .custom + .dark if user-saved dark flag is true
  */
 const themeInitScript = `
 (function() {
   try {
     var stored = localStorage.getItem('theme');
-    var isDark = stored ? stored === 'dark' : true;
     var root = document.documentElement;
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var isDark = true; // default
+
+    if (stored === 'light') {
+      isDark = false;
+    } else if (stored === 'dark') {
+      isDark = true;
+    } else if (stored === 'system' || stored === null) {
+      isDark = prefersDark;
+    } else if (stored === 'custom') {
+      // custom theme — uses CSS variables set via inline style on <html>.
+      // The custom theme can be light or dark depending on user-saved
+      // "custom-dark" flag in localStorage (set by the admin theme editor).
+      var customDark = localStorage.getItem('theme-custom-dark');
+      isDark = customDark === null ? true : customDark === 'true';
+      root.classList.add('theme-custom');
+    }
+
     if (isDark) root.classList.add('dark');
     else root.classList.remove('dark');
     root.style.colorScheme = isDark ? 'dark' : 'light';
+
+    // Apply custom CSS variables if present (admin-set theme tokens)
+    var customVars = localStorage.getItem('theme-custom-vars');
+    if (customVars) {
+      try {
+        var vars = JSON.parse(customVars);
+        for (var k in vars) {
+          if (Object.prototype.hasOwnProperty.call(vars, k)) {
+            root.style.setProperty(k, vars[k]);
+          }
+        }
+      } catch (e) {}
+    }
   } catch (e) {}
 })();
 `;
@@ -232,7 +266,7 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          enableSystem={false}
+          enableSystem
           disableTransitionOnChange
         >
           <Providers>

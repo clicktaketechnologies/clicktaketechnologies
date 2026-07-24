@@ -81,7 +81,7 @@ export function Footer() {
               Navigation
             </h4>
             <ul className="mt-4 space-y-2">
-              {NAV_LINKS.map((l) => (
+              {NAV_LINKS.filter((l) => !l.mega).map((l) => (
                 <li key={l.href}>
                   <a
                     href={l.href}
@@ -91,6 +91,12 @@ export function Footer() {
                   </a>
                 </li>
               ))}
+              <li><a href="/team" className="text-sm text-muted-foreground hover:text-foreground transition">Team</a></li>
+              <li><a href="/careers" className="text-sm text-muted-foreground hover:text-foreground transition">Careers</a></li>
+              <li><a href="/case-studies" className="text-sm text-muted-foreground hover:text-foreground transition">Case Studies</a></li>
+              <li><a href="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition">Pricing</a></li>
+              <li><a href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition">Blog</a></li>
+              <li><a href="/resources" className="text-sm text-muted-foreground hover:text-foreground transition">Resources</a></li>
             </ul>
           </div>
 
