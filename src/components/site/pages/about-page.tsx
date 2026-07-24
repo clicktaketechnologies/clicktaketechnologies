@@ -34,7 +34,7 @@ export function AboutPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl">
+            <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
               About ClickTake
             </div>
@@ -60,7 +60,7 @@ export function AboutPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-card/60 p-4 sm:p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30"
+                  className="group relative overflow-hidden rounded-2xl border ct-divider bg-card/60 p-4 sm:p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30"
                 >
                   <div className={`mb-3 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-br ${s.color} text-white shadow-lg`}>
                     <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -83,7 +83,7 @@ export function AboutPage() {
             viewport={{ once: true }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl uppercase tracking-[0.18em] text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
               What we believe
             </div>
@@ -103,7 +103,7 @@ export function AboutPage() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ y: -4 }}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-card/40 p-6 backdrop-blur-xl transition-all duration-300 hover:border-white/20"
+                  className="group relative overflow-hidden rounded-2xl border ct-divider bg-card/40 p-6 backdrop-blur-xl transition-all duration-300 hover:ct-divider"
                 >
                   <motion.div
                     className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -128,7 +128,7 @@ export function AboutPage() {
             viewport={{ once: true }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-4 py-1.5 text-xs backdrop-blur-xl uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-4 py-1.5 text-xs backdrop-blur-xl uppercase tracking-[0.18em] text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
               Where we work
             </div>
@@ -150,7 +150,7 @@ export function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  className="group rounded-2xl border border-white/10 bg-card/50 p-5 backdrop-blur-xl transition-all duration-300 hover:border-primary/30 hover:-translate-y-1"
+                  className="group rounded-2xl border ct-divider bg-card/50 p-5 backdrop-blur-xl transition-all duration-300 hover:border-primary/30 hover:-translate-y-1"
                 >
                   <div className="text-3xl mb-3">{l.flag}</div>
                   <div className="text-lg font-bold">{l.city}</div>

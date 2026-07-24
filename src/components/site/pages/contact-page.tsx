@@ -148,7 +148,7 @@ export function ContactPage() {
 
           <div className="relative mx-auto max-w-7xl px-4 text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-4 py-1.5 text-xs backdrop-blur-xl mb-6">
+              <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-4 py-1.5 text-xs backdrop-blur-xl mb-6">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
                 Get in Touch
               </div>

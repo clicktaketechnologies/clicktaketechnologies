@@ -272,7 +272,7 @@ export function ScrollToTop() {
                 window.scrollTo({ top: 0, behavior: "smooth" })
             }
             aria-label="Scroll to top"
-            className="fixed bottom-8 right-8 z-50 grid h-12 w-12 place-items-center rounded-full border border-white/15 bg-card/80 text-foreground backdrop-blur-xl shadow-xl shadow-black/30 transition-colors hover:border-primary/40 hover:text-primary"
+            className="fixed bottom-8 right-8 z-50 grid h-12 w-12 place-items-center rounded-full border ct-divider bg-card/80 text-foreground backdrop-blur-xl shadow-xl shadow-black/30 transition-colors hover:border-primary/40 hover:text-primary"
         >
             <ArrowUp className="h-5 w-5" />
         </motion.button>

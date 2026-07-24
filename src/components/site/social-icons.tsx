@@ -57,7 +57,7 @@ export function SocialIcons({ size = 18 }: { size?: number }) {
           rel="noopener noreferrer"
           aria-label={s.name}
           title={s.name}
-          className="group grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/[0.03] text-muted-foreground hover:text-white hover:border-transparent hover:gradient-bg transition-all hover:scale-105"
+          className="group grid h-10 w-10 place-items-center rounded-xl border ct-divider ct-surface text-muted-foreground hover:text-white hover:border-transparent hover:gradient-bg transition-all hover:scale-105"
         >
           <svg
             width={size}

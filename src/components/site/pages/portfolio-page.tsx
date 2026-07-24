@@ -26,7 +26,7 @@ export function PortfolioPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl">
+            <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
               Selected Work
             </div>
@@ -50,7 +50,7 @@ export function PortfolioPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className={`group relative overflow-hidden rounded-[30px] border border-white/10 bg-card/70 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${p.glow}`}
+                className={`group relative overflow-hidden rounded-[30px] border ct-divider bg-card/70 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${p.glow}`}
               >
                 {/* Image / gradient placeholder */}
                 <div className="relative aspect-[16/10] overflow-hidden">
@@ -70,19 +70,19 @@ export function PortfolioPage() {
 
                   {/* shine */}
                   <div className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-                    <div className="absolute -left-40 top-0 h-full w-32 rotate-12 bg-white/10 blur-2xl transition-all duration-1000 group-hover:left-[120%]" />
+                    <div className="absolute -left-40 top-0 h-full w-32 rotate-12 ct-surface blur-2xl transition-all duration-1000 group-hover:left-[120%]" />
                   </div>
 
                   {/* external button */}
                   <a
                     href={p.url}
-                    className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:rotate-12 hover:bg-white hover:text-black"
+                    className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border ct-divider bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:rotate-12 hover:bg-white hover:text-black"
                   >
                     <ExternalLink className="h-4 w-4" />
                   </a>
 
                   {/* metric */}
-                  <div className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/30 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
+                  <div className="absolute left-5 top-5 rounded-full border ct-divider bg-black/30 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
                     {p.metric}
                   </div>
 
@@ -109,7 +109,7 @@ export function PortfolioPage() {
                       {p.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-white/10 bg-secondary/50 px-3 py-1 text-[11px] font-medium text-muted-foreground backdrop-blur"
+                          className="rounded-full border ct-divider bg-secondary/50 px-3 py-1 text-[11px] font-medium text-muted-foreground backdrop-blur"
                         >
                           {tag}
                         </span>
