@@ -2,16 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import {
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
+} from "../nx-page-layout";
 import { motion } from "framer-motion";
 import {
   Sparkles, ArrowUpRight, Briefcase, MapPin, Clock, Users, Globe,
   TrendingUp, Heart, Laptop, Plane, Award, Send, CheckCircle2,
 } from "lucide-react";
-import { Navbar } from "../navbar";
-import { Footer } from "../footer";
-import { BackgroundScene } from "../background-scene";
-import { CustomCursor } from "../custom-cursor";
-import { ScrollProgressBar, ScrollToTop } from "../scroll-animations";
 import { CAREER_ROLES, CAREERS_PERKS, CAREERS_DEPARTMENTS, type CareerRole } from "@/lib/site-data";
 
 const ICONS: Record<string, any> = {
@@ -125,14 +123,8 @@ export function CareersPage() {
     "w-full rounded-xl border border-border bg-background px-3.5 py-2.5 text-sm placeholder:text-muted-foreground focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/20";
 
   return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
-
-      <main className="relative z-10 pt-32 sm:pt-44 pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <NxPageLayout>
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -427,10 +419,6 @@ export function CareersPage() {
             )}
           </motion.section>
         </div>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-    </>
+    </NxPageLayout>
   );
 }

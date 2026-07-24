@@ -2,15 +2,13 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import {
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
+} from "../nx-page-layout";
 import { motion } from "framer-motion";
 import {
   ArrowUpRight, Calendar, Clock, Sparkles, Search, Tag,
 } from "lucide-react";
-import { Navbar } from "../navbar";
-import { Footer } from "../footer";
-import { BackgroundScene } from "../background-scene";
-import { CustomCursor } from "../custom-cursor";
-import { ScrollProgressBar, ScrollToTop } from "../scroll-animations";
 import { BLOG_POSTS, BLOG_CATEGORIES, type BlogPost } from "@/lib/site-data";
 
 const CAT_COLOR: Record<string, string> = {
@@ -87,14 +85,8 @@ export function BlogIndexPage() {
   }, [activeCat, query]);
 
   return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
-
-      <main className="relative z-10 pt-32 sm:pt-44 pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <NxPageLayout>
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -203,10 +195,6 @@ export function BlogIndexPage() {
             </Link>
           </motion.div>
         </div>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-    </>
+    </NxPageLayout>
   );
 }

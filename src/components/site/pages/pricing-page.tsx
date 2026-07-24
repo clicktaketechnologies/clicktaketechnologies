@@ -1,16 +1,14 @@
 'use client'
 
 import Link from "next/link";
+import {
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
+} from "../nx-page-layout";
 import { motion } from "framer-motion";
 import {
   Check, X, Sparkles, ArrowUpRight, HelpCircle, ChevronRight,
   Zap, TrendingUp, Building2, Users,
 } from "lucide-react";
-import { Navbar } from "../navbar";
-import { Footer } from "../footer";
-import { BackgroundScene } from "../background-scene";
-import { CustomCursor } from "../custom-cursor";
-import { ScrollProgressBar, ScrollToTop } from "../scroll-animations";
 import { PRICING_PLANS, type PricingPlan } from "@/lib/site-data";
 
 const PLAN_ICON: Record<string, any> = {
@@ -125,14 +123,8 @@ const FAQS = [
 
 export function PricingPage() {
   return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
-
-      <main className="relative z-10 pt-32 sm:pt-44 pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <NxPageLayout>
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -254,10 +246,6 @@ export function PricingPage() {
             </Link>
           </motion.div>
         </div>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-    </>
+    </NxPageLayout>
   );
 }

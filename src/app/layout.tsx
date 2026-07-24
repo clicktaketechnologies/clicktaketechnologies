@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Providers } from "@/components/providers";
 import { SITE } from "@/lib/site-data";
 import { WebMCPProvider } from "@/components/webmcp/webmcp-provider";
+import { getNxDesignCss } from "@/lib/nx-design";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -235,15 +236,23 @@ const localBusinessJsonLd = SITE.locations.map((l) => ({
   areaServed: l.country,
 }));
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fetch admin-managed NX design tokens (cached per-request — Vercel
+  // automatically memoizes fetches within a single render pass).
+  // Falls back to CSS defaults if DB unavailable.
+  const nxCss = await getNxDesignCss();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {/* NX design tokens — admin-editable via /admin/theme → "NX Design" tab.
+            Overrides --nx-* CSS vars from globals.css with values from DB. */}
+        {nxCss && <style dangerouslySetInnerHTML={{ __html: nxCss }} />}
         {/* Explicit sitemap link — helps crawlers discover /sitemap.xml even
             when Cloudflare's "AI Audit" managed robots.txt shadows the
             Next.js robots.ts route output. */}

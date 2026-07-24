@@ -1,15 +1,13 @@
 'use client'
 
 import Link from "next/link";
+import {
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
+} from "../nx-page-layout";
 import { motion } from "framer-motion";
 import {
   ArrowLeft, ArrowUpRight, Calendar, Clock, Tag, Sparkles, ChevronRight,
 } from "lucide-react";
-import { Navbar } from "../navbar";
-import { Footer } from "../footer";
-import { BackgroundScene } from "../background-scene";
-import { CustomCursor } from "../custom-cursor";
-import { ScrollProgressBar, ScrollToTop } from "../scroll-animations";
 import { BLOG_POSTS, type BlogPost } from "@/lib/site-data";
 
 const CAT_COLOR: Record<string, string> = {
@@ -37,14 +35,8 @@ export function BlogPostPage({ post }: Props) {
     .slice(0, 3);
 
   return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
-
-      <main className="relative z-10 pt-32 sm:pt-44 pb-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <NxPageLayout>
+              <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <Link
             href="/blog"
@@ -187,10 +179,6 @@ export function BlogPostPage({ post }: Props) {
             </motion.section>
           )}
         </div>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-    </>
+    </NxPageLayout>
   );
 }

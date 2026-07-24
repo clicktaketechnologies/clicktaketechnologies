@@ -2,12 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import {
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
+} from "../nx-page-layout";
 import { ArrowUpRight } from "lucide-react";
-import { Navbar } from "../navbar";
-import { Footer } from "../footer";
-import { BackgroundScene } from "../background-scene";
-import { CustomCursor } from "../custom-cursor";
-import { ScrollProgressBar, ScrollToTop } from "../scroll-animations";
 
 export interface LegalSection {
   num: string;
@@ -26,14 +24,8 @@ interface Props {
 
 export function LegalPage({ icon, title, lastUpdated, badge, accentClass = "bg-brand-cyan/20", sections }: Props) {
   return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
-
-      <main className="relative z-10 pt-28 pb-24">
-        <section className="mx-auto max-w-4xl px-4 py-12">
+    <NxPageLayout>
+              <section className="mx-auto max-w-4xl px-4 py-12">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -99,10 +91,6 @@ export function LegalPage({ icon, title, lastUpdated, badge, accentClass = "bg-b
             </Link>
           </motion.div>
         </section>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-    </>
+    </NxPageLayout>
   );
 }
