@@ -12,7 +12,7 @@ export function Services() {
         {/* Header */}
         <div className="max-w-3xl">
           <SectionReveal variant="fadeUp">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs font-medium text-muted-foreground">
+            <div className="inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-4 py-1.5 text-xs font-medium text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-[#FF53A9]" />
               What we do
             </div>
@@ -40,7 +40,7 @@ export function Services() {
               variant={i % 2 === 0 ? "slideLeft" : "slideRight"}
               delay={i * 0.05}
             >
-              <div className="group relative h-full rounded-3xl glass p-8 hover:border-white/20 transition overflow-hidden">
+              <div className="group relative h-full rounded-3xl glass p-8 hover:ct-divider transition overflow-hidden">
                 {/* hover glow */}
                 <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-[#136DFF]/10 blur-3xl opacity-0 group-hover:opacity-100 transition" />
                 <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-[#FF53A9]/10 blur-3xl opacity-0 group-hover:opacity-100 transition" />
@@ -50,7 +50,7 @@ export function Services() {
                     <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                       {cat.group}
                     </span>
-                    <span className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-xs font-bold text-muted-foreground group-hover:text-foreground group-hover:border-white/20 transition">
+                    <span className="grid h-9 w-9 place-items-center rounded-full border ct-divider ct-surface text-xs font-bold text-muted-foreground group-hover:text-foreground group-hover:border-[var(--brand-blue)] transition">
                       0{i + 1}
                     </span>
                   </div>
@@ -66,7 +66,7 @@ export function Services() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: j * 0.05 }}
-                        className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3 hover:bg-white/[0.05] transition"
+                        className="flex items-start gap-3 rounded-xl border ct-divider ct-surface p-3 ct-hover transition"
                       >
                         <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full gradient-bg">
                           <Check className="h-3 w-3 text-white" />

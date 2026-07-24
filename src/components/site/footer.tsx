@@ -7,7 +7,7 @@ import { SocialIcons } from "./social-icons";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/10 bg-card/30 backdrop-blur-xl">
+    <footer className="relative border-t ct-divider bg-card/30 backdrop-blur-xl">
       {/* Top accent line */}
       <div className="h-px gradient-bg opacity-60" />
 
@@ -16,7 +16,7 @@ export function Footer() {
           {/* Brand block */}
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative h-12 w-12 overflow-hidden rounded-2xl border border-white/10 shadow-lg transition-all duration-500 group-hover:rotate-6 group-hover:scale-105">
+              <div className="relative h-12 w-12 overflow-hidden rounded-2xl border ct-divider shadow-lg transition-all duration-500 group-hover:rotate-6 group-hover:scale-105">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/clicktake-logo.webp"
@@ -122,7 +122,7 @@ export function Footer() {
               {SITE.locations.map((l) => (
                 <li
                   key={l.country}
-                  className="rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5"
+                  className="rounded-xl border ct-divider ct-surface px-3 py-2.5"
                 >
                   <div className="text-sm font-bold">
                     {l.flag} {l.city}
@@ -140,7 +140,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-white/10 pt-6">
+        <div className="mt-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t ct-divider pt-6">
           <div className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} ClickTake Technologies. All rights reserved.
           </div>

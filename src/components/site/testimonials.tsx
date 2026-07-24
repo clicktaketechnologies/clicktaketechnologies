@@ -14,7 +14,7 @@ export function Testimonials() {
       <div className="mx-auto max-w-7xl px-4">
         <div className="max-w-3xl">
           <SectionReveal variant="fadeUp">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs font-medium text-muted-foreground">
+            <div className="inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-4 py-1.5 text-xs font-medium text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-[#136DFF]" />
               Client stories
             </div>
@@ -34,7 +34,7 @@ export function Testimonials() {
               variant={i % 2 === 0 ? "slideLeft" : "slideRight"}
               delay={i * 0.08}
             >
-              <figure className="relative h-full rounded-3xl glass p-8 hover:border-white/20 transition">
+              <figure className="relative h-full rounded-3xl glass p-8 hover:ct-divider transition">
                 <Quote className="h-8 w-8 text-[#FF53A9]/60" />
                 <blockquote className="mt-4 text-base sm:text-lg leading-relaxed text-foreground/90">
                   “{t.quote}”

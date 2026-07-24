@@ -392,7 +392,7 @@
    regardless of which mode is active. They override any earlier rule that
    might set foreground colors too close to the background.
 */
-body, p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, button, a, input, textarea, select, blockquote {
+body, p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, button, a, input, textarea, select, blockquote, strong, em, small {
   color: var(--foreground);
 }
 /* Inputs should always use foreground on the input background for visibility */
@@ -407,3 +407,64 @@ input::placeholder, textarea::placeholder {
 .text-muted-foreground {
   color: var(--muted-foreground);
 }
+
+/* ─── Theme-aware surface utilities ─────────────────────────────────────────
+   These replace the original dark-only patterns (border-white/10,
+   bg-white/[0.03], etc.) that became invisible on the light-mode background.
+   Each class is defined ONCE here and adapts automatically via the CSS
+   variables that already flip in :root / .dark.
+
+   Use them everywhere a "frosted glass card" or "subtle pill" pattern appears:
+     .ct-pill     — small badge / chip (border + faint bg)
+     .ct-surface  — light card / tile surface (slightly tinted bg + border)
+     .ct-card     — heavier card surface with backdrop blur
+     .ct-input    — form input surface (used by .input-base already)
+     .ct-divider  — horizontal/vertical divider line
+     .ct-hover    — hover background tint (use on hoverable rows/tiles)
+*/
+.ct-pill {
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--foreground) 4%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.ct-surface {
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--foreground) 3%, var(--background));
+}
+.ct-card {
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--background) 75%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+.ct-input {
+  border: 1px solid var(--input);
+  background: color-mix(in oklab, var(--background) 80%, transparent);
+  color: var(--foreground);
+}
+.ct-input::placeholder { color: var(--muted-foreground); }
+.ct-divider {
+  border-color: var(--border);
+}
+.ct-hover:hover {
+  background: color-mix(in oklab, var(--foreground) 6%, transparent);
+}
+/* Subtle hover for nav links + menu rows */
+.ct-hover-soft:hover {
+  background: color-mix(in oklab, var(--foreground) 4%, transparent);
+}
+
+/* ─── Theme-mode safeguards ─────────────────────────────────────────────────
+   Ensure that the dark-mode radial-gradient background NEVER bleeds into
+   light mode. The original rule relied on the .dark class being absent,
+   but a stale class on <html> could cause the dark gradient to overlay a
+   white page. These !important guards lock the background to the right
+   palette per mode.
+*/
+html:not(.dark):not(.theme-custom) body,
+html:not(.dark).theme-custom-light body {
+  background: var(--background) !important;
+  background-attachment: fixed !important;
+}
+

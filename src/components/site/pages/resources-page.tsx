@@ -26,7 +26,7 @@ export function ResourcesPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl">
+            <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
               Resources
             </div>
@@ -49,10 +49,10 @@ export function ResourcesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-card/60 backdrop-blur-xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl"
+                className="group relative overflow-hidden rounded-2xl border ct-divider bg-card/60 backdrop-blur-xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl"
               >
                 <div className="flex items-center justify-between mb-3 sm:mb-4">
-                  <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                  <span className="rounded-full border ct-divider ct-surface px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
                     {r.category}
                   </span>
                   <span className="flex items-center gap-1 text-[10px] text-muted-foreground">

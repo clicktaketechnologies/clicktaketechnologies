@@ -107,7 +107,7 @@ export function Contact() {
           {/* Left: info */}
           <div>
             <SectionReveal variant="fadeUp">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs font-medium text-muted-foreground">
+              <div className="inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-4 py-1.5 text-xs font-medium text-muted-foreground">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#136DFF]" />
                 Get in touch
               </div>
@@ -130,7 +130,7 @@ export function Contact() {
               <SectionReveal variant="slideLeft" delay={0}>
                 <a
                   href={`mailto:${SITE.email}`}
-                  className="group flex items-center gap-3 sm:gap-4 rounded-2xl glass p-4 sm:p-5 hover:border-white/20 transition"
+                  className="group flex items-center gap-3 sm:gap-4 rounded-2xl glass p-4 sm:p-5 hover:ct-divider transition"
                 >
                   <div className="grid h-10 w-10 sm:h-12 sm:w-12 shrink-0 place-items-center rounded-xl gradient-bg shadow-lg">
                     <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
@@ -149,7 +149,7 @@ export function Contact() {
                 <SectionReveal key={p.href} variant="slideLeft" delay={(i + 1) * 0.05}>
                   <a
                     href={p.href}
-                    className="group flex items-center gap-3 sm:gap-4 rounded-2xl glass p-4 sm:p-5 hover:border-white/20 transition"
+                    className="group flex items-center gap-3 sm:gap-4 rounded-2xl glass p-4 sm:p-5 hover:ct-divider transition"
                   >
                     <div className="grid h-10 w-10 sm:h-12 sm:w-12 shrink-0 place-items-center rounded-xl gradient-bg shadow-lg">
                       <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
@@ -186,7 +186,7 @@ export function Contact() {
                     {SITE.locations.map((l) => (
                       <div
                         key={l.country}
-                        className="rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2"
+                        className="rounded-xl border ct-divider ct-surface px-3 py-2"
                       >
                         <div className="text-xs font-bold">
                           {l.flag} {l.city}
@@ -421,7 +421,7 @@ export function Contact() {
 function inputClass(hasError: boolean): string {
   // Theme-aware: uses semantic tokens so the input is visible in BOTH
   // light mode (bg-background, border-border) and dark mode (overridden
-  // by .dark in globals.css). Previously used bg-white/[0.03] which is
+  // by .dark in globals.css). Previously used ct-surface which is
   // invisible on a white light-mode background.
   const base =
     "w-full rounded-xl border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/60 transition focus:outline-none focus:ring-2 focus:ring-[#136DFF]/30";

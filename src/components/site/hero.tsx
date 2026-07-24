@@ -35,7 +35,7 @@ export function Hero() {
         {/* Left: copy */}
         <div className="relative z-10 text-center lg:text-left">
           <SectionReveal variant="fadeUp">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs font-medium text-muted-foreground backdrop-blur-xl">
+            <div className="inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs font-medium text-muted-foreground backdrop-blur-xl">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FF53A9] opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FF53A9]" />
@@ -74,7 +74,7 @@ export function Hero() {
               </a>
               <a
                 href="#work"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-semibold backdrop-blur-xl hover:bg-white/[0.07] transition"
+                className="inline-flex items-center justify-center gap-2 rounded-full border ct-divider ct-surface px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-semibold backdrop-blur-xl hover:bg-white/[0.07] transition"
               >
                 <Globe2 className="h-4 w-4" /> View our work
               </a>
@@ -115,7 +115,7 @@ export function Hero() {
             return (
               <div
                 key={s.label}
-                className="rounded-2xl glass p-4 sm:p-6 text-center hover:border-white/20 transition"
+                className="rounded-2xl glass p-4 sm:p-6 text-center hover:ct-divider transition"
               >
                 <div className="text-2xl sm:text-3xl lg:text-4xl font-black gradient-text">
                   <CountUp to={num} suffix={suffix} />
@@ -128,7 +128,7 @@ export function Hero() {
       </SectionReveal>
 
       {/* Locations marquee */}
-      <div className="relative mt-12 sm:mt-16 overflow-hidden border-y border-white/5 py-4">
+      <div className="relative mt-12 sm:mt-16 overflow-hidden border-y ct-divider py-4">
         <motion.div
           initial={{ x: 0 }}
           animate={{ x: "-50%" }}

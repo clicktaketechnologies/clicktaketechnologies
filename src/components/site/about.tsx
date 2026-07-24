@@ -35,7 +35,7 @@ export function About() {
           {/* Left: narrative */}
           <div>
             <SectionReveal variant="fadeUp">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs font-medium text-muted-foreground">
+              <div className="inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-4 py-1.5 text-xs font-medium text-muted-foreground">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#FF53A9]" />
                 About ClickTake
               </div>
@@ -71,7 +71,7 @@ export function About() {
                 {SITE.locations.map((loc) => (
                   <div
                     key={loc.country}
-                    className="rounded-2xl glass p-4 hover:border-white/20 transition hover:-translate-y-0.5 transition-transform"
+                    className="rounded-2xl glass p-4 hover:ct-divider transition hover:-translate-y-0.5 transition-transform"
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-xl">{loc.flag}</span>
@@ -95,7 +95,7 @@ export function About() {
                 variant={i % 2 === 0 ? "slideLeft" : "slideRight"}
                 delay={i * 0.08}
               >
-                <div className="h-full rounded-2xl glass p-6 hover:border-white/20 transition hover:-translate-y-1 transition-transform">
+                <div className="h-full rounded-2xl glass p-6 hover:ct-divider transition hover:-translate-y-1 transition-transform">
                   <div className="grid h-11 w-11 place-items-center rounded-xl gradient-bg shadow-lg">
                     <p.icon className="h-5 w-5 text-white" />
                   </div>

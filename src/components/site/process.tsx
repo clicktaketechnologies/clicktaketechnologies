@@ -9,7 +9,7 @@ export function Process() {
       <div className="mx-auto max-w-7xl px-4">
         <div className="max-w-3xl">
           <SectionReveal variant="fadeUp">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs font-medium text-muted-foreground">
+            <div className="inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-4 py-1.5 text-xs font-medium text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-[#FF53A9]" />
               How we work
             </div>
@@ -34,7 +34,7 @@ export function Process() {
               variant="zoomIn"
               delay={i * 0.08}
             >
-              <div className="group relative h-full rounded-2xl glass p-6 hover:border-white/20 transition hover:-translate-y-1 transition-transform">
+              <div className="group relative h-full rounded-2xl glass p-6 hover:ct-divider transition hover:-translate-y-1 transition-transform">
                 <div className="flex items-baseline justify-between">
                   <span className="text-3xl font-black gradient-text">{s.n}</span>
                   <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -46,7 +46,7 @@ export function Process() {
 
                 {/* Connector arrow */}
                 {i < PROCESS_STEPS.length - 1 && (
-                  <div className="hidden lg:grid absolute top-1/2 -right-3 z-10 h-6 w-6 place-items-center rounded-full border border-white/10 bg-card/80 -translate-y-1/2">
+                  <div className="hidden lg:grid absolute top-1/2 -right-3 z-10 h-6 w-6 place-items-center rounded-full border ct-divider bg-card/80 -translate-y-1/2">
                     <svg viewBox="0 0 24 24" className="h-3 w-3 text-muted-foreground" fill="none">
                       <path
                         d="M5 12h14M13 6l6 6-6 6"

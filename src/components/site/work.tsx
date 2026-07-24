@@ -19,7 +19,7 @@ export function Work() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div className="max-w-2xl">
             <SectionReveal variant="fadeUp">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs font-medium text-muted-foreground">
+              <div className="inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-4 py-1.5 text-xs font-medium text-muted-foreground">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#136DFF]" />
                 Featured work
               </div>
@@ -33,7 +33,7 @@ export function Work() {
           <SectionReveal variant="slideRight" delay={0.15}>
             <Link
               href="/portfolio"
-              className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2.5 text-sm font-medium backdrop-blur-xl transition-all duration-300 hover:border-[#136DFF]/30 hover:bg-white/[0.06]"
+              className="group inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-5 py-2.5 text-sm font-medium backdrop-blur-xl transition-all duration-300 hover:border-[#136DFF]/30 ct-hover"
             >
               View all projects
               <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -49,7 +49,7 @@ export function Work() {
               delay={i * 0.08}
             >
               <article
-                className={`group relative h-full overflow-hidden rounded-3xl glass hover:border-white/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${p.glow}`}
+                className={`group relative h-full overflow-hidden rounded-3xl glass hover:ct-divider transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${p.glow}`}
               >
                 {/* IMAGE */}
                 <div className="relative aspect-[16/10] overflow-hidden">
@@ -65,23 +65,23 @@ export function Work() {
 
                   {/* animated shine on hover */}
                   <div className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-                    <div className="absolute -left-40 top-0 h-full w-32 rotate-12 bg-white/10 blur-2xl transition-all duration-1000 group-hover:left-[120%]" />
+                    <div className="absolute -left-40 top-0 h-full w-32 rotate-12 ct-surface blur-2xl transition-all duration-1000 group-hover:left-[120%]" />
                   </div>
 
                   {/* floating orb */}
-                  <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-white/10 blur-3xl transition-transform duration-700 group-hover:scale-125" />
+                  <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full ct-surface blur-3xl transition-transform duration-700 group-hover:scale-125" />
 
                   {/* external button */}
                   <Link
                     href={p.url}
                     aria-label={`View ${p.title} case study`}
-                    className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:rotate-12 hover:bg-white hover:text-black"
+                    className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border ct-divider bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:rotate-12 hover:bg-white hover:text-black"
                   >
                     <ExternalLink className="h-4 w-4" />
                   </Link>
 
                   {/* metric pill */}
-                  <div className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/30 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
+                  <div className="absolute left-5 top-5 rounded-full border ct-divider bg-black/30 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
                     {p.metric}
                   </div>
 
@@ -107,7 +107,7 @@ export function Work() {
                       {p.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-medium text-muted-foreground backdrop-blur"
+                          className="rounded-full border ct-divider ct-surface px-3 py-1 text-[11px] font-medium text-muted-foreground backdrop-blur"
                         >
                           {tag}
                         </span>

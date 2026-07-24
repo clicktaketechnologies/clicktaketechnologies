@@ -111,7 +111,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop nav — visible on lg+, but link density adapts to viewport */}
-          <nav className="hidden lg:flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.03] px-1.5 py-1.5 backdrop-blur-xl whitespace-nowrap max-w-[58vw] xl:max-w-none overflow-hidden">
+          <nav className="hidden lg:flex items-center gap-0.5 rounded-full border ct-divider ct-surface px-1.5 py-1.5 backdrop-blur-xl whitespace-nowrap max-w-[58vw] xl:max-w-none overflow-hidden">
             {NAV_LINKS.map((l: NavLink) => {
               const isAnchor = l.href.startsWith("#") || l.href.includes("#");
               const isMega = !!l.mega;
@@ -293,7 +293,7 @@ export function Navbar() {
             </div>
             <a
               href="tel:+447391653377"
-              className="hidden 2xl:inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition"
+              className="hidden 2xl:inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition"
             >
               <Phone className="h-4 w-4" />
               +44 7391 653377
@@ -306,7 +306,7 @@ export function Navbar() {
             </a>
             <button
               onClick={() => setOpen(!open)}
-              className="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-full border border-white/10 bg-card/80 lg:hidden shrink-0"
+              className="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-full border ct-divider bg-card/80 lg:hidden shrink-0"
               aria-label="Toggle menu"
               aria-expanded={open}
             >
@@ -342,7 +342,7 @@ export function Navbar() {
                     <Link
                       href="/"
                       onClick={() => setOpen(false)}
-                      className="block px-4 py-3 rounded-xl hover:bg-white/5 font-semibold text-base"
+                      className="block px-4 py-3 rounded-xl ct-hover font-semibold text-base"
                     >
                       Home
                     </Link>
@@ -350,7 +350,7 @@ export function Navbar() {
                     {/* Services — accordion-style, collapsed by default to save space */}
                     <button
                       onClick={() => setExpandedCategory(expandedCategory === "__services" ? null : "__services")}
-                      className="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 font-semibold text-base"
+                      className="w-full flex items-center justify-between px-4 py-3 rounded-xl ct-hover font-semibold text-base"
                     >
                       <span>Services</span>
                       <ChevronDown className={`h-5 w-5 transition-transform ${expandedCategory === "__services" ? "rotate-180" : ""}`} />
@@ -378,7 +378,7 @@ export function Navbar() {
                                       key={item.slug}
                                       href={`/services/${item.slug}`}
                                       onClick={() => setOpen(false)}
-                                      className="flex items-start gap-2 px-3 py-2 rounded-lg hover:bg-white/5 text-sm leading-tight"
+                                      className="flex items-start gap-2 px-3 py-2 rounded-lg ct-hover text-sm leading-tight"
                                     >
                                       <ChevronRight className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
                                       <div className="min-w-0 flex-1">
@@ -410,37 +410,37 @@ export function Navbar() {
                     )}
 
                     <div className="border-t border-border mt-2 pt-2 space-y-0.5">
-                      <Link href="/solutions" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Solutions</Link>
-                      <Link href="/portfolio" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Work</Link>
-                      <Link href="/case-studies" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Case Studies</Link>
-                      <Link href="/pricing" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Pricing</Link>
-                      <Link href="/blog" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Blog</Link>
-                      <Link href="/resources" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Resources</Link>
-                      <Link href="/about" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">About</Link>
-                      <Link href="/team" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Team</Link>
-                      <Link href="/careers" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Careers</Link>
-                      <Link href="/contact" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Contact</Link>
+                      <Link href="/solutions" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Solutions</Link>
+                      <Link href="/portfolio" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Work</Link>
+                      <Link href="/case-studies" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Case Studies</Link>
+                      <Link href="/pricing" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Pricing</Link>
+                      <Link href="/blog" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Blog</Link>
+                      <Link href="/resources" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Resources</Link>
+                      <Link href="/about" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">About</Link>
+                      <Link href="/team" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Team</Link>
+                      <Link href="/careers" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Careers</Link>
+                      <Link href="/contact" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Contact</Link>
                     </div>
 
                     {/* Mobile contact block */}
                     <div className="mt-2 grid grid-cols-1 gap-2">
                       <a
                         href="tel:+447391653377"
-                        className="flex items-center gap-2 px-4 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm"
+                        className="flex items-center gap-2 px-4 py-3 rounded-xl border ct-divider ct-surface text-sm"
                       >
                         <Phone className="h-4 w-4 text-brand-blue shrink-0" />
                         <span className="truncate">+44 7391 653377 (UK)</span>
                       </a>
                       <a
                         href="tel:+923069753003"
-                        className="flex items-center gap-2 px-4 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm"
+                        className="flex items-center gap-2 px-4 py-3 rounded-xl border ct-divider ct-surface text-sm"
                       >
                         <Phone className="h-4 w-4 text-brand-pink shrink-0" />
                         <span className="truncate">+92 306 9753003 (PK)</span>
                       </a>
                     </div>
 
-                    <div className="mt-2 flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3">
+                    <div className="mt-2 flex items-center justify-between rounded-xl border ct-divider ct-surface px-4 py-3">
                       <span className="text-xs uppercase tracking-widest text-muted-foreground">Theme</span>
                       <ThemeToggle />
                     </div>
