@@ -1,72 +1,53 @@
-import { Navbar } from "@/components/site/navbar";
-import { Hero } from "@/components/site/hero";
-import { Services } from "@/components/site/services";
-import { WhyChoose } from "@/components/site/why-choose";
-import { Process } from "@/components/site/process";
-import { Testimonials } from "@/components/site/testimonials";
-import { Faq } from "@/components/site/faq";
-import { Contact } from "@/components/site/contact";
-import { Footer } from "@/components/site/footer";
-import { BackgroundScene } from "@/components/site/background-scene";
-import { CustomCursor } from "@/components/site/custom-cursor";
-import {
-  ScrollProvider,
-  ScrollProgressBar,
-  ScrollToTop,
-  SectionDivider,
-} from "@/components/site/scroll-animations";
+import { NxNavbar } from "@/components/site/nx-navbar";
+import { NxHero } from "@/components/site/nx-hero";
+import { NxLogoCloud } from "@/components/site/nx-logo-cloud";
+import { NxStats } from "@/components/site/nx-stats";
+import { NxServices } from "@/components/site/nx-services";
+import { NxWhyChoose } from "@/components/site/nx-why-choose";
+import { NxProcess } from "@/components/site/nx-process";
+import { NxTestimonials } from "@/components/site/nx-testimonials";
+import { NxFaq } from "@/components/site/nx-faq";
+import { NxCta } from "@/components/site/nx-cta";
+import { NxFooter } from "@/components/site/nx-footer";
 
-/* Homepage — new design (Task ID: new-design-rebuild).
- * Section order: Hero → Services (category tabs) → Why Choose (NEW) →
- * Process (6-step) → Testimonials (kept) → FAQ (NEW) → Final CTA (simplified).
- * Work + About sections removed; their content is now reachable via the
- * Resources + Company mega menus in the navbar. */
+/* Homepage — NEW competitor-inspired redesign (2024).
+ *
+ * Design language: Deep navy + orange accent + bento grids + bold heavy type.
+ * Inspired by: Vention (split hero, floating cards), Index.dev (navy + orange
+ * + bento), Future Processing (orange CTA + split-view panels), Itransition
+ * (pill tags, dark stat sections), Brocoders (bold typography).
+ *
+ * Section order:
+ *  1. Hero (split layout, dark navy)
+ *  2. Logo cloud (tech partners marquee)
+ *  3. Stats banner (4 oversized metrics)
+ *  4. Services (bento grid with category tabs)
+ *  5. Why Choose (interactive split-view panel)
+ *  6. Process (vertical timeline on navy)
+ *  7. Testimonials (3-column card grid)
+ *  8. FAQ (accordion)
+ *  9. CTA (orange gradient block + contact channels)
+ * 10. Footer (dark navy, multi-column)
+ *
+ * NOTE: We force light mode by adding .theme-nx-light on the wrapper. This
+ * new design language is built around light surfaces + dark navy hero/footer.
+ * The previous dark/custom theme tokens clash with the new layout. */
 export default function Home() {
   return (
-    <ScrollProvider>
-      {/* Fixed full-screen animated canvas (tech grid, data streams, ripples) */}
-      <BackgroundScene />
-
-      {/* Custom aperture cursor with comet trail */}
-      <CustomCursor />
-
-      {/* Top scroll progress bar */}
-      <ScrollProgressBar />
-
-      <div className="relative z-10 min-h-screen bg-transparent">
-        <Navbar />
-        <main>
-          <Hero />
-
-          <SectionDivider />
-
-          <Services />
-
-          <SectionDivider flip />
-
-          <WhyChoose />
-
-          <SectionDivider />
-
-          <Process />
-
-          <SectionDivider flip />
-
-          <Testimonials />
-
-          <SectionDivider />
-
-          <Faq />
-
-          <SectionDivider flip />
-
-          <Contact />
-        </main>
-        <Footer />
-      </div>
-
-      {/* Floating scroll-to-top button */}
-      <ScrollToTop />
-    </ScrollProvider>
+    <div className="theme-nx-light min-h-screen bg-white text-[#0A1124]">
+      <NxNavbar />
+      <main>
+        <NxHero />
+        <NxLogoCloud />
+        <NxStats />
+        <NxServices />
+        <NxWhyChoose />
+        <NxProcess />
+        <NxTestimonials />
+        <NxFaq />
+        <NxCta />
+      </main>
+      <NxFooter />
+    </div>
   );
 }

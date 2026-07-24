@@ -546,3 +546,192 @@ html:not(.dark).theme-custom-light body {
   background: var(--background) !important;
 }
 
+
+/* ─── NEW DESIGN SYSTEM (2024 rebuild — competitor-inspired) ───────────────
+   Inspired by: Vention (split hero + floating cards), Index.dev (navy +
+   orange + bento), Future Processing (orange CTA blocks + split-view
+   panels), Itransition (pill tags + dark stat sections), Brocoders (bold
+   heavy type + organic accents). Token names prefixed `--nx-*` to avoid
+   collision with existing brand tokens. */
+
+:root {
+  /* Navy hero / dark section backgrounds */
+  --nx-navy-900: #0A1124;
+  --nx-navy-800: #0F1A35;
+  --nx-navy-700: #162347;
+  --nx-navy-600: #1E2F5C;
+  /* Orange CTA accent (Vention / Future Processing / Index.dev style) */
+  --nx-orange: #FF6B35;
+  --nx-orange-soft: #FF8A5C;
+  --nx-orange-deep: #E55319;
+  /* Electric blue secondary accent */
+  --nx-electric: #3B82F6;
+  --nx-electric-soft: #60A5FA;
+  /* Surface tokens for cards on light bg */
+  --nx-surface: #FFFFFF;
+  --nx-surface-alt: #F8FAFC;
+  --nx-surface-muted: #F1F5F9;
+  --nx-border: #E2E8F0;
+  --nx-border-strong: #CBD5E1;
+  /* Text */
+  --nx-ink: #0A1124;
+  --nx-ink-soft: #475569;
+  --nx-ink-muted: #94A3B8;
+  /* Success / accents */
+  --nx-green: #10B981;
+  --nx-yellow: #F59E0B;
+  --nx-pink: #EC4899;
+}
+
+.dark {
+  --nx-surface: #0F1A35;
+  --nx-surface-alt: #162347;
+  --nx-surface-muted: #1E2F5C;
+  --nx-border: rgba(255, 255, 255, 0.08);
+  --nx-border-strong: rgba(255, 255, 255, 0.16);
+  --nx-ink: #F8FAFC;
+  --nx-ink-soft: #CBD5E1;
+  --nx-ink-muted: #94A3B8;
+}
+
+@layer utilities {
+  /* Navy hero background with subtle radial glows */
+  .nx-hero-bg {
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 0%, rgba(255, 107, 53, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 100% 30%, rgba(59, 130, 246, 0.22) 0%, transparent 60%),
+      linear-gradient(180deg, #0A1124 0%, #0F1A35 100%);
+  }
+  /* Orange → red gradient for CTA banners */
+  .nx-orange-gradient {
+    background: linear-gradient(135deg, #FF6B35 0%, #E55319 100%);
+  }
+  /* Navy → deep-blue gradient for dark sections */
+  .nx-navy-gradient {
+    background: linear-gradient(180deg, #0F1A35 0%, #0A1124 100%);
+  }
+  /* Card with hover lift */
+  .nx-card {
+    background: var(--nx-surface);
+    border: 1px solid var(--nx-border);
+    border-radius: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .nx-card-hover:hover {
+    transform: translateY(-4px);
+    border-color: var(--nx-orange);
+    box-shadow: 0 20px 40px -16px rgba(10, 17, 36, 0.18);
+  }
+  /* Dark-on-dark card for navy sections */
+  .nx-card-dark {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  }
+  .nx-card-dark:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 107, 53, 0.5);
+  }
+  /* Pill button — orange */
+  .nx-btn-orange {
+    background: var(--nx-orange);
+    color: #ffffff;
+    border-radius: 9999px;
+    font-weight: 700;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 10px 30px -10px rgba(255, 107, 53, 0.5);
+  }
+  .nx-btn-orange:hover {
+    background: var(--nx-orange-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 14px 36px -10px rgba(255, 107, 53, 0.65);
+  }
+  /* Outline button — for use on dark backgrounds */
+  .nx-btn-outline-light {
+    background: transparent;
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 9999px;
+    font-weight: 700;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  }
+  .nx-btn-outline-light:hover {
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+  }
+  /* Orange → transparent text gradient */
+  .nx-text-orange-grad {
+    background: linear-gradient(135deg, #FF8A5C 0%, #FF6B35 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Subtle dotted grid background for dark sections */
+  .nx-dot-grid {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  /* Stat number — oversized bold */
+  .nx-stat-num {
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  /* Section eyebrow label */
+  .nx-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+}
+
+/* New homepage-only animation: slow gradient drift for hero accents */
+@keyframes nx-float-orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, -15px) scale(1.05); }
+  66% { transform: translate(-15px, 10px) scale(0.98); }
+}
+.nx-orb { animation: nx-float-orb 14s ease-in-out infinite; }
+
+/* Marquee for logo cloud */
+@keyframes nx-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.nx-marquee { animation: nx-marquee 40s linear infinite; }
+.nx-marquee:hover { animation-play-state: paused; }
+
+/* Tilt arrow icon on link hover */
+.nx-arrow { transition: transform 0.2s ease; }
+.group:hover .nx-arrow { transform: translateX(4px); }
+
+/* ─── NEW DESIGN: Force-light scope ────────────────────────────────────────
+   The new homepage uses a light-surface + dark-navy design language. When
+   the user has dark mode enabled site-wide, the new components would render
+   with invisible cards (same color as section bg). .theme-nx-light forces
+   the light tokens inside this wrapper so the new design always renders
+   correctly, regardless of html.dark. Importantly, this does NOT override
+   the `color` property — each section sets its own text color explicitly. */
+.theme-nx-light {
+  --nx-surface: #FFFFFF;
+  --nx-surface-alt: #F8FAFC;
+  --nx-surface-muted: #F1F5F9;
+  --nx-border: #E2E8F0;
+  --nx-border-strong: #CBD5E1;
+  --nx-ink: #0A1124;
+  --nx-ink-soft: #475569;
+  --nx-ink-muted: #94A3B8;
+  --background: #FFFFFF;
+  --foreground: #0A1124;
+  --card: #FFFFFF;
+  --card-foreground: #0A1124;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  --border: #E2E8F0;
+  background: #FFFFFF;
+}
