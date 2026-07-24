@@ -1,6 +1,9 @@
 'use client'
 
 import Link from "next/link";
+import {
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
+} from "../nx-page-layout";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -16,11 +19,6 @@ import {
   HelpCircle,
   ChevronRight,
 } from "lucide-react";
-import { Navbar } from "../navbar";
-import { Footer } from "../footer";
-import { BackgroundScene } from "../background-scene";
-import { CustomCursor } from "../custom-cursor";
-import { ScrollProgressBar, ScrollToTop } from "../scroll-animations";
 import { CATEGORY_STYLES, SERVICES, SITE, type ServiceItem } from "@/lib/site-data";
 
 interface Props { service: ServiceItem; }
@@ -748,14 +746,8 @@ export function ServiceDetailPage({ service }: Props) {
     .slice(0, 4);
 
   return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
-
-      <main className="relative z-10 pt-32 sm:pt-44 pb-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <NxPageLayout>
+              <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* ─── 1. HERO ─────────────────────────────────────────── */}
           <Link
@@ -1075,10 +1067,6 @@ export function ServiceDetailPage({ service }: Props) {
             </Link>
           </motion.div>
         </div>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-    </>
+    </NxPageLayout>
   );
 }

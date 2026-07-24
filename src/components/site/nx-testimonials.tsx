@@ -70,7 +70,7 @@ const TESTIMONIALS = [
 
 export function NxTestimonials() {
   return (
-    <section className="py-24 sm:py-32 bg-[#F8FAFC]">
+    <section className="py-24 sm:py-32 nx-surface-muted">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center">
@@ -88,7 +88,7 @@ export function NxTestimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
-            className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0A1124]"
+            className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight nx-text"
           >
             Rated{" "}
             <span className="nx-text-orange-grad">5.0 by 120+ founders.</span>
@@ -98,7 +98,7 @@ export function NxTestimonials() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="mt-5 inline-flex items-center gap-2 text-sm text-[#94A3B8]"
+            className="mt-5 inline-flex items-center gap-2 text-sm nx-text-muted"
           >
             <div className="flex items-center gap-0.5">
               {[1, 2, 3, 4, 5].map((i) => (
@@ -118,7 +118,7 @@ export function NxTestimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
-              className="relative p-6 sm:p-7 rounded-2xl border border-[#E2E8F0] bg-white hover:shadow-xl hover:-translate-y-1 hover:border-[#FF6B35]/40 transition-all flex flex-col"
+              className="relative p-6 sm:p-7 rounded-2xl border nx-bd nx-surface hover:shadow-xl hover:-translate-y-1 hover:border-[#FF6B35]/40 transition-all flex flex-col"
             >
               {/* Quote icon + rating */}
               <div className="flex items-center justify-between mb-4">
@@ -137,12 +137,12 @@ export function NxTestimonials() {
               </div>
 
               {/* Quote */}
-              <p className="text-sm sm:text-[15px] text-[#0A1124] leading-relaxed flex-1">
+              <p className="text-sm sm:text-[15px] nx-text leading-relaxed flex-1">
                 "{t.quote}"
               </p>
 
               {/* Author */}
-              <div className="mt-6 pt-5 border-t border-[#E2E8F0] flex items-center gap-3">
+              <div className="mt-6 pt-5 border-t nx-bd flex items-center gap-3">
                 <div
                   className="h-11 w-11 rounded-full grid place-items-center font-black text-sm text-white shrink-0"
                   style={{ background: t.color }}
@@ -150,8 +150,8 @@ export function NxTestimonials() {
                   {t.avatar}
                 </div>
                 <div>
-                  <div className="font-bold text-sm text-[#0A1124]">{t.name}</div>
-                  <div className="text-xs text-[#94A3B8] mt-0.5">
+                  <div className="font-bold text-sm nx-text">{t.name}</div>
+                  <div className="text-xs nx-text-muted mt-0.5">
                     {t.role} · {t.location}
                   </div>
                 </div>

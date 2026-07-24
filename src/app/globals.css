@@ -688,6 +688,22 @@ html:not(.dark).theme-custom-light body {
     font-size: 0.7rem;
     font-weight: 700;
   }
+
+  /* ─── Light/dark adaptive surface utilities (theme-aware) ──────────
+     These map to --nx-* CSS vars which are overridden under html.dark.
+     Use these instead of `bg-white` / `text-[#0A1124]` so the new design
+     renders correctly in BOTH light and dark modes. */
+
+  .nx-surface { background-color: var(--nx-surface); }
+  .nx-surface-alt { background-color: var(--nx-surface-alt); }
+  .nx-surface-muted { background-color: var(--nx-surface-muted); }
+
+  .nx-text { color: var(--nx-ink); }
+  .nx-text-soft { color: var(--nx-ink-soft); }
+  .nx-text-muted { color: var(--nx-ink-muted); }
+
+  .nx-bd { border-color: var(--nx-border); }
+  .nx-bd-strong { border-color: var(--nx-border-strong); }
 }
 
 /* New homepage-only animation: slow gradient drift for hero accents */
@@ -710,14 +726,16 @@ html:not(.dark).theme-custom-light body {
 .nx-arrow { transition: transform 0.2s ease; }
 .group:hover .nx-arrow { transform: translateX(4px); }
 
-/* ─── NEW DESIGN: Force-light scope ────────────────────────────────────────
-   The new homepage uses a light-surface + dark-navy design language. When
-   the user has dark mode enabled site-wide, the new components would render
-   with invisible cards (same color as section bg). .theme-nx-light forces
-   the light tokens inside this wrapper so the new design always renders
-   correctly, regardless of html.dark. Importantly, this does NOT override
-   the `color` property — each section sets its own text color explicitly. */
-.theme-nx-light {
+/* ─── NEW DESIGN: Page scope — supports both light & dark ─────────────────
+   The new competitor-inspired design (nx-* components) uses --nx-* tokens
+   for adaptive surfaces and text. Under .dark on <html>, the tokens flip
+   to dark navy surfaces with light text — so the same design renders
+   correctly in both light and dark mode.
+
+   .theme-nx is applied on the page wrapper to scope the design language.
+   It does NOT force light mode — it only sets base tokens that adapt. */
+.theme-nx {
+  /* Adaptive surface/text tokens — these are overridden by html.dark below. */
   --nx-surface: #FFFFFF;
   --nx-surface-alt: #F8FAFC;
   --nx-surface-muted: #F1F5F9;
@@ -733,5 +751,39 @@ html:not(.dark).theme-custom-light body {
   --muted: #F1F5F9;
   --muted-foreground: #64748B;
   --border: #E2E8F0;
-  background: #FFFFFF;
+  min-height: 100vh;
+}
+
+/* When the site is in dark mode, flip --nx-* tokens to navy surfaces so the
+   new design renders with proper contrast (dark cards + light text). */
+html.dark .theme-nx {
+  --nx-surface: #0F1A35;
+  --nx-surface-alt: #162347;
+  --nx-surface-muted: #1E2F5C;
+  --nx-border: rgba(255, 255, 255, 0.08);
+  --nx-border-strong: rgba(255, 255, 255, 0.16);
+  --nx-ink: #F8FAFC;
+  --nx-ink-soft: #CBD5E1;
+  --nx-ink-muted: #94A3B8;
+  --background: #0A1124;
+  --foreground: #F8FAFC;
+  --card: #0F1A35;
+  --card-foreground: #F8FAFC;
+  --muted: #1E2F5C;
+  --muted-foreground: #94A3B8;
+  --border: rgba(255, 255, 255, 0.08);
+  background: #0A1124;
+  color: #F8FAFC;
+}
+
+/* Backward compat: legacy class name from previous version */
+.theme-nx-light {
+  --nx-surface: #FFFFFF;
+  --nx-surface-alt: #F8FAFC;
+  --nx-surface-muted: #F1F5F9;
+  --nx-border: #E2E8F0;
+  --nx-border-strong: #CBD5E1;
+  --nx-ink: #0A1124;
+  --nx-ink-soft: #475569;
+  --nx-ink-muted: #94A3B8;
 }

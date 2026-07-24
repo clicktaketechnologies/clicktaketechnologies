@@ -2,23 +2,15 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
-import { Navbar } from "../navbar";
-import { Footer } from "../footer";
-import { BackgroundScene } from "../background-scene";
-import { CustomCursor } from "../custom-cursor";
-import { ScrollProgressBar, ScrollToTop } from "../scroll-animations";
+import {
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
+} from "../nx-page-layout";
 import { WORK_CASES } from "@/lib/site-data";
 
 export function PortfolioPage() {
   return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
-
-      <main className="relative z-10 pt-28 sm:pt-32 pb-24 sm:pb-32">
-        <section className="mx-auto max-w-7xl px-4">
+    <NxPageLayout>
+              <section className="mx-auto max-w-7xl px-4">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -131,10 +123,6 @@ export function PortfolioPage() {
             ))}
           </div>
         </section>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-    </>
+    </NxPageLayout>
   );
 }

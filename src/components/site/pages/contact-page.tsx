@@ -8,11 +8,9 @@ import {
   Mail, Phone, MapPin, Clock, CheckCircle2, MessageSquare,
   Calendar, Send, X, AlertCircle, MessageCircle,
 } from "lucide-react";
-import { Navbar } from "../navbar";
-import { Footer } from "../footer";
-import { BackgroundScene } from "../background-scene";
-import { CustomCursor } from "../custom-cursor";
-import { ScrollProgressBar, ScrollToTop } from "../scroll-animations";
+import {
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
+} from "../nx-page-layout";
 import { TurnstileWidget } from "../turnstile-widget";
 import { toast } from "sonner";
 import {
@@ -132,14 +130,8 @@ export function ContactPage() {
   };
 
   return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
-
-      <main className="relative z-10 pt-28 pb-24">
-        {/* HERO */}
+    <NxPageLayout>
+              {/* HERO */}
         <section className="relative overflow-hidden py-12 lg:py-16">
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <div className="absolute left-1/4 top-0 h-[450px] w-[450px] rounded-full bg-brand-magenta/10 blur-[130px]" />
@@ -464,10 +456,6 @@ export function ContactPage() {
             ))}
           </div>
         </section>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
 
       {/* FLOATING CHAT */}
       <div className="fixed bottom-6 right-6 z-50">
@@ -531,7 +519,7 @@ export function ContactPage() {
           {chatOpen ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
         </button>
       </div>
-    </>
+    </NxPageLayout>
   );
 }
 

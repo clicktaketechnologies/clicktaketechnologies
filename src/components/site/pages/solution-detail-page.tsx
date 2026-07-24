@@ -1,17 +1,15 @@
 'use client'
 
 import Link from "next/link";
+import {
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
+} from "../nx-page-layout";
 import { motion } from "framer-motion";
 import {
   ArrowLeft, ArrowUpRight, Sparkles, CheckCircle2, AlertTriangle,
   TrendingUp, MapPin, Phone, Clock, ChevronRight, Building2, Store,
   ShoppingBag, Wrench, Globe, Users,
 } from "lucide-react";
-import { Navbar } from "../navbar";
-import { Footer } from "../footer";
-import { BackgroundScene } from "../background-scene";
-import { CustomCursor } from "../custom-cursor";
-import { ScrollProgressBar, ScrollToTop } from "../scroll-animations";
 import { SERVICES, type Solution } from "@/lib/site-data";
 
 interface Props { solution: Solution; }
@@ -35,14 +33,8 @@ export function SolutionDetailPage({ solution }: Props) {
   const relatedServices = SERVICES.filter((s) => solution.services.includes(s.slug));
 
   return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
-
-      <main className="relative z-10 pt-32 sm:pt-44 pb-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <NxPageLayout>
+              <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* ─── HERO ─────────────────────────────────────────── */}
           <Link
@@ -202,10 +194,6 @@ export function SolutionDetailPage({ solution }: Props) {
             </Link>
           </motion.div>
         </div>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-    </>
+    </NxPageLayout>
   );
 }

@@ -2,16 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import {
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
+} from "../nx-page-layout";
 import { motion } from "framer-motion";
 import {
   Sparkles, ArrowUpRight, Users, Code2, Megaphone, Palette, Settings,
   MapPin, Mail, Globe,
 } from "lucide-react";
-import { Navbar } from "../navbar";
-import { Footer } from "../footer";
-import { BackgroundScene } from "../background-scene";
-import { CustomCursor } from "../custom-cursor";
-import { ScrollProgressBar, ScrollToTop } from "../scroll-animations";
 import { TEAM, TEAM_DEPARTMENTS, SITE, type TeamMember } from "@/lib/site-data";
 
 const DEPT_ICON: Record<string, any> = {
@@ -72,14 +70,8 @@ export function TeamPage() {
     : TEAM.filter((m) => m.department === activeDept);
 
   return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
-
-      <main className="relative z-10 pt-32 sm:pt-44 pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <NxPageLayout>
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -259,10 +251,6 @@ export function TeamPage() {
             </Link>
           </motion.div>
         </div>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-    </>
+    </NxPageLayout>
   );
 }

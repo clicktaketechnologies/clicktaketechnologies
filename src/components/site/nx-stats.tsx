@@ -15,7 +15,7 @@ const STATS = [
 
 export function NxStats() {
   return (
-    <section className="py-20 sm:py-24 bg-white">
+    <section className="py-20 sm:py-24 nx-surface">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           {STATS.map((s, i) => {
@@ -27,7 +27,7 @@ export function NxStats() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="relative p-6 sm:p-8 rounded-2xl border border-[#E2E8F0] bg-gradient-to-br from-white to-[#F8FAFC] hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden group"
+                className="relative p-6 sm:p-8 rounded-2xl border nx-bd nx-surface-alt hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden group"
               >
                 {/* Decorative corner gradient */}
                 <div
@@ -46,10 +46,10 @@ export function NxStats() {
                 >
                   {s.value}
                 </div>
-                <div className="relative mt-2 text-sm sm:text-base font-bold text-[#0A1124]">
+                <div className="relative mt-2 text-sm sm:text-base font-bold nx-text">
                   {s.label}
                 </div>
-                <div className="relative mt-1 text-xs sm:text-sm text-[#64748B] leading-relaxed">
+                <div className="relative mt-1 text-xs sm:text-sm nx-text-muted leading-relaxed">
                   {s.sub}
                 </div>
               </motion.div>

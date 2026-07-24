@@ -72,7 +72,7 @@ export function NxWhyChoose() {
   const current = PRIORITIES.find((p) => p.id === active)!;
 
   return (
-    <section className="py-24 sm:py-32 bg-white">
+    <section className="py-24 sm:py-32 nx-surface">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center">
@@ -90,7 +90,7 @@ export function NxWhyChoose() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
-            className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0A1124]"
+            className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight nx-text"
           >
             Pick your priority.{" "}
             <span className="nx-text-orange-grad">See how we deliver it.</span>
@@ -110,7 +110,7 @@ export function NxWhyChoose() {
                   className={`w-full text-left p-5 rounded-xl border transition-all group ${
                     isActive
                       ? "border-transparent shadow-lg"
-                      : "border-[#E2E8F0] bg-white hover:border-[#CBD5E1]"
+                      : "nx-bd nx-surface hover:border-[var(--nx-border-strong)]"
                   }`}
                   style={isActive
                     ? { background: `${p.color}0d`, borderColor: `${p.color}66`, boxShadow: `0 16px 40px -16px ${p.color}33` }
@@ -126,10 +126,10 @@ export function NxWhyChoose() {
                         <span className="font-black text-sm">{String(PRIORITIES.indexOf(p) + 1).padStart(2, '0')}</span>
                       </div>
                       <div>
-                        <div className={`font-bold text-base ${isActive ? "text-[#0A1124]" : "text-[#0A1124]"}`}>
+                        <div className={`font-bold text-base nx-text`}>
                           {p.title}
                         </div>
-                        <div className="text-xs text-[#94A3B8] mt-0.5">
+                        <div className="text-xs nx-text-muted mt-0.5">
                           {p.short}
                         </div>
                       </div>
@@ -156,7 +156,6 @@ export function NxWhyChoose() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3 }}
                 className="nx-card p-8 sm:p-10"
-                style={{ borderColor: `${current.color}33`, background: 'white' }}
               >
                 {/* Eyebrow with color dot */}
                 <div className="flex items-center gap-2 mb-4">
@@ -164,18 +163,18 @@ export function NxWhyChoose() {
                     className="h-2 w-2 rounded-full"
                     style={{ background: current.color }}
                   />
-                  <span className="nx-eyebrow text-[#94A3B8]">
+                  <span className="nx-eyebrow nx-text-muted">
                     {current.title}
                   </span>
                 </div>
 
                 {/* Headline */}
-                <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-[#0A1124] leading-tight">
+                <h3 className="text-2xl sm:text-3xl font-black tracking-tight nx-text leading-tight">
                   {current.headline}
                 </h3>
 
                 {/* Body */}
-                <p className="mt-5 text-base text-[#475569] leading-relaxed">
+                <p className="mt-5 text-base nx-text-soft leading-relaxed">
                   {current.body}
                 </p>
 
@@ -187,7 +186,7 @@ export function NxWhyChoose() {
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 + i * 0.05 }}
-                      className="flex items-start gap-2.5 text-sm text-[#0A1124]"
+                      className="flex items-start gap-2.5 text-sm nx-text"
                     >
                       <span
                         className="mt-0.5 h-5 w-5 shrink-0 rounded-full grid place-items-center"
@@ -201,7 +200,7 @@ export function NxWhyChoose() {
                 </ul>
 
                 {/* CTA */}
-                <div className="mt-8 pt-6 border-t border-[#E2E8F0]">
+                <div className="mt-8 pt-6 border-t nx-bd">
                   <Link
                     href="/contact"
                     className="group inline-flex items-center gap-2 text-sm font-bold transition"

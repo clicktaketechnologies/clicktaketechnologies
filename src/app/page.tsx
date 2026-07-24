@@ -29,12 +29,14 @@ import { NxFooter } from "@/components/site/nx-footer";
  *  9. CTA (orange gradient block + contact channels)
  * 10. Footer (dark navy, multi-column)
  *
- * NOTE: We force light mode by adding .theme-nx-light on the wrapper. This
- * new design language is built around light surfaces + dark navy hero/footer.
- * The previous dark/custom theme tokens clash with the new layout. */
+ * DARK MODE: The .theme-nx wrapper exposes --nx-* tokens that flip under
+ * html.dark. Hero/CTA/Footer are always-dark (intentional). Light-surface
+ * sections (Stats, Services, WhyChoose, Testimonials, FAQ) use the new
+ * .nx-surface / .nx-text utility classes so they render with proper
+ * contrast in both light and dark mode. */
 export default function Home() {
   return (
-    <div className="theme-nx-light min-h-screen bg-white text-[#0A1124]">
+    <div className="theme-nx min-h-screen nx-surface nx-text">
       <NxNavbar />
       <main>
         <NxHero />

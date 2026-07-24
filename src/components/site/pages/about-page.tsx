@@ -6,11 +6,9 @@ import {
   ArrowUpRight, Building2, Star, TrendingUp, Code2, Megaphone,
 } from "lucide-react";
 import Link from "next/link";
-import { Navbar } from "../navbar";
-import { Footer } from "../footer";
-import { BackgroundScene } from "../background-scene";
-import { CustomCursor } from "../custom-cursor";
-import { ScrollProgressBar, ScrollToTop } from "../scroll-animations";
+import {
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
+} from "../nx-page-layout";
 import { ABOUT_STATS, ABOUT_VALUES, SITE } from "@/lib/site-data";
 
 const ICONS: Record<string, any> = {
@@ -19,190 +17,124 @@ const ICONS: Record<string, any> = {
 
 export function AboutPage() {
   return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
+    <NxPageLayout>
+      <NxPageHero
+        eyebrow="About ClickTake"
+        title={<>We connect ambitious brands <span className="nx-text-orange-grad">in a better way.</span></>}
+        subtitle={
+          <>
+            ClickTake Technologies is an AI-powered digital agency founded in {SITE.founded}.
+            We engineer websites, SaaS platforms, mobile apps and growth systems for brands across
+            the UK (Birmingham), Pakistan (Multan), USA (Austin) and Dubai — with a single team
+            that spans four time zones and ships like one.
+          </>
+        }
+        crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+        ctas={
+          <>
+            <NxButton href="/contact">Start a project</NxButton>
+            <NxButton href="/services" variant="outline">Explore services</NxButton>
+          </>
+        }
+        stats={ABOUT_STATS.map((s) => ({ value: s.val, label: s.label }))}
+      />
 
-      <main className="relative z-10 pt-28 sm:pt-32 pb-24 sm:pb-32">
-        {/* HERO */}
-        <section className="mx-auto max-w-7xl px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl"
-          >
-            <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
-              About ClickTake
-            </div>
-            <h1 className="mt-3 sm:mt-4 font-display text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight leading-tight">
-              We connect ambitious brands{" "}
-              <span className="gradient-text">in a better way.</span>
-            </h1>
-            <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed">
-              ClickTake Technologies is an AI-powered digital agency founded in {SITE.founded}.
-              We engineer websites, SaaS platforms, mobile apps and growth systems for brands across
-              the UK (Birmingham), Pakistan (Multan), USA (Austin) and Dubai — with a single team
-              that spans four time zones and ships like one.
-            </p>
-          </motion.div>
-
-          {/* Stats */}
-          <div className="mt-8 sm:mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            {ABOUT_STATS.map((s, i) => {
-              const Icon = ICONS[s.icon] || Code2;
-              return (
+      {/* VALUES */}
+      <NxPageSection variant="surface-muted" width="wide">
+        <NxSectionHeader
+          eyebrow="What we believe"
+          title="Three principles that govern every engagement."
+          align="left"
+        />
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {ABOUT_VALUES.map((v, i) => {
+            const Icon = ICONS[v.icon] || Zap;
+            return (
+              <motion.div
+                key={v.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -4 }}
+                className="group relative overflow-hidden rounded-2xl border nx-bd nx-surface p-6 transition-all duration-300"
+              >
                 <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group relative overflow-hidden rounded-2xl border ct-divider bg-card/60 p-4 sm:p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30"
-                >
-                  <div className={`mb-3 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-br ${s.color} text-white shadow-lg`}>
-                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
-                  </div>
-                  <div className="text-2xl sm:text-3xl font-black gradient-text">{s.val}</div>
-                  <div className="mt-1 text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground">
-                    {s.label}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </section>
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: `radial-gradient(circle at 50% 0%, ${v.glowRaw}, transparent 70%)` }}
+                />
+                <div className={`relative mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${v.color} text-white`}>
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h4 className="relative font-semibold text-base nx-text">{v.title}</h4>
+                <p className="relative mt-2 text-sm leading-relaxed nx-text-soft">{v.desc}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </NxPageSection>
 
-        {/* VALUES */}
-        <section className="mx-auto max-w-7xl px-4 mt-16 sm:mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-2xl"
-          >
-            <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl uppercase tracking-[0.18em] text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              What we believe
-            </div>
-            <h2 className="mt-4 sm:mt-5 font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
-              Three principles that govern every engagement.
-            </h2>
-          </motion.div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {ABOUT_VALUES.map((v, i) => {
-              const Icon = ICONS[v.icon] || Zap;
-              return (
-                <motion.div
-                  key={v.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  whileHover={{ y: -4 }}
-                  className="group relative overflow-hidden rounded-2xl border ct-divider bg-card/40 p-6 backdrop-blur-xl transition-all duration-300 hover:ct-divider"
-                >
-                  <motion.div
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: `radial-gradient(circle at 50% 0%, ${v.glowRaw}, transparent 70%)` }}
-                  />
-                  <div className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${v.color} text-white`}>
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h4 className="font-semibold text-base">{v.title}</h4>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.desc}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* OFFICES */}
-        <section className="mx-auto max-w-7xl px-4 mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-2xl"
-          >
-            <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-4 py-1.5 text-xs backdrop-blur-xl uppercase tracking-[0.18em] text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              Where we work
-            </div>
-            <h2 className="mt-5 font-display text-3xl sm:text-4xl font-bold tracking-tight">
-              Four offices, one team.
-            </h2>
-            <p className="mt-4 text-muted-foreground leading-relaxed">
+      {/* OFFICES */}
+      <NxPageSection variant="surface" width="wide">
+        <NxSectionHeader
+          eyebrow="Where we work"
+          title="Four offices, one team."
+          subtitle={
+            <>
               Our distributed setup gives us 18-hour development coverage and on-the-ground
               context in every market we serve — from Birmingham&apos;s startup scene to Dubai&apos;s enterprise landscape.
+            </>
+          }
+          align="left"
+        />
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {SITE.locations.map((l, i) => (
+            <motion.div
+              key={l.country}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="group rounded-2xl border nx-bd nx-surface p-5 transition-all duration-300 hover:border-[#FF6B35]/40 hover:-translate-y-1"
+            >
+              <div className="text-3xl mb-3">{l.flag}</div>
+              <div className="text-lg font-bold nx-text">{l.city}</div>
+              <div className="text-xs nx-text-muted">{l.country}</div>
+              <div className="mt-3 text-xs leading-relaxed nx-text-soft">{l.note}</div>
+              <div className="mt-3 text-[10px] font-mono nx-text-muted">{l.coords}</div>
+            </motion.div>
+          ))}
+        </div>
+      </NxPageSection>
+
+      {/* CTA */}
+      <NxPageSection variant="surface-muted" width="wide">
+        <div className="relative overflow-hidden rounded-3xl nx-orange-gradient p-10 sm:p-14 text-center">
+          <div className="absolute inset-0 nx-dot-grid opacity-20 pointer-events-none" />
+          <div className="relative">
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white mb-4">
+              Want to build with us?
+            </h2>
+            <p className="text-white/85 max-w-xl mx-auto mb-8">
+              We&apos;re always looking for ambitious clients and senior engineers who want to ship work that matters.
             </p>
-          </motion.div>
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {SITE.locations.map((l, i) => {
-              return (
-                <motion.div
-                  key={l.country}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="group rounded-2xl border ct-divider bg-card/50 p-5 backdrop-blur-xl transition-all duration-300 hover:border-primary/30 hover:-translate-y-1"
-                >
-                  <div className="text-3xl mb-3">{l.flag}</div>
-                  <div className="text-lg font-bold">{l.city}</div>
-                  <div className="text-xs text-muted-foreground">{l.country}</div>
-                  <div className="mt-3 text-xs leading-relaxed text-muted-foreground">{l.note}</div>
-                  <div className="mt-3 text-[10px] font-mono text-muted-foreground/60">{l.coords}</div>
-                </motion.div>
-              );
-            })}
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-bold text-[#E55319] shadow-xl hover:scale-105 transition"
+              >
+                Start a project <ArrowUpRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-7 py-3.5 font-bold text-white hover:bg-white/10 transition"
+              >
+                Explore services
+              </Link>
+            </div>
           </div>
-        </section>
-
-        {/* CTA */}
-        <section className="mx-auto max-w-7xl px-4 mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="rounded-3xl border border-border bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl p-12 text-center overflow-hidden relative"
-          >
-            <div className="pointer-events-none absolute inset-0">
-              <div className="absolute top-0 left-1/4 h-48 w-48 bg-brand-cyan/10 blur-3xl rounded-full" />
-              <div className="absolute bottom-0 right-1/4 h-48 w-48 bg-brand-magenta/10 blur-3xl rounded-full" />
-            </div>
-            <div className="relative">
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-                Want to build with us?
-              </h2>
-              <p className="text-muted-foreground max-w-xl mx-auto mb-8">
-                We&apos;re always looking for ambitious clients and senior engineers who want to ship work that matters.
-              </p>
-              <div className="flex flex-wrap gap-3 justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-cyan to-brand-magenta px-7 py-3 font-semibold text-white shadow-lg hover:scale-105 transition"
-                >
-                  Start a project <ArrowUpRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href="/services"
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-7 py-3 font-semibold backdrop-blur hover:bg-secondary transition"
-                >
-                  Explore services
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        </section>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-    </>
+        </div>
+      </NxPageSection>
+    </NxPageLayout>
   );
 }

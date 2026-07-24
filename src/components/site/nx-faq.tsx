@@ -37,7 +37,7 @@ export function NxFaq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="py-24 sm:py-32 bg-white">
+    <section className="py-24 sm:py-32 nx-surface">
       <div className="mx-auto max-w-4xl px-4 lg:px-8">
         {/* Header */}
         <div className="text-center">
@@ -55,7 +55,7 @@ export function NxFaq() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
-            className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0A1124]"
+            className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight nx-text"
           >
             Questions, answered.
           </motion.h2>
@@ -64,7 +64,7 @@ export function NxFaq() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="mt-4 text-base sm:text-lg text-[#475569]"
+            className="mt-4 text-base sm:text-lg nx-text-soft"
           >
             Still unsure?{" "}
             <a
@@ -87,22 +87,22 @@ export function NxFaq() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.3, delay: i * 0.04 }}
-                className={`relative p-5 sm:p-6 rounded-2xl border bg-white overflow-hidden transition-colors ${
-                  isOpen ? "border-[#FF6B35]/40" : "border-[#E2E8F0]"
+                className={`relative p-5 sm:p-6 rounded-2xl border nx-surface overflow-hidden transition-colors ${
+                  isOpen ? "border-[#FF6B35]/40" : "nx-bd"
                 }`}
               >
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
                   className="w-full flex items-center justify-between gap-4 text-left group"
                 >
-                  <h3 className="text-base sm:text-lg font-bold text-[#0A1124] group-hover:text-[#FF6B35] transition">
+                  <h3 className="text-base sm:text-lg font-bold nx-text group-hover:text-[#FF6B35] transition">
                     {f.q}
                   </h3>
                   <div
                     className={`h-8 w-8 rounded-full grid place-items-center shrink-0 transition-colors ${
                       isOpen
                         ? "bg-[#FF6B35] text-white"
-                        : "bg-[#F1F5F9] text-[#475569]"
+                        : "nx-surface-muted nx-text-soft"
                     }`}
                   >
                     {isOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
@@ -117,7 +117,7 @@ export function NxFaq() {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <p className="pb-2 text-sm sm:text-base text-[#475569] leading-relaxed">
+                      <p className="pb-2 text-sm sm:text-base nx-text-soft leading-relaxed">
                         {f.a}
                       </p>
                     </motion.div>
