@@ -2,14 +2,22 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
-import {
-  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
-} from "../nx-page-layout";
+import{
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
+import { Nx3DScene } from "../nx-3d-scene";
+import { Nx3DCharacter } from "../nx-3d-character";
 import { WORK_CASES } from "@/lib/site-data";
 
 export function PortfolioPage() {
   return (
     <NxPageLayout>
+        {/* 3D character — floats in hero area, lg+ only */}
+        <div className="pointer-events-none absolute right-0 top-24 lg:top-32 xl:top-40 z-[5] hidden lg:block" aria-hidden="true">
+          <Nx3DCharacter variant="portfolio" size="md" />
+        </div>
+        {/* 3D floating geometric accents */}
+        <Nx3DScene density="low" />
+
               <section className="mx-auto max-w-7xl px-4">
           {/* Header */}
           <motion.div
