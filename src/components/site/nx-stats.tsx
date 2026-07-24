@@ -7,10 +7,10 @@ import { SITE } from "@/lib/site-data";
 /* STATS BANNER — oversized numerals (Index.dev / Vention pattern).
  * Light section with 4 huge stat tiles separated by hairline dividers. */
 const STATS = [
-  { value: "120+", label: "Projects shipped", sub: "Across 4 continents since 2019", icon: Rocket, color: "***REMOVED***FF6B35" },
-  { value: "5.0★", label: "Clutch rating", sub: "From 40+ verified reviews", icon: Award, color: "***REMOVED***3B82F6" },
+  { value: "120+", label: "Projects shipped", sub: "Across 4 continents since 2019", icon: Rocket, color: "***REMOVED***FF53A9" },
+  { value: "5.0★", label: "Clutch rating", sub: "From 40+ verified reviews", icon: Award, color: "***REMOVED***136DFF" },
   { value: "30", label: "Day average MVP", sub: "From kickoff to launch", icon: TrendingUp, color: "***REMOVED***10B981" },
-  { value: "4", label: "Global offices", sub: "UK · Pakistan · USA · Dubai", icon: Users, color: "***REMOVED***EC4899" },
+  { value: "4", label: "Global offices", sub: "UK · Pakistan · USA · Dubai", icon: Users, color: "***REMOVED***FF53A9" },
 ];
 
 export function NxStats() {

@@ -26,9 +26,9 @@ type TabId = "marketing" | "web" | "ai" | "creative" | "essentials";
 
 const TABS: { id: TabId; label: string; icon: string; color: string }[] = [
   { id: "marketing",  label: "Digital Marketing",  icon: "Megaphone",  color: "***REMOVED***10B981" },
-  { id: "web",        label: "Web & Software",     icon: "Code2",      color: "***REMOVED***3B82F6" },
-  { id: "ai",         label: "AI & Automation",    icon: "Brain",      color: "***REMOVED***FF6B35" },
-  { id: "creative",   label: "Creative & Brand",   icon: "Palette",    color: "***REMOVED***EC4899" },
+  { id: "web",        label: "Web & Software",     icon: "Code2",      color: "***REMOVED***136DFF" },
+  { id: "ai",         label: "AI & Automation",    icon: "Brain",      color: "***REMOVED***FF53A9" },
+  { id: "creative",   label: "Creative & Brand",   icon: "Palette",    color: "***REMOVED***FF53A9" },
   { id: "essentials", label: "Business Essentials",icon: "Rocket",     color: "***REMOVED***F59E0B" },
 ];
 
@@ -142,7 +142,7 @@ export function NxServices() {
                 >
                   <Link
                     href={href}
-                    className={`group h-full p-6 flex flex-col rounded-2xl border nx-bd nx-surface hover:shadow-xl hover:-translate-y-1 hover:border-[***REMOVED***FF6B35]/40 transition-all ${
+                    className={`group h-full p-6 flex flex-col rounded-2xl border nx-bd nx-surface hover:shadow-xl hover:-translate-y-1 hover:border-[***REMOVED***FF53A9]/40 transition-all ${
                       isFeatured ? "min-h-[280px]" : ""
                     }`}
                   >

@@ -88,20 +88,20 @@ export function NxFaq() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.3, delay: i * 0.04 }}
                 className={`relative p-5 sm:p-6 rounded-2xl border nx-surface overflow-hidden transition-colors ${
-                  isOpen ? "border-[***REMOVED***FF6B35]/40" : "nx-bd"
+                  isOpen ? "border-[***REMOVED***FF53A9]/40" : "nx-bd"
                 }`}
               >
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
                   className="w-full flex items-center justify-between gap-4 text-left group"
                 >
-                  <h3 className="text-base sm:text-lg font-bold nx-text group-hover:text-[***REMOVED***FF6B35] transition">
+                  <h3 className="text-base sm:text-lg font-bold nx-text group-hover:text-[***REMOVED***FF53A9] transition">
                     {f.q}
                   </h3>
                   <div
                     className={`h-8 w-8 rounded-full grid place-items-center shrink-0 transition-colors ${
                       isOpen
-                        ? "bg-[***REMOVED***FF6B35] text-white"
+                        ? "bg-[***REMOVED***FF53A9] text-white"
                         : "nx-surface-muted nx-text-soft"
                     }`}
                   >
