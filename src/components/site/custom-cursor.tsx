@@ -46,6 +46,14 @@ export function CustomCursor() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    // Respect prefers-reduced-motion — don't install the custom cursor at all.
+    // The global CSS rule (in globals.css) hides any .custom-cursor elements
+    // and restores the native cursor; here we just bail out before binding
+    // any listeners so we don't burn CPU on rAF + springs the user explicitly
+    // asked us not to animate.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const mq = window.matchMedia("(pointer: fine)");
     const update = () => {
       setEnabled(mq.matches);

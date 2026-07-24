@@ -1,12 +1,52 @@
 'use client'
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight, ChevronDown, ChevronRight, Phone, Sparkles } from "lucide-react";
+import {
+  Menu, X, ArrowUpRight, ChevronDown, ChevronRight, Phone, Sparkles,
+  Brain, Bot, Wand2, Eye, Workflow,
+  Server, Layers, Shield, Cloud, Layout, ShoppingCart, Code2, Wrench, RefreshCw, Globe,
+  Megaphone, PenTool, TrendingUp, Search, Share2,
+  Palette, Video,
+  Building2, Store, ShoppingBag, Wrench as WrenchIcon, Globe as GlobeIcon, Users,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { NAV_LINKS, SERVICES, STARTER_KIT, CATEGORY_STYLES, SOLUTIONS, type ServiceItem } from "@/lib/site-data";
 import { ThemeToggle } from "./theme-toggle";
+
+/* ───────────────── ICON MAPS ───────────────── */
+/* Maps the `icon_name` field from SERVICES[] to actual lucide components so the
+   mega menu can render a real icon next to each service entry. Centralized
+   here (and in services-page.tsx) so the two stay in sync. */
+const SERVICE_ICONS: Record<string, LucideIcon> = {
+  Brain, Bot, Wand2, Eye, Workflow,
+  Server, Layers, Shield, Cloud, Layout, ShoppingCart, Code2, Wrench, RefreshCw, Globe,
+  Megaphone, PenTool, TrendingUp, Search, Share2,
+  Palette, Video,
+  Rocket: Sparkles,
+  Sparkles,
+};
+
+const SOLUTION_ICONS: Record<string, LucideIcon> = {
+  startups: Building2,
+  "local-businesses": Store,
+  "ecommerce-brands": ShoppingBag,
+  "repair-shops": WrenchIcon,
+  "uk-businesses": GlobeIcon,
+  agencies: Users,
+};
+
+/* Map solution slug → brand accent gradient for the icon chip */
+const SOLUTION_ACCENTS: Record<string, { chip: string; text: string }> = {
+  startups:          { chip: "from-amber-500 to-brand-pink",        text: "text-amber-400" },
+  "local-businesses":{ chip: "from-emerald-500 to-teal-600",       text: "text-emerald-400" },
+  "ecommerce-brands":{ chip: "from-brand-cyan to-brand-blue",       text: "text-brand-cyan" },
+  "repair-shops":    { chip: "from-brand-magenta to-brand-blue",    text: "text-brand-magenta" },
+  "uk-businesses":   { chip: "from-brand-blue to-brand-cyan",       text: "text-brand-blue" },
+  agencies:          { chip: "from-brand-pink to-brand-magenta",    text: "text-brand-pink" },
+};
 
 /* ───────────────── CATEGORY DISPLAY CONFIG ───────────────── */
 const CATEGORY_DISPLAY: Record<string, { group: string; accentColor: string }> = {
@@ -26,9 +66,25 @@ export function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    // rAF-throttled scroll listener — without this, `scroll` fires hundreds of
+    // times per second during a single wheel swipe, each one calling setState
+    // and triggering a Navbar re-render. The rAF coalesces them to one update
+    // per frame, which is the maximum useful rate anyway.
+    let rafId = 0;
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        setScrolled(window.scrollY > 20);
+      });
+    };
+    // passive: true — tells the browser we won't preventDefault, so it can
+    // scroll on the compositor thread without waiting for our handler.
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   // Close mobile menu on route change
@@ -75,6 +131,23 @@ export function Navbar() {
     return map;
   }, []);
 
+  // Track whether the user's pointer is actually inside the mega-menu trigger
+  // container. We use this to keep the menu open when moving the pointer from
+  // the trigger down into the menu (which would otherwise fire onMouseLeave on
+  // the trigger and close the menu mid-transit).
+  const megaCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const openMega = () => {
+    if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current);
+    setMegaOpen(true);
+  };
+  const closeMegaSoon = () => {
+    // Delay close by 120ms — gives the pointer time to cross the gap between
+    // the trigger and the menu panel without the menu flickering closed.
+    if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current);
+    megaCloseTimer.current = setTimeout(() => setMegaOpen(false), 120);
+  };
+  useEffect(() => () => { if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current); }, []);
+
   const handleSectionClick = (href: string) => {
     setOpen(false);
     if (href.startsWith("#")) {
@@ -92,7 +165,15 @@ export function Navbar() {
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? "py-2" : "py-4"}`}
     >
       <div className="mx-auto max-w-7xl px-3 sm:px-4">
-        <div className="flex items-center justify-between rounded-2xl px-3 sm:px-5 py-2.5 sm:py-3 transition-all duration-500 glass">
+        {/* will-change: transform promotes this container to its own GPU layer.
+            Without this, the .glass backdrop-filter has to re-sample the
+            scrolling content underneath on every frame — the #1 cause of
+            scroll jank on this site. With its own layer, the compositor can
+            scroll the page content and the blurred navbar independently. */}
+        <div
+          className="flex items-center justify-between rounded-2xl px-3 sm:px-5 py-2.5 sm:py-3 transition-all duration-500 glass"
+          style={{ willChange: "transform" }}
+        >
           {/* Logo — real ClickTake logo (200×200 transparent PNG) */}
           <Link href="/" className="flex items-center gap-2 group shrink-0 min-w-0" aria-label="ClickTake Technologies — Home">
             {/* Next.js Image would over-optimize the brand mark; use plain img with explicit size to avoid CLS */}
@@ -139,8 +220,8 @@ export function Navbar() {
                   <div
                     key={l.href}
                     className="relative"
-                    onMouseEnter={() => setMegaOpen(true)}
-                    onMouseLeave={() => setMegaOpen(false)}
+                    onMouseEnter={openMega}
+                    onMouseLeave={closeMegaSoon}
                   >
                     <Link
                       href={l.href}
@@ -158,33 +239,56 @@ export function Navbar() {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
-                          transition={{ duration: 0.2 }}
+                          transition={{ duration: 0.18, ease: "easeOut" }}
                           className="absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50"
+                          onMouseEnter={openMega}
+                          onMouseLeave={closeMegaSoon}
                         >
                           {isSolutions ? (
-                            /* ─── SOLUTIONS MEGA MENU ─── */
-                            <div className="w-[min(720px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-5 sm:p-6">
-                              <div className="mb-4 text-[10px] font-bold uppercase tracking-widest text-brand-blue px-1">
-                                Solutions by audience
+                            /* ─── SOLUTIONS MEGA MENU ───
+                               Two-column grid with brand-tinted icon chips per
+                               solution. Each row is a hover-able Link with title +
+                               audience subtitle. Footer CTA links to the index page. */
+                            <div className="w-[min(760px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-4 sm:p-5">
+                              <div className="mb-3 flex items-center justify-between px-1">
+                                <div className="text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+                                  Solutions by audience
+                                </div>
+                                <div className="text-[10px] text-muted-foreground">
+                                  {SOLUTIONS.length} tailored offers
+                                </div>
                               </div>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                {SOLUTIONS.map((sol) => (
-                                  <Link
-                                    key={sol.slug}
-                                    href={`/solutions/${sol.slug}`}
-                                    onClick={() => setMegaOpen(false)}
-                                    className="group/sol block rounded-lg px-3 py-2 hover:bg-secondary transition"
-                                  >
-                                    <div className="text-[13px] font-semibold leading-snug group-hover/sol:text-foreground text-foreground/90">
-                                      {sol.title}
-                                    </div>
-                                    <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight line-clamp-2">
-                                      {sol.hero}
-                                    </div>
-                                  </Link>
-                                ))}
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                                {SOLUTIONS.map((sol) => {
+                                  const Icon = SOLUTION_ICONS[sol.slug] || Sparkles;
+                                  const accent = SOLUTION_ACCENTS[sol.slug] || { chip: "from-brand-blue to-brand-cyan", text: "text-brand-blue" };
+                                  return (
+                                    <Link
+                                      key={sol.slug}
+                                      href={`/solutions/${sol.slug}`}
+                                      onClick={() => setMegaOpen(false)}
+                                      className="group/sol flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
+                                    >
+                                      <div className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${accent.chip} text-white shadow-sm group-hover/sol:scale-110 transition-transform`}>
+                                        <Icon className="h-4 w-4" />
+                                      </div>
+                                      <div className="min-w-0 flex-1">
+                                        <div className="text-[13px] font-semibold leading-snug text-foreground/95 group-hover/sol:text-foreground">
+                                          {sol.title}
+                                        </div>
+                                        <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight line-clamp-2">
+                                          {sol.hero}
+                                        </div>
+                                      </div>
+                                      <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover/sol:opacity-100 transition-opacity shrink-0 mt-1" />
+                                    </Link>
+                                  );
+                                })}
                               </div>
-                              <div className="mt-4 pt-4 border-t border-border">
+                              <div className="mt-3 pt-3 border-t border-border flex items-center justify-between px-1">
+                                <span className="text-[11px] text-muted-foreground">
+                                  Not sure? Get a free 30-min scoping call.
+                                </span>
                                 <Link
                                   href="/solutions"
                                   onClick={() => setMegaOpen(false)}
@@ -195,60 +299,81 @@ export function Navbar() {
                               </div>
                             </div>
                           ) : (
-                            /* ─── SERVICES MEGA MENU ─── */
-                            <div className="w-[min(920px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-5 sm:p-6">
+                            /* ─── SERVICES MEGA MENU ───
+                               4-column grid grouped by category (AI / Web / Marketing /
+                               Creative), each item with a brand-tinted icon. Bottom CTA
+                               row links to the Starter Kit flagship offering. */
+                            <div className="w-[min(960px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-4 sm:p-5">
+                              <div className="mb-3 flex items-center justify-between px-1">
+                                <div className="text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+                                  Services by category
+                                </div>
+                                <div className="text-[10px] text-muted-foreground">
+                                  {SERVICES.length - (STARTER_KIT ? 1 : 0)} services · 4 categories
+                                </div>
+                              </div>
                               {/* 4-column grid → collapses to 2 columns on smaller laptop screens */}
-                              <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-4">
+                              <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-3">
                                 {Array.from(serviceGroups.entries()).map(([cat, items]) => {
                                   const cfg = CATEGORY_DISPLAY[cat];
                                   if (!cfg) return null;
                                   return (
                                     <div key={cat} className="min-w-0">
-                                      <div className={`mb-2.5 text-[10px] font-bold uppercase tracking-widest ${cfg.accentColor} px-1`}>
+                                      <div className={`mb-2 text-[10px] font-bold uppercase tracking-widest ${cfg.accentColor} px-1`}>
                                         {cfg.group}
                                       </div>
                                       <div className="space-y-0.5">
-                                        {items.map((item) => (
-                                          <Link
-                                            key={item.slug}
-                                            href={`/services/${item.slug}`}
-                                            className="group/item block rounded-lg px-2.5 py-1.5 hover:bg-secondary transition"
-                                            onClick={() => setMegaOpen(false)}
-                                          >
-                                            <div className="text-[13px] font-semibold leading-snug group-hover/item:text-foreground text-foreground/90 line-clamp-2">
-                                              {item.title}
-                                            </div>
-                                            <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight line-clamp-2">
-                                              {item.description}
-                                            </div>
-                                          </Link>
-                                        ))}
+                                        {items.map((item) => {
+                                          const Icon = SERVICE_ICONS[item.icon_name] || Sparkles;
+                                          return (
+                                            <Link
+                                              key={item.slug}
+                                              href={`/services/${item.slug}`}
+                                              className="group/item flex items-start gap-2 rounded-lg px-2 py-1.5 hover:bg-secondary transition"
+                                              onClick={() => setMegaOpen(false)}
+                                            >
+                                              <Icon className={`h-3.5 w-3.5 mt-0.5 shrink-0 ${cfg.accentColor} opacity-70 group-hover/item:opacity-100`} />
+                                              <div className="min-w-0 flex-1">
+                                                <div className="text-[12px] font-semibold leading-snug text-foreground/90 group-hover/item:text-foreground line-clamp-1">
+                                                  {item.title}
+                                                </div>
+                                                <div className="text-[10.5px] text-muted-foreground mt-0.5 leading-tight line-clamp-1">
+                                                  {item.description}
+                                                </div>
+                                              </div>
+                                            </Link>
+                                          );
+                                        })}
                                       </div>
                                     </div>
                                   );
                                 })}
                               </div>
 
-                              {/* Flagship CTA */}
+                              {/* Flagship CTA — Starter Kit */}
                               {STARTER_KIT && (
                                 <Link
                                   href="/services/starter-kit"
                                   onClick={() => setMegaOpen(false)}
-                                  className="mt-5 flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 p-3 sm:p-4 hover:from-amber-500/25 hover:to-brand-pink/25 transition"
+                                  className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 p-3 sm:p-3.5 hover:from-amber-500/25 hover:to-brand-pink/25 transition group/flagship"
                                 >
-                                  <div className="min-w-0">
-                                    <div className="flex items-center gap-2 text-sm font-bold flex-wrap">
-                                      <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
-                                      <span className="truncate">{STARTER_KIT.title}</span>
-                                      <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white shrink-0">
-                                        FLAGSHIP
-                                      </span>
+                                  <div className="flex items-center gap-3 min-w-0">
+                                    <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-amber-500 to-brand-pink text-white shadow-sm group-hover/flagship:scale-110 transition-transform">
+                                      <Sparkles className="h-4 w-4" />
                                     </div>
-                                    <div className="text-xs text-muted-foreground mt-1 line-clamp-1">
-                                      {STARTER_KIT.description}
+                                    <div className="min-w-0">
+                                      <div className="flex items-center gap-2 text-sm font-bold flex-wrap">
+                                        <span className="truncate">{STARTER_KIT.title}</span>
+                                        <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white shrink-0 font-bold uppercase tracking-wider">
+                                          Flagship
+                                        </span>
+                                      </div>
+                                      <div className="text-[11px] text-muted-foreground mt-0.5 line-clamp-1">
+                                        {STARTER_KIT.description}
+                                      </div>
                                     </div>
                                   </div>
-                                  <ArrowUpRight className="h-4 w-4 text-amber-400 shrink-0" />
+                                  <ArrowUpRight className="h-4 w-4 text-amber-400 shrink-0 group-hover/flagship:translate-x-0.5 group-hover/flagship:-translate-y-0.5 transition-transform" />
                                 </Link>
                               )}
                             </div>

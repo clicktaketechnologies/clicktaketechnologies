@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Mail, Phone, Globe, ArrowUpRight } from "lucide-react";
-import { SITE, NAV_LINKS, SERVICE_CATEGORIES } from "@/lib/site-data";
+import { SITE, NAV_LINKS, NAV_LINKS_SECONDARY, SERVICE_CATEGORIES } from "@/lib/site-data";
 import { SocialIcons } from "./social-icons";
 
 export function Footer() {
@@ -81,7 +81,9 @@ export function Footer() {
               Navigation
             </h4>
             <ul className="mt-4 space-y-2">
-              {NAV_LINKS.filter((l) => !l.mega).map((l) => (
+              {/* Primary nav — exclude mega-menu triggers (Services/Solutions) since
+                  they have their own dedicated Services column below. */}
+              {NAV_LINKS.filter((l) => !("mega" in l && l.mega)).map((l) => (
                 <li key={l.href}>
                   <a
                     href={l.href}
@@ -91,12 +93,26 @@ export function Footer() {
                   </a>
                 </li>
               ))}
-              <li><a href="/team" className="text-sm text-muted-foreground hover:text-foreground transition">Team</a></li>
-              <li><a href="/careers" className="text-sm text-muted-foreground hover:text-foreground transition">Careers</a></li>
-              <li><a href="/case-studies" className="text-sm text-muted-foreground hover:text-foreground transition">Case Studies</a></li>
-              <li><a href="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition">Pricing</a></li>
-              <li><a href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition">Blog</a></li>
-              <li><a href="/resources" className="text-sm text-muted-foreground hover:text-foreground transition">Resources</a></li>
+              {/* Secondary nav — Team / Careers / Resources. Deduped against
+                  NAV_LINKS so we don't render the same route twice. The href
+                  union looks non-overlapping to TS but we keep the filter for
+                  safety (future NAV_LINKS edits could introduce overlap). */}
+              {NAV_LINKS_SECONDARY.filter(
+                (s) =>
+                  !s.href.startsWith("#") &&
+                  !(NAV_LINKS as readonly { href: string }[]).some((n) => n.href === s.href)
+              ).map((l) => (
+                <li key={l.href}>
+                  <a
+                    href={l.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+              <li><a href="/services" className="text-sm text-muted-foreground hover:text-foreground transition">Services</a></li>
+              <li><a href="/solutions" className="text-sm text-muted-foreground hover:text-foreground transition">Solutions</a></li>
             </ul>
           </div>
 

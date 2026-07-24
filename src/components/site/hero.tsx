@@ -74,7 +74,7 @@ export function Hero() {
               </a>
               <a
                 href="#work"
-                className="inline-flex items-center justify-center gap-2 rounded-full border ct-divider ct-surface px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-semibold backdrop-blur-xl hover:bg-white/[0.07] transition"
+                className="inline-flex items-center justify-center gap-2 rounded-full border ct-divider ct-surface px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-semibold backdrop-blur-xl hover:bg-foreground/[0.06] transition"
               >
                 <Globe2 className="h-4 w-4" /> View our work
               </a>

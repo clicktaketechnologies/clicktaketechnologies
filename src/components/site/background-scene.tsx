@@ -362,10 +362,18 @@ export function BackgroundScene() {
     let lastTs = 0;
     const FRAME_MS = 1000 / 30;
     let running = true;
+    // `paused` is set true while the user is actively scrolling — we skip
+    // drawing frames but keep the rAF alive so we can resume instantly. This
+    // frees up the main thread to handle scroll repaints without competing
+    // with the canvas's drawFrame() work (which does ~30 nodes + ~8 streams
+    // + 2 pulses per frame = ~50 canvas ops, not free).
+    let paused = false;
+    let pauseTimer: ReturnType<typeof setTimeout> | null = null;
 
     const frame = (ts: number) => {
       if (!running) return;
       rafRef.current = requestAnimationFrame(frame);
+      if (paused) return;
       const dt = ts - lastTs;
       if (dt < FRAME_MS) return;
       lastTs = ts - (dt % FRAME_MS);
@@ -387,10 +395,25 @@ export function BackgroundScene() {
     };
     document.addEventListener("visibilitychange", onVisibility);
 
+    // Pause drawing while the user is actively scrolling — frees the main
+    // thread for scroll repaints. Resume 200ms after the last scroll event.
+    // passive: true so we never block scrolling.
+    const onScroll = () => {
+      paused = true;
+      if (pauseTimer) clearTimeout(pauseTimer);
+      pauseTimer = setTimeout(() => {
+        paused = false;
+        lastTs = 0; // reset so we don't fire a frame with a huge dt
+      }, 200);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => {
       running = false;
       cancelAnimationFrame(rafRef.current);
+      if (pauseTimer) clearTimeout(pauseTimer);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", onScroll);
       observer.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
     };

@@ -164,13 +164,19 @@
   /* In dark mode, layer the ClickTake tri-stop gradient under everything.
      The BackgroundScene canvas (when present) paints its own animated orbs
      on top of this base. On admin pages (no BackgroundScene), the gradient
-     still shows through for consistent brand presentation. */
+     still shows through for consistent brand presentation.
+
+     PERF: do NOT use `background-attachment: fixed` here — that property
+     forces the browser to repaint the body background on every scroll
+     frame to keep it stationary, which is one of the biggest causes of
+     scroll jank on this site. The BackgroundScene canvas is already
+     `position: fixed` (its own GPU layer) and covers this background
+     anyway, so the body's background can scroll naturally with content. */
   .dark body {
     background:
       radial-gradient(ellipse at 18% 12%, rgba(74, 144, 217, 0.10) 0%, transparent 55%),
       radial-gradient(ellipse at 82% 88%, rgba(224, 25, 122, 0.10) 0%, transparent 55%),
       linear-gradient(180deg, #03000D 0%, #070018 55%, #0D0025 100%);
-    background-attachment: fixed;
   }
 
   /* Hide native cursor on fine-pointer devices — custom cursor takes over.
@@ -182,9 +188,18 @@
     }
   }
 
-  /* Smooth transitions on theme change (skip color to avoid janky fade) */
+  /* Smooth transitions on interactive elements.
+     IMPORTANT: avoid `transition: all` — it forces the compositor to repaint
+     every animatable property on every hover state change during scroll,
+     which is the #1 cause of scroll jank on this site. Scope transitions
+     to only the properties that actually animate. */
   a, button {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
   *:focus-visible {
     outline: 2px solid var(--brand-accent);
@@ -377,23 +392,38 @@
 }
 
 /* Ensure .theme-custom body still gets the dark gradient overlay if the
-   user hasn't opted into light custom tokens. */
+   user hasn't opted into light custom tokens. (Removed `background-attachment:
+   fixed` for the same scroll-jank reason as .dark body above.) */
 .theme-custom:not(.theme-custom-light) body {
   background:
     radial-gradient(ellipse at 18% 12%, rgba(74, 144, 217, 0.10) 0%, transparent 55%),
     radial-gradient(ellipse at 82% 88%, rgba(224, 25, 122, 0.10) 0%, transparent 55%),
     linear-gradient(180deg, #03000D 0%, #070018 55%, #0D0025 100%);
-  background-attachment: fixed;
 }
 
 /* ─── Text-visibility safety net (light/dark/system/custom) ────────────────
    The user reported text-visibility issues in some theme modes. These rules
    ensure foreground colors are always readable against the active background,
-   regardless of which mode is active. They override any earlier rule that
-   might set foreground colors too close to the background.
+   regardless of which mode is active.
+
+   IMPORTANT — Button-specific safety:
+   The previous version set `color: var(--foreground)` on `button` and `a`
+   tags directly, which had unintended consequences:
+     - Overrode `.text-white` on CTA buttons (made white-on-gradient text turn
+       to foreground color, reducing contrast on the brand gradient).
+     - Forced every link to inherit foreground even when the link was inside
+       a colored badge that needed white text.
+   The fix is to NOT blanket-override `a` and `button` text colors. Instead,
+   we only set foreground on body text elements (p, h*, li, td, th, label,
+   blockquote) and let component utility classes (.text-white, .text-primary,
+   .text-muted-foreground, etc.) win on interactive elements.
 */
-body, p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, button, a, input, textarea, select, blockquote, strong, em, small {
+body, p, h1, h2, h3, h4, h5, h6, li, td, th, label, blockquote, strong, em, small {
   color: var(--foreground);
+}
+/* Span only — skip a/button/input/textarea/select so utility classes win */
+span:not(.text-white):not(.text-foreground):not(.text-muted-foreground):not(.text-primary):not(.text-brand-blue):not(.text-brand-pink):not(.text-brand-cyan):not(.text-brand-magenta):not(.text-amber-400):not(.text-emerald-400) {
+  color: inherit;
 }
 /* Inputs should always use foreground on the input background for visibility */
 input, textarea, select {
@@ -406,6 +436,54 @@ input::placeholder, textarea::placeholder {
 /* Muted text stays muted but never invisible */
 .text-muted-foreground {
   color: var(--muted-foreground);
+}
+
+/* ─── Button visibility guarantees ─────────────────────────────────────────
+   Ensure every clickable CTA keeps readable text in BOTH light and dark modes.
+   - .gradient-bg buttons always use white text (gradient is always saturated).
+   - bg-gradient-to-* buttons with .text-white stay white.
+   - outline / ghost buttons default to foreground (handled by Button variants).
+   These rules have higher specificity than the global element selector above,
+   so they win when a button uses both `gradient-bg` and `text-white`.
+*/
+a.gradient-bg, button.gradient-bg,
+a[class*="bg-gradient-to"], button[class*="bg-gradient-to"] {
+  color: #ffffff;
+}
+/* Same guarantee for the Radix Button component's primary/destructive variants */
+[data-slot="button"].bg-primary, [data-slot="button"].bg-destructive {
+  color: var(--primary-foreground);
+}
+
+/* ─── Scroll performance utilities ──────────────────────────────────────────
+   `content-visibility: auto` lets the browser skip rendering, layout and
+   paint for offscreen sections. Combined with `contain-intrinsic-size`, it
+   prevents the page from reflowing when the section enters the viewport.
+   Apply .cv-auto to heavy offscreen wrappers (long lists, big hero blocks).
+   Skip in Safari <17 (lack of full support) via the @supports guard.
+*/
+@supports (content-visibility: auto) {
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
+  .cv-auto-tall {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
+  }
+}
+
+/* ─── Reduced-motion guard for custom cursor ────────────────────────────────
+   When the user prefers reduced motion, hide the custom cursor entirely and
+   restore the native cursor. The custom cursor's springs + rAF loop can
+   cause motion sickness and consume CPU on users who explicitly opted out. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-cursor='active'] body,
+  html[data-cursor='active'] body * {
+    cursor: auto !important;
+  }
+  .custom-cursor { display: none !important; }
+  html { scroll-behavior: auto !important; }
 }
 
 /* ─── Theme-aware surface utilities ─────────────────────────────────────────
@@ -461,10 +539,10 @@ input::placeholder, textarea::placeholder {
    but a stale class on <html> could cause the dark gradient to overlay a
    white page. These !important guards lock the background to the right
    palette per mode.
-*/
+
+   PERF: no `background-attachment: fixed` — see note on .dark body above. */
 html:not(.dark):not(.theme-custom) body,
 html:not(.dark).theme-custom-light body {
   background: var(--background) !important;
-  background-attachment: fixed !important;
 }
 
