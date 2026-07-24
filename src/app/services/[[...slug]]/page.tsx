@@ -1,12 +1,29 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ServiceDetailPage } from "@/components/site/pages/service-detail-page";
+import { DeepDiveLayout } from "@/components/site/deep-dive/deep-dive-layout";
+import { llmDeepDive } from "@/content/deep-dive/llm";
 import { SERVICES, CATEGORY_STYLES, SITE } from "@/lib/site-data";
+import type { DeepDiveContent } from "@/components/site/deep-dive/deep-dive-types";
 import {
   JsonLd,
   buildServiceJsonLd,
   buildBreadcrumbJsonLd,
+  buildFaqJsonLd,
 } from "@/components/site/json-ld";
+
+/**
+ * Map of service slugs that have full long-form "Ultimate Guide" content
+ * authored. When a slug is in this map, the route renders DeepDiveLayout
+ * with the deep-dive content + FAQ JSON-LD schema. Pages not in this map
+ * continue to render the existing ServiceDetailPage.
+ *
+ * To roll out to a new page: author content in /src/content/deep-dive/<slug>.ts,
+ * import it here, and add to this map.
+ */
+const DEEP_DIVE_CONTENT: Record<string, DeepDiveContent> = {
+  "ai/llm": llmDeepDive,
+};
 
 interface Params { params: Promise<{ slug?: string[] }> }
 
@@ -149,6 +166,27 @@ export default async function Page({ params }: Params) {
     { name: cat?.eyebrow || "Service", path: `/services/${service.slug.split("/")[0]}` },
     { name: service.title, path: `/services/${service.slug}` },
   ]);
+
+  // ── Deep-Dive path: long-form "Ultimate Guide" pages ──────────────
+  const deepDive = DEEP_DIVE_CONTENT[joined];
+  if (deepDive) {
+    // Build FAQ schema from the content's FAQ section (if present).
+    const faqItems = (deepDive.faq?.categories ?? []).flatMap((c) =>
+      c.questions.map((q) => ({ q: q.q, a: q.a }))
+    );
+    const schemas: Record<string, unknown>[] = [serviceSchema, breadcrumb];
+    if (faqItems.length > 0) {
+      schemas.push(buildFaqJsonLd(faqItems));
+    }
+    return (
+      <>
+        <JsonLd data={schemas} />
+        <DeepDiveLayout content={deepDive} />
+      </>
+    );
+  }
+
+  // ── Legacy path: existing ServiceDetailPage ───────────────────────
   return (
     <>
       <JsonLd data={[serviceSchema, breadcrumb]} />
