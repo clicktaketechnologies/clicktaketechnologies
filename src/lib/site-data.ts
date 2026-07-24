@@ -76,19 +76,26 @@ export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services", mega: true },
   { label: "Solutions", href: "/solutions", mega: true },
-  { label: "Work", href: "/portfolio" },
+  // Resources mega shows: Portfolio + Case Studies (SHOWCASE) and Blog + Pricing (LEARN).
+  { label: "Resources", href: "/resources", mega: true },
+  // Company mega shows: About + Team + Careers (ABOUT US).
+  { label: "Company", href: "/about", mega: true },
+] as const;
+
+// Secondary links (used in mobile menu / footer / not in top nav directly).
+// Expanded after the homepage redesign collapsed Work / Case Studies / Blog /
+// Pricing / About / Contact into the Resources + Company mega menus — these
+// routes still need to appear in the footer Navigation column.
+export const NAV_LINKS_SECONDARY = [
+  { label: "Team", href: "/team" },
+  { label: "Careers", href: "/careers" },
+  { label: "Resources", href: "/resources" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
-] as const;
-
-// Secondary links (used in mobile menu / footer / not in top nav directly)
-export const NAV_LINKS_SECONDARY = [
-  { label: "Team", href: "/team" },
-  { label: "Careers", href: "/careers" },
-  { label: "Resources", href: "/resources" },
   { label: "Process", href: "/#process" },
   { label: "Testimonials", href: "/#testimonials" },
 ] as const;

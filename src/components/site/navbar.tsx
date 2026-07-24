@@ -11,6 +11,7 @@ import {
   Megaphone, PenTool, TrendingUp, Search, Share2,
   Palette, Video,
   Building2, Store, ShoppingBag, Wrench as WrenchIcon, Globe as GlobeIcon, Users,
+  Briefcase, FileText, BookOpen, Tag, Info, GraduationCap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { NAV_LINKS, SERVICES, STARTER_KIT, CATEGORY_STYLES, SOLUTIONS, type ServiceItem } from "@/lib/site-data";
@@ -61,10 +62,11 @@ type NavLink = { label: string; href: string; mega?: boolean };
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  // megaOpen now tracks WHICH mega menu is open ("services" | "solutions" | null)
-  // instead of just a boolean — so hovering from Services directly to Solutions
-  // properly swaps the content rather than briefly showing nothing.
-  const [megaOpen, setMegaOpen] = useState<"services" | "solutions" | null>(null);
+  // megaOpen now tracks WHICH mega menu is open — extended for the new
+  // Resources + Company mega menus (Home, Services, Solutions, Resources, Company).
+  // Hovering from one mega trigger to another properly swaps the content rather
+  // than briefly showing nothing.
+  const [megaOpen, setMegaOpen] = useState<"services" | "solutions" | "resources" | "company" | null>(null);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const pathname = usePathname();
   const megaTriggerRef = useRef<HTMLDivElement | null>(null);
@@ -140,7 +142,7 @@ export function Navbar() {
   // the trigger down into the menu (which would otherwise fire onMouseLeave on
   // the trigger and close the menu mid-transit).
   const megaCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const openMega = (which: "services" | "solutions") => {
+  const openMega = (which: "services" | "solutions" | "resources" | "company") => {
     if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current);
     setMegaOpen(which);
   };
@@ -243,8 +245,13 @@ export function Navbar() {
               }
 
               if (isMega) {
-                const isSolutions = l.href === "/solutions";
-                const which = isSolutions ? "solutions" : "services";
+                // Determine which mega menu to show based on the link's href.
+                // New design: Services, Solutions, Resources, Company all have mega menus.
+                const which: "services" | "solutions" | "resources" | "company" =
+                  l.href === "/solutions" ? "solutions"
+                  : l.href === "/resources" ? "resources"
+                  : l.href === "/about" ? "company"
+                  : "services";
                 const isThisOpen = megaOpen === which;
                 return (
                   <div
@@ -260,9 +267,9 @@ export function Navbar() {
                       aria-haspopup="true"
                       onClick={(e) => {
                         // Click toggles the menu on touch devices (where hover
-                        // doesn't exist). On desktop, allow normal nav to /services
-                        // or /solutions index page unless the menu is closed —
-                        // in which case preventDefault so the menu opens first.
+                        // doesn't exist). On desktop, allow normal nav to the
+                        // index page unless the menu is closed — in which case
+                        // preventDefault so the menu opens first.
                         if (!isThisOpen) {
                           e.preventDefault();
                           openMega(which);
@@ -291,7 +298,7 @@ export function Navbar() {
                           role="menu"
                           aria-label={`${l.label} menu`}
                         >
-                          {isSolutions ? (
+                          {which === "solutions" && (
                             /* ─── SOLUTIONS MEGA MENU ───
                                Two-column grid with brand-tinted icon chips per
                                solution. Each row is a hover-able Link with title +
@@ -345,7 +352,9 @@ export function Navbar() {
                                 </Link>
                               </div>
                             </div>
-                          ) : (
+                          )}
+
+                          {which === "services" && (
                             /* ─── SERVICES MEGA MENU ───
                                4-column grid grouped by category (AI / Web / Marketing /
                                Creative), each item with a brand-tinted icon. Bottom CTA
@@ -423,6 +432,192 @@ export function Navbar() {
                                   <ArrowUpRight className="h-4 w-4 text-amber-400 shrink-0 group-hover/flagship:translate-x-0.5 group-hover/flagship:-translate-y-0.5 transition-transform" />
                                 </Link>
                               )}
+                            </div>
+                          )}
+
+                          {which === "resources" && (
+                            /* ─── RESOURCES MEGA MENU ───
+                               Two groups: SHOWCASE (Portfolio + Case Studies) and
+                               LEARN (Blog + Pricing). Each link has a brand-tinted
+                               icon chip + title + short subtitle. */
+                            <div className="w-[min(640px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-4 sm:p-5">
+                              {/* SHOWCASE */}
+                              <div className="mb-1 px-1 text-[10px] font-bold uppercase tracking-widest text-brand-magenta">
+                                Showcase
+                              </div>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                                <Link
+                                  href="/portfolio"
+                                  onClick={() => setMegaOpen(null)}
+                                  className="group/res flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
+                                >
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-cyan to-brand-blue text-white shadow-sm group-hover/res:scale-110 transition-transform">
+                                    <Briefcase className="h-4 w-4" />
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <div className="text-[13px] font-semibold leading-snug text-foreground/95 group-hover/res:text-foreground">
+                                      Portfolio
+                                    </div>
+                                    <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight">
+                                      Selected work & case stories
+                                    </div>
+                                  </div>
+                                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover/res:opacity-100 transition-opacity shrink-0 mt-1" />
+                                </Link>
+                                <Link
+                                  href="/case-studies"
+                                  onClick={() => setMegaOpen(null)}
+                                  className="group/res flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
+                                >
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-magenta to-brand-blue text-white shadow-sm group-hover/res:scale-110 transition-transform">
+                                    <FileText className="h-4 w-4" />
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <div className="text-[13px] font-semibold leading-snug text-foreground/95 group-hover/res:text-foreground">
+                                      Case Studies
+                                    </div>
+                                    <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight">
+                                      Deep dives with measurable results
+                                    </div>
+                                  </div>
+                                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover/res:opacity-100 transition-opacity shrink-0 mt-1" />
+                                </Link>
+                              </div>
+
+                              {/* LEARN */}
+                              <div className="mt-4 mb-1 px-1 text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+                                Learn
+                              </div>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                                <Link
+                                  href="/blog"
+                                  onClick={() => setMegaOpen(null)}
+                                  className="group/res flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
+                                >
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-blue to-brand-cyan text-white shadow-sm group-hover/res:scale-110 transition-transform">
+                                    <BookOpen className="h-4 w-4" />
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <div className="text-[13px] font-semibold leading-snug text-foreground/95 group-hover/res:text-foreground">
+                                      Blog
+                                    </div>
+                                    <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight">
+                                      Growth, design & engineering notes
+                                    </div>
+                                  </div>
+                                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover/res:opacity-100 transition-opacity shrink-0 mt-1" />
+                                </Link>
+                                <Link
+                                  href="/pricing"
+                                  onClick={() => setMegaOpen(null)}
+                                  className="group/res flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
+                                >
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-sm group-hover/res:scale-110 transition-transform">
+                                    <Tag className="h-4 w-4" />
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <div className="text-[13px] font-semibold leading-snug text-foreground/95 group-hover/res:text-foreground">
+                                      Pricing
+                                    </div>
+                                    <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight">
+                                      Transparent packages & retainers
+                                    </div>
+                                  </div>
+                                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover/res:opacity-100 transition-opacity shrink-0 mt-1" />
+                                </Link>
+                              </div>
+
+                              <div className="mt-3 pt-3 border-t border-border flex items-center justify-between px-1">
+                                <span className="text-[11px] text-muted-foreground">
+                                  Browse all resources in one place.
+                                </span>
+                                <Link
+                                  href="/resources"
+                                  onClick={() => setMegaOpen(null)}
+                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-blue hover:underline"
+                                >
+                                  View all resources <ArrowUpRight className="h-3.5 w-3.5" />
+                                </Link>
+                              </div>
+                            </div>
+                          )}
+
+                          {which === "company" && (
+                            /* ─── COMPANY MEGA MENU ───
+                               Single group ABOUT US with About + Team + Careers. */
+                            <div className="w-[min(520px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-4 sm:p-5">
+                              <div className="mb-1 px-1 text-[10px] font-bold uppercase tracking-widest text-brand-magenta">
+                                About us
+                              </div>
+                              <div className="grid grid-cols-1 gap-1">
+                                <Link
+                                  href="/about"
+                                  onClick={() => setMegaOpen(null)}
+                                  className="group/co flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
+                                >
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-blue to-brand-cyan text-white shadow-sm group-hover/co:scale-110 transition-transform">
+                                    <Info className="h-4 w-4" />
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <div className="text-[13px] font-semibold leading-snug text-foreground/95 group-hover/co:text-foreground">
+                                      About
+                                    </div>
+                                    <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight">
+                                      Our story, mission & global team
+                                    </div>
+                                  </div>
+                                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover/co:opacity-100 transition-opacity shrink-0 mt-1" />
+                                </Link>
+                                <Link
+                                  href="/team"
+                                  onClick={() => setMegaOpen(null)}
+                                  className="group/co flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
+                                >
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-cyan to-brand-blue text-white shadow-sm group-hover/co:scale-110 transition-transform">
+                                    <Users className="h-4 w-4" />
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <div className="text-[13px] font-semibold leading-snug text-foreground/95 group-hover/co:text-foreground">
+                                      Team
+                                    </div>
+                                    <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight">
+                                      Engineers, designers & growth leads
+                                    </div>
+                                  </div>
+                                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover/co:opacity-100 transition-opacity shrink-0 mt-1" />
+                                </Link>
+                                <Link
+                                  href="/careers"
+                                  onClick={() => setMegaOpen(null)}
+                                  className="group/co flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
+                                >
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-pink to-brand-magenta text-white shadow-sm group-hover/co:scale-110 transition-transform">
+                                    <GraduationCap className="h-4 w-4" />
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <div className="text-[13px] font-semibold leading-snug text-foreground/95 group-hover/co:text-foreground">
+                                      Careers
+                                    </div>
+                                    <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight">
+                                      Open roles across UK, Pakistan & USA
+                                    </div>
+                                  </div>
+                                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover/co:opacity-100 transition-opacity shrink-0 mt-1" />
+                                </Link>
+                              </div>
+
+                              <div className="mt-3 pt-3 border-t border-border flex items-center justify-between px-1">
+                                <span className="text-[11px] text-muted-foreground">
+                                  Want to know who you&apos;ll be working with?
+                                </span>
+                                <Link
+                                  href="/about"
+                                  onClick={() => setMegaOpen(null)}
+                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-blue hover:underline"
+                                >
+                                  Meet ClickTake <ArrowUpRight className="h-3.5 w-3.5" />
+                                </Link>
+                              </div>
                             </div>
                           )}
                         </motion.div>
@@ -567,6 +762,130 @@ export function Navbar() {
                       )}
                     </AnimatePresence>
 
+                    {/* Solutions — accordion listing all 6 audience solutions */}
+                    <button
+                      onClick={() => setExpandedCategory(expandedCategory === "__solutions" ? null : "__solutions")}
+                      className="w-full flex items-center justify-between px-4 py-3 rounded-xl ct-hover font-semibold text-base"
+                    >
+                      <span>Solutions</span>
+                      <ChevronDown className={`h-5 w-5 transition-transform ${expandedCategory === "__solutions" ? "rotate-180" : ""}`} />
+                    </button>
+                    <AnimatePresence>
+                      {expandedCategory === "__solutions" && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pl-3 pr-1 pb-2 space-y-0.5">
+                            {SOLUTIONS.map((sol) => (
+                              <Link
+                                key={sol.slug}
+                                href={`/solutions/${sol.slug}`}
+                                onClick={() => setOpen(false)}
+                                className="flex items-start gap-2 px-3 py-2 rounded-lg ct-hover text-sm leading-tight"
+                              >
+                                <ChevronRight className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
+                                <div className="min-w-0 flex-1">
+                                  <div className="font-medium">{sol.title}</div>
+                                  <div className="text-[11px] text-muted-foreground mt-0.5 line-clamp-1">{sol.hero}</div>
+                                </div>
+                              </Link>
+                            ))}
+                            <Link
+                              href="/solutions"
+                              onClick={() => setOpen(false)}
+                              className="block px-3 py-2 rounded-lg text-xs font-semibold text-brand-blue"
+                            >
+                              View all solutions →
+                            </Link>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {/* Resources — accordion: Portfolio + Case Studies + Blog + Pricing */}
+                    <button
+                      onClick={() => setExpandedCategory(expandedCategory === "__resources" ? null : "__resources")}
+                      className="w-full flex items-center justify-between px-4 py-3 rounded-xl ct-hover font-semibold text-base"
+                    >
+                      <span>Resources</span>
+                      <ChevronDown className={`h-5 w-5 transition-transform ${expandedCategory === "__resources" ? "rotate-180" : ""}`} />
+                    </button>
+                    <AnimatePresence>
+                      {expandedCategory === "__resources" && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pl-3 pr-1 pb-2 space-y-0.5">
+                            <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-magenta">
+                              Showcase
+                            </div>
+                            <Link href="/portfolio" onClick={() => setOpen(false)} className="flex items-start gap-2 px-3 py-2 rounded-lg ct-hover text-sm">
+                              <ChevronRight className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
+                              <span className="font-medium">Portfolio</span>
+                            </Link>
+                            <Link href="/case-studies" onClick={() => setOpen(false)} className="flex items-start gap-2 px-3 py-2 rounded-lg ct-hover text-sm">
+                              <ChevronRight className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
+                              <span className="font-medium">Case Studies</span>
+                            </Link>
+                            <div className="px-3 py-1.5 mt-1 text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+                              Learn
+                            </div>
+                            <Link href="/blog" onClick={() => setOpen(false)} className="flex items-start gap-2 px-3 py-2 rounded-lg ct-hover text-sm">
+                              <ChevronRight className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
+                              <span className="font-medium">Blog</span>
+                            </Link>
+                            <Link href="/pricing" onClick={() => setOpen(false)} className="flex items-start gap-2 px-3 py-2 rounded-lg ct-hover text-sm">
+                              <ChevronRight className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
+                              <span className="font-medium">Pricing</span>
+                            </Link>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {/* Company — accordion: About + Team + Careers */}
+                    <button
+                      onClick={() => setExpandedCategory(expandedCategory === "__company" ? null : "__company")}
+                      className="w-full flex items-center justify-between px-4 py-3 rounded-xl ct-hover font-semibold text-base"
+                    >
+                      <span>Company</span>
+                      <ChevronDown className={`h-5 w-5 transition-transform ${expandedCategory === "__company" ? "rotate-180" : ""}`} />
+                    </button>
+                    <AnimatePresence>
+                      {expandedCategory === "__company" && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pl-3 pr-1 pb-2 space-y-0.5">
+                            <Link href="/about" onClick={() => setOpen(false)} className="flex items-start gap-2 px-3 py-2 rounded-lg ct-hover text-sm">
+                              <ChevronRight className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
+                              <span className="font-medium">About</span>
+                            </Link>
+                            <Link href="/team" onClick={() => setOpen(false)} className="flex items-start gap-2 px-3 py-2 rounded-lg ct-hover text-sm">
+                              <ChevronRight className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
+                              <span className="font-medium">Team</span>
+                            </Link>
+                            <Link href="/careers" onClick={() => setOpen(false)} className="flex items-start gap-2 px-3 py-2 rounded-lg ct-hover text-sm">
+                              <ChevronRight className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
+                              <span className="font-medium">Careers</span>
+                            </Link>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
                     {STARTER_KIT && (
                       <Link
                         href="/services/starter-kit"
@@ -582,15 +901,6 @@ export function Navbar() {
                     )}
 
                     <div className="border-t border-border mt-2 pt-2 space-y-0.5">
-                      <Link href="/solutions" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Solutions</Link>
-                      <Link href="/portfolio" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Work</Link>
-                      <Link href="/case-studies" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Case Studies</Link>
-                      <Link href="/pricing" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Pricing</Link>
-                      <Link href="/blog" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Blog</Link>
-                      <Link href="/resources" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Resources</Link>
-                      <Link href="/about" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">About</Link>
-                      <Link href="/team" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Team</Link>
-                      <Link href="/careers" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Careers</Link>
                       <Link href="/contact" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl ct-hover text-base">Contact</Link>
                     </div>
 

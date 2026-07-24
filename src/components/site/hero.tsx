@@ -1,12 +1,15 @@
 'use client'
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
-import { ArrowUpRight, Sparkles, Globe2, Star } from "lucide-react";
-import { STATS, SITE } from "@/lib/site-data";
-import { SectionReveal, CountUp } from "./scroll-animations";
+import { ArrowRight, Calendar, MapPin, Users } from "lucide-react";
+import { SITE } from "@/lib/site-data";
+import { SectionReveal } from "./scroll-animations";
 
-// Three.js canvas — must be client-only and lazy-loaded
+// Three.js canvas — must be client-only and lazy-loaded. Kept from the
+// previous hero so the floating geometric scene stays part of the brand
+// identity. It renders behind the new centered hero copy.
 const Hero3D = dynamic(() => import("./hero-3d").then(m => m.Hero3D), {
   ssr: false,
   loading: () => (
@@ -16,119 +19,105 @@ const Hero3D = dynamic(() => import("./hero-3d").then(m => m.Hero3D), {
   ),
 });
 
+/* Hero — new centered design (VLM analysis of the new preview URL).
+ * Layout: badge pill → 3-line headline → subtext → 2 CTA buttons → 3 trust
+ * indicators. All centered, max-w-4xl. Theme-aware via .glass + .ct-* tokens. */
 export function Hero() {
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden pt-28 sm:pt-32 pb-16">
-      {/* Hero gradient layers — blur radius reduced from 120px → 60px to avoid
-          GPU memory pressure on integrated graphics / low-end devices. */}
+    <section id="home" className="relative min-h-screen overflow-hidden pt-32 sm:pt-36 lg:pt-40 pb-20">
+      {/* Background gradient layers + faint grid + the brand 3D scene behind
+          the centered copy. Reduced blur radius (60px) to avoid GPU memory
+          pressure on integrated graphics. */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div className="absolute inset-0 grid-bg opacity-40" />
+        <div className="absolute inset-0 grid-bg opacity-30" />
         <div className="absolute -top-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-[#136DFF]/20 blur-[60px] animate-pulse-glow" />
         <div
           className="absolute top-1/3 -right-32 h-[24rem] w-[24rem] rounded-full bg-[#FF53A9]/20 blur-[60px] animate-pulse-glow"
           style={{ animationDelay: "1.5s" }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background" />
+        {/* Floating 3D geometric scene — sits behind the copy as ambient brand
+            texture. Pointer-events disabled so it never blocks the CTAs. */}
+        <div className="absolute inset-0 opacity-60">
+          <Hero3D />
+        </div>
       </div>
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 lg:grid-cols-2 lg:gap-12">
-        {/* Left: copy */}
-        <div className="relative z-10 text-center lg:text-left">
-          <SectionReveal variant="fadeUp">
-            <div className="inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs font-medium text-muted-foreground backdrop-blur-xl">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FF53A9] opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FF53A9]" />
-              </span>
-              <Sparkles className="h-3.5 w-3.5 text-[#FF53A9]" />
-              <span className="truncate">AI-powered agency · UK · Pakistan · USA · Dubai</span>
+      <div className="relative mx-auto max-w-4xl px-4 text-center">
+        {/* Badge pill — small blue dot + text, glass pill */}
+        <SectionReveal variant="fadeUp">
+          <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-xs sm:text-sm font-medium text-muted-foreground backdrop-blur-xl">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-blue opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-blue" />
+            </span>
+            <span>UK &amp; Pakistan Based Digital Growth Partner</span>
+          </div>
+        </SectionReveal>
+
+        {/* Headline — 3 lines, ultra-bold, centered. Lines 1-2 foreground,
+            line 3 cyan-blue gradient text. */}
+        <SectionReveal variant="fadeUp" delay={0.1}>
+          <h1 className="mt-6 sm:mt-8 text-4xl leading-[1.05] sm:text-6xl sm:leading-[1.05] lg:text-7xl lg:leading-[1.02] font-black tracking-tight">
+            <span className="block text-foreground">Build, Market &amp; Scale</span>
+            <span className="block text-foreground">Your Business with</span>
+            <span className="block bg-gradient-to-r from-brand-cyan via-brand-blue to-[#136DFF] bg-clip-text text-transparent animate-gradient">
+              ClickTake Technologies
+            </span>
+          </h1>
+        </SectionReveal>
+
+        {/* Subtext */}
+        <SectionReveal variant="fadeUp" delay={0.2}>
+          <p className="mt-6 sm:mt-8 mx-auto max-w-2xl text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed">
+            We are a full-stack digital agency that combines strategy, design, development, and AI
+            to help businesses grow online. From startups to enterprises, we deliver measurable results.
+          </p>
+        </SectionReveal>
+
+        {/* Two CTAs side by side, centered */}
+        <SectionReveal variant="fadeUp" delay={0.3}>
+          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="/contact"
+              className="group inline-flex items-center justify-center gap-2 rounded-xl gradient-bg px-6 sm:px-7 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white shadow-xl glow-brand hover:scale-[1.03] transition"
+            >
+              Book Free Consultation
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border ct-divider ct-surface px-6 sm:px-7 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-foreground backdrop-blur-xl hover:bg-foreground/[0.06] transition"
+            >
+              Get Free Audit
+            </Link>
+          </div>
+        </SectionReveal>
+
+        {/* Trust indicators — 3 items, small icons + text */}
+        <SectionReveal variant="fadeUp" delay={0.4}>
+          <div className="mt-10 sm:mt-12 flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-3 text-xs sm:text-sm text-muted-foreground">
+            <div className="inline-flex items-center gap-2">
+              <Calendar className="h-4 w-4 text-brand-blue" />
+              <span>Founded {SITE.founded}</span>
             </div>
-          </SectionReveal>
-
-          <SectionReveal variant="fadeUp" delay={0.1}>
-            <h1 className="mt-6 sm:mt-8 text-[2rem] leading-[1.1] sm:text-5xl sm:leading-[1.05] lg:text-7xl font-black tracking-tight">
-              <span className="block">We build</span>
-              <span className="block gradient-text animate-gradient">AI-powered products</span>
-              <span className="block">that ship value.</span>
-            </h1>
-          </SectionReveal>
-
-          <SectionReveal variant="fadeUp" delay={0.2}>
-            <p className="mt-5 sm:mt-6 max-w-xl mx-auto lg:mx-0 text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed">
-              ClickTake Technologies is a full-stack digital agency engineering websites, SaaS platforms,
-              mobile apps and growth systems for ambitious brands in{" "}
-              <span className="text-foreground font-semibold">Birmingham</span>,
-              <span className="text-foreground font-semibold"> Lahore</span>,
-              <span className="text-foreground font-semibold"> Austin</span> and
-              <span className="text-foreground font-semibold"> Dubai</span>.
-            </p>
-          </SectionReveal>
-
-          <SectionReveal variant="fadeUp" delay={0.3}>
-            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full gradient-bg px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-semibold text-white shadow-xl hover:scale-[1.03] transition glow-brand"
-              >
-                Start your project <ArrowUpRight className="h-4 w-4" />
-              </a>
-              <a
-                href="#work"
-                className="inline-flex items-center justify-center gap-2 rounded-full border ct-divider ct-surface px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-semibold backdrop-blur-xl hover:bg-foreground/[0.06] transition"
-              >
-                <Globe2 className="h-4 w-4" /> View our work
-              </a>
+            <div className="hidden sm:block h-4 w-px bg-border" />
+            <div className="inline-flex items-center gap-2">
+              <MapPin className="h-4 w-4 text-brand-pink" />
+              <span>UK &amp; Pakistan</span>
             </div>
-          </SectionReveal>
-
-          <SectionReveal variant="fadeUp" delay={0.4}>
-            <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 sm:gap-x-6 gap-y-2 text-xs sm:text-sm text-muted-foreground">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-[#FF53A9] text-[#FF53A9]" />
-                ))}
-                <span className="ml-2 text-foreground">5.0 from 80+ clients</span>
-              </div>
-              <div className="hidden sm:block h-4 w-px bg-border" />
-              <div><span className="text-foreground font-semibold">120+</span> projects shipped</div>
-              <div className="hidden sm:block h-4 w-px bg-border" />
-              <div><span className="text-foreground font-semibold">4</span> global offices</div>
+            <div className="hidden sm:block h-4 w-px bg-border" />
+            <div className="inline-flex items-center gap-2">
+              <Users className="h-4 w-4 text-brand-cyan" />
+              <span>Full-Stack Digital Team</span>
             </div>
-          </SectionReveal>
-        </div>
-
-        {/* Right: 3D scene */}
-        <SectionReveal variant="zoomIn" delay={0.3} className="relative h-[280px] sm:h-[420px] lg:h-[600px]">
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-[#136DFF]/20 to-[#FF53A9]/20 blur-3xl opacity-60" />
-          <div className="absolute inset-0">
-            <Hero3D />
           </div>
         </SectionReveal>
       </div>
 
-      {/* Stats strip with CountUp */}
-      <SectionReveal variant="fadeUp" delay={0.2} className="mt-12 sm:mt-16 lg:mt-24 mx-auto max-w-7xl px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-          {STATS.map((s) => {
-            const num = parseInt(s.value.replace(/\D/g, ""), 10) || 0;
-            const suffix = s.value.replace(/[0-9]/g, "");
-            return (
-              <div
-                key={s.label}
-                className="rounded-2xl glass p-4 sm:p-6 text-center hover:ct-divider transition"
-              >
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-black gradient-text">
-                  <CountUp to={num} suffix={suffix} />
-                </div>
-                <div className="mt-1 text-[11px] sm:text-xs lg:text-sm text-muted-foreground">{s.label}</div>
-              </div>
-            );
-          })}
-        </div>
-      </SectionReveal>
-
-      {/* Locations marquee */}
-      <div className="relative mt-12 sm:mt-16 overflow-hidden border-y ct-divider py-4">
+      {/* Locations marquee — kept from the previous hero so the brand's global
+          presence is reinforced at the bottom of the section. */}
+      <div className="relative mt-16 sm:mt-24 overflow-hidden border-y ct-divider py-4">
         <motion.div
           initial={{ x: 0 }}
           animate={{ x: "-50%" }}
