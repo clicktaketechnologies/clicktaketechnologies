@@ -485,7 +485,7 @@ export function ContactPage() {
                     <div className="font-bold">Chat with us</div>
                     <div className="text-xs opacity-80">Typically replies in a few minutes</div>
                   </div>
-                  <button onClick={() => setChatOpen(false)} className="rounded-full hover:bg-white/20 p-1">
+                  <button onClick={() => setChatOpen(false)} className="rounded-full hover:bg-white/20 hover:text-white p-1" aria-label="Close chat">
                     <X className="h-4 w-4" />
                   </button>
                 </div>
