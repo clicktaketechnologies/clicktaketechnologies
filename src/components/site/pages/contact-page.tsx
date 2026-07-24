@@ -8,9 +8,10 @@ import {
   Mail, Phone, MapPin, Clock, CheckCircle2, MessageSquare,
   Calendar, Send, X, AlertCircle, MessageCircle,
 } from "lucide-react";
-import {
-  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
-} from "../nx-page-layout";
+import{
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
+import { Nx3DScene } from "../nx-3d-scene";
+import { Nx3DCharacter } from "../nx-3d-character";
 import { TurnstileWidget } from "../turnstile-widget";
 import { toast } from "sonner";
 import {
@@ -131,6 +132,13 @@ export function ContactPage() {
 
   return (
     <NxPageLayout>
+        {/* 3D character — floats in hero area, lg+ only */}
+        <div className="pointer-events-none absolute right-0 top-24 lg:top-32 xl:top-40 z-[5] hidden lg:block" aria-hidden="true">
+          <Nx3DCharacter variant="contact" size="md" />
+        </div>
+        {/* 3D floating geometric accents */}
+        <Nx3DScene density="low" />
+
               {/* HERO */}
         <section className="relative overflow-hidden py-12 lg:py-16">
           <div className="absolute inset-0 pointer-events-none overflow-hidden">

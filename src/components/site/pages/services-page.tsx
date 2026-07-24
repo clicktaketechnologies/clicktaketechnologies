@@ -9,9 +9,9 @@ import {
   Palette, Video, Sparkles, ArrowUpRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import {
-  NxPageLayout, NxPageHero, NxPageSection, NxButton,
-} from "../nx-page-layout";
+import{
+  NxPageLayout, NxPageHero, NxPageSection, NxButton} from "../nx-page-layout";
+import { Nx3DScene } from "../nx-3d-scene";
 import {
   SERVICES,
   STARTER_KIT,
@@ -62,6 +62,7 @@ export function ServicesPage() {
   return (
     <NxPageLayout>
       <NxPageHero
+        character="services"
         eyebrow="What We Do"
         title={<>Services built for <span className="nx-text-orange-grad">modern brands.</span></>}
         subtitle={

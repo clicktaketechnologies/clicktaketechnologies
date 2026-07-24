@@ -9,16 +9,17 @@ import { NxTestimonials } from "@/components/site/nx-testimonials";
 import { NxFaq } from "@/components/site/nx-faq";
 import { NxCta } from "@/components/site/nx-cta";
 import { NxFooter } from "@/components/site/nx-footer";
+import { Nx3DScene } from "@/components/site/nx-3d-scene";
 
 /* Homepage — NEW competitor-inspired redesign (2024).
  *
- * Design language: Deep navy + orange accent + bento grids + bold heavy type.
+ * Design language: Deep navy + pink/blue/purple accent + bento grids + bold heavy type.
  * Inspired by: Vention (split hero, floating cards), Index.dev (navy + orange
  * + bento), Future Processing (orange CTA + split-view panels), Itransition
  * (pill tags, dark stat sections), Brocoders (bold typography).
  *
  * Section order:
- *  1. Hero (split layout, dark navy)
+ *  1. Hero (split layout, dark navy + 3D floating dashboard card)
  *  2. Logo cloud (tech partners marquee)
  *  3. Stats banner (4 oversized metrics)
  *  4. Services (bento grid with category tabs)
@@ -28,6 +29,10 @@ import { NxFooter } from "@/components/site/nx-footer";
  *  8. FAQ (accordion)
  *  9. CTA (orange gradient block + contact channels)
  * 10. Footer (dark navy, multi-column)
+ *
+ * 3D design: Each major section is wrapped in a relative container with a
+ * Nx3DScene background (floating geometric shapes in brand colors) for a
+ * cohesive 3D feel across the entire page.
  *
  * DARK MODE: The .theme-nx wrapper exposes --nx-* tokens that flip under
  * html.dark. Hero/CTA/Footer are always-dark (intentional). Light-surface
@@ -41,11 +46,41 @@ export default function Home() {
       <main>
         <NxHero />
         <NxLogoCloud />
-        <NxStats />
-        <NxServices />
-        <NxWhyChoose />
-        <NxProcess />
-        <NxTestimonials />
+        {/* Stats — with 3D floating accents */}
+        <div className="relative overflow-hidden">
+          <Nx3DScene density="low" corner="top-right" />
+          <div className="relative z-10">
+            <NxStats />
+          </div>
+        </div>
+        {/* Services — with 3D floating accents */}
+        <div className="relative overflow-hidden">
+          <Nx3DScene density="medium" />
+          <div className="relative z-10">
+            <NxServices />
+          </div>
+        </div>
+        {/* Why Choose — with 3D floating accents */}
+        <div className="relative overflow-hidden">
+          <Nx3DScene density="low" corner="bottom-left" />
+          <div className="relative z-10">
+            <NxWhyChoose />
+          </div>
+        </div>
+        {/* Process — with 3D floating accents */}
+        <div className="relative overflow-hidden">
+          <Nx3DScene density="medium" />
+          <div className="relative z-10">
+            <NxProcess />
+          </div>
+        </div>
+        {/* Testimonials — with 3D floating accents */}
+        <div className="relative overflow-hidden">
+          <Nx3DScene density="low" corner="top-left" />
+          <div className="relative z-10">
+            <NxTestimonials />
+          </div>
+        </div>
         <NxFaq />
         <NxCta />
       </main>

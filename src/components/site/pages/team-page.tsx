@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
-} from "../nx-page-layout";
+import{
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
+import { Nx3DScene } from "../nx-3d-scene";
+import { Nx3DCharacter } from "../nx-3d-character";
 import { motion } from "framer-motion";
 import {
   Sparkles, ArrowUpRight, Users, Code2, Megaphone, Palette, Settings,
@@ -71,6 +72,13 @@ export function TeamPage() {
 
   return (
     <NxPageLayout>
+        {/* 3D character — floats in hero area, lg+ only */}
+        <div className="pointer-events-none absolute right-0 top-24 lg:top-32 xl:top-40 z-[5] hidden lg:block" aria-hidden="true">
+          <Nx3DCharacter variant="team" size="md" />
+        </div>
+        {/* 3D floating geometric accents */}
+        <Nx3DScene density="low" />
+
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero */}
           <motion.div

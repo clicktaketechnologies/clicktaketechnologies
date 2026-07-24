@@ -6,9 +6,9 @@ import {
   ArrowUpRight, Building2, Star, TrendingUp, Code2, Megaphone,
 } from "lucide-react";
 import Link from "next/link";
-import {
-  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton,
-} from "../nx-page-layout";
+import{
+  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
+import { Nx3DScene } from "../nx-3d-scene";
 import { ABOUT_STATS, ABOUT_VALUES, SITE } from "@/lib/site-data";
 
 const ICONS: Record<string, any> = {
@@ -19,6 +19,7 @@ export function AboutPage() {
   return (
     <NxPageLayout>
       <NxPageHero
+        character="about"
         eyebrow="About ClickTake"
         title={<>We connect ambitious brands <span className="nx-text-orange-grad">in a better way.</span></>}
         subtitle={

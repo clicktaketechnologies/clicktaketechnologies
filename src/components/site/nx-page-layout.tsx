@@ -6,6 +6,8 @@ import { ArrowRight, ChevronRight } from "lucide-react"
 import { NxNavbar } from "./nx-navbar"
 import { NxFooter } from "./nx-footer"
 import { ScrollProgressBar, ScrollToTop } from "./scroll-animations"
+import { Nx3DCharacter } from "./nx-3d-character"
+import { Nx3DScene } from "./nx-3d-scene"
 
 /* NX PAGE LAYOUT — wraps every inner page with the new competitor-inspired
  * design system. Provides:
@@ -60,6 +62,32 @@ type NxPageHeroProps = {
   align?: "center" | "left"
   /** Optional stats row below hero text */
   stats?: { value: string; label: string }[]
+  /**
+   * 3D character variant — when set, the hero splits into a 2-col layout
+   * (text + character). Choose the variant to match the page topic:
+   *   "about" | "services" | "solutions" | "careers" | "case-studies" |
+   *   "blog" | "contact" | "pricing" | "portfolio" | "team" | "resources" |
+   *   "legal" | "service-detail" | "solution-detail" | "blog-post" | "default"
+   */
+  character?:
+    | "about"
+    | "services"
+    | "solutions"
+    | "careers"
+    | "case-studies"
+    | "blog"
+    | "contact"
+    | "pricing"
+    | "portfolio"
+    | "team"
+    | "resources"
+    | "legal"
+    | "service-detail"
+    | "solution-detail"
+    | "blog-post"
+    | "default"
+  /** Show the floating-3D-shapes scene behind the hero (default: true) */
+  scene?: boolean
 }
 
 export function NxPageHero({
@@ -70,8 +98,14 @@ export function NxPageHero({
   ctas,
   align = "center",
   stats,
+  character,
+  scene = true,
 }: NxPageHeroProps) {
   const isCenter = align === "center"
+  const hasChar = Boolean(character)
+  // If a character is set, force left-align so we have room for the visual
+  const effectiveAlign = hasChar ? "left" : align
+  const isEffCenter = effectiveAlign === "center"
   return (
     <section className="relative overflow-hidden nx-hero-bg pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-20">
       {/* Subtle dot grid + orbs (matches homepage hero) */}
@@ -85,104 +119,123 @@ export function NxPageHero({
         className="absolute top-1/3 left-1/2 h-72 w-72 rounded-full bg-[#9B3DFF]/15 blur-3xl nx-orb pointer-events-none"
         style={{ animationDelay: "6s" }}
       />
+      {/* 3D scene — floating geometric accents */}
+      {scene && <Nx3DScene density="low" />}
 
       <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
-        {/* Breadcrumbs */}
-        {crumbs && crumbs.length > 0 && (
-          <nav
-            aria-label="Breadcrumb"
-            className={`flex items-center gap-1.5 text-xs text-white/60 ${isCenter ? "justify-center" : ""}`}
-          >
-            {crumbs.map((c, i) => (
-              <span key={i} className="inline-flex items-center gap-1.5">
-                {i > 0 && <ChevronRight className="h-3 w-3 text-white/30" />}
-                {c.href ? (
-                  <Link href={c.href} className="hover:text-white transition">
-                    {c.label}
-                  </Link>
-                ) : (
-                  <span className="text-white/80">{c.label}</span>
-                )}
-              </span>
-            ))}
-          </nav>
-        )}
+        <div className={hasChar ? "grid lg:grid-cols-2 gap-10 lg:gap-16 items-center" : ""}>
+          {/* ─── Copy column ─── */}
+          <div>
+            {/* Breadcrumbs */}
+            {crumbs && crumbs.length > 0 && (
+              <nav
+                aria-label="Breadcrumb"
+                className={`flex items-center gap-1.5 text-xs text-white/60 ${isEffCenter ? "justify-center" : ""}`}
+              >
+                {crumbs.map((c, i) => (
+                  <span key={i} className="inline-flex items-center gap-1.5">
+                    {i > 0 && <ChevronRight className="h-3 w-3 text-white/30" />}
+                    {c.href ? (
+                      <Link href={c.href} className="hover:text-white transition">
+                        {c.label}
+                      </Link>
+                    ) : (
+                      <span className="text-white/80">{c.label}</span>
+                    )}
+                  </span>
+                ))}
+              </nav>
+            )}
 
-        {/* Eyebrow */}
-        {eyebrow && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className={`mt-4 inline-flex items-center gap-2 rounded-full border border-[#FF53A9]/30 bg-[#FF53A9]/10 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-[#FF8AC4] backdrop-blur ${
-              isCenter ? "flex mx-auto" : ""
-            }`}
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#FF53A9] animate-pulse" />
-            {eyebrow}
-          </motion.div>
-        )}
+            {/* Eyebrow */}
+            {eyebrow && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className={`mt-4 inline-flex items-center gap-2 rounded-full border border-[#FF53A9]/30 bg-[#FF53A9]/10 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-[#FF8AC4] backdrop-blur ${
+                  isEffCenter ? "flex mx-auto" : ""
+                }`}
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FF53A9] animate-pulse" />
+                {eyebrow}
+              </motion.div>
+            )}
 
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.05 }}
-          className={`mt-5 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-white leading-[1.08] ${
-            isCenter ? "text-center mx-auto max-w-4xl" : "max-w-3xl"
-          }`}
-        >
-          {title}
-        </motion.h1>
+            {/* Title */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.05 }}
+              className={`mt-5 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-white leading-[1.08] ${
+                isEffCenter ? "text-center mx-auto max-w-4xl" : "max-w-3xl"
+              }`}
+            >
+              {title}
+            </motion.h1>
 
-        {/* Subtitle */}
-        {subtitle && (
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className={`mt-5 text-base sm:text-lg text-white/70 leading-relaxed ${
-              isCenter ? "text-center mx-auto max-w-2xl" : "max-w-2xl"
-            }`}
-          >
-            {subtitle}
-          </motion.p>
-        )}
+            {/* Subtitle */}
+            {subtitle && (
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+                className={`mt-5 text-base sm:text-lg text-white/70 leading-relaxed ${
+                  isEffCenter ? "text-center mx-auto max-w-2xl" : "max-w-2xl"
+                }`}
+              >
+                {subtitle}
+              </motion.p>
+            )}
 
-        {/* CTAs */}
-        {ctas && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.25 }}
-            className={`mt-8 flex flex-col sm:flex-row gap-3 ${
-              isCenter ? "justify-center" : ""
-            }`}
-          >
-            {ctas}
-          </motion.div>
-        )}
+            {/* CTAs */}
+            {ctas && (
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className={`mt-8 flex flex-col sm:flex-row gap-3 ${
+                  isEffCenter ? "justify-center" : ""
+                }`}
+              >
+                {ctas}
+              </motion.div>
+            )}
 
-        {/* Stats row */}
-        {stats && stats.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.35 }}
-            className={`mt-12 grid grid-cols-2 ${stats.length >= 4 ? "lg:grid-cols-4" : stats.length === 3 ? "lg:grid-cols-3" : ""} gap-4`}
-          >
-            {stats.map((s, i) => (
-              <div key={i} className="text-center sm:text-left">
-                <div className="nx-stat-num text-3xl sm:text-4xl lg:text-5xl">
-                  {s.value}
-                </div>
-                <div className="mt-1 text-xs sm:text-sm text-white/60 uppercase tracking-wider">
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        )}
+            {/* Stats row */}
+            {stats && stats.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.35 }}
+                className={`mt-12 grid grid-cols-2 ${stats.length >= 4 ? "lg:grid-cols-4" : stats.length === 3 ? "lg:grid-cols-3" : ""} gap-4`}
+              >
+                {stats.map((s, i) => (
+                  <div key={i} className="text-center sm:text-left">
+                    <div className="nx-stat-num text-3xl sm:text-4xl lg:text-5xl">
+                      {s.value}
+                    </div>
+                    <div className="mt-1 text-xs sm:text-sm text-white/60 uppercase tracking-wider">
+                      {s.label}
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </div>
+
+          {/* ─── 3D character column ─── */}
+          {hasChar && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="relative hidden lg:flex items-center justify-center min-h-[400px]"
+            >
+              <Nx3DCharacter variant={character} size="lg" />
+            </motion.div>
+          )}
+        </div>
       </div>
     </section>
   )
