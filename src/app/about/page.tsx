@@ -5,7 +5,7 @@ import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 export const metadata: Metadata = {
   title: "About — AI Digital Agency",
   description:
-    "ClickTake Technologies is a multi-region AI-powered digital agency founded in 2020. With registered HQ in Birmingham UK and engineering hubs in Multan (Pakistan), Austin TX (USA) and Dubai (UAE), we ship AI products, SaaS platforms and growth systems for ambitious brands across four continents. Meet the team, values and story behind ClickTake.",
+    "ClickTake Technologies is a multi-region AI-powered digital agency founded in 2019. With registered HQ in Birmingham UK and engineering hubs in Multan (Pakistan), Austin TX (USA) and Dubai (UAE), we ship AI products, SaaS platforms and growth systems for ambitious brands across four continents. Meet the team, values and story behind ClickTake.",
   keywords: [
     "about ClickTake Technologies",
     "digital agency Birmingham",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About ClickTake — Multi-Region AI-Powered Digital Agency",
     description:
-      "Founded 2020. Teams in Birmingham, Multan, Austin and Dubai. Building AI-powered websites, SaaS platforms and growth systems across four continents.",
+      "Founded 2019. Teams in Birmingham, Multan, Austin and Dubai. Building AI-powered websites, SaaS platforms and growth systems across four continents.",
     url: "https://clicktaketech.com/about",
     type: "website",
     locale: "en_GB",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About ClickTake Technologies",
     description:
-      "Multi-region AI-powered digital agency — Birmingham · Multan · Austin · Dubai. Founded 2020.",
+      "Multi-region AI-powered digital agency — Birmingham · Multan · Austin · Dubai. Founded 2019.",
   },
   other: {
     "geo.region": "GB-PK-US-AE",

@@ -176,10 +176,14 @@ export async function GET() {
             description: "x402 protocol specification",
             url: "https://x402.org",
           },
-          // MPP extension for the payable operation
-          "x-payment-info": {
+          // MPP extension for the payable operation.
+            // Per MPP spec, `method` is one of: tempo, stripe, lightning, card.
+            // Audit expects a STRING, not an array. We pick "lightning" as the
+            // primary method (matches our x402 integration which routes payments
+            // over the Lightning Network via USDC on Base).
+            "x-payment-info": {
             intent: "charge",
-            method: ["tempo", "lightning"],
+            method: "lightning",
             amount: 0.01,
             currency: "USD",
             description:

@@ -70,6 +70,15 @@ export async function GET() {
         },
       ],
     },
+    {
+      anchor: AGENT.origin + "/.well-known/agent-card.json",
+      "service-desc": [
+        { href: "https://a2a-protocol.org/latest/specification/", type: "text/html" },
+      ],
+      "service-doc": [
+        { href: "https://a2a-protocol.org/latest/topics/agent-discovery/", type: "text/html" },
+      ],
+    },
   ];
 
   return NextResponse.json(
