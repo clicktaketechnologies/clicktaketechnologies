@@ -1,0 +1,20 @@
+HTTP/2 200 
+date: Fri, 24 Jul 2026 06:52:28 GMT
+content-type: text/html; charset=utf-8
+cache-control: s-maxage=31536000
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+link: <https://clicktaketech.com/.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"; title="ClickTake API Catalog (RFC 9727)", <https://clicktaketech.com/openapi.json>; rel="service-desc"; type="application/vnd.oai.openapi+json;version=3.1"; title="OpenAPI 3.1 specification", <https://clicktaketech.com/services>; rel="service-doc"; type="text/html"; title="API & services documentation", <https://clicktaketech.com/api/health>; rel="status"; type="application/json"; title="Service health endpoint", <https://clicktaketech.com/.well-known/oauth-authorization-server>; rel="oauth-authorization-server"; type="application/json"; title="OAuth 2.0 Authorization Server Metadata (RFC 8414)", <https://clicktaketech.com/.well-known/oauth-protected-resource>; rel="oauth-protected-resource"; type="application/json"; title="OAuth 2.0 Protected Resource Metadata (RFC 9728)", <https://clicktaketech.com/.well-known/mcp/server-card.json>; rel="mcp-server"; type="application/json"; title="MCP Server Card (SEP-1649)", <https://clicktaketech.com/.well-known/agent-skills/index.json>; rel="agent-skills"; type="application/json"; title="Agent Skills Discovery Index", <https://clicktaketech.com/auth.md>; rel="https://workos.com/auth.md"; type="text/markdown"; title="Agent registration instructions (auth.md)"
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+vary: Accept
+permissions-policy: camera=(), microphone=(), geolocation=(), browsing-topics=(), interest-cohort=()
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-nextjs-cache: MISS
+x-nextjs-prerender: 1
+x-nextjs-stale-time: 300
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=XLwuofABwa3mSXn6Db9gb1WiUs8q0UYsDes5%2BZXtmPcJD0Jw2mAQfgNOnQHX6MvNXVsiZ%2BsA1yfXjZXHU5Yu6ecAqCShil7YFdg11dFfsd%2BmUg1aXZ%2B5fUIbQV9cvhdLits4VA%3D%3D"}]}
+server: cloudflare
+cf-ray: a2010094eb3f84fc-HKG
+alt-svc: h3=":443"; ma=86400
+
