@@ -3,6 +3,29 @@ import { notFound } from "next/navigation";
 import { ServiceDetailPage } from "@/components/site/pages/service-detail-page";
 import { DeepDiveLayout } from "@/components/site/deep-dive/deep-dive-layout";
 import { llmDeepDive } from "@/content/deep-dive/llm";
+import { aiChatbotsDeepDive } from "@/content/deep-dive/ai-chatbots";
+import { aiPromptEngineeringDeepDive } from "@/content/deep-dive/ai-prompt-engineering";
+import { aiCvNlpDeepDive } from "@/content/deep-dive/ai-cv-nlp";
+import { aiAutomationDeepDive } from "@/content/deep-dive/ai-automation";
+import { webFullStackDeepDive } from "@/content/deep-dive/web-full-stack";
+import { webSaasDeepDive } from "@/content/deep-dive/web-saas";
+import { webAuthDeepDive } from "@/content/deep-dive/web-auth";
+import { webPythonBackendDeepDive } from "@/content/deep-dive/web-python-backend";
+import { webWordpressDeepDive } from "@/content/deep-dive/web-wordpress";
+import { webEcommerceDeepDive } from "@/content/deep-dive/web-ecommerce";
+import { webCustomSoftwareDeepDive } from "@/content/deep-dive/web-custom-software";
+import { webMaintenanceDeepDive } from "@/content/deep-dive/web-maintenance";
+import { webRedesignDeepDive } from "@/content/deep-dive/web-redesign";
+import { webDomainHostingDeepDive } from "@/content/deep-dive/web-domain-hosting";
+import { paidAdsDeepDive } from "@/content/deep-dive/digital-marketing-paid-advertising";
+import { contentStrategyDeepDive } from "@/content/deep-dive/digital-marketing-content-strategy";
+import { croDeepDive } from "@/content/deep-dive/digital-marketing-cro";
+import { seoDeepDive } from "@/content/deep-dive/seo";
+import { socialMediaDeepDive } from "@/content/deep-dive/digital-marketing-social-media";
+import { graphicDesignDeepDive } from "@/content/deep-dive/creative-graphic-design";
+import { webDesignDeepDive } from "@/content/deep-dive/creative-web-design";
+import { videoProductionDeepDive } from "@/content/deep-dive/creative-video-production";
+import { starterKitDeepDive } from "@/content/deep-dive/starter-kit";
 import { SERVICES, CATEGORY_STYLES, SITE } from "@/lib/site-data";
 import type { DeepDiveContent } from "@/components/site/deep-dive/deep-dive-types";
 import {
@@ -23,6 +46,29 @@ import {
  */
 const DEEP_DIVE_CONTENT: Record<string, DeepDiveContent> = {
   "ai/llm": llmDeepDive,
+  "ai/chatbots": aiChatbotsDeepDive,
+  "ai/prompt-engineering": aiPromptEngineeringDeepDive,
+  "ai/cv-nlp": aiCvNlpDeepDive,
+  "ai/automation": aiAutomationDeepDive,
+  "web/full-stack": webFullStackDeepDive,
+  "web/saas": webSaasDeepDive,
+  "web/auth": webAuthDeepDive,
+  "web/python-backend": webPythonBackendDeepDive,
+  "web/wordpress": webWordpressDeepDive,
+  "web/ecommerce": webEcommerceDeepDive,
+  "web/custom-software": webCustomSoftwareDeepDive,
+  "web/maintenance": webMaintenanceDeepDive,
+  "web/redesign": webRedesignDeepDive,
+  "web/domain-hosting": webDomainHostingDeepDive,
+  "digital-marketing/paid-advertising": paidAdsDeepDive,
+  "digital-marketing/content-strategy": contentStrategyDeepDive,
+  "digital-marketing/cro": croDeepDive,
+  "seo": seoDeepDive,
+  "digital-marketing/social-media": socialMediaDeepDive,
+  "creative/graphic-design": graphicDesignDeepDive,
+  "creative/web-design": webDesignDeepDive,
+  "creative/video-production": videoProductionDeepDive,
+  "starter-kit": starterKitDeepDive,
 };
 
 interface Params { params: Promise<{ slug?: string[] }> }

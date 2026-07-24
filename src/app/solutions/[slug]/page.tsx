@@ -1,8 +1,37 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SolutionDetailPage } from "@/components/site/pages/solution-detail-page";
-import { JsonLd, buildBreadcrumbJsonLd, buildServiceJsonLd } from "@/components/site/json-ld";
+import { DeepDiveLayout } from "@/components/site/deep-dive/deep-dive-layout";
+import {
+  JsonLd,
+  buildBreadcrumbJsonLd,
+  buildServiceJsonLd,
+  buildFaqJsonLd,
+} from "@/components/site/json-ld";
 import { SOLUTIONS, SITE } from "@/lib/site-data";
+import type { DeepDiveContent } from "@/components/site/deep-dive/deep-dive-types";
+
+import { startupsSolutionDeepDive } from "@/content/deep-dive/sol-startups";
+import { localBusinessesSolutionDeepDive } from "@/content/deep-dive/sol-local-businesses";
+import { ecommerceBrandsSolutionDeepDive } from "@/content/deep-dive/sol-ecommerce-brands";
+import { repairShopsSolutionDeepDive } from "@/content/deep-dive/sol-repair-shops";
+import { ukBusinessesSolutionDeepDive } from "@/content/deep-dive/sol-uk-businesses";
+import { agenciesSolutionDeepDive } from "@/content/deep-dive/sol-agencies";
+
+/**
+ * Map of solution slugs that have full long-form "Ultimate Guide" content
+ * authored. When a slug is in this map, the route renders DeepDiveLayout
+ * with the deep-dive content + FAQ JSON-LD schema. Pages not in this map
+ * continue to render the existing SolutionDetailPage.
+ */
+const SOLUTION_DEEP_DIVE: Record<string, DeepDiveContent> = {
+  startups: startupsSolutionDeepDive,
+  "local-businesses": localBusinessesSolutionDeepDive,
+  "ecommerce-brands": ecommerceBrandsSolutionDeepDive,
+  "repair-shops": repairShopsSolutionDeepDive,
+  "uk-businesses": ukBusinessesSolutionDeepDive,
+  agencies: agenciesSolutionDeepDive,
+};
 
 interface Params { params: Promise<{ slug: string }> }
 
@@ -61,6 +90,25 @@ export default async function Page({ params }: Params) {
     providerName: SITE.name,
   });
 
+  // ── Deep-Dive path: long-form "Ultimate Guide" pages ──────────────
+  const deepDive = SOLUTION_DEEP_DIVE[slug];
+  if (deepDive) {
+    const faqItems = (deepDive.faq?.categories ?? []).flatMap((c) =>
+      c.questions.map((q) => ({ q: q.q, a: q.a }))
+    );
+    const schemas: Record<string, unknown>[] = [breadcrumb, serviceSchema];
+    if (faqItems.length > 0) {
+      schemas.push(buildFaqJsonLd(faqItems));
+    }
+    return (
+      <>
+        <JsonLd data={schemas} />
+        <DeepDiveLayout content={deepDive} />
+      </>
+    );
+  }
+
+  // ── Legacy path: existing SolutionDetailPage ──────────────────────
   return (
     <>
       <JsonLd data={[breadcrumb, serviceSchema]} />
