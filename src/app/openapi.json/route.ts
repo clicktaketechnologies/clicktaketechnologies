@@ -27,6 +27,17 @@ export async function GET() {
         url: `${AGENT.origin}/legal`,
       },
     },
+    // MPP (Machine Payment Protocol) top-level service info.
+    // @see https://mpp.dev
+    // @see https://paymentauth.org/draft-payment-discovery-00.txt
+    "x-service-info": {
+      name: "ClickTake Technologies Public API",
+      categories: ["lead-capture", "content-delivery", "site-search", "premium-content"],
+      payment_protocols_supported: ["x402", "mpp"],
+      default_currency: "USD",
+      base_url: `${AGENT.origin}/api`,
+      documentation: AGENT.apiDocsUrl,
+    },
     servers: [{ url: AGENT.origin + "/api", description: "Production" }],
     components: {
       securitySchemes: {
@@ -173,6 +184,8 @@ export async function GET() {
             currency: "USD",
             description:
               "Premium content access. Per-request charge via x402.",
+            payment_protocol: "x402",
+            facilitator: "https://facilitator.example.com",
           },
           responses: {
             "200": {

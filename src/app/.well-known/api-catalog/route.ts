@@ -40,6 +40,17 @@ export async function GET() {
       status: [{ href: AGENT.healthUrl, type: "application/json" }],
       "payment-protocol": [
         { href: "https://x402.org", type: "text/html", name: "x402" },
+        { href: AGENT.origin + "/.well-known/x402.json", type: "application/json", name: "x402-discovery" },
+      ],
+    },
+    {
+      anchor: AGENT.origin + "/.well-known/x402.json",
+      "service-desc": [
+        { href: "https://x402.org", type: "text/html" },
+      ],
+      "service-doc": [{ href: "https://docs.x402.org", type: "text/html" }],
+      "payment-protocol": [
+        { href: "https://x402.org", type: "text/html", name: "x402" },
       ],
     },
     {
