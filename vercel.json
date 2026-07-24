@@ -1,11 +1,69 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "regions": ["sfo1"],
+  "buildCommand": "next build",
+  "devCommand": "next dev -p 3000",
+  "installCommand": "bun install",
+  "outputDirectory": ".next",
+  "regions": ["sfo1", "lhr1", "iad1"],
+  "functionFailureThreshold": 1,
+  "functions": {
+    "src/app/api/**/route.ts": {
+      "maxDuration": 60,
+      "memory": 1024
+    },
+    "src/app/api/cron/**/route.ts": {
+      "maxDuration": 60,
+      "memory": 512
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), browsing-topics=(), interest-cohort=()" },
+        { "key": "X-Robots-Tag", "value": "index, follow" }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/admin/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/www.clicktaketech.com/:path*",
+      "destination": "https://clicktaketech.com/:path*",
+      "permanent": true,
+      "statusCode": 308
+    }
+  ],
   "crons": [
     {
       "path": "/api/cron/provider-health?token=bc5897828779be9dac20963c",
       "schedule": "0 9 * * *"
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": true
+  },
+  "github": {
+    "silent": false,
+    "autoAlias": true
+  },
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "skipDrafts": false
 }

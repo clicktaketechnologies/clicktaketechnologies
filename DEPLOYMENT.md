@@ -1,110 +1,200 @@
 # Deployment Guide — ClickTake Technologies
 
-This project uses a **hybrid deployment**:
+This project uses a **dual-platform production deployment**:
 
 | Component | Host | Why |
 |-----------|------|-----|
-| Frontend (public pages, /, /services, /about, /contact, /portfolio, etc.) | Cloudflare Workers | Edge CDN, fast global TTFB, free tier |
-| Backend (/api/*, /admin/*) | Render | Full Node.js runtime, native Postgres TCP, no socket-adapter issues |
+| Edge CDN + public pages (`/`, `/services`, `/about`, `/contact`, `/portfolio`, `/solutions`, `/pricing`, `/team`, `/careers`, `/blog`, `/case-studies`, etc.) | **Cloudflare Workers** | Edge CDN, fast global TTFB, free tier, custom domain |
+| Full-stack runtime (`/api/*`, `/admin/*`, SSR with DB access) | **Vercel** | Native Next.js platform, serverless functions, automatic Postgres pooling, no socket-adapter issues |
 
 The Cloudflare Worker serves public pages directly and proxies all `/api/*` and
-`/admin/*` requests to the Render backend via `src/middleware.ts`.
+`/admin/*` requests to the Vercel backend via `src/middleware.ts`.
+
+> **Migration note (July 2026):** The backend was previously hosted on Render.
+> It has been moved to Vercel for tighter Next.js integration (ISR, Edge
+> Functions, automatic preview deployments on every PR). The Render service
+> can be decommissioned once the Vercel deployment is verified live.
 
 ---
 
-## Part 1 — Deploy Backend to Render
+## Part 1 — One-time setup (skip if already done)
 
-### 1.1 Push to GitHub
+### 1.1 Install CLIs + authenticate
+
 ```bash
-git remote add origin https://github.com/<your-org>/clicktake-web.git
-git push -u origin main
+# Cloudflare
+bunx wrangler login
+# (or export CLOUDFLARE_API_TOKEN=cfut_... for CI)
+
+# Vercel
+bunx vercel login
+# (or export VERCEL_TOKEN=vercel_... for CI)
 ```
 
-### 1.2 Create Render Web Service
-1. Go to https://dashboard.render.com → New → Blueprint
-2. Select your GitHub repo
-3. Render detects `render.yaml` and creates a `clicktake-api` web service
-4. Set the following env vars in the Render dashboard (under Environment):
+### 1.2 Link the Vercel project (first time only)
 
-| Variable | Value | How to generate |
-|----------|-------|-----------------|
-| `DATABASE_URL` | `postgresql://...` | Your Supabase/Neon Postgres connection string |
-| `DIRECT_URL` | same as `DATABASE_URL` | Same connection string |
-| `NEXTAUTH_SECRET` | random 32+ chars | `openssl rand -base64 32` |
-| `NEXTAUTH_URL` | `https://clicktake-api.onrender.com` | Your Render URL |
-| `SUPERADMIN_EMAIL` | `admin@clicktaketech.com` | Default admin email |
-| `SUPERADMIN_PASSWORD` | `Admin@2026` (change on first login) | Default admin password |
-| `PROVIDER_CREDENTIALS_ENCRYPTION_KEY` | 64-char hex | `openssl rand -hex 32` |
-| `MAIL_FROM` | `ClickTake <noreply@clicktaketech.com>` | From address for emails |
-| `MIGRATE_KEY` | `migrate_<random>` | `echo "migrate_$(openssl rand -hex 12)"` |
-| `PORT` | `10000` | Render's default |
+```bash
+bunx vercel link
+# → Use existing project: clicktake-web
+# (or accept "create new project" the first time)
+```
 
-5. Deploy. First build takes ~3-5 minutes.
+### 1.3 Set production env vars
 
-### 1.3 Run Database Migration (one-time)
-Once Render is up, run the migration script to create all DB tables:
+Copy `.env.production.example` → `.env.production` and fill in the values.
+Then push them to both platforms:
+
+```bash
+# Cloudflare Worker (public + the BACKEND_URL secret)
+bunx wrangler secret put NEXTAUTH_SECRET            < .env.production
+bunx wrangler secret put DATABASE_URL               < .env.production
+bunx wrangler secret put SUPERADMIN_PASSWORD        < .env.production
+bunx wrangler secret put PROVIDER_CREDENTIALS_ENCRYPTION_KEY < .env.production
+bunx wrangler secret put TURNSTILE_SECRET_KEY       < .env.production
+bunx wrangler secret put CRON_SECRET                < .env.production
+
+# Vercel — pull from .env.production automatically
+bunx vercel env pull .env.local --environment=production
+# Or set each via dashboard: https://vercel.com/clicktake/clicktake-web/settings/environment-variables
+```
+
+### 1.4 Run database migration (one-time)
+
+Once the DB is reachable from Vercel, run the migration script to create all
+41 tables required by the Drizzle schema (idempotent — safe to re-run):
 
 ```bash
 DATABASE_URL="postgresql://..." npx tsx scripts/migrate-db-standalone.ts
 ```
 
-This creates all 41 tables required by the Drizzle schema. Idempotent — safe to
-re-run.
+### 1.5 Seed the super-admin (one-time)
 
-### 1.4 Verify Backend
 ```bash
-curl https://clicktake-api.onrender.com/api/health
-# Expected: {"ok":true,"service":"clicktake-api",...}
-
-curl https://clicktake-api.onrender.com/api/auth/csrf
-# Expected: {"csrfToken":"..."}
+DATABASE_URL="postgresql://..." SUPERADMIN_EMAIL=admin@clicktaketech.com \
+  SUPERADMIN_PASSWORD='...' bunx tsx scripts/seed-admin.ts
 ```
 
 ---
 
-## Part 2 — Update Cloudflare Worker
+## Part 2 — Daily deploy (the easy way)
 
-Once Render is live, update the Cloudflare Worker to proxy to it:
+One script does everything: build Vercel → deploy Vercel → build Cloudflare →
+set `BACKEND_URL` → deploy Cloudflare.
 
-### 2.1 Set BACKEND_URL on Cloudflare
 ```bash
-CLOUDFLARE_API_TOKEN=cfut_... bunx wrangler secret put BACKEND_URL
-# Enter: https://clicktake-api.onrender.com
+export CLOUDFLARE_API_TOKEN=cfut_...
+export VERCEL_TOKEN=vercel_...
+
+bash scripts/deploy-production.sh
 ```
 
-### 2.2 (Optional) Rebuild + Redeploy Cloudflare
-The middleware reads `BACKEND_URL` at runtime, so you only need to set the
-secret — no rebuild needed. But to be safe:
+The script:
+1. Builds Next.js with `next build` (for Vercel)
+2. Deploys to Vercel production (`vercel deploy --prod`)
+3. Builds the OpenNext bundle (for Cloudflare, with the db stub)
+4. Sets the `BACKEND_URL` secret on the Cloudflare Worker to the new Vercel URL
+5. Deploys the new Worker version
+
+Total time: ~4–6 minutes.
+
+---
+
+## Part 3 — Manual deploy (step by step)
+
+If you prefer to run each step yourself:
+
+### 3.1 Deploy to Vercel
+
+```bash
+bun run build:vercel
+bunx vercel --prod --yes
+# Note the production URL printed at the end, e.g. https://clicktake.vercel.app
+```
+
+### 3.2 Repoint the Cloudflare Worker → Vercel
+
+```bash
+# Set the BACKEND_URL secret to the Vercel URL
+echo "https://clicktake.vercel.app" | bunx wrangler secret put BACKEND_URL
+```
+
+### 3.3 Deploy the Cloudflare Worker
 
 ```bash
 bun run deploy:cloudflare
+# (builds OpenNext bundle + runs wrangler deploy)
 ```
 
-### 2.3 Verify Live Site
+### 3.4 Verify
+
 ```bash
-curl https://clicktaketech.com/
-# 200 — public page served from Cloudflare
-
-curl https://clicktaketech.com/api/auth/csrf
-# {"csrfToken":"..."} — proxied to Render
-
-curl -X POST https://clicktaketech.com/api/auth/callback/credentials \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "csrfToken=...&email=admin@clicktaketech.com&password=Admin@2026&json=true"
-# {"url":"https://clicktaketech.com/admin"} — login works!
+curl -sI https://clicktaketech.com/                          | head -1   # HTTP/2 200
+curl -s  https://clicktaketech.com/api/health                | head -c 100   # {"ok":true,...}
+curl -s  https://clicktaketech.com/api/auth/csrf             | head -c 100   # {"csrfToken":"..."}
+curl -sI https://clicktake.vercel.app/api/health             | head -1   # HTTP/2 200
 ```
+
+---
+
+## Part 4 — Smoke test
+
+After deploy, run this end-to-end check:
+
+```bash
+# Public pages
+for path in / /services /solutions /pricing /team /careers /blog /case-studies /contact; do
+  status=$(curl -sI -o /dev/null -w '%{http_code}' "https://clicktaketech.com${path}")
+  printf '  %-25s %s\n' "$path" "$status"
+done
+
+# Service detail pages (sample)
+for slug in ai/automation web/wordpress digital-marketing/seo-services creative/web-design web/starter-kit; do
+  status=$(curl -sI -o /dev/null -w '%{http_code}' "https://clicktaketech.com/services/${slug}")
+  printf '  /services/%-22s %s\n' "$slug" "$status"
+done
+
+# Solution pages
+for slug in startups local-businesses ecommerce-brands repair-shops uk-businesses agencies; do
+  status=$(curl -sI -o /dev/null -w '%{http_code}' "https://clicktaketech.com/solutions/${slug}")
+  printf '  /solutions/%-22s %s\n' "$slug" "$status"
+done
+
+# API endpoints
+curl -s https://clicktaketech.com/api/health | head -c 200
+echo
+curl -s https://clicktaketech.com/api/auth/csrf | head -c 200
+echo
+
+# Admin login (CSRF + credentials roundtrip)
+csrf=$(curl -sc /tmp/cj https://clicktaketech.com/api/auth/csrf | jq -r .csrfToken)
+curl -sb /tmp/cj -c /tmp/cj -X POST https://clicktaketech.com/api/auth/callback/credentials \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "csrfToken=${csrf}&email=admin@clicktaketech.com&password=Admin@2026&json=true" \
+  | head -c 200
+echo
+```
+
+All lines should print `200` (or `307` for the admin redirect).
 
 ---
 
 ## Architecture Notes
 
-### Why split?
-- Cloudflare Workers free plan: 3 MiB bundle limit + flaky Postgres support
-- Render: Standard Node.js runtime, native `pg` TCP, free tier available
-- Public pages get CDN-fast delivery; admin/API gets reliable DB connectivity
+### Why split Cloudflare + Vercel?
+
+- **Cloudflare Workers**: 3 MiB free-plan bundle limit, edge runtime, ideal for
+  the public face of the site (SSG pages + ISR-cached content). Global CDN
+  with ~30 ms TTFB worldwide. The Worker also handles the `www → apex`
+  canonical redirect and injects security headers + RFC 8288 Link headers for
+  AI agent discovery.
+- **Vercel**: native Next.js platform. Serverless functions for `/api/*`, SSR
+  for admin pages, automatic Postgres connection pooling, preview deploys on
+  every PR, built-in cron. No bundle-size limit for the Node runtime.
 
 ### How the proxy works
-`src/middleware.ts` runs on every request. When `BACKEND_URL` is set:
+
+`src/middleware.ts` runs on every request at the Cloudflare edge. When
+`BACKEND_URL` is set:
 - `/api/*` → forwarded to `${BACKEND_URL}/api/*`
 - `/admin/*` → forwarded to `${BACKEND_URL}/admin/*`
 - All other paths → served by the Cloudflare Worker (public pages)
@@ -113,29 +203,60 @@ Headers preserved: `cookie`, `authorization`, `content-type`, etc.
 Added: `x-forwarded-host`, `x-forwarded-proto`.
 
 ### How the CF bundle stays small
+
 The CF build (`scripts/build-cloudflare.sh`) swaps in `src/lib/db-stub.ts`
 (a stub that throws on any DB access) before running `opennextjs-cloudflare build`.
 The stub is never executed at runtime because the middleware intercepts
 DB-touching routes first. The real Drizzle client lives in `src/lib/db.ts`
-and is used by the Render build.
+and is used by the Vercel build.
+
+### DNS setup (one-time, manual)
+
+- `clicktaketech.com` A record → Cloudflare (proxied, orange cloud)
+- `www.clicktaketech.com` CNAME → `clicktake-web.<account>.workers.dev`
+  (the Worker redirects www → apex with a 308)
+- The Vercel deployment is reachable at `clicktake.vercel.app` (or any custom
+  domain you point at Vercel — not required, since the CF Worker proxies to
+  it via `BACKEND_URL`).
 
 ---
 
 ## Local Development
+
 ```bash
-npm install
-npm run dev
+bun install
+bun run dev
 # → http://localhost:3000
 ```
+
 In dev, `BACKEND_URL` is not set, so the app runs as a single Next.js server
 with the real Drizzle client. Set `DATABASE_URL` in `.env`.
 
 ## Build Commands
+
 | Command | What it does |
 |---------|--------------|
-| `npm run dev` | Start dev server (single-process) |
-| `npm run build` | Build standalone Next.js (for Render) |
-| `npm run build:cloudflare` | Build OpenNext bundle with db stub |
-| `npm run deploy:cloudflare` | Build + deploy to Cloudflare Workers |
-| `npm run seed:admin` | One-off: seed super-admin + roles |
+| `bun run dev` | Start dev server (single-process) |
+| `bun run build` | Build standalone Next.js (for Vercel/Render) |
+| `bun run build:cloudflare` | Build OpenNext bundle with db stub |
+| `bun run deploy:cloudflare` | Build + deploy to Cloudflare Workers |
+| `bun run build:vercel` | Build Next.js (for Vercel) |
+| `bun run deploy:vercel` | Build + deploy to Vercel (production) |
+| `bun run deploy:vercel:preview` | Build + deploy to Vercel (preview) |
+| `bash scripts/deploy-production.sh` | Build + deploy to BOTH platforms |
+| `bun run seed:admin` | One-off: seed super-admin + roles |
 | `npx tsx scripts/migrate-db-standalone.ts` | One-off: create DB tables |
+
+## Rollback
+
+### Vercel
+```bash
+bunx vercel ls                    # list recent deployments
+bunx vercel promote <deployment-url>  # promote an older deployment to production
+```
+
+### Cloudflare
+```bash
+bunx wrangler deployments list
+bunx wrangler rollback            # rolls back to the previous version
+```
