@@ -52,7 +52,11 @@
   /* ClickTake brand: Primary #136DFF, Accent #FF53A9 */
   --brand: #136DFF;
   --brand-foreground: #ffffff;
-  --brand-accent: #FF53A9;
+  /* Accessible pink — #FF53A9 itself only reaches 2.97:1 on white (fails WCAG AA).
+     #C2185B is the same hue family but hits 5.87:1 on white and 5.09:1 on the
+     tinted surface #F1EDF8, so it stays on-brand while passing AA for both
+     pink-as-text and white-text-on-pink-button uses. */
+  --brand-accent: #C2185B;
   --brand-accent-foreground: #ffffff;
 
   /* Multi-stop brand ramp for animations (used by BackgroundScene, CustomCursor, etc.) */
@@ -80,10 +84,14 @@
   --secondary: #f1f5f9;
   --secondary-foreground: #0a0e1a;
   --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #FF53A9;
+  /* #475569 reaches 6.92:1 on muted and 7.58:1 on white (AAA). Previous #64748b
+     was only 4.34:1 on muted surfaces (AA-LARGE-ONLY). */
+  --muted-foreground: #475569;
+  /* Accessible accent pink — see --brand-accent note above. */
+  --accent: #C2185B;
   --accent-foreground: #ffffff;
-  --destructive: #ef4444;
+  /* #dc2626 hits 4.83:1 on white (AA). Previous #ef4444 was 3.76:1 (AA-LARGE-ONLY). */
+  --destructive: #dc2626;
   --border: #e2e8f0;
   --input: #e2e8f0;
   --ring: #136DFF;
@@ -119,8 +127,12 @@
   --secondary: #070018;
   --secondary-foreground: #F0EBF8;
   --muted: #070018;
-  --muted-foreground: #7A6B95;
-  --accent: #FF53A9;
+  /* #9B8AB8 hits 6.44–6.66:1 on dark surfaces (AA). Previous #7A6B95 was only
+     4.05–4.32:1 (AA-LARGE-ONLY). */
+  --muted-foreground: #9B8AB8;
+  /* #E0197A gives 4.58:1 for white-on-pink button (AA) and ~4.5:1 as pink text
+     on dark backgrounds. Previous #FF53A9 was 2.97:1 for white-on-pink (FAIL). */
+  --accent: #E0197A;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --border: rgba(240, 235, 248, 0.08);
@@ -145,6 +157,10 @@
   --brand-magenta: #d04bff;
   --brand-blue: #4d8dff;
   --brand-cyan: #4be3ff;
+  /* Dark-mode brand accent overrides the light-mode #C2185B with #E0197A,
+     which gives 4.58:1 for white-on-pink buttons in dark UI. */
+  --brand-accent: #E0197A;
+  --brand-accent-foreground: #ffffff;
 }
 
 @layer base {
@@ -364,8 +380,12 @@
   --secondary: #070018;
   --secondary-foreground: #F0EBF8;
   --muted: #070018;
-  --muted-foreground: #7A6B95;
-  --accent: #FF53A9;
+  /* #9B8AB8 hits 6.44–6.66:1 on dark surfaces (AA). Previous #7A6B95 was only
+     4.05–4.32:1 (AA-LARGE-ONLY). */
+  --muted-foreground: #9B8AB8;
+  /* #E0197A gives 4.58:1 for white-on-pink button (AA) in dark UI.
+     Previous #FF53A9 was 2.97:1 (FAIL). */
+  --accent: #E0197A;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --border: rgba(240, 235, 248, 0.10);
@@ -386,7 +406,8 @@
   --secondary: #f1f5f9;
   --secondary-foreground: #0a0e1a;
   --muted: #f1f5f9;
-  --muted-foreground: #64748b;
+  /* Accessible muted text: #475569 = 6.92:1 on muted (AA/AAA). */
+  --muted-foreground: #475569;
   --border: #e2e8f0;
   --input: #e2e8f0;
 }
@@ -590,10 +611,11 @@ html:not(.dark).theme-custom-light body {
   --nx-surface-muted: #F1EDF8;
   --nx-border: #E5E0EE;
   --nx-border-strong: #CBD0E1;
-  /* Text */
+  /* Text — #6E5F80 hits 5.04–5.81:1 on light surfaces (AA). Previous #8C7B95
+     was 3.38–3.90:1 (AA-LARGE-ONLY). */
   --nx-ink: #0A0612;
   --nx-ink-soft: #4A3B5C;
-  --nx-ink-muted: #8C7B95;
+  --nx-ink-muted: #6E5F80;
   /* Success / accents */
   --nx-green: #10B981;
   --nx-yellow: #F59E0B;
@@ -617,7 +639,28 @@ html:not(.dark).theme-custom-light body {
   --nx-border-strong: rgba(255, 255, 255, 0.16);
   --nx-ink: #F4F0FF;
   --nx-ink-soft: #B5A8C8;
-  --nx-ink-muted: #7A6B95;
+  /* #9B8AB8 hits 6.32–6.70:1 on dark surfaces (AA). Previous #7A6B95 was
+     3.51–4.05:1 (AA-LARGE-ONLY). */
+  --nx-ink-muted: #9B8AB8;
+  /* Dark-mode overrides for brand accents used as TEXT on dark surfaces.
+     The base (light) values fail in dark mode because they were tuned for
+     white backgrounds:
+       - --nx-brand-pink-deep #E0197A -> 4.26:1 (AA-LARGE-ONLY) on #100820;
+         overriding to #FF53A9 gives 6.55:1 (AA).
+       - --nx-brand-blue-deep #0E58D6 -> 2.97:1 (FAIL) on #16102A;
+         overriding to #4A90D9 gives 5.50:1 (AA).
+       - --nx-brand-purple #9B3DFF -> 3.95:1 (AA-LARGE-ONLY) on #16102A;
+         overriding to #B27CFF gives 6.32:1 (AA).
+     These overrides only apply when the brand color is used as text on dark
+     backgrounds. For use as button backgrounds with white text, the original
+     darker values are appropriate (white on #E0197A = 4.58:1 AA, etc.) — those
+     usages should reference the explicit hex or --ct-* tokens instead. */
+  --nx-brand-pink-deep: #FF53A9;
+  --nx-brand-blue-deep: #4A90D9;
+  --nx-brand-purple: #B27CFF;
+  /* Match the backward-compat aliases so dark-mode text uses are consistent. */
+  --nx-orange-deep: #FF53A9;
+  --nx-electric-soft: #4A90D9;
 }
 
 @layer utilities {
@@ -792,13 +835,15 @@ html:not(.dark).theme-custom-light body {
   --nx-border-strong: #CBD0E1;
   --nx-ink: #0A0612;
   --nx-ink-soft: #4A3B5C;
-  --nx-ink-muted: #8C7B95;
+  /* Accessible: #6E5F80 = 5.04–5.81:1 on light surfaces (AA). */
+  --nx-ink-muted: #6E5F80;
   --background: #FFFFFF;
   --foreground: #0A0612;
   --card: #FFFFFF;
   --card-foreground: #0A0612;
   --muted: #F1EDF8;
-  --muted-foreground: #8C7B95;
+  /* Accessible: #475569 = 6.92:1 on muted (AA/AAA). */
+  --muted-foreground: #475569;
   --border: #E5E0EE;
   min-height: 100vh;
 }
@@ -813,13 +858,15 @@ html.dark .theme-nx {
   --nx-border-strong: rgba(255, 255, 255, 0.16);
   --nx-ink: #F4F0FF;
   --nx-ink-soft: #B5A8C8;
-  --nx-ink-muted: #7A6B95;
+  /* Accessible: #9B8AB8 = 6.32–6.70:1 on dark surfaces (AA). */
+  --nx-ink-muted: #9B8AB8;
   --background: #0A0612;
   --foreground: #F4F0FF;
   --card: #100820;
   --card-foreground: #F4F0FF;
   --muted: #1E1640;
-  --muted-foreground: #7A6B95;
+  /* Accessible: #9B8AB8 = 6.44–6.66:1 on dark surfaces (AA). */
+  --muted-foreground: #9B8AB8;
   --border: rgba(255, 255, 255, 0.08);
   background: #0A0612;
   color: #F4F0FF;
@@ -834,5 +881,6 @@ html.dark .theme-nx {
   --nx-border-strong: #CBD0E1;
   --nx-ink: #0A0612;
   --nx-ink-soft: #4A3B5C;
-  --nx-ink-muted: #8C7B95;
+  /* Accessible: #6E5F80 = 5.04–5.81:1 on light surfaces (AA). */
+  --nx-ink-muted: #6E5F80;
 }
