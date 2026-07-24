@@ -1,0 +1,18 @@
+# Lightweight proxy config for clicktake-web
+# Replaces the heavy OpenNext bundle to stay under the 3 MiB free-plan limit.
+# All traffic is proxied to Vercel (BACKEND_URL env var / secret).
+
+name = "clicktake-web"
+main = "scripts/full-proxy-worker.js"
+compatibility_date = "2026-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+routes = [
+  { pattern = "clicktaketech.com/*", zone_name = "clicktaketech.com" },
+  { pattern = "www.clicktaketech.com/*", zone_name = "clicktaketech.com" },
+]
+
+workers_dev = true
+
+[observability]
+enabled = true
