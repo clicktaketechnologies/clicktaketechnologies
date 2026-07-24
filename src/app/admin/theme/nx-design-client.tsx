@@ -13,7 +13,7 @@ import { Card } from "@/components/ui/card";
  *  - Light-mode surfaces (text + cards)
  *  - Dark-mode surfaces (text + cards when html.dark)
  *
- * Saved via POST /api/admin/nx-design → stored in SiteSetting(key="nx_design").
+ * Saved via POST /api/admin/design-system → stored in SiteSetting(key="nx_design").
  * The site layout.tsx reads this server-side and injects as <style> in <head>.
  *
  * Changes apply globally to all pages using the new design (homepage + all
@@ -166,7 +166,7 @@ export function NxDesignClient({ canWrite }: Props) {
 
   // Load current config from API
   useEffect(() => {
-    fetch("/api/admin/nx-design")
+    fetch("/api/admin/design-system")
       .then((r) => r.json())
       .then((data) => {
         if (data.config) setConfig(data.config);
@@ -204,7 +204,7 @@ ${previewMode === "light" ? lightVars : darkVars}
   const handleSave = async () => {
     setSaving(true);
     try {
-      const res = await fetch("/api/admin/nx-design", {
+      const res = await fetch("/api/admin/design-system", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(config),
