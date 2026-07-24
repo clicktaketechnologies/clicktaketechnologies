@@ -200,24 +200,7 @@ export function Services() {
           )}
         </div>
 
-        {/* CTA strip */}
-        <SectionReveal variant="zoomIn" delay={0.1} className="mt-12">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-3xl gradient-bg p-8 sm:p-10 text-white shadow-2xl glow-brand">
-            <div>
-              <h3 className="text-2xl sm:text-3xl font-bold">Not sure where to start?</h3>
-              <p className="mt-2 text-white/80 max-w-xl">
-                Book a free 30-minute consultation. We&apos;ll map your goals to the right practice and
-                give you a clear, no-obligation roadmap.
-              </p>
-            </div>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-[#136DFF] hover:scale-[1.03] transition shrink-0"
-            >
-              Book a free call <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </SectionReveal>
+        {/* CTA strip removed in new design — section ends with the grid + Starter Kit card */}
       </div>
     </section>
   );
