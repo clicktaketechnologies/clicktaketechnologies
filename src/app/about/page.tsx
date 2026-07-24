@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { AboutPage } from "@/components/site/pages/about-page";
-import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
+import { DeepDiveLayout } from "@/components/site/deep-dive/deep-dive-layout";
+import { aboutDeepDive } from "@/content/deep-dive/about";
+import {
+  JsonLd,
+  buildBreadcrumbJsonLd,
+  buildFaqJsonLd,
+} from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
   title: "About — AI Digital Agency",
@@ -43,10 +49,17 @@ export default function Page() {
   const breadcrumb = buildBreadcrumbJsonLd([
     { name: "About", path: "/about" },
   ]);
+  const faqItems = (aboutDeepDive.faq?.categories ?? []).flatMap((c) =>
+    c.questions.map((q) => ({ q: q.q, a: q.a }))
+  );
+  const schemas: Record<string, unknown>[] = [breadcrumb];
+  if (faqItems.length > 0) {
+    schemas.push(buildFaqJsonLd(faqItems));
+  }
   return (
     <>
-      <JsonLd data={breadcrumb} />
-      <AboutPage />
+      <JsonLd data={schemas} />
+      <DeepDiveLayout content={aboutDeepDive} />
     </>
   );
 }
