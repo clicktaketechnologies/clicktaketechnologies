@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import { TiltCard } from "@/components/site/tilt-card";
 
 /* TESTIMONIALS — 3-column card grid (Brocoders + Vention pattern).
  * Each card: 5-star rating, quote, divider, avatar+name+role. */
@@ -118,44 +119,50 @@ export function NxTestimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
-              className="relative p-6 sm:p-7 rounded-2xl border nx-bd nx-surface hover:shadow-xl hover:-translate-y-1 hover:border-[#FF53A9]/40 transition-all flex flex-col"
             >
-              {/* Quote icon + rating */}
-              <div className="flex items-center justify-between mb-4">
-                <Quote
-                  className="h-8 w-8 opacity-30"
-                  style={{ color: t.color }}
-                />
-                <div className="flex items-center gap-0.5">
-                  {Array.from({ length: t.rating }).map((_, idx) => (
-                    <Star
-                      key={idx}
-                      className="h-3.5 w-3.5 fill-[#FF53A9] text-[#FF53A9]"
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Quote */}
-              <p className="text-sm sm:text-[15px] nx-text leading-relaxed flex-1">
-                "{t.quote}"
-              </p>
-
-              {/* Author */}
-              <div className="mt-6 pt-5 border-t nx-bd flex items-center gap-3">
-                <div
-                  className="h-11 w-11 rounded-full grid place-items-center font-black text-sm text-white shrink-0"
-                  style={{ background: t.color }}
-                >
-                  {t.avatar}
-                </div>
-                <div>
-                  <div className="font-bold text-sm nx-text">{t.name}</div>
-                  <div className="text-xs nx-text-muted mt-0.5">
-                    {t.role} · {t.location}
+              <TiltCard
+                className="group/tilt h-full p-6 sm:p-7 rounded-2xl nx-bd nx-surface hover:border-[#FF53A9]/40 transition-colors flex flex-col"
+                glow={true}
+                shine={true}
+                maxTilt={10}
+              >
+                {/* Quote icon + rating */}
+                <div className="flex items-center justify-between mb-4">
+                  <Quote
+                    className="h-8 w-8 opacity-30"
+                    style={{ color: t.color }}
+                  />
+                  <div className="flex items-center gap-0.5">
+                    {Array.from({ length: t.rating }).map((_, idx) => (
+                      <Star
+                        key={idx}
+                        className="h-3.5 w-3.5 fill-[#FF53A9] text-[#FF53A9]"
+                      />
+                    ))}
                   </div>
                 </div>
-              </div>
+
+                {/* Quote */}
+                <p className="text-sm sm:text-[15px] nx-text leading-relaxed flex-1">
+                  "{t.quote}"
+                </p>
+
+                {/* Author */}
+                <div className="mt-6 pt-5 border-t nx-bd flex items-center gap-3">
+                  <div
+                    className="h-11 w-11 rounded-full grid place-items-center font-black text-sm text-white shrink-0"
+                    style={{ background: t.color }}
+                  >
+                    {t.avatar}
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm nx-text">{t.name}</div>
+                    <div className="text-xs nx-text-muted mt-0.5">
+                      {t.role} · {t.location}
+                    </div>
+                  </div>
+                </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

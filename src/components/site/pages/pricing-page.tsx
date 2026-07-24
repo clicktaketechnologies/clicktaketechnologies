@@ -5,6 +5,7 @@ import{
   NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
 import { Nx3DScene } from "../nx-3d-scene";
 import { Nx3DCharacter } from "../nx-3d-character";
+import { TiltCard } from "@/components/site/tilt-card";
 import { motion } from "framer-motion";
 import {
   Check, X, Sparkles, ArrowUpRight, HelpCircle, ChevronRight,
@@ -32,12 +33,15 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
   const isCustom = plan.slug === "custom";
 
   return (
-    <div
+    <TiltCard
       className={`relative rounded-2xl border p-6 sm:p-7 flex flex-col ${
         plan.highlight
           ? "border-brand-blue/40 bg-card/80 backdrop-blur-md shadow-xl shadow-brand-blue/10"
           : "border-border bg-card/40 backdrop-blur-md"
       }`}
+      glow={plan.highlight}
+      shine={true}
+      maxTilt={8}
     >
       {plan.highlight && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
@@ -91,7 +95,7 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
       >
         {plan.cta} <ArrowUpRight className="h-4 w-4" />
       </Link>
-    </div>
+    </TiltCard>
   );
 }
 

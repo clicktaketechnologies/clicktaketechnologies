@@ -12,6 +12,7 @@ import type { LucideIcon } from "lucide-react";
 import{
   NxPageLayout, NxPageHero, NxPageSection, NxButton} from "../nx-page-layout";
 import { Nx3DScene } from "../nx-3d-scene";
+import { TiltCard } from "@/components/site/tilt-card";
 import {
   SERVICES,
   STARTER_KIT,
@@ -158,27 +159,29 @@ export function ServicesPage() {
                       viewport={{ once: true }}
                       transition={{ delay: ii * 0.08, duration: 0.45 }}
                     >
-                      <Link
-                        href={item.to}
-                        className={`group relative flex flex-col h-full rounded-2xl border nx-bd nx-surface p-6 transition-all duration-300 hover:shadow-[0_0_40px_var(--glow)] hover:-translate-y-0.5`}
-                        style={{ "--glow": g.glow } as React.CSSProperties}
+                      <TiltCard
+                        className={`group/tilt flex flex-col h-full rounded-2xl border nx-bd nx-surface p-6 transition-colors duration-300 hover:border-[#FF53A9]/40`}
+                        glow={true}
+                        shine={true}
                       >
-                        <div className={`h-0.5 w-10 rounded-full bg-gradient-to-r ${g.gradient} mb-5 transition-all duration-300 group-hover:w-16`} />
+                        <Link href={item.to} className="contents">
+                          <div className={`h-0.5 w-10 rounded-full bg-gradient-to-r ${g.gradient} mb-5 transition-all duration-300 group-hover/tilt:w-16`} />
 
-                        <div className={`h-11 w-11 grid place-items-center rounded-xl ${g.accentBg} border ${g.accentBorder} mb-4 transition-transform duration-300 group-hover:scale-110`}>
-                          <Icon className={`h-5 w-5 ${g.accentColor}`} />
-                        </div>
+                          <div className={`h-11 w-11 grid place-items-center rounded-xl ${g.accentBg} border ${g.accentBorder} mb-4 transition-transform duration-300 group-hover/tilt:scale-110`}>
+                            <Icon className={`h-5 w-5 ${g.accentColor}`} />
+                          </div>
 
-                        <div className="font-bold text-base mb-2 leading-snug nx-text">{item.label}</div>
-                        <div className="text-sm nx-text-soft leading-relaxed flex-1">{item.desc}</div>
+                          <div className="font-bold text-base mb-2 leading-snug nx-text">{item.label}</div>
+                          <div className="text-sm nx-text-soft leading-relaxed flex-1">{item.desc}</div>
 
-                        <div className="mt-5 flex items-center justify-between">
-                          <span className={`text-xs font-semibold ${g.accentColor} opacity-0 group-hover:opacity-100 transition-opacity`}>
-                            Learn more
-                          </span>
-                          <ArrowUpRight className={`h-4 w-4 ${g.accentColor} opacity-30 group-hover:opacity-100 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5`} />
-                        </div>
-                      </Link>
+                          <div className="mt-5 flex items-center justify-between">
+                            <span className={`text-xs font-semibold ${g.accentColor} opacity-0 group-hover/tilt:opacity-100 transition-opacity`}>
+                              Learn more
+                            </span>
+                            <ArrowUpRight className={`h-4 w-4 ${g.accentColor} opacity-30 group-hover/tilt:opacity-100 transition-all group-hover/tilt:translate-x-0.5 group-hover/tilt:-translate-y-0.5`} />
+                          </div>
+                        </Link>
+                      </TiltCard>
                     </motion.div>
                   );
                 })}

@@ -8,6 +8,7 @@ import {
 import Link from "next/link";
 import{
   NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
+import { TiltCard } from "@/components/site/tilt-card";
 import { Nx3DScene } from "../nx-3d-scene";
 import { ABOUT_STATS, ABOUT_VALUES, SITE } from "@/lib/site-data";
 
@@ -96,13 +97,19 @@ export function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="group rounded-2xl border nx-bd nx-surface p-5 transition-all duration-300 hover:border-[#FF53A9]/40 hover:-translate-y-1"
             >
-              <div className="text-3xl mb-3">{l.flag}</div>
-              <div className="text-lg font-bold nx-text">{l.city}</div>
-              <div className="text-xs nx-text-muted">{l.country}</div>
-              <div className="mt-3 text-xs leading-relaxed nx-text-soft">{l.note}</div>
-              <div className="mt-3 text-[10px] font-mono nx-text-muted">{l.coords}</div>
+              <TiltCard
+                className="group/tilt h-full rounded-2xl border nx-bd nx-surface p-5 transition-colors duration-300 hover:border-[#FF53A9]/40"
+                glow={true}
+                shine={true}
+                maxTilt={10}
+              >
+                <div className="text-3xl mb-3">{l.flag}</div>
+                <div className="text-lg font-bold nx-text">{l.city}</div>
+                <div className="text-xs nx-text-muted">{l.country}</div>
+                <div className="mt-3 text-xs leading-relaxed nx-text-soft">{l.note}</div>
+                <div className="mt-3 text-[10px] font-mono nx-text-muted">{l.coords}</div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

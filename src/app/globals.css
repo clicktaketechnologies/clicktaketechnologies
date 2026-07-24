@@ -884,3 +884,132 @@ html.dark .theme-nx {
   /* Accessible: #6E5F80 = 5.04–5.81:1 on light surfaces (AA). */
   --nx-ink-muted: #6E5F80;
 }
+
+/* ─── TiltCard — 3D cursor-following card (clicktake-3d-v3 reference) ─── */
+.ct-tilt-card {
+  position: relative;
+  background: var(--card, rgba(13, 0, 37, 0.7));
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.06));
+  border-radius: 20px;
+  padding: 2.2rem 1.8rem;
+  cursor: pointer;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.ct-tilt-card:hover {
+  box-shadow:
+    0 20px 60px rgba(123, 47, 190, 0.15),
+    0 0 80px rgba(224, 25, 122, 0.20);
+}
+
+/* Animated gradient glow border — visible on hover */
+.ct-tilt-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: 21px;
+  background: linear-gradient(135deg, #E0197A, #7B2FBE, #4A90D9, #E0197A);
+  background-size: 300% 300%;
+  animation: ct-tilt-glow-anim 4s ease infinite;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.ct-tilt-card:hover .ct-tilt-glow { opacity: 1; }
+@keyframes ct-tilt-glow-anim {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Radial shine that follows the cursor */
+.ct-tilt-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+/* On touch devices, disable the tilt JS — leave a graceful hover lift */
+@media (pointer: coarse) {
+  .ct-tilt-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .ct-tilt-card:active {
+    transform: translateY(-2px);
+  }
+}
+
+/* Respect reduced-motion: kill transforms + glow animation */
+@media (prefers-reduced-motion: reduce) {
+  .ct-tilt-card,
+  .ct-tilt-card:hover {
+    transform: none !important;
+  }
+  .ct-tilt-glow { animation: none; }
+}
+
+/* ─── Scroll progress bar (top of page) ─── */
+.ct-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(135deg, #E0197A, #7B2FBE);
+  z-index: 200;
+  width: 0%;
+  transition: width 0.1s ease-out;
+  pointer-events: none;
+}
+
+/* ─── Marquee band ─── */
+.ct-marquee {
+  position: relative;
+  z-index: 1;
+  padding: 0.9rem 0;
+  background: linear-gradient(135deg, #E0197A, #7B2FBE);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ct-marquee-inner {
+  display: inline-flex;
+  animation: ct-marquee-scroll 22s linear infinite;
+}
+.ct-marquee:hover .ct-marquee-inner { animation-play-state: paused; }
+.ct-marquee-item {
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0 2.5rem;
+  text-transform: uppercase;
+}
+.ct-marquee-sep {
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 0.2rem;
+}
+@keyframes ct-marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ct-marquee-inner { animation: none; }
+}
+
+/* ─── Scroll reveal (used by NxReveal wrapper + legacy .reveal) ─── */
+.ct-reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.ct-reveal.ct-reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ct-reveal { opacity: 1; transform: none; transition: none; }
+}

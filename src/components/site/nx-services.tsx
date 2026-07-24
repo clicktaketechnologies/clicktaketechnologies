@@ -12,6 +12,7 @@ import {
   Palette, Video,
 } from "lucide-react";
 import { SERVICES, type ServiceItem } from "@/lib/site-data";
+import { TiltCard } from "@/components/site/tilt-card";
 
 const SERVICE_ICONS: Record<string, LucideIcon> = {
   Brain, Bot, Wand2, Eye, Workflow,
@@ -140,43 +141,46 @@ export function NxServices() {
                   transition={{ delay: i * 0.04 }}
                   className={isFeatured ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}
                 >
-                  <Link
-                    href={href}
-                    className={`group h-full p-6 flex flex-col rounded-2xl border nx-bd nx-surface hover:shadow-xl hover:-translate-y-1 hover:border-[#FF53A9]/40 transition-all ${
+                  <TiltCard
+                    className={`group/tilt h-full p-6 flex flex-col rounded-2xl nx-bd nx-surface hover:border-[#FF53A9]/40 transition-colors ${
                       isFeatured ? "min-h-[280px]" : ""
                     }`}
+                    glow={true}
+                    shine={true}
                   >
-                    {/* Icon block */}
-                    <div
-                      className="h-12 w-12 rounded-xl grid place-items-center mb-5 group-hover:scale-110 transition-transform"
-                      style={{ background: `${activeMeta.color}1a`, color: activeMeta.color }}
-                    >
-                      <Icon className="h-6 w-6" />
-                    </div>
-
-                    {/* Title */}
-                    <h3 className={`font-bold nx-text ${isFeatured ? "text-xl sm:text-2xl" : "text-base sm:text-lg"}`}>
-                      {s.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="mt-2 text-sm nx-text-soft leading-relaxed line-clamp-3 flex-1">
-                      {s.description}
-                    </p>
-
-                    {/* Footer row with "Learn more" arrow */}
-                    <div className="mt-5 flex items-center justify-between pt-4 border-t nx-bd">
-                      <span className="text-xs font-semibold nx-text-muted nx-eyebrow">
-                        Learn more
-                      </span>
-                      <span
-                        className="h-8 w-8 rounded-full grid place-items-center transition-all group-hover:rotate-12"
+                    <Link href={href} className="contents">
+                      {/* Icon block */}
+                      <div
+                        className="h-12 w-12 rounded-xl grid place-items-center mb-5 group-hover/tilt:scale-110 transition-transform"
                         style={{ background: `${activeMeta.color}1a`, color: activeMeta.color }}
                       >
-                        <ArrowUpRight className="h-4 w-4" />
-                      </span>
-                    </div>
-                  </Link>
+                        <Icon className="h-6 w-6" />
+                      </div>
+
+                      {/* Title */}
+                      <h3 className={`font-bold nx-text ${isFeatured ? "text-xl sm:text-2xl" : "text-base sm:text-lg"}`}>
+                        {s.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="mt-2 text-sm nx-text-soft leading-relaxed line-clamp-3 flex-1">
+                        {s.description}
+                      </p>
+
+                      {/* Footer row with "Learn more" arrow */}
+                      <div className="mt-5 flex items-center justify-between pt-4 border-t nx-bd">
+                        <span className="text-xs font-semibold nx-text-muted nx-eyebrow">
+                          Learn more
+                        </span>
+                        <span
+                          className="h-8 w-8 rounded-full grid place-items-center transition-all group-hover/tilt:rotate-12"
+                          style={{ background: `${activeMeta.color}1a`, color: activeMeta.color }}
+                        >
+                          <ArrowUpRight className="h-4 w-4" />
+                        </span>
+                      </div>
+                    </Link>
+                  </TiltCard>
                 </motion.div>
               );
             })}

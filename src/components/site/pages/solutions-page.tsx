@@ -5,6 +5,7 @@ import{
   NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
 import { Nx3DScene } from "../nx-3d-scene";
 import { Nx3DCharacter } from "../nx-3d-character";
+import { TiltCard } from "@/components/site/tilt-card";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Sparkles, Building2, Store, ShoppingBag, Wrench, Globe, Users } from "lucide-react";
 import { SOLUTIONS } from "@/lib/site-data";
@@ -66,35 +67,39 @@ export function SolutionsIndexPage() {
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.5, delay: i * 0.05 }}
                 >
-                  <Link
-                    href={`/solutions/${s.slug}`}
-                    className="group block h-full rounded-2xl border border-border bg-card/40 backdrop-blur-md p-6 hover:border-primary/40 hover:bg-card/60 transition"
+                  <TiltCard
+                    className="group/tilt block h-full rounded-2xl border border-border bg-card/40 backdrop-blur-md p-6 hover:border-primary/40 transition-colors"
+                    glow={true}
+                    shine={true}
+                    maxTilt={10}
                   >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brand-blue to-brand-cyan text-white">
-                        <Icon className="h-6 w-6" />
+                    <Link href={`/solutions/${s.slug}`} className="contents">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brand-blue to-brand-cyan text-white">
+                          <Icon className="h-6 w-6" />
+                        </div>
+                        <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover/tilt:text-foreground transition" />
                       </div>
-                      <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition" />
-                    </div>
-                    <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                      {s.audience}
-                    </div>
-                    <h3 className="mt-1 text-lg font-bold leading-tight">{s.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                      {s.hero}
-                    </p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {s.outcomes.slice(0, 3).map((o) => (
-                        <span
-                          key={o.label}
-                          className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-2.5 py-1 text-[10px] font-medium"
-                        >
-                          <span className="text-muted-foreground">{o.label}:</span>&nbsp;
-                          <span className="text-foreground">{o.value}</span>
-                        </span>
-                      ))}
-                    </div>
-                  </Link>
+                      <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                        {s.audience}
+                      </div>
+                      <h3 className="mt-1 text-lg font-bold leading-tight">{s.title}</h3>
+                      <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                        {s.hero}
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {s.outcomes.slice(0, 3).map((o) => (
+                          <span
+                            key={o.label}
+                            className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-2.5 py-1 text-[10px] font-medium"
+                          >
+                            <span className="text-muted-foreground">{o.label}:</span>&nbsp;
+                            <span className="text-foreground">{o.value}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </Link>
+                  </TiltCard>
                 </motion.div>
               );
             })}
