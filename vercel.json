@@ -41,8 +41,7 @@
     {
       "source": "/www.clicktaketech.com/:path*",
       "destination": "https://clicktaketech.com/:path*",
-      "permanent": true,
-      "statusCode": 308
+      "permanent": true
     }
   ],
   "crons": [
