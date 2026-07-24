@@ -157,5 +157,75 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true });
   }
 
+  // ─── Career application ──────────────────────────────────────────────────
+  if (kind === "career") {
+    const data = payload || {};
+    // Minimal validation — the careers form already validates on the client.
+    if (!data?.name || !data?.email || !data?.role) {
+      return NextResponse.json(
+        { error: "Missing required fields (name, email, role)" },
+        { status: 400 }
+      );
+    }
+
+    // Persist as a lead with source=Careers so CRM can route it.
+    try {
+      await prisma.lead.create({
+        data: {
+          name: String(data.name),
+          email: String(data.email),
+          phone: String(data.phone || ""),
+          serviceInterest: `Career: ${String(data.role)}`,
+          message: JSON.stringify({
+            role: data.role,
+            location: data.location || "",
+            portfolio: data.portfolio || "",
+            experience: data.experience || "",
+            why: data.why || "",
+            resumeUrl: data.resumeUrl || "",
+          }, null, 2),
+          status: "New",
+          source: "Careers Form",
+          sourcePage: "/careers",
+        },
+      });
+    } catch (e) {
+      console.error("[contact/career] DB save failed:", e);
+      // Continue — email still works
+    }
+
+    // Notify the careers inbox.
+    try {
+      const subject = `[Careers] Application from ${data.name} — ${data.role}`;
+      const html = `
+        <h2>New career application</h2>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
+        <p><strong>Phone:</strong> ${data.phone || "—"}</p>
+        <p><strong>Role:</strong> ${data.role}</p>
+        <p><strong>Location:</strong> ${data.location || "—"}</p>
+        <p><strong>Portfolio:</strong> ${data.portfolio ? `<a href="${data.portfolio}">${data.portfolio}</a>` : "—"}</p>
+        <p><strong>Resume:</strong> ${data.resumeUrl ? `<a href="${data.resumeUrl}">${data.resumeUrl}</a>` : "—"}</p>
+        <h3>Experience</h3>
+        <p>${(data.experience || "").replace(/\n/g, "<br>")}</p>
+        <h3>Why ClickTake?</h3>
+        <p>${(data.why || "").replace(/\n/g, "<br>")}</p>
+        <hr>
+        <p style="color:#888;font-size:12px;">Source: /careers form</p>
+      `;
+      await sendMail({
+        to: process.env.CAREERS_EMAIL || "careers@clicktaketech.com",
+        subject,
+        html,
+        tags: ["career", "internal"],
+        metadata: { applicantName: String(data.name), kind: "career", internal: "true" },
+      });
+    } catch (e) {
+      console.error("[contact/career] internal notify failed:", e);
+    }
+
+    return NextResponse.json({ success: true });
+  }
+
   return NextResponse.json({ error: "Unknown submission kind" }, { status: 400 });
 }

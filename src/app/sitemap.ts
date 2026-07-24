@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SERVICES, SITE } from "@/lib/site-data";
+import { SERVICES, SOLUTIONS, BLOG_POSTS, CASE_STUDIES, SITE } from "@/lib/site-data";
 
 /**
  * Sitemap.
@@ -8,12 +8,6 @@ import { SERVICES, SITE } from "@/lib/site-data";
  * subdomain 308-redirects to apex via middleware, so emitting www URLs in
  * the sitemap would force Googlebot through a redirect on every page —
  * wasting crawl budget and diluting canonical signals.
- *
- * Resource article URLs (/resources/<slug>) are intentionally omitted
- * because no /resources/[slug]/page.tsx route exists yet — the RESOURCES
- * array only feeds the listing card on /resources. Including them would
- * produce 7 sitemap 404s in GSC. When the article route is built, re-enable
- * the resourceRoutes block below.
  */
 const BASE = SITE.url; // https://clicktaketech.com
 
@@ -23,7 +17,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     { url: BASE, priority: 1.0, changeFrequency: "weekly" as const, lastModified: now },
     { url: `${BASE}/services`, priority: 0.9, changeFrequency: "monthly" as const, lastModified: now },
+    { url: `${BASE}/solutions`, priority: 0.9, changeFrequency: "monthly" as const, lastModified: now },
     { url: `${BASE}/portfolio`, priority: 0.8, changeFrequency: "monthly" as const, lastModified: now },
+    { url: `${BASE}/case-studies`, priority: 0.8, changeFrequency: "monthly" as const, lastModified: now },
+    { url: `${BASE}/pricing`, priority: 0.8, changeFrequency: "monthly" as const, lastModified: now },
+    { url: `${BASE}/blog`, priority: 0.8, changeFrequency: "weekly" as const, lastModified: now },
+    { url: `${BASE}/team`, priority: 0.6, changeFrequency: "monthly" as const, lastModified: now },
+    { url: `${BASE}/careers`, priority: 0.7, changeFrequency: "weekly" as const, lastModified: now },
     { url: `${BASE}/about`, priority: 0.7, changeFrequency: "monthly" as const, lastModified: now },
     { url: `${BASE}/contact`, priority: 0.8, changeFrequency: "monthly" as const, lastModified: now },
     { url: `${BASE}/resources`, priority: 0.7, changeFrequency: "weekly" as const, lastModified: now },
@@ -39,15 +39,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
   }));
 
-  // NOTE: /resources/<slug> routes omitted — see comment at top of file.
-  // When /resources/[slug]/page.tsx ships, uncomment this block:
-  //
-  //   const resourceRoutes = RESOURCES.map((r) => ({
-  //     url: `${BASE}/resources/${r.slug}`,
-  //     priority: 0.5,
-  //     changeFrequency: "monthly" as const,
-  //     lastModified: now,
-  //   }));
+  const solutionRoutes = SOLUTIONS.map((s) => ({
+    url: `${BASE}/solutions/${s.slug}`,
+    priority: 0.7,
+    changeFrequency: "monthly" as const,
+    lastModified: now,
+  }));
 
-  return [...staticRoutes, ...serviceRoutes];
+  const blogRoutes = BLOG_POSTS.map((p) => ({
+    url: `${BASE}/blog/${p.slug}`,
+    priority: 0.6,
+    changeFrequency: "monthly" as const,
+    lastModified: new Date(p.publishedAt),
+  }));
+
+  const caseStudyRoutes = CASE_STUDIES.map((c) => ({
+    url: `${BASE}/case-studies/${c.slug}`,
+    priority: 0.7,
+    changeFrequency: "monthly" as const,
+    lastModified: now,
+  }));
+
+  return [...staticRoutes, ...serviceRoutes, ...solutionRoutes, ...blogRoutes, ...caseStudyRoutes];
 }

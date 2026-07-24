@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight, ChevronDown, ChevronRight, Phone, Sparkles } from "lucide-react";
-import { NAV_LINKS, SERVICES, STARTER_KIT, CATEGORY_STYLES, type ServiceItem } from "@/lib/site-data";
+import { NAV_LINKS, SERVICES, STARTER_KIT, CATEGORY_STYLES, SOLUTIONS, type ServiceItem } from "@/lib/site-data";
 import { ThemeToggle } from "./theme-toggle";
 
 /* ───────────────── CATEGORY DISPLAY CONFIG ───────────────── */
@@ -134,6 +134,7 @@ export function Navbar() {
               }
 
               if (isMega) {
+                const isSolutions = l.href === "/solutions";
                 return (
                   <div
                     key={l.href}
@@ -150,7 +151,7 @@ export function Navbar() {
                       <ChevronDown className={`ml-1 inline h-4 w-4 transition-transform ${megaOpen ? "rotate-180" : ""}`} />
                     </Link>
 
-                    {/* MEGA MENU — responsive 4-column grid */}
+                    {/* MEGA MENU */}
                     <AnimatePresence>
                       {megaOpen && (
                         <motion.div
@@ -160,62 +161,98 @@ export function Navbar() {
                           transition={{ duration: 0.2 }}
                           className="absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50"
                         >
-                          <div className="w-[min(920px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-5 sm:p-6">
-                            {/* 4-column grid → collapses to 2 columns on smaller laptop screens */}
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-4">
-                              {Array.from(serviceGroups.entries()).map(([cat, items]) => {
-                                const cfg = CATEGORY_DISPLAY[cat];
-                                if (!cfg) return null;
-                                return (
-                                  <div key={cat} className="min-w-0">
-                                    <div className={`mb-2.5 text-[10px] font-bold uppercase tracking-widest ${cfg.accentColor} px-1`}>
-                                      {cfg.group}
+                          {isSolutions ? (
+                            /* ─── SOLUTIONS MEGA MENU ─── */
+                            <div className="w-[min(720px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-5 sm:p-6">
+                              <div className="mb-4 text-[10px] font-bold uppercase tracking-widest text-brand-blue px-1">
+                                Solutions by audience
+                              </div>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                {SOLUTIONS.map((sol) => (
+                                  <Link
+                                    key={sol.slug}
+                                    href={`/solutions/${sol.slug}`}
+                                    onClick={() => setMegaOpen(false)}
+                                    className="group/sol block rounded-lg px-3 py-2 hover:bg-secondary transition"
+                                  >
+                                    <div className="text-[13px] font-semibold leading-snug group-hover/sol:text-foreground text-foreground/90">
+                                      {sol.title}
                                     </div>
-                                    <div className="space-y-0.5">
-                                      {items.map((item) => (
-                                        <Link
-                                          key={item.slug}
-                                          href={`/services/${item.slug}`}
-                                          className="group/item block rounded-lg px-2.5 py-1.5 hover:bg-secondary transition"
-                                          onClick={() => setMegaOpen(false)}
-                                        >
-                                          <div className="text-[13px] font-semibold leading-snug group-hover/item:text-foreground text-foreground/90 line-clamp-2">
-                                            {item.title}
-                                          </div>
-                                          <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight line-clamp-2">
-                                            {item.description}
-                                          </div>
-                                        </Link>
-                                      ))}
+                                    <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight line-clamp-2">
+                                      {sol.hero}
                                     </div>
-                                  </div>
-                                );
-                              })}
+                                  </Link>
+                                ))}
+                              </div>
+                              <div className="mt-4 pt-4 border-t border-border">
+                                <Link
+                                  href="/solutions"
+                                  onClick={() => setMegaOpen(false)}
+                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-blue hover:underline"
+                                >
+                                  View all solutions <ArrowUpRight className="h-3.5 w-3.5" />
+                                </Link>
+                              </div>
                             </div>
+                          ) : (
+                            /* ─── SERVICES MEGA MENU ─── */
+                            <div className="w-[min(920px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-5 sm:p-6">
+                              {/* 4-column grid → collapses to 2 columns on smaller laptop screens */}
+                              <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-4">
+                                {Array.from(serviceGroups.entries()).map(([cat, items]) => {
+                                  const cfg = CATEGORY_DISPLAY[cat];
+                                  if (!cfg) return null;
+                                  return (
+                                    <div key={cat} className="min-w-0">
+                                      <div className={`mb-2.5 text-[10px] font-bold uppercase tracking-widest ${cfg.accentColor} px-1`}>
+                                        {cfg.group}
+                                      </div>
+                                      <div className="space-y-0.5">
+                                        {items.map((item) => (
+                                          <Link
+                                            key={item.slug}
+                                            href={`/services/${item.slug}`}
+                                            className="group/item block rounded-lg px-2.5 py-1.5 hover:bg-secondary transition"
+                                            onClick={() => setMegaOpen(false)}
+                                          >
+                                            <div className="text-[13px] font-semibold leading-snug group-hover/item:text-foreground text-foreground/90 line-clamp-2">
+                                              {item.title}
+                                            </div>
+                                            <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight line-clamp-2">
+                                              {item.description}
+                                            </div>
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                              </div>
 
-                            {/* Flagship CTA */}
-                            {STARTER_KIT && (
-                              <Link
-                                href="/services/starter-kit"
-                                onClick={() => setMegaOpen(false)}
-                                className="mt-5 flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 p-3 sm:p-4 hover:from-amber-500/25 hover:to-brand-pink/25 transition"
-                              >
-                                <div className="min-w-0">
-                                  <div className="flex items-center gap-2 text-sm font-bold flex-wrap">
-                                    <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
-                                    <span className="truncate">{STARTER_KIT.title}</span>
-                                    <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white shrink-0">
-                                      FLAGSHIP
-                                    </span>
+                              {/* Flagship CTA */}
+                              {STARTER_KIT && (
+                                <Link
+                                  href="/services/starter-kit"
+                                  onClick={() => setMegaOpen(false)}
+                                  className="mt-5 flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 p-3 sm:p-4 hover:from-amber-500/25 hover:to-brand-pink/25 transition"
+                                >
+                                  <div className="min-w-0">
+                                    <div className="flex items-center gap-2 text-sm font-bold flex-wrap">
+                                      <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
+                                      <span className="truncate">{STARTER_KIT.title}</span>
+                                      <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white shrink-0">
+                                        FLAGSHIP
+                                      </span>
+                                    </div>
+                                    <div className="text-xs text-muted-foreground mt-1 line-clamp-1">
+                                      {STARTER_KIT.description}
+                                    </div>
                                   </div>
-                                  <div className="text-xs text-muted-foreground mt-1 line-clamp-1">
-                                    {STARTER_KIT.description}
-                                  </div>
-                                </div>
-                                <ArrowUpRight className="h-4 w-4 text-amber-400 shrink-0" />
-                              </Link>
-                            )}
-                          </div>
+                                  <ArrowUpRight className="h-4 w-4 text-amber-400 shrink-0" />
+                                </Link>
+                              )}
+                            </div>
+                          )}
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -373,9 +410,15 @@ export function Navbar() {
                     )}
 
                     <div className="border-t border-border mt-2 pt-2 space-y-0.5">
+                      <Link href="/solutions" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Solutions</Link>
                       <Link href="/portfolio" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Work</Link>
+                      <Link href="/case-studies" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Case Studies</Link>
+                      <Link href="/pricing" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Pricing</Link>
+                      <Link href="/blog" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Blog</Link>
                       <Link href="/resources" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Resources</Link>
                       <Link href="/about" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">About</Link>
+                      <Link href="/team" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Team</Link>
+                      <Link href="/careers" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Careers</Link>
                       <Link href="/contact" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl hover:bg-white/5 text-base">Contact</Link>
                     </div>
 

@@ -324,3 +324,86 @@
 .text-brand-blue { color: var(--brand-blue); }
 .border-brand-magenta { border-color: var(--brand-magenta); }
 .from-amber-500\/15 { background-color: rgba(245, 158, 11, 0.15); }
+
+/* ─── Custom theme mode ────────────────────────────────────────────────────
+   When the user selects "Custom" in the theme toggle, .theme-custom is
+   applied to <html>. Any CSS variables saved to localStorage
+   ("theme-custom-vars" key, set by the admin Theme Editor) override the
+   defaults via inline style on <html>. This block is a fallback so that
+   if no custom vars are saved, custom mode looks identical to dark mode
+   (the user's last "base" theme). It also ensures text visibility by
+   keeping contrast ratios safe.
+*/
+.theme-custom {
+  /* Default custom palette — overridden by inline custom vars from Theme Editor.
+     These mirror .dark so the site is never broken if the admin hasn't saved
+     custom tokens yet. */
+  --background: #03000D;
+  --foreground: #F0EBF8;
+  --card: #0D0025;
+  --card-foreground: #F0EBF8;
+  --popover: #0D0025;
+  --popover-foreground: #F0EBF8;
+  --primary: #136DFF;
+  --primary-foreground: #ffffff;
+  --secondary: #070018;
+  --secondary-foreground: #F0EBF8;
+  --muted: #070018;
+  --muted-foreground: #7A6B95;
+  --accent: #FF53A9;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --border: rgba(240, 235, 248, 0.10);
+  --input: rgba(240, 235, 248, 0.12);
+  --ring: #4A90D9;
+}
+
+/* When the admin Theme Editor saves light custom tokens, the inline style on
+   <html> sets --background to a light value. We detect this via a marker
+   class .theme-custom-light that the editor toggles alongside .theme-custom. */
+.theme-custom.theme-custom-light {
+  --background: #ffffff;
+  --foreground: #0a0e1a;
+  --card: #ffffff;
+  --card-foreground: #0a0e1a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0e1a;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0a0e1a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+}
+
+/* Ensure .theme-custom body still gets the dark gradient overlay if the
+   user hasn't opted into light custom tokens. */
+.theme-custom:not(.theme-custom-light) body {
+  background:
+    radial-gradient(ellipse at 18% 12%, rgba(74, 144, 217, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 82% 88%, rgba(224, 25, 122, 0.10) 0%, transparent 55%),
+    linear-gradient(180deg, #03000D 0%, #070018 55%, #0D0025 100%);
+  background-attachment: fixed;
+}
+
+/* ─── Text-visibility safety net (light/dark/system/custom) ────────────────
+   The user reported text-visibility issues in some theme modes. These rules
+   ensure foreground colors are always readable against the active background,
+   regardless of which mode is active. They override any earlier rule that
+   might set foreground colors too close to the background.
+*/
+body, p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, button, a, input, textarea, select, blockquote {
+  color: var(--foreground);
+}
+/* Inputs should always use foreground on the input background for visibility */
+input, textarea, select {
+  color: var(--foreground);
+  background: color-mix(in oklab, var(--background) 80%, transparent);
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted-foreground);
+}
+/* Muted text stays muted but never invisible */
+.text-muted-foreground {
+  color: var(--muted-foreground);
+}
