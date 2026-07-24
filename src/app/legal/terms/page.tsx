@@ -4,7 +4,7 @@ import { LegalPage } from "@/components/site/pages/legal-page";
 import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — ClickTake Technologies",
+  title: "Terms of Service",
   description:
     "Review the Terms of Service and contract parameters for working with ClickTake Technologies Ltd.",
   alternates: { canonical: "https://clicktaketech.com/legal/terms" },

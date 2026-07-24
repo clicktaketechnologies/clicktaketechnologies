@@ -3,7 +3,7 @@ import { ResourcesPage } from "@/components/site/pages/resources-page";
 import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
-  title: "Resources — Playbooks & Guides for Founders",
+  title: "Resources — Founders' Playbooks",
   description:
     "Practical playbooks, guides and comparisons from ClickTake Technologies. Topics include AI adoption, LLM fine-tuning, SEO for SaaS, headless commerce, hiring engineering talent, and market entry for UK, Pakistan, USA and Dubai. Written for founders shipping digital products — not vanity content.",
   keywords: [

@@ -34,7 +34,9 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "ClickTake Technologies — AI-Powered Digital Agency | UK · Pakistan · USA · Dubai",
+    // Shortened from "ClickTake Technologies — AI-Powered Digital Agency | UK · Pakistan · USA · Dubai"
+    // (80 chars) to fit within Google's ~60-char title truncation.
+    default: "ClickTake — AI-Powered Digital Agency",
     template: "%s | ClickTake Technologies",
   },
   description:
@@ -208,6 +210,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {/* Explicit sitemap link — helps crawlers discover /sitemap.xml even
+            when Cloudflare's "AI Audit" managed robots.txt shadows the
+            Next.js robots.ts route output. */}
+        <link rel="sitemap" href="/sitemap.xml" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

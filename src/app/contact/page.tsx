@@ -3,7 +3,7 @@ import { ContactPage } from "@/components/site/pages/contact-page";
 import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
-  title: "Contact ClickTake — Birmingham · Multan · Austin · Dubai | Free 30-min Consult",
+  title: "Contact — Free 30-min Consult",
   description:
     "Contact ClickTake Technologies. Submit a project inquiry or book a free 30-minute discovery call. Offices in Birmingham (UK HQ), Multan (Pakistan engineering hub), Austin TX (USA desk) and Dubai (UAE/MENA office). Phones: +44 7391 653377 (UK), +92 306 9753003 (PK). Email: Info@clicktaketech.com. We respond within one business day.",
   keywords: [
