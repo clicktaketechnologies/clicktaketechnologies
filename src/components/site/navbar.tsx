@@ -61,9 +61,13 @@ type NavLink = { label: string; href: string; mega?: boolean };
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [megaOpen, setMegaOpen] = useState(false);
+  // megaOpen now tracks WHICH mega menu is open ("services" | "solutions" | null)
+  // instead of just a boolean — so hovering from Services directly to Solutions
+  // properly swaps the content rather than briefly showing nothing.
+  const [megaOpen, setMegaOpen] = useState<"services" | "solutions" | null>(null);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const pathname = usePathname();
+  const megaTriggerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // rAF-throttled scroll listener — without this, `scroll` fires hundreds of
@@ -87,10 +91,10 @@ export function Navbar() {
     };
   }, []);
 
-  // Close mobile menu on route change
+  // Close mobile menu + mega menu on route change
   useEffect(() => {
     setOpen(false);
-    setMegaOpen(false);
+    setMegaOpen(null);
     setExpandedCategory(null);
   }, [pathname]);
 
@@ -136,17 +140,41 @@ export function Navbar() {
   // the trigger down into the menu (which would otherwise fire onMouseLeave on
   // the trigger and close the menu mid-transit).
   const megaCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const openMega = () => {
+  const openMega = (which: "services" | "solutions") => {
     if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current);
-    setMegaOpen(true);
+    setMegaOpen(which);
   };
   const closeMegaSoon = () => {
     // Delay close by 120ms — gives the pointer time to cross the gap between
     // the trigger and the menu panel without the menu flickering closed.
     if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current);
-    megaCloseTimer.current = setTimeout(() => setMegaOpen(false), 120);
+    megaCloseTimer.current = setTimeout(() => setMegaOpen(null), 120);
   };
   useEffect(() => () => { if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current); }, []);
+
+  // Keyboard accessibility: Escape closes any open mega menu + blurs focus
+  // back to the trigger. Click-outside also closes. This matters for screen
+  // reader + keyboard-only users who can't hover.
+  useEffect(() => {
+    if (!megaOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMegaOpen(null);
+        megaTriggerRef.current?.querySelector("a")?.focus();
+      }
+    };
+    const onClick = (e: MouseEvent) => {
+      if (!megaTriggerRef.current?.contains(e.target as Node)) {
+        setMegaOpen(null);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClick);
+    };
+  }, [megaOpen]);
 
   const handleSectionClick = (href: string) => {
     setOpen(false);
@@ -216,33 +244,52 @@ export function Navbar() {
 
               if (isMega) {
                 const isSolutions = l.href === "/solutions";
+                const which = isSolutions ? "solutions" : "services";
+                const isThisOpen = megaOpen === which;
                 return (
                   <div
                     key={l.href}
+                    ref={megaTriggerRef}
                     className="relative"
-                    onMouseEnter={openMega}
+                    onMouseEnter={() => openMega(which)}
                     onMouseLeave={closeMegaSoon}
                   >
                     <Link
                       href={l.href}
+                      aria-expanded={isThisOpen}
+                      aria-haspopup="true"
+                      onClick={(e) => {
+                        // Click toggles the menu on touch devices (where hover
+                        // doesn't exist). On desktop, allow normal nav to /services
+                        // or /solutions index page unless the menu is closed —
+                        // in which case preventDefault so the menu opens first.
+                        if (!isThisOpen) {
+                          e.preventDefault();
+                          openMega(which);
+                        } else {
+                          setMegaOpen(null);
+                        }
+                      }}
                       className="group relative rounded-full px-3 xl:px-4 py-2 text-[13px] font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap flex items-center"
                     >
                       {l.label}
                       <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-brand-cyan to-brand-magenta transition-all group-hover:w-8" />
-                      <ChevronDown className={`ml-1 inline h-4 w-4 transition-transform ${megaOpen ? "rotate-180" : ""}`} />
+                      <ChevronDown className={`ml-1 inline h-4 w-4 transition-transform ${isThisOpen ? "rotate-180" : ""}`} />
                     </Link>
 
-                    {/* MEGA MENU */}
+                    {/* MEGA MENU — only renders the panel matching the open menu */}
                     <AnimatePresence>
-                      {megaOpen && (
+                      {isThisOpen && (
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
                           transition={{ duration: 0.18, ease: "easeOut" }}
                           className="absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50"
-                          onMouseEnter={openMega}
+                          onMouseEnter={() => openMega(which)}
                           onMouseLeave={closeMegaSoon}
+                          role="menu"
+                          aria-label={`${l.label} menu`}
                         >
                           {isSolutions ? (
                             /* ─── SOLUTIONS MEGA MENU ───
@@ -266,7 +313,7 @@ export function Navbar() {
                                     <Link
                                       key={sol.slug}
                                       href={`/solutions/${sol.slug}`}
-                                      onClick={() => setMegaOpen(false)}
+                                      onClick={() => setMegaOpen(null)}
                                       className="group/sol flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
                                     >
                                       <div className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${accent.chip} text-white shadow-sm group-hover/sol:scale-110 transition-transform`}>
@@ -291,7 +338,7 @@ export function Navbar() {
                                 </span>
                                 <Link
                                   href="/solutions"
-                                  onClick={() => setMegaOpen(false)}
+                                  onClick={() => setMegaOpen(null)}
                                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-blue hover:underline"
                                 >
                                   View all solutions <ArrowUpRight className="h-3.5 w-3.5" />
@@ -330,7 +377,7 @@ export function Navbar() {
                                               key={item.slug}
                                               href={`/services/${item.slug}`}
                                               className="group/item flex items-start gap-2 rounded-lg px-2 py-1.5 hover:bg-secondary transition"
-                                              onClick={() => setMegaOpen(false)}
+                                              onClick={() => setMegaOpen(null)}
                                             >
                                               <Icon className={`h-3.5 w-3.5 mt-0.5 shrink-0 ${cfg.accentColor} opacity-70 group-hover/item:opacity-100`} />
                                               <div className="min-w-0 flex-1">
@@ -354,7 +401,7 @@ export function Navbar() {
                               {STARTER_KIT && (
                                 <Link
                                   href="/services/starter-kit"
-                                  onClick={() => setMegaOpen(false)}
+                                  onClick={() => setMegaOpen(null)}
                                   className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 p-3 sm:p-3.5 hover:from-amber-500/25 hover:to-brand-pink/25 transition group/flagship"
                                 >
                                   <div className="flex items-center gap-3 min-w-0">
