@@ -6,7 +6,6 @@
   "installCommand": "bun install",
   "outputDirectory": ".next",
   "regions": ["sfo1", "lhr1", "iad1"],
-  "functionFailureThreshold": 1,
   "functions": {
     "src/app/api/**/route.ts": {
       "maxDuration": 60,
