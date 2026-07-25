@@ -3,24 +3,25 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun, Monitor, Palette, Check } from "lucide-react";
+import { Moon, Sun, Monitor, Palette, Check, SlidersHorizontal } from "lucide-react";
+import { CustomThemePicker, type CustomThemeConfig, loadCustomConfig, clearCustomConfig } from "./custom-theme-picker";
 
 /**
  * Theme toggle for ClickTake Technologies — supports 4 modes:
  *   - light:   fixed light theme
  *   - dark:    fixed dark theme (default)
  *   - system:  follows OS preference (prefers-color-scheme)
- *   - custom:  user-defined tokens (admin Theme Editor overrides CSS variables)
+ *   - custom:  user-defined colors via the Custom Color Engine
  *
  * Uses next-themes (wired in app/layout.tsx via <ThemeProvider>).
  * The choice is persisted to localStorage under the "theme" key by next-themes.
  * The fixed BackgroundScene canvas listens to the .dark class on <html> via a
  * MutationObserver and re-paints with the matching palette automatically.
  *
- * Custom mode: when "custom" is selected, we apply the .theme-custom class to
- * <html> and read any saved CSS variables from localStorage["theme-custom-vars"].
- * The admin Theme Editor writes these variables; if none are saved, custom mode
- * behaves like dark mode (the default).
+ * Custom mode: when "custom" is selected, the .theme-custom class is applied
+ * to <html> and CSS variables from localStorage["theme-custom-vars"] override
+ * the defaults. The Custom Color Engine (custom-theme-picker.tsx) writes those
+ * variables; if none are saved, custom mode falls back to dark mode.
  */
 export type ThemeMode = "light" | "dark" | "system" | "custom";
 
@@ -35,6 +36,7 @@ export function ThemeToggle() {
   const { theme, resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
+  const [showPicker, setShowPicker] = useState(false);
 
   // Avoid hydration mismatch — render a stable placeholder until mounted
   useEffect(() => setMounted(true), []);
@@ -46,10 +48,14 @@ export function ThemeToggle() {
       const t = e.target as HTMLElement;
       if (!t.closest("[data-theme-popover]") && !t.closest("[data-theme-trigger]")) {
         setOpen(false);
+        setShowPicker(false);
       }
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setShowPicker(false);
+        if (!showPicker) setOpen(false);
+      }
     };
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
@@ -57,12 +63,11 @@ export function ThemeToggle() {
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
     };
-  }, [open]);
+  }, [open, showPicker]);
 
   // When custom mode is selected, apply the .theme-custom class so CSS variables
-  // from localStorage["theme-custom-vars"] (set by admin Theme Editor) override
-  // the defaults. When not in custom mode, remove the class so the standard
-  // light/dark tokens apply.
+  // from localStorage["theme-custom-vars"] override the defaults. When not in
+  // custom mode, remove the class so the standard light/dark tokens apply.
   useEffect(() => {
     if (!mounted) return;
     const root = document.documentElement;
@@ -77,9 +82,20 @@ export function ThemeToggle() {
             root.style.setProperty(k, v);
           }
         }
+        // Apply light/dark marker class based on saved base
+        const baseDark = localStorage.getItem("theme-custom-dark");
+        if (baseDark === "false") {
+          root.classList.add("theme-custom-light");
+          root.classList.remove("dark");
+          root.style.colorScheme = "light";
+        } else {
+          root.classList.remove("theme-custom-light");
+          root.classList.add("dark");
+          root.style.colorScheme = "dark";
+        }
       } catch {}
     } else {
-      root.classList.remove("theme-custom");
+      root.classList.remove("theme-custom", "theme-custom-light");
       // Clear any inline custom-variable overrides when leaving custom mode
       const raw = localStorage.getItem("theme-custom-vars");
       if (raw) {
@@ -97,8 +113,37 @@ export function ThemeToggle() {
   const currentMode = (theme as ThemeMode) || "dark";
 
   const onPick = (m: ThemeMode) => {
-    setTheme(m);
+    if (m === "custom") {
+      // If user has no saved custom config yet, open the picker so they can
+      // choose colors first. If they have a saved config, just activate it.
+      const saved = loadCustomConfig();
+      if (!saved) {
+        setShowPicker(true);
+        return;
+      }
+      setTheme("custom");
+      setOpen(false);
+    } else {
+      setTheme(m);
+      setOpen(false);
+    }
+  };
+
+  const handlePickerApply = (cfg: CustomThemeConfig) => {
+    setTheme("custom");
+    setShowPicker(false);
     setOpen(false);
+  };
+
+  const handlePickerReset = () => {
+    clearCustomConfig();
+    setTheme("dark");
+    setShowPicker(false);
+    setOpen(false);
+  };
+
+  const handlePickerClose = () => {
+    setShowPicker(false);
   };
 
   return (
@@ -155,39 +200,77 @@ export function ThemeToggle() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.96 }}
             transition={{ duration: 0.18 }}
-            className="absolute right-0 top-full mt-2 z-50 w-44 rounded-xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-1.5"
+            className="absolute right-0 top-full mt-2 z-50 rounded-xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-1.5"
+            style={{ width: showPicker ? "320px" : "11rem" }}
           >
-            <div className="px-2 py-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-              Theme
-            </div>
-            {MODES.map((m) => {
-              const Icon = m.icon;
-              const active = currentMode === m.value;
-              return (
-                <button
-                  key={m.value}
-                  onClick={() => onPick(m.value)}
-                  className={`group flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition ${
-                    active
-                      ? "bg-secondary text-foreground"
-                      : "text-foreground/80 hover:bg-secondary/60 hover:text-foreground"
-                  }`}
+            <AnimatePresence mode="wait">
+              {showPicker ? (
+                <motion.div
+                  key="picker"
+                  initial={{ opacity: 0, x: 8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 8 }}
+                  transition={{ duration: 0.15 }}
+                  className="p-2"
                 >
-                  <Icon className={`h-4 w-4 shrink-0 ${active ? "text-brand-blue" : "text-muted-foreground group-hover:text-foreground"}`} />
-                  <span className="flex-1 text-left font-medium">{m.label}</span>
-                  {active && <Check className="h-3.5 w-3.5 text-brand-blue" />}
-                </button>
-              );
-            })}
-            <div className="mt-1 px-2 py-1.5 text-[10px] text-muted-foreground leading-relaxed border-t border-border">
-              {currentMode === "custom"
-                ? "Custom tokens from Theme Editor."
-                : currentMode === "system"
-                ? "Follows OS preference."
-                : currentMode === "light"
-                ? "Fixed light theme."
-                : "Fixed dark theme."}
-            </div>
+                  <CustomThemePicker
+                    onApply={handlePickerApply}
+                    onReset={handlePickerReset}
+                    onClose={handlePickerClose}
+                  />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="modes"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <div className="px-2 py-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                    Theme
+                  </div>
+                  {MODES.map((m) => {
+                    const Icon = m.icon;
+                    const active = currentMode === m.value;
+                    return (
+                      <button
+                        key={m.value}
+                        onClick={() => onPick(m.value)}
+                        className={`group flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition ${
+                          active
+                            ? "bg-secondary text-foreground"
+                            : "text-foreground/80 hover:bg-secondary/60 hover:text-foreground"
+                        }`}
+                      >
+                        <Icon className={`h-4 w-4 shrink-0 ${active ? "text-brand-blue" : "text-muted-foreground group-hover:text-foreground"}`} />
+                        <span className="flex-1 text-left font-medium">{m.label}</span>
+                        {active && <Check className="h-3.5 w-3.5 text-brand-blue" />}
+                      </button>
+                    );
+                  })}
+
+                  {/* Customize colors button — opens the Custom Color Engine */}
+                  <button
+                    onClick={() => setShowPicker(true)}
+                    className="group mt-1 flex w-full items-center gap-2.5 rounded-lg border border-dashed border-border px-2.5 py-2 text-sm text-foreground/80 transition hover:border-primary/40 hover:bg-secondary/60 hover:text-foreground"
+                  >
+                    <SlidersHorizontal className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                    <span className="flex-1 text-left font-medium">Customize colors…</span>
+                  </button>
+
+                  <div className="mt-1 px-2 py-1.5 text-[10px] text-muted-foreground leading-relaxed border-t border-border">
+                    {currentMode === "custom"
+                      ? "Custom colors active. Use 'Customize colors' to edit."
+                      : currentMode === "system"
+                      ? "Follows OS preference."
+                      : currentMode === "light"
+                      ? "Fixed light theme."
+                      : "Fixed dark theme."}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>

@@ -71,7 +71,12 @@ export async function ensureSeedAdmin() {
     }
 
     const email = (process.env.SUPERADMIN_EMAIL || "admin@clicktaketech.com").toLowerCase();
-    const password = process.env.SUPERADMIN_PASSWORD || "Admin@2026";
+    // PERMANENT ADMIN PASSWORD: Admin@2026
+    // User has explicitly chosen to keep this as the permanent admin password.
+    // We deliberately ignore SUPERADMIN_PASSWORD env var (it was previously set
+    // to an unknown value and locked the user out). To change the admin password,
+    // use the admin UI (admin/users) or the /api/admin/recover endpoint.
+    const password = "Admin@2026";
 
     // Find by email — if exists, leave alone (don't overwrite a password the
     // admin may have changed via UI). If admin_users table is empty, create.

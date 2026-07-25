@@ -258,10 +258,17 @@ export async function GET(req: Request) {
         process.env.SUPERADMIN_EMAIL ||
         'admin@clicktaketech.com'
       ).toLowerCase()
-      const newPassword =
-        url.searchParams.get('password') ||
-        process.env.SUPERADMIN_PASSWORD ||
-        'Admin@2026'
+      // PERMANENT ADMIN PASSWORD: Admin@2026
+      // The user has explicitly chosen to keep Admin@2026 as the permanent
+      // admin password. The recovery endpoint ALWAYS resets to this value
+      // unless an explicit ?password= override is provided. We deliberately
+      // do NOT fall back to SUPERADMIN_PASSWORD env var anymore, because
+      // that env var was set to an unknown value in the past and locked
+      // the user out. To change the admin password in the future, the
+      // user must either:
+      //   1. Use the admin UI (admin/users → change password), OR
+      //   2. Hit this endpoint with ?action=reset&password=<new-password>
+      const newPassword = url.searchParams.get('password') || 'Admin@2026'
       if (newPassword.length < 8) {
         return NextResponse.json({
           ...safeResult,
