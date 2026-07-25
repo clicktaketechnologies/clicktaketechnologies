@@ -86,6 +86,126 @@ export async function GET(req: Request) {
       action,
     }
 
+    // ─── action=simulate ──────────────────────────────────────────────────
+    // Runs the EXACT same code path as NextAuth authorize() — step by step,
+    // catching and reporting errors at each stage. This isolates exactly
+    // where the CredentialsSignin is coming from.
+    if (action === 'simulate') {
+      const targetEmail = (
+        url.searchParams.get('email') ||
+        process.env.SUPERADMIN_EMAIL ||
+        'admin@clicktaketech.com'
+      ).toLowerCase()
+      const testPassword = url.searchParams.get('password') || 'Admin@2026'
+
+      const steps: any[] = []
+
+      // Step 1: ensureSeedAdmin (should be no-op if admin exists)
+      try {
+        const { ensureSeedAdmin } = await import('@/lib/auth')
+        await ensureSeedAdmin()
+        steps.push({ step: 'ensureSeedAdmin', ok: true })
+      } catch (e: any) {
+        steps.push({ step: 'ensureSeedAdmin', ok: false, error: e?.message, stack: e?.stack?.split('\n').slice(0,3) })
+      }
+
+      // Step 2: findUnique with nested includes (same as authorize)
+      let user: any = null
+      try {
+        user = await prisma.adminUser.findUnique({
+          where: { email: targetEmail },
+          include: { role: { include: { permissions: true } } },
+        })
+        steps.push({
+          step: 'findUnique',
+          ok: true,
+          found: !!user,
+          hasRole: !!user?.role,
+          permissionCount: user?.role?.permissions?.length || 0,
+        })
+      } catch (e: any) {
+        steps.push({ step: 'findUnique', ok: false, error: e?.message, stack: e?.stack?.split('\n').slice(0,3) })
+        return NextResponse.json({ ...safeResult, simulate: { steps, aborted: true } }, { headers: { 'Cache-Control': 'no-store' } })
+      }
+
+      if (!user) {
+        steps.push({ step: 'user-check', ok: false, error: 'User not found' })
+        return NextResponse.json({ ...safeResult, simulate: { steps, aborted: true } }, { headers: { 'Cache-Control': 'no-store' } })
+      }
+
+      // Step 3: status check
+      if (user.status !== 'Active') {
+        steps.push({ step: 'status-check', ok: false, status: user.status })
+        return NextResponse.json({ ...safeResult, simulate: { steps, aborted: true } }, { headers: { 'Cache-Control': 'no-store' } })
+      }
+      steps.push({ step: 'status-check', ok: true, status: user.status })
+
+      // Step 4: verifyPassword
+      let ok: boolean
+      try {
+        const { verifyPassword } = await import('@/lib/auth')
+        ok = await verifyPassword(testPassword, user.passwordHash)
+        steps.push({ step: 'verifyPassword', ok: true, result: ok })
+      } catch (e: any) {
+        steps.push({ step: 'verifyPassword', ok: false, error: e?.message })
+        return NextResponse.json({ ...safeResult, simulate: { steps, aborted: true } }, { headers: { 'Cache-Control': 'no-store' } })
+      }
+
+      if (!ok) {
+        steps.push({ step: 'password-match', ok: false })
+        return NextResponse.json({ ...safeResult, simulate: { steps, aborted: true } }, { headers: { 'Cache-Control': 'no-store' } })
+      }
+      steps.push({ step: 'password-match', ok: true })
+
+      // Step 5: update lastLoginAt
+      try {
+        await prisma.adminUser.update({
+          where: { id: user.id },
+          data: { lastLoginAt: new Date() },
+        })
+        steps.push({ step: 'update-lastLogin', ok: true })
+      } catch (e: any) {
+        steps.push({ step: 'update-lastLogin', ok: false, error: e?.message })
+        return NextResponse.json({ ...safeResult, simulate: { steps, aborted: true } }, { headers: { 'Cache-Control': 'no-store' } })
+      }
+
+      // Step 6: logAudit
+      try {
+        const { logAudit } = await import('@/lib/log-audit')
+        await logAudit({
+          userId: user.id,
+          userName: user.fullName,
+          action: 'auth.login',
+          details: { email: user.email, simulatedBy: 'recover-endpoint' },
+        })
+        steps.push({ step: 'logAudit', ok: true })
+      } catch (e: any) {
+        steps.push({ step: 'logAudit', ok: false, error: e?.message })
+        // logAudit catches its own errors internally, so this shouldn't fire
+      }
+
+      // Step 7: build the return object
+      const permissions = (user.role?.permissions || [])
+        .filter((p: any) => p.allowed)
+        .map((p: any) => p.permissionKey)
+
+      const returnedUser = {
+        id: user.id,
+        email: user.email,
+        name: user.fullName,
+        roleId: user.roleId || '',
+        roleName: user.role?.name || '',
+        permissions,
+      }
+
+      steps.push({ step: 'build-return', ok: true, returnedUser })
+
+      return NextResponse.json({
+        ...safeResult,
+        simulate: { steps, aborted: false, allPassed: true, returnedUser },
+      }, { headers: { 'Cache-Control': 'no-store' } })
+    }
+
     // ─── action=verify ────────────────────────────────────────────────────
     // Test bcrypt verification directly — bypasses the NextAuth authorize()
     // wrapper. Used to isolate whether the issue is in our bcrypt code or
