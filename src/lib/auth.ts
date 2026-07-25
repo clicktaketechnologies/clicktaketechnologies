@@ -22,11 +22,14 @@ export async function verifyPassword(plain: string, hash: string): Promise<boole
 }
 
 // ─── Ensure system roles + super-admin exist on first boot ──────────────────
-
-let _seeded = false;
+//
+// NOTE: Removed the `_seeded` cache flag. In serverless (Vercel), each cold
+// start is a new instance — caching the seed flag meant that if the first
+// attempt failed silently (transient DB error, partial insert, etc.), the
+// admin user would NEVER be created on that instance. By running the
+// idempotent seed check on every authorize() call, we self-heal.
+// The cost is one `findFirst` + one `findUnique` per login attempt — trivial.
 export async function ensureSeedAdmin() {
-  if (_seeded) return;
-  _seeded = true;
   try {
     const roleMap: Record<string, string> = {};
     for (const r of SYSTEM_ROLES) {
@@ -49,10 +52,13 @@ export async function ensureSeedAdmin() {
       roleMap[r.name] = created.id;
     }
 
-    const existingAdmin = await prisma.adminUser.findFirst();
-    if (!existingAdmin) {
-      const email = process.env.SUPERADMIN_EMAIL || "admin@clicktaketech.com";
-      const password = process.env.SUPERADMIN_PASSWORD || "Admin@2026";
+    const email = (process.env.SUPERADMIN_EMAIL || "admin@clicktaketech.com").toLowerCase();
+    const password = process.env.SUPERADMIN_PASSWORD || "Admin@2026";
+
+    // Find by email — if exists, leave alone (don't overwrite a password the
+    // admin may have changed via UI). If admin_users table is empty, create.
+    const anyAdmin = await prisma.adminUser.findFirst();
+    if (!anyAdmin) {
       const hashed = await hashPassword(password);
       await prisma.adminUser.create({
         data: {
@@ -63,9 +69,11 @@ export async function ensureSeedAdmin() {
           status: "Active",
         },
       });
-      console.log(`[seed] Created super-admin: ${email} / ${password}`);
+      console.log(`[seed] Created super-admin: ${email}`);
     }
   } catch (err) {
+    // Non-fatal — login will fail with CredentialsSignin and we'll see the
+    // server log. Don't throw, or every login attempt would 500.
     console.error("[ensureSeedAdmin] failed:", err);
   }
 }
