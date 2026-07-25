@@ -265,7 +265,15 @@ function toRelationalOrderBy(table: any, orderBy: any): any {
 }
 
 // Convert Prisma include to Drizzle's `with`
-function toWith(include: any): any {
+//
+// `sourceTableName` is the DB table name of the parent model (the one
+// findMany/findUnique was called on). It's used to resolve the target table
+// for each relation so we can translate Prisma-style nested orderBy objects
+// ({ key: "asc" }) into Drizzle's expected asc()/desc() expression form.
+// Without the conversion, Drizzle's relational query API throws when it
+// receives a plain object as orderBy, which surfaced as a 500 on
+// /admin/ab-tests (include.variants.orderBy).
+function toWith(include: any, sourceTableName?: string): any {
   if (!include) return undefined;
   const w: Record<string, any> = {};
   for (const [k, vRaw] of Object.entries(include)) {
@@ -274,9 +282,22 @@ function toWith(include: any): any {
       w[k] = true;
     } else if (v && typeof v === "object") {
       const sub: Record<string, any> = {};
-      if (v.with || v.include) sub.with = toWith(v.with || v.include);
+      // For nested with/include, resolve the target table for THIS relation
+      // so deeper orderBy clauses can also be converted.
+      const targetTableForNested = findRelationTargetTable(sourceTableName, k);
+      const nestedSourceTableName = targetTableForNested?.[Symbol.for("drizzle:Name")];
+      if (v.with || v.include) sub.with = toWith(v.with || v.include, nestedSourceTableName);
       if (v.where) sub.where = v.where;
-      if (v.orderBy) sub.orderBy = v.orderBy;
+      if (v.orderBy) {
+        // Look up the target table for this relation so we can resolve
+        // column references. Falls back to passing orderBy through verbatim
+        // if the relation isn't in the schema map (legacy behavior).
+        if (targetTableForNested) {
+          sub.orderBy = toRelationalOrderBy(targetTableForNested, v.orderBy);
+        } else {
+          sub.orderBy = v.orderBy;
+        }
+      }
       if (v.take) sub.limit = v.take;
       if (v.skip) sub.offset = v.skip;
       if (v.select) sub.columns = toColumns(v.select);
@@ -284,6 +305,61 @@ function toWith(include: any): any {
     }
   }
   return w;
+}
+
+// Map { parentTableName → { relKey → targetTableObject } } by calling each
+// Relations object's config function with the standard Drizzle helpers.
+// Drizzle stores relations as a config FUNCTION (not a static object), so
+// we invoke it once at first use and cache the result.
+let _relationsTargetMap: Record<string, Record<string, any>> | null = null;
+function getRelationsTargetMap(): Record<string, Record<string, any>> {
+  if (_relationsTargetMap) return _relationsTargetMap;
+  _relationsTargetMap = {};
+  // Use Drizzle's own helpers so the returned One/Many instances have the
+  // required .withFieldName() method (called by Relations.config).
+  const { createTableRelationsHelpers } = require("drizzle-orm/relations") as any;
+  for (const [exportName, val] of Object.entries(schemaObj)) {
+    if (!exportName.endsWith("Relations") || !val) continue;
+    const relsObj = val as any;
+    const sourceTable = relsObj.table;
+    if (!sourceTable) continue;
+    const sourceTableName = sourceTable[Symbol.for("drizzle:Name")];
+    if (!sourceTableName) continue;
+    const helpers = createTableRelationsHelpers(sourceTable);
+    let rels: Record<string, any> = {};
+    try {
+      rels = relsObj.config(helpers) || {};
+    } catch {
+      continue;
+    }
+    const relMap: Record<string, any> = {};
+    for (const [rk, rv] of Object.entries(rels)) {
+      // After config(helpers) returns, each relation value is a One or Many
+      // instance with .referencedTable pointing at the target PgTable.
+      const targetT = (rv as any)?.referencedTable;
+      if (targetT) {
+        relMap[rk] = targetT;
+      }
+    }
+    _relationsTargetMap[sourceTableName] = relMap;
+  }
+  return _relationsTargetMap;
+}
+
+// Resolve the target Drizzle table for a relation by its key on the parent.
+// Used by toWith() to convert Prisma-style nested orderBy objects into
+// Drizzle's expected asc()/desc() expression form.
+function findRelationTargetTable(sourceTableName?: string, relKey?: string): any | null {
+  if (!sourceTableName || !relKey) return null;
+  const map = getRelationsTargetMap();
+  // First try exact parent match
+  if (map[sourceTableName]?.[relKey]) return map[sourceTableName][relKey];
+  // Fall back to searching all parent tables (covers cases where sourceTableName
+  // wasn't passed or doesn't match)
+  for (const relMap of Object.values(map)) {
+    if (relMap[relKey]) return relMap[relKey];
+  }
+  return null;
 }
 
 // Convert Prisma select to Drizzle's `columns`
@@ -380,7 +456,7 @@ function makeModel(modelName: string, table: any) {
       if (opts.include && getRelationalQuery()) {
         const row = await getRelationalQuery().findFirst({
           where: cond,
-          with: toWith(opts.include),
+          with: toWith(opts.include, tableName),
           columns: opts.select ? toColumns(opts.select) : undefined,
         });
         return row || null;
@@ -404,7 +480,7 @@ function makeModel(modelName: string, table: any) {
       if (opts.include && getRelationalQuery()) {
         const row = await getRelationalQuery().findFirst({
           where: cond,
-          with: toWith(opts.include),
+          with: toWith(opts.include, tableName),
           orderBy: toRelationalOrderBy(table, opts.orderBy),
           columns: opts.select ? toColumns(opts.select) : undefined,
         });
@@ -432,7 +508,7 @@ function makeModel(modelName: string, table: any) {
       if (opts.include && getRelationalQuery()) {
         const rows = await getRelationalQuery().findMany({
           where: cond,
-          with: toWith(opts.include),
+          with: toWith(opts.include, tableName),
           orderBy: toRelationalOrderBy(table, opts.orderBy),
           limit: opts.take,
           offset: opts.skip,
@@ -498,7 +574,7 @@ function makeModel(modelName: string, table: any) {
         // Re-read to attach relations
         return getRelationalQuery().findFirst({
           where: eq(table.id, row.id),
-          with: toWith(opts.include),
+          with: toWith(opts.include, tableName),
         });
       }
       return row;
@@ -540,7 +616,7 @@ function makeModel(modelName: string, table: any) {
       if (opts.include && getRelationalQuery()) {
         return getRelationalQuery().findFirst({
           where: eq(table.id, rows[0].id),
-          with: toWith(opts.include),
+          with: toWith(opts.include, tableName),
         });
       }
       return rows[0];
@@ -616,7 +692,7 @@ function makeModel(modelName: string, table: any) {
         if (opts.include && getRelationalQuery()) {
           return getRelationalQuery().findFirst({
             where: eq(table.id, row.id),
-            with: toWith(opts.include),
+            with: toWith(opts.include, tableName),
           });
         }
         return row;

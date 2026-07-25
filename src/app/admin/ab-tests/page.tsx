@@ -11,6 +11,9 @@ export default async function AbTestsPage() {
   if (!hasPermission(session.user, "readCMS")) redirect("/admin");
 
   // Fetch initial experiments list (the client will refetch on actions)
+  // The shim's toWith() now properly converts nested orderBy to Drizzle's
+  // expected asc()/desc() form, so { variants: { orderBy: { key: "asc" } } }
+  // works correctly.
   const experiments = await prisma.abExperiment.findMany({
     orderBy: { createdAt: "desc" },
     include: { variants: { orderBy: { key: "asc" } } },
