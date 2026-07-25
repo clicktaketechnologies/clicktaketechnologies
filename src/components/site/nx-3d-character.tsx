@@ -21,7 +21,7 @@
  * to keep bundle size small. Animations use CSS keyframes only.
  */
 
-type Variant =
+export type Variant =
   | 'services'      // rotating cube with code symbol
   | 'solutions'     // glowing orb with rings
   | 'about'         // hex shield with checkmark
@@ -39,7 +39,7 @@ type Variant =
   | 'blog-post'     // scroll
   | 'default'       // generic cube
 
-type Size = 'sm' | 'md' | 'lg' | 'xl'
+export type Size = 'sm' | 'md' | 'lg' | 'xl'
 
 type Props = {
   variant?: Variant
