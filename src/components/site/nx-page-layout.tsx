@@ -6,7 +6,7 @@ import { ArrowRight, ChevronRight } from "lucide-react"
 import { NxNavbar } from "./nx-navbar"
 import { NxFooter } from "./nx-footer"
 import { ScrollProgressBar, ScrollToTop } from "./scroll-animations"
-import { Nx3DCharacter } from "./nx-3d-character"
+import { Nx3DCharacterInteractive } from "./nx-3d-character-interactive"
 import { Nx3DScene } from "./nx-3d-scene"
 import dynamic from "next/dynamic"
 
@@ -244,7 +244,11 @@ export function NxPageHero({
               transition={{ duration: 0.6, delay: 0.3 }}
               className="relative hidden lg:flex items-center justify-center min-h-[400px]"
             >
-              <Nx3DCharacter variant={character} size="lg" />
+              <Nx3DCharacterInteractive
+                variant={character}
+                size="lg"
+                showClickHint={true}
+              />
             </motion.div>
           )}
         </div>

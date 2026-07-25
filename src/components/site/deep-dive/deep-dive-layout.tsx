@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight, Menu, X, List } from "lucide-react"
 import { NxPageLayout, NxButton } from "../nx-page-layout"
 import { Nx3DCharacter } from "../nx-3d-character"
+import { Nx3DCharacterInteractive } from "../nx-3d-character-interactive"
 import {
   Accordion,
   ComparisonTable,
@@ -425,7 +426,11 @@ function DeepDiveHeroBlock({
               transition={{ duration: 0.6, delay: 0.3 }}
               className="relative hidden lg:flex items-center justify-center min-h-[400px]"
             >
-              <Nx3DCharacter variant={resolvedCharacter!} size="lg" />
+              <Nx3DCharacterInteractive
+                variant={resolvedCharacter!}
+                size="lg"
+                showClickHint={true}
+              />
             </motion.div>
           )}
         </div>
