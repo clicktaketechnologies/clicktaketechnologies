@@ -11,6 +11,24 @@ import { prisma } from "@/lib/db";
 import { logAudit, logSecurityEvent } from "@/lib/log-audit";
 import { SYSTEM_ROLES } from "@/lib/permissions";
 
+// ─── Force-correct NEXTAUTH_URL ──────────────────────────────────────────────
+// NEXTAUTH_URL was set in Vercel to the OLD preview URL (clicktaketech.vercel.app)
+// instead of the production domain (clicktaketech.com). NextAuth uses this env
+// var to construct signinUrl, callbackUrl, and cookie paths — getting it wrong
+// breaks login (CredentialsSignin) because the credentials flow thinks the
+// request is cross-origin.
+//
+// `trustHost: true` alone doesn't help because NEXTAUTH_URL env var takes
+// precedence. So we override process.env.NEXTAUTH_URL directly at module load
+// time. This is the production canonical URL.
+//
+// TODO: User should fix NEXTAUTH_URL in Vercel env vars
+// (Settings → Environment Variables → NEXTAUTH_URL = https://clicktaketech.com)
+// and this override can be removed.
+if (process.env.NODE_ENV === "production") {
+  process.env.NEXTAUTH_URL = "https://clicktaketech.com";
+}
+
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 export async function hashPassword(plain: string): Promise<string> {
