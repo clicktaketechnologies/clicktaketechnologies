@@ -573,6 +573,9 @@ model Service {
   faq                 String   @default("[]")
   processSteps        String   @default("[]")
   pricingPackages     String   @default("[]")
+  // Phase 3 #2 — full 12-section deep-dive content from the Master
+  // Copywriting prompt. JSON-stringified blob (DeepDiveContent shape).
+  deepDive            String   @default("{}")
   displayOrder        Int      @default(0) @map("display_order")
   isPublished         Boolean  @default(true) @map("is_published")
   createdAt           DateTime @default(now()) @map("created_at")

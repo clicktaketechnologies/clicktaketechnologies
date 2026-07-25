@@ -24,7 +24,12 @@ export async function GET(
     faq: JSON.parse(s.faq || "[]"),
     processSteps: JSON.parse(s.processSteps || "[]"),
     pricingPackages: JSON.parse(s.pricingPackages || "[]"),
+    deepDive: safeJsonParse(s.deepDive, {}),
   });
+}
+
+function safeJsonParse(raw: string | null | undefined, fallback: any): any {
+  try { return JSON.parse(raw || "{}") || fallback; } catch { return fallback; }
 }
 
 export async function PATCH(
@@ -54,6 +59,8 @@ export async function PATCH(
   for (const f of ["items","results","differentiators","deliverables","faq","processSteps","pricingPackages"]) {
     if (body[f] !== undefined) data[f] = JSON.stringify(body[f]);
   }
+  // Phase 3 #2 — persist AI-generated deep-dive content.
+  if (body.deepDive !== undefined) data.deepDive = JSON.stringify(body.deepDive);
 
   const updated = await prisma.service.update({ where: { id }, data });
 

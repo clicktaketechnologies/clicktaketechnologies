@@ -22,8 +22,13 @@ export async function GET() {
       faq: JSON.parse(s.faq || "[]"),
       processSteps: JSON.parse(s.processSteps || "[]"),
       pricingPackages: JSON.parse(s.pricingPackages || "[]"),
+      deepDive: safeJsonParse(s.deepDive, {}),
     })),
   });
+}
+
+function safeJsonParse(raw: string | null | undefined, fallback: any): any {
+  try { return JSON.parse(raw || "{}") || fallback; } catch { return fallback; }
 }
 
 export async function POST(req: NextRequest) {
@@ -37,6 +42,7 @@ export async function POST(req: NextRequest) {
     slug, category, categoryLabel, title, description, detailedDescription,
     iconName, imageUrl, gradient, glow, eyebrow,
     items, results, differentiators, deliverables, faq, processSteps, pricingPackages,
+    deepDive,
     displayOrder, isPublished,
   } = body;
 
@@ -57,6 +63,8 @@ export async function POST(req: NextRequest) {
       faq: JSON.stringify(faq || []),
       processSteps: JSON.stringify(processSteps || []),
       pricingPackages: JSON.stringify(pricingPackages || []),
+      // Phase 3 #2 — persist AI-generated deep-dive content (12-section Ultimate Guide).
+      deepDive: deepDive ? JSON.stringify(deepDive) : "{}",
       displayOrder: displayOrder || 0,
       isPublished: isPublished !== false,
     },
@@ -68,7 +76,7 @@ export async function POST(req: NextRequest) {
     action: "service.create",
     entity: "Service",
     entityId: service.id,
-    details: { title, slug },
+    details: { title, slug, aiGenerated: !!deepDive },
   });
 
   return NextResponse.json({ id: service.id });
