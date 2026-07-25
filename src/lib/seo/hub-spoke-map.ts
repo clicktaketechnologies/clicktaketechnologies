@@ -129,6 +129,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Prompt Engineering", href: "/services/ai/prompt-engineering", blurb: "Production-grade prompt libraries with eval harnesses." },
       { label: "Computer Vision & NLP", href: "/services/ai/cv-nlp", blurb: "Vision models for OCR, defect detection, and document intelligence." },
       { label: "AI Automation & Workflows", href: "/services/ai/automation", blurb: "Multi-step agentic workflows that eliminate manual ops." },
+      { label: "AI Agent Development", href: "/services/ai/agents", blurb: "Goal-driven autonomous agents with tool use, memory, and planning." },
     ],
     resources: {
       blogs: [
@@ -149,6 +150,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Large Language Model Deployment", href: "/services/ai/llm", blurb: "Production LLM hosting, fine-tuning, and inference optimization." },
       { label: "Prompt Engineering", href: "/services/ai/prompt-engineering", blurb: "Eval-driven prompt libraries with regression testing." },
       { label: "AI Automation & Workflows", href: "/services/ai/automation", blurb: "Connect chatbots to CRM, ticketing, and knowledge bases." },
+      { label: "AI Agent Development", href: "/services/ai/agents", blurb: "Hand complex intents off to a goal-driven backend agent." },
       { label: "Computer Vision & NLP", href: "/services/ai/cv-nlp", blurb: "Voice + text multi-modal assistants." },
     ],
     resources: {
@@ -170,6 +172,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Large Language Model Deployment", href: "/services/ai/llm", blurb: "Foundation models behind production prompt systems." },
       { label: "AI Chatbots & Virtual Assistants", href: "/services/ai/chatbots", blurb: "Prompt-driven conversational agents." },
       { label: "AI Automation & Workflows", href: "/services/ai/automation", blurb: "Prompt chains and agentic orchestration." },
+      { label: "AI Agent Development", href: "/services/ai/agents", blurb: "System prompts and tool schemas for autonomous agents." },
       { label: "Computer Vision & NLP", href: "/services/ai/cv-nlp", blurb: "Structured-output prompts for document extraction." },
     ],
     resources: {
@@ -207,6 +210,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Large Language Model Deployment", href: "/services/ai/llm", blurb: "Inference layer for agentic decisioning." },
       { label: "Prompt Engineering", href: "/services/ai/prompt-engineering", blurb: "Chain-of-thought prompts for multi-step tasks." },
       { label: "Web & Software Development", href: "/services/web/full-stack", blurb: "Custom workflow orchestration platforms." },
+      { label: "AI Agent Development", href: "/services/ai/agents", blurb: "Goal-driven agents that pick their own path through workflows." },
     ],
     resources: {
       blogs: [
@@ -215,6 +219,27 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       ],
       caseStudies: [
         { label: "Insurance Claims Automation — 84% Time Savings", href: "/case-studies/insurance-claims-automation", blurb: "Agentic pipeline that triages, extracts, and routes claims." },
+      ],
+      pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
+    },
+  },
+  "ai/agents": {
+    slug: "ai/agents",
+    cluster: "ai",
+    pillar: PILLARS.ai,
+    siblings: [
+      { label: "AI Automation & Workflows", href: "/services/ai/automation", blurb: "Workflow-driven orchestration — the natural pairing for goal-driven agents." },
+      { label: "Large Language Model Deployment", href: "/services/ai/llm", blurb: "Inference layer, fine-tuning, and self-hosted models for agent reasoning." },
+      { label: "Prompt Engineering", href: "/services/ai/prompt-engineering", blurb: "Eval-driven system prompts and structured-output schemas for tool use." },
+      { label: "AI Chatbots & Virtual Assistants", href: "/services/ai/chatbots", blurb: "Conversational front-ends that hand off to backend agents." },
+    ],
+    resources: {
+      blogs: [
+        { label: "Agent Patterns: ReAct, Plan-and-Execute, and Multi-Agent", href: "/blog/agent-patterns-react-plan-execute", blurb: "When each pattern wins, and where they fail in production." },
+        { label: "Memory Architectures for Long-Running Agents", href: "/blog/agent-memory-architectures", blurb: "Episodic, semantic, and procedural memory patterns that scale." },
+      ],
+      caseStudies: [
+        { label: "Autonomous SDR Agent — 38 Prospects per Rep per Day", href: "/case-studies/autonomous-sdr-agent", blurb: "Multi-agent system that researches, drafts, and personalises outbound." },
       ],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },

@@ -7,6 +7,7 @@ import { aiChatbotsDeepDive } from "@/content/deep-dive/ai-chatbots";
 import { aiPromptEngineeringDeepDive } from "@/content/deep-dive/ai-prompt-engineering";
 import { aiCvNlpDeepDive } from "@/content/deep-dive/ai-cv-nlp";
 import { aiAutomationDeepDive } from "@/content/deep-dive/ai-automation";
+import { aiAgentsDeepDive } from "@/content/deep-dive/ai-agents";
 import { webFullStackDeepDive } from "@/content/deep-dive/web-full-stack";
 import { webSaasDeepDive } from "@/content/deep-dive/web-saas";
 import { webAuthDeepDive } from "@/content/deep-dive/web-auth";
@@ -50,6 +51,7 @@ const DEEP_DIVE_CONTENT: Record<string, DeepDiveContent> = {
   "ai/prompt-engineering": aiPromptEngineeringDeepDive,
   "ai/cv-nlp": aiCvNlpDeepDive,
   "ai/automation": aiAutomationDeepDive,
+  "ai/agents": aiAgentsDeepDive,
   "web/full-stack": webFullStackDeepDive,
   "web/saas": webSaasDeepDive,
   "web/auth": webAuthDeepDive,
