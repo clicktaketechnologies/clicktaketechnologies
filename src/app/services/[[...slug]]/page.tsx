@@ -227,7 +227,7 @@ export default async function Page({ params }: Params) {
     return (
       <>
         <JsonLd data={schemas} />
-        <DeepDiveLayout content={deepDive} />
+        <DeepDiveLayout content={deepDive} hubSpokeSlug={joined} />
       </>
     );
   }
