@@ -25,6 +25,10 @@ import {
   RelatedResources,
 } from "./hub-spoke-blocks"
 import { getHubSpokeEntry } from "@/lib/seo/hub-spoke-map"
+import {
+  resolveCharacter,
+  shouldOverrideCharacter,
+} from "./service-character-map"
 
 /* ─── Helpers ─────────────────────────────────────────────────────── */
 
@@ -291,8 +295,25 @@ function SectionHeading({
 
 /* ─── HERO ────────────────────────────────────────────────────────── */
 
-function DeepDiveHeroBlock({ hero }: { hero: DeepDiveHero }) {
-  const hasChar = Boolean(hero.character)
+function DeepDiveHeroBlock({
+  hero,
+  hubSpokeSlug,
+  hubSpokeCluster,
+}: {
+  hero: DeepDiveHero
+  hubSpokeSlug?: string
+  hubSpokeCluster?: string
+}) {
+  // Resolve the 3D character: if the content used the generic
+  // "service-detail" / "solution-detail" placeholder, override it with
+  // a cluster- or slug-specific character from the service-character-map.
+  // This gives every cluster a distinct visual identity without touching
+  // any of the 32 content files.
+  const resolvedCharacter =
+    hubSpokeSlug && shouldOverrideCharacter(hero.character)
+      ? resolveCharacter(hubSpokeSlug, hubSpokeCluster)
+      : hero.character
+  const hasChar = Boolean(resolvedCharacter)
   return (
     <section className="relative overflow-hidden nx-hero-bg pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-20">
       <div className="absolute inset-0 nx-dot-grid opacity-30 pointer-events-none" />
@@ -404,7 +425,7 @@ function DeepDiveHeroBlock({ hero }: { hero: DeepDiveHero }) {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="relative hidden lg:flex items-center justify-center min-h-[400px]"
             >
-              <Nx3DCharacter variant={hero.character!} size="lg" />
+              <Nx3DCharacter variant={resolvedCharacter!} size="lg" />
             </motion.div>
           )}
         </div>
@@ -434,7 +455,11 @@ export function DeepDiveLayout({
   return (
     <NxPageLayout mainClassName="">
       <ReadingProgress />
-      <DeepDiveHeroBlock hero={content.hero} />
+      <DeepDiveHeroBlock
+        hero={content.hero}
+        hubSpokeSlug={hubSpokeSlug}
+        hubSpokeCluster={hubSpokeEntry?.cluster}
+      />
 
       <div id="deep-dive-article" className="relative mx-auto max-w-7xl px-4 lg:px-8">
         <div className="flex gap-12">
