@@ -227,10 +227,10 @@ export function NxHero() {
                 <ArrowRight className="h-4 w-4 nx-arrow" />
               </Link>
               <Link
-                href="/contact"
+                href="/portfolio"
                 className="nx-btn-outline-light inline-flex items-center justify-center gap-2 px-7 py-4 text-sm sm:text-base"
               >
-                Get Free Audit
+                View Our Work
               </Link>
             </motion.div>
 
