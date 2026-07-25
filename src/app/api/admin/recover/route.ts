@@ -239,6 +239,120 @@ export async function GET(req: Request) {
       }
     }
 
+    // ─── action=auto-migrate — run missing column/table migrations ────────
+    // Safely adds missing database objects identified by dbtables/dbcolumns.
+    // All statements are idempotent (IF NOT EXISTS / DO block) so re-running
+    // is safe. Used to fix 500s on /admin/services (missing deep_dive column)
+    // and /admin/ab-tests (missing ab_experiments / ab_variants / ab_assignments
+    // tables).
+    if (action === 'auto-migrate') {
+      const statements: { name: string; sql: string; result?: string; error?: string }[] = []
+      try {
+        const { pool } = await import('@/lib/db')
+
+        // 1) Add deep_dive column to services (added in Phase 3 #2 but never
+        //    migrated to prod). Idempotent via DO block.
+        try {
+          await pool.query(`
+            DO $$
+            BEGIN
+              IF NOT EXISTS (
+                SELECT 1 FROM information_schema.columns
+                WHERE table_schema = 'public'
+                  AND table_name = 'services'
+                  AND column_name = 'deep_dive'
+              ) THEN
+                ALTER TABLE services ADD COLUMN deep_dive text DEFAULT '{}';
+              END IF;
+            END$$;
+          `)
+          statements.push({ name: 'services.deep_dive column', result: 'added or already existed' })
+        } catch (e: any) {
+          statements.push({ name: 'services.deep_dive column', error: e?.message })
+        }
+
+        // 2) Create ab_experiments table (Phase 3 #3 — A/B Testing Framework)
+        try {
+          await pool.query(`
+            CREATE TABLE IF NOT EXISTS ab_experiments (
+              id text PRIMARY KEY,
+              key text NOT NULL UNIQUE,
+              name text NOT NULL,
+              hypothesis text,
+              page_pattern text DEFAULT '/',
+              status text DEFAULT 'draft',
+              primary_metric text DEFAULT 'lead_submit',
+              start_date timestamp,
+              end_date timestamp,
+              created_at timestamp DEFAULT now(),
+              updated_at timestamp DEFAULT now()
+            );
+            CREATE INDEX IF NOT EXISTS ab_experiments_status_idx ON ab_experiments (status);
+          `)
+          statements.push({ name: 'ab_experiments table', result: 'created or already existed' })
+        } catch (e: any) {
+          statements.push({ name: 'ab_experiments table', error: e?.message })
+        }
+
+        // 3) Create ab_variants table
+        try {
+          await pool.query(`
+            CREATE TABLE IF NOT EXISTS ab_variants (
+              id text PRIMARY KEY,
+              experiment_id text NOT NULL REFERENCES ab_experiments(id) ON DELETE CASCADE,
+              key text NOT NULL,
+              label text,
+              weight integer DEFAULT 50,
+              is_control boolean DEFAULT false,
+              payload_json text DEFAULT '{}',
+              created_at timestamp DEFAULT now()
+            );
+            CREATE INDEX IF NOT EXISTS ab_variants_experiment_id_idx ON ab_variants (experiment_id);
+            CREATE UNIQUE INDEX IF NOT EXISTS ab_variants_experiment_key_unique ON ab_variants (experiment_id, key);
+          `)
+          statements.push({ name: 'ab_variants table', result: 'created or already existed' })
+        } catch (e: any) {
+          statements.push({ name: 'ab_variants table', error: e?.message })
+        }
+
+        // 4) Create ab_assignments table
+        try {
+          await pool.query(`
+            CREATE TABLE IF NOT EXISTS ab_assignments (
+              id text PRIMARY KEY,
+              experiment_id text NOT NULL REFERENCES ab_experiments(id) ON DELETE CASCADE,
+              variant_id text NOT NULL REFERENCES ab_variants(id) ON DELETE CASCADE,
+              visitor_id text NOT NULL,
+              exposed_at timestamp DEFAULT now(),
+              converted_at timestamp,
+              metadata text
+            );
+            CREATE INDEX IF NOT EXISTS ab_assignments_experiment_idx ON ab_assignments (experiment_id);
+            CREATE INDEX IF NOT EXISTS ab_assignments_variant_idx ON ab_assignments (variant_id);
+            CREATE INDEX IF NOT EXISTS ab_assignments_visitor_idx ON ab_assignments (visitor_id);
+            CREATE UNIQUE INDEX IF NOT EXISTS ab_assignments_exp_visitor_unique ON ab_assignments (experiment_id, visitor_id);
+          `)
+          statements.push({ name: 'ab_assignments table', result: 'created or already existed' })
+        } catch (e: any) {
+          statements.push({ name: 'ab_assignments table', error: e?.message })
+        }
+
+        return NextResponse.json({
+          ...safeResult,
+          migrated: statements,
+          successCount: statements.filter((s) => !s.error).length,
+          errorCount: statements.filter((s) => s.error).length,
+        }, { headers: { 'Cache-Control': 'no-store' } })
+      } catch (e: any) {
+        return NextResponse.json({
+          ...safeResult,
+          error: 'auto-migrate failed',
+          message: e?.message,
+          partialResults: statements,
+        }, { status: 500, headers: { 'Cache-Control': 'no-store' } })
+      }
+    }
+
     // ─── action=dbcolumns — list columns of a specific table ─────────────
     // Usage: ?action=dbcolumns&table=services
     // Used to diagnose column-mismatch 500s (e.g. code expects
