@@ -45,6 +45,7 @@ const FOOTER_LINKS = {
     { label: "Portfolio", href: "/portfolio" },
     { label: "Case Studies", href: "/case-studies" },
     { label: "Careers", href: "/careers" },
+    { label: "Cities We Serve", href: "/cities" },
     { label: "Contact", href: "/contact" },
   ],
   resources: [
