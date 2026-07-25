@@ -239,6 +239,36 @@ export async function GET(req: Request) {
       }
     }
 
+    // ─── action=dbcolumns — list columns of a specific table ─────────────
+    // Usage: ?action=dbcolumns&table=services
+    // Used to diagnose column-mismatch 500s (e.g. code expects
+    // 'display_order' but table only has 'order_index').
+    if (action === 'dbcolumns') {
+      const tableName = url.searchParams.get('table') || 'services'
+      try {
+        const { pool } = await import('@/lib/db')
+        const res = await pool.query(
+          `SELECT column_name, data_type, is_nullable, column_default
+           FROM information_schema.columns
+           WHERE table_schema = 'public' AND table_name = $1
+           ORDER BY ordinal_position`,
+          [tableName]
+        )
+        return NextResponse.json({
+          ...safeResult,
+          table: tableName,
+          columns: res.rows,
+          count: res.rows.length,
+        }, { headers: { 'Cache-Control': 'no-store' } })
+      } catch (e: any) {
+        return NextResponse.json({
+          ...safeResult,
+          error: 'dbcolumns query failed',
+          message: e?.message,
+        }, { status: 500, headers: { 'Cache-Control': 'no-store' } })
+      }
+    }
+
     // ─── action=verify ────────────────────────────────────────────────────
     // Test bcrypt verification directly — bypasses the NextAuth authorize()
     // wrapper. Used to isolate whether the issue is in our bcrypt code or
