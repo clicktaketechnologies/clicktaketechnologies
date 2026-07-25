@@ -376,6 +376,15 @@ type NxButtonProps = {
   className?: string
 }
 
+/* NX BUTTON — orange primary, light outline, or dark secondary.
+ * For use in NxPageHero ctas (always-dark hero bg) and deep-dive final CTA
+ * section (solid brand-gradient bg).
+ *
+ * NOTE: The "outline" variant uses `nx-btn-outline-light` (white text/border)
+ * which is correct for the dark hero / gradient CTA contexts where it's used.
+ * Do NOT use the outline variant on light page sections — use "orange" or
+ * "dark" instead.
+ */
 export function NxButton({ href, children, variant = "orange", className = "" }: NxButtonProps) {
   if (variant === "outline") {
     return (
@@ -392,7 +401,7 @@ export function NxButton({ href, children, variant = "orange", className = "" }:
     return (
       <Link
         href={href}
-        className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm sm:text-base font-bold rounded-full bg-[#0A0612] text-white hover:bg-[#1E1640] transition shadow-lg ${className}"
+        className={`inline-flex items-center justify-center gap-2 px-6 py-3 text-sm sm:text-base font-bold rounded-full bg-[#0A0612] text-white hover:bg-[#1E1640] transition shadow-lg ${className}`}
       >
         {children}
         <ArrowRight className="h-4 w-4 nx-arrow" />

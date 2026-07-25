@@ -691,30 +691,40 @@ export function DeepDiveLayout({ content }: { content: DeepDiveContent }) {
               </Section>
             )}
 
-            {/* ── Section 12: Final CTA ──────────────────────────────── */}
+            {/* ── Section 12: Final CTA ────────────────────────────────
+                Uses a SOLID brand gradient (pink → purple → blue) so white
+                text always passes WCAG AA, regardless of light/dark mode.
+                Previously a low-opacity tint that washed out in light mode. */}
             <Section id={slugify(content.finalCta.title)} divider>
-              <div className="relative overflow-hidden rounded-3xl border border-[#FF53A9]/20 bg-gradient-to-br from-[#FF53A9]/15 via-[#9B3DFF]/10 to-[#136DFF]/15 p-8 sm:p-12 text-center">
-                <div className="absolute inset-0 nx-dot-grid opacity-20 pointer-events-none" />
+              <div className="relative overflow-hidden rounded-3xl nx-brand-gradient p-8 sm:p-12 text-center shadow-2xl">
+                <div
+                  className="absolute inset-0 opacity-20 pointer-events-none"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)",
+                    backgroundSize: "32px 32px",
+                  }}
+                />
                 <div className="relative">
                   <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white">
                     {content.finalCta.title}
                   </h2>
-                  <p className="mt-4 text-base text-white/75 max-w-2xl mx-auto leading-relaxed">
+                  <p className="mt-4 text-base text-white/90 max-w-2xl mx-auto leading-relaxed">
                     {content.finalCta.subtitle}
                   </p>
                   <div className="mt-10 grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
                     {content.finalCta.steps.map((s, i) => (
                       <div
                         key={i}
-                        className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-left"
+                        className="rounded-2xl border border-white/25 bg-white/10 backdrop-blur-sm p-5 text-left"
                       >
-                        <div className="text-xs font-mono text-[#FF8AC4] mb-2">
+                        <div className="text-xs font-mono text-white/90 mb-2">
                           Step {s.step}
                         </div>
                         <div className="text-sm font-bold text-white mb-1">
                           {s.title}
                         </div>
-                        <div className="text-xs text-white/60 leading-relaxed">
+                        <div className="text-xs text-white/80 leading-relaxed">
                           {s.description}
                         </div>
                       </div>

@@ -78,7 +78,7 @@ export function NxCta() {
             <ArrowRight className="h-4 w-4 nx-arrow" />
           </Link>
           <Link
-            href="/contact"
+            href="/services"
             className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/60 px-7 py-4 text-sm sm:text-base font-bold text-white hover:bg-white/10 transition"
           >
             View Our Services

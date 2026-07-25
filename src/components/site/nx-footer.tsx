@@ -5,9 +5,18 @@ import { motion } from "framer-motion";
 import { Facebook, Instagram, Linkedin, Youtube, ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 import { SITE, NAV_LINKS } from "@/lib/site-data";
 
-/* NEW FOOTER — dark navy multi-column (Itransition + Index.dev pattern).
+/* NEW FOOTER — multi-column (Itransition + Index.dev pattern).
  * Columns: Brand+blurb+socials | Services | Solutions | Company | Contact.
- * Bottom bar: copyright + legal links. Sits on deep navy with hairline borders. */
+ * Bottom bar: copyright + legal links.
+ *
+ * THEME-AWARE (light + dark):
+ *  - In dark mode: deep navy surface (original look).
+ *  - In light mode: dark footer stays as an intentional contrast block
+ *    (common SaaS pattern: white page → dark footer for visual weight).
+ *    All text uses white on the dark footer, so contrast is guaranteed
+ *    regardless of the page theme mode.
+ *  - Uses hardcoded dark palette intentionally — this is a design choice,
+ *    not a bug. The footer is the visual anchor at the bottom of every page. */
 
 const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   facebook: Facebook,
@@ -55,7 +64,31 @@ export function NxFooter() {
       <div className="absolute inset-0 nx-dot-grid opacity-20 pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-4 lg:px-8 py-16 sm:py-20">
-        {/* Main grid */}
+          {/* CTA strip — high-visibility conversion band ABOVE the footer
+              link grid. Placed here per UX audit: users who scroll to the
+              bottom of any page have signaled intent, but the previous footer
+              had no CTA — only passive links. This band captures that intent
+              with a single, prominent offer.
+              Uses brand gradient for max visibility in both light + dark modes. */}
+          <div className="mb-12 rounded-2xl p-6 sm:p-8 nx-brand-gradient flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-center sm:text-left">
+              <h3 className="text-xl sm:text-2xl font-black text-white">
+                Ready to start your project?
+              </h3>
+              <p className="mt-1 text-sm sm:text-base text-white/90">
+                Free 30-minute consultation. No commitment, no sales pitch.
+              </p>
+            </div>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#0A0612] font-bold text-sm hover:bg-white/90 transition shadow-lg shrink-0"
+            >
+              Get Started
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          {/* Main grid */}
         <div className="grid gap-10 lg:gap-8 lg:grid-cols-12">
           {/* Brand column */}
           <div className="lg:col-span-4">
