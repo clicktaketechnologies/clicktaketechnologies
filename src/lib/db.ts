@@ -135,6 +135,9 @@ const modelMap: Record<string, any> = {
   providerUsage: schemaObj.providerUsage,
   emailLog: schemaObj.emailLogs,
   storageObject: schemaObj.storageObjects,
+  abExperiment: schemaObj.abExperiments,
+  abVariant: schemaObj.abVariants,
+  abAssignment: schemaObj.abAssignments,
 };
 
 // ─── Where-clause builder ───────────────────────────────────────────────────
