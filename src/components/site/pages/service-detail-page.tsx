@@ -21,6 +21,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { CATEGORY_STYLES, SERVICES, SITE, type ServiceItem } from "@/lib/site-data";
+import { CITIES, COUNTRY_META } from "@/lib/seo/cities";
 
 interface Props { service: ServiceItem; }
 
@@ -1049,6 +1050,49 @@ export function ServiceDetailPage({ service }: Props) {
               </div>
             </motion.section>
           )}
+
+          {/* ─── SERVING THESE CITIES (Phase 3 #4 — Programmatic SEO) ─── */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-12 sm:mt-16 rounded-2xl border border-border bg-card/50 backdrop-blur-md p-6 sm:p-8"
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <MapPin className={`h-5 w-5 ${cat.accentColor} shrink-0`} />
+              <h2 className="text-lg sm:text-xl font-bold">{service.title} in your city</h2>
+            </div>
+            <p className="text-sm text-muted-foreground mb-5 max-w-2xl">
+              ClickTake Technologies delivers {service.title.toLowerCase()} across 12 cities in
+              4 countries — with local-currency pricing, in-region compliance, and senior engineers
+              in each time zone. Find your city below for a tailored page with local FAQ and pricing.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {CITIES.map((c) => {
+                const country = COUNTRY_META[c.country];
+                return (
+                  <Link
+                    key={c.slug}
+                    href={`/cities/${c.slug}/${service.slug}`}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/50 px-3 py-1.5 text-xs font-semibold hover:border-brand-blue/40 hover:bg-brand-blue/5 transition"
+                  >
+                    <span>{country.flag}</span>
+                    {c.name}
+                    {c.hasOffice && (
+                      <span className="text-[10px] text-brand-blue/70">HQ</span>
+                    )}
+                  </Link>
+                );
+              })}
+              <Link
+                href="/cities"
+                className="inline-flex items-center gap-1 rounded-full border border-dashed border-border px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground hover:border-foreground/40 transition"
+              >
+                All cities <ArrowUpRight className="h-3 w-3" />
+              </Link>
+            </div>
+          </motion.section>
 
           {/* ─── CTA ───────────────────────────────────────────── */}
           <motion.div

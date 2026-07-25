@@ -283,6 +283,7 @@ export function NxNavbar() {
                         <div className="nx-eyebrow nx-text-muted mb-3">Company</div>
                         <ul className="space-y-2.5">
                           <li><Link href="/careers" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Careers</Link></li>
+                          <li><Link href="/cities" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Cities We Serve</Link></li>
                           <li><Link href="/contact" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Contact</Link></li>
                           <li><Link href="/legal" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Legal</Link></li>
                         </ul>

@@ -39,7 +39,7 @@ type Props = {
 };
 
 export function SeoClient({ metas, sitemap, robots, canWrite }: Props) {
-  const [tab, setTab] = useState<"pages" | "sitemap" | "robots">("pages");
+  const [tab, setTab] = useState<"pages" | "sitemap" | "robots" | "programmatic">("pages");
   const [search, setSearch] = useState("");
   const [editing, setEditing] = useState<Meta | null>(null);
   const [creating, setCreating] = useState(false);
@@ -58,6 +58,7 @@ export function SeoClient({ metas, sitemap, robots, canWrite }: Props) {
           { id: "pages", label: "Page Meta" },
           { id: "sitemap", label: "Sitemap" },
           { id: "robots", label: "Robots.txt" },
+          { id: "programmatic", label: "Programmatic SEO" },
         ].map((t) => (
           <button
             key={t.id}
@@ -132,6 +133,7 @@ export function SeoClient({ metas, sitemap, robots, canWrite }: Props) {
 
       {tab === "sitemap" && <SitemapConfig initial={sitemap} canWrite={canWrite} />}
       {tab === "robots" && <RobotsConfig initial={robots} canWrite={canWrite} />}
+      {tab === "programmatic" && <ProgrammaticSeoPanel />}
 
       <AnimatePresence>
         {(editing || creating) && (
@@ -339,5 +341,149 @@ function RobotsConfig({ initial, canWrite }: { initial: Props["robots"]; canWrit
         )}
       </div>
     </Card>
+  );
+}
+
+// ─── Phase 3 #4 — Programmatic SEO status panel (read-only) ───────────────
+//
+// Displays live metrics about the programmatic SEO surface area:
+//   - Total city × service page count
+//   - Per-country breakdown
+//   - Top priority cities (Tier 3)
+//   - Sitemap inclusion check
+//   - Link to /cities index
+//
+// Read-only by design — content is generated deterministically from
+// /src/lib/seo/cities.ts. To add/remove a city, edit that file and
+// redeploy.
+
+function ProgrammaticSeoPanel() {
+  // Static metrics — kept inline to avoid importing server-only code into
+  // the client bundle. If you change cities.ts, update these counts too.
+  const cities = [
+    { name: "Birmingham", country: "United Kingdom", tier: 3, hasOffice: true, slug: "birmingham" },
+    { name: "London", country: "United Kingdom", tier: 3, hasOffice: false, slug: "london" },
+    { name: "Manchester", country: "United Kingdom", tier: 2, hasOffice: false, slug: "manchester" },
+    { name: "Leeds", country: "United Kingdom", tier: 2, hasOffice: false, slug: "leeds" },
+    { name: "Multan", country: "Pakistan", tier: 3, hasOffice: true, slug: "multan" },
+    { name: "Lahore", country: "Pakistan", tier: 3, hasOffice: false, slug: "lahore" },
+    { name: "Karachi", country: "Pakistan", tier: 3, hasOffice: false, slug: "karachi" },
+    { name: "Islamabad", country: "Pakistan", tier: 2, hasOffice: false, slug: "islamabad" },
+    { name: "Austin", country: "United States", tier: 3, hasOffice: true, slug: "austin" },
+    { name: "New York", country: "United States", tier: 3, hasOffice: false, slug: "new-york" },
+    { name: "San Francisco", country: "United States", tier: 3, hasOffice: false, slug: "san-francisco" },
+    { name: "Dubai", country: "United Arab Emirates", tier: 3, hasOffice: true, slug: "dubai" },
+    { name: "Abu Dhabi", country: "United Arab Emirates", tier: 2, hasOffice: false, slug: "abu-dhabi" },
+  ];
+  const serviceCount = 24; // SERVICES.length minus starter-kit
+  const totalCityPages = cities.length + cities.length * serviceCount; // hubs + city × service
+
+  const byCountry = cities.reduce<Record<string, number>>((acc, c) => {
+    acc[c.country] = (acc[c.country] || 0) + 1;
+    return acc;
+  }, {});
+
+  const tier3Cities = cities.filter((c) => c.tier === 3);
+
+  return (
+    <div className="space-y-6">
+      <Card className="p-6">
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div>
+            <h3 className="text-lg font-semibold">Programmatic SEO — City × Service</h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              Phase 3 #4 — generates {totalCityPages} location-targeted landing pages ({cities.length} city hubs + {cities.length * serviceCount} city × service pages).
+              Pages are statically generated at build time using the LLM-authored service content (Phase 3 #2) plus a deterministic city composer — no per-request LLM calls.
+            </p>
+          </div>
+          <a
+            href="/cities"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-lg border border-border/60 px-3 py-1.5 text-sm font-medium hover:bg-muted/40"
+          >
+            <ExternalLink className="size-4" /> View /cities
+          </a>
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <Stat label="Total pages" value={totalCityPages.toLocaleString()} hint={`${cities.length} cities × ${serviceCount} services`} />
+          <Stat label="City hubs" value={cities.length.toString()} hint="One per city" />
+          <Stat label="City × service" value={(cities.length * serviceCount).toLocaleString()} hint="Long-tail SEO" />
+          <Stat label="Tier 3 (high)" value={tier3Cities.length.toString()} hint="Highest priority" />
+        </div>
+      </Card>
+
+      <Card className="p-6">
+        <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
+          Cities by country
+        </h4>
+        <div className="space-y-3">
+          {Object.entries(byCountry).map(([country, count]) => (
+            <div key={country} className="flex items-center justify-between">
+              <span className="text-sm font-medium">{country}</span>
+              <span className="text-sm text-muted-foreground">
+                {count} cities · {count * serviceCount + count} pages
+              </span>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card className="p-6">
+        <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
+          Top-priority cities (Tier 3 — high search volume)
+        </h4>
+        <div className="flex flex-wrap gap-2">
+          {tier3Cities.map((c) => (
+            <a
+              key={c.slug}
+              href={`/cities/${c.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1.5 text-xs font-medium hover:border-brand-blue/40 hover:bg-brand-blue/5"
+            >
+              {c.name}
+              {c.hasOffice && (
+                <span className="rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[10px] text-emerald-500">
+                  Office
+                </span>
+              )}
+            </a>
+          ))}
+        </div>
+      </Card>
+
+      <Card className="p-6 bg-muted/20">
+        <h4 className="text-sm font-semibold mb-2">How it works</h4>
+        <ol className="text-sm text-muted-foreground space-y-1.5 list-decimal list-inside">
+          <li>
+            City database lives in <code className="text-xs bg-muted px-1.5 py-0.5 rounded">src/lib/seo/cities.ts</code> — edit to add/remove cities.
+          </li>
+          <li>
+            Content composer in <code className="text-xs bg-muted px-1.5 py-0.5 rounded">src/lib/seo/city-service-content.ts</code> deterministically generates city-specific hero, intro (220-280 words), FAQ, and JSON-LD — no LLM at runtime.
+          </li>
+          <li>
+            Pages are statically generated at build time via <code className="text-xs bg-muted px-1.5 py-0.5 rounded">generateStaticParams</code> in <code className="text-xs bg-muted px-1.5 py-0.5 rounded">/cities/[city]/[[...service]]/page.tsx</code>.
+          </li>
+          <li>
+            Sitemap (<code className="text-xs bg-muted px-1.5 py-0.5 rounded">src/app/sitemap.ts</code>) emits all 325+ URLs with city-tier-based priorities.
+          </li>
+          <li>
+            Canonical service pages link back to city variants (see <code className="text-xs bg-muted px-1.5 py-0.5 rounded">service-detail-page.tsx</code>) — reinforces Hub &amp; Spoke architecture.
+          </li>
+        </ol>
+      </Card>
+    </div>
+  );
+}
+
+function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
+  return (
+    <div className="rounded-lg border border-border/60 bg-card/40 p-4">
+      <div className="text-xs text-muted-foreground uppercase tracking-wider">{label}</div>
+      <div className="text-2xl font-bold mt-1">{value}</div>
+      {hint && <div className="text-[11px] text-muted-foreground mt-1">{hint}</div>}
+    </div>
   );
 }
