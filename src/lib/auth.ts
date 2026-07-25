@@ -82,6 +82,13 @@ export async function ensureSeedAdmin() {
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt", maxAge: 60 * 60 * 24 * 7 },
+  // trustHost: true — Use the request's Host header instead of NEXTAUTH_URL
+  // env var. Critical because NEXTAUTH_URL was previously set to the OLD
+  // Vercel preview URL (clicktaketech.vercel.app) instead of the production
+  // domain (clicktaketech.com). With trustHost, NextAuth generates
+  // signinUrl/callbackUrl from the actual request host, so login flow works
+  // regardless of what NEXTAUTH_URL is set to.
+  trustHost: true,
   pages: {
     signIn: "/admin/login",
     signOut: "/admin/login",
