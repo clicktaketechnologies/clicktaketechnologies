@@ -206,6 +206,46 @@ export async function GET(req: Request) {
       }, { headers: { 'Cache-Control': 'no-store' } })
     }
 
+    // ─── action=dbtables — list all tables in the production database ─────
+    // Used to diagnose 500s on admin pages that query tables which may not
+    // have been migrated (e.g. ab_experiments, services). Runs an
+    // information_schema query directly via Drizzle's sql template.
+    if (action === 'dbtables') {
+      const { sql } = await import('drizzle-orm')
+      const db = (await import('@/lib/db')).prisma
+      // Drizzle's underlying db object isn't directly accessible via the
+      // prisma shim; we use the raw node-postgres Pool instead.
+      const { Pool } = await import('pg')
+      const pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+      })
+      try {
+        const res = await pool.query(
+          `SELECT table_name FROM information_schema.tables
+           WHERE table_schema = 'public'
+           ORDER BY table_name`
+        )
+        const tables = res.rows.map((r: any) => r.table_name)
+        return NextResponse.json({
+          ...safeResult,
+          dbtables: tables,
+          count: tables.length,
+          hasServices: tables.includes('services'),
+          hasAbExperiments: tables.includes('ab_experiments'),
+          hasAbVariants: tables.includes('ab_variants'),
+          hasAbAssignments: tables.includes('ab_assignments'),
+        }, { headers: { 'Cache-Control': 'no-store' } })
+      } catch (e: any) {
+        return NextResponse.json({
+          ...safeResult,
+          error: 'dbtables query failed',
+          message: e?.message,
+        }, { status: 500 })
+      } finally {
+        await pool.end()
+      }
+    }
+
     // ─── action=verify ────────────────────────────────────────────────────
     // Test bcrypt verification directly — bypasses the NextAuth authorize()
     // wrapper. Used to isolate whether the issue is in our bcrypt code or
