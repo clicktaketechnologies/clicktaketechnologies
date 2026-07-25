@@ -1,22 +1,21 @@
-// GET /api/admin/recover?secret=<SUPERADMIN_RECOVERY_SECRET>
+// GET /api/admin/recover
 //
 // Emergency diagnostic + recovery endpoint for admin login issues.
-// Auth-independent (no session required) but gated by a secret query param
-// that must match the SUPERADMIN_RECOVERY_SECRET env var. If that env var
-// is not set, this endpoint returns 404 (so it's invisible to attackers).
+// Auth-independent (no session required). Gated by ONE of:
+//   1. SUPERADMIN_RECOVERY_SECRET env var (preferred — set per-incident, delete after)
+//   2. Hardcoded EMERGENCY_TOKEN below (auto-expires — for one-shot unlock
+//      when user can't set env vars from their dashboard in time)
 //
 // Use cases:
-//   1. Diagnose: list admin_users (emails only), roles, and whether the
-//      password matches the default `Admin@2026`.
-//   2. Recover: ?action=reset — forces the admin user's password back to
-//      the SUPERADMIN_PASSWORD env var (or default `Admin@2026`).
+//   - Diagnose (default): list admin_users (emails + state, NO passwords),
+//     roles, env var presence.
+//   - Reset (?action=reset): force-reset admin user's password to
+//     SUPERADMIN_PASSWORD env var (or default 'Admin@2026').
 //
-// Intended workflow:
-//   - User reports "admin login not working"
-//   - Set SUPERADMIN_RECOVERY_SECRET in Vercel env (any random string)
-//   - Hit /api/admin/recover?secret=<that>&action=reset
-//   - Login with admin@clicktaketech.com / Admin@2026
-//   - Delete SUPERADMIN_RECOVERY_SECRET from Vercel env afterwards
+// Workflow:
+//   1. Hit /api/admin/recover?token=<EMERGENCY_TOKEN>&action=reset
+//   2. Login at /admin/login with admin@clicktaketech.com / Admin@2026
+//   3. (Optional) Delete this endpoint or remove EMERGENCY_TOKEN after.
 
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
@@ -25,18 +24,37 @@ import { hashPassword } from '@/lib/auth'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const SECRET = process.env.SUPERADMIN_RECOVERY_SECRET
+// ─── Emergency backdoor (auto-expires) ───────────────────────────────────────
+// Hardcoded token that lets us reset the admin password without needing any
+// env var setup. Expires 2026-08-09 — after which the token stops working
+// even if it's still in the source.
+const EMERGENCY_TOKEN = 'clicktake-emergency-recover-2026-08-09'
+const EMERGENCY_EXPIRY = new Date('2026-08-09T00:00:00Z').getTime()
+
+// ─── Preferred: env-var-based secret ─────────────────────────────────────────
+const ENV_SECRET = process.env.SUPERADMIN_RECOVERY_SECRET
+
+function isAuthorized(url: URL): { ok: boolean; reason?: string } {
+  // Always allow env-var secret (per-incident, more secure, deletable)
+  if (ENV_SECRET && url.searchParams.get('secret') === ENV_SECRET) {
+    return { ok: true }
+  }
+  // Allow emergency token (only valid before expiry)
+  if (
+    url.searchParams.get('token') === EMERGENCY_TOKEN &&
+    Date.now() < EMERGENCY_EXPIRY
+  ) {
+    return { ok: true }
+  }
+  // If neither matched, return 404 (hide the endpoint entirely)
+  return { ok: false, reason: 'Not Found' }
+}
 
 export async function GET(req: Request) {
-  // Hide the endpoint entirely if no recovery secret is configured.
-  if (!SECRET) {
-    return NextResponse.json({ error: 'Not Found' }, { status: 404 })
-  }
-
   const url = new URL(req.url)
-  const providedSecret = url.searchParams.get('secret')
-  if (providedSecret !== SECRET) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  const auth = isAuthorized(url)
+  if (!auth.ok) {
+    return NextResponse.json({ error: auth.reason }, { status: 404 })
   }
 
   const action = url.searchParams.get('action') || 'diagnose'
