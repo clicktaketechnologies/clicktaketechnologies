@@ -20,6 +20,11 @@ import type {
   DeepDiveContent,
   DeepDiveHero,
 } from "./deep-dive-types"
+import {
+  PillarContextBanner,
+  RelatedResources,
+} from "./hub-spoke-blocks"
+import { getHubSpokeEntry } from "@/lib/seo/hub-spoke-map"
 
 /* ─── Helpers ─────────────────────────────────────────────────────── */
 
@@ -410,8 +415,21 @@ function DeepDiveHeroBlock({ hero }: { hero: DeepDiveHero }) {
 
 /* ─── MAIN LAYOUT ─────────────────────────────────────────────────── */
 
-export function DeepDiveLayout({ content }: { content: DeepDiveContent }) {
+export function DeepDiveLayout({
+  content,
+  hubSpokeSlug,
+}: {
+  content: DeepDiveContent
+  /**
+   * Slug matching an entry in HUB_SPOKE_MAP. When provided, the layout
+   * auto-renders the PillarContextBanner (Cluster-to-Pillar link within
+   * first 200 words) and the RelatedResources footer (Blogs/Case Studies/
+   * Pricing + Sibling cross-links). If omitted, both sections are skipped.
+   */
+  hubSpokeSlug?: string
+}) {
   const tocEntries = useTocEntries(content)
+  const hubSpokeEntry = hubSpokeSlug ? getHubSpokeEntry(hubSpokeSlug) : undefined
 
   return (
     <NxPageLayout mainClassName="">
@@ -424,6 +442,8 @@ export function DeepDiveLayout({ content }: { content: DeepDiveContent }) {
 
           {/* Main content column */}
           <article className="flex-1 min-w-0 max-w-4xl mx-auto xl:mx-0">
+            {/* ── Hub & Spoke: Cluster-to-Pillar banner (within first 200 words) ── */}
+            <PillarContextBanner entry={hubSpokeEntry} />
 
             {/* ── Section 2: Problem & Paradigm Shift ─────────────────── */}
             {content.problem && (
@@ -747,6 +767,14 @@ export function DeepDiveLayout({ content }: { content: DeepDiveContent }) {
                 </div>
               </div>
             </Section>
+
+            {/* ── Hub & Spoke: Related Resources footer ──────────────
+                Mandatory on every DeepDive page per the design brief.
+                Renders Related Services (siblings), Blogs & Guides,
+                Case Studies, and Pricing columns. For solution pages,
+                shows the Solution-to-Service bridge instead of siblings.
+                Non-destructive: renders nothing if hubSpokeEntry is missing. */}
+            <RelatedResources entry={hubSpokeEntry} />
           </article>
         </div>
       </div>

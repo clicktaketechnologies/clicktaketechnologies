@@ -59,7 +59,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schemas} />
-      <DeepDiveLayout content={aboutDeepDive} />
+      <DeepDiveLayout content={aboutDeepDive} hubSpokeSlug="about" />
     </>
   );
 }
