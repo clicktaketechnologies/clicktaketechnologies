@@ -1,10 +1,9 @@
-/* ─── ClickTake Admin — AWIAP-inspired dark dashboard theme ────────────────
+/* ─── ClickTake Admin — AWIAP-inspired dashboard theme ────────────────────
  *
  * Adapted from AWIAP_full_platform.html, retuned for ClickTake brand colors:
  *   Primary:   #FF53A9 (pink) — replaces AWIAP cyan
  *   Secondary: #136DFF (blue) — used for blue badges
  *   Tertiary:  #9B3DFF (purple) — used for purple badges
- *   Background palette: #03000D / #070018 / #0D0025 / #1E1640 (ClickTake dark)
  *
  * Layout pattern: Fixed 240px sidebar + sticky 56px topbar + content area.
  * Fonts: Syne for headings (matches ClickTake brand), JetBrains Mono for data.
@@ -12,56 +11,72 @@
  * This stylesheet is scoped to .ct-admin so it only applies to /admin pages
  * and doesn't leak into the public site.
  *
- * THEME STRATEGY: The admin is ALWAYS dark (like Stripe / Vercel / Linear
- * dashboards). Even when the public site is in light mode, the admin keeps
- * its dark navy palette for reduced eye strain during long sessions. The
- * .ct-admin wrapper hard-codes dark CSS variables so it renders correctly
- * regardless of the html.dark class state. The auth pages (login,
- * forgot-password, create-admin) DO respect the user's theme preference —
- * they use the global --background/--foreground tokens so they match the
- * public site's theme.
+ * THEME STRATEGY (updated): The admin now respects the global theme choice
+ * (Dark / Light / System / Custom) selected via the ThemeToggle in the
+ * admin topbar. The .ct-admin wrapper defines LAYOUT-ONLY properties plus
+ * a default token set; the dark palette is applied via `html.dark .ct-admin`
+ * and the light palette via `html:not(.dark) .ct-admin`. Custom mode
+ * inherits the user's chosen base (dark or light) plus inline CSS vars
+ * for primary/secondary colors — same storage contract as the public site.
+ *
+ * Auth pages (login, forgot-password, create-admin) already use the global
+ * --background/--foreground tokens, so they automatically follow the user's
+ * theme preference.
  */
 
 /* Load Google fonts (Syne + JetBrains Mono) — only injected on admin pages */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Syne:wght@400;500;600;700;800&display=swap');
 
+/* ─── Base .ct-admin — layout + shared tokens ─────────────────────────────
+   Theme-agnostic: only defines layout constants, fonts, and the wrapper's
+   structural properties. Color tokens come from the dark/light variants below. */
 .ct-admin {
-  /* Background palette — ClickTake dark */
-  --cta-bg: #03000D;
-  --cta-bg2: #070018;
-  --cta-bg3: #0D0025;
-  --cta-bg4: #1E1640;
-  /* Borders — subtle white tints */
-  --cta-border: rgba(255, 255, 255, 0.06);
-  --cta-border2: rgba(255, 255, 255, 0.1);
-  /* Text */
-  --cta-text: #F0EBF8;
-  --cta-muted: #7A6B95;
-  --cta-muted2: #B5A8C8;
-  /* Brand accents — ClickTake pink/blue/purple */
-  --cta-accent: #FF53A9;
-  --cta-accent2: #E0197A;
-  --cta-accent-bg: rgba(255, 83, 169, 0.08);
-  --cta-blue: #136DFF;
-  --cta-blue-soft: #4A90D9;
-  --cta-blue-bg: rgba(19, 109, 255, 0.1);
-  --cta-purple: #9B3DFF;
-  --cta-purple-bg: rgba(155, 61, 255, 0.1);
-  /* Status colors */
-  --cta-green: #22c55e;
-  --cta-green-bg: rgba(34, 197, 94, 0.1);
-  --cta-amber: #f59e0b;
-  --cta-amber-bg: rgba(245, 158, 11, 0.1);
-  --cta-red: #ef4444;
-  --cta-red-bg: rgba(239, 68, 68, 0.1);
-  /* Layout */
+  /* Layout (theme-agnostic) */
   --cta-sidebar: 240px;
   --cta-topbar: 56px;
   /* Fonts */
   --cta-font-head: 'Syne', 'Inter', system-ui, sans-serif;
   --cta-font-mono: 'JetBrains Mono', 'Geist Mono', ui-monospace, monospace;
+  /* Status colors — same in both modes (saturated enough for both backgrounds) */
+  --cta-green: #22c55e;
+  --cta-green-bg: rgba(34, 197, 94, 0.12);
+  --cta-amber: #f59e0b;
+  --cta-amber-bg: rgba(245, 158, 11, 0.12);
+  --cta-red: #ef4444;
+  --cta-red-bg: rgba(239, 68, 68, 0.12);
+  /* Brand accents — ClickTake pink/blue/purple (consistent across modes) */
+  --cta-accent: #FF53A9;
+  --cta-accent2: #E0197A;
+  --cta-accent-bg: rgba(255, 83, 169, 0.10);
+  --cta-blue: #136DFF;
+  --cta-blue-soft: #4A90D9;
+  --cta-blue-bg: rgba(19, 109, 255, 0.10);
+  --cta-purple: #9B3DFF;
+  --cta-purple-bg: rgba(155, 61, 255, 0.10);
 
-  /* Override Tailwind tokens for admin pages only */
+  font-family: var(--cta-font-head);
+  font-size: 13px;
+  min-height: 100vh;
+  display: flex;
+  background: var(--cta-bg);
+  color: var(--cta-text);
+}
+
+/* ─── DARK palette (default) — applies when html has .dark class ──────────
+   Triggers: user picks "Dark", "System" (with OS in dark mode), or "Custom"
+   with dark base. Mirrors the original always-dark admin look. */
+html.dark .ct-admin,
+html.theme-custom .ct-admin:not(.theme-custom-light) {
+  --cta-bg: #03000D;
+  --cta-bg2: #070018;
+  --cta-bg3: #0D0025;
+  --cta-bg4: #1E1640;
+  --cta-border: rgba(255, 255, 255, 0.06);
+  --cta-border2: rgba(255, 255, 255, 0.1);
+  --cta-text: #F0EBF8;
+  --cta-muted: #7A6B95;
+  --cta-muted2: #B5A8C8;
+
   --background: #03000D;
   --foreground: #F0EBF8;
   --card: #0D0025;
@@ -73,25 +88,52 @@
   --secondary: #1E1640;
   --secondary-foreground: #F0EBF8;
   --muted: #1E1640;
-  --muted-foreground: #7A6B95;
-  --accent: #FF53A9;
+  --muted-foreground: #9B8AB8;
+  --accent: #E0197A;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --border: rgba(255, 255, 255, 0.06);
   --input: rgba(255, 255, 255, 0.1);
   --ring: #FF53A9;
 
-  /* Force dark color-scheme so native form controls (scrollbars, date
-     pickers, dropdowns, checkbox accents) render in dark mode regardless
-     of the user's theme preference. Matches the always-dark admin strategy. */
   color-scheme: dark;
+}
 
-  background: var(--cta-bg);
-  color: var(--cta-text);
-  font-family: var(--cta-font-head);
-  font-size: 13px;
-  min-height: 100vh;
-  display: flex;
+/* ─── LIGHT palette — applies when html does NOT have .dark class ─────────
+   Triggers: user picks "Light", "System" (with OS in light mode), or "Custom"
+   with light base. Clean white surfaces with dark ink text. */
+html:not(.dark) .ct-admin,
+html.theme-custom-light .ct-admin {
+  --cta-bg: #f8fafc;
+  --cta-bg2: #ffffff;
+  --cta-bg3: #f1f5f9;
+  --cta-bg4: #e2e8f0;
+  --cta-border: rgba(15, 23, 42, 0.08);
+  --cta-border2: rgba(15, 23, 42, 0.12);
+  --cta-text: #0a0e1a;
+  --cta-muted: #64748b;
+  --cta-muted2: #475569;
+
+  --background: #ffffff;
+  --foreground: #0a0e1a;
+  --card: #ffffff;
+  --card-foreground: #0a0e1a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0e1a;
+  --primary: #E0197A;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0a0e1a;
+  --muted: #f1f5f9;
+  --muted-foreground: #475569;
+  --accent: #C2185B;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #E0197A;
+
+  color-scheme: light;
 }
 
 /* ─── SIDEBAR ──────────────────────────────────────────────────────────── */

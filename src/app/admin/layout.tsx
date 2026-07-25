@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { toast } from "sonner";
+import { ThemeToggle } from "@/components/site/theme-toggle";
 import "./admin-globals.css";
 
 /* Admin layout — AWIAP-inspired dark dashboard with ClickTake brand colors.
@@ -239,6 +240,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
               <Globe className="h-3.5 w-3.5" /> Site ↗
             </Link>
+            {/* Theme Customization System — Dark/Light/System/Custom switcher.
+                Same ThemeToggle used on the public site navbar. The admin
+                panel's .ct-admin CSS variables now flip with the html.dark
+                class state, so the entire admin adapts to the user's choice. */}
+            <ThemeToggle />
             {/* Notifications */}
             <div className="ct-admin-rel">
               <button className="ct-admin-btn ct-admin-btn-sm" aria-label="Notifications">
