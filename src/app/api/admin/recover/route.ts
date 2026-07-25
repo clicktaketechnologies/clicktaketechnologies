@@ -208,18 +208,12 @@ export async function GET(req: Request) {
 
     // ─── action=dbtables — list all tables in the production database ─────
     // Used to diagnose 500s on admin pages that query tables which may not
-    // have been migrated (e.g. ab_experiments, services). Runs an
-    // information_schema query directly via Drizzle's sql template.
+    // have been migrated (e.g. ab_experiments, services). Uses the same
+    // connection pool that the prisma shim uses, so it reflects the actual
+    // production database state.
     if (action === 'dbtables') {
-      const { sql } = await import('drizzle-orm')
-      const db = (await import('@/lib/db')).prisma
-      // Drizzle's underlying db object isn't directly accessible via the
-      // prisma shim; we use the raw node-postgres Pool instead.
-      const { Pool } = await import('pg')
-      const pool = new Pool({
-        connectionString: process.env.DATABASE_URL,
-      })
       try {
+        const { pool } = await import('@/lib/db')
         const res = await pool.query(
           `SELECT table_name FROM information_schema.tables
            WHERE table_schema = 'public'
@@ -240,9 +234,8 @@ export async function GET(req: Request) {
           ...safeResult,
           error: 'dbtables query failed',
           message: e?.message,
-        }, { status: 500 })
-      } finally {
-        await pool.end()
+          stack: e?.stack?.split('\n').slice(0, 5),
+        }, { status: 500, headers: { 'Cache-Control': 'no-store' } })
       }
     }
 
