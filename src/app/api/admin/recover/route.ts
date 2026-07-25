@@ -99,7 +99,22 @@ export async function GET(req: Request) {
         process.env.SUPERADMIN_EMAIL ||
         'admin@clicktaketech.com'
       ).toLowerCase()
-      const newPassword = process.env.SUPERADMIN_PASSWORD || 'Admin@2026'
+      // Allow caller to specify the new password via query param. This is
+      // critical because if SUPERADMIN_PASSWORD env var is set to an unknown
+      // value, resetting to that doesn't help. The query param lets us
+      // force-reset to a KNOWN value.
+      // Min length 8 to prevent accidental weak passwords.
+      const newPassword =
+        url.searchParams.get('password') ||
+        process.env.SUPERADMIN_PASSWORD ||
+        'Admin@2026'
+      if (newPassword.length < 8) {
+        return NextResponse.json({
+          ...result,
+          action: 'reset',
+          error: 'Password must be at least 8 characters.',
+        }, { status: 400 })
+      }
 
       const existing = await prisma.adminUser.findFirst({
         where: { email: targetEmail },
