@@ -11,6 +11,15 @@
  *
  * This stylesheet is scoped to .ct-admin so it only applies to /admin pages
  * and doesn't leak into the public site.
+ *
+ * THEME STRATEGY: The admin is ALWAYS dark (like Stripe / Vercel / Linear
+ * dashboards). Even when the public site is in light mode, the admin keeps
+ * its dark navy palette for reduced eye strain during long sessions. The
+ * .ct-admin wrapper hard-codes dark CSS variables so it renders correctly
+ * regardless of the html.dark class state. The auth pages (login,
+ * forgot-password, create-admin) DO respect the user's theme preference —
+ * they use the global --background/--foreground tokens so they match the
+ * public site's theme.
  */
 
 /* Load Google fonts (Syne + JetBrains Mono) — only injected on admin pages */
@@ -71,6 +80,11 @@
   --border: rgba(255, 255, 255, 0.06);
   --input: rgba(255, 255, 255, 0.1);
   --ring: #FF53A9;
+
+  /* Force dark color-scheme so native form controls (scrollbars, date
+     pickers, dropdowns, checkbox accents) render in dark mode regardless
+     of the user's theme preference. Matches the always-dark admin strategy. */
+  color-scheme: dark;
 
   background: var(--cta-bg);
   color: var(--cta-text);
@@ -880,6 +894,46 @@
   }
   .ct-admin-main {
     margin-left: 0;
+  }
+  /* Tighter topbar on mobile — hide breadcrumb + clock label, keep icons */
+  .ct-admin-tb-breadcrumb {
+    display: none;
+  }
+  .ct-admin-content {
+    padding: 12px !important;
+  }
+}
+
+/* ─── SMALL MOBILE (≤480px) ──────────────────────────────────────────────
+   Ensures stat cards stack to 1 column, tables become horizontally
+   scrollable, and the topbar user info collapses to avatar-only. */
+@media (max-width: 480px) {
+  .ct-admin-stat-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .ct-admin-monitor-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .ct-admin-tb-title {
+    font-size: 14px;
+  }
+  .ct-admin-content {
+    padding: 8px !important;
+  }
+  /* Hide the live clock + site link on very small screens to save space */
+  .ct-admin-live-badge {
+    display: none !important;
+  }
+}
+
+/* ─── TABLET (769px–1024px) ──────────────────────────────────────────────
+   On tablets, keep the sidebar visible but slightly narrower (200px). */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .ct-admin {
+    --cta-sidebar: 200px;
+  }
+  .ct-admin-content {
+    padding: 18px !important;
   }
 }
 

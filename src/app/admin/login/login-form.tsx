@@ -20,16 +20,20 @@ import {
 import { toast } from "sonner";
 
 /**
- * Admin login form.
+ * Admin login form — theme-aware, high-contrast in both light AND dark modes.
  *
- * Reads callbackUrl at submit time from window.location.search to avoid
- * useSearchParams() (which forces Next.js into client-side bailout and
- * leaves the prerendered HTML as a bare spinner).
+ * Previous issue: the submit button used `bg-gradient-to-r from-brand-blue
+ * to-brand-pink` with `text-white`. In Tailwind v4 the custom `.from-brand-blue`
+ * utility hook is unreliable, so the gradient sometimes did not render — leaving
+ * white text on a transparent/white background = invisible button.
  *
- * NOTE: Demo credentials are NO LONGER displayed on the page. Production
- * admins receive their credentials through secure channels (env vars +
- * direct outreach). Showing credentials on a public login page is a
- * critical information disclosure vulnerability.
+ * Fix: use an inline `style={{ background: "linear-gradient(...)" }}` with
+ * hard-coded brand hex values so the gradient is always present, regardless of
+ * Tailwind version or theme tokens. The card surface uses solid `bg-card`
+ * (not /70 opacity) with a real border so it's always distinguishable from
+ * the page background in both light and dark mode.
+ *
+ * Demo credentials are NOT displayed (security — see git history).
  */
 export default function AdminLoginForm() {
   const router = useRouter();
@@ -96,18 +100,28 @@ export default function AdminLoginForm() {
     }
   };
 
+  // Hard-coded brand gradient — always renders, independent of Tailwind v4
+  // gradient utility quirks or theme token resolution.
+  const brandGradient = "linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%)";
+  const brandGradientHover = "linear-gradient(135deg, #E0197A 0%, #7B2FBE 50%, #0E58D6 100%)";
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-12">
-      {/* Background glow + animated gradient orbs */}
+      {/* Background — theme-aware ambient orbs. Uses brand colors at low
+          opacity so they tint without overpowering the form. In dark mode
+          they glow against the navy bg; in light mode they're subtle washes. */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 left-1/2 size-[32rem] -translate-x-1/2 rounded-full bg-brand-blue/20 blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-0 size-[24rem] rounded-full bg-brand-pink/20 blur-3xl animate-pulse [animation-delay:1s]" />
+        <div className="absolute -top-40 left-1/2 size-[32rem] -translate-x-1/2 rounded-full bg-[#FF53A9]/15 blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-0 size-[24rem] rounded-full bg-[#136DFF]/15 blur-3xl animate-pulse [animation-delay:1s]" />
+        <div className="absolute top-1/3 left-0 size-[20rem] rounded-full bg-[#9B3DFF]/12 blur-3xl animate-pulse [animation-delay:2s]" />
+        {/* Subtle dot grid — opacity tuned for both light + dark */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
+              "radial-gradient(circle, currentColor 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+            color: "var(--foreground)",
           }}
         />
       </div>
@@ -118,19 +132,24 @@ export default function AdminLoginForm() {
         transition={{ duration: 0.5 }}
         className="relative z-10 w-full max-w-md"
       >
-        <div className="rounded-2xl border border-border/60 bg-card/70 p-8 shadow-2xl backdrop-blur-xl">
+        {/* Card — solid bg + visible border + shadow. Previously bg-card/70
+            which collapsed to near-transparent on a white page background. */}
+        <div className="rounded-2xl border border-border bg-card p-8 shadow-2xl">
           {/* Logo + heading */}
           <div className="mb-8 flex flex-col items-center text-center">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.1, duration: 0.4 }}
-              className="mb-4 flex size-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue to-brand-pink text-white shadow-lg shadow-brand-blue/40 relative overflow-hidden"
+              className="mb-4 flex size-16 items-center justify-center rounded-2xl text-white shadow-lg relative overflow-hidden"
+              style={{ background: brandGradient, boxShadow: "0 10px 30px -8px rgba(255, 83, 169, 0.5)" }}
             >
               <Shield className="size-8 relative z-10" />
               <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent" />
             </motion.div>
-            <h1 className="text-2xl font-bold tracking-tight">Admin Portal</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">
+              Admin Portal
+            </h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Sign in to ClickTake Technologies control center
             </p>
@@ -146,7 +165,7 @@ export default function AdminLoginForm() {
                 Email address
               </label>
               <div className="relative group">
-                <Mail className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-brand-blue" />
+                <Mail className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-[#FF53A9]" />
                 <input
                   id="email"
                   type="email"
@@ -154,11 +173,11 @@ export default function AdminLoginForm() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@company.com"
                   autoComplete="email"
-                  className="w-full rounded-xl border border-border/60 bg-background/60 py-3 pl-11 pr-3 text-sm outline-none transition-all focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 hover:border-border"
+                  className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-3 text-sm text-foreground outline-none transition-all focus:border-[#FF53A9] focus:ring-2 focus:ring-[#FF53A9]/20 hover:border-[#FF53A9]/40 placeholder:text-muted-foreground/70"
                 />
               </div>
               {emailError && (
-                <p className="flex items-center gap-1.5 text-xs text-red-500">
+                <p className="flex items-center gap-1.5 text-xs text-red-500 dark:text-red-400">
                   <AlertCircle className="size-3.5" />
                   {emailError}
                 </p>
@@ -174,7 +193,7 @@ export default function AdminLoginForm() {
                 Password
               </label>
               <div className="relative group">
-                <Lock className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-brand-blue" />
+                <Lock className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-[#FF53A9]" />
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
@@ -182,7 +201,7 @@ export default function AdminLoginForm() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••"
                   autoComplete="current-password"
-                  className="w-full rounded-xl border border-border/60 bg-background/60 py-3 pl-11 pr-11 text-sm outline-none transition-all focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 hover:border-border"
+                  className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-11 text-sm text-foreground outline-none transition-all focus:border-[#FF53A9] focus:ring-2 focus:ring-[#FF53A9]/20 hover:border-[#FF53A9]/40 placeholder:text-muted-foreground/70"
                 />
                 <button
                   type="button"
@@ -199,7 +218,7 @@ export default function AdminLoginForm() {
                 </button>
               </div>
               {passwordError && (
-                <p className="flex items-center gap-1.5 text-xs text-red-500">
+                <p className="flex items-center gap-1.5 text-xs text-red-500 dark:text-red-400">
                   <AlertCircle className="size-3.5" />
                   {passwordError}
                 </p>
@@ -210,25 +229,38 @@ export default function AdminLoginForm() {
               <label className="flex items-center gap-2 text-muted-foreground cursor-pointer select-none">
                 <input
                   type="checkbox"
-                  className="size-3.5 rounded border-border accent-brand-blue"
+                  className="size-3.5 rounded border-border accent-[#FF53A9]"
                 />
                 Remember me
               </label>
               <Link
                 href="/admin/forgot-password"
-                className="text-brand-blue hover:underline font-medium"
+                className="text-[#FF53A9] hover:text-[#E0197A] dark:text-[#FF8AC4] dark:hover:text-[#FF53A9] hover:underline font-medium transition-colors"
               >
                 Forgot password?
               </Link>
             </div>
 
+            {/* Submit button — inline style for gradient so it ALWAYS renders,
+                regardless of Tailwind v4 gradient utility behavior. White text
+                on a saturated brand gradient passes WCAG AA in both light + dark. */}
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-brand-blue to-brand-pink py-3 text-sm font-semibold text-white shadow-lg shadow-brand-blue/30 transition-all hover:shadow-xl hover:shadow-brand-pink/40 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl py-3 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{
+                background: brandGradient,
+                boxShadow: "0 10px 30px -8px rgba(255, 83, 169, 0.4)",
+              }}
+              onMouseEnter={(e) => {
+                if (!isLoading) e.currentTarget.style.background = brandGradientHover;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = brandGradient;
+              }}
             >
-              {/* Shimmer effect */}
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+              {/* Shimmer sweep on hover */}
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
               {isLoading ? (
                 <>
                   <div className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
@@ -243,9 +275,9 @@ export default function AdminLoginForm() {
             </button>
           </form>
 
-          {/* Security notice — replaces the old credential display */}
-          <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-border/40 bg-muted/20 p-3.5 text-xs text-muted-foreground">
-            <Fingerprint className="size-4 shrink-0 text-brand-blue mt-0.5" />
+          {/* Security notice — theme-aware surface */}
+          <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-border bg-muted/50 p-3.5 text-xs text-muted-foreground">
+            <Fingerprint className="size-4 shrink-0 text-[#FF53A9] dark:text-[#FF8AC4] mt-0.5" />
             <div>
               <div className="font-semibold text-foreground mb-0.5">
                 Authorized access only
@@ -262,14 +294,14 @@ export default function AdminLoginForm() {
             Don&apos;t have an account?{" "}
             <Link
               href="/admin/create-admin"
-              className="text-brand-blue hover:underline font-medium"
+              className="text-[#FF53A9] hover:text-[#E0197A] dark:text-[#FF8AC4] dark:hover:text-[#FF53A9] hover:underline font-medium transition-colors"
             >
               Request access
             </Link>
           </div>
         </div>
 
-        {/* Trust badges */}
+        {/* Trust badges — theme-aware status colors */}
         <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] text-muted-foreground">
           <div className="flex items-center gap-1.5">
             <CheckCircle2 className="size-3.5 text-emerald-500" />
@@ -280,7 +312,7 @@ export default function AdminLoginForm() {
             Encrypted at rest
           </div>
           <div className="flex items-center gap-1.5">
-            <Shield className="size-3.5 text-brand-blue" />
+            <Shield className="size-3.5 text-[#136DFF] dark:text-[#4A90D9]" />
             Audit logged
           </div>
         </div>

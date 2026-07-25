@@ -77,11 +77,15 @@ export default function CreateAdminPage() {
     }
   };
 
+  // Hard-coded brand gradient — always renders regardless of Tailwind v4
+  // gradient utility quirks. See admin/login/login-form.tsx for full rationale.
+  const brandGradient = "linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%)";
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-12">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 left-1/2 size-[28rem] -translate-x-1/2 rounded-full bg-brand-blue/20 blur-2xl" />
-        <div className="absolute bottom-0 right-0 size-[22rem] rounded-full bg-brand-pink/20 blur-2xl" />
+        <div className="absolute -top-40 left-1/2 size-[28rem] -translate-x-1/2 rounded-full bg-[#136DFF]/15 blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-0 size-[22rem] rounded-full bg-[#FF53A9]/15 blur-3xl animate-pulse [animation-delay:1s]" />
       </div>
 
       <motion.div
@@ -89,12 +93,15 @@ export default function CreateAdminPage() {
         animate={{ opacity: 1, y: 0 }}
         className="relative z-10 w-full max-w-lg"
       >
-        <div className="rounded-2xl border border-border/60 bg-card/60 p-8 shadow-2xl backdrop-blur-xl">
+        <div className="rounded-2xl border border-border bg-card p-8 shadow-2xl">
           <div className="mb-8 flex flex-col items-center text-center">
-            <div className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue to-brand-pink text-white shadow-lg shadow-brand-blue/30">
+            <div
+              className="mb-4 flex size-14 items-center justify-center rounded-2xl text-white shadow-lg"
+              style={{ background: brandGradient, boxShadow: "0 10px 30px -8px rgba(255, 83, 169, 0.4)" }}
+            >
               <ShieldCheck className="size-7" />
             </div>
-            <h1 className="text-2xl font-bold tracking-tight">Register Administrator</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">Register Administrator</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Create a new admin account for ClickTake Technologies
             </p>
@@ -132,7 +139,7 @@ export default function CreateAdminPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   autoComplete="new-password"
-                  className="w-full rounded-lg border border-border/60 bg-background/60 py-2.5 pl-10 pr-10 text-sm outline-none transition-colors focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20"
+                  className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-10 text-sm text-foreground outline-none transition-colors focus:border-[#FF53A9] focus:ring-2 focus:ring-[#FF53A9]/20 placeholder:text-muted-foreground/70"
                 />
                 <button
                   type="button"
@@ -157,7 +164,7 @@ export default function CreateAdminPage() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
                   autoComplete="new-password"
-                  className="w-full rounded-lg border border-border/60 bg-background/60 py-2.5 pl-10 pr-10 text-sm outline-none transition-colors focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20"
+                  className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-10 text-sm text-foreground outline-none transition-colors focus:border-[#FF53A9] focus:ring-2 focus:ring-[#FF53A9]/20 placeholder:text-muted-foreground/70"
                 />
                 <button
                   type="button"
@@ -178,7 +185,7 @@ export default function CreateAdminPage() {
               />
               <span>
                 I accept the{" "}
-                <Link href="/legal/terms" className="text-brand-blue hover:underline">
+                <Link href="/legal/terms" className="text-[#FF53A9] hover:text-[#E0197A] dark:text-[#FF8AC4] dark:hover:text-[#FF53A9] hover:underline transition-colors">
                   Terms of Service
                 </Link>{" "}
                 and confirm I am authorized to create an admin account.
@@ -188,7 +195,8 @@ export default function CreateAdminPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-brand-blue to-brand-pink py-2.5 text-sm font-medium text-white shadow-lg shadow-brand-blue/30 transition-all hover:shadow-xl hover:shadow-brand-pink/30 disabled:opacity-50"
+              className="group flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium text-white shadow-lg transition-all hover:shadow-xl disabled:opacity-50"
+              style={{ background: brandGradient, boxShadow: "0 10px 30px -8px rgba(255, 83, 169, 0.4)" }}
             >
               {isLoading ? (
                 <>
@@ -206,7 +214,7 @@ export default function CreateAdminPage() {
 
           <div className="mt-6 text-center text-xs text-muted-foreground">
             Already have an account?{" "}
-            <Link href="/admin/login" className="text-brand-blue hover:underline">
+            <Link href="/admin/login" className="text-[#FF53A9] hover:text-[#E0197A] dark:text-[#FF8AC4] dark:hover:text-[#FF53A9] hover:underline font-medium transition-colors">
               Sign in
             </Link>
           </div>
@@ -248,7 +256,7 @@ function Field({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full rounded-lg border border-border/60 bg-background/60 py-2.5 pl-10 pr-3 text-sm outline-none transition-colors focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20"
+          className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-sm text-foreground outline-none transition-colors focus:border-[#FF53A9] focus:ring-2 focus:ring-[#FF53A9]/20 placeholder:text-muted-foreground/70"
         />
       </div>
     </div>
