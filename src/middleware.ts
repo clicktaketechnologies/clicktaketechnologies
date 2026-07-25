@@ -14,6 +14,11 @@
 //      directly without HTML parsing.
 import { NextResponse, type NextRequest } from "next/server";
 import { AGENT, linkHeader } from "@/lib/agent-config";
+import {
+  VISITOR_COOKIE_NAME,
+  generateVisitorId,
+  serializeVisitorCookie,
+} from "@/lib/ab-testing/client";
 
 const CANONICAL_HOST = "clicktaketech.com";
 
@@ -153,11 +158,14 @@ export async function middleware(req: NextRequest) {
       // FIX-E: noindex admin + API responses
       respHeaders.set("x-robots-tag", "noindex, nofollow");
       stampSecurityHeaders(respHeaders);
-      return new Response(upstream.body, {
+      const proxyRes = new Response(upstream.body, {
         status: upstream.status,
         statusText: upstream.statusText,
         headers: respHeaders,
       });
+      // Phase 3 #3 — stamp visitor cookie on proxied responses too.
+      stampVisitorCookie(proxyRes as any);
+      return proxyRes;
     } catch (err: any) {
       return new Response(
         JSON.stringify({
@@ -194,6 +202,39 @@ export async function middleware(req: NextRequest) {
     h.delete("x-powered-by");
   }
 
+  /**
+   * Phase 3 #3 — visitor cookie stamping.
+   *
+   * If the ct_visitor cookie is missing, set it on the response with a
+   * fresh cuid. Otherwise no-op (the existing cookie is preserved).
+   *
+   * The cookie is HttpOnly + SameSite=Lax + Secure-in-prod, max-age 1 year.
+   * It is NOT an auth credential — purely a stable anonymous identifier
+   * used for A/B test bucketing and exposure/conversion attribution.
+   *
+   * Called for every response that reaches the user (HTML, API, proxy).
+   * The cookie is set BEFORE returning so that subsequent requests from
+   * the same visitor (including the bootstrap fetch from <AbTest>) carry
+   * the visitor id.
+   */
+  function stampVisitorCookie(res: NextResponse | Response): void {
+    // Skip if the cookie is already set on the request — we don't need
+    // to refresh it (1-year expiry is plenty, and refreshing would just
+    // churn the value for no benefit).
+    const existing = req.cookies.get(VISITOR_COOKIE_NAME)?.value;
+    if (existing) return;
+
+    // Set the cookie on the response. Use SameSite=Lax so it's sent on
+    // top-level navigations and same-site fetches.
+    const isSecure = process.env.NODE_ENV === "production";
+    const value = generateVisitorId();
+    const cookieHeader = serializeVisitorCookie(value, isSecure);
+
+    // Both NextResponse and the plain Response from the proxy branch
+    // expose .headers — set on either.
+    (res as any).headers.set("set-cookie", cookieHeader);
+  }
+
   // 3. Agent-readiness: inject RFC 8288 Link header on public HTML pages
   //    so AI agents can discover the API catalog, OpenAPI spec, OAuth
   //    metadata, MCP server card, agent skills, and auth.md. Also set
@@ -220,6 +261,11 @@ export async function middleware(req: NextRequest) {
       res.headers.set("x-robots-tag", "noindex, nofollow");
     }
     stampSecurityHeaders(res.headers);
+    // Phase 3 #3 — set visitor cookie on every HTML/API response so the
+    // <AbTest> bootstrap fetch (which fires immediately on mount) carries
+    // the visitor id. Without this, the first page view cannot record
+    // exposures because the cookie isn't set yet.
+    stampVisitorCookie(res);
     return res;
   }
 

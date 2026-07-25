@@ -759,6 +759,79 @@ export const storageObjects = pgTable(
   (t) => [index("storage_objects_primary_provider_idx").on(t.primaryProvider)]
 );
 
+// ─── A/B Experiments (Phase 3 #3) ───────────────────────────────────────────
+// Three tables that together support deterministic visitor bucketing,
+// server-side exposure + conversion tracking, and statistical analysis.
+//
+//   ab_experiments  → defines the test (key, hypothesis, status, primary metric)
+//   ab_variants     → defines the variants (key, weight, is_control, payload)
+//   ab_assignments  → one row per (visitor × experiment) with exposure + conversion
+//
+// Schema design notes:
+//   - visitor_id is a cuid stored in a 1-year cookie (ct_visitor). It is NOT
+//     the admin user id — visitors are anonymous until they convert.
+//   - The unique index on (visitor_id, experiment_id) makes exposure recording
+//     idempotent — repeated fires from the same visitor only update convertedAt.
+//   - The payload_json column on ab_variants snapshots the variant's render
+//     payload (label, href, etc.) at experiment creation time, so changing
+//     the rendered variant mid-experiment doesn't retroactively rewrite history.
+export const abExperiments = pgTable(
+  "ab_experiments",
+  {
+    id: text("id").primaryKey().$defaultFn(cuid),
+    key: text("key").notNull().unique(),
+    name: text("name").notNull(),
+    hypothesis: text("hypothesis"),
+    pagePattern: text("page_pattern").default("/"),
+    status: text("status").default("draft"),
+    primaryMetric: text("primary_metric").default("lead_submit"),
+    startDate: timestamp("start_date"),
+    endDate: timestamp("end_date"),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").defaultNow(),
+  },
+  (t) => [index("ab_experiments_status_idx").on(t.status)]
+);
+
+export const abVariants = pgTable(
+  "ab_variants",
+  {
+    id: text("id").primaryKey().$defaultFn(cuid),
+    experimentId: text("experiment_id").notNull(),
+    key: text("key").notNull(),
+    label: text("label"),
+    weight: integer("weight").default(50),
+    isControl: boolean("is_control").default(false),
+    payloadJson: text("payload_json").default("{}"),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("ab_variants_exp_key_idx").on(t.experimentId, t.key),
+    index("ab_variants_exp_idx").on(t.experimentId),
+  ]
+);
+
+export const abAssignments = pgTable(
+  "ab_assignments",
+  {
+    id: text("id").primaryKey().$defaultFn(cuid),
+    experimentId: text("experiment_id").notNull(),
+    variantId: text("variant_id").notNull(),
+    visitorId: text("visitor_id").notNull(),
+    path: text("path"),
+    exposedAt: timestamp("exposed_at").defaultNow(),
+    convertedAt: timestamp("converted_at"),
+    conversionEvent: text("conversion_event"),
+    conversionValueCents: integer("conversion_value_cents").default(0),
+  },
+  (t) => [
+    uniqueIndex("ab_assignments_visitor_exp_idx").on(t.visitorId, t.experimentId),
+    index("ab_assignments_exp_idx").on(t.experimentId),
+    index("ab_assignments_variant_idx").on(t.variantId),
+    index("ab_assignments_exposed_at_idx").on(t.exposedAt),
+  ]
+);
+
 // ─── Drizzle relations ──────────────────────────────────────────────────────
 // Used by the shim to resolve `include` clauses.
 import { relations } from "drizzle-orm";
@@ -790,6 +863,30 @@ export const jobApplicationsRelations = relations(jobApplications, ({ one }) => 
   job: one(jobOpenings, {
     fields: [jobApplications.jobId],
     references: [jobOpenings.id],
+  }),
+}));
+
+export const abExperimentsRelations = relations(abExperiments, ({ many }) => ({
+  variants: many(abVariants),
+  assignments: many(abAssignments),
+}));
+
+export const abVariantsRelations = relations(abVariants, ({ one, many }) => ({
+  experiment: one(abExperiments, {
+    fields: [abVariants.experimentId],
+    references: [abExperiments.id],
+  }),
+  assignments: many(abAssignments),
+}));
+
+export const abAssignmentsRelations = relations(abAssignments, ({ one }) => ({
+  experiment: one(abExperiments, {
+    fields: [abAssignments.experimentId],
+    references: [abExperiments.id],
+  }),
+  variant: one(abVariants, {
+    fields: [abAssignments.variantId],
+    references: [abVariants.id],
   }),
 }));
 
@@ -836,9 +933,15 @@ export const schema = {
   providerUsage,
   emailLogs,
   storageObjects,
+  abExperiments,
+  abVariants,
+  abAssignments,
   adminUsersRelations,
   adminRolesRelations,
   rolePermissionsRelations,
   jobOpeningsRelations,
   jobApplicationsRelations,
+  abExperimentsRelations,
+  abVariantsRelations,
+  abAssignmentsRelations,
 };

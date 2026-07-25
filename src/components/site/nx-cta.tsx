@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Mail, Phone, MessageCircle } from "lucide-react";
 import { SITE } from "@/lib/site-data";
+import { AbTest } from "./ab-test";
 
 /* CTA SECTION — bold orange gradient block (Future Processing pattern).
  * Big headline, subtext, 2 CTAs, and 3 contact channels as cards below.
@@ -74,7 +75,18 @@ export function NxCta() {
             href="/contact"
             className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm sm:text-base font-black text-[#E0197A] shadow-xl hover:scale-[1.03] transition"
           >
-            Book Free Consultation
+            {/* Phase 3 #3 — A/B test the primary CTA copy. Variants are
+                defined here; admin enables the test via /admin/ab-tests
+                with experimentKey="cta-section-primary". */}
+            <AbTest
+              experimentKey="cta-section-primary"
+              variants={{
+                A: <>Book Free Consultation</>,
+                B: <>Get Your Free Audit</>,
+                C: <>Start Your Project</>,
+                D: <>Talk to an Engineer</>,
+              }}
+            />
             <ArrowRight className="h-4 w-4 nx-arrow" />
           </Link>
           <Link

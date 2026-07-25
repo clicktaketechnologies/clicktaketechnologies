@@ -23,6 +23,7 @@ import {
   Sparkles,
   Server,
   Clock,
+  FlaskConical,
 } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { toast } from "sonner";
@@ -64,6 +65,7 @@ const NAV_GROUPS: { label: string; items: { href: string; label: string; icon: a
     items: [
       { href: "/admin/crm", label: "Lead CRM", icon: Users, perm: "readLeads", badge: "New" },
       { href: "/admin/email", label: "Email Center", icon: Mail, perm: "readLeads" },
+      { href: "/admin/ab-tests", label: "A/B Experiments", icon: FlaskConical, perm: "readCMS", live: true },
     ],
   },
   {
@@ -95,6 +97,7 @@ function getPageMeta(pathname: string): { title: string; bc: string } {
     theme: "Theme Engine",
     crm: "Lead CRM",
     email: "Email Center",
+    "ab-tests": "A/B Experiments",
     providers: "Storage & Email Providers",
     seo: "SEO & Analytics",
     settings: "Config Settings",

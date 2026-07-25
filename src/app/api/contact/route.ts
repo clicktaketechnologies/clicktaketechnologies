@@ -3,10 +3,45 @@ import { inquirySchema, bookingSchema } from "@/lib/contact-schema";
 import { verifyTurnstileToken } from "@/lib/turnstile";
 import { sendMail, inquiryThankYouEmail, bookingThankYouEmail, leadNotificationEmail } from "@/lib/mailer";
 import { prisma } from "@/lib/db";
+import { recordConversion, VISITOR_COOKIE_NAME } from "@/lib/ab-testing";
 
 // ─── POST /api/contact ───────────────────────────────────────────────────
 // Body: { kind: "inquiry" | "booking", ...payload }
 // Saves lead to DB + sends emails via multi-provider chain (Phase 2).
+
+/**
+ * Phase 3 #3 — fire A/B test conversion events.
+ *
+ * Reads the ct_visitor cookie from the request and credits ALL active
+ * experiments the visitor was exposed to. Fire-and-forget — we do NOT
+ * await this, and any error is silently swallowed (best-effort).
+ *
+ * Called from each successful lead-save branch below (inquiry, booking,
+ * career). The conversionEvent string matches ab_experiments.primary_metric
+ * values: 'lead_submit' for inquiries, 'consultation_booked' for bookings,
+ * 'lead_submit' for career applications (they're leads too).
+ */
+function fireAbConversion(req: NextRequest, event: string): void {
+  try {
+    const cookieHeader = req.headers.get("cookie");
+    if (!cookieHeader) return;
+    // Parse ct_visitor from the cookie header
+    const parts = cookieHeader.split(";");
+    for (const part of parts) {
+      const [name, ...valueParts] = part.trim().split("=");
+      if (name === VISITOR_COOKIE_NAME) {
+        const visitorId = valueParts.join("=").trim();
+        if (visitorId) {
+          // Fire-and-forget — do NOT await. The response goes back immediately.
+          void recordConversion({ visitorId, event });
+        }
+        return;
+      }
+    }
+  } catch (err) {
+    console.error("[contact] fireAbConversion failed:", err);
+  }
+}
 
 export async function POST(req: NextRequest) {
   let body: any;
@@ -89,6 +124,10 @@ export async function POST(req: NextRequest) {
       console.error("[contact/inquiry] internal notify failed:", e);
     }
 
+    // Phase 3 #3 — credit this conversion to all A/B experiments the
+    // visitor was exposed to. Fire-and-forget; failure is non-fatal.
+    fireAbConversion(req, "lead_submit");
+
     return NextResponse.json({ success: true });
   }
 
@@ -153,6 +192,9 @@ export async function POST(req: NextRequest) {
     } catch (e) {
       console.error("[contact/booking] internal notify failed:", e);
     }
+
+    // Phase 3 #3 — credit booking conversion to active A/B experiments.
+    fireAbConversion(req, "consultation_booked");
 
     return NextResponse.json({ success: true });
   }
@@ -223,6 +265,11 @@ export async function POST(req: NextRequest) {
     } catch (e) {
       console.error("[contact/career] internal notify failed:", e);
     }
+
+    // Phase 3 #3 — credit career-application conversion to active A/B
+    // experiments. Career applications count as 'lead_submit' since they
+    // share the same Lead CRM pipeline.
+    fireAbConversion(req, "lead_submit");
 
     return NextResponse.json({ success: true });
   }

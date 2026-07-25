@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { NAV_LINKS, SERVICES, SOLUTIONS } from "@/lib/site-data";
 import { ThemeToggle } from "./theme-toggle";
+import { AbTest } from "./ab-test";
 
 /* NEW NAVBAR — sticky translucent bar (Index.dev + Vention pattern).
  * Logo left · nav center · CTAs right. Sticky on scroll with blur backdrop.
@@ -159,14 +160,24 @@ export function NxNavbar() {
 
             {/* Right CTAs — theme toggle + single primary Get Started button.
                 (Sign In button removed per UX audit — every CTA now points to
-                /contact, so a separate Sign In link was redundant friction.) */}
+                /contact, so a separate Sign In link was redundant friction.)
+                Phase 3 #3 — button label is A/B tested via <AbTest>. Admin
+                creates an experiment with key "navbar-primary-cta" and adds
+                variants; the rendered label swaps client-side post-hydrate. */}
             <div className="hidden lg:flex items-center gap-3">
               <ThemeToggle />
               <Link
                 href="/contact"
                 className="group inline-flex items-center gap-2 nx-btn-orange px-5 py-2.5 text-sm"
               >
-                Get Started
+                <AbTest
+                  experimentKey="navbar-primary-cta"
+                  variants={{
+                    A: <>Get Started</>,
+                    B: <>Book Free Consultation</>,
+                    C: <>Get Your Free Audit</>,
+                  }}
+                />
                 <ArrowRight className="h-3.5 w-3.5 nx-arrow" />
               </Link>
             </div>
@@ -348,7 +359,14 @@ export function NxNavbar() {
                     href="/contact"
                     className="block nx-btn-orange text-center px-5 py-3.5 text-sm"
                   >
-                    Get Started
+                    <AbTest
+                      experimentKey="navbar-primary-cta"
+                      variants={{
+                        A: <>Get Started</>,
+                        B: <>Book Free Consultation</>,
+                        C: <>Get Your Free Audit</>,
+                      }}
+                    />
                   </Link>
                   {/* Secondary CTA — replaced the old "Sign In" link with a
                       value-add offer link. Reduces CTA redundancy and gives

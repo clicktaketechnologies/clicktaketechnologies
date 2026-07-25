@@ -34,6 +34,7 @@ export const ROUTE_PERMISSIONS: Record<string, Permission> = {
   "/admin/roles": "manageRBAC",
   "/admin/email": "readLeads",
   "/admin/seo": "readCMS",
+  "/admin/ab-tests": "readCMS",
   "/admin/settings": "manageSettings",
   "/admin/security": "manageRBAC",
 };
