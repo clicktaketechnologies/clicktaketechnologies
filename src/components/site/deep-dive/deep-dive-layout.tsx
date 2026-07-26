@@ -139,11 +139,11 @@ function StickyToc({ entries }: { entries: { id: string; label: string }[] }) {
       {/* Desktop sidebar */}
       <aside className="hidden xl:block w-64 shrink-0">
         <div className="sticky top-28">
-          <div className="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-wider text-white/40">
+          <div className="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-wider nx-text-muted">
             <List className="h-3.5 w-3.5" />
             On this page
           </div>
-          <nav className="space-y-1 border-l border-white/10">
+          <nav className="space-y-1 border-l nx-bd">
             {entries.map((e) => {
               const isActive = active === e.id
               return (
@@ -153,8 +153,8 @@ function StickyToc({ entries }: { entries: { id: string; label: string }[] }) {
                   onClick={(ev) => handleClick(ev, e.id)}
                   className={`block border-l-2 -ml-px px-3 py-1.5 text-sm transition ${
                     isActive
-                      ? "border-[#FF53A9] text-white font-medium"
-                      : "border-transparent text-white/55 hover:text-white/85"
+                      ? "border-[#FF53A9] nx-text font-medium"
+                      : "border-transparent nx-text-muted hover:nx-text"
                   }`}
                 >
                   {e.label}
@@ -274,18 +274,18 @@ function SectionHeading({
   return (
     <header className="mb-10 max-w-3xl">
       {eyebrow && (
-        <div className="mb-3 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[2px] text-[#FF8AC4]">
+        <div className="mb-3 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[2px] text-[var(--nx-brand-pink-deep)]">
           <span className="h-1 w-8 rounded-full bg-[#FF53A9]" />
           {eyebrow}
         </div>
       )}
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white">
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight nx-text">
         {title}
       </h2>
       {intro?.map((p, i) => (
         <p
           key={i}
-          className="mt-4 text-base sm:text-[17px] text-white/70 leading-relaxed"
+          className="mt-4 text-base sm:text-[17px] nx-text-soft leading-relaxed"
         >
           {p}
         </p>
@@ -490,12 +490,12 @@ export function DeepDiveLayout({
                       className="rounded-2xl border border-red-500/20 bg-red-500/[0.04] p-5"
                     >
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500/20 text-xs font-bold text-red-300">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500/20 text-xs font-bold text-red-500 dark:text-red-300">
                           {i + 1}
                         </span>
-                        <h4 className="text-sm font-bold text-white">{p.title}</h4>
+                        <h4 className="text-sm font-bold nx-text">{p.title}</h4>
                       </div>
-                      <p className="text-sm text-white/70 leading-relaxed">{p.description}</p>
+                      <p className="text-sm nx-text-soft leading-relaxed">{p.description}</p>
                     </div>
                   ))}
                 </div>
@@ -518,8 +518,8 @@ export function DeepDiveLayout({
                 <div className="space-y-10">
                   {content.deepDive.subsections.map((sub, i) => (
                     <div key={i}>
-                      <h3 className="text-xl font-bold text-white mb-3 flex items-baseline gap-3">
-                        <span className="text-sm font-mono text-[#FF8AC4]">
+                      <h3 className="text-xl font-bold nx-text mb-3 flex items-baseline gap-3">
+                        <span className="text-sm font-mono text-[var(--nx-brand-pink-deep)]">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         {sub.heading}
@@ -527,7 +527,7 @@ export function DeepDiveLayout({
                       {sub.body.map((p, j) => (
                         <p
                           key={j}
-                          className="text-[15px] sm:text-base text-white/75 leading-relaxed mb-3"
+                          className="text-[15px] sm:text-base nx-text-soft leading-relaxed mb-3"
                         >
                           {p}
                         </p>
@@ -537,12 +537,12 @@ export function DeepDiveLayout({
                           {sub.jargon.map((t) => (
                             <div
                               key={t.term}
-                              className="rounded-xl border border-white/10 bg-white/[0.02] p-4"
+                              className="rounded-xl border nx-bd nx-surface-alt p-4"
                             >
-                              <dt className="text-sm font-bold text-[#FF8AC4] mb-1">
+                              <dt className="text-sm font-bold text-[var(--nx-brand-pink-deep)] mb-1">
                                 {t.term}
                               </dt>
-                              <dd className="text-xs text-white/65 leading-relaxed">
+                              <dd className="text-xs nx-text-muted leading-relaxed">
                                 {t.def}
                               </dd>
                             </div>
@@ -566,7 +566,7 @@ export function DeepDiveLayout({
                 <FeatureGrid categories={content.techStack.categories} />
                 {content.techStack.comparisonTable && (
                   <div className="mt-8">
-                    <h3 className="text-lg font-bold text-white mb-4">
+                    <h3 className="text-lg font-bold nx-text mb-4">
                       Feature comparison
                     </h3>
                     <ComparisonTable
@@ -630,7 +630,7 @@ export function DeepDiveLayout({
                 <div className="space-y-8">
                   {content.comparison.tables.map((t, i) => (
                     <div key={i}>
-                      <h3 className="text-lg font-bold text-white mb-4">{t.title}</h3>
+                      <h3 className="text-lg font-bold nx-text mb-4">{t.title}</h3>
                       <ComparisonTable headers={t.headers} rows={t.rows} />
                     </div>
                   ))}
@@ -650,15 +650,15 @@ export function DeepDiveLayout({
                   {content.businessImpact.metrics.map((m, i) => (
                     <div
                       key={i}
-                      className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#FF53A9]/10 to-transparent p-5 text-center"
+                      className="rounded-2xl border nx-bd bg-gradient-to-br from-[#FF53A9]/10 to-transparent p-5 text-center"
                     >
-                      <div className="text-3xl sm:text-4xl font-black text-white nx-stat-num">
+                      <div className="text-3xl sm:text-4xl font-black nx-text nx-stat-num">
                         {m.value}
                       </div>
-                      <div className="mt-1 text-xs font-mono uppercase tracking-wider text-[#FF8AC4]">
+                      <div className="mt-1 text-xs font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)]">
                         {m.label}
                       </div>
-                      <div className="mt-2 text-xs text-white/60 leading-relaxed">
+                      <div className="mt-2 text-xs nx-text-muted leading-relaxed">
                         {m.description}
                       </div>
                     </div>
@@ -667,7 +667,7 @@ export function DeepDiveLayout({
                 {content.businessImpact.body.map((p, i) => (
                   <p
                     key={i}
-                    className="text-[15px] sm:text-base text-white/75 leading-relaxed mb-3"
+                    className="text-[15px] sm:text-base nx-text-soft leading-relaxed mb-3"
                   >
                     {p}
                   </p>
@@ -686,7 +686,7 @@ export function DeepDiveLayout({
                 <div className="space-y-6">
                   {content.integrations.categories.map((cat) => (
                     <div key={cat.name}>
-                      <h3 className="text-sm font-mono uppercase tracking-wider text-[#FF8AC4] mb-3">
+                      <h3 className="text-sm font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)] mb-3">
                         {cat.name}
                       </h3>
                       <PillList items={cat.items} />
@@ -695,7 +695,7 @@ export function DeepDiveLayout({
                 </div>
                 {content.integrations.compliance && content.integrations.compliance.length > 0 && (
                   <div className="mt-8 rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.04] p-5">
-                    <h3 className="text-sm font-mono uppercase tracking-wider text-emerald-300 mb-3">
+                    <h3 className="text-sm font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-300 mb-3">
                       Security &amp; Compliance
                     </h3>
                     <PillList items={content.integrations.compliance} />
@@ -731,7 +731,7 @@ export function DeepDiveLayout({
                 <div className="space-y-8">
                   {content.faq.categories.map((cat) => (
                     <div key={cat.name}>
-                      <h3 className="text-sm font-mono uppercase tracking-wider text-[#FF8AC4] mb-3">
+                      <h3 className="text-sm font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)] mb-3">
                         {cat.name}
                       </h3>
                       <Accordion items={cat.questions} />

@@ -15,21 +15,21 @@ export function Accordion({
 }) {
   const [open, setOpen] = useState<number | null>(0)
   return (
-    <div className="divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden">
+    <div className="divide-y divide-[var(--nx-border)] rounded-2xl border nx-bd nx-surface-alt overflow-hidden">
       {items.map((item, i) => {
         const isOpen = open === i
         return (
           <div key={i}>
             <button
               onClick={() => setOpen(isOpen ? null : i)}
-              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left hover:bg-white/[0.03] transition"
+              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left hover:bg-[var(--nx-foreground)]/[0.04] transition"
               aria-expanded={isOpen}
             >
-              <span className="text-sm sm:text-base font-semibold text-white">
+              <span className="text-sm sm:text-base font-semibold nx-text">
                 {item.q}
               </span>
               <ChevronDown
-                className={`h-4 w-4 shrink-0 text-[#FF8AC4] transition-transform ${isOpen ? "rotate-180" : ""}`}
+                className={`h-4 w-4 shrink-0 text-[var(--nx-brand-pink-deep)] transition-transform ${isOpen ? "rotate-180" : ""}`}
               />
             </button>
             <AnimatePresence initial={false}>
@@ -41,7 +41,7 @@ export function Accordion({
                   transition={{ duration: 0.25 }}
                   className="overflow-hidden"
                 >
-                  <p className="px-5 pb-5 text-sm sm:text-[15px] text-white/70 leading-relaxed">
+                  <p className="px-5 pb-5 text-sm sm:text-[15px] nx-text-soft leading-relaxed">
                     {item.a}
                   </p>
                 </motion.div>
@@ -68,7 +68,7 @@ export function ComparisonTable({
   caption?: string
 }) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-white/10">
+    <div className="overflow-x-auto rounded-2xl border nx-bd">
       <table className="w-full border-collapse text-sm">
         {caption && <caption className="sr-only">{caption}</caption>}
         <thead>
@@ -76,7 +76,7 @@ export function ComparisonTable({
             {headers.map((h, i) => (
               <th
                 key={i}
-                className={`px-4 py-3 text-left font-bold text-white border-b border-white/10 ${i === 0 ? "text-left" : "text-center"}`}
+                className={`px-4 py-3 text-left font-bold nx-text border-b nx-bd ${i === 0 ? "text-left" : "text-center"}`}
               >
                 {h}
               </th>
@@ -87,7 +87,7 @@ export function ComparisonTable({
           {rows.map((row, ri) => (
             <tr
               key={ri}
-              className={ri % 2 === 0 ? "bg-white/[0.02]" : "bg-transparent"}
+              className={ri % 2 === 0 ? "nx-surface-alt" : "bg-transparent"}
             >
               {row.map((cell, ci) => {
                 const isYes = cell.startsWith("yes:")
@@ -96,10 +96,10 @@ export function ComparisonTable({
                 return (
                   <td
                     key={ci}
-                    className={`px-4 py-3 text-white/80 border-b border-white/5 align-top ${ci === 0 ? "font-semibold text-white" : "text-center"}`}
+                    className={`px-4 py-3 nx-text-soft border-b border-[var(--nx-border)] align-top ${ci === 0 ? "font-semibold nx-text" : "text-center"}`}
                   >
-                    {isYes && <span className="text-emerald-400 font-bold mr-1.5">✓</span>}
-                    {isNo && <span className="text-red-400 font-bold mr-1.5">✗</span>}
+                    {isYes && <span className="text-emerald-500 dark:text-emerald-400 font-bold mr-1.5">✓</span>}
+                    {isNo && <span className="text-red-500 dark:text-red-400 font-bold mr-1.5">✗</span>}
                     {display}
                   </td>
                 )
@@ -124,12 +124,12 @@ export function PullQuote({
 }) {
   return (
     <blockquote className="relative my-8 rounded-2xl border-l-4 border-[#FF53A9] bg-gradient-to-r from-[#FF53A9]/10 to-transparent px-6 py-5 sm:px-8 sm:py-6">
-      <Quote className="absolute top-4 right-4 h-6 w-6 text-[#FF53A9]/30" />
-      <div className="text-lg sm:text-xl font-semibold text-white leading-relaxed pr-8">
+      <Quote className="absolute top-4 right-4 h-6 w-6 text-[#FF53A9]/40" />
+      <div className="text-lg sm:text-xl font-semibold nx-text leading-relaxed pr-8">
         {children}
       </div>
       {attribution && (
-        <footer className="mt-3 text-sm text-white/60">— {attribution}</footer>
+        <footer className="mt-3 text-sm nx-text-muted">— {attribution}</footer>
       )}
     </blockquote>
   )
@@ -160,20 +160,20 @@ export function StarCaseStudy({
     { label: "Result", body: result },
   ]
   return (
-    <article className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8">
+    <article className="rounded-2xl border nx-bd nx-surface-alt p-6 sm:p-8">
       <header className="flex items-center justify-between mb-5">
-        <h4 className="text-lg font-bold text-white">{client}</h4>
-        <span className="rounded-full bg-[#FF53A9]/15 px-3 py-1 text-xs font-mono uppercase tracking-wider text-[#FF8AC4]">
+        <h4 className="text-lg font-bold nx-text">{client}</h4>
+        <span className="rounded-full bg-[#FF53A9]/15 px-3 py-1 text-xs font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)]">
           Case Study
         </span>
       </header>
       <dl className="space-y-4">
         {rows.map((r) => (
           <div key={r.label} className="grid sm:grid-cols-[110px_1fr] gap-2 sm:gap-4">
-            <dt className="text-xs font-mono uppercase tracking-wider text-[#FF8AC4] pt-0.5">
+            <dt className="text-xs font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)] pt-0.5">
               {r.label}
             </dt>
-            <dd className="text-sm text-white/75 leading-relaxed">{r.body}</dd>
+            <dd className="text-sm nx-text-soft leading-relaxed">{r.body}</dd>
           </div>
         ))}
       </dl>
@@ -200,23 +200,23 @@ export function UseCaseCard({
   result: string
 }) {
   return (
-    <article className="group relative rounded-2xl border border-white/10 bg-white/[0.02] p-6 hover:border-[#FF53A9]/40 hover:bg-white/[0.04] transition">
+    <article className="group relative rounded-2xl border nx-bd nx-surface-alt p-6 hover:border-[#FF53A9]/40 hover:bg-[var(--nx-foreground)]/[0.04] transition">
       <div className="flex items-center gap-2 mb-4">
         <span className="h-2 w-2 rounded-full bg-[#FF53A9]" />
-        <h4 className="text-base font-bold text-white">{industry}</h4>
+        <h4 className="text-base font-bold nx-text">{industry}</h4>
       </div>
       <dl className="space-y-3 text-sm">
         <div>
-          <dt className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">Problem</dt>
-          <dd className="text-white/70 leading-relaxed">{problem}</dd>
+          <dt className="text-xs font-mono uppercase tracking-wider nx-text-muted mb-1">Problem</dt>
+          <dd className="nx-text-soft leading-relaxed">{problem}</dd>
         </div>
         <div>
-          <dt className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">Application</dt>
-          <dd className="text-white/70 leading-relaxed">{application}</dd>
+          <dt className="text-xs font-mono uppercase tracking-wider nx-text-muted mb-1">Application</dt>
+          <dd className="nx-text-soft leading-relaxed">{application}</dd>
         </div>
         <div>
-          <dt className="text-xs font-mono uppercase tracking-wider text-[#FF8AC4] mb-1">Result</dt>
-          <dd className="text-white font-medium leading-relaxed">{result}</dd>
+          <dt className="text-xs font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)] mb-1">Result</dt>
+          <dd className="nx-text font-medium leading-relaxed">{result}</dd>
         </div>
       </dl>
     </article>
@@ -255,19 +255,19 @@ export function MethodologyStep({
       </div>
       <div className="pb-8">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
-          <span className="text-xs font-mono uppercase tracking-wider text-[#FF8AC4]">
+          <span className="text-xs font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)]">
             {phase}
           </span>
-          <span className="text-xs text-white/40">·</span>
-          <span className="text-xs text-white/50">{duration}</span>
+          <span className="text-xs nx-text-muted">·</span>
+          <span className="text-xs nx-text-muted">{duration}</span>
         </div>
-        <h4 className="text-lg font-bold text-white mb-2">{title}</h4>
-        <p className="text-sm text-white/70 leading-relaxed mb-3">{description}</p>
+        <h4 className="text-lg font-bold nx-text mb-2">{title}</h4>
+        <p className="text-sm nx-text-soft leading-relaxed mb-3">{description}</p>
         <div className="flex flex-wrap gap-1.5">
           {deliverables.map((d, i) => (
             <span
               key={i}
-              className="rounded-md bg-white/5 border border-white/10 px-2.5 py-1 text-xs text-white/60"
+              className="rounded-md nx-surface-muted border nx-bd px-2.5 py-1 text-xs nx-text-muted"
             >
               {d}
             </span>
@@ -290,16 +290,16 @@ export function FeatureGrid({
       {categories.map((cat) => (
         <div
           key={cat.name}
-          className="rounded-2xl border border-white/10 bg-white/[0.02] p-5"
+          className="rounded-2xl border nx-bd nx-surface-alt p-5"
         >
-          <h4 className="text-sm font-mono uppercase tracking-wider text-[#FF8AC4] mb-4">
+          <h4 className="text-sm font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)] mb-4">
             {cat.name}
           </h4>
           <ul className="space-y-3">
             {cat.items.map((item) => (
               <li key={item.name}>
-                <div className="text-sm font-semibold text-white">{item.name}</div>
-                <div className="text-xs text-white/55 leading-relaxed mt-0.5">
+                <div className="text-sm font-semibold nx-text">{item.name}</div>
+                <div className="text-xs nx-text-muted leading-relaxed mt-0.5">
                   {item.description}
                 </div>
               </li>
@@ -319,7 +319,7 @@ export function PillList({ items }: { items: string[] }) {
       {items.map((item, i) => (
         <span
           key={i}
-          className="rounded-full border border-white/15 bg-white/[0.03] px-3.5 py-1.5 text-sm text-white/75"
+          className="rounded-full border nx-bd-strong nx-surface-muted px-3.5 py-1.5 text-sm nx-text-soft"
         >
           {item}
         </span>
