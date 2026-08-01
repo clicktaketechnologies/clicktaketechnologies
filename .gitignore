@@ -70,3 +70,61 @@ secrets.local
 public/prisma-wasm/
 drizzle/
 .open-next/
+
+# Wrangler local state (cache, tmp) — never commit
+.wrangler/
+
+# Local audit / verification artifacts — regenerate on demand
+/audit/
+/download/audit-*/
+/download/screenshots/
+/download/verification/
+/download/competitor-research/
+/download/redesign-audit/
+/download/*.png
+/download/*.zip
+
+# One-off / already-executed migration & audit scripts — kept locally only.
+# Production-critical scripts referenced by package.json are re-included below.
+/scripts/*.png
+/scripts/*.pdf
+/scripts/audit-*.py
+/scripts/audit-*.ts
+/scripts/audit-*.sh
+/scripts/check-*.ts
+/scripts/cleanup-*.ts
+/scripts/contrast_*.py
+/scripts/debug-*.ts
+/scripts/diagnose-*.ts
+/scripts/verify-*.sh
+/scripts/fix-*.py
+/scripts/add-3d-*.py
+/scripts/wire-story-scene.py
+/scripts/qa-ai-agents.py
+/scripts/gen-og-image.py
+/scripts/optimize-images.py
+/scripts/fresh-audit.sh
+/scripts/bundle-website.sh
+/scripts/test-all-routes.sh
+/scripts/deploy-production.sh
+/scripts/test-admin-query.ts
+/scripts/test-remaining-queries.ts
+/scripts/trace-direct.ts
+/scripts/list-db-schema.ts
+/scripts/reproduce-500-pages.ts
+/scripts/migrate-*.sql
+/scripts/migrate-*.ts
+/scripts/migrate-*.py
+/scripts/edge-proxy-worker.js
+/scripts/full-proxy-worker.js
+/scripts/wrangler.edge-proxy.toml
+/scripts/set-cf-secrets.sh
+/scripts/restore-prisma-engines.sh
+/scripts/trim-prisma-engines.sh
+/scripts/patch-prisma-wasm-mjs.sh
+/scripts/clicktake*brief*.*
+/scripts/clicktake_brief_body.py
+/scripts/build-enterprise-brief.py
+
+# Re-include production-critical scripts referenced in package.json
+!/scripts/migrate-public-to-storage.ts
