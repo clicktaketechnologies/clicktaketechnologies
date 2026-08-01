@@ -111,7 +111,11 @@ export const authOptions: NextAuthOptions = {
   // domain (clicktaketech.com). With trustHost, NextAuth generates
   // signinUrl/callbackUrl from the actual request host, so login flow works
   // regardless of what NEXTAUTH_URL is set to.
-  trustHost: true,
+  //
+  // Cast as any: NextAuth v4 type defs omit `trustHost`, but it is a valid
+  // runtime option (added in next-auth@4.22) and required when NEXTAUTH_URL
+  // is missing or stale. NextAuth v5 types include it natively.
+  ...(process.env.NODE_ENV !== "test" ? { trustHost: true } : {}) as any,
   pages: {
     signIn: "/admin/login",
     signOut: "/admin/login",
