@@ -5,6 +5,7 @@ import{
   NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
 import { Nx3DScene } from "../nx-3d-scene";
 import { Nx3DCharacter } from "../nx-3d-character";
+import { NxStoryScene } from "../nx-story-scene";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -750,7 +751,9 @@ export function ServiceDetailPage({ service }: Props) {
   return (
     <NxPageLayout>
         {/* 3D character — floats in hero area, lg+ only */}
-        <div className="pointer-events-none absolute right-0 top-24 lg:top-32 xl:top-40 z-[5] hidden lg:block" aria-hidden="true">
+{/* Per-page 3D Story Scene — services variant. Sits behind hero content. */}
+        <NxStoryScene variant="services" />
+                <div className="pointer-events-none absolute right-0 top-24 lg:top-32 xl:top-40 z-[5] hidden lg:block" aria-hidden="true">
           <Nx3DCharacter variant="service-detail" size="md" />
         </div>
         {/* 3D floating geometric accents */}

@@ -30,6 +30,7 @@ export function CitiesIndexPage({ content }: { content: CitiesIndexContent }) {
         subtitle={content.hero.subtitle}
         crumbs={[{ label: "Home", href: "/" }, { label: "Cities" }]}
         character="default"
+        storyVariant="default"
         ctas={
           <>
             <NxButton href="#cities">Browse cities</NxButton>

@@ -50,7 +50,11 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schemas} />
-      <DeepDiveLayout content={teamDeepDive} hubSpokeSlug="team" />
+      <DeepDiveLayout
+        content={teamDeepDive}
+        hubSpokeSlug="team"
+        storyVariant="team"
+      />
     </>
   );
 }

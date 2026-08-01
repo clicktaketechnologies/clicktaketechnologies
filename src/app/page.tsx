@@ -1,123 +1,133 @@
-'use client'
+import type { Metadata } from "next";
+import HomeContent from "./home-content";
+import {
+  JsonLd,
+  buildFaqJsonLd,
+  buildBreadcrumbJsonLd,
+} from "@/components/site/json-ld";
+import { SITE, TESTIMONIALS } from "@/lib/site-data";
 
-import { NxNavbar } from "@/components/site/nx-navbar";
-import { NxHero } from "@/components/site/nx-hero";
-import { NxLogoCloud } from "@/components/site/nx-logo-cloud";
-import { NxStats } from "@/components/site/nx-stats";
-import { NxServices } from "@/components/site/nx-services";
-import { NxWhyChoose } from "@/components/site/nx-why-choose";
-import { NxProcess } from "@/components/site/nx-process";
-import { NxTestimonials } from "@/components/site/nx-testimonials";
-import { NxFaq } from "@/components/site/nx-faq";
-import { NxCta } from "@/components/site/nx-cta";
-import { NxFooter } from "@/components/site/nx-footer";
-import { Nx3DScene } from "@/components/site/nx-3d-scene";
-import { ScrollProgress } from "@/components/site/scroll-progress";
-import { Marquee } from "@/components/site/marquee";
-import dynamic from "next/dynamic";
+/**
+ * Home page — server component wrapper.
+ *
+ * The actual UI is rendered by the `HomeContent` client component
+ * (src/app/home-content.tsx) which depends on framer-motion, Three.js
+ * dynamic import, and other client-only libraries.
+ *
+ * This server wrapper exists so we can inject server-rendered JSON-LD
+ * (FAQPage, BreadcrumbList, Organization) for SEO without paying the
+ * client-bundle cost. The JSON-LD scripts are plain <script> tags —
+ * Next.js renders them in the initial HTML, no hydration needed.
+ */
 
-/* Three.js ambient background — lazy-loaded, client-only.
- * Renders the wireframe torus knot + particle field + icosahedron + mouse
- * parallax from clicktake-3d-v3.html. SSR is disabled (three.js needs window). */
-const NxThreeScene = dynamic(
-  () => import("@/components/site/nx-three-scene").then((m) => m.NxThreeScene),
-  { ssr: false }
-);
+export const metadata: Metadata = {
+  title: "ClickTake — AI-Powered Digital Agency",
+  description:
+    "ClickTake Technologies builds AI-powered websites, SaaS platforms, mobile apps and growth systems for brands across the UK, Pakistan, USA and Dubai. 120+ projects shipped.",
+  alternates: { canonical: SITE.url },
+  openGraph: {
+    title: "ClickTake Technologies — AI-Powered Digital Agency | UK · PK · USA · Dubai",
+    description:
+      "Custom software, AI automation and growth marketing for brands in the UK, Pakistan, USA and Dubai. 120+ projects shipped. Free 30-min consult.",
+    url: SITE.url,
+    siteName: SITE.name,
+    type: "website",
+    locale: "en_GB",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "ClickTake Technologies — AI-Powered Digital Agency.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ClickTake Technologies — AI-Powered Digital Agency",
+    description:
+      "Custom software, AI automation and growth marketing for brands in the UK, Pakistan, USA and Dubai.",
+    images: ["/og-default.png"],
+  },
+};
 
-const MARQUEE_ITEMS = [
-  "Digital Marketing",
-  "Web Development",
-  "SEO & PPC",
-  "Brand Identity",
-  "Social Media",
-  "AI Solutions",
-  "Video Production",
-  "E-Commerce",
+// FAQ data — must match the FAQS array in src/components/site/nx-faq.tsx.
+// Kept here (not imported) so it ships in the server bundle for JSON-LD
+// without bloating the client component.
+const HOME_FAQS = [
+  {
+    q: "How much does a typical project cost?",
+    a: "Most projects land between $5k and $80k. A landing page sprint starts at $5k, a marketing site is $12–25k, a SaaS MVP is $30–80k, and ongoing growth retainers start at $4k/month. Every quote is fixed-scope and includes a written technical spec — no surprises after kickoff.",
+  },
+  {
+    q: "How fast can you start?",
+    a: "We typically kick off new projects within 7 days of signing the proposal. For urgent launches we can fast-track to a 48-hour start if a senior team is available. Book a call today and we'll confirm a real start date before you commit.",
+  },
+  {
+    q: "Do you work with startups or only enterprises?",
+    a: "Both. About 60% of our clients are seed-to-Series-B startups and 40% are mid-market and enterprise. We adjust the engagement model — startups get sprint-based MVP work, enterprises get dedicated teams and quarterly roadmaps.",
+  },
+  {
+    q: "Who owns the code and IP?",
+    a: "You do — 100%. Everything we build is committed to your GitHub repo under your account from day one. Our contracts include an IP assignment clause so there's no ambiguity. You can take the code to any other agency or hire in-house any time.",
+  },
+  {
+    q: "What's your tech stack?",
+    a: "Default stack: Next.js 14+ App Router, TypeScript, Tailwind CSS, Supabase/Postgres, Drizzle ORM, Vercel for hosting, Cloudflare for CDN/edge. For mobile: React Native + Expo. For AI: OpenAI / Anthropic / open-source LLMs via LangChain or LangGraph. We can also work in your existing stack if needed.",
+  },
+  {
+    q: "Do you offer ongoing maintenance?",
+    a: "Yes. After launch we offer monthly maintenance retainers ($1.5–4k/mo depending on app complexity) that cover bug fixes, security updates, dependency upgrades, and small feature requests. Most clients stay on maintenance for 12+ months — it's month-to-month, cancel anytime.",
+  },
 ];
 
-/* Homepage — NEW competitor-inspired redesign (2024).
- *
- * Design language: Deep navy + pink/blue/purple accent + bento grids + bold heavy type.
- * Inspired by: Vention (split hero, floating cards), Index.dev (navy + orange
- * + bento), Future Processing (orange CTA + split-view panels), Itransition
- * (pill tags, dark stat sections), Brocoders (bold typography).
- *
- * Section order:
- *  1. Hero (split layout, dark navy + 3D floating dashboard card)
- *  2. Logo cloud (tech partners marquee)
- *  3. Stats banner (4 oversized metrics)
- *  4. Services (bento grid with category tabs)
- *  5. Why Choose (interactive split-view panel)
- *  6. Process (vertical timeline on navy)
- *  7. Testimonials (3-column card grid)
- *  8. FAQ (accordion)
- *  9. CTA (orange gradient block + contact channels)
- * 10. Footer (dark navy, multi-column)
- *
- * 3D design: Each major section is wrapped in a relative container with a
- * Nx3DScene background (floating geometric shapes in brand colors) for a
- * cohesive 3D feel across the entire page. The homepage also mounts a
- * full-screen NxThreeScene (Three.js) behind the hero — wireframe torus
- * knot + 1400-particle field + mouse parallax — matching the
- * clicktake-3d-v3.html reference.
- *
- * DARK MODE: The .theme-nx wrapper exposes --nx-* tokens that flip under
- * html.dark. Hero/CTA/Footer are always-dark (intentional). Light-surface
- * sections (Stats, Services, WhyChoose, Testimonials, FAQ) use the new
- * .nx-surface / .nx-text utility classes so they render with proper
- * contrast in both light and dark mode. */
-export default function Home() {
+export default function Page() {
+  // FAQPage schema — eligible for Google FAQ rich results.
+  const faq = buildFaqJsonLd(HOME_FAQS);
+
+  // BreadcrumbList — Home is the root; only one item. This signals
+  // canonical home URL to Google for sitelinks display.
+  const breadcrumb = buildBreadcrumbJsonLd([], { prependHome: true });
+
+  // Organization schema with embedded Review + AggregateRating — uses the
+  // testimonials already in the codebase. Google requires at least 2 reviews
+  // for the rating rich result.
+  const reviews = (TESTIMONIALS || [])
+    .slice(0, 6)
+    .map((t: { name: string; quote: string; rating?: number }) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: t.name },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: String(t.rating || 5),
+        bestRating: "5",
+        worstRating: "1",
+      },
+      reviewBody: t.quote,
+    }));
+
+  const orgWithRating =
+    reviews.length >= 2
+      ? {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: SITE.name,
+          url: SITE.url,
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.9",
+            reviewCount: String(reviews.length),
+            bestRating: "5",
+            worstRating: "1",
+          },
+          review: reviews,
+        }
+      : null;
+
   return (
-    <div className="theme-nx min-h-screen nx-surface nx-text relative">
-      {/* Top scroll-progress bar (gradient pink → purple) */}
-      <ScrollProgress />
-      {/* Full-screen Three.js ambient background — torus knot + particles + icosahedron */}
-      <NxThreeScene />
-      <NxNavbar />
-      <main className="relative z-10">
-        <NxHero />
-        {/* Brand marquee band — scrolling services list */}
-        <Marquee items={MARQUEE_ITEMS} />
-        <NxLogoCloud />
-        {/* Stats — with 3D floating accents */}
-        <div className="relative overflow-hidden">
-          <Nx3DScene density="low" corner="top-right" />
-          <div className="relative z-10">
-            <NxStats />
-          </div>
-        </div>
-        {/* Services — with 3D floating accents */}
-        <div className="relative overflow-hidden">
-          <Nx3DScene density="medium" />
-          <div className="relative z-10">
-            <NxServices />
-          </div>
-        </div>
-        {/* Why Choose — with 3D floating accents */}
-        <div className="relative overflow-hidden">
-          <Nx3DScene density="low" corner="bottom-left" />
-          <div className="relative z-10">
-            <NxWhyChoose />
-          </div>
-        </div>
-        {/* Process — with 3D floating accents */}
-        <div className="relative overflow-hidden">
-          <Nx3DScene density="medium" />
-          <div className="relative z-10">
-            <NxProcess />
-          </div>
-        </div>
-        {/* Testimonials — with 3D floating accents */}
-        <div className="relative overflow-hidden">
-          <Nx3DScene density="low" corner="top-left" />
-          <div className="relative z-10">
-            <NxTestimonials />
-          </div>
-        </div>
-        <NxFaq />
-        <NxCta />
-      </main>
-      <NxFooter />
-    </div>
+    <>
+      <JsonLd data={orgWithRating ? [faq, breadcrumb, orgWithRating] : [faq, breadcrumb]} />
+      <HomeContent />
+    </>
   );
 }

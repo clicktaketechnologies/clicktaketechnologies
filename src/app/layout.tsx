@@ -7,6 +7,7 @@ import { Providers } from "@/components/providers";
 import { SITE } from "@/lib/site-data";
 import { WebMCPProvider } from "@/components/webmcp/webmcp-provider";
 import { getNxDesignCss } from "@/lib/nx-design";
+import { buildWebSiteJsonLd } from "@/components/site/json-ld";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,6 +66,10 @@ export const metadata: Metadata = {
   publisher: "ClickTake Technologies",
   alternates: {
     canonical: SITE.url,
+    // RSS feed discovery — lets feed readers auto-discover /rss.xml.
+    types: {
+      "application/rss+xml": `${SITE.url}/rss.xml`,
+    },
   },
   openGraph: {
     title: "ClickTake Technologies — AI-Powered Digital Agency | UK · PK · USA · Dubai",
@@ -257,9 +262,27 @@ export default async function RootLayout({
             when Cloudflare's "AI Audit" managed robots.txt shadows the
             Next.js robots.ts route output. */}
         <link rel="sitemap" href="/sitemap.xml" />
+        {/* RSS feed discovery link — lets feed readers (Feedly, Inoreader) and
+            AI crawlers auto-discover /rss.xml without manual configuration. */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="ClickTake Technologies — Blog"
+          href="/rss.xml"
+        />
+        {/* llms.txt discovery — proposed standard (llmstxt.org) for signaling
+            the canonical LLM-readable entry points to AI crawlers. */}
+        <link rel="llms" href="/llms.txt" type="text/markdown" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {/* WebSite schema with SearchAction — enables Google sitelinks
+            searchbox rich result and signals the site supports internal
+            search via /blog?q=. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebSiteJsonLd()) }}
         />
         {localBusinessJsonLd.map((lb, i) => (
           <script

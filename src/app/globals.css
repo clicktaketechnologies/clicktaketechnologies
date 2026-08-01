@@ -324,22 +324,96 @@
 
 /* Hide native cursor when custom cursor is active (set on <html> by CustomCursor mount) */
 
-/* Form input base style — used by contact forms */
+/* Form input base style — used by contact forms, careers apply, blog search,
+ * newsletter signup, etc. Upgraded to a futuristic 3D glass aesthetic that
+ * matches the .ct-fx-textbox component. This is the site-wide default for
+ * <input>, <textarea>, and <select> fields with className="input-base". */
 .input-base {
   width: 100%;
   border-radius: 0.75rem;
-  border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--background) 60%, transparent);
-  padding: 0.625rem 0.875rem;
+  /* Translucent glass + brand-tinted underlay */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%),
+    color-mix(in oklab, var(--background) 65%, transparent);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
+  padding: 0.75rem 1rem;
   font-size: 0.875rem;
   color: var(--foreground);
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* Subtle 3D depth + inset highlight */
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 .input-base::placeholder { color: var(--muted-foreground); }
+.input-base:hover {
+  border-color: color-mix(in oklab, var(--primary) 30%, var(--border));
+  transform: translateY(-1px);
+}
 .input-base:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 18%, transparent);
+  border-color: color-mix(in oklab, var(--primary) 70%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--primary) 6%, transparent) 0%, rgba(255, 255, 255, 0.02) 100%),
+    color-mix(in oklab, var(--background) 75%, transparent);
+  /* Neon glow halo + brand-tinted ring */
+  box-shadow:
+    0 0 0 4px color-mix(in oklab, var(--primary) 12%, transparent),
+    0 8px 28px color-mix(in oklab, var(--primary) 22%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px) translateZ(0);
+}
+/* Selects get a matching treatment */
+select.input-base {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, color-mix(in oklab, var(--foreground) 60%, transparent) 50%),
+    linear-gradient(135deg, color-mix(in oklab, var(--foreground) 60%, transparent) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% - 2px),
+    calc(100% - 13px) calc(50% - 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 2.25rem;
+}
+/* Textareas get a taller min-height + vertical resize hint */
+textarea.input-base {
+  min-height: 110px;
+  line-height: 1.55;
+}
+/* Light mode: brighten the glass + use deeper pink focus */
+html:not(.dark) .input-base {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.68) 100%);
+  border-color: rgba(15, 23, 42, 0.14);
+  color: #0a0e1a;
+  box-shadow:
+    0 4px 14px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+html:not(.dark) .input-base:focus {
+  border-color: rgba(224, 25, 122, 0.55);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 0 0 4px rgba(224, 25, 122, 0.10),
+    0 8px 24px rgba(224, 25, 122, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+/* Elite Mode: amplify the glow + add a subtle gradient border */
+html.dark .theme-elite .input-base,
+html:not(.dark) .theme-elite .input-base {
+  border-color: rgba(255, 138, 196, 0.28);
+  background:
+    linear-gradient(135deg, rgba(255, 83, 169, 0.06) 0%, rgba(19, 109, 255, 0.04) 50%, rgba(155, 61, 255, 0.06) 100%),
+    color-mix(in oklab, var(--background) 70%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .input-base { transition: border-color 0.2s, box-shadow 0.2s; transform: none !important; }
+  .input-base:hover, .input-base:focus { transform: none; }
 }
 
 /* Brand utility aliases (used by ported TanStack components) */

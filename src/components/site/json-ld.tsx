@@ -200,3 +200,118 @@ export function buildWebSiteJsonLd() {
     },
   };
 }
+
+/**
+ * Build a schema.org Product block with nested Offers, suitable for a
+ * pricing page. Each "plan" becomes a Product with one Offer.
+ *
+ * @see https://schema.org/Product
+ * @see https://schema.org/Offer
+ *
+ * Example:
+ *   buildProductJsonLd({
+ *     name: "Starter",
+ *     description: "5-page mobile-first Next.js site + foundational SEO",
+ *     slug: "starter",
+ *     priceFrom: "£1,500",
+ *     billing: "one-off project",
+ *   })
+ */
+export function buildProductJsonLd(opts: {
+  name: string;
+  description: string;
+  slug: string;
+  priceFrom: string;
+  billing: string;
+  category?: string;
+}) {
+  // Extract numeric value + currency from "£1,500" / "$3,000" / "£20,000"
+  const m = opts.priceFrom.match(/([£$€₨])\s*([\d,]+)/);
+  const currencyMap: Record<string, string> = {
+    "£": "GBP",
+    "$": "USD",
+    "€": "EUR",
+    "₨": "PKR",
+  };
+  const currency = m ? currencyMap[m[1]] || "GBP" : "GBP";
+  const price = m ? Number(m[2].replace(/,/g, "")) : 0;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `${opts.name} — ${SITE.name}`,
+    description: opts.description,
+    category: opts.category || "Professional Services",
+    url: `${SITE.url}/pricing#${opts.slug}`,
+    brand: {
+      "@type": "Brand",
+      name: SITE.name,
+    },
+    offers: {
+      "@type": "Offer",
+      price: price > 0 ? String(price) : "0",
+      priceCurrency: currency,
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: price > 0 ? String(price) : "0",
+        priceCurrency: currency,
+        description: `${opts.priceFrom} — ${opts.billing}`,
+      },
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: SITE.name,
+        url: SITE.url,
+      },
+      url: `${SITE.url}/contact`,
+    },
+  };
+}
+
+/**
+ * Build a schema.org Review block. Useful for testimonial sections.
+ *
+ * @see https://schema.org/Review
+ */
+export function buildReviewJsonLd(opts: {
+  author: string;
+  rating: number; // 1-5
+  body: string;
+  datePublished?: string;
+}) {
+  return {
+    "@type": "Review",
+    author: {
+      "@type": "Person",
+      name: opts.author,
+    },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: String(opts.rating),
+      bestRating: "5",
+      worstRating: "1",
+    },
+    datePublished: opts.datePublished,
+    reviewBody: opts.body,
+  };
+}
+
+/**
+ * Build a schema.org AggregateRating block — typically merged into a
+ * Product or Organization schema.
+ *
+ * @see https://schema.org/AggregateRating
+ */
+export function buildAggregateRatingJsonLd(opts: {
+  ratingValue: number;
+  reviewCount: number;
+  bestRating?: number;
+}) {
+  return {
+    "@type": "AggregateRating",
+    ratingValue: String(opts.ratingValue),
+    reviewCount: String(opts.reviewCount),
+    bestRating: String(opts.bestRating || 5),
+    worstRating: "1",
+  };
+}

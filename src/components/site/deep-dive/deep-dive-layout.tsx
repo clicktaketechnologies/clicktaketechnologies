@@ -7,6 +7,7 @@ import { ArrowRight, Menu, X, List } from "lucide-react"
 import { NxPageLayout, NxButton } from "../nx-page-layout"
 import { Nx3DCharacter } from "../nx-3d-character"
 import { Nx3DCharacterInteractive } from "../nx-3d-character-interactive"
+import { NxStoryScene, type StoryVariant } from "../nx-story-scene"
 import {
   Accordion,
   ComparisonTable,
@@ -300,10 +301,12 @@ function DeepDiveHeroBlock({
   hero,
   hubSpokeSlug,
   hubSpokeCluster,
+  storyVariant,
 }: {
   hero: DeepDiveHero
   hubSpokeSlug?: string
   hubSpokeCluster?: string
+  storyVariant?: StoryVariant
 }) {
   // Resolve the 3D character: if the content used the generic
   // "service-detail" / "solution-detail" placeholder, override it with
@@ -317,6 +320,9 @@ function DeepDiveHeroBlock({
   const hasChar = Boolean(resolvedCharacter)
   return (
     <section className="relative overflow-hidden nx-hero-bg pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-20">
+      {/* Per-page 3D Story Scene — content-tied character + ambient orbs.
+          Sits behind all hero content (z-0). */}
+      {storyVariant && <NxStoryScene variant={storyVariant} />}
       <div className="absolute inset-0 nx-dot-grid opacity-30 pointer-events-none" />
       <div className="absolute top-10 -left-20 h-72 w-72 rounded-full bg-[#FF53A9]/15 blur-3xl nx-orb pointer-events-none" />
       <div
@@ -444,6 +450,7 @@ function DeepDiveHeroBlock({
 export function DeepDiveLayout({
   content,
   hubSpokeSlug,
+  storyVariant,
 }: {
   content: DeepDiveContent
   /**
@@ -453,6 +460,11 @@ export function DeepDiveLayout({
    * Pricing + Sibling cross-links). If omitted, both sections are skipped.
    */
   hubSpokeSlug?: string
+  /**
+   * Per-page 3D story variant — mounts a <NxStoryScene> layer inside the
+   * hero with a content-tied 3D character + ambient orbs.
+   */
+  storyVariant?: StoryVariant
 }) {
   const tocEntries = useTocEntries(content)
   const hubSpokeEntry = hubSpokeSlug ? getHubSpokeEntry(hubSpokeSlug) : undefined
@@ -464,6 +476,7 @@ export function DeepDiveLayout({
         hero={content.hero}
         hubSpokeSlug={hubSpokeSlug}
         hubSpokeCluster={hubSpokeEntry?.cluster}
+        storyVariant={storyVariant}
       />
 
       <div id="deep-dive-article" className="relative mx-auto max-w-7xl px-4 lg:px-8">
