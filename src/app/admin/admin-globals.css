@@ -108,11 +108,11 @@ html.theme-custom-light .ct-admin {
   --cta-bg2: #ffffff;
   --cta-bg3: #f1f5f9;
   --cta-bg4: #e2e8f0;
-  --cta-border: rgba(15, 23, 42, 0.08);
-  --cta-border2: rgba(15, 23, 42, 0.12);
+  --cta-border: rgba(15, 23, 42, 0.10);
+  --cta-border2: rgba(15, 23, 42, 0.16);
   --cta-text: #0a0e1a;
-  --cta-muted: #64748b;
-  --cta-muted2: #475569;
+  --cta-muted: #475569;
+  --cta-muted2: #334155;
 
   --background: #ffffff;
   --foreground: #0a0e1a;
@@ -125,7 +125,7 @@ html.theme-custom-light .ct-admin {
   --secondary: #f1f5f9;
   --secondary-foreground: #0a0e1a;
   --muted: #f1f5f9;
-  --muted-foreground: #475569;
+  --muted-foreground: #334155;
   --accent: #C2185B;
   --accent-foreground: #ffffff;
   --destructive: #dc2626;
@@ -135,6 +135,96 @@ html.theme-custom-light .ct-admin {
 
   color-scheme: light;
 }
+
+/* ─── LIGHT MODE HARDCODED TAILWIND CLASS OVERRIDES ─────────────────────
+   The admin client components use Tailwind classes like `text-white`,
+   `text-gray-300`, `border-white/10`, etc. that were authored assuming a
+   dark canvas. In light mode these become invisible. We override the most
+   common offenders inside .ct-admin so text is always legible without
+   touching every JSX file. Specificity is bumped with !important to win
+   against Tailwind utilities. */
+html:not(.dark) .ct-admin .text-white,
+html:not(.dark) .ct-admin .text-white\/90,
+html:not(.dark) .ct-admin .text-white\/80,
+html:not(.dark) .ct-admin .text-white\/70,
+html:not(.dark) .ct-admin .text-white\/60 { color: #0a0e1a !important; }
+
+html:not(.dark) .ct-admin .text-gray-50,
+html:not(.dark) .ct-admin .text-gray-100,
+html:not(.dark) .ct-admin .text-gray-200 { color: #0a0e1a !important; }
+html:not(.dark) .ct-admin .text-gray-300 { color: #1e293b !important; }
+html:not(.dark) .ct-admin .text-gray-400 { color: #334155 !important; }
+html:not(.dark) .ct-admin .text-gray-500 { color: #475569 !important; }
+html:not(.dark) .ct-admin .text-gray-600,
+html:not(.dark) .ct-admin .text-gray-700 { color: #1e293b !important; }
+
+html:not(.dark) .ct-admin .text-slate-100,
+html:not(.dark) .ct-admin .text-slate-200 { color: #0a0e1a !important; }
+html:not(.dark) .ct-admin .text-slate-300 { color: #1e293b !important; }
+html:not(.dark) .ct-admin .text-slate-400 { color: #334155 !important; }
+html:not(.dark) .ct-admin .text-slate-500 { color: #475569 !important; }
+
+/* Borders that were tuned for dark canvas — make them visible in light */
+html:not(.dark) .ct-admin .border-white\/5,
+html:not(.dark) .ct-admin .border-white\/10,
+html:not(.dark) .ct-admin .border-white\/20 { border-color: rgba(15, 23, 42, 0.12) !important; }
+
+/* Backgrounds that were translucent white on dark — invert to translucent dark on light */
+html:not(.dark) .ct-admin .bg-white\/5,
+html:not(.dark) .ct-admin .bg-white\/10 { background-color: rgba(15, 23, 42, 0.04) !important; }
+html:not(.dark) .ct-admin .bg-white\/20 { background-color: rgba(15, 23, 42, 0.06) !important; }
+html:not(.dark) .ct-admin .bg-black\/5 { background-color: rgba(15, 23, 42, 0.04) !important; }
+html:not(.dark) .ct-admin .bg-black\/20,
+html:not(.dark) .ct-admin .bg-black\/30,
+html:not(.dark) .ct-admin .bg-black\/40,
+html:not(.dark) .ct-admin .bg-black\/50 { background-color: rgba(15, 23, 42, 0.08) !important; }
+html:not(.dark) .ct-admin .bg-black\/60 { background-color: rgba(15, 23, 42, 0.45) !important; }
+
+/* Ensure default text color inherits the admin token even when a child
+   element has no explicit color set. Prevents "invisible text on light bg"
+   when a parent sets color but a child uses an unstyled span. */
+html:not(.dark) .ct-admin,
+html:not(.dark) .ct-admin main,
+html:not(.dark) .ct-admin section,
+html:not(.dark) .ct-admin article,
+html:not(.dark) .ct-admin aside,
+html:not(.dark) .ct-admin header,
+html:not(.dark) .ct-admin footer,
+html:not(.dark) .ct-admin div,
+html:not(.dark) .ct-admin p,
+html:not(.dark) .ct-admin span,
+html:not(.dark) .ct-admin li,
+html:not(.dark) .ct-admin td,
+html:not(.dark) .ct-admin th,
+html:not(.dark) .ct-admin label {
+  color: var(--cta-text);
+}
+html:not(.dark) .ct-admin .text-muted,
+html:not(.dark) .ct-admin .text-muted-foreground { color: var(--cta-muted) !important; }
+html:not(.dark) .ct-admin .text-foreground { color: var(--cta-text) !important; }
+
+/* Override Lucide / heroicon stroke color that defaults to currentColor
+   but may inherit white from the dark-canvas assumption */
+html:not(.dark) .ct-admin svg { color: inherit; }
+
+/* Inputs that may have inherited a translucent white bg — restore light style */
+html:not(.dark) .ct-admin input,
+html:not(.dark) .ct-admin textarea,
+html:not(.dark) .ct-admin select {
+  background-color: var(--cta-bg3);
+  color: var(--cta-text);
+  border-color: var(--cta-border2);
+}
+html:not(.dark) .ct-admin input::placeholder,
+html:not(.dark) .ct-admin textarea::placeholder {
+  color: var(--cta-muted);
+  opacity: 1;
+}
+
+/* Placeholders and helper text often set via Tailwind text-white/60 */
+html:not(.dark) .ct-admin input::placeholder,
+html:not(.dark) .ct-admin textarea::placeholder,
+html:not(.dark) .ct-admin .placeholder-white\/60 { color: #64748b !important; }
 
 /* ─── SIDEBAR ──────────────────────────────────────────────────────────── */
 .ct-admin-sidebar {

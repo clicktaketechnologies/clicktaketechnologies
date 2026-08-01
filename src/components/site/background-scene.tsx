@@ -19,10 +19,23 @@ const DARK_PALETTE: [number, number, number][] = [
   [75, 227, 255],   // brand-cyan dark
 ];
 
+/* Elite Mode palette — brighter, more saturated, with extra cyan + gold
+   accents to amplify the luxury feel. Used when .theme-elite is on <html>. */
+const ELITE_PALETTE: [number, number, number][] = [
+  [95, 155, 255],   // brightened brand-blue
+  [255, 138, 196],  // brightened brand-pink
+  [179, 102, 255],  // brightened brand-purple
+  [120, 240, 255],  // electric cyan
+  [255, 215, 130],  // soft gold accent
+];
+
 type RGB = [number, number, number];
 const isDark = () =>
   typeof document !== "undefined" &&
   document.documentElement.classList.contains("dark");
+const isElite = () =>
+  typeof document !== "undefined" &&
+  document.documentElement.classList.contains("theme-elite");
 
 /* ─── Types ───────────────────────────────────────────────────── */
 interface TechNode {
@@ -68,14 +81,17 @@ export function BackgroundScene() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
   const darkRef = useRef(isDark());
+  const eliteRef = useRef(isElite());
+  const mouseRef = useRef({ x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 });
 
   const build = useCallback((W: number, H: number) => {
     const dark = darkRef.current;
-    const palette = dark ? DARK_PALETTE : LIGHT_PALETTE;
+    const elite = eliteRef.current;
+    const palette = elite ? ELITE_PALETTE : (dark ? DARK_PALETTE : LIGHT_PALETTE);
     const rand = () => palette[Math.floor(Math.random() * palette.length)];
 
-    /* ── Tech nodes — reduced from 8×7=56 to 6×5=30 ── */
-    const COLS = 6, ROWS = 5;
+    /* ── Tech nodes — Elite uses 8×6=48 for richer density; otherwise 6×5=30 ── */
+    const COLS = elite ? 8 : 6, ROWS = elite ? 6 : 5;
     const nodes: TechNode[] = [];
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
@@ -93,7 +109,7 @@ export function BackgroundScene() {
     }
 
     const edges: [number, number][] = [];
-    const MAX_D = 0.22; // slightly larger since we have fewer nodes
+    const MAX_D = elite ? 0.24 : 0.22; // slightly larger reach in Elite for richer mesh
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const dx = nodes[i].x - nodes[j].x;
@@ -102,23 +118,23 @@ export function BackgroundScene() {
       }
     }
 
-    /* ── Data streams — reduced from 16 → 8 ── */
-    const streams: DataStream[] = Array.from({ length: 8 }, () => ({
+    /* ── Data streams — Elite uses 14, otherwise 8 ── */
+    const streams: DataStream[] = Array.from({ length: elite ? 14 : 8 }, () => ({
       progress: Math.random(),
       speed: 0.001 + Math.random() * 0.002,
       edgeIdx: Math.floor(Math.random() * Math.max(edges.length, 1)),
       color: rand(),
     }));
 
-    /* ── Ripple pulses — reduced from 4 → 2 ── */
-    const pulses: GridPulse[] = Array.from({ length: 2 }, () => ({
+    /* ── Ripple pulses — Elite uses 4, otherwise 2 ── */
+    const pulses: GridPulse[] = Array.from({ length: elite ? 4 : 2 }, () => ({
       x: Math.random() * W,
       y: Math.random() * H,
       maxR: 80 + Math.random() * 120,
       r: Math.random() * 150,
       speed: 0.5 + Math.random() * 0.5,
       color: rand(),
-      alpha: dark ? 0.1 : 0.12,
+      alpha: (dark || elite) ? (elite ? 0.14 : 0.1) : 0.12,
     }));
 
     return { nodes, edges, streams, pulses };
@@ -171,6 +187,20 @@ export function BackgroundScene() {
         g2.addColorStop(1, "rgba(0,0,0,0)");
         bCtx.fillStyle = g2;
         bCtx.fillRect(0, 0, W, H);
+
+        // Elite Mode: layer an extra purple + gold accent gradient for richness
+        if (eliteRef.current) {
+          const g3 = bCtx.createRadialGradient(W * 0.7, H * 0.18, 0, W * 0.7, H * 0.18, H * 0.5);
+          g3.addColorStop(0, "rgba(179,102,255,0.18)");
+          g3.addColorStop(1, "rgba(0,0,0,0)");
+          bCtx.fillStyle = g3;
+          bCtx.fillRect(0, 0, W, H);
+          const g4 = bCtx.createRadialGradient(W * 0.3, H * 0.78, 0, W * 0.3, H * 0.78, H * 0.45);
+          g4.addColorStop(0, "rgba(255,215,130,0.08)");
+          g4.addColorStop(1, "rgba(0,0,0,0)");
+          bCtx.fillStyle = g4;
+          bCtx.fillRect(0, 0, W, H);
+        }
       } else {
         const lg = bCtx.createLinearGradient(0, 0, W * 0.6, H);
         lg.addColorStop(0, "#f0f6ff");
@@ -231,11 +261,27 @@ export function BackgroundScene() {
     window.addEventListener("resize", resize);
 
     const observer = new MutationObserver(() => {
-      darkRef.current = isDark();
-      sceneData = build(W, H);
-      buildBg();
+      const newDark = isDark();
+      const newElite = isElite();
+      if (newDark !== darkRef.current || newElite !== eliteRef.current) {
+        darkRef.current = newDark;
+        eliteRef.current = newElite;
+        sceneData = build(W, H);
+        buildBg();
+      }
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
+    // Mouse parallax — gives the ambient scene a fluid, responsive feel.
+    // Only active on non-touch devices. The mouse position is smoothed
+    // (lerp) in the frame loop to avoid jitter.
+    const onMouseMove = (e: MouseEvent) => {
+      mouseRef.current.tx = e.clientX / (window.innerWidth || 1);
+      mouseRef.current.ty = e.clientY / (window.innerHeight || 1);
+    };
+    if (typeof window !== "undefined" && !window.matchMedia("(pointer: coarse)").matches) {
+      window.addEventListener("mousemove", onMouseMove, { passive: true });
+    }
 
     /* ── Draw edges ── */
     const drawEdges = (nodes: TechNode[], edges: [number, number][]) => {
@@ -257,30 +303,53 @@ export function BackgroundScene() {
       });
     };
 
-    /* ── Draw nodes ── */
+    /* ── Draw nodes — with glow halo in Elite / dark mode ── */
     const drawNodes = (nodes: TechNode[], t: number) => {
       const dark = darkRef.current;
+      const elite = eliteRef.current;
+      // Smoother, more fluid pulse using a squared sine envelope — produces
+      // a "breathing" feel rather than a hard on/off blink.
       nodes.forEach(n => {
         n.x += n.vx; n.y += n.vy;
         if (n.x < 0 || n.x > 1) n.vx *= -1;
         if (n.y < 0 || n.y > 1) n.vy *= -1;
 
-        const pulse = 0.5 + 0.5 * Math.sin(t * n.pulseSpeed + n.pulse);
-        const a = (dark ? 0.55 : 0.6) * pulse + (dark ? 0.12 : 0.18);
-        const cx = n.x * W, cy = n.y * H;
+        // Parallax: each node drifts slightly toward / away from the mouse
+        // based on its radius (larger = closer = more parallax).
+        const parallaxStrength = elite ? 14 : 8;
+        const px = (mouseRef.current.x - 0.5) * parallaxStrength * (n.radius / 4);
+        const py = (mouseRef.current.y - 0.5) * parallaxStrength * (n.radius / 4);
 
+        const pulseRaw = 0.5 + 0.5 * Math.sin(t * n.pulseSpeed + n.pulse);
+        const pulse = pulseRaw * pulseRaw; // squared = smoother envelope
+        const a = (dark ? (elite ? 0.7 : 0.55) : 0.6) * pulse + (dark ? (elite ? 0.18 : 0.12) : 0.18);
+        const cx = n.x * W + px;
+        const cy = n.y * H + py;
+        const r = n.radius * (elite ? 1.3 : 1);
+
+        // Outer glow halo — only in dark / elite (too noisy in light mode)
+        if ((dark || elite) && ctx.shadowBlur !== undefined) {
+          ctx.shadowBlur = elite ? 14 : 8;
+          ctx.shadowColor = rgb(n.color);
+        }
         ctx.globalAlpha = a;
         ctx.fillStyle = rgb(n.color);
         ctx.beginPath();
-        ctx.arc(cx, cy, n.radius, 0, Math.PI * 2);
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
         ctx.fill();
+        // Reset shadow so it doesn't leak into other draw calls
+        if (ctx.shadowBlur !== undefined) ctx.shadowBlur = 0;
       });
     };
 
-    /* ── Data streams (no per-frame gradient) ── */
+    /* ── Data streams (with glow halo in Elite mode for richer "energy" feel) ── */
     const drawStreams = (nodes: TechNode[], edges: [number, number][], streams: DataStream[]) => {
       const dark = darkRef.current;
-      ctx.lineWidth = dark ? 1.4 : 1.2;
+      const elite = eliteRef.current;
+      ctx.lineWidth = elite ? 1.8 : (dark ? 1.4 : 1.2);
+      if (elite && ctx.shadowBlur !== undefined) {
+        ctx.shadowBlur = 10;
+      }
       streams.forEach(s => {
         if (!edges.length || s.edgeIdx >= edges.length) return;
         s.progress += s.speed;
@@ -293,12 +362,14 @@ export function BackgroundScene() {
         const x = (na.x + (nb.x - na.x) * s.progress) * W;
         const y = (na.y + (nb.y - na.y) * s.progress) * H;
 
-        ctx.globalAlpha = 0.85;
+        if (elite && ctx.shadowColor !== undefined) ctx.shadowColor = rgb(s.color);
+        ctx.globalAlpha = elite ? 0.95 : 0.85;
         ctx.fillStyle = rgb(s.color);
         ctx.beginPath();
-        ctx.arc(x, y, dark ? 2.4 : 2.2, 0, Math.PI * 2);
+        ctx.arc(x, y, elite ? 3 : (dark ? 2.4 : 2.2), 0, Math.PI * 2);
         ctx.fill();
       });
+      if (ctx.shadowBlur !== undefined) ctx.shadowBlur = 0;
     };
 
     /* ── Ripple pulses ── */
@@ -324,6 +395,12 @@ export function BackgroundScene() {
     const drawFrame = (ts: number) => {
       const t = ts * 0.001;
       const { nodes, edges, streams, pulses } = sceneData;
+
+      // Lerp mouse position toward target for fluid, smoothed parallax.
+      // Without this, node positions would snap to the cursor instantly.
+      const m = mouseRef.current;
+      m.x += (m.tx - m.x) * 0.06;
+      m.y += (m.ty - m.y) * 0.06;
 
       if (bgReady && bgCanvas && bgCanvas.width > 0 && bgCanvas.height > 0 && W > 0 && H > 0) {
         try {
@@ -358,9 +435,12 @@ export function BackgroundScene() {
       };
     }
 
-    /* ── Frame loop — cap at 30fps (was 50fps; ambient bg doesn't need more) ── */
+    /* ── Frame loop — cap at 45fps (was 30fps; bumped for smoother motion
+       after the parallax + glow enhancements). Elite Mode keeps the same
+       cap — the extra visual richness is GPU-composited so it doesn't need
+       more frames. */
     let lastTs = 0;
-    const FRAME_MS = 1000 / 30;
+    const FRAME_MS = 1000 / 45;
     let running = true;
     // `paused` is set true while the user is actively scrolling — we skip
     // drawing frames but keep the rAF alive so we can resume instantly. This
@@ -414,6 +494,7 @@ export function BackgroundScene() {
       if (pauseTimer) clearTimeout(pauseTimer);
       window.removeEventListener("resize", resize);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("mousemove", onMouseMove);
       observer.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
     };

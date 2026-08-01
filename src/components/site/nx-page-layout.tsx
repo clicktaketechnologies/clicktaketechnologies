@@ -8,6 +8,7 @@ import { NxFooter } from "./nx-footer"
 import { ScrollProgressBar, ScrollToTop } from "./scroll-animations"
 import { Nx3DCharacterInteractive } from "./nx-3d-character-interactive"
 import { Nx3DScene } from "./nx-3d-scene"
+import { NxStoryScene, type StoryVariant } from "./nx-story-scene"
 import dynamic from "next/dynamic"
 
 /* Three.js ambient background for inner pages — lighter than the homepage
@@ -100,6 +101,13 @@ type NxPageHeroProps = {
     | "default"
   /** Show the floating-3D-shapes scene behind the hero (default: true) */
   scene?: boolean
+  /**
+   * Per-page 3D story variant — when set, mounts a <NxStoryScene> layer
+   * inside the hero with a content-tied 3D character + ambient orbs.
+   * This is the "immersive storytelling" layer — each page picks a
+   * variant that visually reflects its content.
+   */
+  storyVariant?: StoryVariant
 }
 
 export function NxPageHero({
@@ -112,6 +120,7 @@ export function NxPageHero({
   stats,
   character,
   scene = true,
+  storyVariant,
 }: NxPageHeroProps) {
   const isCenter = align === "center"
   const hasChar = Boolean(character)
@@ -120,6 +129,11 @@ export function NxPageHero({
   const isEffCenter = effectiveAlign === "center"
   return (
     <section className="relative overflow-hidden nx-hero-bg pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-20">
+      {/* Per-page 3D Story Scene — content-tied character + ambient orbs.
+          Sits behind all hero content (z-0). The orbs + character amplify
+          the hero's brand feel without competing with the copy. */}
+      {storyVariant && <NxStoryScene variant={storyVariant} />}
+
       {/* Subtle dot grid + orbs (matches homepage hero) */}
       <div className="absolute inset-0 nx-dot-grid opacity-30 pointer-events-none" />
       <div className="absolute top-10 -left-20 h-72 w-72 rounded-full bg-[#FF53A9]/15 blur-3xl nx-orb pointer-events-none" />

@@ -21,6 +21,7 @@ export function AboutPage() {
     <NxPageLayout>
       <NxPageHero
         character="about"
+        storyVariant="about"
         eyebrow="About ClickTake"
         title={<>We connect ambitious brands <span className="nx-text-orange-grad">in a better way.</span></>}
         subtitle={
