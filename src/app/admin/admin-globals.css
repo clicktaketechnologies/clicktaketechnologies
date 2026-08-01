@@ -226,6 +226,153 @@ html:not(.dark) .ct-admin input::placeholder,
 html:not(.dark) .ct-admin textarea::placeholder,
 html:not(.dark) .ct-admin .placeholder-white\/60 { color: #64748b !important; }
 
+/* ─── STATUS / ACCENT COLOR overrides for light mode ─────────────────────
+   Tailwind -400 / -500 shades look fine on dark surfaces but become
+   washed-out / unreadable on white. Map each common status color to
+   a darker shade (-600 / -700 / -800) so it stays accessible. */
+html:not(.dark) .ct-admin .text-red-300,
+html:not(.dark) .ct-admin .text-red-400 { color: #b91c1c !important; }
+html:not(.dark) .ct-admin .text-red-500 { color: #dc2626 !important; }
+html:not(.dark) .ct-admin .text-red-600 { color: #b91c1c !important; }
+
+html:not(.dark) .ct-admin .text-emerald-300,
+html:not(.dark) .ct-admin .text-emerald-400 { color: #047857 !important; }
+html:not(.dark) .ct-admin .text-emerald-500 { color: #059669 !important; }
+html:not(.dark) .ct-admin .text-emerald-600 { color: #047857 !important; }
+html:not(.dark) .ct-admin .text-green-300,
+html:not(.dark) .ct-admin .text-green-400 { color: #047857 !important; }
+html:not(.dark) .ct-admin .text-green-500,
+html:not(.dark) .ct-admin .text-green-600 { color: #047857 !important; }
+
+html:not(.dark) .ct-admin .text-amber-300,
+html:not(.dark) .ct-admin .text-amber-400 { color: #b45309 !important; }
+html:not(.dark) .ct-admin .text-amber-500 { color: #d97706 !important; }
+html:not(.dark) .ct-admin .text-amber-600 { color: #b45309 !important; }
+html:not(.dark) .ct-admin .text-yellow-400,
+html:not(.dark) .ct-admin .text-yellow-500 { color: #b45309 !important; }
+html:not(.dark) .ct-admin .text-yellow-600 { color: #a16207 !important; }
+
+html:not(.dark) .ct-admin .text-blue-300,
+html:not(.dark) .ct-admin .text-blue-400 { color: #1d4ed8 !important; }
+html:not(.dark) .ct-admin .text-blue-500 { color: #2563eb !important; }
+html:not(.dark) .ct-admin .text-blue-600 { color: #1d4ed8 !important; }
+html:not(.dark) .ct-admin .text-sky-300,
+html:not(.dark) .ct-admin .text-sky-400 { color: #0369a1 !important; }
+html:not(.dark) .ct-admin .text-sky-500 { color: #0284c7 !important; }
+html:not(.dark) .ct-admin .text-cyan-300,
+html:not(.dark) .ct-admin .text-cyan-400 { color: #0e7490 !important; }
+html:not(.dark) .ct-admin .text-cyan-500 { color: #0891b2 !important; }
+
+html:not(.dark) .ct-admin .text-purple-300,
+html:not(.dark) .ct-admin .text-purple-400 { color: #7e22ce !important; }
+html:not(.dark) .ct-admin .text-purple-500 { color: #9333ea !important; }
+html:not(.dark) .ct-admin .text-violet-300,
+html:not(.dark) .ct-admin .text-violet-400 { color: #6d28d9 !important; }
+html:not(.dark) .ct-admin .text-violet-500 { color: #7c3aed !important; }
+html:not(.dark) .ct-admin .text-fuchsia-300,
+html:not(.dark) .ct-admin .text-fuchsia-400 { color: #a21caf !important; }
+html:not(.dark) .ct-admin .text-fuchsia-500 { color: #c026d3 !important; }
+html:not(.dark) .ct-admin .text-pink-300,
+html:not(.dark) .ct-admin .text-pink-400 { color: #be185d !important; }
+html:not(.dark) .ct-admin .text-pink-500 { color: #db2777 !important; }
+
+html:not(.dark) .ct-admin .text-indigo-300,
+html:not(.dark) .ct-admin .text-indigo-400 { color: #4338ca !important; }
+html:not(.dark) .ct-admin .text-indigo-500 { color: #4f46e5 !important; }
+html:not(.dark) .ct-admin .text-rose-300,
+html:not(.dark) .ct-admin .text-rose-400 { color: #be123c !important; }
+html:not(.dark) .ct-admin .text-rose-500 { color: #e11d48 !important; }
+
+/* Zinc / neutral often used for muted text on dark — keep readable on light */
+html:not(.dark) .ct-admin .text-zinc-100,
+html:not(.dark) .ct-admin .text-zinc-200 { color: #0a0e1a !important; }
+html:not(.dark) .ct-admin .text-zinc-300 { color: #1e293b !important; }
+html:not(.dark) .ct-admin .text-zinc-400 { color: #334155 !important; }
+html:not(.dark) .ct-admin .text-zinc-500 { color: #475569 !important; }
+html:not(.dark) .ct-admin .text-zinc-600,
+html:not(.dark) .ct-admin .text-zinc-700 { color: #1e293b !important; }
+html:not(.dark) .ct-admin .text-neutral-100,
+html:not(.dark) .ct-admin .text-neutral-200 { color: #0a0e1a !important; }
+html:not(.dark) .ct-admin .text-neutral-300 { color: #1e293b !important; }
+html:not(.dark) .ct-admin .text-neutral-400 { color: #334155 !important; }
+html:not(.dark) .ct-admin .text-neutral-500 { color: #475569 !important; }
+
+/* Background tints that came from translucent dark colors — keep readable */
+html:not(.dark) .ct-admin .bg-amber-500\/10,
+html:not(.dark) .ct-admin .bg-amber-500\/15 { background-color: rgba(180, 83, 9, 0.10) !important; }
+html:not(.dark) .ct-admin .bg-red-500\/10,
+html:not(.dark) .ct-admin .bg-red-500\/15 { background-color: rgba(185, 28, 28, 0.10) !important; }
+html:not(.dark) .ct-admin .bg-emerald-500\/10,
+html:not(.dark) .ct-admin .bg-emerald-500\/15 { background-color: rgba(4, 120, 87, 0.10) !important; }
+html:not(.dark) .ct-admin .bg-blue-500\/10,
+html:not(.dark) .ct-admin .bg-blue-500\/15 { background-color: rgba(29, 78, 216, 0.10) !important; }
+html:not(.dark) .ct-admin .bg-purple-500\/10,
+html:not(.dark) .ct-admin .bg-purple-500\/15 { background-color: rgba(126, 34, 206, 0.10) !important; }
+
+/* Generic catch-all: any remaining translucent-white text on light bg */
+html:not(.dark) .ct-admin [class*="text-white"] { color: #0a0e1a !important; }
+
+/* Headings / strong text — make sure weight doesn't combine with a faint color */
+html:not(.dark) .ct-admin h1,
+html:not(.dark) .ct-admin h2,
+html:not(.dark) .ct-admin h3,
+html:not(.dark) .ct-admin h4,
+html:not(.dark) .ct-admin h5,
+html:not(.dark) .ct-admin h6 {
+  color: var(--cta-text);
+}
+html:not(.dark) .ct-admin a {
+  color: var(--cta-link, #1d4ed8);
+}
+html:not(.dark) .ct-admin a:hover {
+  color: var(--cta-link-hover, #1e40af);
+}
+
+/* Code / pre blocks often inherit a translucent surface — restore solid light bg */
+html:not(.dark) .ct-admin pre,
+html:not(.dark) .ct-admin code {
+  background-color: #f1f5f9;
+  color: #0a0e1a;
+}
+html:not(.dark) .ct-admin pre {
+  border: 1px solid var(--cta-border2);
+}
+
+/* Selection surfaces (Tailwind divide-*, ring-*) that default to white-on-white */
+html:not(.dark) .ct-admin .ring-white\/10 { --tw-ring-color: rgba(15, 23, 42, 0.12) !important; }
+html:not(.dark) .ct-admin .ring-white\/20 { --tw-ring-color: rgba(15, 23, 42, 0.18) !important; }
+html:not(.dark) .ct-admin .divide-white\/10 > * + * { border-color: rgba(15, 23, 42, 0.10) !important; }
+html:not(.dark) .ct-admin .divide-white\/20 > * + * { border-color: rgba(15, 23, 42, 0.16) !important; }
+
+/* Backdrop blur surfaces that rely on dark canvas — keep readable in light */
+html:not(.dark) .ct-admin .backdrop-blur-xl,
+html:not(.dark) .ct-admin .backdrop-blur-md,
+html:not(.dark) .ct-admin .backdrop-blur-sm {
+  background-color: rgba(255, 255, 255, 0.65);
+}
+
+/* Hover state surfaces that default to faint white */
+html:not(.dark) .ct-admin .hover\:bg-white\/5:hover,
+html:not(.dark) .ct-admin .hover\:bg-white\/10:hover { background-color: rgba(15, 23, 42, 0.06) !important; }
+html:not(.dark) .ct-admin .hover\:bg-white\/20:hover { background-color: rgba(15, 23, 42, 0.10) !important; }
+
+/* Buttons: ensure that any text-white on a colored gradient bg stays white
+   (we want this — it's NOT light-mode text, it's button text on color) */
+html:not(.dark) .ct-admin button.bg-gradient-to-r .text-white,
+html:not(.dark) .ct-admin button.bg-gradient-to-br .text-white,
+html:not(.dark) .ct-admin a.bg-gradient-to-r .text-white,
+html:not(.dark) .ct-admin a.bg-gradient-to-br .text-white {
+  color: #ffffff !important;
+}
+
+/* Status badges — small colored pills that need readable ink on light */
+html:not(.dark) .ct-admin .badge,
+html:not(.dark) .ct-admin [class*="bg-"][class*="/"][class*="text-"] {
+  /* let the per-class overrides above take effect */
+}
+
+/* ─── END light-mode color overrides ──────────────────────────────────── */
+
 /* ─── SIDEBAR ──────────────────────────────────────────────────────────── */
 .ct-admin-sidebar {
   width: var(--cta-sidebar);

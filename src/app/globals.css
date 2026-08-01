@@ -70,6 +70,8 @@
   --ct-pink: #E0197A;
   --ct-purple: #7B2FBE;
   --ct-blue: #4A90D9;
+  --ct-cyan: #22d3ee;
+  --ct-gold: #FFD782;
   --ct-text: #F0EBF8;
   --ct-muted: #7A6B95;
 
@@ -765,6 +767,18 @@ html:not(.dark).theme-custom-light body {
   /* Match the backward-compat aliases so dark-mode text uses are consistent. */
   --nx-orange-deep: #FF53A9;
   --nx-electric-soft: #4A90D9;
+
+  /* Dark-mode brand tokens — brightened for use as text on dark surfaces.
+     The light-mode values (#E0197A, #7B2FBE, #4A90D9) are tuned for white
+     backgrounds and fail WCAG AA on dark navy. The dark-mode overrides
+     here are brighter so they remain legible as text accents. */
+  --ct-pink: #FF6BB5;
+  --ct-purple: #B27CFF;
+  --ct-blue: #4F9BFF;
+  --ct-cyan: #78F0FF;
+  --ct-gold: #FFD782;
+  --ct-text: #F5EFFF;
+  --ct-muted: #9B8AB8;
 }
 
 @layer utilities {
@@ -1267,6 +1281,354 @@ html.theme-elite .ct-elite-text {
   html.theme-elite .ct-elite-text { animation: none; }
 }
 
+/* ─── ELITE MODE EXTENSIONS — premium-tier visual layers ────────────────
+   The base Elite Mode styles above set up the aurora bg, glassmorphism
+   cards, neon button glow, and animated text gradient. These extensions
+   add the deeper premium-tier feel: animated scan lines, holographic
+   corner accents, particle dot grid, cursor halo, and per-section
+   scroll-triggered reveals. All pure CSS — no JS dependencies. */
+
+/* Animated scan-line layer — subtle CRT-style sweep across the page.
+   Sits behind all content (z-index: -1), pointer-events: none. */
+html.theme-elite body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(255, 83, 169, 0.012) 3px,
+      rgba(255, 83, 169, 0.012) 4px
+    );
+  opacity: 0.6;
+  mix-blend-mode: screen;
+}
+/* The moving scan beam — a soft horizontal glow that slowly drifts down */
+html.theme-elite body::before {
+  /* The aurora is already on ::before above — keep that. Add the scan beam
+     as a separate layer via background-image stack. */
+  background-image:
+    radial-gradient(40vw 40vw at 15% 20%, rgba(255, 83, 169, 0.22), transparent 60%),
+    radial-gradient(50vw 50vw at 85% 80%, rgba(75, 155, 255, 0.18), transparent 60%),
+    radial-gradient(35vw 35vw at 70% 15%, rgba(179, 102, 255, 0.18), transparent 60%),
+    linear-gradient(180deg, transparent 0%, transparent 48%, rgba(255, 215, 130, 0.06) 50%, transparent 52%, transparent 100%);
+  background-size: auto, auto, auto, 100% 400%;
+  background-position: 0 0, 0 0, 0 0, 0 0;
+  animation:
+    ct-elite-aurora 22s ease-in-out infinite alternate,
+    ct-elite-scan 14s linear infinite;
+}
+@keyframes ct-elite-scan {
+  0%   { background-position: 0 0, 0 0, 0 0, 0 -100%; }
+  100% { background-position: 0 0, 0 0, 0 0, 0 200%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-elite body::after,
+  html.theme-elite body::before { animation: none; }
+}
+
+/* Holographic corner accents — small triangular glow pieces at the 4
+   corners of any [data-elite-corner] surface. Pure CSS pseudo-elements. */
+html.theme-elite [data-elite-corner] {
+  position: relative;
+}
+html.theme-elite [data-elite-corner]::before,
+html.theme-elite [data-elite-corner]::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 0;
+}
+html.theme-elite [data-elite-corner]::before {
+  top: 8px;
+  left: 8px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+  border-top-color: rgba(255, 83, 169, 0.65);
+  border-left-color: rgba(255, 83, 169, 0.65);
+  filter: drop-shadow(0 0 4px rgba(255, 83, 169, 0.6));
+}
+html.theme-elite [data-elite-corner]::after {
+  bottom: 8px;
+  right: 8px;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+  border-bottom-color: rgba(75, 155, 255, 0.65);
+  border-right-color: rgba(75, 155, 255, 0.65);
+  filter: drop-shadow(0 0 4px rgba(75, 155, 255, 0.6));
+}
+
+/* Elite section dividers — animated gradient hairline between major
+   sections. Add .ct-elite-divider to any <hr> or <div> separator. */
+html.theme-elite .ct-elite-divider {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 83, 169, 0.6) 20%,
+    rgba(179, 102, 255, 0.8) 50%,
+    rgba(75, 155, 255, 0.6) 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: ct-elite-divider-flow 6s linear infinite;
+  position: relative;
+  overflow: visible;
+}
+html.theme-elite .ct-elite-divider::after {
+  content: "";
+  position: absolute;
+  inset: -2px 0;
+  background: inherit;
+  background-size: inherit;
+  filter: blur(6px);
+  opacity: 0.6;
+  animation: inherit;
+}
+@keyframes ct-elite-divider-flow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-elite .ct-elite-divider,
+  html.theme-elite .ct-elite-divider::after { animation: none; }
+}
+
+/* Elite badge — small pill with gold-pink gradient + animated shimmer.
+   Use for "Premium", "Pro", "Featured" tags on cards / hero. */
+html.theme-elite .ct-elite-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(255, 215, 130, 0.95), rgba(255, 83, 169, 0.95), rgba(179, 102, 255, 0.95));
+  background-size: 200% 200%;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+    0 4px 14px rgba(255, 83, 169, 0.40),
+    0 0 30px rgba(255, 215, 130, 0.30);
+  animation: ct-elite-badge-shimmer 4s ease infinite;
+}
+@keyframes ct-elite-badge-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-elite .ct-elite-badge { animation: none; }
+}
+
+/* Elite headings — amplify default h1-h3 with gradient text + glow */
+html.theme-elite h1,
+html.theme-elite h2,
+html.theme-elite h3 {
+  text-shadow:
+    0 0 30px rgba(255, 83, 169, 0.18),
+    0 0 60px rgba(179, 102, 255, 0.10);
+}
+html.theme-elite .ct-elite-h1,
+html.theme-elite .ct-elite-h2 {
+  background: linear-gradient(135deg, #FFE9B3 0%, #FF8AC4 30%, #B366FF 60%, #4F9BFF 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: ct-elite-text-anim 8s ease infinite;
+  filter: drop-shadow(0 0 20px rgba(255, 138, 196, 0.35));
+}
+
+/* Elite stat numbers — large gradient-clipped display numbers */
+html.theme-elite .ct-elite-stat {
+  background: linear-gradient(135deg, #FFD782 0%, #FF8AC4 50%, #B366FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 12px rgba(255, 215, 130, 0.40));
+}
+
+/* Elite link hover — animated underline sweep */
+html.theme-elite a:not(.nx-btn-orange):not(.nx-btn-outline-light):not(.ct-elite-badge) {
+  position: relative;
+  transition: color 0.25s;
+}
+html.theme-elite a:not(.nx-btn-orange):not(.nx-btn-outline-light):not(.ct-elite-badge)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 83, 169, 0.9), rgba(179, 102, 255, 0.9), transparent);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  opacity: 0;
+  transition: opacity 0.25s, background-position 0.6s;
+}
+html.theme-elite a:not(.nx-btn-orange):not(.nx-btn-outline-light):not(.ct-elite-badge):hover::after {
+  opacity: 1;
+  background-position: 0 0;
+}
+
+/* Elite image / video frame — soft pink/purple halo around media */
+html.theme-elite .ct-elite-frame {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255, 83, 169, 0.20) inset,
+    0 20px 60px rgba(0, 0, 0, 0.55),
+    0 0 80px rgba(179, 102, 255, 0.18);
+}
+html.theme-elite .ct-elite-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 138, 196, 0.10), transparent 30%, transparent 70%, rgba(75, 155, 255, 0.10));
+  mix-blend-mode: screen;
+}
+
+/* Elite list markers — gradient diamond bullets */
+html.theme-elite .ct-elite-list {
+  list-style: none;
+  padding: 0;
+}
+html.theme-elite .ct-elite-list li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 10px;
+}
+html.theme-elite .ct-elite-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, #FFD782, #FF53A9, #B366FF);
+  transform: rotate(45deg);
+  box-shadow: 0 0 12px rgba(255, 83, 169, 0.6);
+}
+
+/* Elite progress bar — animated gradient fill */
+html.theme-elite .ct-elite-progress {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+html.theme-elite .ct-elite-progress::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #FFD782, #FF53A9, #B366FF, #4F9BFF);
+  background-size: 200% 100%;
+  animation: ct-elite-progress-flow 3s linear infinite;
+  border-radius: inherit;
+  box-shadow: 0 0 12px rgba(255, 83, 169, 0.45);
+}
+@keyframes ct-elite-progress-flow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-elite .ct-elite-progress::after { animation: none; }
+}
+
+/* Elite "premium" toggle — gold-pink switch when on */
+html.theme-elite .ct-elite-switch[data-on="true"] {
+  background: linear-gradient(135deg, #FFD782, #FF53A9);
+  box-shadow: 0 0 20px rgba(255, 83, 169, 0.45);
+}
+
+/* Elite mode navbar — adds a soft top glow + animated border */
+html.theme-elite .nx-navbar,
+html.theme-elite header[class*="fixed"] {
+  background: rgba(2, 0, 10, 0.85) !important;
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid rgba(255, 83, 169, 0.18);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 0 60px rgba(255, 83, 169, 0.10);
+}
+
+/* Elite mode footer — deeper ambient glow */
+html.theme-elite footer {
+  background: linear-gradient(180deg, transparent 0%, rgba(2, 0, 10, 0.85) 30%, rgba(2, 0, 10, 0.98) 100%) !important;
+  border-top: 1px solid rgba(255, 83, 169, 0.18);
+  box-shadow: 0 -20px 60px rgba(179, 102, 255, 0.12);
+}
+
+/* Elite mode button hover — extra "magnetic" scale + glow ring */
+html.theme-elite button[class*="bg-gradient"]:hover,
+html.theme-elite a[class*="bg-gradient"]:hover {
+  transform: translateY(-2px) scale(1.02);
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s;
+}
+
+/* Elite mode input autofill — keep brand tint instead of yellow */
+html.theme-elite input:-webkit-autofill,
+html.theme-elite input:-webkit-autofill:hover,
+html.theme-elite input:-webkit-autofill:focus,
+html.theme-elite textarea:-webkit-autofill,
+html.theme-elite textarea:-webkit-autofill:hover,
+html.theme-elite textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #F5EFFF;
+  -webkit-box-shadow: 0 0 0 1000px rgba(8, 4, 20, 0.85) inset;
+  caret-color: #FF53A9;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Elite mode scrollbar — themed */
+html.theme-elite ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+html.theme-elite ::-webkit-scrollbar-track {
+  background: rgba(2, 0, 10, 0.5);
+}
+html.theme-elite ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FF53A9, #B366FF);
+  border-radius: 999px;
+  border: 2px solid rgba(2, 0, 10, 0.5);
+}
+html.theme-elite ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FF8AC4, #B366FF);
+}
+
+/* Elite mode selection — gradient highlight */
+html.theme-elite ::selection {
+  background: rgba(255, 83, 169, 0.35);
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* Elite mode focus ring — broader + gradient */
+html.theme-elite *:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(255, 215, 130, 0.55),
+    0 0 0 4px rgba(255, 83, 169, 0.35),
+    0 0 20px rgba(179, 102, 255, 0.30);
+}
+
 /* ════════════════════════════════════════════════════════════════════════
    FUTURISTIC TEXT BOX COMPONENT — reusable 3D-style UI for inputs, textareas,
    and content cards. Use via the <NxFuturisticTextBox> React component or
@@ -1423,6 +1785,166 @@ html:not(.dark) .ct-fx-textbox-field:focus {
     0 8px 24px rgba(224, 25, 122, 0.10);
 }
 
+/* ─── Premium 3D textbox variants — stronger depth + glow ───────────────
+   Use via the `variant="premium"` prop on <NxFuturisticTextBox>, or by
+   adding .ct-fx-premium / .ct-fx-holo / .ct-fx-neon classes manually.
+   These variants amplify the futuristic feel for hero / CTA forms. */
+
+/* Premium — deeper 3D tilt, animated inner glow, gold-pink accent ring */
+.ct-fx-textbox.ct-fx-premium .ct-fx-textbox-inner {
+  transform: rotateX(3deg) rotateY(-1deg);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.ct-fx-textbox.ct-fx-premium:hover .ct-fx-textbox-inner,
+.ct-fx-textbox.ct-fx-premium:focus-within .ct-fx-textbox-inner {
+  transform: rotateX(0deg) rotateY(0deg) translateZ(8px) scale(1.005);
+}
+.ct-fx-textbox.ct-fx-premium .ct-fx-textbox-field {
+  background:
+    linear-gradient(180deg, rgba(255, 215, 130, 0.05) 0%, rgba(255, 83, 169, 0.03) 50%, rgba(15, 10, 30, 0.7) 100%),
+    rgba(8, 4, 20, 0.6);
+  border-color: rgba(255, 215, 130, 0.25);
+  box-shadow:
+    0 6px 24px rgba(255, 83, 169, 0.18),
+    0 0 40px rgba(255, 215, 130, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    inset 0 -1px 0 rgba(255, 215, 130, 0.10);
+}
+.ct-fx-textbox.ct-fx-premium .ct-fx-textbox-field:focus {
+  border-color: rgba(255, 215, 130, 0.55);
+  box-shadow:
+    0 0 0 4px rgba(255, 215, 130, 0.12),
+    0 12px 36px rgba(255, 83, 169, 0.30),
+    0 0 60px rgba(255, 215, 130, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+.ct-fx-textbox.ct-fx-premium .ct-fx-textbox-border-sweep {
+  background: linear-gradient(135deg, transparent 30%, rgba(255, 215, 130, 0.6) 45%, rgba(255, 138, 196, 0.6) 55%, transparent 70%);
+  background-size: 250% 250%;
+}
+html:not(.dark) .ct-fx-textbox.ct-fx-premium .ct-fx-textbox-field {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 248, 230, 0.85) 100%);
+  border-color: rgba(217, 119, 6, 0.30);
+}
+html:not(.dark) .ct-fx-textbox.ct-fx-premium .ct-fx-textbox-field:focus {
+  border-color: rgba(217, 119, 6, 0.55);
+  box-shadow:
+    0 0 0 4px rgba(217, 119, 6, 0.10),
+    0 8px 28px rgba(217, 119, 6, 0.18);
+}
+
+/* Holo — holographic gradient sweep, cyan/purple shift */
+.ct-fx-textbox.ct-fx-holo .ct-fx-textbox-field {
+  background:
+    linear-gradient(180deg, rgba(34, 211, 238, 0.05) 0%, rgba(155, 61, 255, 0.04) 50%, rgba(8, 4, 20, 0.65) 100%),
+    rgba(8, 4, 20, 0.55);
+  border-color: rgba(34, 211, 238, 0.30);
+}
+.ct-fx-textbox.ct-fx-holo .ct-fx-textbox-field:focus {
+  border-color: rgba(34, 211, 238, 0.65);
+  box-shadow:
+    0 0 0 4px rgba(34, 211, 238, 0.12),
+    0 8px 28px rgba(155, 61, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+.ct-fx-textbox.ct-fx-holo .ct-fx-textbox-border-sweep {
+  background: linear-gradient(135deg, transparent 20%, rgba(34, 211, 238, 0.7) 40%, rgba(155, 61, 255, 0.7) 60%, transparent 80%);
+  background-size: 250% 250%;
+}
+html:not(.dark) .ct-fx-textbox.ct-fx-holo .ct-fx-textbox-field {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 250, 255, 0.85) 100%);
+  border-color: rgba(8, 145, 178, 0.30);
+}
+
+/* Neon — bright neon-pink glow, ultra-futuristic */
+.ct-fx-textbox.ct-fx-neon .ct-fx-textbox-field {
+  background: rgba(15, 5, 25, 0.7);
+  border-color: rgba(255, 83, 169, 0.40);
+  box-shadow:
+    0 0 20px rgba(255, 83, 169, 0.15),
+    inset 0 0 12px rgba(255, 83, 169, 0.05);
+}
+.ct-fx-textbox.ct-fx-neon .ct-fx-textbox-field:focus {
+  border-color: rgba(255, 83, 169, 0.85);
+  box-shadow:
+    0 0 0 2px rgba(255, 83, 169, 0.30),
+    0 0 30px rgba(255, 83, 169, 0.40),
+    0 0 60px rgba(255, 83, 169, 0.20),
+    inset 0 0 16px rgba(255, 83, 169, 0.10);
+}
+html:not(.dark) .ct-fx-textbox.ct-fx-neon .ct-fx-textbox-field {
+  background: rgba(255, 250, 252, 0.95);
+  border-color: rgba(224, 25, 122, 0.45);
+  box-shadow: 0 0 20px rgba(224, 25, 122, 0.15);
+}
+html:not(.dark) .ct-fx-textbox.ct-fx-neon .ct-fx-textbox-field:focus {
+  border-color: rgba(224, 25, 122, 0.85);
+  box-shadow:
+    0 0 0 2px rgba(224, 25, 122, 0.20),
+    0 0 30px rgba(224, 25, 122, 0.30);
+}
+
+/* Elite-mode amplification — applied automatically when .theme-elite is on <html> */
+html.theme-elite .ct-fx-textbox .ct-fx-textbox-field {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 100%),
+    rgba(8, 4, 20, 0.65);
+  border-color: rgba(255, 83, 169, 0.22);
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.45),
+    0 0 50px rgba(255, 83, 169, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+html.theme-elite .ct-fx-textbox .ct-fx-textbox-field:focus {
+  border-color: rgba(255, 83, 169, 0.65);
+  box-shadow:
+    0 0 0 4px rgba(255, 83, 169, 0.15),
+    0 12px 40px rgba(255, 83, 169, 0.30),
+    0 0 80px rgba(255, 83, 169, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+html.theme-elite .ct-fx-textbox .ct-fx-textbox-border-sweep {
+  background: linear-gradient(135deg, transparent 25%, rgba(255, 215, 130, 0.5) 40%, rgba(255, 138, 196, 0.6) 55%, rgba(75, 155, 255, 0.5) 70%, transparent 90%);
+  background-size: 300% 300%;
+  animation-duration: 1.8s;
+}
+
+/* Validation states — error / success visuals without changing markup */
+.ct-fx-textbox[data-state="error"] .ct-fx-textbox-field {
+  border-color: rgba(239, 68, 68, 0.55) !important;
+  box-shadow:
+    0 0 0 4px rgba(239, 68, 68, 0.10),
+    0 4px 18px rgba(239, 68, 68, 0.20);
+}
+.ct-fx-textbox[data-state="success"] .ct-fx-textbox-field {
+  border-color: rgba(16, 185, 129, 0.55) !important;
+  box-shadow:
+    0 0 0 4px rgba(16, 185, 129, 0.10),
+    0 4px 18px rgba(16, 185, 129, 0.18);
+}
+html:not(.dark) .ct-fx-textbox[data-state="error"] .ct-fx-textbox-field {
+  border-color: rgba(220, 38, 38, 0.55) !important;
+}
+html:not(.dark) .ct-fx-textbox[data-state="success"] .ct-fx-textbox-field {
+  border-color: rgba(5, 150, 105, 0.55) !important;
+}
+
+/* Autofill — preserve the brand-tinted bg instead of browser yellow */
+.ct-fx-textbox-field:-webkit-autofill,
+.ct-fx-textbox-field:-webkit-autofill:hover,
+.ct-fx-textbox-field:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--foreground, #F0EBF8);
+  -webkit-box-shadow: 0 0 0 1000px rgba(8, 4, 20, 0.65) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+html:not(.dark) .ct-fx-textbox-field:-webkit-autofill,
+html:not(.dark) .ct-fx-textbox-field:-webkit-autofill:hover,
+html:not(.dark) .ct-fx-textbox-field:-webkit-autofill:focus {
+  -webkit-text-fill-color: #0a0e1a;
+  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.95) inset;
+}
+
 /* ════════════════════════════════════════════════════════════════════════
    PER-PAGE 3D STORY SCENE — cohesive storytelling layer
    Each variant renders a distinct geometric "character" + ambient field
@@ -1484,6 +2006,129 @@ html:not(.dark) .ct-story-orb {
 }
 @media (prefers-reduced-motion: reduce) {
   .ct-story-character { animation: none; }
+}
+
+/* ─── R3F Story Scene — wrapper for the WebGL character ────────────────
+   When using <NxR3FStoryScene>, the character lives inside .ct-story-character-r3f
+   instead of .ct-story-character. Same positioning rules, but the inner
+   content is a <Canvas> from R3F rather than CSS geometry. */
+
+.ct-story-character-r3f {
+  position: absolute;
+  top: 50%;
+  right: 6%;
+  width: 380px;
+  height: 440px;
+  transform: translate(0, -50%);
+  pointer-events: auto;
+  /* Allow pointer events on the character (click-to-spin) but block
+     elsewhere on the wrapper so users can interact with content above. */
+  z-index: 2;
+}
+@media (max-width: 1280px) {
+  .ct-story-character-r3f {
+    right: 4%;
+    width: 320px;
+    height: 380px;
+    opacity: 0.85;
+  }
+}
+@media (max-width: 1024px) {
+  .ct-story-character-r3f {
+    right: 2%;
+    width: 260px;
+    height: 320px;
+    opacity: 0.65;
+  }
+}
+@media (max-width: 768px) {
+  .ct-story-character-r3f {
+    right: -8%;
+    width: 180px;
+    height: 220px;
+    opacity: 0.45;
+    pointer-events: none;
+  }
+}
+
+/* ─── Floating wireframe accents — small decorative shapes ────────────
+   These sit behind the character and add depth without overpowering.
+   Pure CSS — no WebGL needed for these. Three floaters per scene. */
+
+.ct-story-floaters {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.ct-story-floater {
+  position: absolute;
+  border: 1px solid rgba(255, 83, 169, 0.30);
+  background: rgba(255, 83, 169, 0.04);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: ct-story-floater-spin 14s linear infinite;
+}
+html:not(.dark) .ct-story-floater {
+  border-color: rgba(224, 25, 122, 0.35);
+  background: rgba(224, 25, 122, 0.05);
+}
+.ct-story-floater-1 {
+  top: 18%;
+  left: 8%;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  transform: rotate(15deg);
+  animation-delay: 0s;
+}
+.ct-story-floater-2 {
+  bottom: 18%;
+  left: 14%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-color: rgba(75, 155, 255, 0.30);
+  background: rgba(75, 155, 255, 0.04);
+  animation-delay: -4s;
+}
+html:not(.dark) .ct-story-floater-2 {
+  border-color: rgba(19, 109, 255, 0.35);
+  background: rgba(19, 109, 255, 0.05);
+}
+.ct-story-floater-3 {
+  top: 28%;
+  right: 22%;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border-color: rgba(179, 102, 255, 0.30);
+  background: rgba(179, 102, 255, 0.04);
+  transform: rotate(45deg);
+  animation-delay: -8s;
+}
+html:not(.dark) .ct-story-floater-3 {
+  border-color: rgba(123, 47, 190, 0.35);
+  background: rgba(123, 47, 190, 0.05);
+}
+@keyframes ct-story-floater-spin {
+  0%   { transform: rotate(0deg) translateY(0); }
+  50%  { transform: rotate(180deg) translateY(-15px); }
+  100% { transform: rotate(360deg) translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ct-story-floater { animation: none; }
+}
+
+/* Elite Mode — amplify the R3F character halo */
+html.theme-elite .ct-story-character-r3f {
+  filter: drop-shadow(0 0 40px rgba(255, 83, 169, 0.35))
+          drop-shadow(0 0 80px rgba(179, 102, 255, 0.18));
+}
+html.theme-elite .ct-story-floater {
+  border-color: rgba(255, 215, 130, 0.35);
+  background: rgba(255, 215, 130, 0.05);
+  box-shadow: 0 0 16px rgba(255, 215, 130, 0.20);
 }
 
 /* Variant: home — orbiting spheres + central core */

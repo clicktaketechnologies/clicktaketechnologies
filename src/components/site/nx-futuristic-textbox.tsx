@@ -40,6 +40,16 @@ type Props = {
   helperText?: string
   /** Optional icon prefix (rendered inside the field, left-aligned) */
   icon?: React.ReactNode
+  /**
+   * Visual variant — controls the 3D style + glow color.
+   *   - default: standard glass + pink focus ring
+   *   - premium: gold-pink accent, deeper 3D tilt, animated inner glow
+   *   - holo: holographic cyan/purple gradient sweep
+   *   - neon: bright neon-pink glow, ultra-futuristic
+   */
+  variant?: "default" | "premium" | "holo" | "neon"
+  /** Validation state — adds an error / success ring */
+  state?: "default" | "error" | "success"
   [key: string]: unknown
 }
 
@@ -58,10 +68,20 @@ export const NxFuturisticTextBox = forwardRef<HTMLInputElement | HTMLTextAreaEle
       className = "",
       helperText,
       icon,
+      variant = "default",
+      state = "default",
       ...rest
     },
     ref,
   ) {
+    const variantClass =
+      variant === "premium"
+        ? "ct-fx-premium"
+        : variant === "holo"
+          ? "ct-fx-holo"
+          : variant === "neon"
+            ? "ct-fx-neon"
+            : ""
     // Stable unique id so label can be associated with the field for a11y.
     const reactId = useId()
     const fieldId = `ct-fx-${name || reactId}`
@@ -83,7 +103,11 @@ export const NxFuturisticTextBox = forwardRef<HTMLInputElement | HTMLTextAreaEle
     } as const
 
     return (
-      <div className={`ct-fx-textbox ${className}`} data-multiline={multiline ? "true" : "false"}>
+      <div
+        className={`ct-fx-textbox ${variantClass} ${className}`}
+        data-multiline={multiline ? "true" : "false"}
+        data-state={state}
+      >
         <div className="ct-fx-textbox-inner relative">
           {/* Optional icon — sits left of the input text */}
           {icon && (
