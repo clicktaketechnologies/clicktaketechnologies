@@ -3,33 +3,29 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun, Monitor, Palette, Check, SlidersHorizontal } from "lucide-react";
+import { Moon, Sun, Monitor, Palette, Check, SlidersHorizontal, Sparkles } from "lucide-react";
 import { CustomThemePicker, type CustomThemeConfig, loadCustomConfig, clearCustomConfig } from "./custom-theme-picker";
 
 /**
- * Theme toggle for ClickTake Technologies — supports 4 modes:
+ * Theme toggle for ClickTake Technologies — supports 5 modes:
  *   - light:   fixed light theme
  *   - dark:    fixed dark theme (default)
  *   - system:  follows OS preference (prefers-color-scheme)
  *   - custom:  user-defined colors via the Custom Color Engine
- *
- * Uses next-themes (wired in app/layout.tsx via <ThemeProvider>).
- * The choice is persisted to localStorage under the "theme" key by next-themes.
- * The fixed BackgroundScene canvas listens to the .dark class on <html> via a
- * MutationObserver and re-paints with the matching palette automatically.
- *
- * Custom mode: when "custom" is selected, the .theme-custom class is applied
- * to <html> and CSS variables from localStorage["theme-custom-vars"] override
- * the defaults. The Custom Color Engine (custom-theme-picker.tsx) writes those
- * variables; if none are saved, custom mode falls back to dark mode.
+ *   - elite:   premium "Elite Mode" — luxury dark canvas with animated
+ *              neon glow, glassmorphism surfaces, and extra 3D depth.
+ *              Activates the .theme-elite class on <html>, which the
+ *              global CSS uses to enable stronger gradients, animated
+ *              borders, glow shadows, and richer BackgroundScene rendering.
  */
-export type ThemeMode = "light" | "dark" | "system" | "custom";
+export type ThemeMode = "light" | "dark" | "system" | "custom" | "elite";
 
 const MODES: { value: ThemeMode; label: string; icon: typeof Moon }[] = [
   { value: "light", label: "Light", icon: Sun },
   { value: "dark", label: "Dark", icon: Moon },
   { value: "system", label: "System", icon: Monitor },
   { value: "custom", label: "Custom", icon: Palette },
+  { value: "elite", label: "Elite", icon: Sparkles },
 ];
 
 export function ThemeToggle() {
@@ -68,9 +64,15 @@ export function ThemeToggle() {
   // When custom mode is selected, apply the .theme-custom class so CSS variables
   // from localStorage["theme-custom-vars"] override the defaults. When not in
   // custom mode, remove the class so the standard light/dark tokens apply.
+  // Elite mode applies .theme-elite (plus .dark as base so the BackgroundScene
+  // picks the dark palette) — the global CSS then layers luxury overrides on top.
   useEffect(() => {
     if (!mounted) return;
     const root = document.documentElement;
+
+    // Always clear Elite marker first; only re-add when explicitly chosen.
+    root.classList.remove("theme-elite");
+
     if (theme === "custom") {
       root.classList.add("theme-custom");
       // Pull saved custom vars from localStorage and apply as inline styles
@@ -94,6 +96,21 @@ export function ThemeToggle() {
           root.style.colorScheme = "dark";
         }
       } catch {}
+    } else if (theme === "elite") {
+      // Elite Mode: always dark base + luxury overrides via .theme-elite
+      root.classList.add("dark", "theme-elite");
+      root.classList.remove("theme-custom", "theme-custom-light");
+      root.style.colorScheme = "dark";
+      // Clear any inline custom-variable overrides so Elite's CSS vars win
+      const raw = localStorage.getItem("theme-custom-vars");
+      if (raw) {
+        try {
+          const vars = JSON.parse(raw) as Record<string, string>;
+          for (const k of Object.keys(vars)) {
+            root.style.removeProperty(k);
+          }
+        } catch {}
+      }
     } else {
       root.classList.remove("theme-custom", "theme-custom-light");
       // Clear any inline custom-variable overrides when leaving custom mode
@@ -109,7 +126,7 @@ export function ThemeToggle() {
     }
   }, [theme, mounted]);
 
-  const isDark = (resolvedTheme || theme) === "dark";
+  const isDark = (resolvedTheme || theme) === "dark" || theme === "elite";
   const currentMode = (theme as ThemeMode) || "dark";
 
   const onPick = (m: ThemeMode) => {
@@ -181,6 +198,8 @@ export function ThemeToggle() {
                 <Monitor className="h-[18px] w-[18px] text-foreground" strokeWidth={2.2} />
               ) : currentMode === "custom" ? (
                 <Palette className="h-[18px] w-[18px] text-foreground" strokeWidth={2.2} />
+              ) : currentMode === "elite" ? (
+                <Sparkles className="h-[18px] w-[18px] text-foreground" strokeWidth={2.2} />
               ) : (
                 <Moon className="h-[18px] w-[18px] text-foreground" strokeWidth={2.2} />
               )}
@@ -201,7 +220,7 @@ export function ThemeToggle() {
             exit={{ opacity: 0, y: -8, scale: 0.96 }}
             transition={{ duration: 0.18 }}
             className="absolute right-0 top-full mt-2 z-50 rounded-xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-1.5"
-            style={{ width: showPicker ? "320px" : "11rem" }}
+            style={{ width: showPicker ? "320px" : "13rem" }}
           >
             <AnimatePresence mode="wait">
               {showPicker ? (
@@ -266,6 +285,8 @@ export function ThemeToggle() {
                       ? "Follows OS preference."
                       : currentMode === "light"
                       ? "Fixed light theme."
+                      : currentMode === "elite"
+                      ? "Elite Mode: premium dark canvas, neon glow, glassmorphism, deeper 3D."
                       : "Fixed dark theme."}
                   </div>
                 </motion.div>

@@ -64,6 +64,7 @@ export function ServicesPage() {
     <NxPageLayout>
       <NxPageHero
         character="services"
+        storyVariant="services"
         eyebrow="What We Do"
         title={<>Services built for <span className="nx-text-orange-grad">modern brands.</span></>}
         subtitle={
