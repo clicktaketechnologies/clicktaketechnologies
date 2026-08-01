@@ -45,6 +45,7 @@ export function CityServicePage({ content }: { content: CityServiceContent }) {
           { label: service.title },
         ]}
         character="service-detail"
+        storyVariant="services"
         ctas={
           <>
             <NxButton href="/contact">Book a consultation</NxButton>

@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { PricingPage } from "@/components/site/pages/pricing-page";
-import { JsonLd, buildBreadcrumbJsonLd, buildFaqJsonLd } from "@/components/site/json-ld";
+import {
+  JsonLd,
+  buildBreadcrumbJsonLd,
+  buildFaqJsonLd,
+  buildProductJsonLd,
+} from "@/components/site/json-ld";
+import { PRICING_PLANS } from "@/lib/site-data";
 
 const FAQS = [
   {
@@ -63,9 +69,21 @@ export default function Page() {
     { name: "Pricing", path: "/pricing" },
   ]);
   const faq = buildFaqJsonLd(FAQS);
+  // Product + Offer JSON-LD for each pricing plan — enables Google Merchant
+  // listings + price rich results for each tier.
+  const products = PRICING_PLANS.filter((p) => p.price_from).map((p) =>
+    buildProductJsonLd({
+      name: p.name,
+      description: p.description,
+      slug: p.slug,
+      priceFrom: p.price_from,
+      billing: p.billing,
+      category: "Professional Services",
+    }),
+  );
   return (
     <>
-      <JsonLd data={[breadcrumb, faq]} />
+      <JsonLd data={[breadcrumb, faq, ...products]} />
       <PricingPage />
     </>
   );
