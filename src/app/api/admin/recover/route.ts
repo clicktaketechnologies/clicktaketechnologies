@@ -266,9 +266,9 @@ export async function GET(req: Request) {
               END IF;
             END$$;
           `)
-          statements.push({ name: 'services.deep_dive column', result: 'added or already existed' })
+          statements.push({ name: 'services.deep_dive column', sql: 'ALTER TABLE services ADD COLUMN deep_dive text', result: 'added or already existed' })
         } catch (e: any) {
-          statements.push({ name: 'services.deep_dive column', error: e?.message })
+          statements.push({ name: 'services.deep_dive column', sql: 'ALTER TABLE services ADD COLUMN deep_dive text', error: e?.message })
         }
 
         // 2) Create ab_experiments table (Phase 3 #3 — A/B Testing Framework)
@@ -289,9 +289,9 @@ export async function GET(req: Request) {
             );
             CREATE INDEX IF NOT EXISTS ab_experiments_status_idx ON ab_experiments (status);
           `)
-          statements.push({ name: 'ab_experiments table', result: 'created or already existed' })
+          statements.push({ name: 'ab_experiments table', sql: 'CREATE TABLE IF NOT EXISTS ab_experiments', result: 'created or already existed' })
         } catch (e: any) {
-          statements.push({ name: 'ab_experiments table', error: e?.message })
+          statements.push({ name: 'ab_experiments table', sql: 'CREATE TABLE IF NOT EXISTS ab_experiments', error: e?.message })
         }
 
         // 3) Create ab_variants table
@@ -310,9 +310,9 @@ export async function GET(req: Request) {
             CREATE INDEX IF NOT EXISTS ab_variants_experiment_id_idx ON ab_variants (experiment_id);
             CREATE UNIQUE INDEX IF NOT EXISTS ab_variants_experiment_key_unique ON ab_variants (experiment_id, key);
           `)
-          statements.push({ name: 'ab_variants table', result: 'created or already existed' })
+          statements.push({ name: 'ab_variants table', sql: 'CREATE TABLE IF NOT EXISTS ab_variants', result: 'created or already existed' })
         } catch (e: any) {
-          statements.push({ name: 'ab_variants table', error: e?.message })
+          statements.push({ name: 'ab_variants table', sql: 'CREATE TABLE IF NOT EXISTS ab_variants', error: e?.message })
         }
 
         // 4) Create ab_assignments table
@@ -332,9 +332,9 @@ export async function GET(req: Request) {
             CREATE INDEX IF NOT EXISTS ab_assignments_visitor_idx ON ab_assignments (visitor_id);
             CREATE UNIQUE INDEX IF NOT EXISTS ab_assignments_exp_visitor_unique ON ab_assignments (experiment_id, visitor_id);
           `)
-          statements.push({ name: 'ab_assignments table', result: 'created or already existed' })
+          statements.push({ name: 'ab_assignments table', sql: 'CREATE TABLE IF NOT EXISTS ab_assignments', result: 'created or already existed' })
         } catch (e: any) {
-          statements.push({ name: 'ab_assignments table', error: e?.message })
+          statements.push({ name: 'ab_assignments table', sql: 'CREATE TABLE IF NOT EXISTS ab_assignments', error: e?.message })
         }
 
         return NextResponse.json({

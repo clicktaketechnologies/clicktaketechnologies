@@ -25,6 +25,11 @@
  */
 import { forwardRef, useId } from "react"
 
+type FieldExtraProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement> & React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  "label" | "name" | "type" | "rows" | "required" | "disabled" | "defaultValue" | "placeholder" | "className" | "children"
+>
+
 type Props = {
   label: string
   name?: string
@@ -50,8 +55,7 @@ type Props = {
   variant?: "default" | "premium" | "holo" | "neon"
   /** Validation state — adds an error / success ring */
   state?: "default" | "error" | "success"
-  [key: string]: unknown
-}
+} & FieldExtraProps
 
 export const NxFuturisticTextBox = forwardRef<HTMLInputElement | HTMLTextAreaElement, Props>(
   function NxFuturisticTextBox(
@@ -90,7 +94,8 @@ export const NxFuturisticTextBox = forwardRef<HTMLInputElement | HTMLTextAreaEle
     // CSS uses :placeholder-shown to detect an empty field. If the user
     // passes their own placeholder it still works; if not, we use a single
     // space so :placeholder-shown is true until the user types.
-    const sharedProps = {
+    const sharedProps: React.InputHTMLAttributes<HTMLInputElement> &
+      React.TextareaHTMLAttributes<HTMLTextAreaElement> = {
       id: fieldId,
       name,
       required,
@@ -100,7 +105,7 @@ export const NxFuturisticTextBox = forwardRef<HTMLInputElement | HTMLTextAreaEle
       className: "ct-fx-textbox-field w-full",
       "aria-label": label,
       ...rest,
-    } as const
+    }
 
     return (
       <div
@@ -124,14 +129,14 @@ export const NxFuturisticTextBox = forwardRef<HTMLInputElement | HTMLTextAreaEle
             <textarea
               ref={ref as React.Ref<HTMLTextAreaElement>}
               rows={rows}
-              {...(sharedProps as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
+              {...sharedProps}
               style={icon ? { paddingLeft: "2.5rem" } : undefined}
             />
           ) : (
             <input
               ref={ref as React.Ref<HTMLInputElement>}
               type={type}
-              {...(sharedProps as React.InputHTMLAttributes<HTMLInputElement>)}
+              {...sharedProps}
               style={icon ? { paddingLeft: "2.5rem" } : undefined}
             />
           )}
