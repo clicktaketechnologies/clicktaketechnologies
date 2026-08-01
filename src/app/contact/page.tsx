@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { ContactPage } from "@/components/site/pages/contact-page";
-import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
+import {
+  JsonLd,
+  buildBreadcrumbJsonLd,
+  buildAggregateRatingJsonLd,
+} from "@/components/site/json-ld";
+import { SITE, TESTIMONIALS } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "Contact — Free 30-min Consult",
@@ -43,9 +48,39 @@ export default function Page() {
   const breadcrumb = buildBreadcrumbJsonLd([
     { name: "Contact", path: "/contact" },
   ]);
+
+  // ContactPage schema — tells Google this is the contact page for the
+  // Organization. Improves knowledge-panel accuracy.
+  const contactPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    url: `${SITE.url}/contact`,
+    name: "Contact ClickTake Technologies",
+    description:
+      "Project inquiry form, discovery-call scheduler and full office details across UK, Pakistan, USA and Dubai. 24-hour response guarantee.",
+    mainEntity: {
+      "@type": "Organization",
+      name: SITE.name,
+      url: SITE.url,
+      email: SITE.email,
+      telephone: SITE.phones.map((p) => p.value).join(", "),
+      contactPoint: SITE.phones.map((p) => ({
+        "@type": "ContactPoint",
+        contactType: "sales",
+        telephone: p.value,
+        areaServed: p.label,
+        availableLanguage: ["English"],
+      })),
+      aggregateRating: buildAggregateRatingJsonLd({
+        ratingValue: 4.9,
+        reviewCount: Math.max(TESTIMONIALS.length, 4),
+      }),
+    },
+  };
+
   return (
     <>
-      <JsonLd data={breadcrumb} />
+      <JsonLd data={[breadcrumb, contactPageSchema]} />
       <ContactPage />
     </>
   );

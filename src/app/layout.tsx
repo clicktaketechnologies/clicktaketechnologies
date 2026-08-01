@@ -8,6 +8,7 @@ import { SITE } from "@/lib/site-data";
 import { WebMCPProvider } from "@/components/webmcp/webmcp-provider";
 import { getNxDesignCss } from "@/lib/nx-design";
 import { buildWebSiteJsonLd } from "@/components/site/json-ld";
+import { Analytics } from "@/components/site/analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -146,6 +147,12 @@ const themeInitScript = `
       var customDark = localStorage.getItem('theme-custom-dark');
       isDark = customDark === null ? true : customDark === 'true';
       root.classList.add('theme-custom');
+    } else if (stored === 'elite') {
+      // Elite Mode — premium dark canvas with luxury overrides. Always dark
+      // base + .theme-elite class so global CSS layers the aurora, scan
+      // lines, holographic corners, and gradient borders on top.
+      isDark = true;
+      root.classList.add('theme-elite');
     }
 
     if (isDark) root.classList.add('dark');
@@ -307,6 +314,9 @@ export default async function RootLayout({
             {/* Expose site tools to AI agents via the WebMCP browser API
                 (experimental, Chrome only). No-ops in unsupported browsers. */}
             <WebMCPProvider />
+            {/* Privacy-first analytics — loads GA4 / Plausible only if env
+                vars are set AND user hasn't opted out (DNT or localStorage). */}
+            <Analytics />
           </Providers>
         </ThemeProvider>
       </body>

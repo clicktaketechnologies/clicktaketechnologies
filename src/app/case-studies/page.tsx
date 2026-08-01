@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { CaseStudiesIndexPage } from "@/components/site/pages/case-studies-page";
-import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
+import {
+  JsonLd,
+  buildBreadcrumbJsonLd,
+  buildReviewJsonLd,
+  buildAggregateRatingJsonLd,
+} from "@/components/site/json-ld";
+import { SITE, TESTIMONIALS } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "Case Studies — Real Engagements, Real Metrics",
@@ -34,9 +40,37 @@ export default function Page() {
   const breadcrumb = buildBreadcrumbJsonLd([
     { name: "Case Studies", path: "/case-studies" },
   ]);
+
+  // AggregateRating + Reviews — uses the same testimonials as the homepage.
+  // Renders as a rich result on Google for "ClickTake case studies" queries.
+  const reviews = TESTIMONIALS.slice(0, 6).map((t) =>
+    buildReviewJsonLd({
+      author: t.name,
+      rating: t.rating || 5,
+      body: t.quote,
+      datePublished: "2024-09-01",
+    }),
+  );
+  const aggRating = buildAggregateRatingJsonLd({
+    ratingValue: 4.9,
+    reviewCount: reviews.length,
+  });
+  // Wrap as an Organization schema with reviews — Google rich results
+  // require the rating to be attached to a Product, Organization, or
+  // LocalBusiness. We use Organization here so the rating applies to the
+  // agency itself, not to any single case study.
+  const orgWithReviews = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE.name,
+    url: SITE.url,
+    aggregateRating: aggRating,
+    review: reviews,
+  };
+
   return (
     <>
-      <JsonLd data={breadcrumb} />
+      <JsonLd data={[breadcrumb, orgWithReviews]} />
       <CaseStudiesIndexPage />
     </>
   );
