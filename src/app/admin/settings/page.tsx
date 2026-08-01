@@ -42,13 +42,13 @@ const SETTING_GROUPS: { name: string; icon: string; settings: { key: string; lab
     icon: "Share2",
     settings: [
       { key: "social.facebook", label: "Facebook URL", type: "text", default: "https://www.facebook.com/clicktaketechnologies/" },
-      { key: "social.instagram", label: "Instagram URL", type: "text", default: "https://www.instagram.com/clicktaketechuk/" },
+      { key: "social.instagram", label: "Instagram URL", type: "text", default: "https://www.instagram.com/clicktaketechnologiesuk/" },
       { key: "social.linkedin", label: "LinkedIn URL", type: "text", default: "https://www.linkedin.com/company/click-take-technologies/" },
       { key: "social.youtube", label: "YouTube URL", type: "text", default: "https://www.youtube.com/channel/UCt527M4hxeFOavWdXSRTsdw" },
-      { key: "social.tiktok", label: "TikTok URL", type: "text", default: "https://tiktok.com/@clicktaketech" },
-      { key: "social.pinterest", label: "Pinterest URL", type: "text", default: "https://pinterest.com/clicktaketech" },
-      { key: "social.threads", label: "Threads URL", type: "text", default: "https://threads.net/@clicktaketech" },
-      { key: "social.tumblr", label: "Tumblr URL", type: "text", default: "https://clicktaketech.tumblr.com" },
+      { key: "social.tiktok", label: "TikTok URL", type: "text", default: "https://www.tiktok.com/@clicktaketechtechnologiesuk" },
+      { key: "social.pinterest", label: "Pinterest URL", type: "text", default: "https://uk.pinterest.com/clicktaketechtechnologies/" },
+      { key: "social.threads", label: "Threads URL", type: "text", default: "https://www.threads.com/@clicktaketech" },
+      { key: "social.tumblr", label: "Tumblr URL", type: "text", default: "https://www.tumblr.com/clicktaketechtechnologies" },
     ],
   },
 ];
