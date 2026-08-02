@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BlogIndexPage } from "@/components/site/pages/blog-page";
 import { JsonLd, buildBreadcrumbJsonLd, buildWebSiteJsonLd } from "@/components/site/json-ld";
 import { prisma } from "@/lib/db";
+import { ensureCmsBlogsTable } from "@/lib/ensure-blog-table";
 
 export const revalidate = 300; // 5-min ISR — picks up new DB-published posts
 
@@ -39,6 +40,7 @@ export default async function Page() {
   // static fallback content by publishing a post with the same slug.
   let dbPosts: any[] = [];
   try {
+    await ensureCmsBlogsTable();
     const rows = await prisma.cmsBlog.findMany({
       where: { isPublished: true },
       orderBy: { publishedAt: "desc" },

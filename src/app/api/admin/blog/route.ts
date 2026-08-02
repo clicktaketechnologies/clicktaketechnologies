@@ -3,12 +3,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getServerSession, hasPermission } from "@/lib/auth";
 import { logAudit } from "@/lib/log-audit";
+import { ensureCmsBlogsTable } from "@/lib/ensure-blog-table";
 
 export async function GET() {
   const session = await getServerSession();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   if (!hasPermission(session.user, "readCMS"))
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+
+  await ensureCmsBlogsTable();
 
   const posts = await prisma.cmsBlog.findMany({
     orderBy: { updatedAt: "desc" },
@@ -41,6 +44,8 @@ export async function POST(req: NextRequest) {
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   if (!hasPermission(session.user, "writeCMS"))
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+
+  await ensureCmsBlogsTable();
 
   let body: any;
   try {

@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getServerSession, hasPermission } from "@/lib/auth";
 import { logAudit } from "@/lib/log-audit";
+import { ensureCmsBlogsTable } from "@/lib/ensure-blog-table";
 
 export async function GET(
   _req: NextRequest,
@@ -13,6 +14,7 @@ export async function GET(
   if (!hasPermission(session.user, "readCMS"))
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
+  await ensureCmsBlogsTable();
   const { id } = await params;
   const post = await prisma.cmsBlog.findUnique({ where: { id } });
   if (!post) return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -42,6 +44,7 @@ export async function PATCH(
   if (!hasPermission(session.user, "writeCMS"))
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
+  await ensureCmsBlogsTable();
   const { id } = await params;
   let body: any;
   try {
@@ -110,6 +113,7 @@ export async function DELETE(
   if (!hasPermission(session.user, "writeCMS"))
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
+  await ensureCmsBlogsTable();
   const { id } = await params;
   const existing = await prisma.cmsBlog.findUnique({ where: { id } });
   if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });

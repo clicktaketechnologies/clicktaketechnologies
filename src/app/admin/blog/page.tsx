@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { getServerSession, hasPermission } from "@/lib/auth";
 import { BlogClient } from "./blog-client";
 import { BLOG_CATEGORIES } from "@/lib/site-data";
+import { ensureCmsBlogsTable } from "@/lib/ensure-blog-table";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +11,9 @@ export default async function BlogAdminPage() {
   const session = await getServerSession();
   if (!session?.user) redirect("/admin/login?callbackUrl=/admin/blog");
   if (!hasPermission(session.user, "readCMS")) redirect("/admin");
+
+  // Self-heal: create cms_blogs table if missing (idempotent)
+  await ensureCmsBlogsTable();
 
   const posts = await prisma.cmsBlog.findMany({
     orderBy: { updatedAt: "desc" },

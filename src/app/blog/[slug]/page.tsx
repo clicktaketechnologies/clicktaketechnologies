@@ -4,6 +4,7 @@ import { BlogPostPage } from "@/components/site/pages/blog-post-page";
 import { JsonLd, buildBreadcrumbJsonLd, buildArticleJsonLd } from "@/components/site/json-ld";
 import { BLOG_POSTS, type BlogPost } from "@/lib/site-data";
 import { prisma } from "@/lib/db";
+import { ensureCmsBlogsTable } from "@/lib/ensure-blog-table";
 
 export const revalidate = 300; // 5-min ISR — picks up DB edits
 
@@ -13,6 +14,7 @@ export async function generateStaticParams() {
   // Include both static BLOG_POSTS slugs + any DB-published slugs at build time.
   let dbSlugs: { slug: string }[] = [];
   try {
+    await ensureCmsBlogsTable();
     dbSlugs = await prisma.cmsBlog.findMany({
       where: { isPublished: true },
       select: { slug: true },
@@ -33,6 +35,7 @@ export async function generateStaticParams() {
 async function resolvePost(slug: string): Promise<BlogPost | null> {
   // DB first (admin can override static content with same slug)
   try {
+    await ensureCmsBlogsTable();
     const row = await prisma.cmsBlog.findFirst({
       where: { slug, isPublished: true },
     });
