@@ -353,6 +353,63 @@ export async function GET(req: Request) {
       }
     }
 
+    // ─── action=blog-migrate — ALTER cms_blogs to add missing columns ─────
+    // One-time schema repair for the legacy cms_blogs table. Idempotent.
+    // Adds: slug, excerpt, cover_image, author_id, is_published, published_at,
+    //       updated_at. Backfills values from legacy columns (status, date,
+    //       author) where possible.
+    if (action === 'blog-migrate') {
+      const stmts = [
+        `ALTER TABLE "cms_blogs" ADD COLUMN IF NOT EXISTS "slug" TEXT`,
+        `ALTER TABLE "cms_blogs" ADD COLUMN IF NOT EXISTS "excerpt" TEXT DEFAULT ''`,
+        `ALTER TABLE "cms_blogs" ADD COLUMN IF NOT EXISTS "cover_image" TEXT`,
+        `ALTER TABLE "cms_blogs" ADD COLUMN IF NOT EXISTS "author_id" TEXT`,
+        `ALTER TABLE "cms_blogs" ADD COLUMN IF NOT EXISTS "is_published" BOOLEAN DEFAULT FALSE`,
+        `ALTER TABLE "cms_blogs" ADD COLUMN IF NOT EXISTS "published_at" TIMESTAMP`,
+        `ALTER TABLE "cms_blogs" ADD COLUMN IF NOT EXISTS "updated_at" TIMESTAMP DEFAULT NOW()`,
+        `UPDATE "cms_blogs" SET "slug" = lower(regexp_replace(regexp_replace(trim(title), '[^a-zA-Z0-9\\s-]', '', 'g'), '\\s+', '-', 'g')) WHERE "slug" IS NULL OR "slug" = ''`,
+        `UPDATE "cms_blogs" SET "updated_at" = "created_at" WHERE "updated_at" IS NULL AND "created_at" IS NOT NULL`,
+        `CREATE UNIQUE INDEX IF NOT EXISTS "cms_blogs_slug_idx" ON "cms_blogs" ("slug") WHERE "slug" IS NOT NULL`,
+        `CREATE INDEX IF NOT EXISTS "cms_blogs_category_idx" ON "cms_blogs" ("category")`,
+      ]
+      const results: { stmt: string; ok: boolean; error?: string }[] = []
+      try {
+        const { pool } = await import('@/lib/db')
+        for (const s of stmts) {
+          try {
+            await pool.query(s)
+            results.push({ stmt: s.slice(0, 80), ok: true })
+          } catch (e: any) {
+            results.push({ stmt: s.slice(0, 80), ok: false, error: e?.message })
+          }
+        }
+        // Also try optional backfills (may fail if legacy columns don't exist)
+        for (const s of [
+          `UPDATE "cms_blogs" SET "is_published" = TRUE WHERE "is_published" = FALSE AND "status" = 'Published'`,
+          `UPDATE "cms_blogs" SET "published_at" = "date"::timestamp WHERE "published_at" IS NULL AND "date" IS NOT NULL AND "date" != ''`,
+          `UPDATE "cms_blogs" SET "author_id" = "author" WHERE "author_id" IS NULL AND "author" IS NOT NULL AND "author" != ''`,
+        ]) {
+          try {
+            await pool.query(s)
+            results.push({ stmt: s.slice(0, 80), ok: true })
+          } catch (e: any) {
+            results.push({ stmt: s.slice(0, 80), ok: false, error: e?.message })
+          }
+        }
+        return NextResponse.json({
+          ...safeResult,
+          action: 'blog-migrate',
+          results,
+        }, { headers: { 'Cache-Control': 'no-store' } })
+      } catch (e: any) {
+        return NextResponse.json({
+          ...safeResult,
+          action: 'blog-migrate',
+          error: e?.message,
+        }, { status: 500, headers: { 'Cache-Control': 'no-store' } })
+      }
+    }
+
     // ─── action=dbcolumns — list columns of a specific table ─────────────
     // Usage: ?action=dbcolumns&table=services
     // Used to diagnose column-mismatch 500s (e.g. code expects
