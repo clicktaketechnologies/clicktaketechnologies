@@ -24,6 +24,7 @@ import {
   Server,
   Clock,
   FlaskConical,
+  Newspaper,
 } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { toast } from "sonner";
@@ -56,6 +57,7 @@ const NAV_GROUPS: { label: string; items: { href: string; label: string; icon: a
   {
     label: "Content",
     items: [
+      { href: "/admin/blog", label: "Blog Posts", icon: Newspaper, perm: "readCMS", badge: "New", badgeColor: "bg-brand-pink/20 text-brand-pink" },
       { href: "/admin/team-careers", label: "Team & Careers", icon: Briefcase, perm: "readCMS" },
       { href: "/admin/typography", label: "Typography Engine", icon: Type, perm: "readCMS" },
       { href: "/admin/theme", label: "Theme Engine", icon: Palette, perm: "readCMS" },
@@ -93,6 +95,7 @@ function getPageMeta(pathname: string): { title: string; bc: string } {
   const titleMap: Record<string, string> = {
     cms: "CMS — Pages",
     services: "Services & Packages",
+    blog: "Blog Posts",
     "team-careers": "Team & Careers",
     typography: "Typography Engine",
     theme: "Theme Engine",

@@ -67,12 +67,22 @@ function PostCard({ post }: { post: BlogPost }) {
   );
 }
 
-export function BlogIndexPage() {
+export function BlogIndexPage({ dbPosts = [] }: { dbPosts?: BlogPost[] }) {
   const [activeCat, setActiveCat] = useState<string | "all">("all");
   const [query, setQuery] = useState("");
 
+  // Merge DB posts (admin-managed) with static BLOG_POSTS fallback.
+  // DB posts take precedence — if a slug exists in both, the DB version wins
+  // (admin overrides static content). Posts are sorted by publishedAt desc.
+  const allPosts = useMemo(() => {
+    const bySlug = new Map<string, BlogPost>();
+    for (const p of BLOG_POSTS) bySlug.set(p.slug, p);
+    for (const p of dbPosts) bySlug.set(p.slug, p);
+    return Array.from(bySlug.values());
+  }, [dbPosts]);
+
   const filtered = useMemo(() => {
-    let r = BLOG_POSTS;
+    let r = allPosts;
     if (activeCat !== "all") r = r.filter((p) => p.category === activeCat);
     if (query.trim()) {
       const q = query.trim().toLowerCase();
@@ -84,7 +94,7 @@ export function BlogIndexPage() {
       );
     }
     return [...r].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
-  }, [activeCat, query]);
+  }, [allPosts, activeCat, query]);
 
   return (
     <NxPageLayout>

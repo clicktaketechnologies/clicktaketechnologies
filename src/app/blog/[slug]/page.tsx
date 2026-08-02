@@ -2,17 +2,68 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogPostPage } from "@/components/site/pages/blog-post-page";
 import { JsonLd, buildBreadcrumbJsonLd, buildArticleJsonLd } from "@/components/site/json-ld";
-import { BLOG_POSTS } from "@/lib/site-data";
+import { BLOG_POSTS, type BlogPost } from "@/lib/site-data";
+import { prisma } from "@/lib/db";
+
+export const revalidate = 300; // 5-min ISR — picks up DB edits
 
 interface Params { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
-  return BLOG_POSTS.map((p) => ({ slug: p.slug }));
+  // Include both static BLOG_POSTS slugs + any DB-published slugs at build time.
+  let dbSlugs: { slug: string }[] = [];
+  try {
+    dbSlugs = await prisma.cmsBlog.findMany({
+      where: { isPublished: true },
+      select: { slug: true },
+    });
+  } catch {
+    // ignore — static fallback still works
+  }
+  const staticSlugs = BLOG_POSTS.map((p) => ({ slug: p.slug }));
+  const seen = new Set<string>();
+  const all = [...staticSlugs, ...dbSlugs].filter((s) => {
+    if (seen.has(s.slug)) return false;
+    seen.add(s.slug);
+    return true;
+  });
+  return all;
+}
+
+async function resolvePost(slug: string): Promise<BlogPost | null> {
+  // DB first (admin can override static content with same slug)
+  try {
+    const row = await prisma.cmsBlog.findFirst({
+      where: { slug, isPublished: true },
+    });
+    if (row) {
+      let tags: string[] = [];
+      try {
+        tags = JSON.parse(row.tags || "[]");
+      } catch {
+        tags = [];
+      }
+      return {
+        slug: row.slug,
+        title: row.title,
+        excerpt: row.excerpt || "",
+        category: (row.category || "General") as BlogPost["category"],
+        author: row.authorId || "ClickTake Team",
+        publishedAt: (row.publishedAt || row.createdAt).toISOString(),
+        readTime: `${Math.max(2, Math.round((row.content || "").length / 1200))} min read`,
+        tags,
+        body: row.content || "",
+      };
+    }
+  } catch {
+    // ignore — fall back to static
+  }
+  return BLOG_POSTS.find((p) => p.slug === slug) ?? null;
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const post = await resolvePost(slug);
   if (!post) return { title: "Article not found" };
 
   const title = `${post.title} | ClickTake Blog`;
@@ -44,7 +95,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function Page({ params }: Params) {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const post = await resolvePost(slug);
   if (!post) notFound();
 
   const breadcrumb = buildBreadcrumbJsonLd([

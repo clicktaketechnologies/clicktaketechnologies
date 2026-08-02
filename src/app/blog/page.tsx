@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { BlogIndexPage } from "@/components/site/pages/blog-page";
 import { JsonLd, buildBreadcrumbJsonLd, buildWebSiteJsonLd } from "@/components/site/json-ld";
+import { prisma } from "@/lib/db";
+
+export const revalidate = 300; // 5-min ISR — picks up new DB-published posts
 
 export const metadata: Metadata = {
   title: "Blog — SEO · Web Dev · AI · Marketing",
@@ -30,7 +33,40 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
+export default async function Page() {
+  // Fetch published posts from DB; merge with static BLOG_POSTS.
+  // DB posts take precedence (de-dup by slug) so the admin can override the
+  // static fallback content by publishing a post with the same slug.
+  let dbPosts: any[] = [];
+  try {
+    const rows = await prisma.cmsBlog.findMany({
+      where: { isPublished: true },
+      orderBy: { publishedAt: "desc" },
+    });
+    dbPosts = rows.map((p) => {
+      let tags: string[] = [];
+      try {
+        tags = JSON.parse(p.tags || "[]");
+      } catch {
+        tags = [];
+      }
+      return {
+        slug: p.slug,
+        title: p.title,
+        excerpt: p.excerpt || "",
+        category: p.category || "General",
+        author: p.authorId || "ClickTake Team",
+        publishedAt: (p.publishedAt || p.createdAt).toISOString(),
+        readTime: `${Math.max(2, Math.round((p.content || "").length / 1200))} min read`,
+        tags,
+        body: p.content || "",
+        _source: "db" as const,
+      };
+    });
+  } catch {
+    // Fall through to static posts only if DB query fails
+  }
+
   const breadcrumb = buildBreadcrumbJsonLd([
     { name: "Blog", path: "/blog" },
   ]);
@@ -38,7 +74,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={[breadcrumb, website]} />
-      <BlogIndexPage />
+      <BlogIndexPage dbPosts={dbPosts} />
     </>
   );
 }
