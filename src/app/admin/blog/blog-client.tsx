@@ -366,58 +366,58 @@ function PostEditorModal({
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-white/15 bg-[var(--cta-card,#0D0025)] p-6 shadow-2xl"
+        className="max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-border/60 bg-card p-6 shadow-2xl text-foreground"
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-white">
+          <h2 className="text-lg font-semibold">
             {post ? "Edit post" : "Create new post"}
           </h2>
-          <button onClick={onClose} className="rounded-md p-1.5 text-white/60 hover:bg-white/10">
+          <button onClick={onClose} className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground">
             <X className="size-4" />
           </button>
         </div>
 
         {loading ? (
           <div className="flex h-40 items-center justify-center">
-            <Loader2 className="size-6 animate-spin text-white/60" />
+            <Loader2 className="size-6 animate-spin text-muted-foreground" />
           </div>
         ) : (
           <div className="space-y-4">
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
-                <label className="text-xs font-medium text-white/60">Title</label>
+                <label className="text-xs font-medium text-muted-foreground">Title</label>
                 <input
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-brand-blue"
+                  className="mt-1 w-full rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-brand-blue"
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-white/60">Slug</label>
+                <label className="text-xs font-medium text-muted-foreground">Slug</label>
                 <div className="mt-1 flex items-center gap-1">
-                  <span className="text-xs text-white/40">/blog/</span>
+                  <span className="text-xs text-muted-foreground">/blog/</span>
                   <input
                     value={slug}
                     onChange={(e) => setSlug(e.target.value)}
                     placeholder="my-post"
-                    className="flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-brand-blue"
+                    className="flex-1 rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-brand-blue"
                   />
                 </div>
               </div>
             </div>
 
             <div>
-              <label className="text-xs font-medium text-white/60">Excerpt</label>
+              <label className="text-xs font-medium text-muted-foreground">Excerpt</label>
               <textarea
                 value={excerpt}
                 onChange={(e) => setExcerpt(e.target.value)}
                 rows={2}
-                className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-brand-blue"
+                className="mt-1 w-full rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-brand-blue"
               />
             </div>
 
             <div>
-              <label className="text-xs font-medium text-white/60">Content (HTML)</label>
+              <label className="text-xs font-medium text-muted-foreground">Content (HTML)</label>
               <div className="mt-1">
                 <RichTextEditor content={content} onChange={setContent} />
               </div>
@@ -425,11 +425,11 @@ function PostEditorModal({
 
             <div className="grid gap-3 sm:grid-cols-3">
               <div>
-                <label className="text-xs font-medium text-white/60">Category</label>
+                <label className="text-xs font-medium text-muted-foreground">Category</label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-brand-blue"
+                  className="mt-1 w-full rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-brand-blue"
                 >
                   {categories.map((c) => (
                     <option key={c} value={c}>
@@ -439,51 +439,51 @@ function PostEditorModal({
                 </select>
               </div>
               <div>
-                <label className="text-xs font-medium text-white/60">Author</label>
+                <label className="text-xs font-medium text-muted-foreground">Author</label>
                 <input
                   value={author}
                   onChange={(e) => setAuthor(e.target.value)}
                   placeholder="ClickTake Team"
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-brand-blue"
+                  className="mt-1 w-full rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-brand-blue"
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-white/60">Tags (comma-sep)</label>
+                <label className="text-xs font-medium text-muted-foreground">Tags (comma-sep)</label>
                 <input
                   value={tags}
                   onChange={(e) => setTags(e.target.value)}
                   placeholder="seo, local-seo, uk"
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-brand-blue"
+                  className="mt-1 w-full rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-brand-blue"
                 />
               </div>
             </div>
 
             <button
               onClick={() => setShowSeo((v) => !v)}
-              className="flex items-center gap-2 text-xs text-white/60 hover:text-white"
+              className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground"
             >
               <Globe className="size-3.5" />
               {showSeo ? "Hide" : "Show"} cover image + publish date
             </button>
 
             {showSeo && (
-              <div className="space-y-3 rounded-lg border border-white/10 p-3">
+              <div className="space-y-3 rounded-lg border border-border/60 p-3">
                 <div>
-                  <label className="text-xs font-medium text-white/60">Cover image URL</label>
+                  <label className="text-xs font-medium text-muted-foreground">Cover image URL</label>
                   <input
                     value={coverImage}
                     onChange={(e) => setCoverImage(e.target.value)}
                     placeholder="https://..."
-                    className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-brand-blue"
+                    className="mt-1 w-full rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-brand-blue"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-medium text-white/60">Publish date</label>
+                  <label className="text-xs font-medium text-muted-foreground">Publish date</label>
                   <input
                     type="date"
                     value={publishedAt}
                     onChange={(e) => setPublishedAt(e.target.value)}
-                    className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-brand-blue"
+                    className="mt-1 w-full rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-brand-blue"
                   />
                 </div>
               </div>
@@ -496,7 +496,7 @@ function PostEditorModal({
                 className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs ${
                   isPublished
                     ? "bg-emerald-500/15 text-emerald-400"
-                    : "bg-white/10 text-white/60"
+                    : "bg-muted text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {isPublished ? <Eye className="size-3.5" /> : <EyeOff className="size-3.5" />}
@@ -507,7 +507,7 @@ function PostEditorModal({
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={onClose}
-                className="rounded-lg border border-white/15 px-4 py-2 text-sm text-white/70 hover:bg-white/10"
+                className="rounded-lg border border-border/60 px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
               >
                 Cancel
               </button>
@@ -618,19 +618,19 @@ function UploadModal({
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/15 bg-[var(--cta-card,#0D0025)] p-6 shadow-2xl"
+        className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border/60 bg-card p-6 shadow-2xl text-foreground"
       >
         <div className="mb-4 flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+            <h2 className="text-lg font-semibold flex items-center gap-2">
               <FileUp className="size-5 text-brand-pink" />
               Bulk Upload — Auto-Extract Content
             </h2>
-            <p className="text-xs text-white/50 mt-0.5">
+            <p className="text-xs text-muted-foreground mt-0.5">
               Upload .md / .csv / .pdf — system auto-extracts content and creates draft posts.
             </p>
           </div>
-          <button onClick={onClose} className="rounded-md p-1.5 text-white/60 hover:bg-white/10">
+          <button onClick={onClose} className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground">
             <X className="size-4" />
           </button>
         </div>
@@ -653,7 +653,7 @@ function UploadModal({
               className={`cursor-pointer rounded-xl border-2 border-dashed p-8 text-center transition ${
                 dragOver
                   ? "border-brand-pink bg-brand-pink/10"
-                  : "border-white/15 hover:border-white/30 bg-white/5"
+                  : "border-border/60 hover:border-brand-pink/40 bg-muted/30"
               }`}
             >
               <input
@@ -664,11 +664,11 @@ function UploadModal({
                 className="hidden"
                 onChange={(e) => onPick(e.target.files)}
               />
-              <FileUp className="mx-auto mb-2 size-8 text-white/40" />
-              <div className="text-sm text-white/80 font-medium">
+              <FileUp className="mx-auto mb-2 size-8 text-muted-foreground" />
+              <div className="text-sm text-foreground font-medium">
                 Drop files here or click to browse
               </div>
-              <div className="mt-1 text-xs text-white/40">
+              <div className="mt-1 text-xs text-muted-foreground">
                 Supports .md, .csv, .pdf — up to 10MB each
               </div>
             </div>
@@ -676,7 +676,7 @@ function UploadModal({
             {/* Selected files */}
             {files.length > 0 && (
               <div className="space-y-1.5">
-                <div className="text-xs font-medium text-white/60">
+                <div className="text-xs font-medium text-muted-foreground">
                   {files.length} file(s) selected
                 </div>
                 {files.map((f, i) => {
@@ -684,16 +684,16 @@ function UploadModal({
                   return (
                     <div
                       key={i}
-                      className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-3 py-2"
+                      className="flex items-center gap-3 rounded-lg border border-border/60 bg-muted/30 px-3 py-2"
                     >
                       <Icon className="size-4 text-brand-pink shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm text-white/90 truncate">{f.name}</div>
-                        <div className="text-xs text-white/40">{fmtBytes(f.size)}</div>
+                        <div className="text-sm text-foreground truncate">{f.name}</div>
+                        <div className="text-xs text-muted-foreground">{fmtBytes(f.size)}</div>
                       </div>
                       <button
                         onClick={() => setFiles((prev) => prev.filter((_, j) => j !== i))}
-                        className="rounded-md p-1 text-white/40 hover:bg-white/10 hover:text-red-400"
+                        className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-red-400"
                       >
                         <X className="size-3.5" />
                       </button>
@@ -706,20 +706,20 @@ function UploadModal({
             {/* Options */}
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
-                <label className="text-xs font-medium text-white/60">Override author (optional)</label>
+                <label className="text-xs font-medium text-muted-foreground">Override author (optional)</label>
                 <input
                   value={author}
                   onChange={(e) => setAuthor(e.target.value)}
                   placeholder="ClickTake Team"
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-brand-blue"
+                  className="mt-1 w-full rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-brand-blue"
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-white/60">Override category</label>
+                <label className="text-xs font-medium text-muted-foreground">Override category</label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-brand-blue"
+                  className="mt-1 w-full rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm outline-none focus:border-brand-blue"
                 >
                   {categories.map((c) => (
                     <option key={c} value={c}>
@@ -730,25 +730,25 @@ function UploadModal({
               </div>
             </div>
 
-            <label className="flex items-center gap-2 text-sm text-white/80">
+            <label className="flex items-center gap-2 text-sm text-foreground">
               <input
                 type="checkbox"
                 checked={autoPublish}
                 onChange={(e) => setAutoPublish(e.target.checked)}
-                className="rounded border-white/20 bg-white/5"
+                className="rounded border-border/60 bg-muted/30"
               />
               Publish immediately (skip draft)
             </label>
 
             {/* Format help */}
-            <details className="rounded-lg border border-white/10 bg-white/5 p-3 text-xs text-white/60">
-              <summary className="cursor-pointer text-white/80 font-medium">
+            <details className="rounded-lg border border-border/60 bg-muted/30 p-3 text-xs text-muted-foreground">
+              <summary className="cursor-pointer text-foreground font-medium">
                 File format reference
               </summary>
               <div className="mt-2 space-y-2">
                 <div>
                   <span className="text-brand-pink font-mono">.md</span> — Markdown with YAML frontmatter:
-                  <pre className="mt-1 rounded bg-black/40 p-2 text-[10px] overflow-x-auto">{`---
+                  <pre className="mt-1 rounded bg-background/80 p-2 text-[10px] overflow-x-auto">{`---
 title: My Article
 slug: my-article
 excerpt: Short description.
@@ -765,9 +765,9 @@ This is the article content...`}</pre>
                 </div>
                 <div>
                   <span className="text-brand-pink font-mono">.csv</span> — Header row + one post per data row:
-                  <pre className="mt-1 rounded bg-black/40 p-2 text-[10px] overflow-x-auto">{`title,slug,excerpt,category,tags,author,content
+                  <pre className="mt-1 rounded bg-background/80 p-2 text-[10px] overflow-x-auto">{`title,slug,excerpt,category,tags,author,content
 My Post,my-post,Short desc.,SEO,seo|local,ClickTake,"<p>HTML body</p>"`}</pre>
-                  <div className="mt-1 text-white/40">
+                  <div className="mt-1 text-muted-foreground">
                     Tags column uses pipe-separator. Content can be plain text or HTML.
                   </div>
                 </div>
@@ -782,7 +782,7 @@ My Post,my-post,Short desc.,SEO,seo|local,ClickTake,"<p>HTML body</p>"`}</pre>
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={onClose}
-                className="rounded-lg border border-white/15 px-4 py-2 text-sm text-white/70 hover:bg-white/10"
+                className="rounded-lg border border-border/60 px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
               >
                 Cancel
               </button>
@@ -808,8 +808,8 @@ My Post,my-post,Short desc.,SEO,seo|local,ClickTake,"<p>HTML body</p>"`}</pre>
                 <CheckCircle2 className="size-5" />
                 <span className="font-semibold">Upload complete</span>
               </div>
-              <div className="mt-1 text-sm text-white/80">
-                Created <strong className="text-white">{result.summary.postsCreated}</strong> post(s)
+              <div className="mt-1 text-sm text-foreground">
+                Created <strong className="text-foreground">{result.summary.postsCreated}</strong> post(s)
                 {result.summary.errors > 0 && (
                   <span className="text-amber-400">
                     {" "}
@@ -821,18 +821,18 @@ My Post,my-post,Short desc.,SEO,seo|local,ClickTake,"<p>HTML body</p>"`}</pre>
 
             {result.created?.length > 0 && (
               <div className="space-y-1.5">
-                <div className="text-xs font-medium text-white/60 uppercase tracking-wider">
+                <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Created posts
                 </div>
                 {result.created.map((p: any, i: number) => (
                   <div
                     key={i}
-                    className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-3 py-2"
+                    className="flex items-center gap-3 rounded-lg border border-border/60 bg-muted/30 px-3 py-2"
                   >
                     <Sparkles className="size-4 text-brand-pink shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm text-white/90 truncate">{p.title}</div>
-                      <div className="text-xs text-white/40">
+                      <div className="text-sm text-foreground truncate">{p.title}</div>
+                      <div className="text-xs text-muted-foreground">
                         /blog/{p.slug} · {p.category} · from {p.sourceFile}
                       </div>
                     </div>
@@ -853,8 +853,8 @@ My Post,my-post,Short desc.,SEO,seo|local,ClickTake,"<p>HTML body</p>"`}</pre>
                   >
                     <AlertCircle className="size-4 text-amber-400 shrink-0 mt-0.5" />
                     <div className="text-xs">
-                      <div className="text-white/80 font-mono">{e.filename}</div>
-                      <div className="text-white/60">{e.error}</div>
+                      <div className="text-foreground font-mono">{e.filename}</div>
+                      <div className="text-muted-foreground">{e.error}</div>
                     </div>
                   </div>
                 ))}
