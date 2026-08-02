@@ -24,6 +24,7 @@ import { logAudit } from "@/lib/log-audit";
 import matter from "gray-matter";
 import { marked } from "marked";
 import { PDFParse } from "pdf-parse";
+import { ensureCmsBlogsTable } from "@/lib/ensure-blog-table";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -354,6 +355,8 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: "Expected multipart/form-data" }, { status: 400 });
   }
+
+  await ensureCmsBlogsTable();
 
   const files = form.getAll("files").filter((f): f is File => f instanceof File);
   if (files.length === 0) {
