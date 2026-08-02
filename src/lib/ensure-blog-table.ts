@@ -17,31 +17,26 @@ let _ensured = false;
 export async function ensureCmsBlogsTable(): Promise<void> {
   if (_ensured) return;
   try {
-    const client = await pool.connect();
-    try {
-      await client.query(`
-        CREATE TABLE IF NOT EXISTS "cms_blogs" (
-          "id"            TEXT PRIMARY KEY,
-          "title"         TEXT NOT NULL,
-          "slug"          TEXT NOT NULL UNIQUE,
-          "excerpt"       TEXT DEFAULT '',
-          "content"       TEXT DEFAULT '',
-          "cover_image"   TEXT,
-          "category"      TEXT DEFAULT 'General',
-          "tags"          TEXT DEFAULT '[]',
-          "author_id"     TEXT,
-          "is_published"  BOOLEAN DEFAULT FALSE,
-          "published_at"  TIMESTAMP,
-          "created_at"    TIMESTAMP DEFAULT NOW(),
-          "updated_at"    TIMESTAMP DEFAULT NOW()
-        );
-        CREATE INDEX IF NOT EXISTS "cms_blogs_slug_idx"     ON "cms_blogs" ("slug");
-        CREATE INDEX IF NOT EXISTS "cms_blogs_category_idx" ON "cms_blogs" ("category");
-      `);
-      _ensured = true;
-    } finally {
-      client.release();
-    }
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS "cms_blogs" (
+        "id"            TEXT PRIMARY KEY,
+        "title"         TEXT NOT NULL,
+        "slug"          TEXT NOT NULL UNIQUE,
+        "excerpt"       TEXT DEFAULT '',
+        "content"       TEXT DEFAULT '',
+        "cover_image"   TEXT,
+        "category"      TEXT DEFAULT 'General',
+        "tags"          TEXT DEFAULT '[]',
+        "author_id"     TEXT,
+        "is_published"  BOOLEAN DEFAULT FALSE,
+        "published_at"  TIMESTAMP,
+        "created_at"    TIMESTAMP DEFAULT NOW(),
+        "updated_at"    TIMESTAMP DEFAULT NOW()
+      );
+      CREATE INDEX IF NOT EXISTS "cms_blogs_slug_idx"     ON "cms_blogs" ("slug");
+      CREATE INDEX IF NOT EXISTS "cms_blogs_category_idx" ON "cms_blogs" ("category");
+    `);
+    _ensured = true;
   } catch (err: any) {
     logger?.warn?.({ err: err.message }, "[ensureCmsBlogsTable] failed (will retry next request)");
     // Don't throw — let the calling query fail naturally with a more specific error
