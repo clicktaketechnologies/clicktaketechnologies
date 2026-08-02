@@ -30,6 +30,7 @@ import type { City, Country } from "@/lib/seo/cities";
 import { CITIES, COUNTRY_META, COUNTRY_ORDER, getNearbyCities } from "@/lib/seo/cities";
 import type { ServiceItem } from "@/lib/site-data";
 import { CATEGORY_STYLES, SERVICES, SITE } from "@/lib/site-data";
+import { truncateMeta } from "@/lib/seo/meta-helpers";
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
@@ -147,7 +148,13 @@ export function composeCityServiceContent(city: City, service: ServiceItem): Cit
 
   // ── SEO metadata ──────────────────────────────────────────────────────
   const metaTitle = `${service.title} ${city.name} | ${cat?.eyebrow || "ClickTake"}`;
-  const metaDescription = `${service.title} in ${city.name}, ${cityCountry.name}. ${service.description} From ${city.context.startingPriceFrom}. ${city.hasOffice ? "Local office" : "Remote delivery"} with senior engineers across UK, Pakistan, USA, UAE. Book a free 30-minute consultation.`;
+  // Bounded to ≤155 chars so Ahrefs stops flagging "Meta description too long".
+  // Original full-form concatenation was producing 170–250 char descriptions
+  // across all 280 city-service pages. truncateMeta cuts on a word boundary
+  // and appends an ellipsis if needed.
+  const metaDescription = truncateMeta(
+    `${service.title} in ${city.name}. ${service.description} ${city.hasOffice ? "Local office." : "Remote delivery."} Book a free consultation.`
+  );
   const canonical = `${SITE.url}/cities/${city.slug}/${service.slug}`;
   const keywords = [
     `${service.title.toLowerCase()} ${city.name}`,
@@ -412,7 +419,9 @@ export function composeCityHubContent(city: City): CityHubContent {
     nearbyCities: nearby,
     meta: {
       title: `${city.name} ${country.name} — ClickTake Technologies | AI · Web · Marketing`,
-      description: `${city.name} ${country.name} services: AI, web development, SEO, paid ads, branding and video. From ${city.context.startingPriceFrom}. ${city.hasOffice ? "Local office" : "Remote delivery"}. Book a free consultation.`,
+      description: truncateMeta(
+        `${city.name} ${country.name} services: AI, web development, SEO, paid ads, branding and video. ${city.hasOffice ? "Local office." : "Remote delivery."} Book a free consultation.`
+      ),
       canonical: `${SITE.url}/cities/${city.slug}`,
     },
     jsonLd,

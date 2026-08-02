@@ -19,6 +19,7 @@ import { ukBusinessesSolutionDeepDive } from "@/content/deep-dive/sol-uk-busines
 import { agenciesSolutionDeepDive } from "@/content/deep-dive/sol-agencies";
 
 import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
+import { truncateMeta } from "@/lib/seo/meta-helpers";
 /**
  * Map of solution slugs that have full long-form "Ultimate Guide" content
  * authored. When a slug is in this map, the route renders DeepDiveLayout
@@ -46,7 +47,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!solution) return { title: "Solution not found" };
 
   const title = `${solution.title} — ClickTake Solutions`;
-  const description = `${solution.hero} ${solution.summary}`;
+  // `solution.hero` is the body hero subtitle (can be long) and
+  // `solution.summary` is the shorter elevator pitch. Concatenating both
+  // was producing 200-300 char meta descriptions. Bound to ≤155 chars.
+  const description = truncateMeta(`${solution.summary} ${solution.hero}`);
   const url = `https://clicktaketech.com/solutions/${solution.slug}`;
 
   return {
@@ -55,7 +59,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     alternates: { canonical: url },
     openGraph: {
       images: [DEFAULT_OG_IMAGE],title,
-      description: solution.summary,
+      description: truncateMeta(solution.summary),
       url,
       type: "article",
       locale: "en_GB",
@@ -63,7 +67,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: `${solution.title} | ClickTake Technologies`,
-      description: solution.hero,
+      description: truncateMeta(solution.hero),
     },
     keywords: [
       solution.title,

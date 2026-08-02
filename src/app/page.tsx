@@ -23,7 +23,7 @@ import { SITE, TESTIMONIALS } from "@/lib/site-data";
 export const metadata: Metadata = {
   title: "ClickTake — AI-Powered Digital Agency",
   description:
-    "ClickTake Technologies builds AI-powered websites, SaaS platforms, mobile apps and growth systems for brands across the UK, Pakistan, USA and Dubai. 120+ projects shipped.",
+    "ClickTake builds AI-powered websites, SaaS platforms, mobile apps and growth systems for brands across the UK, Pakistan, USA and Dubai. 120+ projects shipped.",
   alternates: { canonical: SITE.url },
   openGraph: {
     title: "ClickTake Technologies — AI-Powered Digital Agency | UK · PK · USA · Dubai",

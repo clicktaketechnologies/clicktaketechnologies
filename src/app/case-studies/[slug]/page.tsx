@@ -5,6 +5,7 @@ import { JsonLd, buildBreadcrumbJsonLd, buildServiceJsonLd } from "@/components/
 import { CASE_STUDIES, SITE } from "@/lib/site-data";
 
 import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
+import { truncateMeta } from "@/lib/seo/meta-helpers";
 interface Params { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
@@ -17,7 +18,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!cs) return { title: "Case study not found" };
 
   const title = `${cs.client} — ${cs.industry} Case Study | ClickTake`;
-  const description = cs.result_summary;
+  // Combine the short result_summary with the client/industry context to
+  // produce a meta description that meets Ahrefs' ≥70-char minimum.
+  // The standalone `result_summary` field is too short on some entries
+  // (e.g. ecommerce-headless-rebuild at 61 chars).
+  const description = truncateMeta(
+    `${cs.result_summary} ${cs.client} (${cs.industry}, ${cs.location}) engagement by ClickTake Technologies.`
+  );
   const url = `https://clicktaketech.com/case-studies/${cs.slug}`;
 
   return {
@@ -26,7 +33,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     alternates: { canonical: url },
     openGraph: {
       images: [DEFAULT_OG_IMAGE],title,
-      description: cs.challenge,
+      description: truncateMeta(cs.challenge),
       url,
       type: "article",
       locale: "en_GB",
@@ -34,7 +41,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: `${cs.client} — Case Study | ClickTake`,
-      description: cs.result_summary,
+      description,
     },
     keywords: [cs.client, cs.industry, ...cs.services, "case study"],
   };
