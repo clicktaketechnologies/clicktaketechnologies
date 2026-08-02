@@ -247,7 +247,7 @@ function Section({
   return (
     <section
       id={id}
-      className="scroll-mt-28 py-14 sm:py-16 lg:py-20 border-t border-white/5 first:border-t-0"
+      className="scroll-mt-28 py-14 sm:py-16 lg:py-20 border-t border-border dark:border-white/5 first:border-t-0"
     >
       {divider && (
         <div className="flex justify-center mb-12 opacity-50">
@@ -500,7 +500,7 @@ export function DeepDiveLayout({
                   {content.problem.painPoints.map((p, i) => (
                     <div
                       key={i}
-                      className="rounded-2xl border border-red-500/20 bg-red-500/[0.04] p-5"
+                      className="rounded-2xl border border-red-500/20 bg-red-500/10 dark:bg-red-500/[0.04] p-5"
                     >
                       <div className="flex items-center gap-2 mb-2">
                         <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500/20 text-xs font-bold text-red-500 dark:text-red-300">
@@ -707,7 +707,7 @@ export function DeepDiveLayout({
                   ))}
                 </div>
                 {content.integrations.compliance && content.integrations.compliance.length > 0 && (
-                  <div className="mt-8 rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.04] p-5">
+                  <div className="mt-8 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 dark:bg-emerald-500/[0.04] p-5">
                     <h3 className="text-sm font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-300 mb-3">
                       Security &amp; Compliance
                     </h3>
