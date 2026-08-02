@@ -3,6 +3,7 @@ import { CitiesIndexPage } from "@/components/site/pages/cities-index-page";
 import { composeCitiesIndexContent } from "@/lib/seo/city-service-content";
 import { JsonLd } from "@/components/site/json-ld";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const dynamic = "force-static";
 export const revalidate = 86400; // Daily — city list rarely changes.
 
@@ -13,7 +14,8 @@ export function generateMetadata(): Metadata {
     description: content.meta.description,
     alternates: { canonical: content.meta.canonical },
     openGraph: {
-      title: content.meta.title,
+      images: [DEFAULT_OG_IMAGE],
+    title: content.meta.title,
       description: content.meta.description,
       url: content.meta.canonical,
       type: "website",

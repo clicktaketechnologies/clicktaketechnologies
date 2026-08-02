@@ -18,6 +18,7 @@ import { repairShopsSolutionDeepDive } from "@/content/deep-dive/sol-repair-shop
 import { ukBusinessesSolutionDeepDive } from "@/content/deep-dive/sol-uk-businesses";
 import { agenciesSolutionDeepDive } from "@/content/deep-dive/sol-agencies";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 /**
  * Map of solution slugs that have full long-form "Ultimate Guide" content
  * authored. When a slug is in this map, the route renders DeepDiveLayout
@@ -53,7 +54,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description,
     alternates: { canonical: url },
     openGraph: {
-      title,
+      images: [DEFAULT_OG_IMAGE],title,
       description: solution.summary,
       url,
       type: "article",

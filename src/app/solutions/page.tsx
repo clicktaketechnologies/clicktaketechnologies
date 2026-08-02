@@ -4,6 +4,7 @@ import { SolutionsIndexPage } from "@/components/site/pages/solutions-page";
 import { JsonLd, buildBreadcrumbJsonLd, buildServiceJsonLd } from "@/components/site/json-ld";
 import { SOLUTIONS, SITE } from "@/lib/site-data";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const metadata: Metadata = {
   title: "Solutions — By Audience & Industry",
   description:
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://clicktaketech.com/solutions" },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "ClickTake Solutions — Built for your business type",
     description:
       "Six tailored solutions for Startups, Local Businesses, E-commerce Brands, Repair Shops, UK Businesses and Agencies — across the UK, Pakistan, USA and Dubai.",

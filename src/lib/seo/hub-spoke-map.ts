@@ -132,13 +132,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "AI Agent Development", href: "/services/ai/agents", blurb: "Goal-driven autonomous agents with tool use, memory, and planning." },
     ],
     resources: {
-      blogs: [
-        { label: "RAG Architecture: A Production Guide", href: "/blog/rag-architecture-guide", blurb: "Chunking strategies, embedding models, and retrieval evaluation." },
-        { label: "LLM Guardrails: OWASP Top 10 for LLMs", href: "/blog/llm-guardrails-owasp", blurb: "Prompt injection, data leakage, and model supply-chain risk." },
-      ],
-      caseStudies: [
-        { label: "FinTech RAG Assistant — 92% Citation Accuracy", href: "/case-studies/fintech-rag-assistant", blurb: "Retrieval-augmented assistant for a UK wealth-management platform." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -154,13 +149,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Computer Vision & NLP", href: "/services/ai/cv-nlp", blurb: "Voice + text multi-modal assistants." },
     ],
     resources: {
-      blogs: [
-        { label: "Designing Conversational AI That Doesn't Hallucinate", href: "/blog/conversational-ai-hallucination-control", blurb: "Grounding, retrieval, and confidence-threshold patterns." },
-        { label: "Measuring Chatbot ROI: 7 KPIs That Matter", href: "/blog/chatbot-roi-kpis", blurb: "CSAT, FCR, deflection rate, and time-to-resolution benchmarks." },
-      ],
-      caseStudies: [
-        { label: "E-commerce Support Bot — 68% Ticket Deflection", href: "/case-studies/ecommerce-support-bot", blurb: "Replaced tier-1 Zendesk queue with a GPT-4o assistant." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -176,10 +166,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Computer Vision & NLP", href: "/services/ai/cv-nlp", blurb: "Structured-output prompts for document extraction." },
     ],
     resources: {
-      blogs: [
-        { label: "The Prompt Evaluation Playbook", href: "/blog/prompt-evaluation-playbook", blurb: "Build regression suites that catch prompt regressions before prod." },
-        { label: "Structured Outputs with JSON Schema + OpenAI", href: "/blog/structured-outputs-json-schema", blurb: "Reliable function calling for downstream automation." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -194,10 +181,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Prompt Engineering", href: "/services/ai/prompt-engineering", blurb: "Structured-output prompts for extraction tasks." },
     ],
     resources: {
-      blogs: [
-        { label: "OCR vs Vision LLMs: When to Use Each", href: "/blog/ocr-vs-vision-llms", blurb: "Accuracy, cost, and latency tradeoffs for document processing." },
-        { label: "Building a Production Document Intelligence Pipeline", href: "/blog/document-intelligence-pipeline", blurb: "Ingest, classify, extract, validate, route." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -213,13 +197,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "AI Agent Development", href: "/services/ai/agents", blurb: "Goal-driven agents that pick their own path through workflows." },
     ],
     resources: {
-      blogs: [
-        { label: "Agentic Workflows: A Practical Architecture", href: "/blog/agentic-workflows-architecture", blurb: "Planner-executor patterns, tool use, and human-in-the-loop." },
-        { label: "Integrating AI with Make, n8n, and Zapier", href: "/blog/ai-automation-make-n8n-zapier", blurb: "When to use a no-code tool vs a custom orchestration layer." },
-      ],
-      caseStudies: [
-        { label: "Insurance Claims Automation — 84% Time Savings", href: "/case-studies/insurance-claims-automation", blurb: "Agentic pipeline that triages, extracts, and routes claims." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -234,13 +213,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "AI Chatbots & Virtual Assistants", href: "/services/ai/chatbots", blurb: "Conversational front-ends that hand off to backend agents." },
     ],
     resources: {
-      blogs: [
-        { label: "Agent Patterns: ReAct, Plan-and-Execute, and Multi-Agent", href: "/blog/agent-patterns-react-plan-execute", blurb: "When each pattern wins, and where they fail in production." },
-        { label: "Memory Architectures for Long-Running Agents", href: "/blog/agent-memory-architectures", blurb: "Episodic, semantic, and procedural memory patterns that scale." },
-      ],
-      caseStudies: [
-        { label: "Autonomous SDR Agent — 38 Prospects per Rep per Day", href: "/case-studies/autonomous-sdr-agent", blurb: "Multi-agent system that researches, drafts, and personalises outbound." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -257,13 +231,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Authentication & Security", href: "/services/web/auth", blurb: "OAuth, SSO, MFA, and zero-trust architectures." },
     ],
     resources: {
-      blogs: [
-        { label: "Microservices vs Monolith: A 2026 Decision Framework", href: "/blog/microservices-vs-monolith", blurb: "When the operational tax of microservices is worth paying." },
-        { label: "CI/CD Pipelines for Next.js + Prisma Stack", href: "/blog/cicd-nextjs-prisma", blurb: "Preview environments, schema migrations, zero-downtime deploys." },
-      ],
-      caseStudies: [
-        { label: "Healthcare SaaS — HIPAA-compliant Multi-tenant Platform", href: "/case-studies/healthcare-saas-platform", blurb: "Built on Next.js, Postgres, and a SOC 2 control surface." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -278,13 +247,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Web Maintenance & Support", href: "/services/web/maintenance", blurb: "SLA-backed ongoing engineering." },
     ],
     resources: {
-      blogs: [
-        { label: "Multi-tenant Data Architectures: A Comparative Guide", href: "/blog/multi-tenant-data-architectures", blurb: "Shared DB, schema-per-tenant, or DB-per-tenant — tradeoffs." },
-        { label: "SaaS Pricing Page Design That Converts", href: "/blog/saas-pricing-page-design", blurb: "Anchoring, tier naming, and feature gating." },
-      ],
-      caseStudies: [
-        { label: "B2B SaaS — 0 → 1,200 Paying Customers in 14 Months", href: "/case-studies/b2b-saas-growth", blurb: "Full-stack build + iterative pricing optimization." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -299,10 +263,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Web Maintenance & Support", href: "/services/web/maintenance", blurb: "Quarterly security audits and patch management." },
     ],
     resources: {
-      blogs: [
-        { label: "OAuth 2.0 Flows: Which One Should You Use?", href: "/blog/oauth-2-flows-explained", blurb: "Authorization Code, PKCE, Client Credentials, Device Code." },
-        { label: "Zero Trust for Web Apps: A Practical Implementation", href: "/blog/zero-trust-web-apps", blurb: "Identity-aware proxies, mTLS, and short-lived tokens." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -317,10 +278,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Custom Software Development", href: "/services/web/custom-software", blurb: "Heavy-compute backend services." },
     ],
     resources: {
-      blogs: [
-        { label: "FastAPI vs Django vs Flask in 2026", href: "/blog/fastapi-vs-django-vs-flask", blurb: "Performance, ecosystem, and team-skill tradeoffs." },
-        { label: "Async Python at Scale: asyncio + uvicorn", href: "/blog/async-python-at-scale", blurb: "Event-loop pitfalls, backpressure, and observability." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -335,10 +293,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Full-Stack Web Development", href: "/services/web/full-stack", blurb: "Headless WordPress + Next.js frontends." },
     ],
     resources: {
-      blogs: [
-        { label: "Headless WordPress: When It's Worth the Migration", href: "/blog/headless-wordpress-migration", blurb: "Performance, editor experience, and total cost of ownership." },
-        { label: "WordPress Security Hardening Checklist", href: "/blog/wordpress-security-checklist", blurb: "12 controls every WP site should enforce." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -353,13 +308,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Web Maintenance & Support", href: "/services/web/maintenance", blurb: "PCI-DSS scans and uptime monitoring." },
     ],
     resources: {
-      blogs: [
-        { label: "Shopify vs Headless Commerce: 2026 TCO Analysis", href: "/blog/shopify-vs-headless-commerce", blurb: "Total cost of ownership across 3 years." },
-        { label: "E-commerce Site Speed: A Revenue Equation", href: "/blog/ecommerce-site-speed-revenue", blurb: "Every 100ms of LCP improvement equals measurable revenue lift." },
-      ],
-      caseStudies: [
-        { label: "DTC Fashion Brand — 41% Revenue Lift from Headless Replatform", href: "/case-studies/dtc-fashion-headless-replatform", blurb: "Next.js + Shopify Hydrogen + Algolia." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -374,10 +324,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Web Maintenance & Support", href: "/services/web/maintenance", blurb: "Long-term stewardship of custom builds." },
     ],
     resources: {
-      blogs: [
-        { label: "Build vs Buy vs Open-Source: A Decision Matrix", href: "/blog/build-vs-buy-decision-matrix", blurb: "Total cost of ownership, lock-in, and team capability." },
-        { label: "Designing for Extensibility: Plugin Architectures 101", href: "/blog/plugin-architectures-101", blurb: "Webhooks, events, and SDK patterns." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -392,10 +339,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Custom Software Development", href: "/services/web/custom-software", blurb: "Legacy system stewardship." },
     ],
     resources: {
-      blogs: [
-        { label: "The True Cost of Downtime: A Calculator", href: "/blog/cost-of-downtime-calculator", blurb: "Revenue, reputation, and recovery cost models." },
-        { label: "SLA Templates for Web Application Support", href: "/blog/sla-templates-web-apps", blurb: "Response times, escalation paths, and credit structures." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -410,13 +354,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Web Maintenance & Support", href: "/services/web/maintenance", blurb: "Post-launch iteration." },
     ],
     resources: {
-      blogs: [
-        { label: "The Website Redesign Playbook (Without Killing SEO)", href: "/blog/website-redesign-playbook", blurb: "301 maps, content audits, and redirect testing." },
-        { label: "When to Redesign vs When to Iterate", href: "/blog/redesign-vs-iterate", blurb: "Decision criteria beyond 'it looks dated'." },
-      ],
-      caseStudies: [
-        { label: "B2B SaaS Redesign — 28% Lift in Demo Conversions", href: "/case-studies/b2b-saas-redesign", blurb: "Full rebrand + Next.js rebuild + IA overhaul." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -431,10 +370,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Web Redesign Services", href: "/services/web/redesign", blurb: "Migrations as part of redesign." },
     ],
     resources: {
-      blogs: [
-        { label: "Vercel vs AWS vs Self-Hosted: 2026 Hosting Guide", href: "/blog/vercel-vs-aws-vs-self-hosted", blurb: "Latency, cost, and operational overhead compared." },
-        { label: "Domain DNS Best Practices for SaaS", href: "/blog/domain-dns-best-practices", blurb: "CNAME flattening, SPF/DKIM/DMARC, and DNSSEC." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -451,13 +387,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Social Media Marketing", href: "/services/digital-marketing/social-media", blurb: "Paid social + organic synergy." },
     ],
     resources: {
-      blogs: [
-        { label: "ROAS vs LTV/CAC: The Metric That Actually Matters", href: "/blog/roas-vs-ltv-cac", blurb: "Why ROAS alone misleads growth-stage brands." },
-        { label: "Attribution in a Post-Cookie World", href: "/blog/attribution-post-cookie", blurb: "Server-side tracking, MMM, and incrementality testing." },
-      ],
-      caseStudies: [
-        { label: "DTC Brand — 4.2x ROAS at 8-figure Scale", href: "/case-studies/dtc-paid-advertising-roas", blurb: "Meta + Google + TikTok with server-side conversions." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -472,10 +403,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Paid Advertising", href: "/services/digital-marketing/paid-advertising", blurb: "Amplify hero content." },
     ],
     resources: {
-      blogs: [
-        { label: "The Content Pillar Strategy: A 2026 Implementation Guide", href: "/blog/content-pillar-strategy", blurb: "Topic clusters, internal linking, and editorial calendars." },
-        { label: "Generative Engine Optimization (GEO) for AI Search", href: "/blog/generative-engine-optimization", blurb: "How to get cited in ChatGPT, Perplexity, and Google AI Overviews." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -490,13 +418,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Search Engine Optimization", href: "/services/seo", blurb: "Pre-qualification via intent-matched SEO." },
     ],
     resources: {
-      blogs: [
-        { label: "The CRO Experimentation Hierarchy", href: "/blog/cro-experimentation-hierarchy", blurb: "From heuristic audits to multi-variate tests." },
-        { label: "Statistical Significance for A/B Tests Without the Math", href: "/blog/ab-test-statistical-significance", blurb: "Practical p-values, power, and sample size." },
-      ],
-      caseStudies: [
-        { label: "SaaS Trial Funnel — 19% → 34% Activation in 90 Days", href: "/case-studies/saas-trial-funnel-cro", blurb: "Funnel diagnostics + 14 shipped experiments." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -511,13 +434,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Full-Stack Web Development", href: "/services/web/full-stack", blurb: "Technical SEO infrastructure." },
     ],
     resources: {
-      blogs: [
-        { label: "Programmatic SEO: Scaling to 10,000+ Pages", href: "/blog/programmatic-seo", blurb: "Page templates, data sources, and indexation strategy." },
-        { label: "Core Web Vitals 2026: INP, LCP, and CLS Targets", href: "/blog/core-web-vitals-2026", blurb: "What Google measures now and how to fix common failures." },
-      ],
-      caseStudies: [
-        { label: "Local Services Brand — 312% Organic Growth in 11 Months", href: "/case-studies/local-services-organic-growth", blurb: "Technical SEO + content sprint + local link building." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -532,10 +450,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Creative Graphic Design", href: "/services/creative/graphic-design", blurb: "Social templates and brand systems." },
     ],
     resources: {
-      blogs: [
-        { label: "Organic Social Reach Is Dead. Here's What Replaced It.", href: "/blog/organic-social-reach-dead", blurb: "Why owned audience + paid amplification wins in 2026." },
-        { label: "Short-Form Video Production at Scale", href: "/blog/short-form-video-at-scale", blurb: "Batch production, templating, and creator networks." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -552,10 +467,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Content Strategy", href: "/services/digital-marketing/content-strategy", blurb: "Visual language for content distribution." },
     ],
     resources: {
-      blogs: [
-        { label: "Brand Systems: From Logo to Design Tokens", href: "/blog/brand-systems-design-tokens", blurb: "Operationalize brand across Figma, code, and docs." },
-        { label: "Color Contrast for Brand Designers", href: "/blog/color-contrast-brand-designers", blurb: "WCAG AA/AAA without sacrificing aesthetic." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -570,13 +482,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Conversion Rate Optimization", href: "/services/digital-marketing/cro", blurb: "UX patterns that convert." },
     ],
     resources: {
-      blogs: [
-        { label: "Design Systems: A 2026 Maturity Model", href: "/blog/design-systems-maturity-model", blurb: "From style guide to design ops." },
-        { label: "Accessibility-First Design: A Practical Workflow", href: "/blog/accessibility-first-design", blurb: "Inclusive design without compromise." },
-      ],
-      caseStudies: [
-        { label: "Fintech App — WCAG 2.2 AAA + 22% Activation Lift", href: "/case-studies/fintech-accessibility-redesign", blurb: "Inclusive design that also grew conversions." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -591,10 +498,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Paid Advertising", href: "/services/digital-marketing/paid-advertising", blurb: "Video creative for paid social." },
     ],
     resources: {
-      blogs: [
-        { label: "The Video Production Brief Template", href: "/blog/video-production-brief-template", blurb: "Briefs that prevent expensive reshoots." },
-        { label: "Editing for Short-Form: Hook, Hold, Payoff", href: "/blog/short-form-video-editing", blurb: "First 1.5 seconds, retention curves, payoff patterns." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -618,13 +522,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       "creative/web-design",
     ],
     resources: {
-      blogs: [
-        { label: "MVP Scope: What to Build First, What to Cut", href: "/blog/mvp-scoping", blurb: "The ruthless prioritization framework." },
-        { label: "Pre-Seed Tech Due Diligence Checklist", href: "/blog/tech-due-diligence-checklist", blurb: "What investors actually ask about your stack." },
-      ],
-      caseStudies: [
-        { label: "Pre-seed → Series A: 14-month Engineering Sprint", href: "/case-studies/startup-series-a-sprint", blurb: "0 → 12k MAU with a 3-engineer team." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [
         { label: "Starter Kit for Founders", href: "/services/starter-kit", blurb: "Fixed-scope MVP package." },
         SHARED_RESOURCES.pricing,
@@ -650,10 +549,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       "digital-marketing/social-media",
     ],
     resources: {
-      blogs: [
-        { label: "Local SEO: Google Business Profile Optimization", href: "/blog/local-seo-gbp-optimization", blurb: "Rank in the local pack without paid ads." },
-        { label: "Online Booking Systems for Service Businesses", href: "/blog/online-booking-systems", blurb: "Calendly vs Cal.com vs custom." },
-      ],
+      blogs: [],
       pricing: [
         { label: "Starter Kit for Local Businesses", href: "/services/starter-kit", blurb: "Get online in 2 weeks." },
         SHARED_RESOURCES.pricing,
@@ -679,13 +575,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       "web/maintenance",
     ],
     resources: {
-      blogs: [
-        { label: "DTC Unit Economics: The 30/30/30 Rule", href: "/blog/dtc-unit-economics", blurb: "COGS, CAC, and contribution margin." },
-        { label: "Subscription Commerce: Build vs Buy", href: "/blog/subscription-commerce-build-vs-buy", blurb: "Recharge, Ordergroove, or custom?" },
-      ],
-      caseStudies: [
-        { label: "DTC Skincare — $0 → $4M ARR in 18 Months", href: "/case-studies/dtc-skincare-growth", blurb: "Headless commerce + paid social + CRO." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -706,10 +597,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       "digital-marketing/social-media",
     ],
     resources: {
-      blogs: [
-        { label: "POS Integration Patterns for Repair Shops", href: "/blog/pos-integration-repair-shops", blurb: "Square, Shopify POS, or custom?" },
-        { label: "Inventory Management for High-SKU Service Businesses", href: "/blog/inventory-management-high-sku", blurb: "Reorder points, ABC analysis, and dead stock." },
-      ],
+      blogs: [],
       pricing: [
         { label: "Starter Kit for Repair Shops", href: "/services/starter-kit", blurb: "Booking + inventory + POS in one package." },
         SHARED_RESOURCES.pricing,
@@ -734,13 +622,8 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       "digital-marketing/content-strategy",
     ],
     resources: {
-      blogs: [
-        { label: "UK GDPR vs EU GDPR: What's Different in 2026", href: "/blog/uk-gdpr-vs-eu-gdpr", blurb: "Practical implications for UK SaaS." },
-        { label: "FCA Compliance for Fintech Websites", href: "/blog/fca-compliance-fintech", blurb: "Regulatory disclosures, KYC, and audit trails." },
-      ],
-      caseStudies: [
-        { label: "UK WealthTech — FCA-compliant Client Portal", href: "/case-studies/uk-wealthtech-fca-portal", blurb: "Built on Next.js + Postgres + audit logging." },
-      ],
+      blogs: [],
+      caseStudies: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -762,10 +645,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       "ai/automation",
     ],
     resources: {
-      blogs: [
-        { label: "White-Label Engineering Partnership Models", href: "/blog/white-label-engineering-models", blurb: "Retainer, project, or staff augmentation." },
-        { label: "How to Brief an External Engineering Team", href: "/blog/briefing-external-engineering-team", blurb: "PRDs, acceptance criteria, and async rituals." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -782,10 +662,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Solutions for Startups", href: "/solutions/startups", blurb: "Broader founder playbook." },
     ],
     resources: {
-      blogs: [
-        { label: "MVP in 2 Weeks: Realistic or Hype?", href: "/blog/mvp-in-2-weeks", blurb: "What's possible, what isn't, and what to do instead." },
-        { label: "The Founder's Tech Stack Decision Tree", href: "/blog/founder-tech-stack-decision-tree", blurb: "Next.js, Webflow, WordPress, Shopify, or custom?" },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact],
     },
   },
@@ -800,10 +677,7 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
       { label: "Starter Kit", href: "/services/starter-kit", blurb: "A low-risk way to start working together." },
     ],
     resources: {
-      blogs: [
-        { label: "How We Hire Engineers", href: "/blog/how-we-hire-engineers", blurb: "Our 5-stage technical interview process." },
-        { label: "The ClickTake Engineering Principles", href: "/blog/engineering-principles", blurb: "The 7 rules we hold ourselves to." },
-      ],
+      blogs: [],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact, SHARED_RESOURCES.portfolio],
     },
   },
@@ -820,7 +694,6 @@ export const HUB_SPOKE_MAP: Record<string, HubSpokeEntry> = {
     resources: {
       blogs: [
         { label: "Careers at ClickTake", href: "/careers", blurb: "Open engineering, design, and PM roles." },
-        { label: "Our Engineering Ladder", href: "/blog/engineering-ladder", blurb: "L3 → L6 expectations and progression." },
       ],
       pricing: [SHARED_RESOURCES.pricing, SHARED_RESOURCES.contact, SHARED_RESOURCES.portfolio],
     },

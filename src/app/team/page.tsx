@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { TeamPage } from "@/components/site/pages/team-page";
 import { DeepDiveLayout } from "@/components/site/deep-dive/deep-dive-layout";
 import { teamDeepDive } from "@/content/deep-dive/team";
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 import {
   JsonLd,
   buildBreadcrumbJsonLd,
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://clicktaketech.com/team" },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "ClickTake Team — Multi-Region Specialists",
     description:
       "28 specialists across 5 departments and 4 regions. Senior-only engineering, named teams, radical transparency.",

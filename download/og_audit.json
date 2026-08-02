@@ -1,0 +1,178 @@
+[
+  {
+    "file": "app/about/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n    title: \"About ClickTake \u2014 Multi-Region AI-Powered Digital Agency\",\n    description:\n      \"Founded 2019. Teams in Birmingham, Multan, Austin and Dubai. Building AI-powered websites, S"
+  },
+  {
+    "file": "app/blog/[slug]/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": false,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n      title,\n      description: post.excerpt,\n      url,\n      type: \"article\",\n      locale: \"en_GB\",\n      publishedTime: post.publishedAt,\n      authors: [post.author],\n      tags: pos"
+  },
+  {
+    "file": "app/blog/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n    title: \"ClickTake Blog \u2014 SEO \u00b7 Web Dev \u00b7 AI \u00b7 Marketing\",\n    description:\n      \"Practical articles on SEO, web dev, AI automation, e-commerce and growth marketing. By the ClickTake "
+  },
+  {
+    "file": "app/careers/[slug]/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": false,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n      title,\n      description: role.summary,\n      url,\n      type: \"article\",\n      locale: \"en_GB\",\n    }"
+  },
+  {
+    "file": "app/careers/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n    title: \"Careers at ClickTake Technologies \u2014 Build the Future with Us\",\n    description:\n      \"Open roles + internships across 5 departments and 4 regions. Remote-first, senior-only, "
+  },
+  {
+    "file": "app/case-studies/[slug]/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": false,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n      title,\n      description: cs.challenge,\n      url,\n      type: \"article\",\n      locale: \"en_GB\",\n    }"
+  },
+  {
+    "file": "app/case-studies/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n    title: \"ClickTake Case Studies \u2014 Real Engagements, Real Metrics\",\n    description:\n      \"Real case studies with verifiable metrics across SEO, web, e-commerce, SaaS, branding and soc"
+  },
+  {
+    "file": "app/cities/[city]/[[...service]]/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n        title: content.meta.title,\n        description: content.meta.description,\n        url: content.meta.canonical,\n        type: \"website\",\n        locale: city.context.languages[0] |"
+  },
+  {
+    "file": "app/cities/[city]/[[...service]]/page.tsx",
+    "block_index": 1,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n      title: content.meta.title,\n      description: content.meta.description,\n      url: content.meta.canonical,\n      type: \"article\",\n      locale: city.context.languages[0] || \"en_GB\","
+  },
+  {
+    "file": "app/cities/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n      title: content.meta.title,\n      description: content.meta.description,\n      url: content.meta.canonical,\n      type: \"website\",\n      locale: \"en_GB\",\n    }"
+  },
+  {
+    "file": "app/contact/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n    title: \"Contact ClickTake Technologies \u2014 Free 30-min Consultation\",\n    description:\n      \"Project inquiry form, discovery-call scheduler and full office details across UK, Pakistan,"
+  },
+  {
+    "file": "app/legal/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n    title: \"Legal \u2014 ClickTake Technologies\",\n    description:\n      \"Privacy Policy, Terms of Service, and Cookie Policy for ClickTake Technologies.\",\n    url: \"https://clicktaketech.com/"
+  },
+  {
+    "file": "app/page.tsx",
+    "block_index": 0,
+    "has_image": true,
+    "has_url": true,
+    "has_site_name": true,
+    "block_preview": "openGraph: {\n    title: \"ClickTake Technologies \u2014 AI-Powered Digital Agency | UK \u00b7 PK \u00b7 USA \u00b7 Dubai\",\n    description:\n      \"Custom software, AI automation and growth marketing for brands in the UK, "
+  },
+  {
+    "file": "app/portfolio/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n    title: \"Portfolio \u2014 Case Studies from ClickTake Technologies\",\n    description:\n      \"Headless commerce, AI dashboards, brand systems and growth campaigns shipped across UK, Pakistan"
+  },
+  {
+    "file": "app/pricing/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n    title: \"ClickTake Pricing \u2014 Starter \u00b7 Growth \u00b7 Scale \u00b7 Custom\",\n    description:\n      \"Transparent pricing across 4 engagement tiers. No hidden fees, no lock-in. Free 30-minute consu"
+  },
+  {
+    "file": "app/resources/[slug]/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": false,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n      title,\n      description: resource.excerpt,\n      url,\n      type: \"article\",\n      locale: \"en_GB\",\n    }"
+  },
+  {
+    "file": "app/resources/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n    title: \"Resources \u2014 Playbooks & Guides | ClickTake Technologies\",\n    description:\n      \"Practical playbooks on AI, SEO, headless commerce, hiring and market entry \u2014 written for foun"
+  },
+  {
+    "file": "app/services/[[...slug]]/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": false,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n        title,\n        description: category.description,\n        url,\n        type: \"website\",\n        locale: \"en_GB\",\n      }"
+  },
+  {
+    "file": "app/services/[[...slug]]/page.tsx",
+    "block_index": 1,
+    "has_image": false,
+    "has_url": false,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n      title,\n      description: service.detailed_description || service.description,\n      url,\n      type: \"article\",\n      locale: \"en_GB\",\n    }"
+  },
+  {
+    "file": "app/solutions/[slug]/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": false,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n      title,\n      description: solution.summary,\n      url,\n      type: \"article\",\n      locale: \"en_GB\",\n    }"
+  },
+  {
+    "file": "app/solutions/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n    title: \"ClickTake Solutions \u2014 Built for your business type\",\n    description:\n      \"Six tailored solutions for Startups, Local Businesses, E-commerce Brands, Repair Shops, UK Busines"
+  },
+  {
+    "file": "app/team/page.tsx",
+    "block_index": 0,
+    "has_image": false,
+    "has_url": true,
+    "has_site_name": false,
+    "block_preview": "openGraph: {\n    title: \"ClickTake Team \u2014 Multi-Region Specialists\",\n    description:\n      \"28 specialists across 5 departments and 4 regions. Senior-only engineering, named teams, radical transparen"
+  }
+]

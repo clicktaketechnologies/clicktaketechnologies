@@ -3,10 +3,19 @@ import { FileText } from "lucide-react";
 import { LegalPage } from "@/components/site/pages/legal-page";
 import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
     "Review the Terms of Service and contract parameters for working with ClickTake Technologies Ltd.",
+  openGraph: {
+    title: "Terms of Service",
+    description: "Review the Terms of Service and contract parameters for working with ClickTake Technologies Ltd.",
+    url: "https://clicktaketech.com/legal/terms",
+    type: "website",
+    locale: "en_GB",
+    images: [DEFAULT_OG_IMAGE],
+  },
   alternates: { canonical: "https://clicktaketech.com/legal/terms" },
 };
 

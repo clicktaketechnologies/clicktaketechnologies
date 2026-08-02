@@ -4,6 +4,7 @@ import { JsonLd, buildBreadcrumbJsonLd, buildWebSiteJsonLd } from "@/components/
 import { prisma } from "@/lib/db";
 import { ensureCmsBlogsTable } from "@/lib/ensure-blog-table";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const revalidate = 300; // 5-min ISR — picks up new DB-published posts
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://clicktaketech.com/blog" },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "ClickTake Blog — SEO · Web Dev · AI · Marketing",
     description:
       "Practical articles on SEO, web dev, AI automation, e-commerce and growth marketing. By the ClickTake team.",

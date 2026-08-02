@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { NxPageLayout } from "@/components/site/nx-page-layout";
 import { ServiceDetailPage } from "@/components/site/pages/service-detail-page";
 import { DeepDiveLayout } from "@/components/site/deep-dive/deep-dive-layout";
 import { llmDeepDive } from "@/content/deep-dive/llm";
@@ -27,8 +30,9 @@ import { graphicDesignDeepDive } from "@/content/deep-dive/creative-graphic-desi
 import { webDesignDeepDive } from "@/content/deep-dive/creative-web-design";
 import { videoProductionDeepDive } from "@/content/deep-dive/creative-video-production";
 import { starterKitDeepDive } from "@/content/deep-dive/starter-kit";
-import { SERVICES, CATEGORY_STYLES, SITE } from "@/lib/site-data";
+import { SERVICES, CATEGORY_STYLES, SERVICE_CATEGORIES, SITE } from "@/lib/site-data";
 import type { DeepDiveContent } from "@/components/site/deep-dive/deep-dive-types";
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 import {
   JsonLd,
   buildServiceJsonLd,
@@ -75,9 +79,27 @@ const DEEP_DIVE_CONTENT: Record<string, DeepDiveContent> = {
 
 interface Params { params: Promise<{ slug?: string[] }> }
 
+/**
+ * URL slug → SERVICE_CATEGORIES.id mapping.
+ * `digital-marketing` is the public URL for the `marketing` category
+ * (matches the PILLARS href in hub-spoke-map.ts and the service slug prefix
+ * `digital-marketing/*`). Both `/services/digital-marketing` and
+ * `/services/marketing` resolve to the same category.
+ */
+const CATEGORY_URL_TO_ID: Record<string, string> = {
+  ai: "ai",
+  web: "web",
+  creative: "creative",
+  marketing: "marketing",
+  "digital-marketing": "marketing",
+};
+
 export async function generateStaticParams() {
   // Flatten each service slug "ai/llm" → ["ai", "llm"]
-  return SERVICES.map((s) => ({ slug: s.slug.split("/") }));
+  const serviceParams = SERVICES.map((s) => ({ slug: s.slug.split("/") }));
+  // Add category index pages (single-segment)
+  const categoryParams = Object.keys(CATEGORY_URL_TO_ID).map((c) => ({ slug: [c] }));
+  return [...serviceParams, ...categoryParams];
 }
 
 // Geo-targeted keyword bundles per service category — used to enrich the
@@ -128,6 +150,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       description:
         "Browse all ClickTake Technologies services across four practice areas: AI & Machine Learning, Web Development, Digital Marketing, and Creative. Custom LLMs, chatbots, SaaS platforms, SEO, paid ads, branding and video — delivered from offices in Birmingham, Multan, Austin and Dubai.",
       alternates: { canonical: "https://clicktaketech.com/services" },
+      openGraph: {
+        title: "Services — AI · Web · Marketing",
+        description:
+          "Browse all ClickTake Technologies services across four practice areas: AI & Machine Learning, Web Development, Digital Marketing, and Creative. Custom LLMs, chatbots, SaaS platforms, SEO, paid ads, branding and video — delivered from offices in Birmingham, Multan, Austin and Dubai.",
+        url: "https://clicktaketech.com/services",
+        type: "website",
+        locale: "en_GB",
+        images: [DEFAULT_OG_IMAGE],
+      },
       keywords: [
         "ClickTake services",
         "AI development services",
@@ -139,6 +170,44 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     };
   }
   const joined = slug.join("/");
+
+  // ── Category index page (e.g. /services/ai, /services/web) ────────
+  if (slug.length === 1 && CATEGORY_URL_TO_ID[joined]) {
+    const categoryId = CATEGORY_URL_TO_ID[joined];
+    const category = SERVICE_CATEGORIES.find((c) => c.id === categoryId);
+    const style = CATEGORY_STYLES[categoryId];
+    if (!category || !style) return { title: "Category not found" };
+
+    const title = `${style.eyebrow} Services — ClickTake`;
+    const description = `${category.description} Available across the UK (Birmingham, London, Manchester), Pakistan (Multan, Lahore, Karachi, Islamabad), USA (Austin, New York, San Francisco) and Dubai (UAE, MENA region). Book a free 30-minute consultation with ClickTake Technologies.`;
+    const url = `https://clicktaketech.com/services/${joined}`;
+
+    return {
+      title,
+      description,
+      alternates: { canonical: url },
+      openGraph: {
+        images: [DEFAULT_OG_IMAGE],title,
+        description: category.description,
+        url,
+        type: "website",
+        locale: "en_GB",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${style.eyebrow} | ClickTake Technologies`,
+        description: category.tagline,
+      },
+      keywords: [
+        style.eyebrow,
+        style.group,
+        category.title,
+        "ClickTake Technologies",
+        ...(GEO_KEYWORDS[categoryId] || []),
+      ],
+    };
+  }
+
   const service = SERVICES.find((s) => s.slug === joined);
   if (!service) return { title: "Service not found" };
 
@@ -154,7 +223,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description,
     alternates: { canonical: url },
     openGraph: {
-      title,
+      images: [DEFAULT_OG_IMAGE],title,
       description: service.detailed_description || service.description,
       url,
       type: "article",
@@ -198,6 +267,82 @@ export default async function Page({ params }: Params) {
   }
 
   const joined = slug.join("/");
+
+  // ── Category index page (e.g. /services/ai, /services/web) ────────
+  if (slug.length === 1 && CATEGORY_URL_TO_ID[joined]) {
+    const categoryId = CATEGORY_URL_TO_ID[joined];
+    const category = SERVICE_CATEGORIES.find((c) => c.id === categoryId);
+    const style = CATEGORY_STYLES[categoryId];
+    if (!category || !style) notFound();
+
+    // All services in this category
+    const categoryServices = SERVICES.filter(
+      (s) => s.category === categoryId && s.slug !== "starter-kit"
+    );
+
+    const breadcrumb = buildBreadcrumbJsonLd([
+      { name: "Services", path: "/services" },
+      { name: style.eyebrow || category.title, path: `/services/${joined}` },
+    ]);
+    const serviceSchema = buildServiceJsonLd({
+      name: `${style.eyebrow} Services`,
+      description: category.description,
+      slug: joined,
+      category: style.eyebrow || "Service",
+      providerName: SITE.name,
+    });
+
+    return (
+      <>
+        <JsonLd data={[breadcrumb, serviceSchema]} />
+        <NxPageLayout>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 sm:mb-6"
+            >
+              ← All services
+            </Link>
+            <div className="max-w-3xl">
+              <div className={`inline-flex items-center gap-2 rounded-full border ${style.accentBorder} ${style.accentBg} px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${style.accentColor}`}>
+                {style.eyebrow}
+              </div>
+              <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+                {category.title}
+              </h1>
+              <p className={`mt-2 text-base sm:text-lg font-medium bg-gradient-to-r ${style.gradient} bg-clip-text text-transparent`}>
+                {category.tagline}
+              </p>
+              <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                {category.description}
+              </p>
+            </div>
+
+            <div className="mt-10 sm:mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {categoryServices.map((s) => (
+                <Link
+                  key={s.slug}
+                  href={`/services/${s.slug}`}
+                  className={`group rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 hover:${style.borderHover} hover:bg-card/60 transition`}
+                >
+                  <h3 className="text-base font-bold leading-snug group-hover:text-primary transition">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                    {s.detailed_description || s.description}
+                  </p>
+                  <div className={`mt-4 inline-flex items-center gap-1.5 text-xs font-semibold ${style.accentColor}`}>
+                    Learn more <ArrowUpRight className="h-3.5 w-3.5" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </NxPageLayout>
+      </>
+    );
+  }
+
   const service = SERVICES.find((s) => s.slug === joined);
   if (!service) notFound();
 
