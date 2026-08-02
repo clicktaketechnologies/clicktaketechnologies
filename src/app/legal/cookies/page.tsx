@@ -3,10 +3,19 @@ import { Cookie } from "lucide-react";
 import { LegalPage } from "@/components/site/pages/legal-page";
 import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const metadata: Metadata = {
   title: "Cookie Policy",
   description:
     "How ClickTake Technologies uses cookies and similar technologies on our website, and how you can control them.",
+  openGraph: {
+    title: "Cookie Policy",
+    description: "How ClickTake Technologies uses cookies and similar technologies on our website, and how you can control them.",
+    url: "https://clicktaketech.com/legal/cookies",
+    type: "website",
+    locale: "en_GB",
+    images: [DEFAULT_OG_IMAGE],
+  },
   alternates: { canonical: "https://clicktaketech.com/legal/cookies" },
 };
 

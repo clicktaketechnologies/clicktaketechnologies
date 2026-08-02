@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AboutPage } from "@/components/site/pages/about-page";
 import { DeepDiveLayout } from "@/components/site/deep-dive/deep-dive-layout";
 import { aboutDeepDive } from "@/content/deep-dive/about";
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 import {
   JsonLd,
   buildBreadcrumbJsonLd,
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://clicktaketech.com/about" },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "About ClickTake — Multi-Region AI-Powered Digital Agency",
     description:
       "Founded 2019. Teams in Birmingham, Multan, Austin and Dubai. Building AI-powered websites, SaaS platforms and growth systems across four continents.",

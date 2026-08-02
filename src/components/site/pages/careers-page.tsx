@@ -433,3 +433,158 @@ export function CareersPage() {
     </NxPageLayout>
   );
 }
+
+// ─── Detail page ──────────────────────────────────────────────────────────────
+
+export function CareerDetailPage({ role }: { role: CareerRole }) {
+  return (
+    <NxPageLayout>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Link
+          href="/careers"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 sm:mb-6"
+        >
+          ← Back to Careers
+        </Link>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+              {role.department}
+            </span>
+            <span className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
+              {role.type}
+            </span>
+          </div>
+          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            {role.title}
+          </h1>
+          <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="h-3.5 w-3.5" /> {role.location}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Briefcase className="h-3.5 w-3.5" /> {role.type}
+            </span>
+          </div>
+          <p className="mt-5 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-3xl">
+            {role.summary}
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href={`/careers?role=${role.slug}#careers-application-form`}
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition"
+            >
+              Apply now <Send className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-5 py-2.5 text-sm font-semibold hover:border-primary/40 hover:bg-secondary transition"
+            >
+              Ask a question <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </motion.div>
+
+        <div className="mt-12 grid gap-8 lg:grid-cols-3">
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
+            className="lg:col-span-2 space-y-10"
+          >
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4">
+                What you&apos;ll do
+              </h2>
+              <ul className="space-y-2.5">
+                {role.responsibilities.map((r, i) => (
+                  <li key={i} className="flex gap-2.5 text-sm text-muted-foreground leading-relaxed">
+                    <CheckCircle2 className="h-4 w-4 text-brand-blue shrink-0 mt-0.5" />
+                    <span>{r}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4">
+                What we&apos;re looking for
+              </h2>
+              <ul className="space-y-2.5">
+                {role.requirements.map((r, i) => (
+                  <li key={i} className="flex gap-2.5 text-sm text-muted-foreground leading-relaxed">
+                    <CheckCircle2 className="h-4 w-4 text-brand-cyan shrink-0 mt-0.5" />
+                    <span>{r}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {role.nice_to_have.length > 0 && (
+              <div>
+                <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4">
+                  Nice to have
+                </h2>
+                <ul className="space-y-2.5">
+                  {role.nice_to_have.map((r, i) => (
+                    <li key={i} className="flex gap-2.5 text-sm text-muted-foreground leading-relaxed">
+                      <Sparkles className="h-4 w-4 text-brand-pink shrink-0 mt-0.5" />
+                      <span>{r}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </motion.section>
+
+          <motion.aside
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="space-y-4"
+          >
+            <div className="rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 sticky top-24">
+              <h3 className="text-sm font-semibold mb-3">Role summary</h3>
+              <dl className="space-y-2 text-xs">
+                <div className="flex justify-between gap-2">
+                  <dt className="text-muted-foreground">Department</dt>
+                  <dd className="text-right">{role.department}</dd>
+                </div>
+                <div className="flex justify-between gap-2">
+                  <dt className="text-muted-foreground">Location</dt>
+                  <dd className="text-right">{role.location}</dd>
+                </div>
+                <div className="flex justify-between gap-2">
+                  <dt className="text-muted-foreground">Type</dt>
+                  <dd className="text-right">{role.type}</dd>
+                </div>
+              </dl>
+              <Link
+                href={`/careers?role=${role.slug}#careers-application-form`}
+                className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-4 py-2.5 text-xs font-semibold text-white shadow-lg hover:scale-105 transition"
+              >
+                Apply now <Send className="h-3.5 w-3.5" />
+              </Link>
+              <p className="mt-3 text-[11px] text-muted-foreground leading-relaxed">
+                We review every application within 5 business days. No AI screening,
+                no auto-rejects. Email{" "}
+                <a href="mailto:careers@clicktaketech.com" className="text-brand-blue hover:underline">
+                  careers@clicktaketech.com
+                </a>{" "}
+                with questions.
+              </p>
+            </div>
+          </motion.aside>
+        </div>
+      </div>
+    </NxPageLayout>
+  );
+}

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Clock } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Clock, FileText, Send, Sparkles } from "lucide-react";
 import Link from "next/link";
 import{
   NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
@@ -88,6 +88,153 @@ export function ResourcesPage() {
             ))}
           </div>
         </section>
+    </NxPageLayout>
+  );
+}
+
+// ─── Detail page ──────────────────────────────────────────────────────────────
+
+export function ResourceDetailPage({
+  resource,
+  learnPoints,
+  related,
+}: {
+  resource: { title: string; excerpt: string; category: string; readTime: string; slug: string };
+  learnPoints: string[];
+  related: { title: string; excerpt: string; category: string; readTime: string; slug: string }[];
+}) {
+  return (
+    <NxPageLayout>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Link
+          href="/resources"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 sm:mb-6"
+        >
+          ← Back to Resources
+        </Link>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+              {resource.category}
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+              <Clock className="h-3.5 w-3.5" /> {resource.readTime}
+            </span>
+          </div>
+          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
+            {resource.title}
+          </h1>
+          <p className="mt-4 sm:mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
+            {resource.excerpt}
+          </p>
+        </motion.div>
+
+        {learnPoints.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
+            className="mt-10 sm:mt-12"
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <FileText className="h-5 w-5 text-brand-blue shrink-0" />
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
+                What you&apos;ll learn
+              </h2>
+            </div>
+            <ul className="space-y-3">
+              {learnPoints.map((point, i) => (
+                <li key={i} className="flex gap-2.5 text-sm text-muted-foreground leading-relaxed">
+                  <CheckCircle2 className="h-4 w-4 text-brand-cyan shrink-0 mt-0.5" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.section>
+        )}
+
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mt-12 sm:mt-16 rounded-2xl border border-brand-blue/30 bg-brand-blue/5 p-6 sm:p-8"
+        >
+          <div className="flex items-start gap-3">
+            <Sparkles className="h-6 w-6 text-brand-blue shrink-0 mt-0.5" />
+            <div>
+              <h2 className="text-lg sm:text-xl font-bold tracking-tight">
+                Get the full guide
+              </h2>
+              <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+                We&apos;re publishing the full version of this guide as a series of
+                articles on our blog. Want it early — or want to talk to a ClickTake
+                strategist about applying it to your business? Book a free 30-minute
+                consult. No sales pitch, no commitment.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition"
+                >
+                  Book a free consult <Send className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/blog"
+                  className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-5 py-2.5 text-sm font-semibold hover:border-primary/40 hover:bg-secondary transition"
+                >
+                  Read the blog <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        {related.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
+            className="mt-12 sm:mt-16"
+          >
+            <h2 className="text-lg sm:text-xl font-bold tracking-tight mb-4">
+              Related resources
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {related.map((r) => (
+                <Link
+                  key={r.slug}
+                  href={`/resources/${r.slug}`}
+                  className="group rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 hover:border-primary/40 hover:bg-card/60 transition"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="rounded-full border border-border bg-secondary/50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      {r.category}
+                    </span>
+                    <Clock className="h-3.5 w-3.5 text-muted-foreground" />
+                  </div>
+                  <h3 className="text-sm font-bold leading-snug group-hover:text-primary transition">
+                    {r.title}
+                  </h3>
+                  <p className="mt-2 text-xs text-muted-foreground line-clamp-2">
+                    {r.excerpt}
+                  </p>
+                  <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-primary">
+                    Read article <ArrowUpRight className="h-3.5 w-3.5" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </motion.section>
+        )}
+      </div>
     </NxPageLayout>
   );
 }

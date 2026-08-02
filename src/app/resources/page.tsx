@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ResourcesPage } from "@/components/site/pages/resources-page";
 import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const metadata: Metadata = {
   title: "Resources — Founders' Playbooks",
   description:
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://clicktaketech.com/resources" },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "Resources — Playbooks & Guides | ClickTake Technologies",
     description:
       "Practical playbooks on AI, SEO, headless commerce, hiring and market entry — written for founders in the UK, Pakistan, USA and Dubai.",

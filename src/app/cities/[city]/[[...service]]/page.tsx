@@ -10,6 +10,7 @@ import { CITIES, getCity } from "@/lib/seo/cities";
 import { SERVICES } from "@/lib/site-data";
 import { JsonLd } from "@/components/site/json-ld";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 /**
  * /cities/[city]            → city hub (lists all services in that city)
  * /cities/[city]/[service]  → city × service landing page
@@ -63,7 +64,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       description: content.meta.description,
       alternates: { canonical: content.meta.canonical },
       openGraph: {
-        title: content.meta.title,
+        images: [DEFAULT_OG_IMAGE],
+    title: content.meta.title,
         description: content.meta.description,
         url: content.meta.canonical,
         type: "website",
@@ -103,7 +105,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description: content.meta.description,
     alternates: { canonical: content.meta.canonical },
     openGraph: {
-      title: content.meta.title,
+      images: [DEFAULT_OG_IMAGE],
+    title: content.meta.title,
       description: content.meta.description,
       url: content.meta.canonical,
       type: "article",

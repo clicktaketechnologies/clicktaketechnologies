@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PortfolioPage } from "@/components/site/pages/portfolio-page";
 import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const metadata: Metadata = {
   title: "Portfolio — Client Case Studies",
   description:
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://clicktaketech.com/portfolio" },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "Portfolio — Case Studies from ClickTake Technologies",
     description:
       "Headless commerce, AI dashboards, brand systems and growth campaigns shipped across UK, Pakistan, USA and Dubai.",

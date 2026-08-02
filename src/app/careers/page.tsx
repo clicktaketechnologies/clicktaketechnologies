@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CareersPage } from "@/components/site/pages/careers-page";
 import { JsonLd, buildBreadcrumbJsonLd } from "@/components/site/json-ld";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const metadata: Metadata = {
   title: "Careers — Build the Future with ClickTake",
   description:
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://clicktaketech.com/careers" },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "Careers at ClickTake Technologies — Build the Future with Us",
     description:
       "Open roles + internships across 5 departments and 4 regions. Remote-first, senior-only, paid internships every quarter.",

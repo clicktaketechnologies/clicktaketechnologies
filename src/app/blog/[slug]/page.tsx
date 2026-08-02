@@ -6,6 +6,7 @@ import { BLOG_POSTS, type BlogPost } from "@/lib/site-data";
 import { prisma } from "@/lib/db";
 import { ensureCmsBlogsTable } from "@/lib/ensure-blog-table";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const revalidate = 300; // 5-min ISR — picks up DB edits
 
 interface Params { params: Promise<{ slug: string }> }
@@ -78,7 +79,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description,
     alternates: { canonical: url },
     openGraph: {
-      title,
+      images: [DEFAULT_OG_IMAGE],title,
       description: post.excerpt,
       url,
       type: "article",

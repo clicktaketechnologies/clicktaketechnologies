@@ -7,6 +7,7 @@ import {
 } from "@/components/site/json-ld";
 import { SITE, TESTIMONIALS } from "@/lib/site-data";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const metadata: Metadata = {
   title: "Contact — Free 30-min Consult",
   description:
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://clicktaketech.com/contact" },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "Contact ClickTake Technologies — Free 30-min Consultation",
     description:
       "Project inquiry form, discovery-call scheduler and full office details across UK, Pakistan, USA and Dubai. 24-hour response guarantee.",

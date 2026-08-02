@@ -8,6 +8,7 @@ import {
 } from "@/components/site/json-ld";
 import { PRICING_PLANS } from "@/lib/site-data";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 const FAQS = [
   {
     q: "Do you offer payment plans?",
@@ -50,6 +51,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://clicktaketech.com/pricing" },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "ClickTake Pricing — Starter · Growth · Scale · Custom",
     description:
       "Transparent pricing across 4 engagement tiers. No hidden fees, no lock-in. Free 30-minute consultation.",

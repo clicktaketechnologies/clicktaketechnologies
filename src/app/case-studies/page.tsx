@@ -8,6 +8,7 @@ import {
 } from "@/components/site/json-ld";
 import { SITE, TESTIMONIALS } from "@/lib/site-data";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const metadata: Metadata = {
   title: "Case Studies — Real Engagements, Real Metrics",
   description:
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://clicktaketech.com/case-studies" },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "ClickTake Case Studies — Real Engagements, Real Metrics",
     description:
       "Real case studies with verifiable metrics across SEO, web, e-commerce, SaaS, branding and social. No fake results.",

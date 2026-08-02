@@ -4,6 +4,7 @@ import { CaseStudyDetailPage } from "@/components/site/pages/case-studies-page";
 import { JsonLd, buildBreadcrumbJsonLd, buildServiceJsonLd } from "@/components/site/json-ld";
 import { CASE_STUDIES, SITE } from "@/lib/site-data";
 
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 interface Params { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description,
     alternates: { canonical: url },
     openGraph: {
-      title,
+      images: [DEFAULT_OG_IMAGE],title,
       description: cs.challenge,
       url,
       type: "article",
