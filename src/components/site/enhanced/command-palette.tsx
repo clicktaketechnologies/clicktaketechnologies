@@ -119,7 +119,7 @@ function buildCommandIndex(): CommandItem[] {
     items.push({
       id: `solution-${s.slug}`,
       label: s.title,
-      description: s.description,
+      description: s.summary,
       category: "Solutions",
       icon: Briefcase,
       keywords: `${s.slug} ${s.title}`,

@@ -15,6 +15,7 @@ import { Nx3DCharacter } from "../nx-3d-character";
 import { NxStoryScene } from "../nx-story-scene";
 import { TiltCard } from "@/components/site/tilt-card";
 import { TurnstileWidget } from "../turnstile-widget";
+import { FloatingInput, validators } from "@/components/site/enhanced/floating-input";
 import { toast } from "sonner";
 import {
   inquirySchema,
@@ -33,6 +34,7 @@ export function ContactPage() {
     handleSubmit: handleInquiryFormSubmit,
     formState: { errors: inquiryErrors, isSubmitting: inquirySubmitting },
     setValue: setInquiryValue,
+    watch: watchInquiry,
     reset: resetInquiryForm,
   } = useForm<InquiryFormValues>({
     resolver: zodResolver(inquirySchema),
@@ -253,17 +255,41 @@ export function ContactPage() {
                       className="space-y-4"
                     >
                       <div className="grid gap-4 sm:grid-cols-2">
-                        <Field label="Name" error={inquiryErrors.name?.message}>
-                          <input {...registerInquiry("name")} className="input-base" placeholder="Jane Doe" />
-                        </Field>
-                        <Field label="Email" error={inquiryErrors.email?.message}>
-                          <input {...registerInquiry("email")} type="email" className="input-base" placeholder="jane@company.com" />
-                        </Field>
+                        <FloatingInput
+                          id="inquiry-name"
+                          label="Name"
+                          value={watchInquiry("name") || ""}
+                          onChange={(v) => setInquiryValue("name", v, { shouldValidate: true })}
+                          required
+                          autoComplete="name"
+                          draftKey="inquiry-name"
+                          validate={validators.required("Name")}
+                          touched={!!inquiryErrors.name}
+                          placeholder="Jane Doe"
+                        />
+                        <FloatingInput
+                          id="inquiry-email"
+                          label="Email"
+                          type="email"
+                          value={watchInquiry("email") || ""}
+                          onChange={(v) => setInquiryValue("email", v, { shouldValidate: true })}
+                          required
+                          autoComplete="email"
+                          draftKey="inquiry-email"
+                          validate={(v) => validators.required("Email")(v) || validators.email(v)}
+                          touched={!!inquiryErrors.email}
+                          placeholder="jane@company.com"
+                        />
                       </div>
 
-                      <Field label="Company (optional)" error={inquiryErrors.company?.message}>
-                        <input {...registerInquiry("company")} className="input-base" placeholder="Acme Inc." />
-                      </Field>
+                      <FloatingInput
+                        id="inquiry-company"
+                        label="Company (optional)"
+                        value={watchInquiry("company") || ""}
+                        onChange={(v) => setInquiryValue("company", v)}
+                        autoComplete="organization"
+                        placeholder="Acme Inc."
+                      />
 
                       <div className="grid gap-4 sm:grid-cols-2">
                         <Field label="Service" error={inquiryErrors.service?.message}>
@@ -285,9 +311,20 @@ export function ContactPage() {
                         </Field>
                       </div>
 
-                      <Field label="Project details" error={inquiryErrors.message?.message}>
-                        <textarea {...registerInquiry("message")} rows={4} className="input-base resize-none" placeholder="Tell us about your goals, timeline, and any constraints..." />
-                      </Field>
+                      <FloatingInput
+                        id="inquiry-message"
+                        label="Project details"
+                        multiline
+                        rows={4}
+                        value={watchInquiry("message") || ""}
+                        onChange={(v) => setInquiryValue("message", v, { shouldValidate: true })}
+                        required
+                        maxLength={2000}
+                        draftKey="inquiry-message"
+                        validate={validators.required("Project details")}
+                        touched={!!inquiryErrors.message}
+                        placeholder="Tell us about your goals, timeline, and any constraints..."
+                      />
 
                       <Field label="Verification" error={inquiryErrors.turnstileToken?.message}>
                         <TurnstileWidget
@@ -359,12 +396,31 @@ export function ContactPage() {
                       onSubmit={handleBookingFormSubmit(onBookingSubmit)}
                       className="space-y-4"
                     >
-                      <Field label="Name" error={bookingErrors.name?.message}>
-                        <input {...registerBooking("name")} className="input-base" placeholder="Jane Doe" />
-                      </Field>
-                      <Field label="Email" error={bookingErrors.email?.message}>
-                        <input {...registerBooking("email")} type="email" className="input-base" placeholder="jane@company.com" />
-                      </Field>
+                      <FloatingInput
+                        id="booking-name"
+                        label="Name"
+                        value={watchBooking("name") || ""}
+                        onChange={(v) => setBookingValue("name", v, { shouldValidate: true })}
+                        required
+                        autoComplete="name"
+                        draftKey="booking-name"
+                        validate={validators.required("Name")}
+                        touched={!!bookingErrors.name}
+                        placeholder="Jane Doe"
+                      />
+                      <FloatingInput
+                        id="booking-email"
+                        label="Email"
+                        type="email"
+                        value={watchBooking("email") || ""}
+                        onChange={(v) => setBookingValue("email", v, { shouldValidate: true })}
+                        required
+                        autoComplete="email"
+                        draftKey="booking-email"
+                        validate={(v) => validators.required("Email")(v) || validators.email(v)}
+                        touched={!!bookingErrors.email}
+                        placeholder="jane@company.com"
+                      />
 
                       {/* Date picker — mock grid of next 5 weekdays */}
                       <Field label="Select a date" error={bookingErrors.date?.message}>

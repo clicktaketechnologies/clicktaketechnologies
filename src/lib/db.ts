@@ -56,11 +56,26 @@ function getPool(): Pool {
   if (!_pool) {
     const connectionString =
       process.env.DATABASE_URL || process.env.DIRECT_URL || "";
+
+    // Fail-fast: if DATABASE_URL is a SQLite-style file: URL (or empty),
+    // the Postgres driver would otherwise hang for ~30s waiting for a TCP
+    // connection that never arrives. Detect this up-front and throw
+    // immediately so callers can fall through to their catch blocks.
+    if (!connectionString || connectionString.startsWith("file:")) {
+      throw new Error(
+        `DATABASE_URL is not a Postgres connection string (got: "${connectionString || "<empty>"}"). ` +
+          `Set DATABASE_URL to a postgres:// or postgresql:// URL.`
+      );
+    }
+
     _pool = new Pool({
       connectionString,
       max: 1,
       allowExitOnIdle: false,
-    });
+      // Defensive timeouts — never let a query hang the request thread
+      connectionTimeoutMillis: 3000, // 3s connect timeout
+      idleTimeoutMillis: 10000, // 10s idle timeout
+    } as any);
   }
   return _pool;
 }
