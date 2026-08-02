@@ -48,7 +48,7 @@ const PAYMENT_REQUIREMENTS = {
   },
   status: "active",
   statusDescription:
-    "x402 protocol is live — /api/premium returns HTTP 402 with x-payment-requirements. Replace the placeholder facilitator URL and pay_to wallet address with real values before accepting payments.",
+    "x402 protocol is live - /api/premium returns HTTP 402 with x-payment-requirements. Replace the placeholder facilitator URL and pay_to wallet address with real values before accepting payments.",
 };
 
 export async function GET() {
