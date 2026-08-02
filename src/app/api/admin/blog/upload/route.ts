@@ -21,10 +21,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getServerSession, hasPermission } from "@/lib/auth";
 import { logAudit } from "@/lib/log-audit";
-import matter from "gray-matter";
-import { marked } from "marked";
-import { PDFParse } from "pdf-parse";
 import { ensureCmsBlogsTable } from "@/lib/ensure-blog-table";
+
+// Heavy parsers (gray-matter, marked, pdf-parse) are imported DYNAMICALLY inside
+// the POST handler so they don't get bundled into the build of OTHER /api/admin/blog/*
+// routes (Next.js bundles all route files in a directory together). If we imported
+// them at module top-level, the entire bundle would fail to load whenever pdf-parse
+// had a Node-specific issue — taking down GET /api/admin/blog with it.
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -122,7 +125,9 @@ function normalizeCategory(c: any): string {
 
 // ─── Parsers ────────────────────────────────────────────────────────────────
 
-function parseMarkdown(filename: string, raw: string): ParseResult {
+async function parseMarkdown(filename: string, raw: string): Promise<ParseResult> {
+  const { default: matter } = await import("gray-matter");
+  const { marked } = await import("marked");
   let parsed;
   try {
     parsed = matter(raw);
@@ -223,7 +228,7 @@ function parseCsvLine(line: string): string[] {
   return fields;
 }
 
-function parseCsv(filename: string, raw: string): ParseResult {
+async function parseCsv(filename: string, raw: string): Promise<ParseResult> {
   // Strip BOM + normalize line endings
   const text = raw.replace(/^\uFEFF/, "").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
   const lines = text.split("\n").filter((l) => l.trim().length > 0);
@@ -271,7 +276,9 @@ function parseCsv(filename: string, raw: string): ParseResult {
 async function parsePdf(filename: string, buf: Buffer): Promise<ParseResult> {
   let text: string;
   try {
-    // pdf-parse v2+ API: instantiate PDFParse with buffer data, call getText()
+    // Dynamic import — pdf-parse v2 needs Node fs/path and must not be bundled
+    // into the GET /api/admin/blog route. Only loaded when a .pdf upload happens.
+    const { PDFParse } = await import("pdf-parse");
     const parser = new PDFParse({ data: new Uint8Array(buf) });
     const result = await parser.getText();
     text = result?.text || "";
@@ -386,9 +393,9 @@ export async function POST(req: NextRequest) {
     let result: ParseResult;
 
     if (ext === ".md" || ext === ".markdown") {
-      result = parseMarkdown(file.name, buf.toString("utf-8"));
+      result = await parseMarkdown(file.name, buf.toString("utf-8"));
     } else if (ext === ".csv") {
-      result = parseCsv(file.name, buf.toString("utf-8"));
+      result = await parseCsv(file.name, buf.toString("utf-8"));
     } else if (ext === ".pdf") {
       result = await parsePdf(file.name, buf);
     } else {
