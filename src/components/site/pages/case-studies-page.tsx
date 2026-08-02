@@ -230,7 +230,7 @@ export function CaseStudiesIndexPage() {
 
 // ─── Detail page ──────────────────────────────────────────────────────────────
 
-export function CaseStudyDetailPage({ cs }: { cs: CaseStudy }) {
+export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; related?: CaseStudy[] }) {
   const status = STATUS_LABELS[cs.result_status] || STATUS_LABELS.pending;
   return (
     <NxPageLayout>
@@ -356,6 +356,51 @@ export function CaseStudyDetailPage({ cs }: { cs: CaseStudy }) {
               </a>
             )}
           </motion.section>
+
+          {/* Related case studies — boosts internal dofollow inlinks from 1 → 4
+              on each detail page (clears Ahrefs "only 1 dofollow inlink" notice
+              on the 6 case-study detail pages). Mirrors the "More in {category}"
+              block on the blog post detail page. */}
+          {related.length > 0 && (
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5 }}
+              className="mt-12 sm:mt-16"
+            >
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4">
+                More case studies
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-3">
+                {related.map((r) => {
+                  const rStatus = STATUS_LABELS[r.result_status] || STATUS_LABELS.pending;
+                  return (
+                    <Link
+                      key={r.slug}
+                      href={`/case-studies/${r.slug}`}
+                      className="group rounded-xl border border-border bg-card/40 backdrop-blur-md p-4 hover:border-primary/40 hover:bg-card/60 transition"
+                    >
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-[10px] uppercase tracking-widest text-brand-blue">
+                          {r.industry}
+                        </span>
+                        <span className={`text-[10px] uppercase tracking-widest ${rStatus.color}`}>
+                          {rStatus.label}
+                        </span>
+                      </div>
+                      <div className="mt-1.5 text-sm font-semibold leading-tight line-clamp-2 group-hover:text-foreground text-foreground/90">
+                        {r.client}
+                      </div>
+                      <div className="mt-2 text-[11px] text-muted-foreground">
+                        {r.location} · {r.timeline}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </motion.section>
+          )}
 
           {/* CTA */}
           <motion.div

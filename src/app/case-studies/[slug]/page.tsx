@@ -52,6 +52,21 @@ export default async function Page({ params }: Params) {
   const cs = CASE_STUDIES.find((c) => c.slug === slug);
   if (!cs) notFound();
 
+  // Pick up to 3 sibling case studies for the "More case studies" block.
+  // Prefer same-industry siblings (most relevant to the reader); if fewer
+  // than 3 exist, fill with the next available case studies (any industry)
+  // so the block always renders 3 cards. Excludes the current page.
+  // The result is a dofollow link from each detail page to 3 others,
+  // bumping internal inlinks from 1 → 4 and clearing the Ahrefs "only 1
+  // dofollow inlink" notice.
+  const sameIndustry = CASE_STUDIES.filter(
+    (c) => c.slug !== cs.slug && c.industry === cs.industry
+  );
+  const others = CASE_STUDIES.filter(
+    (c) => c.slug !== cs.slug && c.industry !== cs.industry
+  );
+  const related = [...sameIndustry, ...others].slice(0, 3);
+
   const breadcrumb = buildBreadcrumbJsonLd([
     { name: "Case Studies", path: "/case-studies" },
     { name: cs.client, path: `/case-studies/${cs.slug}` },
@@ -67,7 +82,7 @@ export default async function Page({ params }: Params) {
   return (
     <>
       <JsonLd data={[breadcrumb, serviceSchema]} />
-      <CaseStudyDetailPage cs={cs} />
+      <CaseStudyDetailPage cs={cs} related={related} />
     </>
   );
 }
