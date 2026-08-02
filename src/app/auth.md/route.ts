@@ -26,7 +26,7 @@ origin: "${AGENT.origin}"
 contact: "${AGENT.contactEmail}"
 last_updated: "${today}"
 agent_auth:
-  skill: "auth.md/v1"
+  skill: "${AGENT.authMdUrl}"
   spec: "https://workos.com/auth.md"
   register_uri: "${AGENT.origin}/api/auth/register"
   documentation_uri: "${AGENT.authMdUrl}"

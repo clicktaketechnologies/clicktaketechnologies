@@ -128,6 +128,18 @@ export const LINK_RELATIONS: Array<{
     type: "text/markdown",
     title: "Agent registration instructions (auth.md)",
   },
+  {
+    href: `${AGENT.origin}/.well-known/x402.json`,
+    rel: "x402-discovery",
+    type: "application/json",
+    title: "x402 Payment Protocol Discovery (x402.org)",
+  },
+  {
+    href: `${AGENT.origin}/api/premium`,
+    rel: "x402-protected",
+    type: "application/json",
+    title: "x402-protected resource (returns HTTP 402 with payment requirements)",
+  },
 ];
 
 /** Serialize LINK_RELATIONS as an RFC 8288 Link header value. */

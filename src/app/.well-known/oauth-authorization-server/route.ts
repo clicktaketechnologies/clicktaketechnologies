@@ -58,7 +58,7 @@ export async function GET() {
     // Agent registration (auth.md spec) — scanner checks for `skill`,
     // `register_uri`, and at least one complete registration method.
     agent_auth: {
-      skill: "auth.md/v1",
+      skill: AGENT.authMdUrl,
       spec: "https://workos.com/auth.md",
       register_uri: `${AGENT.origin}/api/auth/register`,
       documentation_uri: AGENT.authMdUrl,
