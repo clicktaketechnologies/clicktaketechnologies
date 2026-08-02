@@ -22,7 +22,7 @@ import { AbTest } from "./ab-test";
  *  - Text uses --nx-ink so it stays legible in both modes (WCAG AA).
  */
 
-type MegaKey = "services" | "solutions" | "resources" | null;
+type MegaKey = "services" | "solutions" | "resources" | "company" | null;
 
 export function NxNavbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -273,13 +273,12 @@ export function NxNavbar() {
                   )}
 
                   {mega === "resources" && (
-                    <div className="grid grid-cols-3 gap-6 p-8">
+                    <div className="grid grid-cols-2 gap-6 p-8">
                       <div>
                         <div className="nx-eyebrow nx-text-muted mb-3">Showcase</div>
                         <ul className="space-y-2.5">
                           <li><Link href="/portfolio" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Portfolio</Link></li>
                           <li><Link href="/case-studies" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Case Studies</Link></li>
-                          <li><Link href="/team" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Our Team</Link></li>
                         </ul>
                       </div>
                       <div>
@@ -287,16 +286,34 @@ export function NxNavbar() {
                         <ul className="space-y-2.5">
                           <li><Link href="/blog" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Blog</Link></li>
                           <li><Link href="/pricing" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Pricing</Link></li>
-                          <li><Link href="/about" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">About Us</Link></li>
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+
+                  {mega === "company" && (
+                    <div className="grid grid-cols-3 gap-6 p-8">
+                      <div>
+                        <div className="nx-eyebrow nx-text-muted mb-3">About Us</div>
+                        <ul className="space-y-2.5">
+                          <li><Link href="/about" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">About ClickTake</Link></li>
+                          <li><Link href="/team" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Our Team</Link></li>
+                          <li><Link href="/careers" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Careers</Link></li>
                         </ul>
                       </div>
                       <div>
-                        <div className="nx-eyebrow nx-text-muted mb-3">Company</div>
+                        <div className="nx-eyebrow nx-text-muted mb-3">Connect</div>
                         <ul className="space-y-2.5">
-                          <li><Link href="/careers" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Careers</Link></li>
                           <li><Link href="/cities" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Cities We Serve</Link></li>
                           <li><Link href="/contact" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Contact</Link></li>
-                          <li><Link href="/legal" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Legal</Link></li>
+                        </ul>
+                      </div>
+                      <div>
+                        <div className="nx-eyebrow nx-text-muted mb-3">Legal</div>
+                        <ul className="space-y-2.5">
+                          <li><Link href="/legal/terms" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Terms of Service</Link></li>
+                          <li><Link href="/legal/privacy" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Privacy Policy</Link></li>
+                          <li><Link href="/legal/cookies" className="text-sm nx-text-soft hover:text-[var(--nx-brand-pink)] transition">Cookie Policy</Link></li>
                         </ul>
                       </div>
                     </div>
