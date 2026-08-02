@@ -1,0 +1,240 @@
+{
+  "project": "clicktaketech.com (Ahrefs Site Audit)",
+  "files_parsed": [
+    {
+      "file": "Error-404_page.csv",
+      "severity": "Error",
+      "issue": "404 page",
+      "rows": 96,
+      "affected_count": 96,
+      "url_field": "URL"
+    },
+    {
+      "file": "Error-404_page-links.csv",
+      "severity": "Error",
+      "issue": "404 page (link sources)",
+      "rows": 506,
+      "affected_count": 391,
+      "broken_targets_count": 96,
+      "src_field": "Source URL",
+      "tgt_field": "Target URL"
+    },
+    {
+      "file": "Error-4XX_page.csv",
+      "severity": "Error",
+      "issue": "4XX page (non-404)",
+      "rows": 96,
+      "affected_count": 96,
+      "url_field": "URL"
+    },
+    {
+      "file": "Error-4XX_page-links.csv",
+      "severity": "Error",
+      "issue": "4XX page (non-404) (link sources)",
+      "rows": 506,
+      "affected_count": 391,
+      "broken_targets_count": 96,
+      "src_field": "Source URL",
+      "tgt_field": "Target URL"
+    },
+    {
+      "file": "Error-indexable-Orphan_page_(has_no_incoming_internal_links).csv",
+      "severity": "Error",
+      "issue": "Orphan page (no incoming internal links)",
+      "rows": 2,
+      "affected_count": 2,
+      "url_field": "URL"
+    },
+    {
+      "file": "Error-indexable-Page_has_links_to_broken_page.csv",
+      "severity": "Error",
+      "issue": "Indexable page links to broken page (link sources)",
+      "rows": 390,
+      "affected_count": 6,
+      "broken_targets_count": 390,
+      "src_field": "PR",
+      "tgt_field": "URL"
+    },
+    {
+      "file": "Warning-Open_Graph_tags_incomplete.csv",
+      "severity": "Warning",
+      "issue": "Open Graph tags incomplete",
+      "rows": 385,
+      "affected_count": 385,
+      "url_field": "URL"
+    },
+    {
+      "file": "Warning-Open_Graph_URL_not_matching_canonical.csv",
+      "severity": "Warning",
+      "issue": "Open Graph URL not matching canonical",
+      "rows": 4,
+      "affected_count": 4,
+      "url_field": "URL"
+    },
+    {
+      "file": "Notice-indexable-Page_has_only_one_dofollow_incoming_internal_link.csv",
+      "severity": "Notice",
+      "issue": "Indexable page has only 1 dofollow incoming internal link",
+      "rows": 12,
+      "affected_count": 12,
+      "url_field": "URL"
+    },
+    {
+      "file": "Notice-indexable-Page_has_only_one_dofollow_incoming_internal_link-links.csv",
+      "severity": "Notice",
+      "issue": "Indexable page has only 1 dofollow incoming internal link (link sources)",
+      "rows": 12,
+      "affected_count": 4,
+      "broken_targets_count": 12,
+      "src_field": "Source URL",
+      "tgt_field": "Target URL"
+    }
+  ],
+  "issues": [
+    {
+      "severity": "Error",
+      "issue": "404 page",
+      "affected_count": 96,
+      "file": "Error-404_page.csv",
+      "kind": "pages",
+      "sample_urls": [
+        "https://clicktaketech.com/blog/ab-test-statistical-significance",
+        "https://clicktaketech.com/blog/accessibility-first-design",
+        "https://clicktaketech.com/blog/agent-memory-architectures",
+        "https://clicktaketech.com/blog/agent-patterns-react-plan-execute",
+        "https://clicktaketech.com/blog/agentic-workflows-architecture"
+      ],
+      "broken_targets_count": null
+    },
+    {
+      "severity": "Error",
+      "issue": "404 page (link sources)",
+      "affected_count": 391,
+      "file": "Error-404_page-links.csv",
+      "kind": "links-sources",
+      "sample_urls": [
+        "https://clicktaketech.com/",
+        "https://clicktaketech.com/about",
+        "https://clicktaketech.com/blog",
+        "https://clicktaketech.com/blog/ai-automation-playbook-for-sme",
+        "https://clicktaketech.com/blog/ai-chatbot-for-lead-qualification"
+      ],
+      "broken_targets_count": 96
+    },
+    {
+      "severity": "Error",
+      "issue": "4XX page (non-404)",
+      "affected_count": 96,
+      "file": "Error-4XX_page.csv",
+      "kind": "pages",
+      "sample_urls": [
+        "https://clicktaketech.com/blog/ab-test-statistical-significance",
+        "https://clicktaketech.com/blog/accessibility-first-design",
+        "https://clicktaketech.com/blog/agent-memory-architectures",
+        "https://clicktaketech.com/blog/agent-patterns-react-plan-execute",
+        "https://clicktaketech.com/blog/agentic-workflows-architecture"
+      ],
+      "broken_targets_count": null
+    },
+    {
+      "severity": "Error",
+      "issue": "4XX page (non-404) (link sources)",
+      "affected_count": 391,
+      "file": "Error-4XX_page-links.csv",
+      "kind": "links-sources",
+      "sample_urls": [
+        "https://clicktaketech.com/",
+        "https://clicktaketech.com/about",
+        "https://clicktaketech.com/blog",
+        "https://clicktaketech.com/blog/ai-automation-playbook-for-sme",
+        "https://clicktaketech.com/blog/ai-chatbot-for-lead-qualification"
+      ],
+      "broken_targets_count": 96
+    },
+    {
+      "severity": "Error",
+      "issue": "Orphan page (no incoming internal links)",
+      "affected_count": 2,
+      "file": "Error-indexable-Orphan_page_(has_no_incoming_internal_links).csv",
+      "kind": "pages",
+      "sample_urls": [
+        "https://clicktaketech.com/legal/cookies",
+        "https://clicktaketech.com/legal/terms"
+      ],
+      "broken_targets_count": null
+    },
+    {
+      "severity": "Error",
+      "issue": "Indexable page links to broken page (link sources)",
+      "affected_count": 6,
+      "file": "Error-indexable-Page_has_links_to_broken_page.csv",
+      "kind": "links-sources",
+      "sample_urls": [
+        "20",
+        "21",
+        "22",
+        "40",
+        "61"
+      ],
+      "broken_targets_count": 390
+    },
+    {
+      "severity": "Warning",
+      "issue": "Open Graph tags incomplete",
+      "affected_count": 385,
+      "file": "Warning-Open_Graph_tags_incomplete.csv",
+      "kind": "pages",
+      "sample_urls": [
+        "https://clicktaketech.com/about",
+        "https://clicktaketech.com/blog",
+        "https://clicktaketech.com/blog/ai-automation-playbook-for-sme",
+        "https://clicktaketech.com/blog/ai-chatbot-for-lead-qualification",
+        "https://clicktaketech.com/blog/case-study-lumen-commerce-3x-revenue"
+      ],
+      "broken_targets_count": null
+    },
+    {
+      "severity": "Warning",
+      "issue": "Open Graph URL not matching canonical",
+      "affected_count": 4,
+      "file": "Warning-Open_Graph_URL_not_matching_canonical.csv",
+      "kind": "pages",
+      "sample_urls": [
+        "https://clicktaketech.com/legal/cookies",
+        "https://clicktaketech.com/legal/privacy",
+        "https://clicktaketech.com/legal/terms",
+        "https://clicktaketech.com/services"
+      ],
+      "broken_targets_count": null
+    },
+    {
+      "severity": "Notice",
+      "issue": "Indexable page has only 1 dofollow incoming internal link",
+      "affected_count": 12,
+      "file": "Notice-indexable-Page_has_only_one_dofollow_incoming_internal_link.csv",
+      "kind": "pages",
+      "sample_urls": [
+        "https://clicktaketech.com/blog/case-study-lumen-commerce-3x-revenue",
+        "https://clicktaketech.com/blog/clicktake-2026-year-in-review",
+        "https://clicktaketech.com/blog/shopify-vs-medusa-2026",
+        "https://clicktaketech.com/blog/startup-launch-checklist",
+        "https://clicktaketech.com/case-studies/branding-video-editing"
+      ],
+      "broken_targets_count": null
+    },
+    {
+      "severity": "Notice",
+      "issue": "Indexable page has only 1 dofollow incoming internal link (link sources)",
+      "affected_count": 4,
+      "file": "Notice-indexable-Page_has_only_one_dofollow_incoming_internal_link-links.csv",
+      "kind": "links-sources",
+      "sample_urls": [
+        "https://clicktaketech.com/about",
+        "https://clicktaketech.com/blog",
+        "https://clicktaketech.com/careers",
+        "https://clicktaketech.com/case-studies"
+      ],
+      "broken_targets_count": 12
+    }
+  ]
+}
