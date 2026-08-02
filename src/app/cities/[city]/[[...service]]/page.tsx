@@ -79,6 +79,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       keywords: [
         `ClickTake ${city.name}`,
         `${city.name} services`,
+        `${city.name} web design services`,
+        `web design services ${city.name}`,
         `${city.name} AI`,
         `${city.name} web development`,
         `${city.name} SEO`,

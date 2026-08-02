@@ -21,14 +21,28 @@ import { SITE, TESTIMONIALS } from "@/lib/site-data";
  */
 
 export const metadata: Metadata = {
-  title: "ClickTake — AI-Powered Digital Agency",
+  title: "Web Design Services UK · AI-Powered Websites — ClickTake",
   description:
-    "ClickTake builds AI-powered websites, SaaS platforms, mobile apps and growth systems for brands in UK, Pakistan, USA and Dubai. 120+ projects shipped.",
+    "Web design services for UK, Pakistan, USA & Dubai brands. Custom websites, WordPress, ecommerce, SEO & hosting. 120+ shipped. Free 30-min consult.",
   alternates: { canonical: SITE.url },
+  keywords: [
+    "web design services",
+    "web design services UK",
+    "web design services London",
+    "professional web design services",
+    "small business web design services",
+    "ecommerce web design services",
+    "wordpress web design services",
+    "seo and web design services",
+    "affordable web design services",
+    "responsive web design services",
+    "web design hosting services",
+    "ClickTake Technologies",
+  ],
   openGraph: {
-    title: "ClickTake Technologies — AI-Powered Digital Agency | UK · PK · USA · Dubai",
+    title: "ClickTake Technologies — Web Design Services UK · AI-Powered Agency | UK · PK · USA · Dubai",
     description:
-      "Custom software, AI automation and growth marketing for brands in the UK, Pakistan, USA and Dubai. 120+ projects shipped. Free 30-min consult.",
+      "Web design services, custom websites, WordPress, ecommerce, SEO & hosting for brands in the UK, Pakistan, USA and Dubai. 120+ shipped. Free 30-min consult.",
     url: SITE.url,
     siteName: SITE.name,
     type: "website",
@@ -56,8 +70,16 @@ export const metadata: Metadata = {
 // without bloating the client component.
 const HOME_FAQS = [
   {
-    q: "How much does a typical project cost?",
-    a: "Most projects land between $5k and $80k. A landing page sprint starts at $5k, a marketing site is $12–25k, a SaaS MVP is $30–80k, and ongoing growth retainers start at $4k/month. Every quote is fixed-scope and includes a written technical spec — no surprises after kickoff.",
+    q: "What are web design services?",
+    a: "Web design services cover everything needed to plan, design, build and launch a website — UX research, UI design, frontend development on Next.js, content, SEO setup, hosting and ongoing maintenance. ClickTake bundles all of these into a single fixed-scope engagement for brands across the UK, Pakistan, USA and Dubai.",
+  },
+  {
+    q: "How much do web design services cost?",
+    a: "Most ClickTake web design projects land between £1,500 (Starter landing page) and £25,000+ (custom SaaS site). Small business sites start at £1,500, marketing sites are £6,000-12,000, and custom SaaS sites are £20,000+. Every quote is fixed-scope with a written Statement of Work — no surprises after kickoff.",
+  },
+  {
+    q: "How to choose a web design services agency?",
+    a: "Look for: (1) a portfolio of sites in your industry, (2) case studies with measurable outcomes like traffic, conversions and Core Web Vitals, (3) a transparent fixed-scope contract, (4) senior engineers (not juniors) on your project, and (5) post-launch maintenance included. ClickTake meets all five — book a free 30-min consult and we'll show you the receipts.",
   },
   {
     q: "How fast can you start?",
@@ -77,7 +99,7 @@ const HOME_FAQS = [
   },
   {
     q: "Do you offer ongoing maintenance?",
-    a: "Yes. After launch we offer monthly maintenance retainers ($1.5–4k/mo depending on app complexity) that cover bug fixes, security updates, dependency upgrades, and small feature requests. Most clients stay on maintenance for 12+ months — it's month-to-month, cancel anytime.",
+    a: "Yes. After launch we offer monthly maintenance retainers (£150-4k/mo depending on app complexity) that cover bug fixes, security updates, dependency upgrades, and small feature requests. Most clients stay on maintenance for 12+ months — it's month-to-month, cancel anytime.",
   },
 ];
 

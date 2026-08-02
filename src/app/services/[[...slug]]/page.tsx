@@ -147,15 +147,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   if (!slug) {
     return {
-      title: "Services — AI · Web · Marketing",
+      title: "Web Design Services & Digital Agency — AI · Web · Marketing | ClickTake",
       description: truncateMeta(
-        "Browse all ClickTake Technologies services across four practice areas: AI & Machine Learning, Web Development, Digital Marketing, and Creative. Custom LLMs, chatbots, SaaS platforms, SEO, paid ads, branding and video — delivered from offices in Birmingham, Multan, Austin and Dubai."
+        "Web design services, AI development, SEO, ecommerce & growth marketing across four practice areas. Delivered from Birmingham, Multan, Austin & Dubai. Free consult."
       ),
       alternates: { canonical: "https://clicktaketech.com/services" },
       openGraph: {
-        title: "Services — AI · Web · Marketing",
+        title: "Web Design Services & Digital Agency — AI · Web · Marketing | ClickTake",
         description: truncateMeta(
-          "Browse all ClickTake Technologies services across four practice areas: AI & Machine Learning, Web Development, Digital Marketing, and Creative. Custom LLMs, chatbots, SaaS platforms, SEO, paid ads, branding and video — delivered from offices in Birmingham, Multan, Austin and Dubai."
+          "Web design services, AI development, SEO, ecommerce & growth marketing across four practice areas. Delivered from Birmingham, Multan, Austin & Dubai. Free consult."
         ),
         url: "https://clicktaketech.com/services",
         type: "website",
@@ -163,6 +163,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
         images: [DEFAULT_OG_IMAGE],
       },
       keywords: [
+        "web design services",
+        "web design agency services",
+        "professional web design services",
+        "custom web design services",
+        "web design services UK",
+        "web design services company",
+        "best web design services",
         "ClickTake services",
         "AI development services",
         "web development services",

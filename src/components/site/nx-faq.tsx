@@ -8,8 +8,16 @@ import { Plus, Minus } from "lucide-react";
  * Light section, 2-column grid on desktop with expandable rows. */
 const FAQS = [
   {
-    q: "How much does a typical project cost?",
-    a: "Most projects land between $5k and $80k. A landing page sprint starts at $5k, a marketing site is $12–25k, a SaaS MVP is $30–80k, and ongoing growth retainers start at $4k/month. Every quote is fixed-scope and includes a written technical spec — no surprises after kickoff.",
+    q: "What are web design services?",
+    a: "Web design services cover everything needed to plan, design, build and launch a website — UX research, UI design, frontend development on Next.js, content, SEO setup, hosting and ongoing maintenance. ClickTake bundles all of these into a single fixed-scope engagement for brands across the UK, Pakistan, USA and Dubai.",
+  },
+  {
+    q: "How much do web design services cost?",
+    a: "Most ClickTake web design projects land between £1,500 (Starter landing page) and £25,000+ (custom SaaS site). Small business sites start at £1,500, marketing sites are £6,000-12,000, and custom SaaS sites are £20,000+. Every quote is fixed-scope with a written Statement of Work — no surprises after kickoff.",
+  },
+  {
+    q: "How to choose a web design services agency?",
+    a: "Look for: (1) a portfolio of sites in your industry, (2) case studies with measurable outcomes like traffic, conversions and Core Web Vitals, (3) a transparent fixed-scope contract, (4) senior engineers (not juniors) on your project, and (5) post-launch maintenance included. ClickTake meets all five — book a free 30-min consult and we'll show you the receipts.",
   },
   {
     q: "How fast can you start?",
@@ -29,7 +37,7 @@ const FAQS = [
   },
   {
     q: "Do you offer ongoing maintenance?",
-    a: "Yes. After launch we offer monthly maintenance retainers ($1.5–4k/mo depending on app complexity) that cover bug fixes, security updates, dependency upgrades, and small feature requests. Most clients stay on maintenance for 12+ months — it's month-to-month, cancel anytime.",
+    a: "Yes. After launch we offer monthly maintenance retainers (£150-4k/mo depending on app complexity) that cover bug fixes, security updates, dependency upgrades, and small feature requests. Most clients stay on maintenance for 12+ months — it's month-to-month, cancel anytime.",
   },
 ];
 

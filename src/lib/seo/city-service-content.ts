@@ -418,9 +418,9 @@ export function composeCityHubContent(city: City): CityHubContent {
     servicesForCity,
     nearbyCities: nearby,
     meta: {
-      title: `${city.name} ${country.name} — ClickTake Technologies | AI · Web · Marketing`,
+      title: `Web Design Services ${city.name} ${country.name} — ClickTake | AI · Web · Marketing`,
       description: truncateMeta(
-        `${city.name} ${country.name} services: AI, web development, SEO, paid ads, branding and video. ${city.hasOffice ? "Local office." : "Remote delivery."} Book a free consultation.`
+        `Web design services in ${city.name}, ${country.name}: AI, web development, SEO, paid ads, branding & video. ${city.hasOffice ? "Local office." : "Remote delivery."} Free consult.`
       ),
       canonical: `${SITE.url}/cities/${city.slug}`,
     },

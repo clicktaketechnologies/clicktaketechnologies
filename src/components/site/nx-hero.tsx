@@ -215,9 +215,9 @@ export function NxHero() {
               transition={{ duration: 0.6, delay: 0.05 }}
               className="mt-6 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight leading-[1.05]"
             >
-              <span className="block nx-text-hero-grad">Build, Market &amp;</span>
-              <span className="block nx-text-brand-grad animate-gradient">Scale</span>
-              <span className="block nx-text-hero-grad">with AI-Powered Engineering.</span>
+              <span className="block nx-text-hero-grad">Web Design Services</span>
+              <span className="block nx-text-brand-grad animate-gradient">That Build, Market</span>
+              <span className="block nx-text-hero-grad">&amp; Scale Ambitious Brands.</span>
             </motion.h1>
 
             {/* Subtext */}
