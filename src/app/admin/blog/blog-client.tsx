@@ -618,7 +618,7 @@ function UploadModal({
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/15 bg-[#0D0025] p-6 shadow-2xl"
+        className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/15 bg-[var(--cta-card,#0D0025)] p-6 shadow-2xl"
       >
         <div className="mb-4 flex items-center justify-between">
           <div>

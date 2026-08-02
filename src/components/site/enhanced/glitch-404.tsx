@@ -97,7 +97,7 @@ export function Glitch404() {
   }, [query]);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#0a0612] text-white">
+    <main className="relative min-h-screen overflow-hidden bg-background text-foreground dark:bg-[#0a0612] dark:text-white">
       {/* Particle field background */}
       <ParticleField
         className="absolute inset-0 opacity-40"
@@ -164,7 +164,7 @@ export function Glitch404() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="mt-3 max-w-md text-sm sm:text-base text-white/60"
+          className="mt-3 max-w-md text-sm sm:text-base text-muted-foreground dark:text-white/60"
         >
           Our AI tried to fetch this URL but got distracted by a shiny gradient.
           Try one of these instead — or search for what you came for.
@@ -178,13 +178,13 @@ export function Glitch404() {
           className="mt-8 w-full max-w-md"
         >
           <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground dark:text-white/40" />
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search for a page…"
-              className="w-full rounded-full border border-white/15 bg-white/5 py-3 pl-10 pr-4 text-sm text-white placeholder:text-white/40 backdrop-blur focus:border-[#FF53A9] focus:outline-none focus:ring-2 focus:ring-[#FF53A9]/30"
+              className="w-full rounded-full border border-border bg-input py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground backdrop-blur focus:border-[#FF53A9] focus:outline-none focus:ring-2 focus:ring-[#FF53A9]/30 dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40"
               aria-label="Search for a page"
             />
           </div>
@@ -202,12 +202,12 @@ export function Glitch404() {
                 >
                   <Link
                     href={link.href}
-                    className="group flex flex-col items-start rounded-xl border border-white/10 bg-white/5 p-3 text-left transition-all hover:border-[#FF53A9]/40 hover:bg-[#FF53A9]/5"
+                    className="group flex flex-col items-start rounded-xl border border-border bg-card p-3 text-left transition-all hover:border-[#FF53A9]/40 hover:bg-[#FF53A9]/5 dark:border-white/10 dark:bg-white/5"
                   >
-                    <span className="text-sm font-semibold text-white group-hover:text-[#FF8AC4]">
+                    <span className="text-sm font-semibold text-foreground group-hover:text-[#FF8AC4] dark:text-white">
                       {link.label}
                     </span>
-                    <span className="text-[11px] text-white/50">{link.description}</span>
+                    <span className="text-[11px] text-muted-foreground dark:text-white/50">{link.description}</span>
                   </Link>
                 </motion.div>
               ))}
@@ -216,7 +216,7 @@ export function Glitch404() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="col-span-2 py-4 text-sm text-white/40"
+                  className="col-span-2 py-4 text-sm text-muted-foreground dark:text-white/40"
                 >
                   No matches. Try &quot;services&quot; or &quot;contact&quot;.
                 </motion.p>
@@ -240,7 +240,7 @@ export function Glitch404() {
           </Link>
           <button
             onClick={() => router.back()}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white/80 backdrop-blur transition-colors hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground/80 backdrop-blur transition-colors hover:bg-accent dark:border-white/15 dark:bg-white/5 dark:text-white/80 dark:hover:bg-white/10"
           >
             <ArrowLeft className="h-4 w-4" /> Go back
           </button>
@@ -253,7 +253,7 @@ export function Glitch404() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className="mt-10 inline-flex items-center gap-3 rounded-full border border-white/10 bg-black/40 px-4 py-2 text-xs text-white/60 backdrop-blur"
+              className="mt-10 inline-flex items-center gap-3 rounded-full border border-border bg-muted/80 px-4 py-2 text-xs text-muted-foreground backdrop-blur dark:border-white/10 dark:bg-black/40 dark:text-white/60"
             >
               <span>
                 Auto-redirecting home in{" "}
@@ -261,7 +261,7 @@ export function Glitch404() {
               </span>
               <button
                 onClick={() => setCancelled(true)}
-                className="flex items-center gap-1 rounded-full px-2 py-0.5 text-white/60 hover:bg-white/10 hover:text-white"
+                className="flex items-center gap-1 rounded-full px-2 py-0.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white"
               >
                 <X className="h-3 w-3" /> Cancel
               </button>
@@ -271,7 +271,7 @@ export function Glitch404() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="mt-10 text-xs text-white/40"
+              className="mt-10 text-xs text-muted-foreground dark:text-white/40"
             >
               Auto-redirect cancelled. Take your time.
             </motion.p>

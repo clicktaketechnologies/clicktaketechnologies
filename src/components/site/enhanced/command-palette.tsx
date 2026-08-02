@@ -324,15 +324,15 @@ export function CommandPalette() {
 
             {/* Modal */}
             <motion.div
-              className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-white/10 bg-[#0a0612]/95 shadow-2xl shadow-black/60"
+              className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-popover/95 shadow-2xl shadow-black/60 dark:border-white/10 dark:bg-[#0a0612]/95"
               initial={reduced ? undefined : { opacity: 0, y: -16, scale: 0.97 }}
               animate={reduced ? undefined : { opacity: 1, y: 0, scale: 1 }}
               exit={reduced ? undefined : { opacity: 0, y: -8, scale: 0.98 }}
               transition={reduced ? undefined : { duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Search input */}
-              <div className="flex items-center gap-3 border-b border-white/10 px-4 py-3.5">
-                <Search className="h-5 w-5 shrink-0 text-white/40" />
+              <div className="flex items-center gap-3 border-b border-border dark:border-white/10 px-4 py-3.5">
+                <Search className="h-5 w-5 shrink-0 text-muted-foreground dark:text-white/40" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -340,14 +340,14 @@ export function CommandPalette() {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={onKeyDown}
                   placeholder="Search pages, services, actions…"
-                  className="flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
+                  className="flex-1 bg-transparent text-sm text-popover-foreground placeholder:text-muted-foreground focus:outline-none dark:text-white dark:placeholder:text-white/40"
                   aria-label="Search"
                   autoComplete="off"
                   spellCheck={false}
                 />
                 <button
                   onClick={() => setOpen(false)}
-                  className="grid h-6 w-6 place-items-center rounded-md text-white/40 hover:bg-white/10 hover:text-white"
+                  className="grid h-6 w-6 place-items-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground dark:text-white/40 dark:hover:bg-white/10 dark:hover:text-white"
                   aria-label="Close"
                 >
                   <X className="h-4 w-4" />
@@ -362,13 +362,13 @@ export function CommandPalette() {
                 aria-label="Search results"
               >
                 {displayed.length === 0 ? (
-                  <div className="px-4 py-10 text-center text-sm text-white/50">
+                  <div className="px-4 py-10 text-center text-sm text-muted-foreground dark:text-white/50">
                     No results for &quot;{query}&quot;
                   </div>
                 ) : (
                   <>
                     {!query.trim() && recentItems.length > 0 && (
-                      <div className="px-3 pb-1 pt-2 text-[10px] font-bold uppercase tracking-widest text-white/40 flex items-center gap-1.5">
+                      <div className="px-3 pb-1 pt-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground dark:text-white/40 flex items-center gap-1.5">
                         <Clock className="h-3 w-3" /> Recent
                       </div>
                     )}
@@ -385,13 +385,13 @@ export function CommandPalette() {
                           aria-selected={isActive}
                           className={`group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors ${
                             isActive
-                              ? "bg-[#FF53A9]/15 text-white"
-                              : "text-white/80 hover:bg-white/5"
+                              ? "bg-[#FF53A9]/15 text-foreground dark:text-white"
+                              : "text-muted-foreground hover:bg-accent dark:text-white/80 dark:hover:bg-white/5"
                           }`}
                         >
                           <span
                             className={`grid h-8 w-8 shrink-0 place-items-center rounded-md ${
-                              isActive ? "bg-[#FF53A9]/20 text-[#FF8AC4]" : "bg-white/5 text-white/60"
+                              isActive ? "bg-[#FF53A9]/20 text-[#FF8AC4]" : "bg-muted text-muted-foreground dark:bg-white/5 dark:text-white/60"
                             }`}
                           >
                             <Icon className="h-4 w-4" />
@@ -399,14 +399,14 @@ export function CommandPalette() {
                           <span className="min-w-0 flex-1">
                             <span className="block truncate text-sm font-semibold">{item.label}</span>
                             {item.description && (
-                              <span className="block truncate text-xs text-white/50">{item.description}</span>
+                              <span className="block truncate text-xs text-muted-foreground dark:text-white/50">{item.description}</span>
                             )}
                           </span>
-                          <span className="hidden shrink-0 items-center gap-1 rounded border border-white/10 px-1.5 py-0.5 text-[10px] text-white/40 sm:flex">
+                          <span className="hidden shrink-0 items-center gap-1 rounded border border-border px-1.5 py-0.5 text-[10px] text-muted-foreground sm:flex dark:border-white/10 dark:text-white/40">
                             {item.category}
                           </span>
                           {isActive && (
-                            <CornerDownLeft className="hidden h-4 w-4 shrink-0 text-white/40 sm:block" />
+                            <CornerDownLeft className="hidden h-4 w-4 shrink-0 text-muted-foreground sm:block dark:text-white/40" />
                           )}
                         </button>
                       );
@@ -416,19 +416,19 @@ export function CommandPalette() {
               </div>
 
               {/* Footer */}
-              <div className="flex items-center justify-between gap-3 border-t border-white/10 bg-black/30 px-4 py-2.5 text-[10px] text-white/40">
+              <div className="flex items-center justify-between gap-3 border-t border-border dark:border-white/10 bg-muted/50 dark:bg-black/30 px-4 py-2.5 text-[10px] text-muted-foreground dark:text-white/40">
                 <div className="flex items-center gap-3">
                   <span className="flex items-center gap-1">
-                    <kbd className="rounded border border-white/20 bg-white/5 px-1 py-0.5 font-mono text-[9px]">↑</kbd>
-                    <kbd className="rounded border border-white/20 bg-white/5 px-1 py-0.5 font-mono text-[9px]">↓</kbd>
+                    <kbd className="rounded border border-border dark:border-white/20 bg-muted dark:bg-white/5 px-1 py-0.5 font-mono text-[9px]">↑</kbd>
+                    <kbd className="rounded border border-border dark:border-white/20 bg-muted dark:bg-white/5 px-1 py-0.5 font-mono text-[9px]">↓</kbd>
                     navigate
                   </span>
                   <span className="flex items-center gap-1">
-                    <kbd className="rounded border border-white/20 bg-white/5 px-1 py-0.5 font-mono text-[9px]">↵</kbd>
+                    <kbd className="rounded border border-border dark:border-white/20 bg-muted dark:bg-white/5 px-1 py-0.5 font-mono text-[9px]">↵</kbd>
                     select
                   </span>
                   <span className="flex items-center gap-1">
-                    <kbd className="rounded border border-white/20 bg-white/5 px-1 py-0.5 font-mono text-[9px]">esc</kbd>
+                    <kbd className="rounded border border-border dark:border-white/20 bg-muted dark:bg-white/5 px-1 py-0.5 font-mono text-[9px]">esc</kbd>
                     close
                   </span>
                 </div>

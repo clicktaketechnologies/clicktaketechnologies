@@ -126,16 +126,17 @@ export const FloatingInput = forwardRef<
   };
 
   const sharedClass = cn(
-    "nx-floating-input peer w-full rounded-xl border bg-white/5 px-4 pt-6 pb-2 text-sm text-white transition-all duration-200",
+    "nx-floating-input peer w-full rounded-xl border bg-input px-4 pt-6 pb-2 text-sm text-foreground transition-all duration-200",
     "placeholder:text-transparent", // hide placeholder; label handles hint
     "focus:outline-none focus:ring-2 focus:ring-offset-0",
+    "dark:bg-white/5 dark:text-white",
     status === "invalid"
       ? "border-[#FF5252] focus:ring-[#FF5252]/30"
       : status === "valid"
       ? "border-[#00E676] focus:ring-[#00E676]/30"
       : focused
       ? "border-[#FF53A9] focus:ring-[#FF53A9]/30"
-      : "border-white/15 hover:border-white/30",
+      : "border-border hover:border-primary/40 dark:border-white/15 dark:hover:border-white/30",
     loading && "opacity-60 pointer-events-none",
     className
   );
@@ -151,7 +152,7 @@ export const FloatingInput = forwardRef<
       ? "text-[#00E676]"
       : focused
       ? "text-[#FF8AC4]"
-      : "text-white/50"
+      : "text-muted-foreground dark:text-white/50"
   );
 
   const inputProps = {
@@ -197,7 +198,7 @@ export const FloatingInput = forwardRef<
 
       {/* Status icon (right side) */}
       <div className="absolute right-3 top-4 flex items-center gap-2">
-        {loading && <Loader2 className="h-4 w-4 animate-spin text-white/40" />}
+        {loading && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground dark:text-white/40" />}
         {!loading && status === "valid" && (
           <motion.span
             initial={{ scale: 0, rotate: -45 }}
@@ -217,7 +218,7 @@ export const FloatingInput = forwardRef<
               "text-[10px] font-mono",
               (value?.length ?? 0) > maxLength * 0.9
                 ? "text-[#FFB347]"
-                : "text-white/30"
+                : "text-muted-foreground/60 dark:text-white/30"
             )}
           >
             {value?.length ?? 0}/{maxLength}
@@ -249,7 +250,7 @@ export const FloatingInput = forwardRef<
 
       {/* Helper text (only when no error) */}
       {status !== "invalid" && helperText && (
-        <p id={`${id}-helper`} className="mt-1.5 text-xs text-white/40">
+        <p id={`${id}-helper`} className="mt-1.5 text-xs text-muted-foreground dark:text-white/40">
           {helperText}
         </p>
       )}
