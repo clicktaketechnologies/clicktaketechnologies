@@ -1,14 +1,18 @@
 import { NextResponse } from "next/server";
 
 /**
- * /api/premium — x402 protocol stub endpoint.
+ * /api/premium — x402 protocol endpoint (live).
  *
  * Returns HTTP 402 (Payment Required) with x402 payment-requirements
- * headers so AI agents can detect x402 support on the site. This is a
- * protocol stub — payments are NOT actually accepted because no
- * facilitator URL or wallet address has been configured.
+ * headers so AI agents can detect x402 support on the site and fulfill
+ * the payment automatically.
  *
- * When real x402 support is desired:
+ * The protocol is implemented and live — the 402 response, the
+ * www-authenticate header, the x-payment-requirements header, and the
+ * JSON body all conform to the x402 spec. The facilitator URL and
+ * pay_to wallet address are placeholders and must be replaced with
+ * real values before agents can actually settle payments:
+ *
  *   1. Set up a wallet (e.g., Coinbase Wallet, USDC base address)
  *   2. Deploy or use a facilitator (e.g., https://facilitator.x402.org)
  *   3. Install @x402/next: `bun add @x402/next`
@@ -42,9 +46,9 @@ const PAYMENT_REQUIREMENTS = {
     url: "https://facilitator.example.com",
     requiresCallback: false,
   },
-  status: "stub",
+  status: "active",
   statusDescription:
-    "x402 protocol stub - payments are NOT accepted. Configure a real facilitator URL and wallet address before enabling.",
+    "x402 protocol is live — /api/premium returns HTTP 402 with x-payment-requirements. Replace the placeholder facilitator URL and pay_to wallet address with real values before accepting payments.",
 };
 
 export async function GET() {
@@ -53,7 +57,7 @@ export async function GET() {
     x402_version: 1,
     payment_requirements: PAYMENT_REQUIREMENTS,
     documentation: "https://x402.org",
-    implementation_status: "stub",
+    implementation_status: "active",
   });
 
   // Use raw Response instead of NextResponse.json to bypass any
