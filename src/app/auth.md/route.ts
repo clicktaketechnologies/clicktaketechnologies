@@ -29,6 +29,9 @@ agent_auth:
   skill: "${AGENT.authMdUrl}"
   spec: "https://workos.com/auth.md"
   register_uri: "${AGENT.origin}/api/auth/register"
+  identity_endpoint: "${AGENT.origin}/api/auth/register"
+  claim_endpoint: "${AGENT.origin}/api/auth/claim"
+  events_endpoint: "${AGENT.origin}/api/auth/events"
   documentation_uri: "${AGENT.authMdUrl}"
   authorization_server: "${AGENT.authorizationServerUrl}"
   protected_resource: "${AGENT.protectedResourceUrl}"
@@ -36,10 +39,19 @@ agent_auth:
     - service
     - user_assisted
     - user_managed
+  identity_types_supported:
+    - anonymous
+    - identity_assertion
+    - service_auth
+  identity_assertion:
+    assertion_types_supported:
+      - "urn:ietf:params:oauth:token-type:id-jag"
   credential_types_supported:
     - api_key
     - oauth_access_token
     - oidc_id_token
+  events_supported:
+    - "https://schemas.workos.com/events/agent/auth/identity/assertion/revoked"
   registration_methods:
     - method: oauth_dynamic_registration
       endpoint: "${AGENT.origin}/api/auth/register"
