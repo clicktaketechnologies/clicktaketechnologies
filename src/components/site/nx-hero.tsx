@@ -5,6 +5,8 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight, TrendingUp, Activity } from "lucide-react"
 import { SITE } from "@/lib/site-data"
+import { NeuralNetworkCanvas } from "./enhanced/neural-network-canvas"
+import { ScrollIndicator } from "./enhanced/scroll-indicator"
 
 /* CLICKTAKE HERO — 3D floating dashboard card design.
  * Inspired by clicktake-final.html — deep purple-black background with
@@ -159,6 +161,25 @@ export function NxHero() {
         ref={canvasRef}
         className="absolute inset-0 pointer-events-none opacity-50"
         style={{ zIndex: 0 }}
+      />
+
+      {/* Neural network overlay — mouse-reactive nodes forming connections
+          with data packets flowing along edges. Sits above the base particle
+          canvas but below the glow orbs and content. pointer-events-none so
+          it doesn't block hero clicks (we read mousemove globally). */}
+      <NeuralNetworkCanvas
+        className="absolute inset-0 opacity-60"
+        style={{ zIndex: 1 }}
+        density="medium"
+        linkRadius={150}
+        cursorRadius={220}
+        colors={{
+          nodeA: "255, 83, 169",
+          nodeB: "19, 109, 255",
+          nodeC: "155, 61, 255",
+          edge: "255, 83, 169",
+          packet: "255, 255, 255",
+        }}
       />
 
       {/* Floating glow orbs */}
@@ -477,6 +498,13 @@ export function NxHero() {
             ))}
           </div>
         </motion.div>
+      </div>
+
+      {/* Scroll indicator — bounce-animated mouse cue at the bottom-center.
+          Clicking scrolls to the next section. Hidden on small screens to
+          avoid crowding the hero CTAs. */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:block">
+        <ScrollIndicator />
       </div>
     </section>
   )
