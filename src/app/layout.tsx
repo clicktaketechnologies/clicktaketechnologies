@@ -10,6 +10,12 @@ import { getNxDesignCss } from "@/lib/nx-design";
 import { buildWebSiteJsonLd } from "@/components/site/json-ld";
 import { Analytics } from "@/components/site/analytics";
 
+// Force ISR revalidation every 5 minutes so the CDN never serves stale HTML
+// for more than 5 minutes after a deploy. Without this, Vercel can serve
+// statically-generated pages for 24+ hours even after a new deploy lands,
+// causing users to see outdated UI.
+export const revalidate = 300;
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
