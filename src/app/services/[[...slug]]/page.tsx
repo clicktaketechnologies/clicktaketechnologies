@@ -33,6 +33,7 @@ import { starterKitDeepDive } from "@/content/deep-dive/starter-kit";
 import { SERVICES, CATEGORY_STYLES, SERVICE_CATEGORIES, SITE } from "@/lib/site-data";
 import type { DeepDiveContent } from "@/components/site/deep-dive/deep-dive-types";
 import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
+import { truncateMeta } from "@/lib/seo/meta-helpers";
 import {
   JsonLd,
   buildServiceJsonLd,
@@ -147,13 +148,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!slug) {
     return {
       title: "Services — AI · Web · Marketing",
-      description:
-        "Browse all ClickTake Technologies services across four practice areas: AI & Machine Learning, Web Development, Digital Marketing, and Creative. Custom LLMs, chatbots, SaaS platforms, SEO, paid ads, branding and video — delivered from offices in Birmingham, Multan, Austin and Dubai.",
+      description: truncateMeta(
+        "Browse all ClickTake Technologies services across four practice areas: AI & Machine Learning, Web Development, Digital Marketing, and Creative. Custom LLMs, chatbots, SaaS platforms, SEO, paid ads, branding and video — delivered from offices in Birmingham, Multan, Austin and Dubai."
+      ),
       alternates: { canonical: "https://clicktaketech.com/services" },
       openGraph: {
         title: "Services — AI · Web · Marketing",
-        description:
-          "Browse all ClickTake Technologies services across four practice areas: AI & Machine Learning, Web Development, Digital Marketing, and Creative. Custom LLMs, chatbots, SaaS platforms, SEO, paid ads, branding and video — delivered from offices in Birmingham, Multan, Austin and Dubai.",
+        description: truncateMeta(
+          "Browse all ClickTake Technologies services across four practice areas: AI & Machine Learning, Web Development, Digital Marketing, and Creative. Custom LLMs, chatbots, SaaS platforms, SEO, paid ads, branding and video — delivered from offices in Birmingham, Multan, Austin and Dubai."
+        ),
         url: "https://clicktaketech.com/services",
         type: "website",
         locale: "en_GB",
@@ -179,7 +182,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     if (!category || !style) return { title: "Category not found" };
 
     const title = `${style.eyebrow} Services — ClickTake`;
-    const description = `${category.description} Available across the UK (Birmingham, London, Manchester), Pakistan (Multan, Lahore, Karachi, Islamabad), USA (Austin, New York, San Francisco) and Dubai (UAE, MENA region). Book a free 30-minute consultation with ClickTake Technologies.`;
+    const description = truncateMeta(
+      `${category.description} Available across the UK, Pakistan, USA and Dubai. Book a free consultation.`
+    );
     const url = `https://clicktaketech.com/services/${joined}`;
 
     return {
@@ -188,7 +193,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       alternates: { canonical: url },
       openGraph: {
         images: [DEFAULT_OG_IMAGE],title,
-        description: category.description,
+        description: truncateMeta(category.description),
         url,
         type: "website",
         locale: "en_GB",
@@ -215,7 +220,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   // the root layout's title.template adds it once.
   const cat = CATEGORY_STYLES[service.category];
   const title = `${service.title} — ${cat?.eyebrow || "ClickTake Services"}`;
-  const description = `${service.detailed_description || service.description} Available across the UK (Birmingham, London, Manchester), Pakistan (Multan, Lahore, Karachi, Islamabad), USA (Austin, New York, San Francisco) and Dubai (UAE, MENA region). Book a free 30-minute consultation with ClickTake Technologies.`;
+  const description = truncateMeta(
+    `${service.detailed_description || service.description} Available across the UK, Pakistan, USA and Dubai. Book a free consultation.`
+  );
   const url = `https://clicktaketech.com/services/${service.slug}`;
 
   return {
@@ -224,7 +231,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     alternates: { canonical: url },
     openGraph: {
       images: [DEFAULT_OG_IMAGE],title,
-      description: service.detailed_description || service.description,
+      description: truncateMeta(service.detailed_description || service.description),
       url,
       type: "article",
       locale: "en_GB",

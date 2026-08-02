@@ -9,10 +9,12 @@ import {
 import { SITE, TESTIMONIALS } from "@/lib/site-data";
 
 import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
+import { truncateMeta } from "@/lib/seo/meta-helpers";
 export const metadata: Metadata = {
   title: "Case Studies — Real Engagements, Real Metrics",
-  description:
-    "ClickTake Technologies case studies — SEO growth, website redesign, e-commerce, social media, custom SaaS, and branding/video editing engagements across the UK, Pakistan, USA and Dubai. Real metrics, no fake results. Engagements in progress are labeled as such.",
+  description: truncateMeta(
+    "ClickTake Technologies case studies — SEO growth, website redesign, e-commerce, social media, custom SaaS, and branding/video editing engagements across the UK, Pakistan, USA and Dubai. Real metrics, no fake results. Engagements in progress are labeled as such."
+  ),
   keywords: [
     "ClickTake case studies",
     "SEO case study UK",

@@ -8,10 +8,12 @@ import {
 import { SITE, TESTIMONIALS } from "@/lib/site-data";
 
 import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
+import { truncateMeta } from "@/lib/seo/meta-helpers";
 export const metadata: Metadata = {
   title: "Contact — Free 30-min Consult",
-  description:
-    "Contact ClickTake Technologies. Submit a project inquiry or book a free 30-minute discovery call. Offices in Birmingham (UK HQ), Multan (Pakistan engineering hub), Austin TX (USA desk) and Dubai (UAE/MENA office). Phones: +44 7391 653377 (UK), +92 306 9753003 (PK). Email: Info@clicktaketech.com. We respond within one business day.",
+  description: truncateMeta(
+    "Contact ClickTake Technologies. Submit a project inquiry or book a free 30-minute discovery call. Offices in Birmingham (UK HQ), Multan (Pakistan engineering hub), Austin TX (USA desk) and Dubai (UAE/MENA office). Phones: +44 7391 653377 (UK), +92 306 9753003 (PK). Email: Info@clicktaketech.com. We respond within one business day."
+  ),
   keywords: [
     "contact ClickTake Technologies",
     "hire digital agency Birmingham",
@@ -28,8 +30,9 @@ export const metadata: Metadata = {
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
     title: "Contact ClickTake Technologies — Free 30-min Consultation",
-    description:
-      "Project inquiry form, discovery-call scheduler and full office details across UK, Pakistan, USA and Dubai. 24-hour response guarantee.",
+    description: truncateMeta(
+      "Project inquiry form, discovery-call scheduler and full office details across UK, Pakistan, USA and Dubai. 24-hour response guarantee."
+    ),
     url: "https://clicktaketech.com/contact",
     type: "website",
     locale: "en_GB",
@@ -37,8 +40,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Contact ClickTake Technologies",
-    description:
-      "Get in touch — offices in Birmingham, Multan, Austin and Dubai. Free 30-min discovery call. 24-hour response.",
+    description: truncateMeta(
+      "Get in touch — offices in Birmingham, Multan, Austin and Dubai. Free 30-min discovery call. 24-hour response."
+    ),
   },
   other: {
     "geo.region": "GB-PK-US-AE",

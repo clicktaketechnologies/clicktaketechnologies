@@ -229,9 +229,9 @@ export function NxFooter() {
             <span className="hidden sm:inline"> · Built in-house with Next.js + Supabase.</span>
           </div>
           <div className="flex items-center gap-5 text-xs text-white/50">
-            <Link href="/legal" className="hover:text-[#FF8AC4] transition">Privacy</Link>
-            <Link href="/legal" className="hover:text-[#FF8AC4] transition">Terms</Link>
-            <Link href="/legal" className="hover:text-[#FF8AC4] transition">Cookies</Link>
+            <Link href="/legal/privacy" className="hover:text-[#FF8AC4] transition">Privacy</Link>
+            <Link href="/legal/terms" className="hover:text-[#FF8AC4] transition">Terms</Link>
+            <Link href="/legal/cookies" className="hover:text-[#FF8AC4] transition">Cookies</Link>
           </div>
         </div>
       </div>
