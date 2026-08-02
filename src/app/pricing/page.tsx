@@ -34,14 +34,29 @@ const FAQS = [
     q: "What currencies do you bill in?",
     a: "GBP (£) by default for UK and international clients. We can also invoice in USD ($) for US clients, PKR for Pakistan clients and AED for UAE clients. Currency is fixed at contract signing; we don't pass on FX risk.",
   },
+  {
+    q: "How much do web design services cost in the UK?",
+    a: "UK web design services cost £1,500-25,000+ depending on scope. ClickTake's Starter tier begins at £1,500 (4-page responsive site), Growth at £6,000 (marketing site), Scale at £20,000 (SaaS/custom), and Custom is quoted per project. All pricing is fixed-scope with no hidden fees, no lock-in, and a free 30-min consultation to scope the right tier for your business.",
+  },
+  {
+    q: "Do you offer affordable web design services for small businesses?",
+    a: "Yes. Our Starter tier (£1,500+) is built specifically for small businesses and includes a 4-page responsive website, basic SEO setup, contact form, Google Business Profile optimization, and 30 days of post-launch support. Payment plans available for projects over £5,000. Book a free consult and we'll scope the most affordable path to launch.",
+  },
 ];
 
 export const metadata: Metadata = {
-  title: "Pricing — Starter · Growth · Scale · Custom",
+  title: "Affordable Web Design Services Pricing — Starter · Growth · Scale",
   description:
-    "Transparent pricing for ClickTake Technologies. Four engagement tiers across the UK, Pakistan, USA and Dubai: Starter (£1,500+), Growth (£6,000+), Scale (£20,000+) and Custom Quote. No hidden fees, no fake universal pricing, no lock-in. Free 30-min consultation.",
+    "Affordable web design services pricing: Starter £1,500+, Growth £6,000+, Scale £20,000+, Custom. No hidden fees, no lock-in. UK · PK · USA · Dubai. Free 30-min consult.",
   keywords: [
     "ClickTake pricing",
+    "affordable web design services",
+    "low cost web design services",
+    "cheap web design services",
+    "inexpensive web design services",
+    "web design services cost",
+    "how to price web design services",
+    "web design services pricing UK",
     "digital agency pricing UK",
     "web development cost Pakistan",
     "SaaS development pricing",
@@ -52,17 +67,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://clicktaketech.com/pricing" },
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
-    title: "ClickTake Pricing — Starter · Growth · Scale · Custom",
+    title: "ClickTake — Affordable Web Design Services Pricing | UK · PK · USA · Dubai",
     description:
-      "Transparent pricing across 4 engagement tiers. No hidden fees, no lock-in. Free 30-minute consultation.",
+      "Starter £1,500+, Growth £6,000+, Scale £20,000+, Custom. Transparent pricing for web design services — no hidden fees, no lock-in. Free 30-min consult.",
     url: "https://clicktaketech.com/pricing",
     type: "website",
     locale: "en_GB",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ClickTake Technologies — Pricing",
-    description: "Starter, Growth, Scale & Custom. Transparent pricing, no hidden fees.",
+    title: "ClickTake Technologies — Affordable Web Design Services Pricing",
+    description: "Starter, Growth, Scale & Custom. Transparent pricing for web design services — no hidden fees.",
   },
 };
 
