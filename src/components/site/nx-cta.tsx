@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowRight, Mail, Phone, MessageCircle } from "lucide-react";
 import { SITE } from "@/lib/site-data";
 import { AbTest } from "./ab-test";
+import { ParticleField } from "./enhanced/particle-field";
+import { MagneticButton } from "./enhanced/magnetic-button";
 
 /* CTA SECTION — bold orange gradient block (Future Processing pattern).
  * Big headline, subtext, 2 CTAs, and 3 contact channels as cards below.
@@ -24,6 +26,16 @@ export function NxCta() {
       />
       {/* Top wave divider (subtle) */}
       <div className="absolute top-0 inset-x-0 h-px bg-white/30" />
+      {/* Particle field overlay — 50+ white particles drifting across the
+          orange gradient. Subtle texture without competing with the headline. */}
+      <ParticleField
+        className="absolute inset-0 opacity-50 pointer-events-none"
+        count={55}
+        linkRadius={120}
+        color="255, 255, 255"
+        speed={0.25}
+        size={1.4}
+      />
 
       <div className="relative mx-auto max-w-5xl px-4 lg:px-8 text-center">
         {/* Eyebrow */}
@@ -71,9 +83,12 @@ export function NxCta() {
           transition={{ delay: 0.15 }}
           className="mt-8 flex flex-col sm:flex-row gap-3 justify-center"
         >
-          <Link
+          <MagneticButton
             href="/contact"
-            className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm sm:text-base font-black text-[#E0197A] shadow-xl hover:scale-[1.03] transition"
+            variant="primary"
+            strength={18}
+            radius={90}
+            className="!bg-white !text-[#E0197A] !px-7 !py-4 !text-sm sm:!text-base !font-black !shadow-xl"
           >
             {/* Phase 3 #3 — A/B test the primary CTA copy. Variants are
                 defined here; admin enables the test via /admin/ab-tests
@@ -88,7 +103,7 @@ export function NxCta() {
               }}
             />
             <ArrowRight className="h-4 w-4 nx-arrow" />
-          </Link>
+          </MagneticButton>
           <Link
             href="/services"
             className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/60 px-7 py-4 text-sm sm:text-base font-bold text-white hover:bg-white/10 transition"

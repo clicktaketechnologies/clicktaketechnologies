@@ -1,27 +1,16 @@
-import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowLeft, Home } from "lucide-react";
-import { BackgroundScene } from "@/components/site/background-scene";
-import { CustomCursor } from "@/components/site/custom-cursor";
-import { Navbar } from "@/components/site/navbar";
-import { Footer } from "@/components/site/footer";
-import { ScrollProgressBar, ScrollToTop } from "@/components/site/scroll-animations";
+import { Glitch404 } from "@/components/site/enhanced/glitch-404";
 
 /**
- * 404 page metadata.
+ * 404 page — now uses the interactive Glitch404 component.
+ *
+ * Server component wrapper so we can set metadata (noindex/nofollow)
+ * without paying the client-bundle cost. The Glitch404 client component
+ * handles all the interactive bits (3D tilt, search, auto-redirect).
  *
  * - `robots: { index: false, follow: false }` overrides the layout's
- *   `index: true, follow: true` so we emit `<meta name="robots"
- *   content="noindex, nofollow">` instead of `index, follow`.
- *   Next.js ALSO auto-injects `<meta name="robots" content="noindex">`
- *   for 404 status codes — both tags end up in the HTML, but both say
- *   "don't index" so Google respects the more restrictive one. Harmless
- *   redundancy; cleaner than letting `index, follow` leak onto a 404.
- * - `alternates.canonical: ""` overrides the layout's homepage canonical.
- *   A 404 page has no canonical URL — pointing it at the homepage creates
- *   a soft-404 signal. With HTTP 404 + noindex + no canonical, Google
- *   drops the URL cleanly.
- * - Title is short and explicit so the 404 is recognizable in tabs.
+ *   `index: true, follow: true` so the 404 is never indexed.
+ * - `alternates.canonical: ""` — a 404 has no canonical URL.
  */
 export const metadata: Metadata = {
   title: "Page not found (404)",
@@ -30,42 +19,5 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
-  return (
-    <>
-      <BackgroundScene />
-      <CustomCursor />
-      <ScrollProgressBar />
-      <Navbar />
-
-      <main className="relative z-10 min-h-screen grid place-items-center px-4 pt-32 pb-16">
-        <div className="text-center max-w-md">
-          <div className="text-[10rem] font-black leading-none gradient-text">404</div>
-          <h1 className="mt-4 font-display text-3xl font-bold tracking-tight">
-            Page not found
-          </h1>
-          <p className="mt-3 text-muted-foreground">
-            The page you&apos;re looking for doesn&apos;t exist — or it moved.
-            Let&apos;s get you back on track.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 rounded-full gradient-bg px-6 py-3 text-sm font-semibold text-white shadow-lg hover:scale-105 transition"
-            >
-              <Home className="h-4 w-4" /> Go home
-            </Link>
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-6 py-3 text-sm font-semibold backdrop-blur hover:bg-secondary transition"
-            >
-              <ArrowLeft className="h-4 w-4" /> Browse services
-            </Link>
-          </div>
-        </div>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-    </>
-  );
+  return <Glitch404 />;
 }

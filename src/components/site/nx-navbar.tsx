@@ -8,6 +8,22 @@ import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { NAV_LINKS, SERVICES, SOLUTIONS } from "@/lib/site-data";
 import { ThemeToggle } from "./theme-toggle";
 import { AbTest } from "./ab-test";
+import { CommandPaletteTrigger } from "./enhanced/command-palette-trigger";
+import { useScrollDirection } from "@/hooks/use-enhanced";
+
+/* Active-section ids on the homepage — used to highlight the
+   Services / Process / etc. nav items when their target section
+   is in view (rather than only when the URL matches). */
+const HOME_SECTION_MAP: Record<string, string> = {
+  "/services": "services",
+  "/solutions": "solutions",
+  "/portfolio": "portfolio",
+  "/blog": "blog",
+  "/about": "about",
+};
+
+/* Section ids actually rendered on the homepage that we can track. */
+const HOME_SECTION_IDS = ["services", "solutions", "portfolio", "blog", "about", "contact"];
 
 /* NEW NAVBAR — sticky translucent bar (Index.dev + Vention pattern).
  * Logo left · nav center · CTAs right. Sticky on scroll with blur backdrop.
@@ -28,8 +44,10 @@ export function NxNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mega, setMega] = useState<MegaKey>(null);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const pathname = usePathname();
   const navRef = useRef<HTMLElement>(null);
+  const scrollDir = useScrollDirection(8, 100);
 
   /* Scroll listener — toggle blur on scroll */
   useEffect(() => {
@@ -38,6 +56,38 @@ export function NxNavbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  /* Active-section tracking — only on the homepage where sections
+     have ids. Lets us highlight the matching nav item as the user
+     scrolls past each section. */
+  useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection(null);
+      return;
+    }
+    if (typeof IntersectionObserver === "undefined") return;
+    const visible = new Map<string, number>();
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) visible.set(e.target.id, e.intersectionRatio);
+          else visible.delete(e.target.id);
+        }
+        let best: string | null = null;
+        let bestRatio = 0;
+        visible.forEach((r, id) => {
+          if (r > bestRatio) { bestRatio = r; best = id; }
+        });
+        if (best) setActiveSection(best);
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+    HOME_SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, [pathname]);
 
   /* Close mobile drawer on route change */
   useEffect(() => {
@@ -80,11 +130,17 @@ export function NxNavbar() {
      - On home (unscrolled): transparent over the dark hero gradient.
      - On home (scrolled) or any inner page: surface token with brand-tinted border.
        In dark mode this gives the original navy bar; in light mode a white bar
-       with dark text — both pass WCAG AA contrast. */
+       with dark text — both pass WCAG AA contrast.
+     - Hide-on-scroll-down: when scrollDir is "down" and we're past 100px,
+       translate the header up so it slides out of view. Show on scroll up. */
+  const hideClass =
+    scrollDir === "down" && scrolled && !mobileOpen && !mega
+      ? "-translate-y-full"
+      : "translate-y-0";
   const surfaceClass =
     scrolled || !isHome
-      ? "nx-surface/85 backdrop-blur-xl border-b border-[var(--nx-border)]"
-      : "bg-transparent";
+      ? `nx-surface/85 backdrop-blur-xl border-b border-[var(--nx-border)] ${hideClass}`
+      : `bg-transparent ${hideClass}`;
 
   /* Link text color — on transparent-over-dark-hero (home, unscrolled), use white.
      On solid surface (scrolled or inner page), use the theme ink color. */
@@ -123,6 +179,11 @@ export function NxNavbar() {
                 const hasMega = "mega" in link && link.mega === true;
                 const megaKey = link.label.toLowerCase() as MegaKey;
                 const isActive = mega === megaKey;
+                // Active-section underline: if we're on the homepage and this
+                // link's target section is currently in view, highlight it.
+                const sectionId = HOME_SECTION_MAP[link.href];
+                const sectionActive = isHome && sectionId && activeSection === sectionId;
+                const isCurrent = isActive || pathname.startsWith(link.href) || sectionActive;
                 return (
                   <div
                     key={link.label}
@@ -140,10 +201,9 @@ export function NxNavbar() {
                       }}
                       aria-expanded={hasMega ? isActive : undefined}
                       aria-haspopup={hasMega ? "true" : undefined}
+                      aria-current={sectionActive ? "true" : undefined}
                       className={`flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold transition relative ${
-                        isActive || pathname.startsWith(link.href)
-                          ? linkActive
-                          : linkBase
+                        isCurrent ? linkActive : linkBase
                       }`}
                     >
                       {link.label}
@@ -152,19 +212,26 @@ export function NxNavbar() {
                           className={`h-3.5 w-3.5 transition-transform ${isActive ? "rotate-180" : ""}`}
                         />
                       )}
+                      {/* Animated underline — only on homepage section-active state */}
+                      {sectionActive && (
+                        <motion.span
+                          layoutId="nav-active-underline"
+                          className="absolute left-1/2 -bottom-0.5 h-0.5 w-8 -translate-x-1/2 rounded-full bg-[#FF53A9] shadow-[0_0_8px_#FF53A9]"
+                          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                        />
+                      )}
                     </Link>
                   </div>
                 );
               })}
             </div>
 
-            {/* Right CTAs — theme toggle + single primary Get Started button.
-                (Sign In button removed per UX audit — every CTA now points to
-                /contact, so a separate Sign In link was redundant friction.)
+            {/* Right CTAs — command palette trigger + theme toggle + primary CTA.
                 Phase 3 #3 — button label is A/B tested via <AbTest>. Admin
                 creates an experiment with key "navbar-primary-cta" and adds
                 variants; the rendered label swaps client-side post-hydrate. */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-2.5">
+              <CommandPaletteTrigger variant={transparent ? "navbar-dark" : "navbar-light"} />
               <ThemeToggle />
               <Link
                 href="/contact"
@@ -182,8 +249,15 @@ export function NxNavbar() {
               </Link>
             </div>
 
-            {/* Mobile: theme toggle + hamburger */}
+            {/* Mobile: command palette trigger + theme toggle + hamburger */}
             <div className="lg:hidden flex items-center gap-1">
+              <div className="scale-90 origin-right">
+                <CommandPaletteTrigger
+                  variant={transparent ? "navbar-dark" : "navbar-light"}
+                  showShortcut={false}
+                  className="!px-2"
+                />
+              </div>
               <div className="scale-90 origin-right">
                 <ThemeToggle />
               </div>
@@ -362,16 +436,27 @@ export function NxNavbar() {
                 </button>
               </div>
               <div className="p-5 space-y-2">
-                {NAV_LINKS.map((link) => (
-                  <Link
+                {NAV_LINKS.map((link, i) => (
+                  <motion.div
                     key={link.label}
-                    href={link.href}
-                    className="block px-4 py-3 rounded-xl text-base font-semibold nx-text-soft hover:bg-[color-mix(in_oklab,var(--nx-ink)_5%,transparent)] hover:nx-text transition"
+                    initial={{ opacity: 0, x: 24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.08 + i * 0.05, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    {link.label}
-                  </Link>
+                    <Link
+                      href={link.href}
+                      className="block px-4 py-3 rounded-xl text-base font-semibold nx-text-soft hover:bg-[color-mix(in_oklab,var(--nx-ink)_5%,transparent)] hover:nx-text transition"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
                 ))}
-                <div className="pt-4 mt-4 border-t border-[var(--nx-border)] space-y-3">
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.08 + NAV_LINKS.length * 0.05 + 0.1, duration: 0.3 }}
+                  className="pt-4 mt-4 border-t border-[var(--nx-border)] space-y-3"
+                >
                   <Link
                     href="/contact"
                     className="block nx-btn-orange text-center px-5 py-3.5 text-sm"
@@ -394,7 +479,7 @@ export function NxNavbar() {
                   >
                     View Pricing
                   </Link>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           </motion.div>

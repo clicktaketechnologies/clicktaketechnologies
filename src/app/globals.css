@@ -2305,3 +2305,197 @@ html.theme-elite .ct-story-floater {
 @media (prefers-reduced-motion: reduce) {
   .ct-story-scene .ct-story-orb-3 { animation: none; }
 }
+
+/* ════════════════════════════════════════════════════════════════
+   UI OVERHAUL — Enhanced component styles
+   Added 2026-08: neural network, magnetic button, glitch 404,
+   cylindrical testimonials, floating inputs, glassmorphism.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Glitch text effect (404 page) ────────────────────────────────
+   Two pseudo-elements layered behind the text, offset in red & cyan,
+   clipped to reveal slices — creates the classic CRT glitch look. */
+.nx-glitch-text {
+  position: relative;
+  display: inline-block;
+}
+.nx-glitch-text::before,
+.nx-glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.nx-glitch-text::before {
+  color: #FF53A9;
+  -webkit-text-fill-color: #FF53A9;
+  z-index: -1;
+  animation: nx-glitch-1 2.5s infinite linear alternate-reverse;
+}
+.nx-glitch-text::after {
+  color: #136DFF;
+  -webkit-text-fill-color: #136DFF;
+  z-index: -2;
+  animation: nx-glitch-2 3s infinite linear alternate-reverse;
+}
+@keyframes nx-glitch-1 {
+  0%   { clip-path: inset(20% 0 60% 0); transform: translate(-2px, -1px); }
+  20%  { clip-path: inset(80% 0 5% 0);  transform: translate(2px, 1px); }
+  40%  { clip-path: inset(40% 0 40% 0); transform: translate(-1px, 2px); }
+  60%  { clip-path: inset(10% 0 75% 0); transform: translate(1px, -2px); }
+  80%  { clip-path: inset(60% 0 20% 0); transform: translate(-2px, 1px); }
+  100% { clip-path: inset(30% 0 50% 0); transform: translate(2px, -1px); }
+}
+@keyframes nx-glitch-2 {
+  0%   { clip-path: inset(70% 0 10% 0); transform: translate(2px, 1px); }
+  25%  { clip-path: inset(15% 0 65% 0); transform: translate(-2px, -1px); }
+  50%  { clip-path: inset(50% 0 30% 0); transform: translate(1px, 2px); }
+  75%  { clip-path: inset(25% 0 55% 0); transform: translate(-1px, -2px); }
+  100% { clip-path: inset(85% 0 5% 0);  transform: translate(2px, 1px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-glitch-text::before,
+  .nx-glitch-text::after { animation: none; opacity: 0; }
+}
+
+/* ── Magnetic button ───────────────────────────────────────────── */
+.nx-magnetic-btn {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              background-color 0.2s ease,
+              color 0.2s ease;
+  will-change: transform;
+}
+.nx-magnetic-btn:hover {
+  box-shadow: 0 12px 40px -8px rgba(255, 83, 169, 0.4);
+}
+.nx-magnetic-primary {
+  background: linear-gradient(135deg, #FF53A9 0%, #9B3DFF 100%);
+  box-shadow: 0 8px 24px -6px rgba(255, 83, 169, 0.45);
+}
+.nx-magnetic-primary:hover {
+  box-shadow: 0 16px 40px -8px rgba(255, 83, 169, 0.6);
+}
+.nx-magnetic-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+}
+.nx-magnetic-border {
+  background: conic-gradient(
+    from var(--nx-magnetic-angle, 0deg),
+    #FF53A9,
+    #9B3DFF,
+    #136DFF,
+    #FF53A9
+  );
+  animation: nx-magnetic-border-spin 3s linear infinite;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  padding: 1px;
+}
+@property --nx-magnetic-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes nx-magnetic-border-spin {
+  to { --nx-magnetic-angle: 360deg; }
+}
+/* Fallback for browsers without @property */
+@supports not (background: conic-gradient(from 0deg, red, blue)) {
+  .nx-magnetic-border {
+    background: linear-gradient(135deg, #FF53A9, #9B3DFF, #136DFF);
+    animation: none;
+  }
+}
+.nx-magnetic-ripple {
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* ── Cylindrical testimonial card ──────────────────────────────── */
+.nx-cyl-card {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ── Floating input ────────────────────────────────────────────── */
+.nx-floating-input {
+  outline: none;
+}
+.nx-floating-input::placeholder {
+  color: transparent;
+}
+
+/* ── Glassmorphism utility ─────────────────────────────────────── */
+.nx-glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.nx-glass-dark {
+  background: rgba(10, 6, 18, 0.65);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Reduced-motion global override ──────────────────────────────
+   When the user prefers reduced motion, kill all animations /
+   transitions site-wide except essential ones (marked .nx-motion-essential). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .nx-motion-essential {
+    animation-duration: auto !important;
+    transition-duration: auto !important;
+  }
+}
+
+/* ── Focus ring polish ─────────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid #FF53A9;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Custom scrollbar (for command palette, mobile drawer) ─────── */
+.nx-scroll::-webkit-scrollbar,
+[class*="overflow-y-auto"]::-webkit-scrollbar,
+[class*="overflow-auto"]::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.nx-scroll::-webkit-scrollbar-track,
+[class*="overflow-y-auto"]::-webkit-scrollbar-track,
+[class*="overflow-auto"]::-webkit-scrollbar-track {
+  background: transparent;
+}
+.nx-scroll::-webkit-scrollbar-thumb,
+[class*="overflow-y-auto"]::-webkit-scrollbar-thumb,
+[class*="overflow-auto"]::-webkit-scrollbar-thumb {
+  background: rgba(255, 83, 169, 0.3);
+  border-radius: 3px;
+}
+.nx-scroll::-webkit-scrollbar-thumb:hover,
+[class*="overflow-y-auto"]::-webkit-scrollbar-thumb:hover,
+[class*="overflow-auto"]::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 83, 169, 0.5);
+}
