@@ -80,8 +80,11 @@ export async function POST(req: NextRequest) {
   const encCreds = credentials ? await encryptCredentials(credentials) : "{}";
   const cfgStr = config ? JSON.stringify(config) : "{}";
 
-  const existing = await prisma.providerConfig.findUnique({
-    where: { category_providerId: { category, providerId } },
+  // NOTE: Cannot use Prisma's compound-unique where-syntax (`category_providerId`)
+  // because the Drizzle shim silently drops unknown keys. Use findFirst with
+  // explicit field-level where instead.
+  const existing = await prisma.providerConfig.findFirst({
+    where: { category, providerId },
   });
 
   let record;

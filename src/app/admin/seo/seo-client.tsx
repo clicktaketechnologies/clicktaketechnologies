@@ -242,8 +242,15 @@ function SitemapConfig({ initial, canWrite }: { initial: Props["sitemap"]; canWr
   const save = async () => {
     setSaving(true);
     try {
-      await fetch("/api/admin/seo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "update_sitemap", ...form }) });
+      const res = await fetch("/api/admin/seo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "update_sitemap", ...form }) });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        toast.error(d.error || "Failed to save sitemap config");
+        return;
+      }
       toast.success("Sitemap config saved");
+    } catch {
+      toast.error("Network error");
     } finally { setSaving(false); }
   };
 
@@ -301,8 +308,15 @@ function RobotsConfig({ initial, canWrite }: { initial: Props["robots"]; canWrit
   const save = async () => {
     setSaving(true);
     try {
-      await fetch("/api/admin/seo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "update_robots", ...form }) });
+      const res = await fetch("/api/admin/seo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "update_robots", ...form }) });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        toast.error(d.error || "Failed to save robots config");
+        return;
+      }
       toast.success("Robots config saved");
+    } catch {
+      toast.error("Network error");
     } finally { setSaving(false); }
   };
 

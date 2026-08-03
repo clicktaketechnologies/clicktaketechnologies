@@ -42,10 +42,16 @@ export async function POST(req: NextRequest) {
   }
 
   if (action === "update_template") {
-    const { id, ...patch } = body;
+    const { id, action: _action, ...patch } = body;
     if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
-    if (patch.variables) patch.variables = JSON.stringify(patch.variables);
-    const t = await prisma.emailTemplate.update({ where: { id }, data: patch });
+    // Strip any non-column keys to avoid Drizzle rejecting unknown columns
+    const allowed = { name: true, subject: true, htmlContent: true, textContent: true, variables: true, category: true } as const;
+    const data: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(patch)) {
+      if (k in allowed) data[k] = v;
+    }
+    if (data.variables) data.variables = JSON.stringify(data.variables);
+    const t = await prisma.emailTemplate.update({ where: { id }, data });
     await logAudit({ userId: session.user.id, userName: session.user.name, action: "email.template_update", entity: "EmailTemplate", entityId: id, details: { name: t.name } });
     return NextResponse.json({ id: t.id });
   }
