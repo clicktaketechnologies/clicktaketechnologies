@@ -151,19 +151,40 @@ export function CrmClient({ leads, statusCounts, statuses, canWrite }: Props) {
                     </motion.div>
                   ))}
                   {canWrite && (
-                    <select
-                      onChange={async (e) => {
-                        const target = e.target.value;
-                        if (!target) return;
-                        // Move first lead in this column to next status (quick action)
-                        e.target.value = "";
+                    <button
+                      onClick={async () => {
+                        const name = window.prompt("Lead name:");
+                        if (!name) return;
+                        const email = window.prompt("Lead email:") || "";
+                        const service = window.prompt("Service interest (optional):") || "";
+                        try {
+                          const res = await fetch("/api/admin/leads", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                              name,
+                              email,
+                              serviceInterest: service,
+                              status,
+                              source: "manual",
+                              message: "",
+                            }),
+                          });
+                          if (!res.ok) {
+                            const d = await res.json().catch(() => ({}));
+                            toast.error(d.error || "Failed to create lead");
+                            return;
+                          }
+                          toast.success("Lead created — refreshing...");
+                          setTimeout(() => window.location.reload(), 600);
+                        } catch (err: any) {
+                          toast.error(err.message || "Network error");
+                        }
                       }}
-                      defaultValue=""
-                      className="w-full rounded-md border border-dashed border-border/40 bg-transparent px-2 py-1 text-[10px] text-muted-foreground"
+                      className="w-full rounded-md border border-dashed border-border/40 bg-transparent px-2 py-1 text-[10px] text-muted-foreground hover:border-brand-blue/40 hover:text-brand-blue"
                     >
-                      <option value="">+ Quick add</option>
-                      <option value="new">New lead form...</option>
-                    </select>
+                      + Quick add to {status}
+                    </button>
                   )}
                 </div>
               </div>

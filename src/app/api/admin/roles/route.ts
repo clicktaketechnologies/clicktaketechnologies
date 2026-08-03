@@ -9,13 +9,21 @@ export async function GET() {
   const session = await getServerSession();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const roles = await prisma.adminRole.findMany({
-    include: {
-      permissions: true,
-      _count: { select: { users: true } },
-    },
-    orderBy: { createdAt: "asc" },
-  });
+  // NOTE: Drizzle shim doesn't support Prisma's `_count` include syntax,
+  // so fetch users separately and compute counts in JS. Same pattern as
+  // /admin/roles/page.tsx.
+  const [roles, users] = await Promise.all([
+    prisma.adminRole.findMany({
+      include: { permissions: true },
+      orderBy: { createdAt: "asc" },
+    }),
+    prisma.adminUser.findMany({ select: { id: true, roleId: true } }),
+  ]);
+  const userCountByRole = new Map<string, number>();
+  for (const u of users) {
+    if (!u.roleId) continue;
+    userCountByRole.set(u.roleId, (userCountByRole.get(u.roleId) || 0) + 1);
+  }
 
   return NextResponse.json({
     roles: roles.map((r) => ({
@@ -24,7 +32,7 @@ export async function GET() {
       description: r.description,
       color: r.color,
       isSystem: r.isSystem,
-      userCount: r._count.users,
+      userCount: userCountByRole.get(r.id) || 0,
       permissions: r.permissions.map((p) => ({
         key: p.permissionKey,
         allowed: p.allowed,

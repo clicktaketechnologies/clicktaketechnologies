@@ -166,11 +166,12 @@ export function ProvidersClient({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ providerId, category }),
-      }).then((r) => r.json());
-      if (res.ok) {
-        toast.success(`✓ Healthy — ${res.latencyMs}ms`);
+      });
+      const data = await res.json().catch(() => ({ ok: false, message: "Invalid response from server" }));
+      if (res.ok && data.ok) {
+        toast.success(`✓ Healthy — ${data.latencyMs}ms`);
       } else {
-        toast.error(`✗ ${res.message || "Failed"}`);
+        toast.error(`✗ ${data.message || "Failed"}`);
       }
       await reload();
     } catch (err: any) {
@@ -192,32 +193,59 @@ export function ProvidersClient({
   };
 
   const handleToggle = async (id: string, isActive: boolean) => {
-    await fetch(`/api/admin/providers/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ isActive }),
-    });
-    await reload();
-    toast.success(isActive ? "Provider activated" : "Provider deactivated");
+    try {
+      const res = await fetch(`/api/admin/providers/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isActive }),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        toast.error(d.error || "Failed to update provider");
+        return;
+      }
+      await reload();
+      toast.success(isActive ? "Provider activated" : "Provider deactivated");
+    } catch (err: any) {
+      toast.error(err.message || "Network error");
+    }
   };
 
   const handlePriority = async (id: string, direction: "up" | "down") => {
     const provider = providers.find((p) => p.id === id);
     if (!provider) return;
     const newPriority = direction === "up" ? provider.priority - 1 : provider.priority + 1;
-    await fetch(`/api/admin/providers/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ priority: newPriority }),
-    });
-    await reload();
+    try {
+      const res = await fetch(`/api/admin/providers/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ priority: newPriority }),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        toast.error(d.error || "Failed to update priority");
+        return;
+      }
+      await reload();
+    } catch (err: any) {
+      toast.error(err.message || "Network error");
+    }
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this provider configuration?")) return;
-    await fetch(`/api/admin/providers/${id}`, { method: "DELETE" });
-    await reload();
-    toast.success("Provider deleted");
+    try {
+      const res = await fetch(`/api/admin/providers/${id}`, { method: "DELETE" });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        toast.error(d.error || "Failed to delete provider");
+        return;
+      }
+      await reload();
+      toast.success("Provider deleted");
+    } catch (err: any) {
+      toast.error(err.message || "Network error");
+    }
   };
 
   const filtered = providers.filter((p) => p.category === activeTab);

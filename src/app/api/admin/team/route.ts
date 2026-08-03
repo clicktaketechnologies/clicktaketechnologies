@@ -36,9 +36,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ id: m.id });
   }
   if (action === "update_member") {
-    const { id, ...patch } = body;
+    const { id, action: _action, ...patch } = body;
     if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
-    await prisma.teamMember.update({ where: { id }, data: patch });
+    // Strip any non-column keys to avoid Drizzle rejecting unknown columns
+    const allowed = { fullName: true, roleTitle: true, bio: true, linkedinUrl: true, githubUrl: true, avatarUrl: true, displayOrder: true, isActive: true } as const;
+    const data: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(patch)) {
+      if (k in allowed) data[k] = v;
+    }
+    await prisma.teamMember.update({ where: { id }, data });
+    await logAudit({ userId: session.user.id, userName: session.user.name, action: "team.update", entity: "TeamMember", entityId: id, details: { name: data.fullName } });
     return NextResponse.json({ success: true });
   }
   if (action === "delete_member") {
@@ -54,11 +61,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ id: j.id });
   }
   if (action === "update_job") {
-    const { id, ...patch } = body;
+    const { id, action: _action, ...patch } = body;
     if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
-    if (patch.requirements) patch.requirements = JSON.stringify(patch.requirements);
-    if (patch.closingDate) patch.closingDate = new Date(patch.closingDate);
-    await prisma.jobOpening.update({ where: { id }, data: patch });
+    // Strip any non-column keys to avoid Drizzle rejecting unknown columns
+    const allowed = { title: true, department: true, location: true, type: true, description: true, requirements: true, salaryRange: true, isActive: true, closingDate: true } as const;
+    const data: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(patch)) {
+      if (k in allowed) data[k] = v;
+    }
+    if (data.requirements) data.requirements = JSON.stringify(data.requirements);
+    if (data.closingDate) data.closingDate = new Date(data.closingDate as string);
+    await prisma.jobOpening.update({ where: { id }, data });
+    await logAudit({ userId: session.user.id, userName: session.user.name, action: "job.update", entity: "JobOpening", entityId: id, details: { title: data.title } });
     return NextResponse.json({ success: true });
   }
   if (action === "delete_job") {
