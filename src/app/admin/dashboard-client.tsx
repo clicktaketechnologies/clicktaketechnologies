@@ -8,12 +8,9 @@ import {
   Package,
   Mail,
   TrendingUp,
-  TrendingDown,
   Sparkles,
-  ArrowUpRight,
   ChevronRight,
   Activity,
-  Zap,
 } from "lucide-react";
 
 /* Admin Dashboard — AWIAP-inspired dark dashboard with ClickTake brand colors.

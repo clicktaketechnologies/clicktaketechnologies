@@ -90,8 +90,17 @@ export function SecurityClient({ blockedIps, logs }: Props) {
                       <td className="px-4 py-3 text-right">
                         <button
                           onClick={async () => {
-                            await fetch("/api/admin/security", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "unblock_ip", id: b.id }) });
-                            toast.success("Unblocked"); window.location.reload();
+                            try {
+                              const res = await fetch("/api/admin/security", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "unblock_ip", id: b.id }) });
+                              if (!res.ok) {
+                                const d = await res.json().catch(() => ({}));
+                                toast.error(d.error || "Failed to unblock");
+                                return;
+                              }
+                              toast.success("Unblocked"); window.location.reload();
+                            } catch {
+                              toast.error("Network error");
+                            }
                           }}
                           className="rounded-md p-1.5 text-muted-foreground hover:bg-emerald-500/10 hover:text-emerald-500"
                           title="Unblock"

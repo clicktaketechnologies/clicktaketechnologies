@@ -67,8 +67,17 @@ export function TeamCareersClient({ team, jobs, applicants, canWrite }: Props) {
                       <button
                         onClick={async () => {
                           if (!confirm(`Remove ${m.fullName}?`)) return;
-                          await fetch("/api/admin/team", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "delete_member", id: m.id }) });
-                          toast.success("Deleted"); window.location.reload();
+                          try {
+                            const res = await fetch("/api/admin/team", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "delete_member", id: m.id }) });
+                            if (!res.ok) {
+                              const d = await res.json().catch(() => ({}));
+                              toast.error(d.error || "Failed to delete");
+                              return;
+                            }
+                            toast.success("Deleted"); window.location.reload();
+                          } catch {
+                            toast.error("Network error");
+                          }
                         }}
                         className="rounded-md p-1.5 text-muted-foreground hover:bg-red-500/10 hover:text-red-500"
                       ><Trash2 className="size-3.5" /></button>
@@ -106,8 +115,17 @@ export function TeamCareersClient({ team, jobs, applicants, canWrite }: Props) {
                         <button
                           onClick={async () => {
                             if (!confirm(`Delete "${j.title}"?`)) return;
-                            await fetch("/api/admin/team", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "delete_job", id: j.id }) });
-                            toast.success("Deleted"); window.location.reload();
+                            try {
+                              const res = await fetch("/api/admin/team", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "delete_job", id: j.id }) });
+                              if (!res.ok) {
+                                const d = await res.json().catch(() => ({}));
+                                toast.error(d.error || "Failed to delete");
+                                return;
+                              }
+                              toast.success("Deleted"); window.location.reload();
+                            } catch {
+                              toast.error("Network error");
+                            }
                           }}
                           className="rounded-md p-1.5 text-muted-foreground hover:bg-red-500/10 hover:text-red-500"
                         ><Trash2 className="size-3.5" /></button>

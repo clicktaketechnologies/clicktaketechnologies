@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Type, Save, RefreshCw, Loader2, Eye, Search } from "lucide-react";
+import { Save, RefreshCw, Loader2, Search } from "lucide-react";
 import { toast } from "sonner";
 import { Card } from "@/components/ui/card";
 
@@ -17,11 +17,8 @@ type TypographyRow = {
   fontFileUrl: string;
 };
 
-type Preset = { id: string; name: string; description: string; isBuiltin: boolean };
-
 type Props = {
   typography: TypographyRow[];
-  presets: Preset[];
   elementLabels: Record<string, string>;
   canWrite: boolean;
 };
@@ -34,7 +31,7 @@ const FONT_OPTIONS = [
   "JetBrains Mono", "Fira Code", "Source Code Pro", "IBM Plex Mono",
 ];
 
-export function TypographyClient({ typography, presets, elementLabels, canWrite }: Props) {
+export function TypographyClient({ typography, elementLabels, canWrite }: Props) {
   const [rows, setRows] = useState<Record<string, TypographyRow>>(() => {
     const init: Record<string, TypographyRow> = {};
     for (const t of typography) init[t.element] = t;

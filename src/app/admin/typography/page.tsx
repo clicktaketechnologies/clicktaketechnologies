@@ -22,10 +22,11 @@ export default async function TypographyPage() {
   if (!session?.user) redirect("/admin/login?callbackUrl=/admin/typography");
   if (!hasPermission(session.user, "readCMS")) redirect("/admin");
 
-  const [typography, presets] = await Promise.all([
-    prisma.cmsTypography.findMany(),
-    prisma.cmsFontPreset.findMany({ orderBy: { name: "asc" } }),
-  ]);
+  // NOTE: previously also fetched prisma.cmsFontPreset.findMany and passed
+  // the result as `presets` to the client — but the client component never
+  // rendered it, so the DB round-trip was wasted work. Removed until the
+  // presets UI is actually built.
+  const typography = await prisma.cmsTypography.findMany();
 
   return (
     <TypographyClient
@@ -38,12 +39,6 @@ export default async function TypographyPage() {
         letterSpacing: t.letterSpacing || "",
         fontSource: t.fontSource,
         fontFileUrl: t.fontFileUrl || "",
-      }))}
-      presets={presets.map((p) => ({
-        id: p.id,
-        name: p.name,
-        description: p.description,
-        isBuiltin: p.isBuiltin,
       }))}
       elementLabels={ELEMENT_LABELS}
       canWrite={hasPermission(session.user, "writeCMS")}
