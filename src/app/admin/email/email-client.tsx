@@ -147,12 +147,20 @@ export function EmailClient({ templates, logs, canWrite, providers, emailLogs }:
                       <button
                         onClick={async () => {
                           if (!confirm(`Delete "${t.name}"?`)) return;
-                          const res = await fetch("/api/admin/emails", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ action: "delete_template", id: t.id }),
-                          });
-                          if (res.ok) { toast.success("Deleted"); window.location.reload(); }
+                          try {
+                            const res = await fetch("/api/admin/emails", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ action: "delete_template", id: t.id }),
+                            });
+                            if (res.ok) { toast.success("Deleted"); window.location.reload(); }
+                            else {
+                              const d = await res.json().catch(() => ({}));
+                              toast.error(d.error || "Failed to delete template");
+                            }
+                          } catch {
+                            toast.error("Network error");
+                          }
                         }}
                         className="rounded-md p-1.5 text-muted-foreground hover:bg-red-500/10 hover:text-red-500"
                       >

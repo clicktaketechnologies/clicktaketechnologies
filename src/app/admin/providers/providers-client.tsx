@@ -184,9 +184,16 @@ export function ProvidersClient({
   const handleRefresh = async () => {
     setRefreshing(true);
     try {
-      await fetch("/api/admin/providers/failover", { method: "POST" });
+      const res = await fetch("/api/admin/providers/failover", { method: "POST" });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        toast.error(d.error || "Failed to refresh registry");
+        return;
+      }
       await reload();
       toast.success("Registry refreshed");
+    } catch (err: any) {
+      toast.error(err?.message || "Network error");
     } finally {
       setRefreshing(false);
     }

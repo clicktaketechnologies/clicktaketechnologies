@@ -113,8 +113,17 @@ export function SeoClient({ metas, sitemap, robots, canWrite }: Props) {
                           <button
                             onClick={async () => {
                               if (!confirm(`Delete meta for ${m.path}?`)) return;
-                              await fetch("/api/admin/seo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "delete_meta", path: m.path }) });
-                              toast.success("Deleted"); window.location.reload();
+                              try {
+                                const res = await fetch("/api/admin/seo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "delete_meta", path: m.path }) });
+                                if (!res.ok) {
+                                  const d = await res.json().catch(() => ({}));
+                                  toast.error(d.error || "Failed to delete");
+                                  return;
+                                }
+                                toast.success("Deleted"); window.location.reload();
+                              } catch {
+                                toast.error("Network error");
+                              }
                             }}
                             className="rounded-md p-1.5 text-muted-foreground hover:bg-red-500/10 hover:text-red-500"
                           >

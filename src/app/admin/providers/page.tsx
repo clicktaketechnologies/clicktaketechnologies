@@ -1,11 +1,18 @@
-import { getServerSession } from "@/lib/auth";
+import { getServerSession, hasPermission } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { ProvidersClient } from "./providers-client";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminProvidersPage() {
   const session = await getServerSession();
   if (!session?.user) redirect("/admin/login");
+  // RBAC: Storage & Email Providers exposes credentials metadata, failover
+  // chains, and provider config — restrict to manageSettings. The layout's
+  // sidebar visibility gate is client-side only and does NOT protect the
+  // route, so this server-side check is mandatory.
+  if (!hasPermission(session.user, "manageSettings")) redirect("/admin");
 
   const configs = await prisma.providerConfig.findMany({
     orderBy: [{ category: "asc" }, { priority: "asc" }],

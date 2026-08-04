@@ -175,8 +175,16 @@ export function ServicesClient({ services, canWrite }: Props) {
                         <button
                           onClick={async () => {
                             if (!confirm(`Delete "${s.title}"?`)) return;
-                            const res = await fetch(`/api/admin/services/${s.id}`, { method: "DELETE" });
-                            if (res.ok) { toast.success("Deleted"); window.location.reload(); }
+                            try {
+                              const res = await fetch(`/api/admin/services/${s.id}`, { method: "DELETE" });
+                              if (res.ok) { toast.success("Deleted"); window.location.reload(); }
+                              else {
+                                const d = await res.json().catch(() => ({}));
+                                toast.error(d.error || "Failed to delete service");
+                              }
+                            } catch {
+                              toast.error("Network error");
+                            }
                           }}
                           className="rounded-md p-1.5 text-muted-foreground hover:bg-red-500/10 hover:text-red-500"
                         >

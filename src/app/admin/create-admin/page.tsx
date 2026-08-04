@@ -5,14 +5,12 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Shield,
   Eye,
   EyeOff,
   User,
   Mail,
   Lock,
   ArrowRight,
-  Check,
   ShieldCheck,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -53,21 +51,29 @@ export default function CreateAdminPage() {
 
     setIsLoading(true);
     try {
-      const res = await fetch("/api/admin/users", {
+      // Use the PUBLIC request-access endpoint (status="Pending") instead
+      // of the auth-required /api/admin/users POST — the old endpoint
+      // returned 401 for every unauthenticated visitor, which is exactly
+      // the audience this page is built for. The new endpoint creates the
+      // user with status="Pending" so they cannot log in until an existing
+      // admin (with manageRBAC) flips the status to "Active".
+      const res = await fetch("/api/admin/users/request-access", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName,
           email: email.toLowerCase(),
           password,
-          roleName: "Editor",
         }),
       });
       const data = await res.json();
       if (!res.ok) {
-        toast.error(data.error || "Failed to create admin");
+        toast.error(data.error || "Failed to submit access request");
       } else {
-        toast.success("Admin created. Please sign in.");
+        toast.success(
+          data.message ||
+            "Access request submitted. An admin must approve your account before you can sign in."
+        );
         router.push("/admin/login");
       }
     } catch {
@@ -101,9 +107,9 @@ export default function CreateAdminPage() {
             >
               <ShieldCheck className="size-7" />
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">Register Administrator</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">Request Admin Access</h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Create a new admin account for ClickTake Technologies
+              Submit a request for a ClickTake admin account. An existing admin must approve it before you can sign in.
             </p>
           </div>
 
@@ -201,11 +207,11 @@ export default function CreateAdminPage() {
               {isLoading ? (
                 <>
                   <div className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                  Creating...
+                  Submitting...
                 </>
               ) : (
                 <>
-                  Create admin account
+                  Submit access request
                   <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                 </>
               )}
