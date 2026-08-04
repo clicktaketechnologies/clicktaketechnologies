@@ -7,7 +7,7 @@ import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Review the Terms of Service and contract parameters for working with ClickTake Technologies Ltd.",
+    "Terms of Service for working with ClickTake Technologies Ltd. Covers engagement scope, payment terms, IP ownership, confidentiality, liability and dispute resolution.",
   openGraph: {
     title: "Terms of Service",
     description: "Review the Terms of Service and contract parameters for working with ClickTake Technologies Ltd.",

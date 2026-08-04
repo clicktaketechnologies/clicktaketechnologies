@@ -6,7 +6,7 @@ import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const metadata: Metadata = {
   title: "Resources — Founders' Playbooks",
   description:
-    "Practical playbooks, guides and comparisons from ClickTake Technologies. Topics include AI adoption, LLM fine-tuning, SEO for SaaS, headless commerce, hiring engineering talent, and market entry for UK, Pakistan, USA and Dubai. Written for founders shipping digital products — not vanity content.",
+    "Practical playbooks & guides from ClickTake: AI adoption, LLM fine-tuning, SaaS SEO, headless commerce, hiring talent and market entry for UK, Pakistan, USA & Dubai founders.",
   keywords: [
     "AI adoption playbook",
     "SaaS SEO guide",

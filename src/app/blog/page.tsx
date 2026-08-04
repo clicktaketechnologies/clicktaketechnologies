@@ -10,7 +10,7 @@ export const revalidate = 300; // 5-min ISR — picks up new DB-published posts
 export const metadata: Metadata = {
   title: "Blog — SEO · Web Dev · AI · Marketing",
   description:
-    "Practical, no-fluff articles on SEO, web development, AI automation, e-commerce and growth marketing — written by the ClickTake engineers, marketers and designers who ship this work every day for clients across the UK, Pakistan, USA and Dubai.",
+    "Practical, no-fluff articles on SEO, web development, AI automation, e-commerce & growth marketing — written by ClickTake engineers, marketers & designers shipping this work every day.",
   keywords: [
     "ClickTake blog",
     "SEO blog UK",

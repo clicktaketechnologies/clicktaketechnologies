@@ -12,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "About — AI Digital Agency",
   description:
-    "ClickTake Technologies is a multi-region AI-powered digital agency founded in 2019. With registered HQ in Birmingham UK and engineering hubs in Multan (Pakistan), Austin TX (USA) and Dubai (UAE), we ship AI products, SaaS platforms and growth systems for ambitious brands across four continents. Meet the team, values and story behind ClickTake.",
+    "ClickTake Technologies is a multi-region AI-powered digital agency founded 2019. HQ in Birmingham UK, hubs in Multan, Austin & Dubai. We ship AI products, SaaS platforms and growth systems for ambitious brands.",
   keywords: [
     "about ClickTake Technologies",
     "digital agency Birmingham",
