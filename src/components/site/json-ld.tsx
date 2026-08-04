@@ -162,12 +162,17 @@ export function buildArticleJsonLd(opts: {
       "@type": "WebPage",
       "@id": url,
     },
-    image: opts.imageUrl
-      ? {
-          "@type": "ImageObject",
-          url: opts.imageUrl,
-        }
-      : undefined,
+    // Google Article rich result REQUIRES an `image` field. Previously
+    // this emitted `image: undefined` when no imageUrl was supplied, which
+    // JSON.stringify strips — leaving the Article schema without any image
+    // and forfeiting rich-result eligibility. Fall back to the site-wide
+    // default OG image so the field is always populated.
+    image: {
+      "@type": "ImageObject",
+      url: opts.imageUrl || `${SITE.url}/og-default.png`,
+      width: 1200,
+      height: 630,
+    },
   };
 }
 
@@ -236,35 +241,51 @@ export function buildProductJsonLd(opts: {
   const currency = m ? currencyMap[m[1]] || "GBP" : "GBP";
   const price = m ? Number(m[2].replace(/,/g, "")) : 0;
 
+  // Schema.org correctness: when `priceFrom` is a non-numeric string like
+  // "Let's talk" or "Custom", emitting `price: "0"` causes Google Merchant
+  // to display a fake £0 price tag. Instead, omit the Offer entirely — the
+  // Product schema is still valid without an Offer, and we surface the
+  // human-readable price string via the `description` field so the info is
+  // not lost.
+  const hasParseablePrice = price > 0;
+  const offer = hasParseablePrice
+    ? {
+        "@type": "Offer",
+        price: String(price),
+        priceCurrency: currency,
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          price: String(price),
+          priceCurrency: currency,
+          description: `${opts.priceFrom} — ${opts.billing}`,
+        },
+        availability: "https://schema.org/InStock",
+        seller: {
+          "@type": "Organization",
+          name: SITE.name,
+          url: SITE.url,
+        },
+        url: `${SITE.url}/contact`,
+      }
+    : undefined;
+
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     name: `${opts.name} — ${SITE.name}`,
-    description: opts.description,
+    // Append the human-readable price string to the description so the
+    // pricing info is still surfaced in AI search / rich snippets even
+    // when we can't emit a numeric Offer.
+    description: hasParseablePrice
+      ? opts.description
+      : `${opts.description} — Pricing: ${opts.priceFrom} (${opts.billing}). Contact us for a fixed-scope quote.`,
     category: opts.category || "Professional Services",
     url: `${SITE.url}/pricing#${opts.slug}`,
     brand: {
       "@type": "Brand",
       name: SITE.name,
     },
-    offers: {
-      "@type": "Offer",
-      price: price > 0 ? String(price) : "0",
-      priceCurrency: currency,
-      priceSpecification: {
-        "@type": "PriceSpecification",
-        price: price > 0 ? String(price) : "0",
-        priceCurrency: currency,
-        description: `${opts.priceFrom} — ${opts.billing}`,
-      },
-      availability: "https://schema.org/InStock",
-      seller: {
-        "@type": "Organization",
-        name: SITE.name,
-        url: SITE.url,
-      },
-      url: `${SITE.url}/contact`,
-    },
+    ...(offer ? { offers: offer } : {}),
   };
 }
 
@@ -369,22 +390,36 @@ export function buildProfessionalServiceJsonLd(opts: {
       ? {
           "@type": "OfferCatalog",
           name: opts.name,
-          itemListElement: opts.offers.map((o) => ({
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: o.serviceName,
-              description: o.serviceDescription,
-            },
-            priceCurrency: o.currency || currency,
-            price: String(o.minPrice),
-            priceSpecification: {
+          itemListElement: opts.offers.map((o) => {
+            // Schema.org correctness: when a service has a genuine price
+            // range (maxPrice !== minPrice), emitting BOTH `price` (fixed)
+            // AND `priceSpecification.minPrice/maxPrice` is contradictory
+            // and Google flags it. Use `price` only when the offer is a
+            // single fixed price; for ranges, rely on `priceSpecification`
+            // alone.
+            const hasRange =
+              typeof o.maxPrice === "number" && o.maxPrice !== o.minPrice;
+            const offerCurrency = o.currency || currency;
+            const priceSpec = {
               "@type": "PriceSpecification",
               minPrice: o.minPrice,
               maxPrice: o.maxPrice ?? o.minPrice,
-              priceCurrency: o.currency || currency,
-            },
-          })),
+              priceCurrency: offerCurrency,
+            };
+            return {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: o.serviceName,
+                description: o.serviceDescription,
+              },
+              priceCurrency: offerCurrency,
+              ...(hasRange
+                ? {} // range — omit fixed `price`, use priceSpecification only
+                : { price: String(o.minPrice) }),
+              priceSpecification: priceSpec,
+            };
+          }),
         }
       : undefined;
 
@@ -487,6 +522,12 @@ export function buildVideoObjectJsonLd(opts: {
       logo: {
         "@type": "ImageObject",
         url: `${SITE.url}/clicktake-logo.png`,
+        // Google Video rich result spec requires publisher.logo to be an
+        // ImageObject with explicit width + height (in pixels). Omitting
+        // these causes Google Rich Results Test to flag the VideoObject
+        // as invalid.
+        width: 512,
+        height: 512,
       },
     },
   };
