@@ -39,6 +39,8 @@ import {
   buildServiceJsonLd,
   buildBreadcrumbJsonLd,
   buildFaqJsonLd,
+  buildProfessionalServiceJsonLd,
+  buildVideoObjectJsonLd,
 } from "@/components/site/json-ld";
 
 /**
@@ -385,6 +387,78 @@ export default async function Page({ params }: Params) {
     if (faqItems.length > 0) {
       schemas.push(buildFaqJsonLd(faqItems));
     }
+
+    // ── Slug-specific schema upgrades ────────────────────────────────
+    // For the B2B Video Production page, replace the bare Service block
+    // with a richer ProfessionalService block (OfferCatalog + areaServed
+    // + BusinessAudience) and inject a VideoObject for the hero showreel
+    // embed. This earns Google Rich Results eligibility for video and
+    // service rich results, and gives LLM extractors a citable
+    // description that matches the on-page GEO answer block verbatim.
+    if (joined === "creative/video-production") {
+      // The GEO answer block on the page — kept in sync with
+      // download/video-production-seo-rewrite.md §3.2.
+      const geoAnswerBlock =
+        "ClickTake Technologies provides end-to-end B2B video production services UK, including SaaS explainer videos, product demos, corporate brand films and performance video ads. The agency has shipped 1,400+ cuts across Birmingham, Multan, Austin and Dubai, lifting paid-social ROAS by 1.8× and cutting CPV by 44%.";
+
+      // Replace the bare Service schema at position 0 with the upgraded
+      // ProfessionalService schema (same slot, richer payload).
+      schemas[0] = buildProfessionalServiceJsonLd({
+        name: "B2B Video Production Services UK",
+        description: geoAnswerBlock,
+        slug: service.slug,
+        imageUrl: `${SITE.url}/og/video-production-showreel-poster.jpg`,
+        priceRange: "£££",
+        serviceType: "B2B Video Production",
+        audienceType: "B2B SaaS / Enterprise",
+        offers: [
+          {
+            serviceName: "SaaS Explainer Video (60–90s)",
+            serviceDescription:
+              "Scripted storyboard, motion-graphic or live-action, voiceover, music, colour grade, burned-in captions, multi-aspect-ratio delivery.",
+            minPrice: 3000,
+            maxPrice: 12000,
+          },
+          {
+            serviceName: "Performance Video Ad (15–60s, multi-aspect-ratio)",
+            serviceDescription:
+              "9:16 + 1:1 + 16:9 from single master, burned-in captions, structured creative testing grid, platform-spec QC.",
+            minPrice: 1500,
+            maxPrice: 6000,
+          },
+          {
+            serviceName: "Corporate Brand Film (60–180s)",
+            serviceDescription:
+              "Live-action 1-day studio shoot, b-roll, colour-graded master, music sync licence, voiceover, multi-aspect-ratio delivery.",
+            minPrice: 8000,
+            maxPrice: 18000,
+          },
+        ],
+      });
+
+      // VideoObject schema for the hero showreel embed.
+      // The transcript is the production-ready draft from
+      // download/video-production-showreel-transcript.md — replace with
+      // the verbatim voiceover once the final showreel audio is mixed.
+      schemas.push(
+        buildVideoObjectJsonLd({
+          name: "ClickTake Technologies — B2B Video Production Showreel",
+          description:
+            "A 90-second showreel of B2B video production work shipped by ClickTake Technologies across SaaS explainer videos, product demos, corporate brand films and performance video ads. Includes cuts for paid social (Meta, TikTok, YouTube), website hero embeds and YouTube long-form.",
+          thumbnailUrl: `${SITE.url}/og/video-production-showreel-poster.jpg`,
+          uploadDate: "2026-08-04T00:00:00+01:00",
+          // contentUrl + embedUrl are placeholders — replace SHOWREEL_ID
+          // with the real Vimeo ID before deploy.
+          contentUrl: `${SITE.url}/videos/showreel.mp4`,
+          embedUrl: "https://player.vimeo.com/video/SHOWREEL_ID",
+          duration: "PT1M30S",
+          regionsAllowed: ["GB", "US", "AE", "PK", "CA", "AU", "IE", "DE", "FR", "SG"],
+          transcript:
+            "[00:00–00:03] One thousand four hundred videos. Shipped. [00:03–00:08] ClickTake Technologies — B2B video production services, UK and global. [00:08–00:18] We script, shoot, edit, motion-design, colour-grade and ship video for paid social — explainers, product demos, brand films, performance ads. Delivered in 9:16, 1:1 and 16:9, from a single master cut. [00:18–00:28] For SaaS founders creating a new category: one 75-second master explainer that works across investor pitch, website hero, paid social and sales demo. Demo-request conversion up 38%. [00:28–00:38] For B2B thought leadership: YouTube long-form, scripted against a hook-value-deep-dive-CTA framework. View-through rate up from 18% to 41% within 6 months. [00:38–00:48] 3.4× VTR vs. platform benchmark. 62% creative win rate in structured testing. 44% lower cost-per-view. 52% lower per-cut cost at volume. [00:48–00:58] Five-phase methodology: brief and storyboard, footage and animation, master edit and motion graphics, sound design and colour, multi-aspect-ratio delivery with platform-spec QC. 1–3 weeks per cut. [00:58–01:08] Fixed-scope pricing, signed before shoot day. Script and storyboard approval before any footage is shot. Full IP ownership — source files, motion-design kit, music sync licences — transferred at project close. [01:08–01:18] Trusted by D2C brands running $80K/month on paid social, SaaS founders closing $14M Series A rounds, and multi-site operators training 1,400 staff. [01:18–01:25] Brief us. Review a fixed-scope concept in 48 hours. Launch your video sprint. [01:25–01:30] ClickTake Technologies. Book your free video strategy call today.",
+        })
+      );
+    }
+
     return (
       <>
         <JsonLd data={schemas} />
