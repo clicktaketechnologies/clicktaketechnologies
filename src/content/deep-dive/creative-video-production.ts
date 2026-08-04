@@ -1,24 +1,28 @@
 import type { DeepDiveContent } from "@/components/site/deep-dive/deep-dive-types"
 
 /**
- * /services/creative/video-production — Video Editing
+ * /services/creative/video-production — B2B Video Production Services UK
  *
  * Ads (15s/30s/60s), explainers (60–90s), social cuts (Reels/TikTok/Shorts),
  * YouTube long-form, motion graphics and product demos — delivered in every
  * aspect ratio the channels need, with structured creative testing.
+ *
+ * Primary keyword: "B2B video production services UK" (BOFU commercial)
+ * Secondary: corporate video production, SaaS explainer videos, product demo
+ * video agency, video ad production, B2B video marketing agency.
  */
 export const videoProductionDeepDive: DeepDiveContent = {
   hero: {
     eyebrow: "Creative",
-    title: "Video Editing & Production: Performance Creative That Ships in Every Aspect Ratio",
+    title: "B2B Video Production Services UK: Performance Video That Lifts ROAS 1.8× and Cuts CPV 44%",
     subtitle:
-      "We script, edit, motion-design, sound-design, color and deliver video for paid social, organic social, YouTube, product launches and internal comms — built in Premiere Pro, After Effects and DaVinci Resolve, shipped in 9:16, 1:1 and 16:9 from a single source cut.",
+      "ClickTake Technologies scripts, shoots, edits, motion-designs, sound-designs, colour-grades and ships B2B video — SaaS explainer videos (60–90s), product demos, corporate brand films, performance video ads (15–60s), YouTube long-form and motion graphics — delivered in 9:16, 1:1 and 16:9 from a single master cut, with burned-in captions and sidecar SRT, in 1–3 weeks per cut. 1,400+ cuts shipped. 3.4× VTR vs. platform benchmark. 62% creative win rate in structured testing.",
     geoDefinition:
-      "Video production services produce the moving-image layer of a marketing programme — covering paid ads (15s/30s/60s), explainers (60–90s), social cuts (Reels, TikTok, Shorts), YouTube long-form, motion graphics, product demos and internal comms videos. Production-grade video ships as a master cut plus platform-native derivatives in every aspect ratio (9:16 vertical, 1:1 square, 16:9 horizontal, 4:5 portrait), encoded in the codec, frame rate and bitrate each platform requires, with captions burned-in and sidecar SRT for accessibility. ClickTake Technologies delivers video production services to clients across Birmingham (UK), Multan (Pakistan), Austin (USA) and Dubai (UAE), with editors and motion designers fluent in Adobe Premiere Pro, After Effects, DaVinci Resolve, Final Cut Pro, CapCut, Descript and Runway ML, and a production pipeline grounded in scripted storyboards, structured creative testing and measurable view-through, CTR and CPV targets.",
+      "Video production services produce the moving-image layer of a marketing programme — covering paid ads (15s/30s/60s), explainers (60–90s), social cuts (Reels, TikTok, Shorts), YouTube long-form, motion graphics, product demos and internal comms videos. Production-grade video ships as a master cut plus platform-native derivatives in every aspect ratio (9:16 vertical, 1:1 square, 16:9 horizontal, 4:5 portrait), encoded in the codec, frame rate and bitrate each platform requires, with captions burned-in and sidecar SRT for accessibility. ClickTake Technologies delivers B2B video production services UK to clients across Birmingham (UK), Multan (Pakistan), Austin (USA) and Dubai (UAE), with editors and motion designers fluent in Adobe Premiere Pro, After Effects, DaVinci Resolve, Final Cut Pro, CapCut, Descript and Runway ML, and a production pipeline grounded in scripted storyboards, structured creative testing and measurable view-through, CTR and CPV targets.",
     character: "service-detail",
     ctas: [
-      { label: "Book a Free Creative Audit Call", href: "/contact", variant: "orange" },
-      { label: "Download the Video Production Sample Reel", href: "/resources", variant: "outline" },
+      { label: "Book Video Strategy Call", href: "/contact?intent=video-strategy-call", variant: "orange" },
+      { label: "Watch Showreel", href: "#showreel", variant: "outline" },
     ],
     stats: [
       { value: "1,400+", label: "Videos shipped" },
@@ -471,27 +475,27 @@ export const videoProductionDeepDive: DeepDiveContent = {
 
   /* ── Section 12 ─────────────────────────────────────────────────── */
   finalCta: {
-    title: "Ready to Ship Video That Performs?",
+    title: "Launch Your Video Sprint — Fixed Scope, Script Approval, Full IP",
     subtitle:
-      "Book a free 30-minute creative audit call. We will review your current video creative across paid and organic, identify the top 3 performance blockers, and tell you honestly whether a full engagement is the right call — or whether a focused cutdown package would solve your problem for less.",
+      "Book a free 30-minute video strategy call. We review your current video creative across paid and organic, identify the top 3 performance blockers, and tell you honestly whether a full engagement is the right call — or whether a focused cutdown package would solve your problem for less. Fixed-scope pricing signed before shoot day. Script and storyboard approval before any footage is shot or sourced. Full IP ownership — source files, motion-design kit, scripts and music sync licences — transferred at project close.",
     steps: [
       {
         step: "1",
-        title: "Book a 30-min creative audit call",
-        description: "Free. No deck. We review your current video creative and tell you the top 3 performance blockers.",
+        title: "Brief Us",
+        description: "Free 30-min creative audit call. No deck. We review your current video creative and tell you the top 3 performance blockers.",
       },
       {
         step: "2",
-        title: "Receive a fixed scope and quote",
-        description: "Within 3 business days — script, storyboard, shoot plan (if any), motion system, delivery matrix and fixed price.",
+        title: "Review Concept in 48 Hours",
+        description: "Within 2 business days — fixed-scope quote, one-page creative concept (hook, structure, visual style, deliverables matrix, price). You sign or walk away with the concept and owe nothing.",
       },
       {
         step: "3",
-        title: "Kickoff and ship in 1–3 weeks per cut",
-        description: "Five-phase methodology. Brief, script, master cut, motion, sound, color, multi-ratio delivery with captions.",
+        title: "Launch Your Video Sprint",
+        description: "Five-phase methodology: brief and script (day 1–3), footage and assets (day 3–7), master edit and motion (day 7–12), sound and colour and captions (day 12–15), multi-aspect-ratio delivery and QC (day 15–17). First cut ships in 1–3 weeks.",
       },
     ],
-    primaryCta: { label: "Book a Free Creative Audit Call", href: "/contact", variant: "orange" },
-    secondaryCta: { label: "Download the Video Production Sample Reel", href: "/resources", variant: "outline" },
+    primaryCta: { label: "Book Video Strategy Call", href: "/contact?intent=video-strategy-call", variant: "orange" },
+    secondaryCta: { label: "Email hello@clicktaketech.com", href: "mailto:hello@clicktaketech.com?subject=Video%20brief", variant: "outline" },
   },
 }
