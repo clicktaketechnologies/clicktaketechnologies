@@ -14,6 +14,8 @@ import {
   Lock,
   Check,
   AlertCircle,
+  UserCheck,
+  PauseCircle,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Card } from "@/components/ui/card";
@@ -159,6 +161,10 @@ export function RbacClient({ users, roles, availablePermissions, currentUser }: 
                         className={`rounded-full px-2 py-0.5 text-xs ${
                           u.status === "Active"
                             ? "bg-emerald-500/15 text-emerald-500"
+                            : u.status === "Pending"
+                            ? "bg-amber-500/15 text-amber-500"
+                            : u.status === "Suspended"
+                            ? "bg-red-500/15 text-red-500"
                             : "bg-muted text-muted-foreground"
                         }`}
                       >
@@ -170,22 +176,91 @@ export function RbacClient({ users, roles, availablePermissions, currentUser }: 
                     </td>
                     <td className="px-4 py-3 text-right">
                       {u.id !== currentUser.id && (
-                        <button
-                          onClick={async () => {
-                            if (!confirm(`Delete ${u.fullName}?`)) return;
-                            const res = await fetch(`/api/admin/users/${u.id}`, { method: "DELETE" });
-                            if (res.ok) {
-                              toast.success("User deleted");
-                              window.location.reload();
-                            } else {
-                              toast.error("Failed to delete");
-                            }
-                          }}
-                          className="rounded-md p-1.5 text-muted-foreground hover:bg-red-500/10 hover:text-red-500"
-                          title="Delete user"
-                        >
-                          <Trash2 className="size-4" />
-                        </button>
+                        <div className="flex justify-end gap-1">
+                          {/* Approve / Activate — shown when user is NOT Active.
+                              Critical for the /admin/create-admin flow: the
+                              public request-access endpoint creates users
+                              with status="Pending", and admins need a way
+                              to flip them to "Active" so they can sign in. */}
+                          {u.status !== "Active" && (
+                            <button
+                              onClick={async () => {
+                                if (!confirm(`Activate ${u.fullName}? They will be able to sign in.`)) return;
+                                try {
+                                  const res = await fetch(`/api/admin/users/${u.id}`, {
+                                    method: "PATCH",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({ status: "Active" }),
+                                  });
+                                  if (res.ok) {
+                                    toast.success("User activated");
+                                    window.location.reload();
+                                  } else {
+                                    const d = await res.json().catch(() => ({}));
+                                    toast.error(d.error || "Failed to activate");
+                                  }
+                                } catch {
+                                  toast.error("Network error");
+                                }
+                              }}
+                              className="rounded-md p-1.5 text-muted-foreground hover:bg-emerald-500/10 hover:text-emerald-500"
+                              title="Activate user"
+                            >
+                              <UserCheck className="size-4" />
+                            </button>
+                          )}
+                          {/* Suspend — shown when user IS Active. Sets status
+                              to "Suspended" which fails the auth.status==="Active"
+                              check at login. */}
+                          {u.status === "Active" && (
+                            <button
+                              onClick={async () => {
+                                if (!confirm(`Suspend ${u.fullName}? They will no longer be able to sign in.`)) return;
+                                try {
+                                  const res = await fetch(`/api/admin/users/${u.id}`, {
+                                    method: "PATCH",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({ status: "Suspended" }),
+                                  });
+                                  if (res.ok) {
+                                    toast.success("User suspended");
+                                    window.location.reload();
+                                  } else {
+                                    const d = await res.json().catch(() => ({}));
+                                    toast.error(d.error || "Failed to suspend");
+                                  }
+                                } catch {
+                                  toast.error("Network error");
+                                }
+                              }}
+                              className="rounded-md p-1.5 text-muted-foreground hover:bg-amber-500/10 hover:text-amber-500"
+                              title="Suspend user"
+                            >
+                              <PauseCircle className="size-4" />
+                            </button>
+                          )}
+                          <button
+                            onClick={async () => {
+                              if (!confirm(`Delete ${u.fullName}?`)) return;
+                              try {
+                                const res = await fetch(`/api/admin/users/${u.id}`, { method: "DELETE" });
+                                if (res.ok) {
+                                  toast.success("User deleted");
+                                  window.location.reload();
+                                } else {
+                                  const d = await res.json().catch(() => ({}));
+                                  toast.error(d.error || "Failed to delete");
+                                }
+                              } catch {
+                                toast.error("Network error");
+                              }
+                            }}
+                            className="rounded-md p-1.5 text-muted-foreground hover:bg-red-500/10 hover:text-red-500"
+                            title="Delete user"
+                          >
+                            <Trash2 className="size-4" />
+                          </button>
+                        </div>
                       )}
                     </td>
                   </tr>
