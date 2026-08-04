@@ -12,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "Team — Multi-Region Specialists",
   description:
-    "Meet the ClickTake Technologies team — 28 specialists across Leadership, Development, Marketing, Creative and Operations in the UK, Pakistan, USA and Dubai. Founded 2019. Senior-only engineering, named teams, radical transparency.",
+    "Meet the ClickTake Technologies team — 28 specialists across Leadership, Development, Marketing, Creative & Operations in the UK, Pakistan, USA & Dubai. Senior-only engineering, named teams.",
   keywords: [
     "ClickTake team",
     "digital agency team UK",

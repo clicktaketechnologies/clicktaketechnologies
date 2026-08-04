@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SERVICES, SOLUTIONS, BLOG_POSTS, CASE_STUDIES, SITE } from "@/lib/site-data";
+import { SERVICES, SOLUTIONS, BLOG_POSTS, CASE_STUDIES, RESOURCES, CAREER_ROLES, SITE } from "@/lib/site-data";
 import { CITIES } from "@/lib/seo/cities";
 
 /**
@@ -18,6 +18,11 @@ import { CITIES } from "@/lib/seo/cities";
  *
  * City × service priority is set by the city's searchTier (3=high, 2=med, 1=low)
  * to bias Googlebot's crawl budget toward the highest-intent markets first.
+ *
+ * Phase 5 #1 (Audit fixes) adds:
+ *   - /services/[category] parent index pages (creative, web, ai, digital-marketing)
+ *   - /careers/[slug] detail pages for each open role
+ *   - /resources/[slug] detail pages for each playbook/guide
  */
 const BASE = SITE.url; // https://clicktaketech.com
 
@@ -50,9 +55,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/legal/cookies`, priority: 0.3, changeFrequency: "yearly" as const, lastModified: now },
   ];
 
+  // Detail pages for each service (e.g. /services/web/wordpress)
   const serviceRoutes = SERVICES.map((s) => ({
     url: `${BASE}/services/${s.slug}`,
     priority: 0.7,
+    changeFrequency: "monthly" as const,
+    lastModified: now,
+  }));
+
+  // Parent service category index pages (e.g. /services/web, /services/ai)
+  // The catch-all /services/[[...slug]] route auto-renders these from the
+  // SERVICES array — they were missing from the sitemap, causing an audit
+  // "Indexable page not in sitemap" notice for 4 parent pages.
+  const serviceCategoryRoutes = Array.from(
+    new Set(SERVICES.map((s) => s.category))
+  ).map((category) => ({
+    url: `${BASE}/services/${category}`,
+    priority: 0.8,
     changeFrequency: "monthly" as const,
     lastModified: now,
   }));
@@ -78,6 +97,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
   }));
 
+  // Resource detail pages — were missing from sitemap, causing 6 "Indexable
+  // page not in sitemap" notices for /resources/[slug] pages.
+  const resourceRoutes = RESOURCES.map((r) => ({
+    url: `${BASE}/resources/${r.slug}`,
+    priority: 0.6,
+    changeFrequency: "monthly" as const,
+    lastModified: now,
+  }));
+
+  // Career detail pages — were missing from sitemap, causing 5 "Indexable
+  // page not in sitemap" notices for /careers/[slug] pages.
+  const careerRoutes = CAREER_ROLES.map((r) => ({
+    url: `${BASE}/careers/${r.slug}`,
+    priority: 0.6,
+    changeFrequency: "weekly" as const,
+    lastModified: now,
+  }));
+
   // ─── Phase 3 #4 — Programmatic SEO routes ──────────────────────────────
   const programmaticCityHubRoutes = CITIES.map((c) => ({
     url: `${BASE}/cities/${c.slug}`,
@@ -98,9 +135,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticRoutes,
     ...serviceRoutes,
+    ...serviceCategoryRoutes,
     ...solutionRoutes,
     ...blogRoutes,
     ...caseStudyRoutes,
+    ...resourceRoutes,
+    ...careerRoutes,
     ...programmaticCityHubRoutes,
     ...programmaticCityServiceRoutes,
   ];

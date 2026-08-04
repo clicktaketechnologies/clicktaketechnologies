@@ -147,7 +147,24 @@ export function composeCityServiceContent(city: City, service: ServiceItem): Cit
   };
 
   // ── SEO metadata ──────────────────────────────────────────────────────
-  const metaTitle = `${service.title} ${city.name} | ${cat?.eyebrow || "ClickTake"}`;
+  // Title bounded to ≤60 chars BEFORE the layout template appends
+  // " | ClickTake Technologies" (adds 24 chars → final ≤84). The previous
+  // template used `${service.title} ${city.name} | ${cat.eyebrow}` which
+  // combined with the layout suffix produced 88-98 char titles on 334
+  // city-service pages — flagged by Ahrefs as "Title too long".
+  // We drop the eyebrow (it's redundant with the service title) and use
+  // the country as a geo differentiator when the city is short enough.
+  const countryShort = COUNTRY_META[city.country].name === "United Kingdom"
+    ? "UK"
+    : COUNTRY_META[city.country].name === "United States"
+    ? "USA"
+    : COUNTRY_META[city.country].name === "United Arab Emirates"
+    ? "UAE"
+    : COUNTRY_META[city.country].name;
+  const baseTitle = `${service.title} ${city.name}`;
+  const metaTitle = baseTitle.length > 38
+    ? `${baseTitle} | ClickTake`
+    : `${baseTitle} ${countryShort} | ClickTake`;
   // Bounded to ≤155 chars so Ahrefs stops flagging "Meta description too long".
   // Original full-form concatenation was producing 170–250 char descriptions
   // across all 280 city-service pages. truncateMeta cuts on a word boundary
@@ -418,7 +435,10 @@ export function composeCityHubContent(city: City): CityHubContent {
     servicesForCity,
     nearbyCities: nearby,
     meta: {
-      title: `Web Design Services ${city.name} ${country.name} — ClickTake | AI · Web · Marketing`,
+      // Title bounded to ~40 chars before template suffix appends
+      // "| ClickTake Technologies" (24 chars). Old title was 90 chars before
+      // suffix → 114 final → flagged by Ahrefs as "Title too long".
+      title: `${city.name} Web Design & AI Services | ClickTake`,
       description: truncateMeta(
         `Web design services in ${city.name}, ${country.name}: AI, web development, SEO, paid ads, branding & video. ${city.hasOffice ? "Local office." : "Remote delivery."} Free consult.`
       ),
@@ -451,9 +471,14 @@ export function composeCitiesIndexContent(): CitiesIndexContent {
     },
     citiesByCountry,
     meta: {
-      title: "Cities We Serve — ClickTake Technologies | UK · Pakistan · USA · UAE",
-      description:
-        "ClickTake Technologies serves businesses across Birmingham, London, Manchester, Multan, Lahore, Karachi, Islamabad, Austin, New York, San Francisco, Dubai and Abu Dhabi. Find local AI, web, marketing and creative services.",
+      // Old: "Cities We Serve — ClickTake Technologies | UK · Pakistan · USA · UAE" (70 chars)
+      // + layout suffix "| ClickTake Technologies" (24) = 94 chars → too long.
+      // New: 47 chars + 24 = 71 — within Google's ~60-char truncation window
+      // for the meaningful part.
+      title: "Cities We Serve | UK · PK · USA · UAE",
+      description: truncateMeta(
+        "ClickTake Technologies serves businesses across Birmingham, London, Manchester, Multan, Lahore, Karachi, Islamabad, Austin, New York, San Francisco, Dubai and Abu Dhabi. Find local AI, web, marketing and creative services."
+      ),
       canonical: `${SITE.url}/cities`,
     },
     jsonLd: [

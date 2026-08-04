@@ -6,7 +6,7 @@ import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
 export const metadata: Metadata = {
   title: "Portfolio — Client Case Studies",
   description:
-    "Selected case studies from ClickTake Technologies — headless e-commerce, AI chatbots, SaaS dashboards, brand systems and growth campaigns delivered for clients across the UK (Birmingham, London), Pakistan (Lahore, Karachi), USA (Austin, NYC) and Dubai (UAE). Real metrics, real outcomes. Filter by service category: AI & Machine Learning, Web Development, Digital Marketing, Creative.",
+    "Selected case studies from ClickTake: headless e-commerce, AI chatbots, SaaS dashboards, brand systems and growth campaigns across UK, Pakistan, USA & Dubai. Real metrics, real outcomes.",
   keywords: [
     "ClickTake portfolio",
     "case studies AI agency",

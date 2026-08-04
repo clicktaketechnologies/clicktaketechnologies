@@ -147,13 +147,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   if (!slug) {
     return {
-      title: "Web Design Services & Digital Agency — AI · Web · Marketing | ClickTake",
+      title: "Web Design Services & Digital Agency",
       description: truncateMeta(
         "Web design services, AI development, SEO, ecommerce & growth marketing across four practice areas. Delivered from Birmingham, Multan, Austin & Dubai. Free consult."
       ),
       alternates: { canonical: "https://clicktaketech.com/services" },
       openGraph: {
-        title: "Web Design Services & Digital Agency — AI · Web · Marketing | ClickTake",
+        title: "Web Design Services & Digital Agency | ClickTake",
         description: truncateMeta(
           "Web design services, AI development, SEO, ecommerce & growth marketing across four practice areas. Delivered from Birmingham, Multan, Austin & Dubai. Free consult."
         ),
