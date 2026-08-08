@@ -507,7 +507,7 @@ HEADER = '''
           </div>
 
           <!-- Mobile toggle -->
-          <button id="mobile-toggle" class="lg:hidden p-2 text-ckheading" aria-label="Open menu">
+          <button type="button" id="mobile-toggle" class="lg:hidden p-2 text-ckheading" aria-label="Open menu">
             <i data-lucide="menu" class="w-6 h-6"></i>
           </button>
         </div>
@@ -516,7 +516,7 @@ HEADER = '''
 
     <!-- Mobile menu drawer -->
     <div id="mobile-menu" class="mobile-menu lg:hidden fixed top-0 right-0 z-50 h-full w-80 max-w-[85%] glass p-6 pt-24" aria-hidden="true">
-      <button id="mobile-close" class="absolute top-5 right-5 p-2 text-ckheading" aria-label="Close menu">
+      <button type="button" id="mobile-close" class="absolute top-5 right-5 p-2 text-ckheading" aria-label="Close menu">
         <i data-lucide="x" class="w-6 h-6"></i>
       </button>
       <nav class="flex flex-col gap-4 text-base" aria-label="Mobile">
@@ -533,6 +533,19 @@ HEADER = '''
         <a href="#contact" data-nav="contact" class="glow-btn mobile-link rounded-xl px-5 py-3 text-center font-display font-semibold mt-4">Book a Demo</a>
       </nav>
     </div>
+
+    <!-- Skip-to-main accessibility link (visible on focus) -->
+    <a href="#main-content" class="skip-link" data-nav="home">Skip to main content</a>
+    <style>
+      .skip-link {
+        position: absolute; top: -100px; left: 16px; z-index: 100;
+        background: #136DFF; color: #fff; padding: 12px 20px;
+        border-radius: 0 0 12px 12px; font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 600; font-size: 14px; text-decoration: none;
+        transition: top 0.2s ease;
+      }
+      .skip-link:focus { top: 0; outline: 2px solid #FF53A9; outline-offset: 2px; }
+    </style>
 '''
 
 # ============================================================================
@@ -831,6 +844,35 @@ MASCOT_DATA = '''
 '''
 
 # Save mascots in a dict for use across pages
+# NOTE: each mascot SVG contains hard-coded gradient IDs (aiBody, aiHead, etc.).
+# When the same mascot is rendered multiple times in one HTML document, those
+# IDs become duplicates — invalid HTML, and url(#id) references resolve to the
+# FIRST occurrence only, so subsequent mascots render with missing gradients.
+# Fix: mascot() returns a fresh copy with globally-unique IDs per call.
+import re as _re
+
+_MASCOT_COUNTER = {"dev": 0, "ai": 0, "data": 0}
+_MASCOT_TEMPLATES = {"dev": MASCOT_DEV, "ai": MASCOT_AI, "data": MASCOT_DATA}
+_MASCOT_IDS = {
+    "dev":  ["devSkin", "devShirt", "vrBody", "holoTab", "softGlow"],
+    "ai":   ["aiBody", "aiHead", "aiHeart", "aiEye", "aiGlow"],
+    "data": ["daSkin", "daShirt", "barGrad", "barGrad2", "daGlow"],
+}
+
+def mascot(kind: str) -> str:
+    """Return a mascot SVG with globally-unique IDs (so url(#id) refs work)."""
+    _MASCOT_COUNTER[kind] += 1
+    suffix = f"_{kind}_{_MASCOT_COUNTER[kind]}"
+    svg = _MASCOT_TEMPLATES[kind]
+    for old_id in _MASCOT_IDS[kind]:
+        # Replace both id="X" declarations and url(#X) / href="#X" references
+        svg = svg.replace(f'id="{old_id}"', f'id="{old_id}{suffix}"')
+        svg = svg.replace(f'url(#{old_id})', f'url(#{old_id}{suffix})')
+        svg = svg.replace(f'href="#{old_id}"', f'href="#{old_id}{suffix}"')
+        svg = svg.replace(f'xlink:href="#{old_id}"', f'xlink:href="#{old_id}{suffix}"')
+    return svg
+
+# Backwards-compat: keep MASCOTS dict available but callers should use mascot()
 MASCOTS = {"dev": MASCOT_DEV, "ai": MASCOT_AI, "data": MASCOT_DATA}
 
 print("Part 1 (head + ambient + header + mascots) prepared.")
@@ -882,7 +924,7 @@ PAGE_HOME = '''
             </div>
             <!-- Mascot -->
             <div class="relative mascot-stage h-[440px] lg:h-[520px]">
-              ''' + MASCOTS["dev"] + '''
+              ''' + mascot("dev") + '''
             </div>
             <!-- Floating metric chip -->
             <div class="absolute top-6 right-2 lg:right-6 glass rounded-2xl p-3.5 float-a w-44" aria-hidden="true">
@@ -1068,7 +1110,7 @@ PAGE_HOME = '''
               </div>
             </div>
             <div class="lg:col-span-2 relative h-72 reveal">
-              ''' + MASCOTS["ai"] + '''
+              ''' + mascot("ai") + '''
             </div>
           </div>
         </div>
@@ -1317,7 +1359,7 @@ PAGE_SERVICES = '''
               <p class="text-ckbody text-sm">No account managers, no offshore handoffs. The person you talk to in the kickoff is the person writing the architecture decision records.</p>
             </div>
             <div class="h-32">
-              ''' + MASCOTS["ai"] + '''
+              ''' + mascot("ai") + '''
             </div>
           </div>
         </div>
@@ -1342,7 +1384,7 @@ PAGE_SERVICES = '''
               </div>
             </div>
             <div class="lg:col-span-2 relative h-72 reveal">
-              ''' + MASCOTS["dev"] + '''
+              ''' + mascot("dev") + '''
             </div>
           </div>
         </div>
@@ -1376,7 +1418,7 @@ PAGE_SOLUTIONS = '''
               </div>
             </div>
             <div class="relative h-80 reveal">
-              ''' + MASCOTS["ai"] + '''
+              ''' + mascot("ai") + '''
             </div>
           </div>
         </div>
@@ -1692,7 +1734,7 @@ PAGE_SOLUTIONS = '''
               </div>
             </div>
             <div class="lg:col-span-2 relative h-72 reveal">
-              ''' + MASCOTS["ai"] + '''
+              ''' + mascot("ai") + '''
             </div>
           </div>
         </div>
@@ -1936,7 +1978,7 @@ PAGE_CASES = '''
               </div>
             </div>
             <div class="lg:col-span-2 relative h-72 reveal">
-              ''' + MASCOTS["data"] + '''
+              ''' + mascot("data") + '''
             </div>
           </div>
         </div>
@@ -2017,7 +2059,7 @@ PAGE_CONTACT = '''
                   </div>
                 </div>
                 <div class="flex justify-end pt-2">
-                  <button class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-sm" data-next="2">Continue <i data-lucide="arrow-right" class="inline w-4 h-4 ml-1"></i></button>
+                  <button type="button" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-sm" data-next="2">Continue <i data-lucide="arrow-right" class="inline w-4 h-4 ml-1"></i></button>
                 </div>
               </div>
             </div>
@@ -2051,8 +2093,8 @@ PAGE_CONTACT = '''
                   <textarea class="glass-input" rows="4" placeholder="What are you trying to build? What does success look like in 90 days?"></textarea>
                 </div>
                 <div class="flex justify-between pt-2">
-                  <button class="ghost-btn rounded-xl px-6 py-3 font-display font-semibold text-sm" data-prev="1">Back</button>
-                  <button class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-sm" data-next="3">Continue <i data-lucide="arrow-right" class="inline w-4 h-4 ml-1"></i></button>
+                  <button type="button" class="ghost-btn rounded-xl px-6 py-3 font-display font-semibold text-sm" data-prev="1">Back</button>
+                  <button type="button" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-sm" data-next="3">Continue <i data-lucide="arrow-right" class="inline w-4 h-4 ml-1"></i></button>
                 </div>
               </div>
             </div>
@@ -2065,9 +2107,9 @@ PAGE_CONTACT = '''
                 <!-- Calendar widget -->
                 <div>
                   <div class="flex items-center justify-between mb-4">
-                    <button id="cal-prev" class="ghost-btn rounded-lg w-9 h-9 flex items-center justify-center" aria-label="Previous month"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                    <button type="button" id="cal-prev" class="ghost-btn rounded-lg w-9 h-9 flex items-center justify-center" aria-label="Previous month"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
                     <div id="cal-month" class="font-display font-bold text-ckheading"></div>
-                    <button id="cal-next" class="ghost-btn rounded-lg w-9 h-9 flex items-center justify-center" aria-label="Next month"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                    <button type="button" id="cal-next" class="ghost-btn rounded-lg w-9 h-9 flex items-center justify-center" aria-label="Next month"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
                   </div>
                   <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-mono text-ckbody/60 uppercase mb-2">
                     <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
@@ -2078,17 +2120,17 @@ PAGE_CONTACT = '''
                 <div>
                   <div class="text-xs font-mono text-ckbody uppercase tracking-wider mb-3">Available slots</div>
                   <div class="space-y-2" id="time-slots">
-                    <button class="glass-input text-left text-sm hover:border-ckblue/50 transition-colors w-full">09:00 AM · EST</button>
-                    <button class="glass-input text-left text-sm hover:border-ckblue/50 transition-colors w-full">10:30 AM · EST</button>
-                    <button class="glass-input text-left text-sm hover:border-ckblue/50 transition-colors w-full">01:00 PM · EST</button>
-                    <button class="glass-input text-left text-sm hover:border-ckblue/50 transition-colors w-full">03:30 PM · EST</button>
-                    <button class="glass-input text-left text-sm hover:border-ckblue/50 transition-colors w-full">05:00 PM · EST</button>
+                    <button type="button" class="glass-input text-left text-sm hover:border-ckblue/50 transition-colors w-full">09:00 AM · EST</button>
+                    <button type="button" class="glass-input text-left text-sm hover:border-ckblue/50 transition-colors w-full">10:30 AM · EST</button>
+                    <button type="button" class="glass-input text-left text-sm hover:border-ckblue/50 transition-colors w-full">01:00 PM · EST</button>
+                    <button type="button" class="glass-input text-left text-sm hover:border-ckblue/50 transition-colors w-full">03:30 PM · EST</button>
+                    <button type="button" class="glass-input text-left text-sm hover:border-ckblue/50 transition-colors w-full">05:00 PM · EST</button>
                   </div>
                 </div>
               </div>
               <div class="flex justify-between pt-6">
-                <button class="ghost-btn rounded-xl px-6 py-3 font-display font-semibold text-sm" data-prev="2">Back</button>
-                <button id="submit-booking" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-sm">Confirm booking <i data-lucide="check" class="inline w-4 h-4 ml-1"></i></button>
+                <button type="button" class="ghost-btn rounded-xl px-6 py-3 font-display font-semibold text-sm" data-prev="2">Back</button>
+                <button type="button" id="submit-booking" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-sm">Confirm booking <i data-lucide="check" class="inline w-4 h-4 ml-1"></i></button>
               </div>
               <div id="booking-success" class="hidden mt-6 glass-soft rounded-xl p-5 text-center">
                 <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background:linear-gradient(135deg,#136DFF,#FF53A9);">
@@ -2104,7 +2146,7 @@ PAGE_CONTACT = '''
           <div class="lg:col-span-2 space-y-6 reveal">
             <div class="glass rounded-3xl p-8 relative overflow-hidden">
               <div class="relative h-40 mb-4">
-                ''' + MASCOTS["data"] + '''
+                ''' + mascot("data") + '''
               </div>
               <h3 class="font-display text-xl font-bold text-ckheading mb-3">Direct contact</h3>
               <p class="text-sm text-ckbody mb-5">Prefer email? Reach out directly — we read every message.</p>
@@ -2207,7 +2249,7 @@ PAGE_ABOUT = '''
               <p class="text-ckbody leading-relaxed">The result: 150+ production deployments, 99.9% uptime SLAs we actually meet, and a client retention rate of 94% over the past three years.</p>
             </div>
             <div class="relative h-80 reveal">
-              ''' + MASCOTS["dev"] + '''
+              ''' + mascot("dev") + '''
             </div>
           </div>
         </div>
@@ -2343,7 +2385,7 @@ PAGE_ABOUT = '''
               </div>
             </div>
             <div class="lg:col-span-2 relative h-72 reveal">
-              ''' + MASCOTS["ai"] + '''
+              ''' + mascot("ai") + '''
             </div>
           </div>
         </div>
@@ -2499,7 +2541,7 @@ PAGE_BLOG = '''
           </div>
           <div class="relative grid lg:grid-cols-5 items-center gap-8 p-8 lg:p-12">
             <div class="lg:col-span-2 relative h-72 reveal order-2 lg:order-1">
-              ''' + MASCOTS["data"] + '''
+              ''' + mascot("data") + '''
             </div>
             <div class="lg:col-span-3 reveal order-1 lg:order-2">
               <h2 class="font-display text-3xl lg:text-5xl font-bold text-ckheading leading-tight mb-4">
@@ -2540,7 +2582,7 @@ PAGE_CAREERS = '''
               <p class="text-ckbody leading-relaxed">All roles are remote-first, async-friendly, and pay top-of-market. We don't track hours, we don't micromanage, and we don't promote people who do. We promote people who ship.</p>
             </div>
             <div class="relative h-80 reveal">
-              ''' + MASCOTS["ai"] + '''
+              ''' + mascot("ai") + '''
             </div>
           </div>
         </div>
@@ -2706,7 +2748,7 @@ PAGE_CAREERS = '''
               </div>
             </div>
             <div class="lg:col-span-2 relative h-72 reveal">
-              ''' + MASCOTS["ai"] + '''
+              ''' + mascot("ai") + '''
             </div>
           </div>
         </div>
@@ -2814,7 +2856,7 @@ PAGE_PRIVACY = '''
             <aside class="lg:sticky lg:top-28 space-y-5 reveal">
               <div class="glass rounded-3xl p-6 relative overflow-hidden">
                 <div class="relative h-32 mb-4">
-                  ''' + MASCOTS["ai"] + '''
+                  ''' + mascot("ai") + '''
                 </div>
                 <h3 class="font-display font-bold text-ckheading mb-2">Quick nav</h3>
                 <ul class="space-y-2 text-sm">
@@ -2973,7 +3015,7 @@ PAGE_TERMS = '''
             <aside class="lg:sticky lg:top-28 space-y-5 reveal">
               <div class="glass rounded-3xl p-6 relative overflow-hidden">
                 <div class="relative h-32 mb-4">
-                  ''' + MASCOTS["dev"] + '''
+                  ''' + mascot("dev") + '''
                 </div>
                 <h3 class="font-display font-bold text-ckheading mb-2">Quick nav</h3>
                 <ul class="space-y-2 text-sm">
@@ -3119,6 +3161,8 @@ FOOTER = '''
             <a href="#privacy" data-nav="privacy" class="text-ckbody/70 hover:text-ckheading transition-colors">Privacy Policy</a>
             <a href="#terms" data-nav="terms" class="text-ckbody/70 hover:text-ckheading transition-colors">Terms of Service</a>
             <a href="#contact" data-nav="contact" class="text-ckbody/70 hover:text-ckheading transition-colors">Contact</a>
+            <a href="https://clicktaketech.com/sitemap.xml" target="_blank" rel="noopener noreferrer" class="text-ckbody/70 hover:text-ckheading transition-colors">Sitemap</a>
+            <a href="https://clicktaketech.com/robots.txt" target="_blank" rel="noopener noreferrer" class="text-ckbody/70 hover:text-ckheading transition-colors">Robots</a>
           </div>
         </div>
       </div>
@@ -3231,6 +3275,25 @@ JS = r'''
       const hash = (window.location.hash || '#home').replace('#', '');
       navigateTo(hash);
     });
+
+    // popstate: handle browser back/forward button robustly
+    window.addEventListener('popstate', () => {
+      const hash = (window.location.hash || '#home').replace('#', '');
+      navigateTo(PAGES[hash] ? hash : 'home');
+    });
+
+    // Move keyboard focus to <main> on route change for screen-reader users
+    const _origNavigateTo = navigateTo;
+    navigateTo = function(page) {
+      _origNavigateTo(page);
+      // Defer focus until page swap has happened
+      requestAnimationFrame(() => {
+        const main = document.getElementById('main-content');
+        if (main) {
+          main.focus({ preventScroll: true });
+        }
+      });
+    };
 
     document.addEventListener('click', (e) => {
       const link = e.target.closest('[data-nav]');
@@ -3481,7 +3544,11 @@ JS = r'''
 # ============================================================================
 # ASSEMBLE & WRITE
 # ============================================================================
-html = HEAD + AMBIENT + HEADER + PAGE_HOME + PAGE_SERVICES + PAGE_SOLUTIONS + PAGE_CASES + PAGE_CONTACT + PAGE_ABOUT + PAGE_BLOG + PAGE_CAREERS + PAGE_PRIVACY + PAGE_TERMS + FOOTER + JS
+html = (HEAD + AMBIENT + HEADER
+        + '<main id="main-content" class="relative" role="main" tabindex="-1">\n'
+        + PAGE_HOME + PAGE_SERVICES + PAGE_SOLUTIONS + PAGE_CASES + PAGE_CONTACT + PAGE_ABOUT + PAGE_BLOG + PAGE_CAREERS + PAGE_PRIVACY + PAGE_TERMS
+        + '</main>\n'
+        + FOOTER + JS)
 
 # Inject embedded brand-logo data URIs (base64) and production URLs
 html = (html
