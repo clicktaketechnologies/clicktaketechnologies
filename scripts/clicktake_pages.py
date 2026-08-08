@@ -482,65 +482,20 @@ for slug, name, category, url, blurb, stack, icon, year, region in CLIENT_PORTFO
           "stack": stack, "icon": icon, "year": year, "region": region})
 
 # ============================================================================
-# BLOG ARTICLE PAGES (13)
+# BLOG ARTICLE PAGES — 9 real articles parsed from /home/z/my-project/blog_src/*.md
 # ============================================================================
+# Each entry: (slug, title, category, read_time, date, author, excerpt,
+#              hero_image, body_html)
+# The body_html is fully-rendered HTML (h2/h3/p/ul/ol/code/strong/em/a/img/blockquote/table)
+# produced by `scripts/parse_blog_markdown.py` from the original markdown sources.
+# Re-generate after editing any .md file:
+#   python3 scripts/parse_blog_markdown.py
 
-BLOG_POSTS = [
-    ("blog-case-study-lumen-commerce-3x-revenue", "Case Study: How Lumen Commerce Tripled Revenue with Headless Commerce",
-     "Case Study", "8 min read", "Feb 12, 2026", "Sarah Chen",
-     "How a Birmingham D2C brand went from £800k to £2.4M MRR in 11 months by migrating to headless Shopify Hydrogen.",
-     ["Why Magento was killing conversions", "The headless architecture we chose", "Performance benchmarks", "The checkout redesign", "Results and lessons"]),
-    ("blog-clicktake-2026-year-in-review", "ClickTake 2026 — A Year in Review",
-     "Year in Review", "12 min read", "Jan 4, 2026", "The ClickTake Team",
-     "150+ deployments. 38 engineers. 9 time zones. Here's what we shipped, learned, and got wrong in 2026.",
-     ["Headline numbers", "Our biggest wins", "Our biggest mistakes", "What we're building in 2027", "Thank you to our clients"]),
-    ("blog-ppc-creative-testing-framework", "The PPC Creative Testing Framework We Use to Beat CAC by 40%",
-     "Paid Advertising", "14 min read", "Feb 28, 2026", "Marcus Abdullah",
-     "A repeatable framework for testing ad creative at scale. Used across 22 client accounts. Average CAC reduction: 40%.",
-     ["The testing hierarchy", "Creative angles that work in 2026", "Statistical significance at scale", "Tools and workflows", "Common pitfalls"]),
-    ("blog-ai-chatbot-for-lead-qualification", "We Built an AI Chatbot for Lead Qualification. Here's What We Learned.",
-     "AI / Chatbots", "11 min read", "Mar 8, 2026", "Priya Patel",
-     "A field report from building a production AI chatbot that qualifies 4,000+ leads per month for a B2B SaaS client.",
-     ["The architecture", "RAG vs fine-tuning decision", "Guardrails that work", "Human handoff patterns", "ROI analysis"]),
-    ("blog-wcag-2-2-aa-accessibility-guide", "WCAG 2.2 AA Accessibility Guide — A Practical Engineering Handbook",
-     "Accessibility", "18 min read", "Mar 22, 2026", "Tom Wright",
-     "A practical, code-first guide to passing WCAG 2.2 AA. Built from 30+ production audits. Includes checklists and code snippets.",
-     ["Why 2.2 matters", "The 12 most-failed criteria", "Code patterns that pass", "Testing workflow", "Audit checklist download"]),
-    ("blog-social-media-content-that-converts", "Social Media Content That Actually Converts (B2B Edition)",
-     "Social Media", "9 min read", "Apr 5, 2026", "Lena Müller",
-     "A B2B content framework that has generated 84k followers and $2.1M in pipeline for our clients in 2026.",
-     ["The 3 content pillars", "Founders-led vs brand-led", "Posting cadence that works", "Distribution playbook", "Measurement framework"]),
-    ("blog-startup-launch-checklist", "The 90-Day Startup Launch Checklist",
-     "Startups", "7 min read", "Apr 19, 2026", "Sarah Chen",
-     "The exact checklist we use to ship client MVPs in 90 days. Covers product, engineering, brand, launch, and post-launch.",
-     ["Weeks 1-2: Discovery", "Weeks 3-6: Build", "Weeks 7-10: Polish", "Weeks 11-12: Launch", "Post-launch ops"]),
-    ("blog-shopify-vs-medusa-2026", "Shopify vs Medusa in 2026 — An Engineering Perspective",
-     "E-commerce", "13 min read", "May 3, 2026", "Marcus Abdullah",
-     "We've built 22 headless commerce sites in the last 18 months. Half on Shopify Hydrogen, half on Medusa. Here's the honest comparison.",
-     ["Architecture comparison", "DX and customization", "Performance benchmarks", "Cost analysis", "When to pick which"]),
-    ("blog-local-seo-birmingham-guide", "The Birmingham Local SEO Guide (2026 Edition)",
-     "Local SEO", "10 min read", "May 17, 2026", "Priya Patel",
-     "How to rank in Birmingham's 3-pack. Built from ranking 14 local clients across 6 verticals.",
-     ["Birmingham market analysis", "Google Business Profile optimization", "Citation strategy", "Review acceleration", "Content + links"]),
-    ("blog-ai-automation-playbook-for-sme", "The AI Automation Playbook for SMEs",
-     "AI / Automation", "16 min read", "Jun 1, 2026", "Tom Wright",
-     "A practical playbook for SMEs to identify, prioritize, and ship AI automations that actually save money. 11 case studies included.",
-     ["The opportunity matrix", "Build vs buy vs no-code", "Agent architecture patterns", "Security and compliance", "ROI measurement"]),
-    ("blog-nextjs-16-app-router-best-practices", "Next.js 16 App Router Best Practices We Use in Production",
-     "Engineering", "15 min read", "Jun 15, 2026", "Sarah Chen",
-     "Battle-tested patterns from 40+ Next.js 16 production apps. Server components, caching, partial prerendering, and more.",
-     ["Project structure", "Server vs client components", "Caching strategy", "Partial prerendering", "Testing and observability"]),
-    ("blog-seo-audit-checklist-2026", "The 2026 SEO Audit Checklist (47 Items)",
-     "SEO", "12 min read", "Jul 1, 2026", "Priya Patel",
-     "The exact 47-item checklist we use for client SEO audits. Technical, content, links, and UX. Free download.",
-     ["Technical SEO (18 items)", "On-page SEO (12 items)", "Content (8 items)", "Links (5 items)", "UX and conversion (4 items)"]),
-    ("blog-ai-automation-playbook-for-sme-2", "AI Automation Playbook v2 — 30 Production Patterns",
-     "AI / Automation", "22 min read", "Jul 20, 2026", "Tom Wright",
-     "Updated for late 2026. 30 production-ready AI automation patterns with code, cost estimates, and lessons learned.",
-     ["Customer support patterns", "Sales and marketing", "Ops and finance", "HR and recruiting", "Engineering productivity"]),
-]
+from blog_articles_data import BLOG_ARTICLES  # noqa: E402
 
-for slug, title, category, read_time, date, author, excerpt, sections in BLOG_POSTS:
+BLOG_POSTS = BLOG_ARTICLES  # alias for backwards compatibility with template registry
+
+for slug, title, category, read_time, date, author, excerpt, hero_image, body_html in BLOG_POSTS:
     _reg(slug,
          f"{title} | ClickTake Blog",
          f"{excerpt} {read_time}.",
@@ -548,7 +503,8 @@ for slug, title, category, read_time, date, author, excerpt, sections in BLOG_PO
          f"https://clicktaketech.com/{slug.replace('-', '/')}",
          "blog_article",
          {"title": title, "category": category, "read_time": read_time, "date": date,
-          "author": author, "excerpt": excerpt, "sections": sections})
+          "author": author, "excerpt": excerpt, "hero_image": hero_image,
+          "body_html": body_html})
 
 # ============================================================================
 # CAREER DETAIL PAGES (6)

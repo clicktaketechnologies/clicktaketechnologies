@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Page type: blog article\nDesign: yes dark futuristic with blue/pink/purple brand palette\nGlass cards: 2\nHero image: yes rendered cleanly\nArticle title: yes clearly visible\nArticle body: yes readable prose with proper headings and paragraphs\nCode block: not applicable\nTable: not applicable\nLists: not applicable\nLogo: yes in header\nWhatsApp btn: yes floating bottom-right\nBreadcrumb: no visible at top\nIssues: none\nPolish: 9\nSummary: A highly polished, professional blog article featuring a sleek dark futuristic design, clear typography, and effective use of glassmorphism for CTAs.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786225501,
+  "id": "20260809054457ceb3e7bc2f114a5a",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "20260809054457ceb3e7bc2f114a5a",
+  "usage": {
+    "completion_tokens": 130,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 6094,
+    "prompt_tokens_details": {
+      "cached_tokens": 202
+    },
+    "total_tokens": 6224
+  }
+}

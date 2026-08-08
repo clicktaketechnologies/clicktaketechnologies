@@ -293,18 +293,31 @@ def render_blog_article(slug, meta):
     date = d["date"]
     author = d["author"]
     excerpt = d["excerpt"]
-    sections = d["sections"]
+    hero_image = d.get("hero_image", "")
+    body_html = d.get("body_html", "")
 
-    sections_html = ''.join(f'''
+    # Render the real markdown-derived body if available; otherwise fall back to
+    # the legacy sections+filler rendering for any older blog entries.
+    if body_html:
+        body_section_html = f'<article class="ck-prose reveal space-y-2">{body_html}</article>'
+    else:
+        sections = d.get("sections", [])
+        body_section_html = '<article class="space-y-2 reveal">' + ''.join(f'''
         <section class="mb-8">
           <h2 class="text-2xl md:text-3xl font-display font-bold mb-4 text-ckheading">{escape(f"{i+1}. {s}")}</h2>
           <p class="text-base md:text-lg text-ckbody leading-relaxed mb-4">{_blog_para_a(i, s)}</p>
           <p class="text-base md:text-lg text-ckbody leading-relaxed">{_blog_para_b(i, s)}</p>
-        </section>''' for i, s in enumerate(sections))
+        </section>''' for i, s in enumerate(sections)) + '</article>'
+
+    # Optional hero image (from markdown front-matter)
+    hero_html = f'''
+        <div class="rounded-2xl overflow-hidden mb-10 reveal aspect-[16/7] bg-gradient-to-br from-ckblue/30 to-ckpink/30">
+          <img src="{escape(hero_image)}" alt="{escape(title)}" class="w-full h-full object-cover" loading="lazy" />
+        </div>''' if hero_image else ""
 
     return f'''
     <section data-page="{slug}" class="page">
-      {_breadcrumb([("Home", "home"), ("Blog", "blog"), (title[:40] + "...", slug)])}
+      {_breadcrumb([("Home", "home"), ("Blog", "blog"), (title[:40] + "..." if len(title) > 40 else title, slug)])}
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-3xl mx-auto px-6 lg:px-8">
           <div class="reveal">
@@ -320,16 +333,15 @@ def render_blog_article(slug, meta):
               <div class="w-12 h-12 rounded-full bg-gradient-to-br from-ckblue to-ckpink flex items-center justify-center font-display font-bold text-white text-lg">{escape(author[0])}</div>
               <div>
                 <div class="font-display font-semibold">{escape(author)}</div>
-                <div class="text-sm text-ckbody">Senior Engineer, ClickTake</div>
+                <div class="text-sm text-ckbody">ClickTake Technologies · Insights</div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="max-w-3xl mx-auto px-6 lg:px-8 pb-16">
-        <article class="space-y-2 reveal">
-          {sections_html}
-        </article>
+      <div class="max-w-3xl mx-auto px-6 lg:px-8 pb-10">
+        {hero_html}
+        {body_section_html}
       </div>
       <div class="max-w-3xl mx-auto px-6 lg:px-8 pb-16">
         <div class="tilt-card glass rounded-3xl p-8 lg:p-10 reveal text-center">

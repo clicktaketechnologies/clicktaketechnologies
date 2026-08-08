@@ -561,6 +561,162 @@ HEADER = '''
       }
       .skip-link:focus { top: 0; outline: 2px solid #FF53A9; outline-offset: 2px; }
     </style>
+    <style>
+      /* =========================================================================
+         BLOG ARTICLE PROSE STYLES
+         Renders markdown-derived HTML inside the blog_article template.
+         Element classes are emitted by scripts/parse_blog_markdown.py.
+         ========================================================================= */
+      .ck-prose { font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif; color: #1f2937; line-height: 1.75; font-size: 1.0625rem; }
+      .ck-prose > *:first-child { margin-top: 0; }
+      .ck-prose > *:last-child { margin-bottom: 0; }
+      .ck-prose .ck-h2 {
+        font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+        font-size: 1.875rem;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #0F172A;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid transparent;
+        background: linear-gradient(90deg, #136DFF 0%, #7B2FBE 50%, #FF53A9 100%) border-box;
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.01em;
+      }
+      .ck-prose .ck-h3 {
+        font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+        font-size: 1.375rem;
+        font-weight: 700;
+        line-height: 1.3;
+        color: #1f2937;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+        letter-spacing: -0.005em;
+      }
+      .ck-prose .ck-h4 {
+        font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .ck-prose .ck-prose-p {
+        margin-top: 0;
+        margin-bottom: 1.1rem;
+        color: #374151;
+        line-height: 1.78;
+      }
+      .ck-prose .ck-prose-p a,
+      .ck-prose .ck-prose-li a { color: #136DFF; text-decoration: underline; text-underline-offset: 2px; font-weight: 500; transition: color 0.15s ease; }
+      .ck-prose .ck-prose-p a:hover,
+      .ck-prose .ck-prose-li a:hover { color: #7B2FBE; }
+      .ck-prose strong { color: #0F172A; font-weight: 700; }
+      .ck-prose em { color: #1f2937; font-style: italic; }
+      .ck-prose .ck-prose-ul,
+      .ck-prose .ck-prose-ol {
+        margin-top: 0;
+        margin-bottom: 1.2rem;
+        padding-left: 1.5rem;
+        color: #374151;
+      }
+      .ck-prose .ck-prose-ul { list-style: disc; }
+      .ck-prose .ck-prose-ol { list-style: decimal; }
+      .ck-prose .ck-prose-li { margin-top: 0.4rem; margin-bottom: 0.4rem; line-height: 1.7; }
+      .ck-prose .ck-prose-li::marker { color: #136DFF; font-weight: 700; }
+      .ck-prose .ck-prose-pre {
+        background: #0B1437;
+        color: #E2E8F0;
+        padding: 1.25rem 1.5rem;
+        border-radius: 0.875rem;
+        overflow-x: auto;
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        font-family: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+        font-size: 0.875rem;
+        line-height: 1.65;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: 0 4px 20px rgba(11, 20, 55, 0.18);
+      }
+      .ck-prose .ck-prose-pre .ck-prose-code,
+      .ck-prose .ck-prose-pre code {
+        background: transparent;
+        color: inherit;
+        padding: 0;
+        font-size: inherit;
+        border: none;
+        white-space: pre;
+      }
+      .ck-prose .ck-prose-code {
+        background: rgba(19, 109, 255, 0.08);
+        color: #136DFF;
+        padding: 0.125rem 0.375rem;
+        border-radius: 0.375rem;
+        font-family: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+        font-size: 0.875em;
+        font-weight: 500;
+        border: 1px solid rgba(19, 109, 255, 0.15);
+      }
+      .ck-prose .ck-prose-img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.875rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 6px 24px rgba(15, 23, 42, 0.10);
+      }
+      .ck-prose .ck-prose-quote {
+        border-left: 4px solid #136DFF;
+        background: linear-gradient(90deg, rgba(19, 109, 255, 0.06), rgba(123, 47, 190, 0.04));
+        padding: 1rem 1.5rem;
+        border-radius: 0 0.75rem 0.75rem 0;
+        margin: 1.5rem 0;
+        color: #1f2937;
+        font-style: italic;
+      }
+      .ck-prose .ck-prose-table-wrap {
+        overflow-x: auto;
+        margin: 1.5rem 0;
+        border-radius: 0.875rem;
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+      }
+      .ck-prose .ck-prose-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9375rem;
+        background: #ffffff;
+        overflow: hidden;
+      }
+      .ck-prose .ck-prose-table thead {
+        background: linear-gradient(90deg, #136DFF 0%, #7B2FBE 100%);
+        color: #ffffff;
+      }
+      .ck-prose .ck-prose-table th {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        font-weight: 600;
+        font-family: "Space Grotesk", sans-serif;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+      }
+      .ck-prose .ck-prose-table td {
+        padding: 0.75rem 1rem;
+        border-top: 1px solid #E5E7EB;
+        color: #374151;
+        vertical-align: top;
+      }
+      .ck-prose .ck-prose-table tbody tr:nth-child(even) { background: #F9FAFB; }
+      .ck-prose .ck-prose-table tbody tr:hover { background: #EFF6FF; }
+      .ck-prose hr {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #E5E7EB, transparent);
+        margin: 2.5rem 0;
+      }
+      /* Dark-mode aware page wrappers override body bg with light surfaces; the
+         prose block stays light-on-white for readability regardless. */
+    </style>
 '''
 
 # ============================================================================
@@ -2411,6 +2567,46 @@ PAGE_ABOUT = '''
 # ============================================================================
 # PAGE 7: BLOG
 # ============================================================================
+# Dynamic blog listing: render one card per real article in BLOG_POSTS.
+# Card schema matches the 9-tuple: (slug, title, category, read_time, date,
+# author, excerpt, hero_image, body_html).
+# We cycle a 6-color gradient palette for the card banner if no hero image is
+# available, and use the article's actual hero image where present.
+_BLOG_CARD_GRADIENTS = [
+    "linear-gradient(135deg,#136DFF 0%,#7B2FBE 60%,#FF53A9 100%)",
+    "linear-gradient(135deg,#FF53A9 0%,#7B2FBE 60%,#136DFF 100%)",
+    "linear-gradient(135deg,#7B2FBE 0%,#136DFF 60%,#FF53A9 100%)",
+    "linear-gradient(135deg,#136DFF 0%,#FF53A9 60%,#7B2FBE 100%)",
+    "linear-gradient(135deg,#FF53A9 0%,#136DFF 60%,#7B2FBE 100%)",
+    "linear-gradient(135deg,#7B2FBE 0%,#FF53A9 60%,#136DFF 100%)",
+    "linear-gradient(135deg,#136DFF 0%,#7B2FBE 50%,#FF53A9 100%)",
+    "linear-gradient(135deg,#FF53A9 0%,#136DFF 50%,#7B2FBE 100%)",
+    "linear-gradient(135deg,#7B2FBE 0%,#FF53A9 50%,#136DFF 100%)",
+]
+
+def _blog_card_html(idx, b):
+    slug, title, category, read_time, date, author, excerpt, hero_image, _body = b
+    if hero_image:
+        banner = f'<div class="h-48 relative overflow-hidden"><img src="{hero_image}" alt="{title}" class="w-full h-full object-cover" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><div class="absolute bottom-4 left-4 right-4"><span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">{category}</span></div></div>'
+    else:
+        gradient = _BLOG_CARD_GRADIENTS[idx % len(_BLOG_CARD_GRADIENTS)]
+        banner = f'<div class="h-48 relative overflow-hidden" style="background:{gradient};"><div class="absolute inset-0 perspective-grid opacity-30"></div><div class="absolute bottom-4 left-4 right-4"><span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">{category}</span></div></div>'
+    # Cap excerpt at ~140 chars for the card
+    card_excerpt = excerpt if len(excerpt) <= 140 else excerpt[:137].rsplit(" ", 1)[0] + "…"
+    return f'''          <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
+            <a href="#{slug}" data-nav="{slug}" class="block tilt-layer">
+              {banner}
+              <div class="p-6">
+                <div class="text-xs font-mono text-ckbody/60 mb-2">{read_time} · {date}</div>
+                <h3 class="font-display font-bold text-xl text-ckheading mb-2 leading-snug">{title}</h3>
+                <p class="text-sm text-ckbody leading-relaxed mb-4">{card_excerpt}</p>
+                <div class="flex items-center gap-2 text-xs text-ckbody/70">
+                  <i data-lucide="user" class="w-3 h-3"></i> {author}
+                </div>
+              </div>
+            </a>
+          </article>'''
+
 PAGE_BLOG = '''
     <!-- ========== PAGE: BLOG ========== -->
     <section data-page="blog" class="page">
@@ -2420,9 +2616,9 @@ PAGE_BLOG = '''
             <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Blog</span>
           </nav>
           <div class="max-w-3xl reveal">
-            <span class="tag mb-4 inline-flex"><i data-lucide="rss" class="w-3.5 h-3.5"></i>Engineering Notes</span>
+            <span class="tag mb-4 inline-flex"><i data-lucide="rss" class="w-3.5 h-3.5"></i>Insights</span>
             <h1 class="font-display text-5xl lg:text-6xl font-bold text-ckheading mb-5 leading-tight">Field notes from the <span class="grad-text">production floor</span>.</h1>
-            <p class="text-lg text-ckbody leading-relaxed">Long-form writeups from our engineering team. We publish what we learn shipping — architecture patterns, eval harnesses, post-mortems, and the occasional opinionated take on the AI tooling stack.</p>
+            <p class="text-lg text-ckbody leading-relaxed">Long-form writeups from our team on AI automation, SEO, social media, e-commerce, Next.js performance, and the occasional opinionated take on the modern marketing and engineering stack.</p>
           </div>
         </div>
       </div>
@@ -2430,119 +2626,7 @@ PAGE_BLOG = '''
       <div class="max-w-7xl mx-auto px-5 lg:px-8 py-8">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="#blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#136DFF 0%,#7B2FBE 60%,#FF53A9 100%);">
-                <div class="absolute inset-0 perspective-grid opacity-30"></div>
-                <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">AI Architecture</span>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="text-xs font-mono text-ckbody/60 mb-2">12 min read · March 14, 2025</div>
-                <h3 class="font-display font-bold text-xl text-ckheading mb-2 leading-snug">Designing multi-agent systems that don't collapse on edge cases</h3>
-                <p class="text-sm text-ckbody leading-relaxed mb-4">A field guide to LangGraph state design, tool-call schemas, and the human-in-loop patterns we've shipped in production. Includes three real failure modes and how we patched them.</p>
-                <div class="flex items-center gap-2 text-xs text-ckbody/70">
-                  <i data-lucide="user" class="w-3 h-3"></i> Sarah Chen · Principal Engineer
-                </div>
-              </div>
-            </a>
-          </article>
-
-          <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="#blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#FF53A9 0%,#7B2FBE 60%,#136DFF 100%);">
-                <div class="absolute inset-0 perspective-grid opacity-30"></div>
-                <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">RAG</span>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="text-xs font-mono text-ckbody/60 mb-2">9 min read · March 7, 2025</div>
-                <h3 class="font-display font-bold text-xl text-ckheading mb-2 leading-snug">RAG at 10M documents: the retrieval pipeline we ship</h3>
-                <p class="text-sm text-ckbody leading-relaxed mb-4">Why hybrid BM25 + dense + cross-encoder rerank beats any single retrieval strategy at scale. Benchmarks on three real client corpora, with cost and latency breakdowns.</p>
-                <div class="flex items-center gap-2 text-xs text-ckbody/70">
-                  <i data-lucide="user" class="w-3 h-3"></i> Marcus Webb · Staff ML Engineer
-                </div>
-              </div>
-            </a>
-          </article>
-
-          <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="#blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#7B2FBE 0%,#136DFF 60%,#FF53A9 100%);">
-                <div class="absolute inset-0 perspective-grid opacity-30"></div>
-                <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">DevOps</span>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="text-xs font-mono text-ckbody/60 mb-2">15 min read · February 28, 2025</div>
-                <h3 class="font-display font-bold text-xl text-ckheading mb-2 leading-snug">Cutting cloud spend 35% without firing anyone</h3>
-                <p class="text-sm text-ckbody leading-relaxed mb-4">The exact Terraform module patterns, autoscaling configs, and FinOps rituals we use to take 35% off the average client cloud bill in the first 60 days. No magic, just discipline.</p>
-                <div class="flex items-center gap-2 text-xs text-ckbody/70">
-                  <i data-lucide="user" class="w-3 h-3"></i> Priya Raman · Cloud Architect
-                </div>
-              </div>
-            </a>
-          </article>
-
-          <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="#blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#136DFF 0%,#FF53A9 60%,#7B2FBE 100%);">
-                <div class="absolute inset-0 perspective-grid opacity-30"></div>
-                <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">Frontend</span>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="text-xs font-mono text-ckbody/60 mb-2">7 min read · February 21, 2025</div>
-                <h3 class="font-display font-bold text-xl text-ckheading mb-2 leading-snug">Next.js 16 in production: what actually changed for us</h3>
-                <p class="text-sm text-ckbody leading-relaxed mb-4">A pragmatic migration guide from 14 → 16. Server Actions vs Route Handlers, the new caching defaults, and the three regressions we hit in the first week.</p>
-                <div class="flex items-center gap-2 text-xs text-ckbody/70">
-                  <i data-lucide="user" class="w-3 h-3"></i> Diego Alvarez · Senior Frontend
-                </div>
-              </div>
-            </a>
-          </article>
-
-          <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="#blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#FF53A9 0%,#136DFF 60%,#7B2FBE 100%);">
-                <div class="absolute inset-0 perspective-grid opacity-30"></div>
-                <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">Security</span>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="text-xs font-mono text-ckbody/60 mb-2">11 min read · February 14, 2025</div>
-                <h3 class="font-display font-bold text-xl text-ckheading mb-2 leading-snug">SOC 2 in 90 days: the audit prep checklist we use</h3>
-                <p class="text-sm text-ckbody leading-relaxed mb-4">The exact 87-item checklist we walk clients through before a SOC 2 Type II audit. Includes the controls we always see fail on first attempt and how to remediate them in a sprint.</p>
-                <div class="flex items-center gap-2 text-xs text-ckbody/70">
-                  <i data-lucide="user" class="w-3 h-3"></i> Aisha Okoye · Security Lead
-                </div>
-              </div>
-            </a>
-          </article>
-
-          <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="#blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#7B2FBE 0%,#FF53A9 60%,#136DFF 100%);">
-                <div class="absolute inset-0 perspective-grid opacity-30"></div>
-                <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">LLM</span>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="text-xs font-mono text-ckbody/60 mb-2">13 min read · February 7, 2025</div>
-                <h3 class="font-display font-bold text-xl text-ckheading mb-2 leading-snug">Fine-tuning vs RAG: the decision framework we actually use</h3>
-                <p class="text-sm text-ckbody leading-relaxed mb-4">Stop arguing on Twitter. Here's the cost, latency, and quality tradeoff matrix we use to decide which path to take — with three real client examples and the math behind each call.</p>
-                <div class="flex items-center gap-2 text-xs text-ckbody/70">
-                  <i data-lucide="user" class="w-3 h-3"></i> Sarah Chen · Principal Engineer
-                </div>
-              </div>
-            </a>
-          </article>
+''' + ''.join(_blog_card_html(i, b) for i, b in enumerate(BLOG_POSTS)) + '''
 
         </div>
       </div>
@@ -3302,7 +3386,7 @@ PAGE_RESOURCES = '''
           <a href="#{b[0]}" data-nav="{b[0]}" class="tilt-card glass rounded-2xl p-6 reveal group">
             <div class="text-xs font-mono uppercase tracking-widest text-ckpink mb-2">{b[2]}</div>
             <h3 class="font-display font-bold text-lg mb-2 group-hover:text-ckblue transition-colors">{b[1]}</h3>
-            <p class="text-sm text-ckbody mb-3">{b[5]}</p>
+            <p class="text-sm text-ckbody mb-3">{b[6]}</p>
             <div class="text-xs text-ckbody/60">{b[3]} · {b[4]}</div>
           </a>''' for b in BLOG_POSTS[:6]) + '''
         </div>
