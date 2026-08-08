@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes dark futuristic with blue/pink/purple\nGlass cards: 7 (6 blog cards + 1 CTA banner)\nLogo: yes visible in header\nWhatsApp btn: yes floating green button bottom-right\nIssues: none\nPolish: 9/10\nSummary: A visually striking, well-structured engineering blog page with a cohesive futuristic aesthetic and professional layout.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786215357,
+  "id": "2026080902555462e56150b8774eb4",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "2026080902555462e56150b8774eb4",
+  "usage": {
+    "completion_tokens": 79,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 4694,
+    "prompt_tokens_details": {
+      "cached_tokens": 2
+    },
+    "total_tokens": 4773
+  }
+}

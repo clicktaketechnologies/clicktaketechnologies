@@ -3268,6 +3268,8 @@ JS = r'''
           revealObserver.observe(el);
         });
         if (window.lucide) window.lucide.createIcons();
+        revealSafetyNet();
+        counterSafetyNet();
       }, 50);
     }
 
@@ -3315,6 +3317,17 @@ JS = r'''
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    // Safety-net: ensure all reveal elements become visible after 2.5s
+    // (covers crawlers, full-page screenshots, and fast-scroll scenarios where
+    // IntersectionObserver may not fire for every element)
+    function revealSafetyNet() {
+      setTimeout(() => {
+        document.querySelectorAll('.page.active .reveal:not(.in)').forEach(el => {
+          el.classList.add('in');
+        });
+      }, 2500);
+    }
 
     // ============================================================
     // PARALLAX TILT
@@ -3368,6 +3381,18 @@ JS = r'''
         }
       });
     }, { threshold: 0.4 });
+
+    // Safety-net: animate all counters after 3s if they haven't triggered yet
+    // (covers crawlers, full-page screenshots, and fast-scroll scenarios)
+    function counterSafetyNet() {
+      setTimeout(() => {
+        document.querySelectorAll('.page.active [data-counter]').forEach(el => {
+          if (el.textContent === '0' || el.textContent === '0%' || el.textContent === '0+') {
+            animateCounter(el);
+          }
+        });
+      }, 3000);
+    }
 
     // ============================================================
     // CANVAS PARTICLE BACKGROUND
@@ -3535,6 +3560,8 @@ JS = r'''
       document.querySelectorAll('[data-counter]').forEach(el => counterObserver.observe(el));
       const hash = (window.location.hash || '#home').replace('#', '');
       navigateTo(PAGES[hash] ? hash : 'home');
+      revealSafetyNet();
+      counterSafetyNet();
     });
   </script>
 </body>

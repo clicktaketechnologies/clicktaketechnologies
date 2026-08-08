@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes dark futuristic with blue/pink/purple\nGlass cards: 9 (4 benefits + 5 job listings + 1 CTA)\nLogo: yes visible in header\nWhatsApp btn: yes floating green button bottom-right\nIssues: none\nPolish: 9/10\nSummary: A polished, high-end careers page with a cohesive futuristic aesthetic, clear information hierarchy, and professional UI components.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786215361,
+  "id": "2026080902555719d7d54936d44b38",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "2026080902555719d7d54936d44b38",
+  "usage": {
+    "completion_tokens": 85,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 5734,
+    "prompt_tokens_details": {
+      "cached_tokens": 114
+    },
+    "total_tokens": 5819
+  }
+}

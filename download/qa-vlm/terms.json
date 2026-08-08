@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes dark futuristic with blue/pink/purple\nGlass cards: 10\nLogo: yes visible in header\nWhatsApp btn: yes floating green button bottom-right\nIssues: none\nPolish: 9/10\nSummary: A polished, modern legal page with a consistent futuristic aesthetic, clear hierarchy, and functional navigation elements.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786215367,
+  "id": "202608090256042c47efd9921f478f",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "202608090256042c47efd9921f478f",
+  "usage": {
+    "completion_tokens": 70,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 5942,
+    "prompt_tokens_details": {
+      "cached_tokens": 2
+    },
+    "total_tokens": 6012
+  }
+}

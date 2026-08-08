@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes\nGlass cards: 5\nLogo: yes\nWhatsApp btn: yes\nIssues: none\nPolish: 9/10\nSummary: A visually striking and well-structured case study page that effectively showcases technical achievements through a modern, futuristic aesthetic.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786215348,
+  "id": "202608090255450a8d95b4a0a6466c",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "202608090255450a8d95b4a0a6466c",
+  "usage": {
+    "completion_tokens": 56,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 5942,
+    "prompt_tokens_details": {
+      "cached_tokens": 2
+    },
+    "total_tokens": 5998
+  }
+}

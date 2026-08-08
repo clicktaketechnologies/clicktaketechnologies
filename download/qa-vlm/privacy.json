@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes dark futuristic with blue/pink/purple\nGlass cards: 10\nLogo: yes visible in header\nWhatsApp btn: yes floating green button bottom-right\nIssues: none\nPolish: 9/10\nSummary: A polished, modern privacy policy page with a cohesive futuristic aesthetic, clear information hierarchy, and functional navigation elements.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786215364,
+  "id": "202608090256017d0c30dedfb14827",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "202608090256017d0c30dedfb14827",
+  "usage": {
+    "completion_tokens": 72,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 5734,
+    "prompt_tokens_details": {
+      "cached_tokens": 2
+    },
+    "total_tokens": 5806
+  }
+}
