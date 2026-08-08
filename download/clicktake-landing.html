@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClickTake Technologies — Next-Gen Software, AI & Digital Transformation</title>
+  <meta name="description" content="ClickTake Technologies delivers cutting-edge software development, AI integration, and digital transformation for ambitious businesses." />
+  <meta name="theme-color" content="#03000D" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Space Grotesk (headings) + Plus Jakarta Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight: '#03000D',
+            navy: '#070018',
+            charcoal: '#0D0025',
+            ckblue: '#136DFF',
+            ckpink: '#FF53A9',
+            ckpinkdeep: '#E0197A',
+            ckpurple: '#7B2FBE',
+            ckheading: '#F0EBF8',
+            ckbody: '#7A6B95',
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+            body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'glow-blue': '0 0 30px rgba(19, 109, 255, 0.45), 0 0 60px rgba(19, 109, 255, 0.25)',
+            'glow-pink': '0 0 30px rgba(255, 83, 169, 0.45), 0 0 60px rgba(255, 83, 169, 0.25)',
+            'glow-mix': '0 10px 40px rgba(19, 109, 255, 0.35), 0 0 60px rgba(255, 83, 169, 0.25)',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ============ BASE ============ */
+    :root {
+      --bg-1: #03000D;
+      --bg-2: #070018;
+      --bg-3: #0D0025;
+      --blue: #136DFF;
+      --pink: #FF53A9;
+      --pink-deep: #E0197A;
+      --purple: #7B2FBE;
+      --heading: #F0EBF8;
+      --body: #7A6B95;
+      --glass: rgba(13, 0, 37, 0.4);
+      --glass-border: rgba(19, 109, 255, 0.2);
+    }
+
+    html, body {
+      background-color: var(--bg-1);
+      color: var(--body);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, .font-display {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      color: var(--heading);
+      letter-spacing: -0.02em;
+    }
+
+    /* ============ AMBIENT BACKGROUND MESH ============ */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 0%, rgba(123, 47, 190, 0.25), transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(19, 109, 255, 0.18), transparent 60%),
+        radial-gradient(ellipse 70% 60% at 50% 100%, rgba(255, 83, 169, 0.15), transparent 60%),
+        linear-gradient(180deg, #03000D 0%, #070018 40%, #0D0025 100%);
+    }
+
+    .ambient-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      z-index: -1;
+      pointer-events: none;
+      animation: drift 20s ease-in-out infinite;
+    }
+
+    .blob-1 { width: 480px; height: 480px; background: radial-gradient(circle, #136DFF, transparent 70%); top: -120px; left: -120px; }
+    .blob-2 { width: 560px; height: 560px; background: radial-gradient(circle, #7B2FBE, transparent 70%); top: 30%; right: -200px; animation-delay: -5s; }
+    .blob-3 { width: 420px; height: 420px; background: radial-gradient(circle, #FF53A9, transparent 70%); bottom: -100px; left: 30%; animation-delay: -10s; }
+
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(40px, -30px) scale(1.05); }
+      66% { transform: translate(-30px, 40px) scale(0.95); }
+    }
+
+    /* ============ GRID PATTERN OVERLAY ============ */
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(19, 109, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(19, 109, 255, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 75%);
+      pointer-events: none;
+    }
+
+    /* ============ GLASS CARDS ============ */
+    .glass-card {
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid transparent;
+      background-clip: padding-box;
+      position: relative;
+      border-radius: 1.25rem;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(19, 109, 255, 0.5), rgba(255, 83, 169, 0.2) 50%, rgba(19, 109, 255, 0.1));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      pointer-events: none;
+    }
+    .glass-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(19, 109, 255, 0.18), 0 0 40px rgba(255, 83, 169, 0.12);
+    }
+
+    /* ============ GRADIENT TEXT ============ */
+    .gradient-text {
+      background: linear-gradient(135deg, #136DFF 0%, #FF53A9 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    /* ============ BUTTONS ============ */
+    .btn-primary {
+      position: relative;
+      background: linear-gradient(135deg, #136DFF 0%, #E0197A 100%);
+      color: #fff;
+      padding: 0.85rem 1.75rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(19, 109, 255, 0.35);
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #FF53A9 0%, #136DFF 100%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .btn-primary > * { position: relative; z-index: 1; }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(19, 109, 255, 0.6), 0 0 60px rgba(255, 83, 169, 0.4);
+    }
+    .btn-primary:hover::after { opacity: 1; }
+
+    .btn-ghost {
+      background: rgba(13, 0, 37, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--heading);
+      padding: 0.85rem 1.75rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(255, 83, 169, 0.45);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-ghost:hover {
+      border-color: rgba(255, 83, 169, 0.9);
+      box-shadow: 0 0 25px rgba(255, 83, 169, 0.35);
+      transform: translateY(-2px);
+      color: #fff;
+    }
+
+    /* ============ FLOATING ANIMATION ============ */
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-18px) rotate(0.5deg); }
+    }
+    .float-anim { animation: float 6s ease-in-out infinite; }
+    .float-anim-slow { animation: float 8s ease-in-out infinite; animation-delay: -2s; }
+    .float-anim-fast { animation: float 4.5s ease-in-out infinite; animation-delay: -1s; }
+
+    /* ============ SCROLL REVEAL ============ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ============ GLOW DOT ============ */
+    .glow-dot {
+      width: 10px; height: 10px;
+      background: #136DFF;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #136DFF, 0 0 20px #136DFF, 0 0 30px rgba(19, 109, 255, 0.6);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 10px #136DFF, 0 0 20px #136DFF, 0 0 30px rgba(19, 109, 255, 0.6); }
+      50% { box-shadow: 0 0 15px #136DFF, 0 0 30px #136DFF, 0 0 50px rgba(19, 109, 255, 0.9); }
+    }
+
+    /* ============ LAPTOP MOCKUP ============ */
+    .laptop-frame {
+      background: linear-gradient(180deg, #1a0a2e 0%, #0D0025 100%);
+      border: 2px solid rgba(19, 109, 255, 0.3);
+      border-radius: 1rem 1rem 0.5rem 0.5rem;
+      box-shadow:
+        0 30px 80px rgba(19, 109, 255, 0.25),
+        0 0 120px rgba(255, 83, 169, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+    .laptop-base {
+      height: 14px;
+      background: linear-gradient(180deg, #1a0a2e 0%, #070018 100%);
+      border-radius: 0 0 12px 12px;
+      border-top: 1px solid rgba(19, 109, 255, 0.2);
+      width: 110%;
+      margin-left: -5%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .laptop-screen {
+      background: linear-gradient(180deg, #0D0025 0%, #070018 100%);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ============ ORBITING DOTS (decorative) ============ */
+    .orbit {
+      position: absolute;
+      border: 1px solid rgba(19, 109, 255, 0.15);
+      border-radius: 50%;
+      animation: spin 20s linear infinite;
+    }
+    .orbit::before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      width: 8px; height: 8px;
+      background: var(--pink);
+      border-radius: 50%;
+      box-shadow: 0 0 12px #FF53A9;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ============ NAV LINK ============ */
+    .nav-link {
+      color: var(--body);
+      font-weight: 500;
+      font-size: 0.92rem;
+      position: relative;
+      transition: color 0.25s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -6px;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, #136DFF, #FF53A9);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover { color: var(--heading); }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ============ STAT COUNTER ============ */
+    .stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #F0EBF8 0%, #136DFF 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ============ PROCESS LINE ============ */
+    .process-line {
+      background: linear-gradient(180deg, rgba(19, 109, 255, 0.5) 0%, rgba(255, 83, 169, 0.5) 100%);
+      width: 2px;
+    }
+
+    /* ============ ACCENT ICONS ============ */
+    .icon-badge {
+      width: 56px; height: 56px;
+      border-radius: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .icon-badge::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      opacity: 0.18;
+    }
+    .icon-blue::before { background: #136DFF; }
+    .icon-purple::before { background: #7B2FBE; }
+    .icon-pink::before { background: #FF53A9; }
+    .icon-blue { box-shadow: 0 0 25px rgba(19, 109, 255, 0.4); }
+    .icon-purple { box-shadow: 0 0 25px rgba(123, 47, 190, 0.4); }
+    .icon-pink { box-shadow: 0 0 25px rgba(255, 83, 169, 0.4); }
+
+    /* ============ MARQUEE ============ */
+    .marquee {
+      display: flex;
+      gap: 4rem;
+      animation: marquee 30s linear infinite;
+      width: max-content;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ============ SCROLLBAR ============ */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #03000D; }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #136DFF, #FF53A9);
+      border-radius: 10px;
+    }
+
+    /* ============ MOBILE MENU ============ */
+    .mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .mobile-menu.open { max-height: 500px; }
+
+    /* ============ REDUCED MOTION ============ */
+    @media (prefers-reduced-motion: reduce) {
+      .float-anim, .float-anim-slow, .float-anim-fast, .ambient-blob, .orbit, .marquee, .glow-dot {
+        animation: none !important;
+      }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ============ SELECTION ============ */
+    ::selection {
+      background: rgba(19, 109, 255, 0.4);
+      color: #F0EBF8;
+    }
+  </style>
+</head>
+<body class="font-body">
+
+  <!-- Ambient Background Layers -->
+  <div class="ambient-bg"></div>
+  <div class="grid-overlay"></div>
+  <div class="ambient-blob blob-1"></div>
+  <div class="ambient-blob blob-2"></div>
+  <div class="ambient-blob blob-3"></div>
+
+  <!-- ============ HEADER / NAVBAR ============ -->
+  <header class="fixed top-0 inset-x-0 z-50 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <nav class="flex items-center justify-between h-20">
+        <!-- Brand -->
+        <a href="#" class="flex items-center gap-2.5 group">
+          <span class="glow-dot"></span>
+          <span class="font-display font-bold text-lg tracking-tight text-ckheading group-hover:text-white transition">
+            ClickTake <span class="text-ckbody font-medium hidden sm:inline">Technologies</span>
+          </span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden lg:flex items-center gap-9">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#services" class="nav-link">Services</a>
+          <a href="#solutions" class="nav-link">Solutions</a>
+          <a href="#about" class="nav-link">About Us</a>
+          <a href="#case-studies" class="nav-link">Case Studies</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </div>
+
+        <!-- CTAs -->
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="#" class="nav-link">Sign In</a>
+          <a href="#contact" class="btn-primary text-sm">
+            Get Started
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <button id="mobile-toggle" class="lg:hidden text-ckheading p-2" aria-label="Toggle menu">
+          <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu -->
+      <div class="mobile-menu lg:hidden" id="mobile-menu">
+        <div class="glass-card mt-2 p-6 flex flex-col gap-4">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#services" class="nav-link">Services</a>
+          <a href="#solutions" class="nav-link">Solutions</a>
+          <a href="#about" class="nav-link">About Us</a>
+          <a href="#case-studies" class="nav-link">Case Studies</a>
+          <a href="#contact" class="nav-link">Contact</a>
+          <div class="flex flex-col gap-3 pt-4 border-t border-white/5">
+            <a href="#" class="nav-link">Sign In</a>
+            <a href="#contact" class="btn-primary justify-center">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO SECTION ============ -->
+  <section id="home" class="relative pt-36 pb-24 lg:pt-44 lg:pb-32 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <!-- Hero Eyebrow Badge -->
+      <div class="flex justify-center mb-8 reveal">
+        <div class="glass-card inline-flex items-center gap-2 px-4 py-2 rounded-full">
+          <span class="glow-dot" style="width:6px;height:6px"></span>
+          <span class="text-xs font-medium text-ckheading tracking-wide">AI-Powered Digital Transformation Studio</span>
+          <span class="text-xs text-ckpink font-semibold">v2026</span>
+        </div>
+      </div>
+
+      <!-- Hero Headline -->
+      <h1 class="reveal text-center font-display font-bold text-4xl sm:text-5xl lg:text-7xl leading-[1.05] tracking-tight max-w-5xl mx-auto">
+        Transform Your Business with
+        <span class="gradient-text">Next-Gen Tech Solutions</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="reveal reveal-delay-1 text-center text-base sm:text-lg lg:text-xl text-ckbody max-w-3xl mx-auto mt-7 leading-relaxed">
+        ClickTake Technologies delivers cutting-edge software development, AI integration, and digital transformation — engineered to scale ambitious businesses into market leaders.
+      </p>
+
+      <!-- CTAs -->
+      <div class="reveal reveal-delay-2 flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
+        <a href="#services" class="btn-primary text-sm tracking-wider uppercase">
+          <i data-lucide="compass" class="w-4 h-4"></i>
+          Explore Services
+        </a>
+        <a href="#contact" class="btn-ghost text-sm tracking-wider uppercase">
+          <i data-lucide="calendar-check" class="w-4 h-4"></i>
+          Book a Demo
+        </a>
+      </div>
+
+      <!-- Visual Showcase: Laptop Mockup + Floating Icons -->
+      <div class="relative mt-20 reveal reveal-delay-3 max-w-5xl mx-auto">
+        <!-- Decorative orbits -->
+        <div class="orbit absolute" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.4"></div>
+        <div class="orbit absolute" style="width:480px;height:480px;top:50%;left:50%;transform:translate(-50%,-50%);animation-duration:14s;opacity:0.3"></div>
+
+        <!-- Left floating icon: AI -->
+        <div class="absolute -left-4 lg:-left-12 top-12 z-20 float-anim hidden sm:block">
+          <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
+            <div class="icon-badge icon-blue">
+              <i data-lucide="brain-circuit" class="w-6 h-6 text-ckblue relative z-10"></i>
+            </div>
+            <div>
+              <div class="text-xs text-ckbody">AI Engine</div>
+              <div class="text-sm font-semibold text-ckheading">GPT-4o Turbo</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right floating icon: Cloud -->
+        <div class="absolute -right-4 lg:-right-12 top-20 z-20 float-anim-slow hidden sm:block">
+          <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
+            <div class="icon-badge icon-pink">
+              <i data-lucide="cloud-cog" class="w-6 h-6 text-ckpink relative z-10"></i>
+            </div>
+            <div>
+              <div class="text-xs text-ckbody">Cloud Deploy</div>
+              <div class="text-sm font-semibold text-ckheading">99.99% SLA</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom-left floating icon: Analytics -->
+        <div class="absolute -left-2 lg:left-8 bottom-16 z-20 float-anim-fast hidden md:block">
+          <div class="glass-card px-4 py-3 rounded-2xl flex items-center gap-3">
+            <i data-lucide="trending-up" class="w-5 h-5 text-ckblue"></i>
+            <div>
+              <div class="text-xs text-ckbody">Conversion</div>
+              <div class="text-sm font-semibold gradient-text">+248% ROI</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom-right floating icon: Shield -->
+        <div class="absolute -right-2 lg:right-8 bottom-12 z-20 float-anim hidden md:block">
+          <div class="glass-card px-4 py-3 rounded-2xl flex items-center gap-3">
+            <i data-lucide="shield-check" class="w-5 h-5 text-ckpink"></i>
+            <div>
+              <div class="text-xs text-ckbody">Security</div>
+              <div class="text-sm font-semibold text-ckheading">SOC 2 Type II</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Laptop Frame -->
+        <div class="relative z-10 mx-auto max-w-3xl">
+          <div class="laptop-frame p-3 pb-4">
+            <!-- Top bar -->
+            <div class="flex items-center gap-2 px-2 pb-3">
+              <span class="w-3 h-3 rounded-full bg-ckpink/70"></span>
+              <span class="w-3 h-3 rounded-full bg-ckpurple/70"></span>
+              <span class="w-3 h-3 rounded-full bg-ckblue/70"></span>
+              <div class="ml-3 flex-1 h-6 rounded-md bg-white/5 flex items-center px-3">
+                <span class="text-[10px] text-ckbody font-mono">app.clicktaketech.com/dashboard</span>
+              </div>
+            </div>
+
+            <!-- Screen Content: AI Dashboard -->
+            <div class="laptop-screen p-4 sm:p-5">
+              <!-- Header row -->
+              <div class="flex items-center justify-between mb-5">
+                <div>
+                  <div class="text-[10px] text-ckbody uppercase tracking-widest">Dashboard</div>
+                  <div class="font-display font-semibold text-ckheading text-base sm:text-lg">AI Operations Overview</div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-full bg-gradient-to-br from-ckblue to-ckpink"></div>
+                  <div class="hidden sm:block">
+                    <div class="text-[10px] text-ckbody">Admin</div>
+                    <div class="text-xs text-ckheading font-medium">ClickTake</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- KPI row -->
+              <div class="grid grid-cols-3 gap-2 sm:gap-3 mb-4">
+                <div class="rounded-lg bg-white/[0.03] border border-white/5 p-3">
+                  <div class="text-[9px] text-ckbody uppercase">Models</div>
+                  <div class="font-display font-bold text-ckheading text-base sm:text-lg">12</div>
+                  <div class="text-[9px] text-ckblue">+3 this week</div>
+                </div>
+                <div class="rounded-lg bg-white/[0.03] border border-white/5 p-3">
+                  <div class="text-[9px] text-ckbody uppercase">Requests</div>
+                  <div class="font-display font-bold text-ckheading text-base sm:text-lg">2.4M</div>
+                  <div class="text-[9px] text-ckpink">+18.2%</div>
+                </div>
+                <div class="rounded-lg bg-white/[0.03] border border-white/5 p-3">
+                  <div class="text-[9px] text-ckbody uppercase">Latency</div>
+                  <div class="font-display font-bold text-ckheading text-base sm:text-lg">42ms</div>
+                  <div class="text-[9px] text-ckblue">-6ms</div>
+                </div>
+              </div>
+
+              <!-- Chart area -->
+              <div class="rounded-lg bg-white/[0.03] border border-white/5 p-3 mb-4">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="text-[10px] text-ckheading font-medium">Inference Throughput</div>
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-ckblue"></span>
+                    <span class="text-[9px] text-ckbody">Live</span>
+                  </div>
+                </div>
+                <!-- SVG chart -->
+                <svg viewBox="0 0 400 100" class="w-full h-20" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#136DFF" stop-opacity="0.5"/>
+                      <stop offset="100%" stop-color="#136DFF" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="chartLine" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="#136DFF"/>
+                      <stop offset="100%" stop-color="#FF53A9"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0,80 L40,60 L80,65 L120,40 L160,50 L200,30 L240,35 L280,20 L320,28 L360,15 L400,25 L400,100 L0,100 Z" fill="url(#chartGrad)"/>
+                  <path d="M0,80 L40,60 L80,65 L120,40 L160,50 L200,30 L240,35 L280,20 L320,28 L360,15 L400,25" fill="none" stroke="url(#chartLine)" stroke-width="2"/>
+                </svg>
+              </div>
+
+              <!-- Bottom row -->
+              <div class="grid grid-cols-2 gap-2 sm:gap-3">
+                <div class="rounded-lg bg-white/[0.03] border border-white/5 p-3 flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-ckpurple/20 flex items-center justify-center">
+                    <i data-lucide="cpu" class="w-4 h-4 text-ckpurple"></i>
+                  </div>
+                  <div>
+                    <div class="text-[9px] text-ckbody">GPU Util</div>
+                    <div class="text-xs text-ckheading font-semibold">68%</div>
+                  </div>
+                </div>
+                <div class="rounded-lg bg-white/[0.03] border border-white/5 p-3 flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-ckpink/20 flex items-center justify-center">
+                    <i data-lucide="zap" class="w-4 h-4 text-ckpink"></i>
+                  </div>
+                  <div>
+                    <div class="text-[9px] text-ckbody">Active Pipelines</div>
+                    <div class="text-xs text-ckheading font-semibold">7 / 12</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="laptop-base"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST / MARQUEE BAR ============ -->
+  <section class="py-10 border-y border-white/5 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 mb-6 text-center">
+      <p class="text-xs uppercase tracking-[0.3em] text-ckbody">Trusted by 200+ forward-thinking teams worldwide</p>
+    </div>
+    <div class="relative">
+      <div class="marquee">
+        <!-- duplicated for seamless loop -->
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Nebula AI</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Quantum Labs</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Vertex Systems</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Hyperion Group</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Stellar Cloud</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Northwind Tech</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Zenith Digital</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Apex Ventures</span>
+        <!-- duplicate set -->
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Nebula AI</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Quantum Labs</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Vertex Systems</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Hyperion Group</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Stellar Cloud</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Northwind Tech</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Zenith Digital</span>
+        <span class="font-display font-bold text-2xl text-ckbody/60 hover:text-ckheading transition">Apex Ventures</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES GRID ============ -->
+  <section id="services" class="py-24 lg:py-32 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <div class="inline-flex items-center gap-2 mb-4">
+          <span class="h-px w-8 bg-gradient-to-r from-transparent to-ckblue"></span>
+          <span class="text-xs uppercase tracking-[0.3em] text-ckblue font-semibold">Our Services</span>
+          <span class="h-px w-8 bg-gradient-to-l from-transparent to-ckpink"></span>
+        </div>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-ckheading mb-5">
+          Engineered Solutions for the <span class="gradient-text">Modern Enterprise</span>
+        </h2>
+        <p class="text-ckbody text-lg">
+          From custom software to AI integration and design — we deliver end-to-end digital capabilities that compound your competitive advantage.
+        </p>
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+
+        <!-- Card 1: Custom Software Development (Blue Accent) -->
+        <div class="glass-card p-8 lg:p-9 reveal reveal-delay-1">
+          <div class="icon-badge icon-blue mb-6">
+            <i data-lucide="code-2" class="w-7 h-7 text-ckblue relative z-10"></i>
+          </div>
+          <h3 class="font-display font-bold text-xl text-ckheading mb-3">
+            Custom Software Development
+          </h3>
+          <p class="text-ckbody text-sm leading-relaxed mb-6">
+            Tailor-made web, mobile, and enterprise applications built with modern architectures. Microservices, edge deployments, and bulletproof engineering practices that scale from MVP to millions of users.
+          </p>
+          <ul class="space-y-2.5 mb-7">
+            <li class="flex items-center gap-2 text-sm text-ckbody">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-ckblue flex-shrink-0"></i>
+              Full-stack engineering (React, Next.js, Node, Go)
+            </li>
+            <li class="flex items-center gap-2 text-sm text-ckbody">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-ckblue flex-shrink-0"></i>
+              CI/CD pipelines & DevOps automation
+            </li>
+            <li class="flex items-center gap-2 text-sm text-ckbody">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-ckblue flex-shrink-0"></i>
+              Legacy modernization & API integration
+            </li>
+          </ul>
+          <a href="#contact" class="inline-flex items-center gap-2 text-sm font-semibold text-ckblue hover:gap-3 transition-all">
+            Learn more
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Card 2: AI & Cloud Solutions (Purple Accent) -->
+        <div class="glass-card p-8 lg:p-9 reveal reveal-delay-2">
+          <div class="icon-badge icon-purple mb-6">
+            <i data-lucide="brain-circuit" class="w-7 h-7 text-ckpurple relative z-10" style="color:#a76ee8"></i>
+          </div>
+          <h3 class="font-display font-bold text-xl text-ckheading mb-3">
+            AI & Cloud Solutions
+          </h3>
+          <p class="text-ckbody text-sm leading-relaxed mb-6">
+            Deploy production-grade AI workflows with confidence. From RAG pipelines and LLM fine-tuning to multi-cloud orchestration — we turn cutting-edge models into measurable business outcomes.
+          </p>
+          <ul class="space-y-2.5 mb-7">
+            <li class="flex items-center gap-2 text-sm text-ckbody">
+              <i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0" style="color:#a76ee8"></i>
+              LLM integration & RAG architecture
+            </li>
+            <li class="flex items-center gap-2 text-sm text-ckbody">
+              <i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0" style="color:#a76ee8"></i>
+              AWS / GCP / Azure cloud migration
+            </li>
+            <li class="flex items-center gap-2 text-sm text-ckbody">
+              <i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0" style="color:#a76ee8"></i>
+              MLOps & model observability
+            </li>
+          </ul>
+          <a href="#contact" class="inline-flex items-center gap-2 text-sm font-semibold hover:gap-3 transition-all" style="color:#a76ee8">
+            Learn more
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Card 3: Digital Marketing & UI/UX (Pink Accent) -->
+        <div class="glass-card p-8 lg:p-9 reveal reveal-delay-3">
+          <div class="icon-badge icon-pink mb-6">
+            <i data-lucide="palette" class="w-7 h-7 text-ckpink relative z-10"></i>
+          </div>
+          <h3 class="font-display font-bold text-xl text-ckheading mb-3">
+            Digital Marketing & UI/UX Design
+          </h3>
+          <p class="text-ckbody text-sm leading-relaxed mb-6">
+            Conversion-driven design and growth marketing that turns visitors into customers. From research-led product design to full-funnel performance campaigns — every pixel and every keyword optimized.
+          </p>
+          <ul class="space-y-2.5 mb-7">
+            <li class="flex items-center gap-2 text-sm text-ckbody">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-ckpink flex-shrink-0"></i>
+              Product design systems & prototyping
+            </li>
+            <li class="flex items-center gap-2 text-sm text-ckbody">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-ckpink flex-shrink-0"></i>
+              SEO, paid media & content strategy
+            </li>
+            <li class="flex items-center gap-2 text-sm text-ckbody">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-ckpink flex-shrink-0"></i>
+              Brand identity & motion design
+            </li>
+          </ul>
+          <a href="#contact" class="inline-flex items-center gap-2 text-sm font-semibold text-ckpink hover:gap-3 transition-all">
+            Learn more
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STATS / IMPACT BAR ============ -->
+  <section class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="glass-card p-10 lg:p-14 reveal">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 text-center">
+          <div>
+            <div class="stat-value" data-target="248">0</div>
+            <div class="text-xs uppercase tracking-widest text-ckbody mt-2">% Avg. ROI Lift</div>
+          </div>
+          <div>
+            <div class="stat-value" data-target="200">0</div>
+            <div class="text-xs uppercase tracking-widest text-ckbody mt-2">+ Projects Delivered</div>
+          </div>
+          <div>
+            <div class="stat-value" data-target="99">0</div>
+            <div class="text-xs uppercase tracking-widest text-ckbody mt-2">% Uptime SLA</div>
+          </div>
+          <div>
+            <div class="stat-value" data-target="14">0</div>
+            <div class="text-xs uppercase tracking-widest text-ckbody mt-2">Countries Served</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES GRID (Solutions) ============ -->
+  <section id="solutions" class="py-24 lg:py-32 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <div class="inline-flex items-center gap-2 mb-4">
+          <span class="h-px w-8 bg-gradient-to-r from-transparent to-ckpink"></span>
+          <span class="text-xs uppercase tracking-[0.3em] text-ckpink font-semibold">Why ClickTake</span>
+          <span class="h-px w-8 bg-gradient-to-l from-transparent to-ckblue"></span>
+        </div>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-ckheading mb-5">
+          A Partner That Ships, <span class="gradient-text">Scales, and Innovates</span>
+        </h2>
+        <p class="text-ckbody text-lg">
+          We don't just write code — we architect outcomes. Here's what sets our delivery model apart.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="glass-card p-7 reveal">
+          <i data-lucide="rocket" class="w-8 h-8 text-ckblue mb-4"></i>
+          <h3 class="font-display font-semibold text-lg text-ckheading mb-2">Rapid MVP Delivery</h3>
+          <p class="text-sm text-ckbody leading-relaxed">From kickoff to launch in 6–10 weeks. Our sprint cadence keeps stakeholders in the loop without slowing the build.</p>
+        </div>
+
+        <div class="glass-card p-7 reveal reveal-delay-1">
+          <i data-lucide="shield-check" class="w-8 h-8 text-ckpink mb-4"></i>
+          <h3 class="font-display font-semibold text-lg text-ckheading mb-2">Enterprise-Grade Security</h3>
+          <p class="text-sm text-ckbody leading-relaxed">SOC 2 Type II processes, end-to-end encryption, and zero-trust architecture baked into every layer of the stack.</p>
+        </div>
+
+        <div class="glass-card p-7 reveal reveal-delay-2">
+          <i data-lucide="git-branch" class="w-8 h-8 mb-4" style="color:#a76ee8"></i>
+          <h3 class="font-display font-semibold text-lg text-ckheading mb-2">Composable Architecture</h3>
+          <p class="text-sm text-ckbody leading-relaxed">Modular, API-first systems that swap components without rewrites. Future-proof by design, not by accident.</p>
+        </div>
+
+        <div class="glass-card p-7 reveal">
+          <i data-lucide="gauge" class="w-8 h-8 text-ckblue mb-4"></i>
+          <h3 class="font-display font-semibold text-lg text-ckheading mb-2">Performance Obsessed</h3>
+          <p class="text-sm text-ckbody leading-relaxed">Sub-second TTFB, Core Web Vitals in the green, and edge-rendered experiences that feel instant on any device.</p>
+        </div>
+
+        <div class="glass-card p-7 reveal reveal-delay-1">
+          <i data-lucide="users-2" class="w-8 h-8 text-ckpink mb-4"></i>
+          <h3 class="font-display font-semibold text-lg text-ckheading mb-2">Senior-Only Engineering</h3>
+          <p class="text-sm text-ckbody leading-relaxed">No junior hand-offs. Every line of code is written and reviewed by engineers with 8+ years of production experience.</p>
+        </div>
+
+        <div class="glass-card p-7 reveal reveal-delay-2">
+          <i data-lucide="headset" class="w-8 h-8 mb-4" style="color:#a76ee8"></i>
+          <h3 class="font-display font-semibold text-lg text-ckheading mb-2">24/7 Dedicated Support</h3>
+          <p class="text-sm text-ckbody leading-relaxed">A Slack channel directly to your engineering pod. Median first-response time under 12 minutes — any timezone, any severity.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS / TIMELINE ============ -->
+  <section id="about" class="py-24 lg:py-32 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <div class="inline-flex items-center gap-2 mb-4">
+          <span class="h-px w-8 bg-gradient-to-r from-transparent to-ckblue"></span>
+          <span class="text-xs uppercase tracking-[0.3em] text-ckblue font-semibold">How We Work</span>
+          <span class="h-px w-8 bg-gradient-to-l from-transparent to-ckpink"></span>
+        </div>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-ckheading mb-5">
+          A Proven Process from <span class="gradient-text">Discovery to Scale</span>
+        </h2>
+        <p class="text-ckbody text-lg">
+          Four phases. Zero ambiguity. Every engagement follows the same battle-tested rhythm.
+        </p>
+      </div>
+
+      <div class="relative max-w-3xl mx-auto">
+        <!-- Vertical line -->
+        <div class="absolute left-[27px] sm:left-1/2 top-0 bottom-0 process-line sm:-translate-x-1/2"></div>
+
+        <!-- Step 1 -->
+        <div class="relative flex sm:items-center gap-6 mb-10 reveal">
+          <div class="flex-shrink-0 w-14 h-14 rounded-full glass-card flex items-center justify-center font-display font-bold text-ckblue text-lg z-10">01</div>
+          <div class="glass-card p-6 flex-1 sm:max-w-md">
+            <h3 class="font-display font-semibold text-ckheading mb-2">Discovery & Strategy</h3>
+            <p class="text-sm text-ckbody leading-relaxed">Workshops, stakeholder interviews, and technical audits. We define success metrics, constraints, and the architecture blueprint before a single line ships.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative flex sm:items-center gap-6 mb-10 sm:flex-row-reverse reveal reveal-delay-1">
+          <div class="flex-shrink-0 w-14 h-14 rounded-full glass-card flex items-center justify-center font-display font-bold text-ckpink text-lg z-10">02</div>
+          <div class="glass-card p-6 flex-1 sm:max-w-md">
+            <h3 class="font-display font-semibold text-ckheading mb-2">Design & Prototyping</h3>
+            <p class="text-sm text-ckbody leading-relaxed">Wireframes → high-fidelity → interactive prototypes in Figma. We validate with real users before development starts, eliminating rework downstream.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative flex sm:items-center gap-6 mb-10 reveal reveal-delay-2">
+          <div class="flex-shrink-0 w-14 h-14 rounded-full glass-card flex items-center justify-center font-display font-bold text-lg z-10" style="color:#a76ee8">03</div>
+          <div class="glass-card p-6 flex-1 sm:max-w-md">
+            <h3 class="font-display font-semibold text-ckheading mb-2">Build & Iterate</h3>
+            <p class="text-sm text-ckbody leading-relaxed">Two-week sprints with live demos. Continuous integration, automated testing, and weekly releases to staging. You see progress weekly, not quarterly.</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="relative flex sm:items-center gap-6 reveal reveal-delay-3">
+          <div class="flex-shrink-0 w-14 h-14 rounded-full glass-card flex items-center justify-center font-display font-bold text-ckblue text-lg z-10">04</div>
+          <div class="glass-card p-6 flex-1 sm:max-w-md">
+            <h3 class="font-display font-semibold text-ckheading mb-2">Launch & Scale</h3>
+            <p class="text-sm text-ckbody leading-relaxed">Production deployment, observability dashboards, and runbooks. Then we tune — performance, conversion, infrastructure cost — for the next 12 months and beyond.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASE STUDIES PREVIEW ============ -->
+  <section id="case-studies" class="py-24 lg:py-32 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-14 gap-6 reveal">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 mb-4">
+            <span class="h-px w-8 bg-gradient-to-r from-transparent to-ckpink"></span>
+            <span class="text-xs uppercase tracking-[0.3em] text-ckpink font-semibold">Case Studies</span>
+          </div>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-ckheading">
+            Real Outcomes, <span class="gradient-text">Engineered</span>
+          </h2>
+        </div>
+        <a href="#contact" class="inline-flex items-center gap-2 text-sm font-semibold text-ckblue hover:gap-3 transition-all">
+          View all case studies
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+
+        <!-- Case 1 -->
+        <div class="glass-card overflow-hidden reveal">
+          <div class="h-48 relative bg-gradient-to-br from-ckblue/20 to-ckpurple/20 flex items-center justify-center">
+            <i data-lucide="line-chart" class="w-16 h-16 text-ckblue/60"></i>
+            <div class="absolute top-4 left-4 glass-card px-3 py-1 rounded-full">
+              <span class="text-[10px] uppercase tracking-widest text-ckheading">Fintech</span>
+            </div>
+          </div>
+          <div class="p-7">
+            <h3 class="font-display font-semibold text-xl text-ckheading mb-2">AI-Powered Risk Underwriting Platform</h3>
+            <p class="text-sm text-ckbody mb-5 leading-relaxed">Replaced a 14-day manual underwriting process with a real-time ML pipeline. Cut decision time by 96% while improving risk accuracy.</p>
+            <div class="flex gap-8">
+              <div>
+                <div class="font-display font-bold text-2xl gradient-text">96%</div>
+                <div class="text-xs text-ckbody">Faster decisions</div>
+              </div>
+              <div>
+                <div class="font-display font-bold text-2xl gradient-text">$4.2M</div>
+                <div class="text-xs text-ckbody">Annual savings</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 2 -->
+        <div class="glass-card overflow-hidden reveal reveal-delay-1">
+          <div class="h-48 relative bg-gradient-to-br from-ckpink/20 to-ckblue/20 flex items-center justify-center">
+            <i data-lucide="shopping-bag" class="w-16 h-16 text-ckpink/60"></i>
+            <div class="absolute top-4 left-4 glass-card px-3 py-1 rounded-full">
+              <span class="text-[10px] uppercase tracking-widest text-ckheading">E-Commerce</span>
+            </div>
+          </div>
+          <div class="p-7">
+            <h3 class="font-display font-semibold text-xl text-ckheading mb-2">Headless Commerce Migration at Scale</h3>
+            <p class="text-sm text-ckbody mb-5 leading-relaxed">Migrated a 2M-SKU storefront to a composable, edge-rendered architecture. Page load dropped from 4.8s to 0.9s, conversions jumped 38%.</p>
+            <div class="flex gap-8">
+              <div>
+                <div class="font-display font-bold text-2xl gradient-text">+38%</div>
+                <div class="text-xs text-ckbody">Conversion lift</div>
+              </div>
+              <div>
+                <div class="font-display font-bold text-2xl gradient-text">0.9s</div>
+                <div class="text-xs text-ckbody">Median load time</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA BANNER ============ -->
+  <section id="contact" class="py-24 lg:py-32 relative">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8">
+      <div class="glass-card p-10 sm:p-14 lg:p-20 text-center relative overflow-hidden reveal">
+
+        <!-- Decorative glow inside CTA -->
+        <div class="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-ckblue/30 blur-3xl"></div>
+        <div class="absolute -bottom-20 -right-20 w-60 h-60 rounded-full bg-ckpink/30 blur-3xl"></div>
+
+        <div class="relative z-10">
+          <div class="inline-flex items-center gap-2 mb-6">
+            <span class="glow-dot" style="width:6px;height:6px"></span>
+            <span class="text-xs uppercase tracking-[0.3em] text-ckbody font-semibold">Let's Build Together</span>
+          </div>
+
+          <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-ckheading mb-5 max-w-3xl mx-auto leading-tight">
+            Ready to Scale Your <span class="gradient-text">Tech Infrastructure?</span>
+          </h2>
+
+          <p class="text-ckbody text-lg max-w-2xl mx-auto mb-10">
+            Let's build something extraordinary together. Book a free 30-minute strategy call and we'll map your path to market leadership.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="mailto:hello@clicktaketech.com" class="btn-primary text-sm tracking-wider uppercase">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              Contact Us Now
+            </a>
+            <a href="#" class="btn-ghost text-sm tracking-wider uppercase">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              Schedule a Call
+            </a>
+          </div>
+
+          <!-- Mini trust row -->
+          <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 mt-12 text-xs text-ckbody">
+            <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-ckblue"></i> No commitment required</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-ckblue"></i> NDA on request</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-ckblue"></i> Response within 24h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="pt-20 pb-10 border-t border-white/5 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-14">
+
+        <!-- Brand Column -->
+        <div class="col-span-2 lg:col-span-1">
+          <a href="#" class="flex items-center gap-2.5 mb-5">
+            <span class="glow-dot"></span>
+            <span class="font-display font-bold text-lg text-ckheading">ClickTake Technologies</span>
+          </a>
+          <p class="text-sm text-ckbody leading-relaxed mb-6 max-w-xs">
+            Cutting-edge software development, AI integration, and digital transformation for ambitious businesses ready to lead their markets.
+          </p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 rounded-lg glass-card flex items-center justify-center text-ckbody hover:text-ckblue transition" aria-label="Twitter">
+              <i data-lucide="twitter" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-lg glass-card flex items-center justify-center text-ckbody hover:text-ckblue transition" aria-label="LinkedIn">
+              <i data-lucide="linkedin" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-lg glass-card flex items-center justify-center text-ckbody hover:text-ckblue transition" aria-label="GitHub">
+              <i data-lucide="github" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-lg glass-card flex items-center justify-center text-ckbody hover:text-ckblue transition" aria-label="YouTube">
+              <i data-lucide="youtube" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="font-display font-semibold text-ckheading text-sm mb-5 uppercase tracking-wider">Quick Links</h4>
+          <ul class="space-y-3">
+            <li><a href="#home" class="text-sm text-ckbody hover:text-ckheading transition">Home</a></li>
+            <li><a href="#about" class="text-sm text-ckbody hover:text-ckheading transition">About Us</a></li>
+            <li><a href="#case-studies" class="text-sm text-ckbody hover:text-ckheading transition">Case Studies</a></li>
+            <li><a href="#" class="text-sm text-ckbody hover:text-ckheading transition">Careers</a></li>
+            <li><a href="#" class="text-sm text-ckbody hover:text-ckheading transition">Blog</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <h4 class="font-display font-semibold text-ckheading text-sm mb-5 uppercase tracking-wider">Services</h4>
+          <ul class="space-y-3">
+            <li><a href="#services" class="text-sm text-ckbody hover:text-ckheading transition">Software Development</a></li>
+            <li><a href="#services" class="text-sm text-ckbody hover:text-ckheading transition">AI & Cloud Solutions</a></li>
+            <li><a href="#services" class="text-sm text-ckbody hover:text-ckheading transition">UI/UX Design</a></li>
+            <li><a href="#services" class="text-sm text-ckbody hover:text-ckheading transition">Digital Marketing</a></li>
+            <li><a href="#services" class="text-sm text-ckbody hover:text-ckheading transition">DevOps & Cloud Ops</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="font-display font-semibold text-ckheading text-sm mb-5 uppercase tracking-wider">Contact</h4>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-2.5 text-sm text-ckbody">
+              <i data-lucide="mail" class="w-4 h-4 text-ckblue mt-0.5 flex-shrink-0"></i>
+              <a href="mailto:hello@clicktaketech.com" class="hover:text-ckheading transition">hello@clicktaketech.com</a>
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-ckbody">
+              <i data-lucide="phone" class="w-4 h-4 text-ckblue mt-0.5 flex-shrink-0"></i>
+              <a href="tel:+18005550199" class="hover:text-ckheading transition">+1 (800) 555-0199</a>
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-ckbody">
+              <i data-lucide="map-pin" class="w-4 h-4 text-ckblue mt-0.5 flex-shrink-0"></i>
+              <span>500 Tech Plaza, Suite 1200<br/>San Francisco, CA 94105</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-xs text-ckbody">
+          © 2026 ClickTake Technologies. All rights reserved.
+        </p>
+        <div class="flex gap-6">
+          <a href="#" class="text-xs text-ckbody hover:text-ckheading transition">Privacy Policy</a>
+          <a href="#" class="text-xs text-ckbody hover:text-ckheading transition">Terms of Service</a>
+          <a href="#" class="text-xs text-ckbody hover:text-ckheading transition">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script>
+    // === Initialize Lucide icons ===
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) lucide.createIcons();
+
+      // === Mobile menu toggle ===
+      const toggle = document.getElementById('mobile-toggle');
+      const menu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      let isOpen = false;
+      toggle.addEventListener('click', () => {
+        isOpen = !isOpen;
+        menu.classList.toggle('open', isOpen);
+        menuIcon.setAttribute('data-lucide', isOpen ? 'x' : 'menu');
+        if (window.lucide) lucide.createIcons();
+      });
+
+      // Close mobile menu when a link is clicked
+      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        isOpen = false;
+        menu.classList.remove('open');
+        menuIcon.setAttribute('data-lucide', 'menu');
+        if (window.lucide) lucide.createIcons();
+      }));
+
+      // === Navbar scroll state ===
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 30) {
+          navbar.style.background = 'rgba(3, 0, 13, 0.7)';
+          navbar.style.backdropFilter = 'blur(16px)';
+          navbar.style.borderBottom = '1px solid rgba(19, 109, 255, 0.12)';
+        } else {
+          navbar.style.background = 'transparent';
+          navbar.style.backdropFilter = 'none';
+          navbar.style.borderBottom = '1px solid transparent';
+        }
+      });
+
+      // === Scroll Reveal via IntersectionObserver ===
+      const revealEls = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+      revealEls.forEach(el => io.observe(el));
+
+      // === Animated stat counters ===
+      const statEls = document.querySelectorAll('.stat-value');
+      const statIO = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.target, 10);
+            const duration = 1800;
+            const start = performance.now();
+            const step = (now) => {
+              const progress = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              el.textContent = Math.floor(eased * target).toString();
+              if (progress < 1) requestAnimationFrame(step);
+              else el.textContent = target.toString();
+            };
+            requestAnimationFrame(step);
+            statIO.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+      statEls.forEach(el => statIO.observe(el));
+
+      // === Smooth anchor scroll with navbar offset ===
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const id = a.getAttribute('href');
+          if (id.length > 1) {
+            const target = document.querySelector(id);
+            if (target) {
+              e.preventDefault();
+              const top = target.getBoundingClientRect().top + window.scrollY - 80;
+              window.scrollTo({ top, behavior: 'smooth' });
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
