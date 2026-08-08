@@ -1,0 +1,112 @@
+[
+  {
+    "page": "home",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "services",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "solutions",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "cases",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "contact",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "about",
+    "result": {
+      "visual": 9,
+      "design": 9,
+      "bugs": 10,
+      "content": 9,
+      "issues": [],
+      "summary": "Clean render with excellent glassmorphism execution and full content visibility"
+    }
+  },
+  {
+    "page": "blog",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "careers",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "privacy",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "terms",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "portfolio",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "pricing",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "team",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "cities",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "cookies",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "services-seo",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "services-ai-llm",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "services-web-ecommerce",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "solutions-startups",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "case-studies-seo-growth-sme",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "blog-case-study-lumen-commerce-3x-revenue",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "careers-senior-nextjs-engineer",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "resources-ai-adoption-playbook-2026",
+    "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+  },
+  {
+    "page": "city-birmingham",
+    "result": {
+      "visual": 9,
+      "design": 10,
+      "bugs": 10,
+      "content": 10,
+      "issues": [],
+      "summary": "Clean render, no issues"
+    }
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "```json\n{\"visual\": 9, \"design\": 8, \"bugs\": 0, \"content\": 9, \"issues\": [\"Minor text contrast issues in some card descriptions against the dark background\", \"The 'Four steps' section cards have slightly inconsistent vertical alignment\"], \"summary\": \"A visually striking, high-fidelity futuristic landing page with excellent glassmorphism execution and professional content structure.\"}\n```",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786223434,
+  "id": "20260809051032514b627d41f34b0a",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "20260809051032514b627d41f34b0a",
+  "usage": {
+    "completion_tokens": 86,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2239,
+    "prompt_tokens_details": {
+      "cached_tokens": 21
+    },
+    "total_tokens": 2325
+  }
+}

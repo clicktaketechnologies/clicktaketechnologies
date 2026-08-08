@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "```json\n{\"visual\": 9, \"design\": 8, \"bugs\": 1, \"content\": 7, \"issues\": [\"Minor text contrast issues in some sub-headers (e.g., 'compounded' in 'Numbers that compounded')\", \"Floating WhatsApp button lacks hover state definition in static view\", \"Footer logo appears slightly pixelated compared to header\", \"Some card content density is high, potentially causing readability issues on smaller mobile screens\"], \"summary\": \"A visually striking and well-executed futuristic dark-themed landing page with excellent glassmorphism implementation and strong brand identity.\"}\n```",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786223424,
+  "id": "2026080905102167d450e6f4854eb0",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "2026080905102167d450e6f4854eb0",
+  "usage": {
+    "completion_tokens": 125,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2015,
+    "prompt_tokens_details": {
+      "cached_tokens": 5
+    },
+    "total_tokens": 2140
+  }
+}

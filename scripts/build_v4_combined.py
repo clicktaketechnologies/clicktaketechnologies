@@ -3091,7 +3091,7 @@ print("Part 7 (careers + privacy + terms) prepared.")
 PAGE_PORTFOLIO = '''
     <!-- ========== PAGE: PORTFOLIO ========== -->
     <section data-page="portfolio" class="page">
-      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Portfolio</li></ol></nav></nav>
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Portfolio</li></ol></nav>
       <div class="relative pt-12 pb-16 overflow-hidden">
         <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
         <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
@@ -3136,7 +3136,7 @@ PAGE_PORTFOLIO = '''
 PAGE_PRICING = '''
     <!-- ========== PAGE: PRICING ========== -->
     <section data-page="pricing" class="page">
-      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Pricing</li></ol></nav></nav>
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Pricing</li></ol></nav>
       <div class="relative pt-12 pb-16 overflow-hidden">
         <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
         <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
@@ -3191,7 +3191,7 @@ PAGE_PRICING = '''
 PAGE_TEAM = '''
     <!-- ========== PAGE: TEAM ========== -->
     <section data-page="team" class="page">
-      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Team</li></ol></nav></nav>
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Team</li></ol></nav>
       <div class="relative pt-12 pb-16 overflow-hidden">
         <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
         <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
@@ -3243,7 +3243,7 @@ PAGE_TEAM = '''
 PAGE_RESOURCES = '''
     <!-- ========== PAGE: RESOURCES HUB ========== -->
     <section data-page="resources" class="page">
-      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Resources</li></ol></nav></nav>
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Resources</li></ol></nav>
       <div class="relative pt-12 pb-16 overflow-hidden">
         <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
         <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
@@ -3285,7 +3285,7 @@ PAGE_RESOURCES = '''
 PAGE_CITIES = '''
     <!-- ========== PAGE: CITIES HUB ========== -->
     <section data-page="cities" class="page">
-      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Cities</li></ol></nav></nav>
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Cities</li></ol></nav>
       <div class="relative pt-12 pb-16 overflow-hidden">
         <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
         <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
@@ -3323,7 +3323,7 @@ PAGE_CITIES = '''
 PAGE_COOKIES = '''
     <!-- ========== PAGE: COOKIES ========== -->
     <section data-page="cookies" class="page">
-      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Cookie Policy</li></ol></nav></nav>
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Cookie Policy</li></ol></nav>
       <div class="relative pt-12 pb-16 overflow-hidden">
         <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
         <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
@@ -3452,7 +3452,7 @@ FOOTER = '''
 
         <!-- Bottom bar -->
         <div class="mt-12 pt-8 border-t border-ckbody/10 flex flex-wrap items-center justify-between gap-4">
-          <div class="text-xs font-mono text-ckbody/60">© 2025 ClickTake Technologies. All rights reserved.</div>
+          <div class="text-xs font-mono text-ckbody/60">© 2026 ClickTake Technologies. All rights reserved.</div>
           <div class="flex items-center gap-5 text-xs font-mono">
             <a href="#privacy" data-nav="privacy" class="text-ckbody/70 hover:text-ckheading transition-colors">Privacy Policy</a>
             <a href="#terms" data-nav="terms" class="text-ckbody/70 hover:text-ckheading transition-colors">Terms of Service</a>

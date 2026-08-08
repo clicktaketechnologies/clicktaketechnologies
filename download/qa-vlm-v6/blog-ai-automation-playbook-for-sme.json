@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "{\"visual\": 9, \"design\": 10, \"bugs\": 8, \"content\": 9, \"issues\": [\"Content duplication: Sections 2, 3, 4, and 5 appear to contain identical text as Section 1\", \"Minor contrast issue in body text on dark background\"], \"summary\": \"Clean glassmorphism design with a critical content duplication bug affecting most of the page body.\"}",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786223214,
+  "id": "20260809050650dece51cbf3cd42ce",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "20260809050650dece51cbf3cd42ce",
+  "usage": {
+    "completion_tokens": 89,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 6062,
+    "prompt_tokens_details": {
+      "cached_tokens": 6
+    },
+    "total_tokens": 6151
+  }
+}
