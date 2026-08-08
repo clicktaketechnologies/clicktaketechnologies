@@ -1,0 +1,19 @@
+{
+  "url": "https://clickopticx.onrender.com",
+  "title": "ClickOpticX \u2014 Login",
+  "description": "ClickOpticX web application with secure login, password recovery, and account creation. Built by ClickTake Technologies.",
+  "headings": [
+    "Login",
+    "SIGN IN",
+    "Forgot Password?",
+    "Create account"
+  ],
+  "text_excerpt": "Login Error Database error. Please try again. Forgot Password? SIGN IN Don't have an account? Create account",
+  "tech_signals": [
+    "React",
+    "Render",
+    "SPA"
+  ],
+  "html_length": 0,
+  "source": "agent-browser"
+}

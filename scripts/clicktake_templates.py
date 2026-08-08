@@ -4,7 +4,7 @@ Each function returns a complete <section data-page="slug">...</section> string.
 All templates use the existing Glassmorphism 2.0 design system.
 """
 from html import escape
-from clicktake_pages import SERVICES, CASE_STUDIES
+from clicktake_pages import SERVICES, CASE_STUDIES, CLIENT_PORTFOLIO
 
 
 def _breadcrumb(items):
@@ -507,6 +507,126 @@ def render_city_detail(slug, meta):
 
 
 # ============================================================================
+# PORTFOLIO DETAIL PAGE (real client sites)
+# ============================================================================
+def render_portfolio_detail(slug, meta):
+    d = meta["data"]
+    name = d["name"]
+    category = d["category"]
+    url = d["url"]
+    blurb = d["blurb"]
+    stack = d["stack"]
+    icon = d["icon"]
+    year = d["year"]
+    region = d["region"]
+
+    stack_chips = ''.join(
+        f'<span class="px-3 py-1.5 rounded-full glass-soft text-xs font-mono text-ckbody">{escape(s)}</span>'
+        for s in stack
+    )
+
+    # Tech stack section
+    tech_html = f'''
+      <div class="max-w-5xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="tilt-card glass rounded-3xl p-8 lg:p-10 reveal">
+          <div class="text-xs font-mono uppercase tracking-widest text-ckblue mb-4">Tech Stack</div>
+          <div class="flex flex-wrap gap-2">{stack_chips}</div>
+        </div>
+      </div>'''
+
+    # Project facts section
+    facts_html = f'''
+      <div class="max-w-5xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="tilt-card glass rounded-2xl p-6 reveal">
+            <div class="w-10 h-10 rounded-lg bg-ckblue/10 flex items-center justify-center mb-4">
+              <i data-lucide="tag" class="w-5 h-5 text-ckblue"></i>
+            </div>
+            <div class="text-xs font-mono uppercase tracking-widest text-ckbody/60 mb-1">Category</div>
+            <h3 class="font-display font-semibold">{escape(category)}</h3>
+          </div>
+          <div class="tilt-card glass rounded-2xl p-6 reveal">
+            <div class="w-10 h-10 rounded-lg bg-ckpink/10 flex items-center justify-center mb-4">
+              <i data-lucide="map-pin" class="w-5 h-5 text-ckpink"></i>
+            </div>
+            <div class="text-xs font-mono uppercase tracking-widest text-ckbody/60 mb-1">Region</div>
+            <h3 class="font-display font-semibold">{escape(region)}</h3>
+          </div>
+          <div class="tilt-card glass rounded-2xl p-6 reveal">
+            <div class="w-10 h-10 rounded-lg bg-ckpurple/10 flex items-center justify-center mb-4">
+              <i data-lucide="calendar" class="w-5 h-5 text-ckpurple"></i>
+            </div>
+            <div class="text-xs font-mono uppercase tracking-widest text-ckbody/60 mb-1">Active Since</div>
+            <h3 class="font-display font-semibold">{escape(year)}</h3>
+          </div>
+        </div>
+      </div>'''
+
+    # Live preview frame
+    preview_html = f'''
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="text-center mb-6 reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckblue mb-4">Live Preview</div>
+          <h2 class="text-2xl md:text-3xl font-display font-bold tracking-tight">Visit the live site</h2>
+          <p class="text-sm text-ckbody mt-2">This project is in production. Click through to see the real thing.</p>
+        </div>
+        <div class="tilt-card glass rounded-3xl overflow-hidden reveal">
+          <div class="bg-ckbg/60 border-b border-ckbody/10 px-4 py-3 flex items-center gap-2">
+            <div class="flex gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-ckpink/60"></span>
+              <span class="w-3 h-3 rounded-full bg-ckblue/60"></span>
+              <span class="w-3 h-3 rounded-full bg-ckpurple/60"></span>
+            </div>
+            <div class="flex-1 mx-3 px-3 py-1 rounded-md bg-ckbg/60 text-xs font-mono text-ckbody/70 overflow-hidden text-ellipsis whitespace-nowrap">{escape(url)}</div>
+            <a href="{url}" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-ckblue hover:text-ckpink transition-colors">Open ↗</a>
+          </div>
+          <div class="aspect-video bg-gradient-to-br from-ckblue/10 via-ckpurple/10 to-ckpink/10 flex items-center justify-center p-12">
+            <a href="{url}" target="_blank" rel="noopener noreferrer" class="text-center group">
+              <div class="w-24 h-24 mx-auto mb-6 rounded-3xl flex items-center justify-center" style="background:linear-gradient(135deg,rgba(19,109,255,0.30),rgba(123,47,190,0.30),rgba(255,83,169,0.30));border:1px solid rgba(255,83,169,0.30);">
+                <i data-lucide="{escape(icon)}" class="w-12 h-12 text-ckheading"></i>
+              </div>
+              <div class="font-display font-bold text-xl md:text-2xl text-ckheading mb-2 group-hover:text-ckblue transition-colors">{escape(name)}</div>
+              <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glow-btn text-white font-display font-semibold text-sm">
+                <i data-lucide="external-link" class="w-4 h-4"></i> Visit Live Site
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>'''
+
+    return f'''
+    <section data-page="{slug}" class="page">
+      {_breadcrumb([("Home", "home"), ("Portfolio", "portfolio"), (name, slug)])}
+      <div class="pt-32 lg:pt-40 pb-12">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+          <div class="reveal">
+            <div class="flex items-center gap-3 mb-6 text-sm">
+              <span class="px-3 py-1 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckpink">{escape(category)}</span>
+              <span class="text-ckbody">{escape(year)}</span>
+              <span class="text-ckbody/40">·</span>
+              <span class="text-ckbody">{escape(region)}</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-6"><span class="gradient-text">{escape(name)}</span></h1>
+            <p class="text-lg md:text-xl text-ckbody leading-relaxed mb-8">{escape(blurb)}</p>
+            <div class="flex flex-wrap gap-3">
+              <a href="{url}" target="_blank" rel="noopener noreferrer" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-white inline-flex items-center gap-2">
+                <i data-lucide="external-link" class="w-4 h-4"></i> Visit Live Site
+              </a>
+              <a href="#contact" data-nav="contact" class="rounded-xl px-6 py-3 font-display font-semibold glass-soft text-ckheading hover:border-ckblue/40 transition-colors inline-flex items-center gap-2">
+                <i data-lucide="calendar" class="w-4 h-4"></i> Start a Similar Project
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {facts_html}
+      {tech_html}
+      {preview_html}
+      {_cta_section(f"Want a {category.lower()} project like {name}?")}
+    </section>'''
+
+
+# ============================================================================
 # MAIN DISPATCHER
 # ============================================================================
 TEMPLATE_DISPATCH = {
@@ -517,6 +637,7 @@ TEMPLATE_DISPATCH = {
     "career_detail": render_career_detail,
     "resource_detail": render_resource_detail,
     "city_detail": render_city_detail,
+    "portfolio_detail": render_portfolio_detail,
 }
 
 

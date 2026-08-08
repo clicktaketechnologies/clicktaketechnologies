@@ -388,6 +388,100 @@ for slug, headline, client, original_slug, challenge, solution, metrics, stack, 
           "metrics": metrics, "stack": stack, "quote": quote, "attributed_to": attributed_to})
 
 # ============================================================================
+# REAL CLIENT PORTFOLIO (12 live sites)
+# ============================================================================
+# Each: (slug, name, category, url, blurb, tech_stack[], icon, year, region)
+# Data fetched Aug 2026 from live sites.
+CLIENT_PORTFOLIO = [
+    # ---------- SaaS Platforms (internal products & client tools) ----------
+    ("portfolio-dibnow", "DibNow",
+     "SaaS Platform",
+     "https://dib-t0ug.onrender.com/",
+     "Cloud-based gadget repair management software & POS. Serialized inventory, multi-branch support, AI-powered customer service desk. Powering 100+ repair shops across the UK.",
+     ["React", "Node.js", "Render", "Stripe", "PostgreSQL"],
+     "wrench", "2024-2026", "UK (Nationwide)"),
+    ("portfolio-panel-clicktake", "Employee Management System",
+     "SaaS Platform",
+     "https://panel-clicktake.web.app/",
+     "Modern employee management system with attendance tracking, project management, and team analytics. Multi-tenant, role-based access, deployed on Firebase.",
+     ["Next.js", "React", "Firebase", "TypeScript"],
+     "users", "2025-2026", "UK / Remote"),
+    ("portfolio-logitrack", "LogiTrack",
+     "SaaS Platform",
+     "https://logitrack-blzq.onrender.com",
+     "Smart logistics management system (LMS) for tracking shipments, drivers, and routes. Authenticated dashboard with role-based access. Efficient, reliable, fast.",
+     ["React", "Node.js", "Render", "SPA"],
+     "truck", "2025-2026", "UK / Remote"),
+    ("portfolio-clickopticx", "ClickOpticX",
+     "SaaS Platform",
+     "https://clickopticx.onrender.com",
+     "Secure web application with login, password recovery, and account management. Built on Render with React. Part of ClickTake's internal product suite.",
+     ["React", "Node.js", "Render", "SPA"],
+     "eye", "2025-2026", "UK / Remote"),
+    ("portfolio-clicktake-academy", "ClickTake Academy",
+     "SaaS Platform",
+     "https://clicktake-academy.web.app/",
+     "Academy management system v2.6.8. Manage students, teachers, attendance, and visitors. Features quick face-attendance auto-detection, role-based access (Admin, Teacher, Student, Visitor), and parent portal.",
+     ["Firebase", "React", "Face API", "PWA"],
+     "graduation-cap", "2024-2026", "Pakistan / UK"),
+    # ---------- Education / Childcare ----------
+    ("portfolio-nltc", "NLTC Nottingham",
+     "Education",
+     "https://nltceducation.web.app/",
+     "Language and training centre in Nottingham. ESL courses, professional training, and certification programs. Built on Firebase with PWA support for offline access.",
+     ["Firebase", "React", "PWA"],
+     "languages", "2025-2026", "Nottingham, UK"),
+    ("portfolio-students-learning-hub", "Students Learning Hub",
+     "Education",
+     "https://students-learning-hub.web.app/",
+     "After-school childcare and learning centre in New Basford, Nottingham NG7. Trusted by parents for children aged 5-14. DBS-checked staff, STEM activities, creative play, homework support.",
+     ["Firebase", "React", "PWA"],
+     "book-open", "2025-2026", "Nottingham, UK"),
+    ("portfolio-slasa", "SLASA",
+     "Education",
+     "https://www.slasa.co.uk",
+     "Students Learning and Skills Academy in Nottingham. Maths, Science, and English tutors for KS1, KS2, KS3, GCSE, A-level, and adult learners. Open during all school holidays.",
+     ["WordPress", "PHP", "MySQL"],
+     "calculator", "2024-2026", "Nottingham, UK"),
+    # ---------- Gadget Repair (Retail / Multi-Location) ----------
+    ("portfolio-mearns-gadget-repair", "Mearns Gadget Repair",
+     "Gadget Repair",
+     "https://www.mearnsgadgetrepair.co.uk",
+     "Professional gadget repair services in Newton Mearns, Glasgow. Mobiles, MacBooks, tablets, laptops, game consoles, GHDs. Free diagnoses. Stripe-integrated booking.",
+     ["WordPress", "WooCommerce", "Stripe", "PHP"],
+     "smartphone", "2024-2026", "Newton Mearns, UK"),
+    ("portfolio-gadget-doctor-ls", "Gadget Doctor East Kilbride",
+     "Gadget Repair",
+     "https://www.gadgetdoctorls.co.uk",
+     "Gadget repair shop in East Kilbride. iPhone, console, MacBook, laptop, and tablet repairs. Live chat support, online booking, fast turnaround. Trusted by local community.",
+     ["WordPress", "WooCommerce", "PHP"],
+     "stethoscope", "2024-2026", "East Kilbride, UK"),
+    ("portfolio-gadget-repairs-glasgow", "Gadget Repairs Glasgow",
+     "Gadget Repair",
+     "https://www.gadgetrepairsglasgow.co.uk",
+     "One-stop gadget repairs store in Glasgow city centre (172 Trongate). Mobile, tablet, laptop, MacBook, game console, and GHD repairs. Mail-in service. 5-star rated.",
+     ["WordPress", "WooCommerce", "Stripe", "PHP"],
+     "tool", "2024-2026", "Glasgow, UK"),
+    ("portfolio-tech-repairs-glasgow", "Tech Repairs Glasgow",
+     "Gadget Repair",
+     "https://www.techrepairsglasgow.co.uk",
+     "Glasgow's leading gadgets repair centre at St Enoch Shopping Centre. iPhone, Samsung, Google Pixel, Huawei repairs. Free quotes, 6-month warranty, mail-in service.",
+     ["WordPress", "WooCommerce", "Stripe", "PHP"],
+     "settings", "2024-2026", "Glasgow, UK"),
+]
+
+# Register portfolio detail pages in PAGES_REGISTRY (each gets its own SPA route)
+for slug, name, category, url, blurb, stack, icon, year, region in CLIENT_PORTFOLIO:
+    _reg(slug,
+         f"{name} — ClickTake Portfolio",
+         f"{blurb}",
+         f"portfolio, {category.lower()}, {name.lower()}, clicktake client, {region.lower()}",
+         f"https://clicktaketech.com/portfolio/{slug.replace('portfolio-', '')}",
+         "portfolio_detail",
+         {"name": name, "category": category, "url": url, "blurb": blurb,
+          "stack": stack, "icon": icon, "year": year, "region": region})
+
+# ============================================================================
 # BLOG ARTICLE PAGES (13)
 # ============================================================================
 

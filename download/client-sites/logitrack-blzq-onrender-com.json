@@ -1,0 +1,19 @@
+{
+  "url": "https://logitrack-blzq.onrender.com",
+  "title": "LogiTrack \u2014 Logistics Management System",
+  "description": "Smart Logistics Management System \u2014 Efficient, Reliable, Fast. Built by ClickTake Technologies. Features: sign-in auth, dashboard, demo credentials available. LMS for logistics operations.",
+  "headings": [
+    "LogiTrack",
+    "Smart Logistics Management",
+    "Sign in",
+    "Enter your credentials to access the dashboard"
+  ],
+  "text_excerpt": "LMS LogiTrack Smart Logistics Management Efficient \u2022 Reliable \u2022 Fast Sign in Enter your credentials to access the dashboard Email Password Sign In Demo Credentials Email: admin@lms.com Password: admin123 All Copyright and Developer by ClickTake Technologies",
+  "tech_signals": [
+    "React",
+    "Render",
+    "SPA"
+  ],
+  "html_length": 0,
+  "source": "agent-browser"
+}

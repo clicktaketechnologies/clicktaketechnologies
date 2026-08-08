@@ -25,8 +25,9 @@ from textwrap import dedent
 import base64
 import sys
 sys.path.insert(0, "/home/z/my-project/scripts")
-from clicktake_pages import PAGES_REGISTRY, SERVICES, SOLUTIONS, CASE_STUDIES, BLOG_POSTS, CAREERS, RESOURCES, CITIES
+from clicktake_pages import PAGES_REGISTRY, SERVICES, SOLUTIONS, CASE_STUDIES, BLOG_POSTS, CAREERS, RESOURCES, CITIES, CLIENT_PORTFOLIO
 from clicktake_templates import render_page
+from html import escape as _html_escape
 
 OUT = Path("/home/z/my-project/download/clicktake-landing.html")
 
@@ -3096,38 +3097,66 @@ PAGE_PORTFOLIO = '''
         <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
         <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
           <div class="reveal">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckpink mb-6"><span class="w-1.5 h-1.5 rounded-full bg-ckpink animate-pulse"></span>Selected Work</div>
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckpink mb-6"><span class="w-1.5 h-1.5 rounded-full bg-ckpink animate-pulse"></span>12 Live Client Sites</div>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-6"><span class="gradient-text">Portfolio</span></h1>
-            <p class="text-lg md:text-xl text-ckbody max-w-3xl mx-auto mb-10 leading-relaxed">150+ production deployments across 12 industries. A selection of work we're allowed to talk about.</p>
+            <p class="text-lg md:text-xl text-ckbody max-w-3xl mx-auto mb-10 leading-relaxed">Real production deployments, live right now. SaaS platforms, education portals, and multi-location retail — built and maintained by ClickTake engineers.</p>
           </div>
         </div>
       </div>
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 pb-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-''' + ''.join(f'''
-          <a href="#{cs[0]}" data-nav="{cs[0]}" class="tilt-card glass rounded-2xl overflow-hidden reveal group">
-            <div class="aspect-video relative overflow-hidden" style="background:linear-gradient(135deg,#{i%2 and '136DFF' or 'FF53A9'}33,#{i%3 and '7B2FBE' or '136DFF'}33);">
-              <div class="absolute inset-0 flex items-center justify-center"><i data-lucide="layout" class="w-12 h-12 text-ckbody/40"></i></div>
-            </div>
-            <div class="p-6">
-              <div class="text-xs font-mono uppercase tracking-widest text-ckpink mb-2">{cs[2]}</div>
-              <h3 class="font-display font-bold text-lg mb-2 group-hover:text-ckblue transition-colors">{cs[1]}</h3>
-              <div class="flex items-center gap-2 text-sm text-ckbody">Read case study <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
-            </div>
-          </a>''' for i, cs in enumerate(CASE_STUDIES)) + '''
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 pb-12">
+        <div class="text-center max-w-3xl mx-auto mb-10 reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckblue mb-4">By Category</div>
+          <h2 class="text-2xl md:text-3xl font-display font-bold tracking-tight">3 categories. 12 live products. 100% production-grade.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+          <a href="#portfolio" data-nav="portfolio" class="tilt-card glass rounded-2xl p-5 reveal text-center">
+            <i data-lucide="cloud" class="w-7 h-7 text-ckblue mx-auto mb-3"></i>
+            <div class="font-display font-bold text-lg">SaaS Platforms</div>
+            <div class="text-xs text-ckbody/70 mt-1">5 products</div>
+          </a>
+          <a href="#portfolio" data-nav="portfolio" class="tilt-card glass rounded-2xl p-5 reveal text-center">
+            <i data-lucide="graduation-cap" class="w-7 h-7 text-ckpink mx-auto mb-3"></i>
+            <div class="font-display font-bold text-lg">Education</div>
+            <div class="text-xs text-ckbody/70 mt-1">3 sites</div>
+          </a>
+          <a href="#portfolio" data-nav="portfolio" class="tilt-card glass rounded-2xl p-5 reveal text-center">
+            <i data-lucide="smartphone" class="w-7 h-7 text-ckpurple mx-auto mb-3"></i>
+            <div class="font-display font-bold text-lg">Gadget Repair</div>
+            <div class="text-xs text-ckbody/70 mt-1">4 sites</div>
+          </a>
         </div>
       </div>
       <div class="max-w-7xl mx-auto px-6 lg:px-8 pb-16">
-        <div class="text-center max-w-3xl mx-auto mb-12 reveal"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckblue mb-4">By Industry</div><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight">12 industries. 150+ deployments.</h2></div>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-''' + ''.join(f'''
-          <div class="tilt-card glass rounded-2xl p-5 text-center reveal"><i data-lucide="{icon}" class="w-7 h-7 text-ckblue mx-auto mb-3"></i><div class="text-sm font-display font-semibold">{ind}</div></div>''' for ind, icon in [
-    ("Fintech", "trending-up"), ("E-commerce", "shopping-cart"), ("Healthcare", "heart-pulse"),
-    ("Logistics", "truck"), ("SaaS", "cloud"), ("Education", "graduation-cap"),
-    ("Real Estate", "building-2"), ("Legal", "scale"), ("Media", "film"),
-    ("Hospitality", "utensils"), ("Manufacturing", "factory"), ("Government", "landmark"),
-]) + '''
+        <div class="text-center max-w-3xl mx-auto mb-10 reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckpink mb-4">Live Work</div>
+          <h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight">12 sites you can click through today</h2>
+          <p class="text-base text-ckbody mt-3">Every link below opens a real, production deployment. Try them.</p>
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+''' + ''.join(f'''
+          <a href="#{cp[0]}" data-nav="{cp[0]}" class="tilt-card glass rounded-2xl overflow-hidden reveal group">
+            <div class="aspect-video relative overflow-hidden flex items-center justify-center p-6" style="background:linear-gradient(135deg,rgba(19,109,255,0.20),rgba(123,47,190,0.20),rgba(255,83,169,0.20));">
+              <div class="w-20 h-20 rounded-3xl flex items-center justify-center" style="background:rgba(13,0,37,0.55);backdrop-filter:blur(12px);border:1px solid rgba(255,83,169,0.30);">
+                <i data-lucide="{cp[6]}" class="w-10 h-10 text-ckheading"></i>
+              </div>
+              <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-ckbg/60 backdrop-blur text-[10px] font-mono uppercase tracking-widest text-ckpink">● Live</div>
+              <div class="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-ckbg/60 backdrop-blur text-[10px] font-mono text-ckbody/80">{cp[2]}</div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-display font-bold text-lg mb-2 group-hover:text-ckblue transition-colors">{cp[1]}</h3>
+              <p class="text-sm text-ckbody leading-relaxed mb-3 line-clamp-3">{cp[4]}</p>
+              <div class="flex items-center justify-between">
+                <div class="flex flex-wrap gap-1.5">
+                  {''.join(f'<span class="px-2 py-0.5 rounded-full glass-soft text-[10px] font-mono text-ckbody/80">{_html_escape(s)}</span>' for s in cp[5][:3])}
+                </div>
+                <div class="text-xs text-ckblue font-mono group-hover:translate-x-1 transition-transform">View →</div>
+              </div>
+            </div>
+          </a>''' for cp in CLIENT_PORTFOLIO) + '''
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="text-center max-w-3xl mx-auto mb-10 reveal"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckblue mb-4">More on the way</div><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight">The admin panel adds new projects weekly.</h2><p class="text-base text-ckbody mt-3">We ship 8-12 new client projects every quarter. New entries are added to this page automatically via our admin panel — no rebuild required.</p></div>
       </div>
       <div class="py-20 px-6 lg:px-8"><div class="max-w-5xl mx-auto tilt-card glass rounded-3xl p-10 lg:p-14 text-center reveal"><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight mb-4"><span class="gradient-text">Your project, next.</span></h2><p class="text-base md:text-lg text-ckbody max-w-2xl mx-auto mb-8">Book a 30-minute architecture review. No slides, no sales — just senior engineers and a whiteboard.</p><div class="flex flex-wrap items-center justify-center gap-4"><a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> Book a Demo</a><a href="https://wa.link/iqz8eg" target="_blank" rel="noopener noreferrer" class="rounded-xl px-7 py-3.5 font-display font-semibold glass-soft text-ckheading hover:border-ckblue/40 transition-colors inline-flex items-center gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp</a></div></div></div>
     </section>
@@ -3357,12 +3386,13 @@ SUB_PAGES_HTML = ""
 for slug, meta in PAGES_REGISTRY.items():
     template = meta.get("template", "")
     if template in ("service_detail", "solution_detail", "case_study_detail",
-                    "blog_article", "career_detail", "resource_detail", "city_detail"):
+                    "blog_article", "career_detail", "resource_detail", "city_detail",
+                    "portfolio_detail"):
         SUB_PAGES_HTML += "\n    <!-- ========== PAGE: " + slug.upper() + " ========== -->\n"
         SUB_PAGES_HTML += render_page(slug, meta)
         SUB_PAGES_HTML += "\n"
 
-print(f"Part 9 (84 sub-pages: services, solutions, case-studies, blog, careers, resources, cities) prepared. Total: {len(SUB_PAGES_HTML)/1024:.1f} KB")
+print(f"Part 9 (sub-pages incl. 12 portfolio detail pages) prepared. Total: {len(SUB_PAGES_HTML)/1024:.1f} KB")
 
 
 
