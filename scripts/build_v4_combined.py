@@ -1,4 +1,24 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+ClickTake Technologies — v4 Multi-Page SPA Generator
+Builds a self-contained dark-mode futuristic site with:
+- 10 SPA pages (home, services, solutions, cases, contact, about, blog, careers, privacy, terms)
+- 3 CSS/SVG mascots (Dev w/ VR, AI Agent robot, Data Analyst)
+- Canvas particle ambient background
+- Parallax tilt cards + radial glow buttons
+- Full per-page SEO (title/description/OG/canonical) + JSON-LD
+- Multi-step glass contact form
+Output: /home/z/my-project/download/clicktake-landing.html
+"""
+from pathlib import Path
+from textwrap import dedent
+
+OUT = Path("/home/z/my-project/download/clicktake-landing.html")
+
+# ============================================================================
+# HEAD — meta, Tailwind config, fonts, Lucide, JSON-LD, embedded <style>
+# ============================================================================
+HEAD = '''<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
@@ -305,7 +325,12 @@
     .crumb a:hover { color: var(--heading); }
   </style>
 </head>
+'''
 
+# ============================================================================
+# CANVAS + AMBIENT MESH
+# ============================================================================
+AMBIENT = '''
 <body class="font-body relative">
   <!-- Particle ambient canvas -->
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
@@ -318,7 +343,12 @@
   </div>
 
   <div class="relative z-10">
+'''
 
+# ============================================================================
+# UNIVERSAL STICKY GLASS HEADER
+# ============================================================================
+HEADER = '''
     <!-- Universal Sticky Glass Header -->
     <header id="site-header" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
       <div class="max-w-7xl mx-auto px-5 lg:px-8">
@@ -378,51 +408,12 @@
         <a href="#contact" data-nav="contact" class="glow-btn mobile-link rounded-xl px-5 py-3 text-center font-display font-semibold mt-4">Book a Demo</a>
       </nav>
     </div>
+'''
 
-    <!-- ========== PAGE: HOME ========== -->
-    <section data-page="home" class="page active">
-      <!-- Hero -->
-      <div class="relative pt-32 lg:pt-40 pb-20 overflow-hidden">
-        <!-- Perspective grid floor -->
-        <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-30" aria-hidden="true"></div>
-
-        <div class="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
-          <!-- Left copy -->
-          <div class="reveal">
-            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-soft text-xs font-mono text-ckblue mb-6">
-              <span class="w-1.5 h-1.5 rounded-full bg-ckpink pulse-glow"></span>
-              v4 · Multi-Agent AI Platform Live
-            </span>
-            <h1 class="font-display text-5xl lg:text-7xl font-bold leading-[1.05] text-ckheading mb-6">
-              Engineering<br/>
-              <span class="grad-text">Tomorrow's Intelligence</span>,<br/>
-              Today.
-            </h1>
-            <p class="text-lg text-ckbody max-w-xl mb-8 leading-relaxed">
-              ClickTake Technologies ships production-grade software, autonomous AI agents, and cloud architecture for global enterprises — trusted by 150+ teams across 4 continents with 99.9% uptime and 10M+ API requests served every day.
-            </p>
-            <div class="flex flex-wrap items-center gap-4">
-              <a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-base shine">Book a Demo <i data-lucide="arrow-right" class="inline w-4 h-4 ml-1"></i></a>
-              <a href="#cases" data-nav="cases" class="ghost-btn rounded-xl px-7 py-3.5 font-display font-semibold text-base">View Case Studies</a>
-            </div>
-            <!-- Trust strip -->
-            <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-ckbody/70 font-mono">
-              <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-ckblue"></i>SOC 2 Type II</span>
-              <span class="flex items-center gap-1.5"><i data-lucide="cloud" class="w-3.5 h-3.5 text-ckblue"></i>AWS · GCP · Azure</span>
-              <span class="flex items-center gap-1.5"><i data-lucide="zap" class="w-3.5 h-3.5 text-ckpink"></i>99.9% SLA</span>
-              <span class="flex items-center gap-1.5"><i data-lucide="lock" class="w-3.5 h-3.5 text-ckpink"></i>GDPR · CCPA</span>
-            </div>
-          </div>
-
-          <!-- Right: Mascot 1 + 3D dashboard stage -->
-          <div class="relative reveal">
-            <!-- Holo ring behind -->
-            <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-              <div class="holo-ring w-[420px] h-[420px] rounded-full opacity-25"></div>
-            </div>
-            <!-- Mascot -->
-            <div class="relative mascot-stage h-[440px] lg:h-[520px]">
-              
+# ============================================================================
+# MASCOTS — CSS/SVG-built 3D cartoon mascots
+# ============================================================================
+MASCOT_DEV = '''
 <!-- Mascot 1: Dev Mascot with VR headset + holographic tablet -->
 <svg class="mascot-dev w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D developer mascot wearing VR headset" role="img">
   <defs>
@@ -518,7 +509,255 @@
     <text x="340" y="280" font-family="JetBrains Mono" font-size="11" fill="#7B2FBE">01</text>
   </g>
 </svg>
+'''
 
+MASCOT_AI = '''
+<!-- Mascot 2: AI Agent Robot -->
+<svg class="mascot-ai w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D AI agent robot mascot with glowing LED eyes" role="img">
+  <defs>
+    <linearGradient id="aiBody" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#E8E2F0"/><stop offset="50%" stop-color="#9A8CB5"/><stop offset="100%" stop-color="#5A4D78"/>
+    </linearGradient>
+    <linearGradient id="aiHead" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#F4EEFB"/><stop offset="100%" stop-color="#7A6F94"/>
+    </linearGradient>
+    <radialGradient id="aiHeart" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF53A9"/><stop offset="60%" stop-color="#136DFF"/><stop offset="100%" stop-color="#7B2FBE"/>
+    </radialGradient>
+    <radialGradient id="aiEye" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FFFFFF"/><stop offset="40%" stop-color="#136DFF"/><stop offset="100%" stop-color="#0A1746"/>
+    </radialGradient>
+    <filter id="aiGlow"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+
+  <!-- Ambient hover glow -->
+  <ellipse cx="200" cy="440" rx="130" ry="18" fill="#7B2FBE" opacity="0.30" filter="url(#aiGlow)"/>
+
+  <!-- Hover thruster -->
+  <ellipse cx="200" cy="410" rx="60" ry="10" fill="#136DFF" opacity="0.45" filter="url(#aiGlow)"/>
+  <ellipse cx="200" cy="410" rx="40" ry="6" fill="#FF53A9" opacity="0.55"/>
+
+  <!-- Body -->
+  <g class="float-b" style="transform-origin: 200px 280px;">
+    <!-- Antenna -->
+    <line x1="200" y1="80" x2="200" y2="50" stroke="#9A8CB5" stroke-width="3"/>
+    <circle cx="200" cy="46" r="8" fill="#FF53A9"/>
+    <circle cx="200" cy="46" r="12" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
+
+    <!-- Head -->
+    <rect x="135" y="90" width="130" height="110" rx="32" fill="url(#aiHead)"/>
+    <rect x="145" y="100" width="110" height="90" rx="24" fill="#0A0118" opacity="0.20"/>
+    <!-- Head seam -->
+    <line x1="200" y1="90" x2="200" y2="105" stroke="#5A4D78" stroke-width="2"/>
+
+    <!-- Eyes (LED) -->
+    <circle cx="170" cy="145" r="16" fill="#0A0118"/>
+    <circle cx="170" cy="145" r="13" fill="url(#aiEye)"/>
+    <circle cx="166" cy="141" r="4" fill="#fff"/>
+
+    <circle cx="230" cy="145" r="16" fill="#0A0118"/>
+    <circle cx="230" cy="145" r="13" fill="url(#aiEye)" />
+    <circle cx="226" cy="141" r="4" fill="#fff"/>
+
+    <!-- Eye glow halos -->
+    <circle cx="170" cy="145" r="22" fill="#136DFF" opacity="0.25" filter="url(#aiGlow)"/>
+    <circle cx="230" cy="145" r="22" fill="#FF53A9" opacity="0.25" filter="url(#aiGlow)"/>
+
+    <!-- Mouth speaker grid -->
+    <rect x="178" y="175" width="44" height="14" rx="4" fill="#0A0118" opacity="0.6"/>
+    <circle cx="186" cy="182" r="2" fill="#136DFF"/>
+    <circle cx="196" cy="182" r="2" fill="#136DFF"/>
+    <circle cx="206" cy="182" r="2" fill="#FF53A9"/>
+    <circle cx="216" cy="182" r="2" fill="#FF53A9"/>
+
+    <!-- Side ears -->
+    <rect x="120" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
+    <rect x="265" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
+    <circle cx="127" cy="145" r="4" fill="#FF53A9"/>
+    <circle cx="273" cy="145" r="4" fill="#FF53A9"/>
+
+    <!-- Neck -->
+    <rect x="185" y="200" width="30" height="20" fill="#5A4D78"/>
+
+    <!-- Torso -->
+    <path d="M130 220 Q200 200 270 220 L280 350 Q200 370 120 350 Z" fill="url(#aiBody)"/>
+    <!-- Chest plate -->
+    <rect x="160" y="240" width="80" height="80" rx="16" fill="#0A0118" opacity="0.25"/>
+    <!-- Heart core -->
+    <circle cx="200" cy="280" r="22" fill="url(#aiHeart)"/>
+    <circle cx="200" cy="280" r="22" fill="#FF53A9" opacity="0.40" filter="url(#aiGlow)"/>
+    <path d="M200 290 L188 278 Q180 270 188 262 Q200 254 200 270 Q200 254 212 262 Q220 270 212 278 Z" fill="#fff" opacity="0.85"/>
+
+    <!-- Arms -->
+    <rect x="100" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
+    <rect x="278" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
+    <circle cx="111" cy="330" r="14" fill="#5A4D78"/>
+    <circle cx="289" cy="330" r="14" fill="#5A4D78"/>
+
+    <!-- Circuit lines -->
+    <line x1="160" y1="335" x2="240" y2="335" stroke="#136DFF" stroke-width="1.5" opacity="0.6"/>
+    <line x1="170" y1="345" x2="230" y2="345" stroke="#FF53A9" stroke-width="1.5" opacity="0.6"/>
+  </g>
+
+  <!-- Floating data orbs -->
+  <g class="float-a" opacity="0.85">
+    <circle cx="60" cy="200" r="6" fill="#136DFF"/>
+    <circle cx="60" cy="200" r="10" fill="#136DFF" opacity="0.30" filter="url(#aiGlow)"/>
+  </g>
+  <g class="float-c" opacity="0.85">
+    <circle cx="345" cy="250" r="5" fill="#FF53A9"/>
+    <circle cx="345" cy="250" r="9" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
+  </g>
+</svg>
+'''
+
+MASCOT_DATA = '''
+<!-- Mascot 3: Data Analyst with floating bar charts -->
+<svg class="mascot-data w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D data analyst mascot holding floating bar charts" role="img">
+  <defs>
+    <radialGradient id="daSkin" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FFE0C2"/><stop offset="60%" stop-color="#E8A884"/><stop offset="100%" stop-color="#B47952"/>
+    </radialGradient>
+    <linearGradient id="daShirt" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#7B2FBE"/><stop offset="100%" stop-color="#3D1666"/>
+    </linearGradient>
+    <linearGradient id="barGrad" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#FF53A9"/><stop offset="100%" stop-color="#136DFF"/>
+    </linearGradient>
+    <linearGradient id="barGrad2" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#136DFF"/><stop offset="100%" stop-color="#7B2FBE"/>
+    </linearGradient>
+    <filter id="daGlow"><feGaussianBlur stdDeviation="4"/></filter>
+  </defs>
+
+  <!-- Ambient glow -->
+  <ellipse cx="200" cy="440" rx="130" ry="18" fill="#7B2FBE" opacity="0.30" filter="url(#daGlow)"/>
+
+  <!-- Body / coat -->
+  <path d="M115 370 Q200 310 285 370 L290 460 Q200 440 110 460 Z" fill="url(#daShirt)"/>
+  <path d="M170 360 L200 410 L230 360 L225 420 L175 420 Z" fill="#3D1666"/>
+  <!-- Lapels -->
+  <path d="M170 360 L200 410 L195 360 Z" fill="#5A1A99"/>
+  <path d="M230 360 L200 410 L205 360 Z" fill="#5A1A99"/>
+  <!-- Tie -->
+  <path d="M195 360 L205 360 L208 410 L192 410 Z" fill="#FF53A9"/>
+
+  <!-- Neck -->
+  <rect x="180" y="240" width="40" height="55" rx="14" fill="url(#daSkin)"/>
+
+  <!-- Head -->
+  <ellipse cx="200" cy="195" rx="74" ry="82" fill="url(#daSkin)"/>
+  <!-- Ears -->
+  <ellipse cx="128" cy="200" rx="12" ry="18" fill="url(#daSkin)"/>
+  <ellipse cx="272" cy="200" rx="12" ry="18" fill="url(#daSkin)"/>
+  <!-- Glasses -->
+  <circle cx="170" cy="190" r="22" fill="none" stroke="#136DFF" stroke-width="3"/>
+  <circle cx="230" cy="190" r="22" fill="none" stroke="#136DFF" stroke-width="3"/>
+  <line x1="192" y1="190" x2="208" y2="190" stroke="#136DFF" stroke-width="3"/>
+  <!-- Glass reflection -->
+  <path d="M160 180 Q170 175 178 180" stroke="#fff" stroke-width="2" fill="none" opacity="0.7"/>
+  <path d="M220 180 Q230 175 238 180" stroke="#fff" stroke-width="2" fill="none" opacity="0.7"/>
+  <!-- Eyes -->
+  <circle cx="170" cy="190" r="6" fill="#2D1B4E"/>
+  <circle cx="230" cy="190" r="6" fill="#2D1B4E"/>
+  <!-- Smile -->
+  <path d="M175 232 Q200 248 225 232" stroke="#7A3B23" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Hair / beard -->
+  <path d="M135 140 Q170 100 200 105 Q230 100 265 140 Q260 110 200 100 Q140 110 135 140 Z" fill="#3D2860"/>
+  <path d="M165 240 Q200 260 235 240 Q230 270 200 275 Q170 270 165 240 Z" fill="#3D2860" opacity="0.85"/>
+
+  <!-- Arms raised holding chart -->
+  <path d="M115 370 Q90 320 130 280 L165 295 L150 370 Z" fill="url(#daShirt)"/>
+  <path d="M285 370 Q310 320 270 280 L235 295 L250 370 Z" fill="url(#daShirt)"/>
+  <circle cx="140" cy="280" r="13" fill="url(#daSkin)"/>
+  <circle cx="260" cy="280" r="13" fill="url(#daSkin)"/>
+
+  <!-- Floating bar chart widget -->
+  <g class="float-a" style="transform-origin: 200px 240px;">
+    <rect x="135" y="220" width="130" height="90" rx="14" fill="rgba(13,0,37,0.85)" stroke="rgba(19,109,255,0.40)" stroke-width="1.5"/>
+    <text x="145" y="240" font-family="Space Grotesk" font-size="10" fill="#9A8CB5">REVENUE / Q</text>
+    <text x="145" y="258" font-family="Space Grotesk" font-size="18" font-weight="700" fill="#F0EBF8">$2.4M</text>
+    <!-- Bars -->
+    <rect x="148" y="282" width="14" height="18" rx="2" fill="url(#barGrad2)"/>
+    <rect x="168" y="272" width="14" height="28" rx="2" fill="url(#barGrad)"/>
+    <rect x="188" y="262" width="14" height="38" rx="2" fill="url(#barGrad2)"/>
+    <rect x="208" y="252" width="14" height="48" rx="2" fill="url(#barGrad)"/>
+    <rect x="228" y="242" width="14" height="58" rx="2" fill="url(#barGrad2)"/>
+    <!-- Up arrow -->
+    <path d="M250 290 L256 280 L262 290 Z" fill="#FF53A9"/>
+  </g>
+
+  <!-- Floating mini glass metric -->
+  <g class="float-c" style="transform-origin: 320px 200px;">
+    <rect x="290" y="170" width="80" height="60" rx="10" fill="rgba(13,0,37,0.85)" stroke="rgba(255,83,169,0.40)" stroke-width="1.5"/>
+    <text x="298" y="188" font-family="Space Grotesk" font-size="8" fill="#9A8CB5">CONVERSION</text>
+    <text x="298" y="208" font-family="Space Grotesk" font-size="16" font-weight="700" fill="#FF53A9">+38%</text>
+    <!-- Sparkline -->
+    <polyline points="298,222 308,218 318,214 328,208 338,202 348,196 358,188" stroke="#FF53A9" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Floating mini donut -->
+  <g class="float-b" style="transform-origin: 80px 200px;">
+    <circle cx="80" cy="190" r="22" fill="none" stroke="rgba(19,109,255,0.20)" stroke-width="6"/>
+    <circle cx="80" cy="190" r="22" fill="none" stroke="#136DFF" stroke-width="6" stroke-dasharray="100 60" transform="rotate(-90 80 190)"/>
+    <text x="73" y="195" font-family="Space Grotesk" font-size="10" font-weight="700" fill="#F0EBF8">62%</text>
+  </g>
+</svg>
+'''
+
+# Save mascots in a dict for use across pages
+MASCOTS = {"dev": MASCOT_DEV, "ai": MASCOT_AI, "data": MASCOT_DATA}
+
+print("Part 1 (head + ambient + header + mascots) prepared.")
+
+# ============================================================================
+# PAGE 1: HOME
+# ============================================================================
+PAGE_HOME = '''
+    <!-- ========== PAGE: HOME ========== -->
+    <section data-page="home" class="page active">
+      <!-- Hero -->
+      <div class="relative pt-32 lg:pt-40 pb-20 overflow-hidden">
+        <!-- Perspective grid floor -->
+        <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-30" aria-hidden="true"></div>
+
+        <div class="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+          <!-- Left copy -->
+          <div class="reveal">
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-soft text-xs font-mono text-ckblue mb-6">
+              <span class="w-1.5 h-1.5 rounded-full bg-ckpink pulse-glow"></span>
+              v4 · Multi-Agent AI Platform Live
+            </span>
+            <h1 class="font-display text-5xl lg:text-7xl font-bold leading-[1.05] text-ckheading mb-6">
+              Engineering<br/>
+              <span class="grad-text">Tomorrow's Intelligence</span>,<br/>
+              Today.
+            </h1>
+            <p class="text-lg text-ckbody max-w-xl mb-8 leading-relaxed">
+              ClickTake Technologies ships production-grade software, autonomous AI agents, and cloud architecture for global enterprises — trusted by 150+ teams across 4 continents with 99.9% uptime and 10M+ API requests served every day.
+            </p>
+            <div class="flex flex-wrap items-center gap-4">
+              <a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-base shine">Book a Demo <i data-lucide="arrow-right" class="inline w-4 h-4 ml-1"></i></a>
+              <a href="#cases" data-nav="cases" class="ghost-btn rounded-xl px-7 py-3.5 font-display font-semibold text-base">View Case Studies</a>
+            </div>
+            <!-- Trust strip -->
+            <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-ckbody/70 font-mono">
+              <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-ckblue"></i>SOC 2 Type II</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="cloud" class="w-3.5 h-3.5 text-ckblue"></i>AWS · GCP · Azure</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="zap" class="w-3.5 h-3.5 text-ckpink"></i>99.9% SLA</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="lock" class="w-3.5 h-3.5 text-ckpink"></i>GDPR · CCPA</span>
+            </div>
+          </div>
+
+          <!-- Right: Mascot 1 + 3D dashboard stage -->
+          <div class="relative reveal">
+            <!-- Holo ring behind -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+              <div class="holo-ring w-[420px] h-[420px] rounded-full opacity-25"></div>
+            </div>
+            <!-- Mascot -->
+            <div class="relative mascot-stage h-[440px] lg:h-[520px]">
+              ''' + MASCOTS["dev"] + '''
             </div>
             <!-- Floating metric chip -->
             <div class="absolute top-6 right-2 lg:right-6 glass rounded-2xl p-3.5 float-a w-44" aria-hidden="true">
@@ -703,105 +942,7 @@
               </div>
             </div>
             <div class="lg:col-span-2 relative h-72 reveal">
-              
-<!-- Mascot 2: AI Agent Robot -->
-<svg class="mascot-ai w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D AI agent robot mascot with glowing LED eyes" role="img">
-  <defs>
-    <linearGradient id="aiBody" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#E8E2F0"/><stop offset="50%" stop-color="#9A8CB5"/><stop offset="100%" stop-color="#5A4D78"/>
-    </linearGradient>
-    <linearGradient id="aiHead" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#F4EEFB"/><stop offset="100%" stop-color="#7A6F94"/>
-    </linearGradient>
-    <radialGradient id="aiHeart" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FF53A9"/><stop offset="60%" stop-color="#136DFF"/><stop offset="100%" stop-color="#7B2FBE"/>
-    </radialGradient>
-    <radialGradient id="aiEye" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#FFFFFF"/><stop offset="40%" stop-color="#136DFF"/><stop offset="100%" stop-color="#0A1746"/>
-    </radialGradient>
-    <filter id="aiGlow"><feGaussianBlur stdDeviation="6"/></filter>
-  </defs>
-
-  <!-- Ambient hover glow -->
-  <ellipse cx="200" cy="440" rx="130" ry="18" fill="#7B2FBE" opacity="0.30" filter="url(#aiGlow)"/>
-
-  <!-- Hover thruster -->
-  <ellipse cx="200" cy="410" rx="60" ry="10" fill="#136DFF" opacity="0.45" filter="url(#aiGlow)"/>
-  <ellipse cx="200" cy="410" rx="40" ry="6" fill="#FF53A9" opacity="0.55"/>
-
-  <!-- Body -->
-  <g class="float-b" style="transform-origin: 200px 280px;">
-    <!-- Antenna -->
-    <line x1="200" y1="80" x2="200" y2="50" stroke="#9A8CB5" stroke-width="3"/>
-    <circle cx="200" cy="46" r="8" fill="#FF53A9"/>
-    <circle cx="200" cy="46" r="12" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
-
-    <!-- Head -->
-    <rect x="135" y="90" width="130" height="110" rx="32" fill="url(#aiHead)"/>
-    <rect x="145" y="100" width="110" height="90" rx="24" fill="#0A0118" opacity="0.20"/>
-    <!-- Head seam -->
-    <line x1="200" y1="90" x2="200" y2="105" stroke="#5A4D78" stroke-width="2"/>
-
-    <!-- Eyes (LED) -->
-    <circle cx="170" cy="145" r="16" fill="#0A0118"/>
-    <circle cx="170" cy="145" r="13" fill="url(#aiEye)"/>
-    <circle cx="166" cy="141" r="4" fill="#fff"/>
-
-    <circle cx="230" cy="145" r="16" fill="#0A0118"/>
-    <circle cx="230" cy="145" r="13" fill="url(#aiEye)" />
-    <circle cx="226" cy="141" r="4" fill="#fff"/>
-
-    <!-- Eye glow halos -->
-    <circle cx="170" cy="145" r="22" fill="#136DFF" opacity="0.25" filter="url(#aiGlow)"/>
-    <circle cx="230" cy="145" r="22" fill="#FF53A9" opacity="0.25" filter="url(#aiGlow)"/>
-
-    <!-- Mouth speaker grid -->
-    <rect x="178" y="175" width="44" height="14" rx="4" fill="#0A0118" opacity="0.6"/>
-    <circle cx="186" cy="182" r="2" fill="#136DFF"/>
-    <circle cx="196" cy="182" r="2" fill="#136DFF"/>
-    <circle cx="206" cy="182" r="2" fill="#FF53A9"/>
-    <circle cx="216" cy="182" r="2" fill="#FF53A9"/>
-
-    <!-- Side ears -->
-    <rect x="120" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
-    <rect x="265" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
-    <circle cx="127" cy="145" r="4" fill="#FF53A9"/>
-    <circle cx="273" cy="145" r="4" fill="#FF53A9"/>
-
-    <!-- Neck -->
-    <rect x="185" y="200" width="30" height="20" fill="#5A4D78"/>
-
-    <!-- Torso -->
-    <path d="M130 220 Q200 200 270 220 L280 350 Q200 370 120 350 Z" fill="url(#aiBody)"/>
-    <!-- Chest plate -->
-    <rect x="160" y="240" width="80" height="80" rx="16" fill="#0A0118" opacity="0.25"/>
-    <!-- Heart core -->
-    <circle cx="200" cy="280" r="22" fill="url(#aiHeart)"/>
-    <circle cx="200" cy="280" r="22" fill="#FF53A9" opacity="0.40" filter="url(#aiGlow)"/>
-    <path d="M200 290 L188 278 Q180 270 188 262 Q200 254 200 270 Q200 254 212 262 Q220 270 212 278 Z" fill="#fff" opacity="0.85"/>
-
-    <!-- Arms -->
-    <rect x="100" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
-    <rect x="278" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
-    <circle cx="111" cy="330" r="14" fill="#5A4D78"/>
-    <circle cx="289" cy="330" r="14" fill="#5A4D78"/>
-
-    <!-- Circuit lines -->
-    <line x1="160" y1="335" x2="240" y2="335" stroke="#136DFF" stroke-width="1.5" opacity="0.6"/>
-    <line x1="170" y1="345" x2="230" y2="345" stroke="#FF53A9" stroke-width="1.5" opacity="0.6"/>
-  </g>
-
-  <!-- Floating data orbs -->
-  <g class="float-a" opacity="0.85">
-    <circle cx="60" cy="200" r="6" fill="#136DFF"/>
-    <circle cx="60" cy="200" r="10" fill="#136DFF" opacity="0.30" filter="url(#aiGlow)"/>
-  </g>
-  <g class="float-c" opacity="0.85">
-    <circle cx="345" cy="250" r="5" fill="#FF53A9"/>
-    <circle cx="345" cy="250" r="9" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
-  </g>
-</svg>
-
+              ''' + MASCOTS["ai"] + '''
             </div>
           </div>
         </div>
@@ -829,7 +970,12 @@
         </div>
       </div>
     </section>
+'''
 
+# ============================================================================
+# PAGE 2: SERVICES
+# ============================================================================
+PAGE_SERVICES = '''
     <!-- ========== PAGE: SERVICES ========== -->
     <section data-page="services" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
@@ -1045,111 +1191,20 @@
               <p class="text-ckbody text-sm">No account managers, no offshore handoffs. The person you talk to in the kickoff is the person writing the architecture decision records.</p>
             </div>
             <div class="h-32">
-              
-<!-- Mascot 2: AI Agent Robot -->
-<svg class="mascot-ai w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D AI agent robot mascot with glowing LED eyes" role="img">
-  <defs>
-    <linearGradient id="aiBody" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#E8E2F0"/><stop offset="50%" stop-color="#9A8CB5"/><stop offset="100%" stop-color="#5A4D78"/>
-    </linearGradient>
-    <linearGradient id="aiHead" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#F4EEFB"/><stop offset="100%" stop-color="#7A6F94"/>
-    </linearGradient>
-    <radialGradient id="aiHeart" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FF53A9"/><stop offset="60%" stop-color="#136DFF"/><stop offset="100%" stop-color="#7B2FBE"/>
-    </radialGradient>
-    <radialGradient id="aiEye" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#FFFFFF"/><stop offset="40%" stop-color="#136DFF"/><stop offset="100%" stop-color="#0A1746"/>
-    </radialGradient>
-    <filter id="aiGlow"><feGaussianBlur stdDeviation="6"/></filter>
-  </defs>
-
-  <!-- Ambient hover glow -->
-  <ellipse cx="200" cy="440" rx="130" ry="18" fill="#7B2FBE" opacity="0.30" filter="url(#aiGlow)"/>
-
-  <!-- Hover thruster -->
-  <ellipse cx="200" cy="410" rx="60" ry="10" fill="#136DFF" opacity="0.45" filter="url(#aiGlow)"/>
-  <ellipse cx="200" cy="410" rx="40" ry="6" fill="#FF53A9" opacity="0.55"/>
-
-  <!-- Body -->
-  <g class="float-b" style="transform-origin: 200px 280px;">
-    <!-- Antenna -->
-    <line x1="200" y1="80" x2="200" y2="50" stroke="#9A8CB5" stroke-width="3"/>
-    <circle cx="200" cy="46" r="8" fill="#FF53A9"/>
-    <circle cx="200" cy="46" r="12" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
-
-    <!-- Head -->
-    <rect x="135" y="90" width="130" height="110" rx="32" fill="url(#aiHead)"/>
-    <rect x="145" y="100" width="110" height="90" rx="24" fill="#0A0118" opacity="0.20"/>
-    <!-- Head seam -->
-    <line x1="200" y1="90" x2="200" y2="105" stroke="#5A4D78" stroke-width="2"/>
-
-    <!-- Eyes (LED) -->
-    <circle cx="170" cy="145" r="16" fill="#0A0118"/>
-    <circle cx="170" cy="145" r="13" fill="url(#aiEye)"/>
-    <circle cx="166" cy="141" r="4" fill="#fff"/>
-
-    <circle cx="230" cy="145" r="16" fill="#0A0118"/>
-    <circle cx="230" cy="145" r="13" fill="url(#aiEye)" />
-    <circle cx="226" cy="141" r="4" fill="#fff"/>
-
-    <!-- Eye glow halos -->
-    <circle cx="170" cy="145" r="22" fill="#136DFF" opacity="0.25" filter="url(#aiGlow)"/>
-    <circle cx="230" cy="145" r="22" fill="#FF53A9" opacity="0.25" filter="url(#aiGlow)"/>
-
-    <!-- Mouth speaker grid -->
-    <rect x="178" y="175" width="44" height="14" rx="4" fill="#0A0118" opacity="0.6"/>
-    <circle cx="186" cy="182" r="2" fill="#136DFF"/>
-    <circle cx="196" cy="182" r="2" fill="#136DFF"/>
-    <circle cx="206" cy="182" r="2" fill="#FF53A9"/>
-    <circle cx="216" cy="182" r="2" fill="#FF53A9"/>
-
-    <!-- Side ears -->
-    <rect x="120" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
-    <rect x="265" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
-    <circle cx="127" cy="145" r="4" fill="#FF53A9"/>
-    <circle cx="273" cy="145" r="4" fill="#FF53A9"/>
-
-    <!-- Neck -->
-    <rect x="185" y="200" width="30" height="20" fill="#5A4D78"/>
-
-    <!-- Torso -->
-    <path d="M130 220 Q200 200 270 220 L280 350 Q200 370 120 350 Z" fill="url(#aiBody)"/>
-    <!-- Chest plate -->
-    <rect x="160" y="240" width="80" height="80" rx="16" fill="#0A0118" opacity="0.25"/>
-    <!-- Heart core -->
-    <circle cx="200" cy="280" r="22" fill="url(#aiHeart)"/>
-    <circle cx="200" cy="280" r="22" fill="#FF53A9" opacity="0.40" filter="url(#aiGlow)"/>
-    <path d="M200 290 L188 278 Q180 270 188 262 Q200 254 200 270 Q200 254 212 262 Q220 270 212 278 Z" fill="#fff" opacity="0.85"/>
-
-    <!-- Arms -->
-    <rect x="100" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
-    <rect x="278" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
-    <circle cx="111" cy="330" r="14" fill="#5A4D78"/>
-    <circle cx="289" cy="330" r="14" fill="#5A4D78"/>
-
-    <!-- Circuit lines -->
-    <line x1="160" y1="335" x2="240" y2="335" stroke="#136DFF" stroke-width="1.5" opacity="0.6"/>
-    <line x1="170" y1="345" x2="230" y2="345" stroke="#FF53A9" stroke-width="1.5" opacity="0.6"/>
-  </g>
-
-  <!-- Floating data orbs -->
-  <g class="float-a" opacity="0.85">
-    <circle cx="60" cy="200" r="6" fill="#136DFF"/>
-    <circle cx="60" cy="200" r="10" fill="#136DFF" opacity="0.30" filter="url(#aiGlow)"/>
-  </g>
-  <g class="float-c" opacity="0.85">
-    <circle cx="345" cy="250" r="5" fill="#FF53A9"/>
-    <circle cx="345" cy="250" r="9" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
-  </g>
-</svg>
-
+              ''' + MASCOTS["ai"] + '''
             </div>
           </div>
         </div>
       </div>
     </section>
+'''
 
+print("Part 2 (home + services) prepared.")
+
+# ============================================================================
+# PAGE 3: SOLUTIONS / AI PLATFORM
+# ============================================================================
+PAGE_SOLUTIONS = '''
     <!-- ========== PAGE: SOLUTIONS / AI PLATFORM ========== -->
     <section data-page="solutions" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
@@ -1170,105 +1225,7 @@
               </div>
             </div>
             <div class="relative h-80 reveal">
-              
-<!-- Mascot 2: AI Agent Robot -->
-<svg class="mascot-ai w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D AI agent robot mascot with glowing LED eyes" role="img">
-  <defs>
-    <linearGradient id="aiBody" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#E8E2F0"/><stop offset="50%" stop-color="#9A8CB5"/><stop offset="100%" stop-color="#5A4D78"/>
-    </linearGradient>
-    <linearGradient id="aiHead" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#F4EEFB"/><stop offset="100%" stop-color="#7A6F94"/>
-    </linearGradient>
-    <radialGradient id="aiHeart" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FF53A9"/><stop offset="60%" stop-color="#136DFF"/><stop offset="100%" stop-color="#7B2FBE"/>
-    </radialGradient>
-    <radialGradient id="aiEye" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#FFFFFF"/><stop offset="40%" stop-color="#136DFF"/><stop offset="100%" stop-color="#0A1746"/>
-    </radialGradient>
-    <filter id="aiGlow"><feGaussianBlur stdDeviation="6"/></filter>
-  </defs>
-
-  <!-- Ambient hover glow -->
-  <ellipse cx="200" cy="440" rx="130" ry="18" fill="#7B2FBE" opacity="0.30" filter="url(#aiGlow)"/>
-
-  <!-- Hover thruster -->
-  <ellipse cx="200" cy="410" rx="60" ry="10" fill="#136DFF" opacity="0.45" filter="url(#aiGlow)"/>
-  <ellipse cx="200" cy="410" rx="40" ry="6" fill="#FF53A9" opacity="0.55"/>
-
-  <!-- Body -->
-  <g class="float-b" style="transform-origin: 200px 280px;">
-    <!-- Antenna -->
-    <line x1="200" y1="80" x2="200" y2="50" stroke="#9A8CB5" stroke-width="3"/>
-    <circle cx="200" cy="46" r="8" fill="#FF53A9"/>
-    <circle cx="200" cy="46" r="12" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
-
-    <!-- Head -->
-    <rect x="135" y="90" width="130" height="110" rx="32" fill="url(#aiHead)"/>
-    <rect x="145" y="100" width="110" height="90" rx="24" fill="#0A0118" opacity="0.20"/>
-    <!-- Head seam -->
-    <line x1="200" y1="90" x2="200" y2="105" stroke="#5A4D78" stroke-width="2"/>
-
-    <!-- Eyes (LED) -->
-    <circle cx="170" cy="145" r="16" fill="#0A0118"/>
-    <circle cx="170" cy="145" r="13" fill="url(#aiEye)"/>
-    <circle cx="166" cy="141" r="4" fill="#fff"/>
-
-    <circle cx="230" cy="145" r="16" fill="#0A0118"/>
-    <circle cx="230" cy="145" r="13" fill="url(#aiEye)" />
-    <circle cx="226" cy="141" r="4" fill="#fff"/>
-
-    <!-- Eye glow halos -->
-    <circle cx="170" cy="145" r="22" fill="#136DFF" opacity="0.25" filter="url(#aiGlow)"/>
-    <circle cx="230" cy="145" r="22" fill="#FF53A9" opacity="0.25" filter="url(#aiGlow)"/>
-
-    <!-- Mouth speaker grid -->
-    <rect x="178" y="175" width="44" height="14" rx="4" fill="#0A0118" opacity="0.6"/>
-    <circle cx="186" cy="182" r="2" fill="#136DFF"/>
-    <circle cx="196" cy="182" r="2" fill="#136DFF"/>
-    <circle cx="206" cy="182" r="2" fill="#FF53A9"/>
-    <circle cx="216" cy="182" r="2" fill="#FF53A9"/>
-
-    <!-- Side ears -->
-    <rect x="120" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
-    <rect x="265" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
-    <circle cx="127" cy="145" r="4" fill="#FF53A9"/>
-    <circle cx="273" cy="145" r="4" fill="#FF53A9"/>
-
-    <!-- Neck -->
-    <rect x="185" y="200" width="30" height="20" fill="#5A4D78"/>
-
-    <!-- Torso -->
-    <path d="M130 220 Q200 200 270 220 L280 350 Q200 370 120 350 Z" fill="url(#aiBody)"/>
-    <!-- Chest plate -->
-    <rect x="160" y="240" width="80" height="80" rx="16" fill="#0A0118" opacity="0.25"/>
-    <!-- Heart core -->
-    <circle cx="200" cy="280" r="22" fill="url(#aiHeart)"/>
-    <circle cx="200" cy="280" r="22" fill="#FF53A9" opacity="0.40" filter="url(#aiGlow)"/>
-    <path d="M200 290 L188 278 Q180 270 188 262 Q200 254 200 270 Q200 254 212 262 Q220 270 212 278 Z" fill="#fff" opacity="0.85"/>
-
-    <!-- Arms -->
-    <rect x="100" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
-    <rect x="278" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
-    <circle cx="111" cy="330" r="14" fill="#5A4D78"/>
-    <circle cx="289" cy="330" r="14" fill="#5A4D78"/>
-
-    <!-- Circuit lines -->
-    <line x1="160" y1="335" x2="240" y2="335" stroke="#136DFF" stroke-width="1.5" opacity="0.6"/>
-    <line x1="170" y1="345" x2="230" y2="345" stroke="#FF53A9" stroke-width="1.5" opacity="0.6"/>
-  </g>
-
-  <!-- Floating data orbs -->
-  <g class="float-a" opacity="0.85">
-    <circle cx="60" cy="200" r="6" fill="#136DFF"/>
-    <circle cx="60" cy="200" r="10" fill="#136DFF" opacity="0.30" filter="url(#aiGlow)"/>
-  </g>
-  <g class="float-c" opacity="0.85">
-    <circle cx="345" cy="250" r="5" fill="#FF53A9"/>
-    <circle cx="345" cy="250" r="9" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
-  </g>
-</svg>
-
+              ''' + MASCOTS["ai"] + '''
             </div>
           </div>
         </div>
@@ -1565,7 +1522,14 @@
         </div>
       </div>
     </section>
+'''
 
+print("Part 3 (solutions) prepared.")
+
+# ============================================================================
+# PAGE 4: CASE STUDIES
+# ============================================================================
+PAGE_CASES = '''
     <!-- ========== PAGE: CASE STUDIES ========== -->
     <section data-page="cases" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
@@ -1792,7 +1756,14 @@
         </div>
       </div>
     </section>
+'''
 
+print("Part 4 (cases) prepared.")
+
+# ============================================================================
+# PAGE 5: CONTACT & BOOK DEMO (Multi-step form + calendar)
+# ============================================================================
+PAGE_CONTACT = '''
     <!-- ========== PAGE: CONTACT ========== -->
     <section data-page="contact" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
@@ -1943,99 +1914,7 @@
           <div class="lg:col-span-2 space-y-6 reveal">
             <div class="glass rounded-3xl p-8 relative overflow-hidden">
               <div class="relative h-40 mb-4">
-                
-<!-- Mascot 3: Data Analyst with floating bar charts -->
-<svg class="mascot-data w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D data analyst mascot holding floating bar charts" role="img">
-  <defs>
-    <radialGradient id="daSkin" cx="40%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#FFE0C2"/><stop offset="60%" stop-color="#E8A884"/><stop offset="100%" stop-color="#B47952"/>
-    </radialGradient>
-    <linearGradient id="daShirt" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#7B2FBE"/><stop offset="100%" stop-color="#3D1666"/>
-    </linearGradient>
-    <linearGradient id="barGrad" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#FF53A9"/><stop offset="100%" stop-color="#136DFF"/>
-    </linearGradient>
-    <linearGradient id="barGrad2" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#136DFF"/><stop offset="100%" stop-color="#7B2FBE"/>
-    </linearGradient>
-    <filter id="daGlow"><feGaussianBlur stdDeviation="4"/></filter>
-  </defs>
-
-  <!-- Ambient glow -->
-  <ellipse cx="200" cy="440" rx="130" ry="18" fill="#7B2FBE" opacity="0.30" filter="url(#daGlow)"/>
-
-  <!-- Body / coat -->
-  <path d="M115 370 Q200 310 285 370 L290 460 Q200 440 110 460 Z" fill="url(#daShirt)"/>
-  <path d="M170 360 L200 410 L230 360 L225 420 L175 420 Z" fill="#3D1666"/>
-  <!-- Lapels -->
-  <path d="M170 360 L200 410 L195 360 Z" fill="#5A1A99"/>
-  <path d="M230 360 L200 410 L205 360 Z" fill="#5A1A99"/>
-  <!-- Tie -->
-  <path d="M195 360 L205 360 L208 410 L192 410 Z" fill="#FF53A9"/>
-
-  <!-- Neck -->
-  <rect x="180" y="240" width="40" height="55" rx="14" fill="url(#daSkin)"/>
-
-  <!-- Head -->
-  <ellipse cx="200" cy="195" rx="74" ry="82" fill="url(#daSkin)"/>
-  <!-- Ears -->
-  <ellipse cx="128" cy="200" rx="12" ry="18" fill="url(#daSkin)"/>
-  <ellipse cx="272" cy="200" rx="12" ry="18" fill="url(#daSkin)"/>
-  <!-- Glasses -->
-  <circle cx="170" cy="190" r="22" fill="none" stroke="#136DFF" stroke-width="3"/>
-  <circle cx="230" cy="190" r="22" fill="none" stroke="#136DFF" stroke-width="3"/>
-  <line x1="192" y1="190" x2="208" y2="190" stroke="#136DFF" stroke-width="3"/>
-  <!-- Glass reflection -->
-  <path d="M160 180 Q170 175 178 180" stroke="#fff" stroke-width="2" fill="none" opacity="0.7"/>
-  <path d="M220 180 Q230 175 238 180" stroke="#fff" stroke-width="2" fill="none" opacity="0.7"/>
-  <!-- Eyes -->
-  <circle cx="170" cy="190" r="6" fill="#2D1B4E"/>
-  <circle cx="230" cy="190" r="6" fill="#2D1B4E"/>
-  <!-- Smile -->
-  <path d="M175 232 Q200 248 225 232" stroke="#7A3B23" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <!-- Hair / beard -->
-  <path d="M135 140 Q170 100 200 105 Q230 100 265 140 Q260 110 200 100 Q140 110 135 140 Z" fill="#3D2860"/>
-  <path d="M165 240 Q200 260 235 240 Q230 270 200 275 Q170 270 165 240 Z" fill="#3D2860" opacity="0.85"/>
-
-  <!-- Arms raised holding chart -->
-  <path d="M115 370 Q90 320 130 280 L165 295 L150 370 Z" fill="url(#daShirt)"/>
-  <path d="M285 370 Q310 320 270 280 L235 295 L250 370 Z" fill="url(#daShirt)"/>
-  <circle cx="140" cy="280" r="13" fill="url(#daSkin)"/>
-  <circle cx="260" cy="280" r="13" fill="url(#daSkin)"/>
-
-  <!-- Floating bar chart widget -->
-  <g class="float-a" style="transform-origin: 200px 240px;">
-    <rect x="135" y="220" width="130" height="90" rx="14" fill="rgba(13,0,37,0.85)" stroke="rgba(19,109,255,0.40)" stroke-width="1.5"/>
-    <text x="145" y="240" font-family="Space Grotesk" font-size="10" fill="#9A8CB5">REVENUE / Q</text>
-    <text x="145" y="258" font-family="Space Grotesk" font-size="18" font-weight="700" fill="#F0EBF8">$2.4M</text>
-    <!-- Bars -->
-    <rect x="148" y="282" width="14" height="18" rx="2" fill="url(#barGrad2)"/>
-    <rect x="168" y="272" width="14" height="28" rx="2" fill="url(#barGrad)"/>
-    <rect x="188" y="262" width="14" height="38" rx="2" fill="url(#barGrad2)"/>
-    <rect x="208" y="252" width="14" height="48" rx="2" fill="url(#barGrad)"/>
-    <rect x="228" y="242" width="14" height="58" rx="2" fill="url(#barGrad2)"/>
-    <!-- Up arrow -->
-    <path d="M250 290 L256 280 L262 290 Z" fill="#FF53A9"/>
-  </g>
-
-  <!-- Floating mini glass metric -->
-  <g class="float-c" style="transform-origin: 320px 200px;">
-    <rect x="290" y="170" width="80" height="60" rx="10" fill="rgba(13,0,37,0.85)" stroke="rgba(255,83,169,0.40)" stroke-width="1.5"/>
-    <text x="298" y="188" font-family="Space Grotesk" font-size="8" fill="#9A8CB5">CONVERSION</text>
-    <text x="298" y="208" font-family="Space Grotesk" font-size="16" font-weight="700" fill="#FF53A9">+38%</text>
-    <!-- Sparkline -->
-    <polyline points="298,222 308,218 318,214 328,208 338,202 348,196 358,188" stroke="#FF53A9" stroke-width="1.5" fill="none"/>
-  </g>
-
-  <!-- Floating mini donut -->
-  <g class="float-b" style="transform-origin: 80px 200px;">
-    <circle cx="80" cy="190" r="22" fill="none" stroke="rgba(19,109,255,0.20)" stroke-width="6"/>
-    <circle cx="80" cy="190" r="22" fill="none" stroke="#136DFF" stroke-width="6" stroke-dasharray="100 60" transform="rotate(-90 80 190)"/>
-    <text x="73" y="195" font-family="Space Grotesk" font-size="10" font-weight="700" fill="#F0EBF8">62%</text>
-  </g>
-</svg>
-
+                ''' + MASCOTS["data"] + '''
               </div>
               <h3 class="font-display text-xl font-bold text-ckheading mb-3">Direct contact</h3>
               <p class="text-sm text-ckbody mb-5">Prefer email? Reach out directly — we read every message.</p>
@@ -2102,7 +1981,14 @@
         </div>
       </div>
     </section>
+'''
 
+print("Part 5 (contact) prepared.")
+
+# ============================================================================
+# PAGE 6: ABOUT
+# ============================================================================
+PAGE_ABOUT = '''
     <!-- ========== PAGE: ABOUT ========== -->
     <section data-page="about" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
@@ -2121,103 +2007,7 @@
               <p class="text-ckbody leading-relaxed">The result: 150+ production deployments, 99.9% uptime SLAs we actually meet, and a client retention rate of 94% over the past three years.</p>
             </div>
             <div class="relative h-80 reveal">
-              
-<!-- Mascot 1: Dev Mascot with VR headset + holographic tablet -->
-<svg class="mascot-dev w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D developer mascot wearing VR headset" role="img">
-  <defs>
-    <radialGradient id="devSkin" cx="40%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#FFD9B8"/><stop offset="60%" stop-color="#F4B58C"/><stop offset="100%" stop-color="#C98A66"/>
-    </radialGradient>
-    <linearGradient id="devShirt" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#1E3A8A"/><stop offset="100%" stop-color="#0A1746"/>
-    </linearGradient>
-    <linearGradient id="vrBody" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#136DFF"/><stop offset="50%" stop-color="#7B2FBE"/><stop offset="100%" stop-color="#FF53A9"/>
-    </linearGradient>
-    <linearGradient id="holoTab" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#136DFF" stop-opacity="0.85"/><stop offset="100%" stop-color="#FF53A9" stop-opacity="0.70"/>
-    </linearGradient>
-    <filter id="softGlow"><feGaussianBlur stdDeviation="4"/></filter>
-  </defs>
-
-  <!-- Ambient glow disk -->
-  <ellipse cx="200" cy="440" rx="140" ry="20" fill="#136DFF" opacity="0.25" filter="url(#softGlow)"/>
-
-  <!-- Body / shoulders -->
-  <path d="M110 380 Q200 320 290 380 L290 460 Q200 440 110 460 Z" fill="url(#devShirt)"/>
-  <path d="M150 360 Q200 340 250 360 L255 410 Q200 395 145 410 Z" fill="#0A1746" opacity="0.6"/>
-  <!-- Neck -->
-  <rect x="180" y="240" width="40" height="60" rx="14" fill="url(#devSkin)"/>
-  <ellipse cx="200" cy="300" rx="22" ry="8" fill="#000" opacity="0.20"/>
-
-  <!-- Head -->
-  <ellipse cx="200" cy="190" rx="78" ry="86" fill="url(#devSkin)"/>
-  <!-- Ears -->
-  <ellipse cx="125" cy="200" rx="14" ry="20" fill="url(#devSkin)"/>
-  <ellipse cx="275" cy="200" rx="14" ry="20" fill="url(#devSkin)"/>
-
-  <!-- Hair tuft -->
-  <path d="M140 130 Q170 95 200 100 Q230 95 260 130 Q255 105 200 95 Q145 105 140 130 Z" fill="#2D1B4E"/>
-  <path d="M170 115 Q200 105 230 115 Q220 95 200 95 Q180 95 170 115 Z" fill="#1A0F33"/>
-
-  <!-- VR Headset main body -->
-  <g class="float-b" style="transform-origin: 200px 190px;">
-    <rect x="115" y="155" width="170" height="80" rx="22" fill="url(#vrBody)"/>
-    <rect x="125" y="160" width="150" height="70" rx="18" fill="#0A0118" opacity="0.55"/>
-    <!-- Lens ring left -->
-    <circle cx="160" cy="195" r="20" fill="#0A0118"/>
-    <circle cx="160" cy="195" r="16" fill="url(#vrBody)" opacity="0.85"/>
-    <circle cx="160" cy="195" r="10" fill="#136DFF"/>
-    <circle cx="156" cy="191" r="4" fill="#fff" opacity="0.85"/>
-    <!-- Lens ring right -->
-    <circle cx="240" cy="195" r="20" fill="#0A0118"/>
-    <circle cx="240" cy="195" r="16" fill="url(#vrBody)" opacity="0.85"/>
-    <circle cx="240" cy="195" r="10" fill="#FF53A9"/>
-    <circle cx="236" cy="191" r="4" fill="#fff" opacity="0.85"/>
-    <!-- Strap -->
-    <path d="M115 175 Q90 180 80 200 Q90 220 115 215" stroke="#0A0118" stroke-width="8" fill="none" stroke-linecap="round"/>
-    <path d="M285 175 Q310 180 320 200 Q310 220 285 215" stroke="#0A0118" stroke-width="8" fill="none" stroke-linecap="round"/>
-    <!-- Top glow line -->
-    <rect x="135" y="150" width="130" height="3" rx="1.5" fill="#FF53A9" opacity="0.8"/>
-  </g>
-
-  <!-- Smile peeking below -->
-  <path d="M175 232 Q200 248 225 232" stroke="#7A3B23" stroke-width="3" fill="none" stroke-linecap="round"/>
-
-  <!-- Arms holding tablet -->
-  <path d="M115 380 Q90 350 130 320 L170 330 L150 380 Z" fill="url(#devShirt)"/>
-  <path d="M285 380 Q310 350 270 320 L230 330 L250 380 Z" fill="url(#devShirt)"/>
-  <!-- Hands -->
-  <circle cx="140" cy="325" r="14" fill="url(#devSkin)"/>
-  <circle cx="260" cy="325" r="14" fill="url(#devSkin)"/>
-
-  <!-- Holographic tablet -->
-  <g class="float-a" style="transform-origin: 200px 310px;">
-    <rect x="140" y="290" width="120" height="80" rx="10" fill="url(#holoTab)" opacity="0.95"/>
-    <rect x="145" y="295" width="110" height="70" rx="6" fill="#0A0118" opacity="0.30"/>
-    <!-- Code lines -->
-    <rect x="152" y="305" width="40" height="3" rx="1.5" fill="#B4D1FF"/>
-    <rect x="152" y="313" width="60" height="3" rx="1.5" fill="#FFB4DC"/>
-    <rect x="152" y="321" width="30" height="3" rx="1.5" fill="#B4D1FF"/>
-    <rect x="152" y="329" width="50" height="3" rx="1.5" fill="#D4B4FF"/>
-    <rect x="152" y="337" width="35" height="3" rx="1.5" fill="#B4D1FF"/>
-    <!-- Mini chart -->
-    <rect x="200" y="320" width="6" height="20" fill="#FFB4DC"/>
-    <rect x="210" y="312" width="6" height="28" fill="#B4D1FF"/>
-    <rect x="220" y="318" width="6" height="22" fill="#D4B4FF"/>
-    <rect x="230" y="308" width="6" height="32" fill="#FFB4DC"/>
-    <!-- Tablet glow underline -->
-    <rect x="140" y="370" width="120" height="3" rx="1.5" fill="#FF53A9" opacity="0.6"/>
-  </g>
-
-  <!-- Floating code particles -->
-  <g class="float-c" opacity="0.8">
-    <text x="60" y="100" font-family="JetBrains Mono" font-size="12" fill="#136DFF">&lt;/&gt;</text>
-    <text x="320" y="140" font-family="JetBrains Mono" font-size="10" fill="#FF53A9">{ }</text>
-    <text x="340" y="280" font-family="JetBrains Mono" font-size="11" fill="#7B2FBE">01</text>
-  </g>
-</svg>
-
+              ''' + MASCOTS["dev"] + '''
             </div>
           </div>
         </div>
@@ -2334,7 +2124,12 @@
         </div>
       </div>
     </section>
+'''
 
+# ============================================================================
+# PAGE 7: BLOG
+# ============================================================================
+PAGE_BLOG = '''
     <!-- ========== PAGE: BLOG ========== -->
     <section data-page="blog" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
@@ -2470,7 +2265,14 @@
         </div>
       </div>
     </section>
+'''
 
+print("Part 6 (about + blog) prepared.")
+
+# ============================================================================
+# PAGE 8: CAREERS
+# ============================================================================
+PAGE_CAREERS = '''
     <!-- ========== PAGE: CAREERS ========== -->
     <section data-page="careers" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
@@ -2488,105 +2290,7 @@
               <p class="text-ckbody leading-relaxed">All roles are remote-first, async-friendly, and pay top-of-market. We don't track hours, we don't micromanage, and we don't promote people who do. We promote people who ship.</p>
             </div>
             <div class="relative h-80 reveal">
-              
-<!-- Mascot 2: AI Agent Robot -->
-<svg class="mascot-ai w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D AI agent robot mascot with glowing LED eyes" role="img">
-  <defs>
-    <linearGradient id="aiBody" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#E8E2F0"/><stop offset="50%" stop-color="#9A8CB5"/><stop offset="100%" stop-color="#5A4D78"/>
-    </linearGradient>
-    <linearGradient id="aiHead" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#F4EEFB"/><stop offset="100%" stop-color="#7A6F94"/>
-    </linearGradient>
-    <radialGradient id="aiHeart" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FF53A9"/><stop offset="60%" stop-color="#136DFF"/><stop offset="100%" stop-color="#7B2FBE"/>
-    </radialGradient>
-    <radialGradient id="aiEye" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#FFFFFF"/><stop offset="40%" stop-color="#136DFF"/><stop offset="100%" stop-color="#0A1746"/>
-    </radialGradient>
-    <filter id="aiGlow"><feGaussianBlur stdDeviation="6"/></filter>
-  </defs>
-
-  <!-- Ambient hover glow -->
-  <ellipse cx="200" cy="440" rx="130" ry="18" fill="#7B2FBE" opacity="0.30" filter="url(#aiGlow)"/>
-
-  <!-- Hover thruster -->
-  <ellipse cx="200" cy="410" rx="60" ry="10" fill="#136DFF" opacity="0.45" filter="url(#aiGlow)"/>
-  <ellipse cx="200" cy="410" rx="40" ry="6" fill="#FF53A9" opacity="0.55"/>
-
-  <!-- Body -->
-  <g class="float-b" style="transform-origin: 200px 280px;">
-    <!-- Antenna -->
-    <line x1="200" y1="80" x2="200" y2="50" stroke="#9A8CB5" stroke-width="3"/>
-    <circle cx="200" cy="46" r="8" fill="#FF53A9"/>
-    <circle cx="200" cy="46" r="12" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
-
-    <!-- Head -->
-    <rect x="135" y="90" width="130" height="110" rx="32" fill="url(#aiHead)"/>
-    <rect x="145" y="100" width="110" height="90" rx="24" fill="#0A0118" opacity="0.20"/>
-    <!-- Head seam -->
-    <line x1="200" y1="90" x2="200" y2="105" stroke="#5A4D78" stroke-width="2"/>
-
-    <!-- Eyes (LED) -->
-    <circle cx="170" cy="145" r="16" fill="#0A0118"/>
-    <circle cx="170" cy="145" r="13" fill="url(#aiEye)"/>
-    <circle cx="166" cy="141" r="4" fill="#fff"/>
-
-    <circle cx="230" cy="145" r="16" fill="#0A0118"/>
-    <circle cx="230" cy="145" r="13" fill="url(#aiEye)" />
-    <circle cx="226" cy="141" r="4" fill="#fff"/>
-
-    <!-- Eye glow halos -->
-    <circle cx="170" cy="145" r="22" fill="#136DFF" opacity="0.25" filter="url(#aiGlow)"/>
-    <circle cx="230" cy="145" r="22" fill="#FF53A9" opacity="0.25" filter="url(#aiGlow)"/>
-
-    <!-- Mouth speaker grid -->
-    <rect x="178" y="175" width="44" height="14" rx="4" fill="#0A0118" opacity="0.6"/>
-    <circle cx="186" cy="182" r="2" fill="#136DFF"/>
-    <circle cx="196" cy="182" r="2" fill="#136DFF"/>
-    <circle cx="206" cy="182" r="2" fill="#FF53A9"/>
-    <circle cx="216" cy="182" r="2" fill="#FF53A9"/>
-
-    <!-- Side ears -->
-    <rect x="120" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
-    <rect x="265" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
-    <circle cx="127" cy="145" r="4" fill="#FF53A9"/>
-    <circle cx="273" cy="145" r="4" fill="#FF53A9"/>
-
-    <!-- Neck -->
-    <rect x="185" y="200" width="30" height="20" fill="#5A4D78"/>
-
-    <!-- Torso -->
-    <path d="M130 220 Q200 200 270 220 L280 350 Q200 370 120 350 Z" fill="url(#aiBody)"/>
-    <!-- Chest plate -->
-    <rect x="160" y="240" width="80" height="80" rx="16" fill="#0A0118" opacity="0.25"/>
-    <!-- Heart core -->
-    <circle cx="200" cy="280" r="22" fill="url(#aiHeart)"/>
-    <circle cx="200" cy="280" r="22" fill="#FF53A9" opacity="0.40" filter="url(#aiGlow)"/>
-    <path d="M200 290 L188 278 Q180 270 188 262 Q200 254 200 270 Q200 254 212 262 Q220 270 212 278 Z" fill="#fff" opacity="0.85"/>
-
-    <!-- Arms -->
-    <rect x="100" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
-    <rect x="278" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
-    <circle cx="111" cy="330" r="14" fill="#5A4D78"/>
-    <circle cx="289" cy="330" r="14" fill="#5A4D78"/>
-
-    <!-- Circuit lines -->
-    <line x1="160" y1="335" x2="240" y2="335" stroke="#136DFF" stroke-width="1.5" opacity="0.6"/>
-    <line x1="170" y1="345" x2="230" y2="345" stroke="#FF53A9" stroke-width="1.5" opacity="0.6"/>
-  </g>
-
-  <!-- Floating data orbs -->
-  <g class="float-a" opacity="0.85">
-    <circle cx="60" cy="200" r="6" fill="#136DFF"/>
-    <circle cx="60" cy="200" r="10" fill="#136DFF" opacity="0.30" filter="url(#aiGlow)"/>
-  </g>
-  <g class="float-c" opacity="0.85">
-    <circle cx="345" cy="250" r="5" fill="#FF53A9"/>
-    <circle cx="345" cy="250" r="9" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
-  </g>
-</svg>
-
+              ''' + MASCOTS["ai"] + '''
             </div>
           </div>
         </div>
@@ -2733,7 +2437,12 @@
         </div>
       </div>
     </section>
+'''
 
+# ============================================================================
+# PAGE 9: PRIVACY POLICY
+# ============================================================================
+PAGE_PRIVACY = '''
     <!-- ========== PAGE: PRIVACY ========== -->
     <section data-page="privacy" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
@@ -2784,7 +2493,12 @@
         </div>
       </div>
     </section>
+'''
 
+# ============================================================================
+# PAGE 10: TERMS OF SERVICE
+# ============================================================================
+PAGE_TERMS = '''
     <!-- ========== PAGE: TERMS ========== -->
     <section data-page="terms" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
@@ -2839,7 +2553,14 @@
         </div>
       </div>
     </section>
+'''
 
+print("Part 7 (careers + privacy + terms) prepared.")
+
+# ============================================================================
+# UNIVERSAL FOOTER (4-column)
+# ============================================================================
+FOOTER = '''
     <!-- ========== Universal 4-Column Footer ========== -->
     <footer class="relative mt-20 border-t border-ckbody/10">
       <div class="absolute inset-x-0 top-0 h-px" style="background:linear-gradient(90deg,transparent,#136DFF 30%,#FF53A9 70%,transparent);"></div>
@@ -2932,7 +2653,12 @@
 
   </div> <!-- /relative z-10 -->
 
+'''
 
+# ============================================================================
+# JAVASCRIPT — router, tilt, glow, particles, observer, form, calendar
+# ============================================================================
+JS = r'''
   <script>
     // ============================================================
     // SPA ROUTER — hashchange based, with per-page SEO meta updates
@@ -3277,3 +3003,48 @@
   </script>
 </body>
 </html>
+'''
+
+# ============================================================================
+# ASSEMBLE & WRITE
+# ============================================================================
+html = HEAD + AMBIENT + HEADER + PAGE_HOME + PAGE_SERVICES + PAGE_SOLUTIONS + PAGE_CASES + PAGE_CONTACT + PAGE_ABOUT + PAGE_BLOG + PAGE_CAREERS + PAGE_PRIVACY + PAGE_TERMS + FOOTER + JS
+
+OUT = Path("/home/z/my-project/download/clicktake-landing.html")
+OUT.parent.mkdir(parents=True, exist_ok=True)
+OUT.write_text(html, encoding='utf-8')
+
+lines = html.count('\n') + 1
+size_kb = len(html.encode('utf-8')) / 1024
+print(f"=== BUILD COMPLETE ===")
+print(f"Output: {OUT}")
+print(f"Size: {size_kb:.1f} KB")
+print(f"Lines: {lines}")
+print(f"\nPage sections:")
+for page in ['home','services','solutions','cases','contact','about','blog','careers','privacy','terms']:
+    found = f'data-page="{page}"' in html
+    print(f"  [{'OK' if found else 'MISSING'}] {page}")
+print(f"\nMascots:")
+for m in ['mascot-dev','mascot-ai','mascot-data']:
+    print(f"  [{'OK' if m in html else 'MISSING'}] {m}")
+print(f"\nKey features:")
+checks = {
+    'particle-canvas': 'particle-canvas',
+    'tilt-card': 'tilt-card',
+    'glow-btn': 'glow-btn',
+    'form-step': 'form-step',
+    'cal-grid': 'cal-grid',
+    'holo-ring': 'holo-ring',
+    'perspective-grid': 'perspective-grid',
+    'marquee-track': 'marquee-track',
+    'JSON-LD': 'application/ld+json',
+    'hashchange': 'hashchange',
+    'IntersectionObserver': 'IntersectionObserver',
+    'navigateTo': 'navigateTo'
+}
+for label, token in checks.items():
+    print(f"  [{'OK' if token in html else 'MISSING'}] {label}")
+print(f"\nColor palette compliance:")
+for c in ['#03000D','#070018','#0D0025','#136DFF','#FF53A9','#7B2FBE','#F0EBF8','#9A8CB5']:
+    print(f"  [{'OK' if c in html else 'MISSING'}] {c}")
+print(f"\nInternal links (data-nav count): {html.count('data-nav=')}")
