@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes dark futuristic with blue/pink/purple\nGlass cards: 2\nLogo: yes in header\nWhatsApp btn: yes floating bottom-right\nBreadcrumb: yes visible at top\nIssues: None (layout is clean, content is populated, and all UI elements are present).\nPolish: 9/10\nSummary: A polished, high-tech case study page featuring a cohesive dark theme, clear information hierarchy, and effective use of glassmorphism for CTAs.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786221663,
+  "id": "20260809044059138abf8674b44b70",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "20260809044059138abf8674b44b70",
+  "usage": {
+    "completion_tokens": 98,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 5867,
+    "prompt_tokens_details": {
+      "cached_tokens": 2
+    },
+    "total_tokens": 5965
+  }
+}

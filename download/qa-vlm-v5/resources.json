@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: [yes] dark futuristic with blue/pink/purple\nGlass cards: [13]\nLogo: [yes] in header\nWhatsApp btn: [yes] floating bottom-right\nBreadcrumb: [yes] visible at top\nIssues: [none]\nPolish: [9]\nSummary: A polished, high-tech resource hub featuring a consistent glassmorphism aesthetic and clear information hierarchy.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786221637,
+  "id": "2026080904403415c73ce9365147e4",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "2026080904403415c73ce9365147e4",
+  "usage": {
+    "completion_tokens": 80,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 5931,
+    "prompt_tokens_details": {
+      "cached_tokens": 2
+    },
+    "total_tokens": 6011
+  }
+}

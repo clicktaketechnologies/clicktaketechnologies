@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes dark futuristic with blue/pink/purple\nGlass cards: 10\nLogo: yes in header\nWhatsApp btn: yes floating bottom-right\nBreadcrumb: yes visible at top\nIssues: none\nPolish: 9/10\nSummary: A polished, high-conversion landing page for ClickTake Birmingham featuring a sleek dark aesthetic and clear service hierarchy.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786221671,
+  "id": "202608090441082abf6408aca645a1",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "202608090441082abf6408aca645a1",
+  "usage": {
+    "completion_tokens": 76,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 4891,
+    "prompt_tokens_details": {
+      "cached_tokens": 103
+    },
+    "total_tokens": 4967
+  }
+}
