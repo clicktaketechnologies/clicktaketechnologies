@@ -12,8 +12,35 @@ Output: /home/z/my-project/download/clicktake-landing.html
 """
 from pathlib import Path
 from textwrap import dedent
+import base64
 
 OUT = Path("/home/z/my-project/download/clicktake-landing.html")
+
+# ----------------------------------------------------------------------------
+# BRAND LOGOS — loaded from /home/z/my-project/download/assets/ and embedded
+# as base64 data URIs so the final HTML stays self-contained.
+# Source files (uploaded by user):
+#   ClickTake-Technologies-Company-Logo-White.png  -> header + footer (dark bg)
+#   ClickTake-Technologies-Company-Logo.png        -> OG / JSON-LD reference
+#   ClickTake-Technologies.png                     -> favicon / apple-touch
+# ----------------------------------------------------------------------------
+_ASSETS = Path("/home/z/my-project/download/assets")
+def _data_uri(filename: str, mime: str) -> str:
+    p = _ASSETS / filename
+    if not p.exists():
+        # Fall back to a 1x1 transparent pixel if asset is missing
+        return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+    b64 = base64.b64encode(p.read_bytes()).decode("ascii")
+    return f"data:{mime};base64,{b64}"
+
+LOGO_WHITE_URI = _data_uri("logo-white.png", "image/png")   # for header + footer
+LOGO_COLOR_URI  = _data_uri("logo-color.png",  "image/png")   # for OG / JSON-LD reference URL
+FAVICON_URI     = _data_uri("favicon.png",     "image/png")   # 32x32 favicon
+APPLE_ICON_URI  = _data_uri("apple-touch-icon.png", "image/png")  # 180x180
+
+# Absolute production URL (used for OG / Twitter / JSON-LD — social crawlers
+# cannot fetch data: URIs, so we point at the deployed asset path)
+LOGO_PROD_URL   = "https://clicktaketech.com/assets/logo-color.png"
 
 # ============================================================================
 # HEAD — meta, Tailwind config, fonts, Lucide, JSON-LD, embedded <style>
@@ -24,6 +51,11 @@ HEAD = '''<!DOCTYPE html>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#03000D" />
+
+  <!-- Brand favicons (embedded data URIs for self-contained file) -->
+  <link rel="icon" type="image/png" href="__FAVICON_URI__" />
+  <link rel="shortcut icon" type="image/png" href="__FAVICON_URI__" />
+  <link rel="apple-touch-icon" href="__APPLE_ICON_URI__" />
 
   <!-- Default SEO (overridden per-page by SPA router) -->
   <title>ClickTake Technologies — Software · AI Agents · Cloud Architecture</title>
@@ -38,13 +70,17 @@ HEAD = '''<!DOCTYPE html>
   <meta property="og:title" content="ClickTake Technologies — Software · AI Agents · Cloud Architecture" />
   <meta property="og:description" content="Engineering tomorrow's intelligence, today. Bespoke software, autonomous AI agents, and cloud architecture for global enterprises." />
   <meta property="og:url" content="https://clicktaketech.com/" />
-  <meta property="og:image" content="https://clicktaketech.com/og-cover.jpg" />
+  <meta property="og:image" content="__LOGO_PROD_URL__" />
+  <meta property="og:image:width" content="500" />
+  <meta property="og:image:height" content="142" />
+  <meta property="og:image:alt" content="ClickTake Technologies company logo" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="ClickTake Technologies — Software · AI Agents · Cloud Architecture" />
   <meta name="twitter:description" content="Engineering tomorrow's intelligence, today. Bespoke software, autonomous AI agents, and cloud architecture." />
-  <meta name="twitter:image" content="https://clicktaketech.com/og-cover.jpg" />
+  <meta name="twitter:image" content="__LOGO_PROD_URL__" />
+  <meta name="twitter:image:alt" content="ClickTake Technologies company logo" />
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -86,7 +122,7 @@ HEAD = '''<!DOCTYPE html>
     "@type": "Organization",
     "name": "ClickTake Technologies",
     "url": "https://clicktaketech.com/",
-    "logo": "https://clicktaketech.com/logo.png",
+    "logo": "__LOGO_PROD_URL__",
     "email": "info@clicktaketech.com",
     "description": "ClickTake Technologies engineers bespoke software, autonomous AI agents, and cloud architecture for global enterprises.",
     "sameAs": ["https://www.linkedin.com/company/clicktaketech","https://twitter.com/clicktaketech","https://github.com/clicktaketech"],
@@ -247,6 +283,23 @@ HEAD = '''<!DOCTYPE html>
 
     /* Nav link */
     .nav-link { position: relative; color: var(--body); transition: color 0.2s; font-weight: 500; }
+    /* Brand logo — embedded PNG, scales with header, glow on hover */
+    .brand-logo {
+      filter: drop-shadow(0 0 0 transparent);
+      transition: filter 0.35s ease, transform 0.35s ease, opacity 0.35s ease;
+      max-width: 180px;
+    }
+    .brand-logo-link:hover .brand-logo {
+      filter: drop-shadow(0 0 14px rgba(19,109,255,0.55)) drop-shadow(0 0 22px rgba(255,83,169,0.30));
+      transform: translateY(-1px);
+    }
+    /* Header shrinks slightly on scroll — logo follows */
+    #site-header.scrolled .brand-logo { height: 32px; }
+    @media (max-width: 640px) {
+      .brand-logo { height: 32px; max-width: 150px; }
+      #site-header.scrolled .brand-logo { height: 28px; }
+      footer .brand-logo { height: 36px; }
+    }
     .nav-link:hover, .nav-link.active { color: var(--heading); }
     .nav-link::after {
       content:''; position:absolute; left:0; bottom:-6px; width:0; height:2px;
@@ -354,14 +407,8 @@ HEADER = '''
       <div class="max-w-7xl mx-auto px-5 lg:px-8">
         <div class="mt-3 glass rounded-2xl px-5 py-3 flex items-center justify-between">
           <!-- Logo -->
-          <a href="#home" data-nav="home" class="flex items-center gap-2.5 group" aria-label="ClickTake home">
-            <span class="relative inline-flex h-9 w-9 items-center justify-center rounded-xl" style="background:linear-gradient(135deg,#136DFF,#FF53A9);">
-              <span class="absolute inset-0 rounded-xl blur-md opacity-60" style="background:linear-gradient(135deg,#136DFF,#FF53A9);"></span>
-              <svg class="relative w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-              </svg>
-            </span>
-            <span class="font-display font-bold text-lg tracking-tight text-ckheading">ClickTake<span class="grad-text">.</span></span>
+          <a href="#home" data-nav="home" class="flex items-center gap-2.5 group brand-logo-link" aria-label="ClickTake home">
+            <img src="__LOGO_WHITE_URI__" alt="ClickTake Technologies" class="brand-logo h-9 w-auto object-contain" fetchpriority="high" />
           </a>
 
           <!-- Desktop Nav -->
@@ -2900,13 +2947,8 @@ FOOTER = '''
         <div class="grid lg:grid-cols-4 gap-10">
           <!-- Brand column -->
           <div class="lg:col-span-1">
-            <a href="#home" data-nav="home" class="flex items-center gap-2.5 mb-5">
-              <span class="relative inline-flex h-9 w-9 items-center justify-center rounded-xl" style="background:linear-gradient(135deg,#136DFF,#FF53A9);">
-                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-                </svg>
-              </span>
-              <span class="font-display font-bold text-lg text-ckheading">ClickTake<span class="grad-text">.</span></span>
+            <a href="#home" data-nav="home" class="flex items-center gap-2.5 mb-5 brand-logo-link" aria-label="ClickTake home">
+              <img src="__LOGO_WHITE_URI__" alt="ClickTake Technologies" class="brand-logo h-10 w-auto object-contain" fetchpriority="high" />
             </a>
             <p class="text-sm text-ckbody leading-relaxed mb-5">Engineering tomorrow's intelligence, today. Bespoke software, autonomous AI agents, and cloud architecture for global enterprises.</p>
             <div class="flex items-center gap-3">
@@ -3340,6 +3382,14 @@ JS = r'''
 # ASSEMBLE & WRITE
 # ============================================================================
 html = HEAD + AMBIENT + HEADER + PAGE_HOME + PAGE_SERVICES + PAGE_SOLUTIONS + PAGE_CASES + PAGE_CONTACT + PAGE_ABOUT + PAGE_BLOG + PAGE_CAREERS + PAGE_PRIVACY + PAGE_TERMS + FOOTER + JS
+
+# Inject embedded brand-logo data URIs (base64) and production URLs
+html = (html
+        .replace("__LOGO_WHITE_URI__", LOGO_WHITE_URI)
+        .replace("__LOGO_COLOR_URI__",  LOGO_COLOR_URI)
+        .replace("__FAVICON_URI__",     FAVICON_URI)
+        .replace("__APPLE_ICON_URI__",  APPLE_ICON_URI)
+        .replace("__LOGO_PROD_URL__",   LOGO_PROD_URL))
 
 OUT = Path("/home/z/my-project/download/clicktake-landing.html")
 OUT.parent.mkdir(parents=True, exist_ok=True)
