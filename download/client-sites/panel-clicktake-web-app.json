@@ -1,0 +1,13 @@
+{
+  "url": "https://panel-clicktake.web.app/",
+  "title": "Employee Management System",
+  "description": "Modern employee management system with attendance tracking, project management, and more.",
+  "headings": [],
+  "text_excerpt": "Employee Management System Loading...",
+  "tech_signals": [
+    "Next.js",
+    "React",
+    "Firebase"
+  ],
+  "html_length": 16080
+}

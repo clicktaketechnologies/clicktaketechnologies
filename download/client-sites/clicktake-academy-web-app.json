@@ -1,0 +1,11 @@
+{
+  "url": "https://clicktake-academy.web.app/",
+  "title": "ClickTake Academy \u2014 Management System",
+  "description": "Academy Management System powered by ClickTake Technologies. Manage students, teachers, attendance, and visitors in one place.",
+  "headings": [],
+  "text_excerpt": "ClickTake Academy \u2014 Management System Management System \ud83d\udcdd Apply Now \ud83d\udd10 Admin Login \u2728 Academy Management System v2.6.8 Who are you today? Select your role to access the system. Credentials are provided by your Academy Administrator. \ud83d\udcf7 Quick Face Attendance Auto-detects face and punches you in/out instantly. \ud83c\udf93 Student Mark attendance, view your schedule, and track your academic journey. Mark daily attendance View class schedule Track attendance history Enter as Student \u2192 \ud83d\udc68\u200d\ud83c\udfeb Teacher Manage your classes, take attendance, and monitor student progress. Mark class attendance View live student status Apply for leave Enter as Teacher \u2192 \ud83d\udeaa Visitor Check in as a visitor (parent, vendor, or guest). Quick and easy process. Check in at reception Meet your host Quick QR check-out Check In \u2192 \u2014 Total Members \u2014 Present Today \u2014 Active Visitors \ud83d\udfe2 System Online Built with \u2764\ufe0f by ClickTake Technologies &nbsp;\u00b7&nbsp; We Build Future, Let's Go Ahead &nbsp;\u00b7&nbsp; Privacy Policy &nbsp;\u00b7&nbsp; v2.7.1",
+  "tech_signals": [
+    "Firebase"
+  ],
+  "html_length": 16930
+}

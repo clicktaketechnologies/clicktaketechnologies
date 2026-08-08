@@ -1,15 +1,15 @@
 {
   "file": "/home/z/my-project/download/clicktake-landing.html",
-  "size_kb": 1192.2,
-  "lines": 14465,
-  "pages_discovered": 100,
-  "pages_map_entries": 100,
+  "size_kb": 1313.4,
+  "lines": 15990,
+  "pages_discovered": 112,
+  "pages_map_entries": 112,
   "findings": [
     {
       "severity": "Low",
       "area": "Palette",
       "msg": "13 hex colors not in brand palette",
-      "fix": "Samples: ***REMOVED***3D1666, ***REMOVED***1E3A8A, ***REMOVED***F4B58C, ***REMOVED***2D1B4E, ***REMOVED***E8E2F0, ***REMOVED***1A0F33, ***REMOVED***FFD9B8, ***REMOVED***5A1A99",
+      "fix": "Samples: ***REMOVED***B47952, ***REMOVED***F4B58C, ***REMOVED***5A4D78, ***REMOVED***3D1666, ***REMOVED***7A3B23, ***REMOVED***FFD9B8, ***REMOVED***5A1A99, ***REMOVED***3D2860",
       "page": ""
     },
     {
