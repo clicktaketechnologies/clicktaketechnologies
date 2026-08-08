@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Page type: Blog article\nDesign: Yes, dark futuristic with blue/pink/purple brand palette\nGlass cards: 2 (CTA sections)\nHero image: Yes, rendered cleanly\nArticle title: Yes, clearly visible\nArticle body: Yes, readable prose with proper headings and paragraphs\nCode block: Yes, rendered with dark background\nTable: Not applicable\nLists: Not applicable\nLogo: Yes, in header and footer\nWhatsApp btn: Yes, floating bottom-right\nBreadcrumb: Yes, visible at top\nIssues: None\nPolish: 9/10\nSummary: A highly polished, professional blog article featuring a sleek dark theme, clear technical content, and effective visual hierarchy.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786225497,
+  "id": "202608090544523513076d06c84294",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "202608090544523513076d06c84294",
+  "usage": {
+    "completion_tokens": 143,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 6030,
+    "prompt_tokens_details": {
+      "cached_tokens": 202
+    },
+    "total_tokens": 6173
+  }
+}
