@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes dark futuristic with blue/pink/purple\nGlass cards: 9\nLogo: yes visible in header\nWhatsApp btn: yes floating green button bottom-right\nIssues: none\nPolish: 9/10\nSummary: A visually polished, high-tech landing page with a consistent dark theme, clear hierarchy, and engaging illustrations.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786215354,
+  "id": "20260809025551d06d021a01504813",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "20260809025551d06d021a01504813",
+  "usage": {
+    "completion_tokens": 71,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 6150,
+    "prompt_tokens_details": {
+      "cached_tokens": 2
+    },
+    "total_tokens": 6221
+  }
+}

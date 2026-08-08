@@ -1,0 +1,612 @@
+{
+  "home": {
+    "design_tokens": {
+      "glass": 12,
+      "glass_soft": 1,
+      "glass_input": 0,
+      "glow_btn": 3,
+      "tilt_card": 4,
+      "tilt_layer": 4,
+      "reveal": 13,
+      "gradient_text": 0,
+      "perspective_grid": 1
+    },
+    "global_elements": {
+      "header_brand": true,
+      "nav_links": true,
+      "wa_float": true,
+      "footer_email": true,
+      "footer_phone": true,
+      "footer_whatsapp": true,
+      "skip_link": true,
+      "main_landmark": true
+    },
+    "headings": {
+      "h1": 1,
+      "h2": 3,
+      "h3": 4,
+      "h4": 0
+    },
+    "images": {
+      "total": 0,
+      "with_alt": 0
+    },
+    "links": {
+      "internal_nav": 5,
+      "external_https": 1,
+      "mailto": 1,
+      "tel": 0,
+      "whatsapp": 1
+    },
+    "seo_meta_present": false,
+    "brand_colors": {
+      "ckblue": 29,
+      "ckpink": 31,
+      "ckpurple": 11
+    },
+    "interactions": {
+      "tilt_cards": 4,
+      "reveal_elements": 13,
+      "glow_btns": 3,
+      "mascots_refs": 11
+    },
+    "lucide_icons": {
+      "total": 42,
+      "unique": 18,
+      "deprecated_brand": []
+    },
+    "content_size": {
+      "chars": 28800,
+      "words_visible": 392
+    }
+  },
+  "services": {
+    "design_tokens": {
+      "glass": 18,
+      "glass_soft": 8,
+      "glass_input": 0,
+      "glow_btn": 1,
+      "tilt_card": 8,
+      "tilt_layer": 8,
+      "reveal": 13,
+      "gradient_text": 0,
+      "perspective_grid": 0
+    },
+    "global_elements": {
+      "header_brand": true,
+      "nav_links": true,
+      "wa_float": true,
+      "footer_email": true,
+      "footer_phone": true,
+      "footer_whatsapp": true,
+      "skip_link": true,
+      "main_landmark": true
+    },
+    "headings": {
+      "h1": 1,
+      "h2": 6,
+      "h3": 5,
+      "h4": 0
+    },
+    "images": {
+      "total": 0,
+      "with_alt": 0
+    },
+    "links": {
+      "internal_nav": 3,
+      "external_https": 0,
+      "mailto": 0,
+      "tel": 0,
+      "whatsapp": 0
+    },
+    "seo_meta_present": false,
+    "brand_colors": {
+      "ckblue": 28,
+      "ckpink": 40,
+      "ckpurple": 11
+    },
+    "interactions": {
+      "tilt_cards": 8,
+      "reveal_elements": 13,
+      "glow_btns": 1,
+      "mascots_refs": 8
+    },
+    "lucide_icons": {
+      "total": 26,
+      "unique": 11,
+      "deprecated_brand": []
+    },
+    "content_size": {
+      "chars": 28200,
+      "words_visible": 501
+    }
+  },
+  "solutions": {
+    "design_tokens": {
+      "glass": 27,
+      "glass_soft": 11,
+      "glass_input": 0,
+      "glow_btn": 2,
+      "tilt_card": 3,
+      "tilt_layer": 3,
+      "reveal": 8,
+      "gradient_text": 0,
+      "perspective_grid": 2
+    },
+    "global_elements": {
+      "header_brand": true,
+      "nav_links": true,
+      "wa_float": true,
+      "footer_email": true,
+      "footer_phone": true,
+      "footer_whatsapp": true,
+      "skip_link": true,
+      "main_landmark": true
+    },
+    "headings": {
+      "h1": 1,
+      "h2": 4,
+      "h3": 1,
+      "h4": 0
+    },
+    "images": {
+      "total": 0,
+      "with_alt": 0
+    },
+    "links": {
+      "internal_nav": 5,
+      "external_https": 0,
+      "mailto": 0,
+      "tel": 0,
+      "whatsapp": 0
+    },
+    "seo_meta_present": false,
+    "brand_colors": {
+      "ckblue": 50,
+      "ckpink": 49,
+      "ckpurple": 22
+    },
+    "interactions": {
+      "tilt_cards": 3,
+      "reveal_elements": 8,
+      "glow_btns": 2,
+      "mascots_refs": 6
+    },
+    "lucide_icons": {
+      "total": 36,
+      "unique": 18,
+      "deprecated_brand": []
+    },
+    "content_size": {
+      "chars": 35424,
+      "words_visible": 521
+    }
+  },
+  "cases": {
+    "design_tokens": {
+      "glass": 18,
+      "glass_soft": 12,
+      "glass_input": 0,
+      "glow_btn": 1,
+      "tilt_card": 4,
+      "tilt_layer": 4,
+      "reveal": 7,
+      "gradient_text": 0,
+      "perspective_grid": 0
+    },
+    "global_elements": {
+      "header_brand": true,
+      "nav_links": true,
+      "wa_float": true,
+      "footer_email": true,
+      "footer_phone": true,
+      "footer_whatsapp": true,
+      "skip_link": true,
+      "main_landmark": true
+    },
+    "headings": {
+      "h1": 1,
+      "h2": 5,
+      "h3": 0,
+      "h4": 0
+    },
+    "images": {
+      "total": 0,
+      "with_alt": 0
+    },
+    "links": {
+      "internal_nav": 3,
+      "external_https": 0,
+      "mailto": 0,
+      "tel": 0,
+      "whatsapp": 0
+    },
+    "seo_meta_present": false,
+    "brand_colors": {
+      "ckblue": 13,
+      "ckpink": 21,
+      "ckpurple": 6
+    },
+    "interactions": {
+      "tilt_cards": 4,
+      "reveal_elements": 7,
+      "glow_btns": 1,
+      "mascots_refs": 4
+    },
+    "lucide_icons": {
+      "total": 18,
+      "unique": 6,
+      "deprecated_brand": []
+    },
+    "content_size": {
+      "chars": 21818,
+      "words_visible": 432
+    }
+  },
+  "contact": {
+    "design_tokens": {
+      "glass": 28,
+      "glass_soft": 5,
+      "glass_input": 19,
+      "glow_btn": 3,
+      "tilt_card": 0,
+      "tilt_layer": 0,
+      "reveal": 3,
+      "gradient_text": 0,
+      "perspective_grid": 0
+    },
+    "global_elements": {
+      "header_brand": true,
+      "nav_links": true,
+      "wa_float": true,
+      "footer_email": true,
+      "footer_phone": true,
+      "footer_whatsapp": true,
+      "skip_link": true,
+      "main_landmark": true
+    },
+    "headings": {
+      "h1": 1,
+      "h2": 3,
+      "h3": 3,
+      "h4": 0
+    },
+    "images": {
+      "total": 0,
+      "with_alt": 0
+    },
+    "links": {
+      "internal_nav": 1,
+      "external_https": 1,
+      "mailto": 1,
+      "tel": 1,
+      "whatsapp": 2
+    },
+    "seo_meta_present": false,
+    "brand_colors": {
+      "ckblue": 27,
+      "ckpink": 15,
+      "ckpurple": 6
+    },
+    "interactions": {
+      "tilt_cards": 0,
+      "reveal_elements": 3,
+      "glow_btns": 3,
+      "mascots_refs": 4
+    },
+    "lucide_icons": {
+      "total": 14,
+      "unique": 10,
+      "deprecated_brand": []
+    },
+    "content_size": {
+      "chars": 21527,
+      "words_visible": 278
+    }
+  },
+  "about": {
+    "design_tokens": {
+      "glass": 10,
+      "glass_soft": 0,
+      "glass_input": 0,
+      "glow_btn": 1,
+      "tilt_card": 8,
+      "tilt_layer": 4,
+      "reveal": 15,
+      "gradient_text": 0,
+      "perspective_grid": 0
+    },
+    "global_elements": {
+      "header_brand": true,
+      "nav_links": true,
+      "wa_float": true,
+      "footer_email": true,
+      "footer_phone": true,
+      "footer_whatsapp": true,
+      "skip_link": true,
+      "main_landmark": true
+    },
+    "headings": {
+      "h1": 1,
+      "h2": 3,
+      "h3": 4,
+      "h4": 0
+    },
+    "images": {
+      "total": 0,
+      "with_alt": 0
+    },
+    "links": {
+      "internal_nav": 3,
+      "external_https": 0,
+      "mailto": 0,
+      "tel": 0,
+      "whatsapp": 0
+    },
+    "seo_meta_present": false,
+    "brand_colors": {
+      "ckblue": 18,
+      "ckpink": 21,
+      "ckpurple": 8
+    },
+    "interactions": {
+      "tilt_cards": 8,
+      "reveal_elements": 15,
+      "glow_btns": 1,
+      "mascots_refs": 7
+    },
+    "lucide_icons": {
+      "total": 6,
+      "unique": 6,
+      "deprecated_brand": []
+    },
+    "content_size": {
+      "chars": 20645,
+      "words_visible": 394
+    }
+  },
+  "blog": {
+    "design_tokens": {
+      "glass": 8,
+      "glass_soft": 0,
+      "glass_input": 0,
+      "glow_btn": 1,
+      "tilt_card": 6,
+      "tilt_layer": 6,
+      "reveal": 9,
+      "gradient_text": 0,
+      "perspective_grid": 6
+    },
+    "global_elements": {
+      "header_brand": true,
+      "nav_links": true,
+      "wa_float": true,
+      "footer_email": true,
+      "footer_phone": true,
+      "footer_whatsapp": true,
+      "skip_link": true,
+      "main_landmark": true
+    },
+    "headings": {
+      "h1": 1,
+      "h2": 1,
+      "h3": 6,
+      "h4": 0
+    },
+    "images": {
+      "total": 0,
+      "with_alt": 0
+    },
+    "links": {
+      "internal_nav": 3,
+      "external_https": 0,
+      "mailto": 0,
+      "tel": 0,
+      "whatsapp": 0
+    },
+    "seo_meta_present": false,
+    "brand_colors": {
+      "ckblue": 13,
+      "ckpink": 11,
+      "ckpurple": 10
+    },
+    "interactions": {
+      "tilt_cards": 6,
+      "reveal_elements": 9,
+      "glow_btns": 1,
+      "mascots_refs": 3
+    },
+    "lucide_icons": {
+      "total": 7,
+      "unique": 2,
+      "deprecated_brand": []
+    },
+    "content_size": {
+      "chars": 16486,
+      "words_visible": 398
+    }
+  },
+  "careers": {
+    "design_tokens": {
+      "glass": 10,
+      "glass_soft": 0,
+      "glass_input": 0,
+      "glow_btn": 1,
+      "tilt_card": 5,
+      "tilt_layer": 5,
+      "reveal": 15,
+      "gradient_text": 0,
+      "perspective_grid": 0
+    },
+    "global_elements": {
+      "header_brand": true,
+      "nav_links": true,
+      "wa_float": true,
+      "footer_email": true,
+      "footer_phone": true,
+      "footer_whatsapp": true,
+      "skip_link": true,
+      "main_landmark": true
+    },
+    "headings": {
+      "h1": 1,
+      "h2": 2,
+      "h3": 5,
+      "h4": 0
+    },
+    "images": {
+      "total": 0,
+      "with_alt": 0
+    },
+    "links": {
+      "internal_nav": 2,
+      "external_https": 0,
+      "mailto": 7,
+      "tel": 0,
+      "whatsapp": 0
+    },
+    "seo_meta_present": false,
+    "brand_colors": {
+      "ckblue": 23,
+      "ckpink": 30,
+      "ckpurple": 6
+    },
+    "interactions": {
+      "tilt_cards": 5,
+      "reveal_elements": 15,
+      "glow_btns": 1,
+      "mascots_refs": 6
+    },
+    "lucide_icons": {
+      "total": 16,
+      "unique": 12,
+      "deprecated_brand": []
+    },
+    "content_size": {
+      "chars": 21733,
+      "words_visible": 362
+    }
+  },
+  "privacy": {
+    "design_tokens": {
+      "glass": 13,
+      "glass_soft": 4,
+      "glass_input": 0,
+      "glow_btn": 1,
+      "tilt_card": 6,
+      "tilt_layer": 6,
+      "reveal": 8,
+      "gradient_text": 0,
+      "perspective_grid": 0
+    },
+    "global_elements": {
+      "header_brand": true,
+      "nav_links": true,
+      "wa_float": true,
+      "footer_email": true,
+      "footer_phone": true,
+      "footer_whatsapp": true,
+      "skip_link": true,
+      "main_landmark": true
+    },
+    "headings": {
+      "h1": 1,
+      "h2": 6,
+      "h3": 3,
+      "h4": 0
+    },
+    "images": {
+      "total": 0,
+      "with_alt": 0
+    },
+    "links": {
+      "internal_nav": 1,
+      "external_https": 0,
+      "mailto": 1,
+      "tel": 0,
+      "whatsapp": 0
+    },
+    "seo_meta_present": false,
+    "brand_colors": {
+      "ckblue": 21,
+      "ckpink": 18,
+      "ckpurple": 7
+    },
+    "interactions": {
+      "tilt_cards": 6,
+      "reveal_elements": 8,
+      "glow_btns": 1,
+      "mascots_refs": 4
+    },
+    "lucide_icons": {
+      "total": 12,
+      "unique": 4,
+      "deprecated_brand": []
+    },
+    "content_size": {
+      "chars": 18135,
+      "words_visible": 716
+    }
+  },
+  "terms": {
+    "design_tokens": {
+      "glass": 10,
+      "glass_soft": 0,
+      "glass_input": 0,
+      "glow_btn": 1,
+      "tilt_card": 7,
+      "tilt_layer": 7,
+      "reveal": 9,
+      "gradient_text": 0,
+      "perspective_grid": 0
+    },
+    "global_elements": {
+      "header_brand": true,
+      "nav_links": true,
+      "wa_float": true,
+      "footer_email": true,
+      "footer_phone": true,
+      "footer_whatsapp": true,
+      "skip_link": true,
+      "main_landmark": true
+    },
+    "headings": {
+      "h1": 1,
+      "h2": 7,
+      "h3": 3,
+      "h4": 0
+    },
+    "images": {
+      "total": 0,
+      "with_alt": 0
+    },
+    "links": {
+      "internal_nav": 2,
+      "external_https": 0,
+      "mailto": 0,
+      "tel": 0,
+      "whatsapp": 0
+    },
+    "seo_meta_present": false,
+    "brand_colors": {
+      "ckblue": 17,
+      "ckpink": 12,
+      "ckpurple": 7
+    },
+    "interactions": {
+      "tilt_cards": 7,
+      "reveal_elements": 9,
+      "glow_btns": 1,
+      "mascots_refs": 4
+    },
+    "lucide_icons": {
+      "total": 11,
+      "unique": 6,
+      "deprecated_brand": []
+    },
+    "content_size": {
+      "chars": 19492,
+      "words_visible": 765
+    }
+  }
+}

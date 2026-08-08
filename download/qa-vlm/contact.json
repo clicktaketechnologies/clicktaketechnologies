@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes dark futuristic with blue/pink/purple\nGlass cards: 3\nLogo: yes visible in header\nWhatsApp btn: yes floating green button bottom-right\nIssues: none\nPolish: 9/10\nSummary: A visually striking, well-structured contact page with a modern glassmorphism aesthetic and clear user flow.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786215351,
+  "id": "20260809025548ee82436d07894698",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "20260809025548ee82436d07894698",
+  "usage": {
+    "completion_tokens": 71,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 3862,
+    "prompt_tokens_details": {
+      "cached_tokens": 2
+    },
+    "total_tokens": 3933
+  }
+}

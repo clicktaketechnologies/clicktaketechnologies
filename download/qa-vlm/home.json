@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes dark futuristic with blue/pink/purple\nGlass cards: 9\nLogo: yes visible in header\nWhatsApp btn: yes floating green button bottom-right\nIssues: none\nPolish: 10/10\nSummary: A visually striking, high-polish tech landing page with a cohesive futuristic aesthetic, clear information hierarchy, and zero visible layout or content errors.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786215337,
+  "id": "20260809025533be9feca4947f4f40",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "20260809025533be9feca4947f4f40",
+  "usage": {
+    "completion_tokens": 78,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 5878,
+    "prompt_tokens_details": {
+      "cached_tokens": 2
+    },
+    "total_tokens": 5956
+  }
+}
