@@ -2499,3 +2499,136 @@ html.theme-elite .ct-story-floater {
 [class*="overflow-auto"]::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 83, 169, 0.5);
 }
+
+/* ─── CK-PROSE — rich blog article body styling ─────────────────────────── */
+.ck-prose {
+  color: rgb(var(--foreground-rgb, 255 255 255) / 0.88);
+  font-size: 1.0625rem;
+  line-height: 1.78;
+}
+.ck-prose .ck-prose-p,
+.ck-prose p {
+  margin: 0 0 1.25rem 0;
+  color: rgb(255 255 255 / 0.85);
+}
+.ck-prose .ck-h2,
+.ck-prose h2 {
+  margin: 2.5rem 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  background: linear-gradient(90deg, rgb(var(--brand-blue, 0 200 255)), rgb(var(--brand-cyan, 0 234 255)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ck-prose .ck-h3,
+.ck-prose h3 {
+  margin: 2rem 0 0.75rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgb(255 255 255 / 0.95);
+}
+.ck-prose .ck-h4,
+.ck-prose h4 {
+  margin: 1.5rem 0 0.5rem 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: rgb(255 255 255 / 0.9);
+}
+.ck-prose .ck-prose-ul,
+.ck-prose ul,
+.ck-prose .ck-prose-ol,
+.ck-prose ol {
+  margin: 0 0 1.25rem 0;
+  padding-left: 1.5rem;
+}
+.ck-prose .ck-prose-li,
+.ck-prose li {
+  margin: 0.4rem 0;
+  color: rgb(255 255 255 / 0.85);
+  line-height: 1.7;
+}
+.ck-prose ul li { list-style: disc; }
+.ck-prose ol li { list-style: decimal; }
+.ck-prose a {
+  color: rgb(var(--brand-cyan, 0 234 255));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgb(var(--brand-cyan, 0 234 255) / 0.4);
+  transition: text-decoration-color 0.2s;
+}
+.ck-prose a:hover {
+  text-decoration-color: rgb(var(--brand-cyan, 0 234 255));
+}
+.ck-prose strong { color: rgb(255 255 255 / 0.98); font-weight: 600; }
+.ck-prose em { color: rgb(255 255 255 / 0.85); font-style: italic; }
+.ck-prose blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 3px solid rgb(var(--brand-blue, 0 200 255));
+  background: rgb(255 255 255 / 0.03);
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: rgb(255 255 255 / 0.78);
+  font-style: italic;
+}
+.ck-prose pre {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  background: rgb(0 0 0 / 0.55);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+  color: rgb(255 255 255 / 0.9);
+}
+.ck-prose code {
+  font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875em;
+}
+.ck-prose :not(pre) > code {
+  padding: 0.15rem 0.4rem;
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 0.25rem;
+  color: rgb(var(--brand-cyan, 0 234 255));
+}
+.ck-prose table {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  font-size: 0.9375rem;
+}
+.ck-prose thead {
+  background: linear-gradient(90deg, rgb(var(--brand-blue, 0 200 255) / 0.2), rgb(var(--brand-cyan, 0 234 255) / 0.15));
+}
+.ck-prose th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: rgb(255 255 255 / 0.95);
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+}
+.ck-prose td {
+  padding: 0.75rem 1rem;
+  color: rgb(255 255 255 / 0.85);
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
+}
+.ck-prose tr:last-child td { border-bottom: none; }
+.ck-prose tr:hover td { background: rgb(255 255 255 / 0.02); }
+.ck-prose hr {
+  margin: 2.5rem 0;
+  border: none;
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+}
+.ck-prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
