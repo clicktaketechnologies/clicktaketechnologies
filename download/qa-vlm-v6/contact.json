@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "```json\n{\"visual\": 9, \"design\": 8, \"bugs\": 1, \"content\": 9, \"issues\": [\"Minor: 'Book a Demo' breadcrumb icon looks slightly misaligned with text baseline.\", \"Minor: Footer copyright year says 2021, which may be outdated for a futuristic tech brand.\", \"Observation: Form step indicators (2, 3) are very faint; could benefit from higher contrast for accessibility.\"], \"summary\": \"A visually stunning, high-fidelity dark-themed landing page with excellent glassmorphism execution and clear information hierarchy, requiring only minor polish on micro-details and date updates.\"}\n```",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786223444,
+  "id": "20260809051042ef20194e9baf4297",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "20260809051042ef20194e9baf4297",
+  "usage": {
+    "completion_tokens": 135,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1231,
+    "prompt_tokens_details": {
+      "cached_tokens": 107
+    },
+    "total_tokens": 1366
+  }
+}

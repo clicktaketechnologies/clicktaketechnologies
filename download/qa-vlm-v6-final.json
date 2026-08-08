@@ -1,0 +1,123 @@
+[
+  {
+    "page": "home",
+    "result": {
+      "visual": 9,
+      "design": 8,
+      "bugs": 1,
+      "content": 7,
+      "issues": [
+        "Minor text contrast issues in some sub-headers (e.g., 'compounded' in 'Numbers that compounded')",
+        "Floating WhatsApp button lacks hover state definition in static view",
+        "Footer logo appears slightly pixelated compared to header",
+        "Some card content density is high, potentially causing readability issues on smaller mobile screens"
+      ],
+      "summary": "A visually striking and well-executed futuristic dark-themed landing page with excellent glassmorphism implementation and strong brand identity."
+    }
+  },
+  {
+    "page": "services",
+    "result": {
+      "visual": 9,
+      "design": 8,
+      "bugs": 0,
+      "content": 9,
+      "issues": [
+        "Minor text contrast issues in some card descriptions against the dark background",
+        "The 'Four steps' section cards have slightly inconsistent vertical alignment"
+      ],
+      "summary": "A visually striking, high-fidelity futuristic landing page with excellent glassmorphism execution and professional content structure."
+    }
+  },
+  {
+    "page": "contact",
+    "result": {
+      "visual": 9,
+      "design": 8,
+      "bugs": 1,
+      "content": 9,
+      "issues": [
+        "Minor: 'Book a Demo' breadcrumb icon looks slightly misaligned with text baseline.",
+        "Minor: Footer copyright year says 2021, which may be outdated for a futuristic tech brand.",
+        "Observation: Form step indicators (2, 3) are very faint; could benefit from higher contrast for accessibility."
+      ],
+      "summary": "A visually stunning, high-fidelity dark-themed landing page with excellent glassmorphism execution and clear information hierarchy, requiring only minor polish on micro-details and date updates."
+    }
+  },
+  {
+    "page": "portfolio",
+    "result": {
+      "visual": 9,
+      "design": 8,
+      "bugs": 1,
+      "content": 9,
+      "issues": [
+        "Missing actual portfolio images (placeholder icons used)",
+        "WhatsApp button overlaps content on right edge",
+        "Some text contrast in footer could be slightly higher for WCAG AAA"
+      ],
+      "summary": "High-quality futuristic dark UI with excellent glassmorphism and layout, only lacking real imagery."
+    }
+  },
+  {
+    "page": "services-ai-llm",
+    "result": {
+      "visual": 9,
+      "design": 8,
+      "bugs": 1,
+      "content": 9,
+      "issues": [
+        "Minor text truncation in the top-left breadcrumb (Home > Services > LLM Integration & Fine-Tuning) due to container overflow.",
+        "The 'Tech Stack' section labels are slightly small and low contrast against the dark glass background.",
+        "Footer social icons could use slightly more spacing for better touch targets."
+      ],
+      "summary": "A high-fidelity, futuristic landing page with excellent glassmorphism execution and a cohesive dark theme, requiring only minor UI polish."
+    }
+  },
+  {
+    "page": "solutions-startups",
+    "result": {
+      "visual": 9,
+      "design": 8,
+      "bugs": 0,
+      "content": 9,
+      "issues": [
+        "Minor: Footer logo text is slightly misaligned or low contrast compared to header.",
+        "Suggestion: The 'What's Included' section cards could use slightly more padding for better breathing room."
+      ],
+      "summary": "A high-quality, futuristic dark-themed landing page with excellent glassmorphism and clear information hierarchy."
+    }
+  },
+  {
+    "page": "case-studies-seo-growth-sme",
+    "result": {
+      "visual": 9,
+      "design": 8,
+      "bugs": 1,
+      "content": 9,
+      "issues": [
+        "Minor text contrast issue in the 'Tech Stack' section (tags are slightly faint against dark background)",
+        "Footer logo alignment appears slightly off-center compared to the columns",
+        "WhatsApp floating button lacks a subtle shadow or glow to match the glassmorphism aesthetic"
+      ],
+      "summary": "A visually stunning, high-fidelity futuristic landing page with excellent hierarchy and branding, requiring only minor micro-adjustments for perfection."
+    }
+  },
+  {
+    "page": "blog-ppc-creative-testing-framework",
+    "result": {
+      "visual": 8,
+      "design": 7,
+      "bugs": 2,
+      "content": 4,
+      "issues": [
+        "Critical content duplication: Sections 3, 4, and 5 are near-identical copies of Section 2 with only the title changed",
+        "Inconsistent date format: 'Feb 28, 2026' appears to be a future date or typo (should likely be 2024/2025)",
+        "Glassmorphism card at bottom ('Work with us') lacks visible border/glow compared to the second CTA card below it",
+        "Text contrast in body paragraphs is slightly low for extended reading on dark backgrounds",
+        "Floating WhatsApp button alignment looks slightly offset from standard FAB positioning"
+      ],
+      "summary": "Visually striking dark-themed UI with good glassmorphism execution, but severely compromised by massive content duplication across multiple sections."
+    }
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "```json\n{\"visual\": 9, \"design\": 8, \"bugs\": 0, \"content\": 9, \"issues\": [\"Minor: Footer logo text is slightly misaligned or low contrast compared to header.\", \"Suggestion: The 'What's Included' section cards could use slightly more padding for better breathing room.\"], \"summary\": \"A high-quality, futuristic dark-themed landing page with excellent glassmorphism and clear information hierarchy.\"}\n```",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786223474,
+  "id": "202608090511120d01e95d4ff549de",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "202608090511120d01e95d4ff549de",
+  "usage": {
+    "completion_tokens": 96,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1455,
+    "prompt_tokens_details": {
+      "cached_tokens": 5
+    },
+    "total_tokens": 1551
+  }
+}

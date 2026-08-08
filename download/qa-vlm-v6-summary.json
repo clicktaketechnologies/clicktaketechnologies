@@ -1,0 +1,365 @@
+{
+  "total": 55,
+  "scored": 4,
+  "errors": 51,
+  "results": [
+    {
+      "page": "blog-ai-chatbot-for-lead-qualification",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "blog-case-study-lumen-commerce-3x-revenue",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "blog-ppc-creative-testing-framework",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "blog-wcag-2-2-aa-accessibility-guide",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "blog",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "careers-ai-ml-engineer",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "careers-senior-nextjs-engineer",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "case-studies-custom-software-saas",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "careers",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "case-studies-ecommerce-headless-rebuild",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "case-studies-seo-growth-sme",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "cases",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "cities",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "city-london",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "contact",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "cookies",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "home",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "portfolio",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "pricing",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "privacy",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "resources-ai-adoption-playbook-2026",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "resources-birmingham-seo-guide",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "resources",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-ai-agents",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-ai-automation",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-ai-chatbots",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-ai-llm",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-ai",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-creative-graphic-design",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-creative-video-production",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-creative",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-digital-marketing-cro",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-digital-marketing-paid-advertising",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-digital-marketing",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-seo-web-design",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-seo",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-starter-kit",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-web-ecommerce",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-web-full-stack",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-web-redesign",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-web-saas",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-web-wordpress",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services-web",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "services",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "solutions-ecommerce-brands",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "solutions-local-businesses",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "solutions-startups",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "solutions-uk-businesses",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "solutions",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "team",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "terms",
+      "result": {
+        "error": "Failed to make vision API request: 143 |                 headers: headers,\n144 |                 body: JSON.stringify(requestBody),\n145 |             });\n146 |             if (!response.ok) {\n147 |   "
+      }
+    },
+    {
+      "page": "city-karachi",
+      "result": {
+        "visual": 10,
+        "design": 10,
+        "bugs": 10,
+        "content": 10,
+        "issues": [],
+        "summary": "Clean render, no issues"
+      }
+    },
+    {
+      "page": "about",
+      "result": {
+        "visual": 9,
+        "design": 9,
+        "bugs": 10,
+        "content": 9,
+        "issues": [],
+        "summary": "Clean render with excellent glassmorphism execution and full content visibility"
+      }
+    },
+    {
+      "page": "city-birmingham",
+      "result": {
+        "visual": 9,
+        "design": 10,
+        "bugs": 10,
+        "content": 10,
+        "issues": [],
+        "summary": "Clean render, no issues"
+      }
+    },
+    {
+      "page": "blog-ai-automation-playbook-for-sme",
+      "result": {
+        "visual": 9,
+        "design": 10,
+        "bugs": 8,
+        "content": 9,
+        "issues": [
+          "Content duplication: Sections 2, 3, 4, and 5 appear to contain identical text as Section 1",
+          "Minor contrast issue in body text on dark background"
+        ],
+        "summary": "Clean glassmorphism design with a critical content duplication bug affecting most of the page body."
+      }
+    }
+  ],
+  "avg_visual": 9.25,
+  "avg_design": 9.75,
+  "avg_bugs": 9.5,
+  "avg_content": 9.5,
+  "overall_avg": 9.5
+}
