@@ -36,16 +36,29 @@ function PostCard({ post }: { post: BlogPost }) {
       href={`/blog/${post.slug}`}
       className="group flex flex-col rounded-2xl border border-border bg-card/40 backdrop-blur-md overflow-hidden hover:border-primary/40 hover:bg-card/60 transition"
     >
-      <div className={`h-32 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
-        <div className="absolute inset-0 bg-black/20" />
+      <div className={`h-32 ${post.heroImage ? "" : `bg-gradient-to-br ${gradient}`} relative overflow-hidden`}>
+        {post.heroImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={post.heroImage}
+            alt={post.title}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-black/20" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         <div className="absolute top-3 left-3">
           <span className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-black">
             {post.category}
           </span>
         </div>
-        <div className="absolute bottom-3 right-3">
-          <Sparkles className="h-5 w-5 text-white/80" />
-        </div>
+        {!post.heroImage && (
+          <div className="absolute bottom-3 right-3">
+            <Sparkles className="h-5 w-5 text-white/80" />
+          </div>
+        )}
       </div>
       <div className="flex-1 p-5">
         <h3 className="text-base sm:text-lg font-bold leading-tight group-hover:text-foreground text-foreground/90 line-clamp-2">

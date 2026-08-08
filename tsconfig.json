@@ -41,6 +41,7 @@
     "workers",
     "open-next.config.ts",
     "examples",
-    "skills"
+    "skills",
+    "scripts"
   ]
 }

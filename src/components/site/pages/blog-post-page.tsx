@@ -87,13 +87,25 @@ export function BlogPostPage({ post }: Props) {
             </div>
           </motion.div>
 
-          {/* Hero image (gradient placeholder) */}
-          <div className={`mt-8 h-48 sm:h-64 rounded-2xl bg-gradient-to-br ${gradient} relative overflow-hidden`}>
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="absolute bottom-4 right-4">
-              <Sparkles className="h-8 w-8 text-white/80" />
+          {/* Hero image — real article image if present, else gradient placeholder */}
+          {post.heroImage ? (
+            <div className="mt-8 sm:mt-10 aspect-[16/9] rounded-2xl overflow-hidden border border-border bg-card relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={post.heroImage}
+                alt={post.title}
+                className="h-full w-full object-cover"
+                loading="eager"
+              />
             </div>
-          </div>
+          ) : (
+            <div className={`mt-8 h-48 sm:h-64 rounded-2xl bg-gradient-to-br ${gradient} relative overflow-hidden`}>
+              <div className="absolute inset-0 bg-black/20" />
+              <div className="absolute bottom-4 right-4">
+                <Sparkles className="h-8 w-8 text-white/80" />
+              </div>
+            </div>
+          )}
 
           {/* Body */}
           <motion.article
@@ -101,20 +113,26 @@ export function BlogPostPage({ post }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5 }}
-            className="mt-10 prose prose-invert max-w-none"
+            className="mt-10 ck-prose max-w-none prose prose-invert"
           >
-            <p className="text-sm sm:text-base text-foreground/90 leading-relaxed">
-              {post.body}
-            </p>
-            <p className="mt-4 text-sm sm:text-base text-foreground/90 leading-relaxed">
-              This article is part of our {post.category} series, written by the ClickTake team
-              based on real client engagements across the UK, Pakistan, USA and Dubai. We publish
-              new articles every two weeks — subscribe to our newsletter (in the footer) to get
-              the next one in your inbox.
-            </p>
-            <p className="mt-4 text-sm sm:text-base text-foreground/90 leading-relaxed">
+            {post.bodyHtml ? (
+              <div dangerouslySetInnerHTML={{ __html: post.bodyHtml }} />
+            ) : (
+              <>
+                <p className="text-sm sm:text-base text-foreground/90 leading-relaxed">
+                  {post.body}
+                </p>
+                <p className="mt-4 text-sm sm:text-base text-foreground/90 leading-relaxed">
+                  This article is part of our {post.category} series, written by the ClickTake team
+                  based on real client engagements across the UK, Pakistan, USA and Dubai. We publish
+                  new articles every two weeks — subscribe to our newsletter (in the footer) to get
+                  the next one in your inbox.
+                </p>
+              </>
+            )}
+            <p className="mt-8 text-sm sm:text-base text-foreground/90 leading-relaxed">
               Want this work shipped for your brand? ClickTake Technologies delivers end-to-end
-              {post.category.toLowerCase()} engagements — from strategy to execution to ongoing
+              {" "}{post.category.toLowerCase()} engagements — from strategy to execution to ongoing
               optimization — for ambitious brands across four regions. Book a free 30-minute
               consultation and we&apos;ll scope it together.
             </p>

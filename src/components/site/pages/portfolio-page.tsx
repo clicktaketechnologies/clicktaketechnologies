@@ -1,14 +1,58 @@
 'use client'
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import {
+  ArrowUpRight,
+  ExternalLink,
+  Wrench,
+  Users,
+  Truck,
+  Eye,
+  Smartphone,
+  Stethoscope,
+  GraduationCap,
+  BookOpen,
+  Users2,
+  School,
+  Globe,
+  MapPin,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
 import{
   NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
 import { Nx3DScene } from "../nx-3d-scene";
 import { Nx3DCharacter } from "../nx-3d-character";
 import { NxStoryScene } from "../nx-story-scene";
 import { TiltCard } from "@/components/site/tilt-card";
-import { WORK_CASES } from "@/lib/site-data";
+import { CLIENT_PORTFOLIO, type ClientPortfolio } from "@/lib/site-data";
+
+const ICONS: Record<string, LucideIcon> = {
+  Wrench,
+  Users,
+  Truck,
+  Eye,
+  Smartphone,
+  Stethoscope,
+  GraduationCap,
+  BookOpen,
+  Users2,
+  School,
+};
+
+const CATEGORY_COUNT: Record<string, number> = CLIENT_PORTFOLIO.reduce(
+  (acc, p) => {
+    acc[p.category] = (acc[p.category] || 0) + 1;
+    return acc;
+  },
+  {} as Record<string, number>
+);
+
+const CATEGORY_GRADIENT: Record<string, string> = {
+  "SaaS Platform": "from-cyan-500 to-blue-600",
+  "Education": "from-emerald-500 to-teal-600",
+  "Gadget Repair": "from-fuchsia-500 to-pink-600",
+};
 
 export function PortfolioPage() {
   return (
@@ -32,115 +76,158 @@ export function PortfolioPage() {
           >
             <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs backdrop-blur-xl">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
-              Selected Work
+              12 Live Client Sites — Real Production Deployments
             </div>
             <h1 className="mt-3 sm:mt-4 font-display text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight leading-tight">
-              Case studies from{" "}
-              <span className="gradient-text">four continents.</span>
+              Production work, {" "}
+              <span className="gradient-text">live right now.</span>
             </h1>
             <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed">
-              Headless e-commerce, AI dashboards, brand systems and growth campaigns —
-              shipped for ambitious brands across the UK (Birmingham, London), Pakistan (Multan, Lahore),
-              USA (Austin, NYC) and Dubai (UAE).
+              Twelve client platforms built and maintained by ClickTake Technologies —
+              SaaS products, education portals, and e-commerce stores across the UK and globally.
+              Every link below is a live deployment, not a mockup.
             </p>
           </motion.div>
 
-          {/* Grid */}
-          <div className="mt-10 sm:mt-14 grid gap-5 sm:gap-7 md:grid-cols-2">
-            {WORK_CASES.map((p, i) => (
+          {/* Category overview cards */}
+          <div className="mt-8 sm:mt-10 grid gap-4 sm:grid-cols-3">
+            {Object.entries(CATEGORY_COUNT).map(([cat, count], i) => (
               <motion.div
-                key={p.title}
-                initial={{ opacity: 0, y: 35 }}
+                key={cat}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
+                className="rounded-2xl border ct-divider bg-card/60 backdrop-blur-md p-5"
               >
-                <TiltCard
-                  className={`group/tilt relative overflow-hidden rounded-[30px] border ct-divider bg-card/70 backdrop-blur-xl ${p.glow}`}
-                  glow={true}
-                  shine={false}
-                  maxTilt={8}
-                >
-                  {/* Image / gradient placeholder */}
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <div
-                      className="h-full w-full transition-transform duration-700 group-hover/tilt:scale-110"
-                      style={{
-                        background: `linear-gradient(135deg, ${
-                          i % 4 === 0 ? "rgba(0,200,255,0.25), rgba(59,130,246,0.4)" :
-                          i % 4 === 1 ? "rgba(99,102,241,0.25), rgba(168,85,247,0.4)" :
-                          i % 4 === 2 ? "rgba(139,92,246,0.25), rgba(236,72,153,0.4)" :
-                          "rgba(217,70,239,0.25), rgba(245,158,11,0.4)"
-                        })`,
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_40%)]" />
-
-                    {/* shine */}
-                    <div className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover/tilt:opacity-100">
-                      <div className="absolute -left-40 top-0 h-full w-32 rotate-12 ct-surface blur-2xl transition-all duration-1000 group-hover/tilt:left-[120%]" />
-                    </div>
-
-                    {/* external button */}
-                    <a
-                      href={p.url}
-                      className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border ct-divider bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:rotate-12 hover:bg-white hover:text-black"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                    </a>
-
-                    {/* metric */}
-                    <div className="absolute left-5 top-5 rounded-full border ct-divider bg-black/30 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
-                      {p.metric}
-                    </div>
-
-                    {/* bottom */}
-                    <div className="absolute bottom-0 left-0 right-0 px-6 pb-6">
-                      <div className="text-[10px] uppercase tracking-[0.28em] text-white/70">
-                        {p.category}
-                      </div>
-                      <div className="mt-2 font-display text-2xl font-bold text-white">
-                        {p.title}
-                      </div>
-                      <div className="mt-1 text-[11px] text-white/60">
-                        {p.location}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6">
-                    <p className="text-sm leading-7 text-muted-foreground">{p.description}</p>
-
-                    <div className="mt-6 flex items-center justify-between gap-4">
-                      <div className="flex flex-wrap gap-2">
-                        {p.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-full border ct-divider bg-secondary/50 px-3 py-1 text-[11px] font-medium text-muted-foreground backdrop-blur"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <a
-                        href={p.url}
-                        className="group/btn inline-flex shrink-0 items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-cyan to-brand-magenta px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-105"
-                      >
-                        View project
-                        <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="pointer-events-none absolute inset-0 rounded-[30px] ring-1 ring-white/5" />
-                </TiltCard>
+                <div className={`inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br ${CATEGORY_GRADIENT[cat]} text-white text-xs font-bold`}>
+                  {count}
+                </div>
+                <div className="mt-3 text-sm font-semibold">{cat}</div>
+                <div className="mt-1 text-xs text-muted-foreground">
+                  {cat === "SaaS Platform" && "Multi-tenant products & dashboards"}
+                  {cat === "Education" && "Learning platforms & academy systems"}
+                  {cat === "Gadget Repair" && "Repair-shop commerce & booking sites"}
+                </div>
               </motion.div>
             ))}
           </div>
+
+          {/* Grid — 12 entries */}
+          <div className="mt-10 sm:mt-14 grid gap-5 sm:gap-7 md:grid-cols-2 lg:grid-cols-3">
+            {CLIENT_PORTFOLIO.map((p, i) => (
+              <PortfolioCard key={p.slug} p={p} index={i} />
+            ))}
+          </div>
+
+          {/* Admin panel note */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-12 rounded-2xl border ct-divider bg-card/40 backdrop-blur-md p-5 sm:p-6 text-center"
+          >
+            <div className="inline-flex items-center gap-2 text-sm font-semibold">
+              <Sparkles className="h-4 w-4 text-brand-blue" />
+              New projects added weekly via the ClickTake admin panel
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground max-w-2xl mx-auto">
+              The portfolio above is a curated snapshot of 12 live client deployments.
+              Our team ships new SaaS products, e-commerce stores, and growth platforms every month —
+              the live list grows on the production site as new case studies are published.
+            </p>
+          </motion.div>
         </section>
     </NxPageLayout>
+  );
+}
+
+function PortfolioCard({ p, index }: { p: ClientPortfolio; index: number }) {
+  const Icon = ICONS[p.icon] || Globe;
+  const gradient = CATEGORY_GRADIENT[p.category] || "from-brand-blue to-brand-cyan";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ delay: (index % 6) * 0.06 }}
+    >
+      <TiltCard
+        className="group/tilt relative overflow-hidden rounded-[24px] border ct-divider bg-card/70 backdrop-blur-xl hover:shadow-cyan-500/10"
+        glow={true}
+        shine={false}
+        maxTilt={6}
+      >
+        {/* Top gradient tile with icon + Live badge */}
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <div className={`h-full w-full bg-gradient-to-br ${p.color} transition-transform duration-700 group-hover/tilt:scale-110`} />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.15),transparent_45%)]" />
+
+          {/* Live badge top-right */}
+          <div className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full border ct-divider bg-black/40 px-2.5 py-1 text-[10px] font-semibold text-emerald-300 backdrop-blur-md">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+            Live
+          </div>
+
+          {/* Category chip bottom-left */}
+          <div className="absolute left-4 bottom-4 inline-flex items-center gap-1.5 rounded-full bg-black/40 px-2.5 py-1 text-[10px] font-semibold text-white/90 backdrop-blur-md">
+            <span className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${gradient}`} />
+            {p.category}
+          </div>
+
+          {/* Big icon center */}
+          <div className="absolute inset-0 grid place-items-center">
+            <div className={`grid h-16 w-16 place-items-center rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-white`}>
+              <Icon className="h-7 w-7" />
+            </div>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-5">
+          <div className="flex items-start justify-between gap-2">
+            <div className="font-display text-lg font-bold leading-tight">{p.name}</div>
+            <div className="text-[10px] text-muted-foreground shrink-0 mt-1">since {p.year}</div>
+          </div>
+
+          <p className="mt-2 text-xs text-muted-foreground leading-relaxed line-clamp-3">
+            {p.blurb}
+          </p>
+
+          {/* Tech chips */}
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {p.techStack.slice(0, 4).map((t) => (
+              <span
+                key={t}
+                className="rounded-full border ct-divider bg-secondary/50 px-2 py-0.5 text-[10px] font-medium text-muted-foreground"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+
+          {/* Region + Visit link */}
+          <div className="mt-4 flex items-center justify-between gap-3 border-t ct-divider pt-3">
+            <div className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
+              <MapPin className="h-3 w-3" />
+              {p.region}
+            </div>
+            <a
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-cyan to-brand-magenta px-3.5 py-1.5 text-[11px] font-semibold text-white shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-105"
+            >
+              Visit live site
+              <ExternalLink className="h-3 w-3 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+            </a>
+          </div>
+        </div>
+
+        <div className="pointer-events-none absolute inset-0 rounded-[24px] ring-1 ring-white/5" />
+      </TiltCard>
+    </motion.div>
   );
 }
