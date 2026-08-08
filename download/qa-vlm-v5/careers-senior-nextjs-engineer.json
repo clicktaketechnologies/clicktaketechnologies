@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes\nGlass cards: 10\nLogo: yes\nWhatsApp btn: yes\nBreadcrumb: yes\nIssues: none\nPolish: 9\nSummary: A polished, high-tech job listing page featuring a cohesive dark theme, clear information hierarchy, and professional glassmorphism UI elements.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786221665,
+  "id": "20260809044103d0e042ca798e464f",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "20260809044103d0e042ca798e464f",
+  "usage": {
+    "completion_tokens": 62,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 5099,
+    "prompt_tokens_details": {
+      "cached_tokens": 2
+    },
+    "total_tokens": 5161
+  }
+}

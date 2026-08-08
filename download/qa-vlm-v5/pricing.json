@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes dark futuristic with blue/pink/purple\nGlass cards: 5 (3 pricing, 1 FAQ, 1 CTA)\nLogo: yes in header\nWhatsApp btn: yes floating bottom-right\nBreadcrumb: yes visible at top\nIssues: none\nPolish: 9/10\nSummary: A polished, high-conversion pricing page with a cohesive futuristic aesthetic and clear information hierarchy.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786221630,
+  "id": "20260809044027f138e23dce09402b",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "20260809044027f138e23dce09402b",
+  "usage": {
+    "completion_tokens": 84,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 4475,
+    "prompt_tokens_details": {
+      "cached_tokens": 2
+    },
+    "total_tokens": 4559
+  }
+}

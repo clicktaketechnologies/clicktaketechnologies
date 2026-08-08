@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Design: yes\nGlass cards: 15\nLogo: yes\nWhatsApp btn: yes\nBreadcrumb: yes\nIssues: none\nPolish: 9\nSummary: A polished, high-tech \"Where We Work\" page featuring a dark futuristic aesthetic, consistent glassmorphism UI, and clear information hierarchy.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1786221640,
+  "id": "2026080904403709bbc419153d4b83",
+  "model": "glm-5v-turbo",
+  "object": "chat.completion",
+  "request_id": "2026080904403709bbc419153d4b83",
+  "usage": {
+    "completion_tokens": 64,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 5931,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "total_tokens": 5995
+  }
+}

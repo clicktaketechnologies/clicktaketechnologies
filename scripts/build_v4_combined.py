@@ -1,18 +1,32 @@
 #!/usr/bin/env python3
 """
-ClickTake Technologies — v4 Multi-Page SPA Generator
+ClickTake Technologies — v5 Multi-Page SPA Generator (Full Site)
 Builds a self-contained dark-mode futuristic site with:
-- 10 SPA pages (home, services, solutions, cases, contact, about, blog, careers, privacy, terms)
+- 100 SPA pages covering the full sitemap:
+  * 10 existing main pages (home, services, solutions, cases, contact, about, blog, careers, privacy, terms)
+  * 6 new top-level pages (portfolio, pricing, team, resources, cities, cookies)
+  * 33 service detail pages (SEO, AI, Web, Creative, Digital Marketing categories)
+  * 6 solution detail pages (startups, local-businesses, ecommerce-brands, repair-shops, uk-businesses, agencies)
+  * 6 case-study detail pages
+  * 13 blog article pages
+  * 6 career detail pages
+  * 7 resource detail pages
+  * 13 city landing pages (Birmingham, London, Manchester, Leeds, Austin, NYC, SF, Dubai, Abu Dhabi, Karachi, Lahore, Islamabad, Multan)
 - 3 CSS/SVG mascots (Dev w/ VR, AI Agent robot, Data Analyst)
 - Canvas particle ambient background
 - Parallax tilt cards + radial glow buttons
 - Full per-page SEO (title/description/OG/canonical) + JSON-LD
 - Multi-step glass contact form
+- Mega-menu navigation + expanded footer sitemap
 Output: /home/z/my-project/download/clicktake-landing.html
 """
 from pathlib import Path
 from textwrap import dedent
 import base64
+import sys
+sys.path.insert(0, "/home/z/my-project/scripts")
+from clicktake_pages import PAGES_REGISTRY, SERVICES, SOLUTIONS, CASE_STUDIES, BLOG_POSTS, CAREERS, RESOURCES, CITIES
+from clicktake_templates import render_page
 
 OUT = Path("/home/z/my-project/download/clicktake-landing.html")
 
@@ -3070,6 +3084,288 @@ PAGE_TERMS = '''
 
 print("Part 7 (careers + privacy + terms) prepared.")
 
+
+# ============================================================================
+# PART 8: NEW TOP-LEVEL PAGES (portfolio, pricing, team, resources, cities, cookies)
+# ============================================================================
+PAGE_PORTFOLIO = '''
+    <!-- ========== PAGE: PORTFOLIO ========== -->
+    <section data-page="portfolio" class="page">
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Portfolio</li></ol></nav></nav>
+      <div class="relative pt-12 pb-16 overflow-hidden">
+        <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+          <div class="reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckpink mb-6"><span class="w-1.5 h-1.5 rounded-full bg-ckpink animate-pulse"></span>Selected Work</div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-6"><span class="gradient-text">Portfolio</span></h1>
+            <p class="text-lg md:text-xl text-ckbody max-w-3xl mx-auto mb-10 leading-relaxed">150+ production deployments across 12 industries. A selection of work we're allowed to talk about.</p>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+''' + ''.join(f'''
+          <a href="#{cs[0]}" data-nav="{cs[0]}" class="tilt-card glass rounded-2xl overflow-hidden reveal group">
+            <div class="aspect-video relative overflow-hidden" style="background:linear-gradient(135deg,#{i%2 and '136DFF' or 'FF53A9'}33,#{i%3 and '7B2FBE' or '136DFF'}33);">
+              <div class="absolute inset-0 flex items-center justify-center"><i data-lucide="layout" class="w-12 h-12 text-ckbody/40"></i></div>
+            </div>
+            <div class="p-6">
+              <div class="text-xs font-mono uppercase tracking-widest text-ckpink mb-2">{cs[2]}</div>
+              <h3 class="font-display font-bold text-lg mb-2 group-hover:text-ckblue transition-colors">{cs[1]}</h3>
+              <div class="flex items-center gap-2 text-sm text-ckbody">Read case study <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+            </div>
+          </a>''' for i, cs in enumerate(CASE_STUDIES)) + '''
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="text-center max-w-3xl mx-auto mb-12 reveal"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckblue mb-4">By Industry</div><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight">12 industries. 150+ deployments.</h2></div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+''' + ''.join(f'''
+          <div class="tilt-card glass rounded-2xl p-5 text-center reveal"><i data-lucide="{icon}" class="w-7 h-7 text-ckblue mx-auto mb-3"></i><div class="text-sm font-display font-semibold">{ind}</div></div>''' for ind, icon in [
+    ("Fintech", "trending-up"), ("E-commerce", "shopping-cart"), ("Healthcare", "heart-pulse"),
+    ("Logistics", "truck"), ("SaaS", "cloud"), ("Education", "graduation-cap"),
+    ("Real Estate", "building-2"), ("Legal", "scale"), ("Media", "film"),
+    ("Hospitality", "utensils"), ("Manufacturing", "factory"), ("Government", "landmark"),
+]) + '''
+        </div>
+      </div>
+      <div class="py-20 px-6 lg:px-8"><div class="max-w-5xl mx-auto tilt-card glass rounded-3xl p-10 lg:p-14 text-center reveal"><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight mb-4"><span class="gradient-text">Your project, next.</span></h2><p class="text-base md:text-lg text-ckbody max-w-2xl mx-auto mb-8">Book a 30-minute architecture review. No slides, no sales — just senior engineers and a whiteboard.</p><div class="flex flex-wrap items-center justify-center gap-4"><a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> Book a Demo</a><a href="https://wa.link/iqz8eg" target="_blank" rel="noopener noreferrer" class="rounded-xl px-7 py-3.5 font-display font-semibold glass-soft text-ckheading hover:border-ckblue/40 transition-colors inline-flex items-center gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp</a></div></div></div>
+    </section>
+'''
+
+PAGE_PRICING = '''
+    <!-- ========== PAGE: PRICING ========== -->
+    <section data-page="pricing" class="page">
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Pricing</li></ol></nav></nav>
+      <div class="relative pt-12 pb-16 overflow-hidden">
+        <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+          <div class="reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckpink mb-6"><span class="w-1.5 h-1.5 rounded-full bg-ckpink animate-pulse"></span>Engagement Models</div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-6"><span class="gradient-text">Transparent Pricing</span></h1>
+            <p class="text-lg md:text-xl text-ckbody max-w-3xl mx-auto mb-10 leading-relaxed">No hidden fees. Senior engineers only. 30-day money-back guarantee on all engagements.</p>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="tilt-card glass rounded-3xl p-8 reveal">
+            <div class="text-xs font-mono uppercase tracking-widest text-ckblue mb-3">Retainer</div>
+            <div class="text-4xl font-display font-bold mb-1">£8k<span class="text-base text-ckbody font-normal">/mo</span></div>
+            <div class="text-sm text-ckbody mb-6">Best for ongoing work</div>
+            <ul class="space-y-3 mb-8"><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckblue flex-shrink-0 mt-0.5"></i>60 hrs/month senior engineering</li><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckblue flex-shrink-0 mt-0.5"></i>Weekly demos</li><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckblue flex-shrink-0 mt-0.5"></i>Slack channel access</li><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckblue flex-shrink-0 mt-0.5"></i>Cancel anytime (30-day notice)</li></ul>
+            <a href="#contact" data-nav="contact" class="block text-center glow-btn rounded-xl px-6 py-3 font-display font-semibold text-white">Start Retainer</a>
+          </div>
+          <div class="tilt-card glass rounded-3xl p-8 reveal border-2" style="border-color:#FF53A9;">
+            <div class="absolute top-0 right-0 -mt-2 -mr-2 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-white" style="background:#FF53A9;">Most Popular</div>
+            <div class="text-xs font-mono uppercase tracking-widest text-ckpink mb-3">Fixed-Scope</div>
+            <div class="text-4xl font-display font-bold mb-1">£25k<span class="text-base text-ckbody font-normal">+ from</span></div>
+            <div class="text-sm text-ckbody mb-6">Best for defined projects</div>
+            <ul class="space-y-3 mb-8"><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckpink flex-shrink-0 mt-0.5"></i>Fixed scope, fixed price, fixed timeline</li><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckpink flex-shrink-0 mt-0.5"></i>Senior engineer + designer</li><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckpink flex-shrink-0 mt-0.5"></i>30-day post-launch support</li><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckpink flex-shrink-0 mt-0.5"></i>Source code, fully yours</li></ul>
+            <a href="#contact" data-nav="contact" class="block text-center glow-btn rounded-xl px-6 py-3 font-display font-semibold text-white">Get a Quote</a>
+          </div>
+          <div class="tilt-card glass rounded-3xl p-8 reveal">
+            <div class="text-xs font-mono uppercase tracking-widest text-ckpurple mb-3">Dedicated Team</div>
+            <div class="text-4xl font-display font-bold mb-1">£22k<span class="text-base text-ckbody font-normal">/mo</span></div>
+            <div class="text-sm text-ckbody mb-6">Best for scaling startups</div>
+            <ul class="space-y-3 mb-8"><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckpurple flex-shrink-0 mt-0.5"></i>3 senior engineers + PM</li><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckpurple flex-shrink-0 mt-0.5"></i>180 hrs/month</li><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckpurple flex-shrink-0 mt-0.5"></i>Your stack, your tools</li><li class="flex items-start gap-2 text-sm text-ckbody"><i data-lucide="check" class="w-4 h-4 text-ckpurple flex-shrink-0 mt-0.5"></i>3-month minimum</li></ul>
+            <a href="#contact" data-nav="contact" class="block text-center glow-btn rounded-xl px-6 py-3 font-display font-semibold text-white">Build a Team</a>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-4xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="tilt-card glass rounded-3xl p-8 lg:p-10 reveal">
+          <h2 class="text-2xl font-display font-bold mb-6 text-center">Frequently Asked Questions</h2>
+          <div class="space-y-6">
+            <div><h3 class="font-display font-semibold mb-2">Do you work with startups?</h3><p class="text-ckbody text-sm">Yes. We offer equity-light arrangements for seed/Series A startups. We've shipped 40+ MVPs that went on to raise.</p></div>
+            <div><h3 class="font-display font-semibold mb-2">What about hourly?</h3><p class="text-ckbody text-sm">We don't do hourly. It incentivizes the wrong behavior. Retainer or fixed-scope only.</p></div>
+            <div><h3 class="font-display font-semibold mb-2">Who owns the IP?</h3><p class="text-ckbody text-sm">You do. Fully. Upon payment, all custom code is yours. We retain rights to our pre-existing tools and libraries only.</p></div>
+            <div><h3 class="font-display font-semibold mb-2">What if I'm not happy?</h3><p class="text-ckbody text-sm">30-day money-back guarantee on all engagements. We've only been asked twice in 5 years.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="py-20 px-6 lg:px-8"><div class="max-w-5xl mx-auto tilt-card glass rounded-3xl p-10 lg:p-14 text-center reveal"><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight mb-4"><span class="gradient-text">Not sure which model fits?</span></h2><p class="text-base md:text-lg text-ckbody max-w-2xl mx-auto mb-8">Book a 30-minute call. We'll help you figure it out — even if the answer is "do it in-house."</p><div class="flex flex-wrap items-center justify-center gap-4"><a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> Book a Demo</a><a href="mailto:info@clicktaketech.com" class="rounded-xl px-7 py-3.5 font-display font-semibold glass-soft text-ckheading hover:border-ckblue/40 transition-colors inline-flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> Email us</a></div></div></div>
+    </section>
+'''
+
+PAGE_TEAM = '''
+    <!-- ========== PAGE: TEAM ========== -->
+    <section data-page="team" class="page">
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Team</li></ol></nav></nav>
+      <div class="relative pt-12 pb-16 overflow-hidden">
+        <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+          <div class="reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckpink mb-6"><span class="w-1.5 h-1.5 rounded-full bg-ckpink animate-pulse"></span>38 Senior Engineers</div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-6"><span class="gradient-text">The Team</span></h1>
+            <p class="text-lg md:text-xl text-ckbody max-w-3xl mx-auto mb-10 leading-relaxed">38 senior engineers, designers, and operators across 9 time zones. Average 11 years experience. Ex-FAANG, ex-fintech, ex-bio. Remote-first since 2019.</p>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+          <div class="tilt-card glass rounded-2xl p-6 text-center reveal"><div class="text-4xl font-display font-bold gradient-text mb-1">38</div><div class="text-xs text-ckbody uppercase tracking-widest">Team Members</div></div>
+          <div class="tilt-card glass rounded-2xl p-6 text-center reveal"><div class="text-4xl font-display font-bold gradient-text mb-1">11y</div><div class="text-xs text-ckbody uppercase tracking-widest">Avg Experience</div></div>
+          <div class="tilt-card glass rounded-2xl p-6 text-center reveal"><div class="text-4xl font-display font-bold gradient-text mb-1">9</div><div class="text-xs text-ckbody uppercase tracking-widest">Time Zones</div></div>
+          <div class="tilt-card glass rounded-2xl p-6 text-center reveal"><div class="text-4xl font-display font-bold gradient-text mb-1">94%</div><div class="text-xs text-ckbody uppercase tracking-widest">Retention</div></div>
+        </div>
+        <div class="text-center max-w-3xl mx-auto mb-12 reveal"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckblue mb-4">Leadership</div><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight">Who you'll work with</h2></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+''' + ''.join(f'''
+          <div class="tilt-card glass rounded-2xl p-6 reveal">
+            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-ckblue to-ckpink flex items-center justify-center font-display font-bold text-white text-2xl mb-4">{name[0]}</div>
+            <h3 class="font-display font-bold text-lg mb-1">{name}</h3>
+            <div class="text-xs font-mono uppercase tracking-widest text-ckpink mb-3">{role}</div>
+            <p class="text-sm text-ckbody">{bio}</p>
+          </div>''' for name, role, bio in [
+    ("Sarah Chen", "Founder & CEO", "Ex-Google. 15 years in fintech and SaaS. Built and sold 2 companies before ClickTake."),
+    ("Marcus Abdullah", "CTO", "Ex-Stripe. 14 years in distributed systems. Leads our AI/ML practice."),
+    ("Priya Patel", "VP Engineering", "Ex-Shopify. 12 years in e-commerce and headless commerce."),
+    ("Tom Wright", "Head of AI", "Ex-OpenAI. PhD ML. Leads our LLM and RAG practice."),
+    ("Lena Müller", "Head of Design", "Ex-Frog Design. 11 years in brand and product design."),
+    ("Ahmed Raza", "Head of Cloud", "Ex-AWS. 13 years in cloud architecture and DevOps."),
+]) + '''
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="text-center max-w-3xl mx-auto mb-12 reveal"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckblue mb-4">Principles</div><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight">How we work</h2></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="tilt-card glass rounded-2xl p-6 reveal"><div class="w-10 h-10 rounded-lg bg-ckblue/10 flex items-center justify-center mb-4"><i data-lucide="ship" class="w-5 h-5 text-ckblue"></i></div><h3 class="font-display font-semibold mb-2">Ship over polish</h3><p class="text-sm text-ckbody">Production deploys from week 2. Polish iteratively based on real user data.</p></div>
+          <div class="tilt-card glass rounded-2xl p-6 reveal"><div class="w-10 h-10 rounded-lg bg-ckpink/10 flex items-center justify-center mb-4"><i data-lucide="eye" class="w-5 h-5 text-ckpink"></i></div><h3 class="font-display font-semibold mb-2">Radical transparency</h3><p class="text-sm text-ckbody">You see our Slack. You see our commits. You see our weekly demos. No black boxes.</p></div>
+          <div class="tilt-card glass rounded-2xl p-6 reveal"><div class="w-10 h-10 rounded-lg bg-ckpurple/10 flex items-center justify-center mb-4"><i data-lucide="unlock" class="w-5 h-5 text-ckpurple"></i></div><h3 class="font-display font-semibold mb-2">No vendor lock-in</h3><p class="text-sm text-ckbody">Your code, your data, your infrastructure. We use open standards. You can fire us anytime.</p></div>
+          <div class="tilt-card glass rounded-2xl p-6 reveal"><div class="w-10 h-10 rounded-lg bg-ckblue/10 flex items-center justify-center mb-4"><i data-lucide="users" class="w-5 h-5 text-ckblue"></i></div><h3 class="font-display font-semibold mb-2">Senior only</h3><p class="text-sm text-ckbody">No juniors on your project. Average 11 years experience. The person you talk to is the person who codes.</p></div>
+        </div>
+      </div>
+      <div class="py-20 px-6 lg:px-8"><div class="max-w-5xl mx-auto tilt-card glass rounded-3xl p-10 lg:p-14 text-center reveal"><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight mb-4"><span class="gradient-text">Want to join the team?</span></h2><p class="text-base md:text-lg text-ckbody max-w-2xl mx-auto mb-8">We're always hiring senior engineers, designers, and operators. Remote-first. Top-of-market salaries.</p><div class="flex flex-wrap items-center justify-center gap-4"><a href="#careers" data-nav="careers" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2"><i data-lucide="briefcase" class="w-4 h-4"></i> See Open Roles</a></div></div></div>
+    </section>
+'''
+
+PAGE_RESOURCES = '''
+    <!-- ========== PAGE: RESOURCES HUB ========== -->
+    <section data-page="resources" class="page">
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Resources</li></ol></nav></nav>
+      <div class="relative pt-12 pb-16 overflow-hidden">
+        <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+          <div class="reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckpink mb-6"><span class="w-1.5 h-1.5 rounded-full bg-ckpink animate-pulse"></span>Playbooks · Guides · Research</div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-6"><span class="gradient-text">Resources</span></h1>
+            <p class="text-lg md:text-xl text-ckbody max-w-3xl mx-auto mb-10 leading-relaxed">Free engineering playbooks from our production work. No fluff. No gated content. No sales calls required.</p>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+''' + ''.join(f'''
+          <a href="#{r[0]}" data-nav="{r[0]}" class="tilt-card glass rounded-2xl p-6 reveal group">
+            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-ckblue to-ckpink flex items-center justify-center mb-4"><i data-lucide="book-open" class="w-6 h-6 text-white"></i></div>
+            <div class="text-xs font-mono uppercase tracking-widest text-ckpink mb-2">{r[2].split("·")[0].strip()}</div>
+            <h3 class="font-display font-bold text-lg mb-2 group-hover:text-ckblue transition-colors">{r[1]}</h3>
+            <p class="text-sm text-ckbody mb-4">{r[3]}</p>
+            <div class="flex items-center gap-2 text-sm text-ckblue">Get the resource <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+          </a>''' for r in RESOURCES) + '''
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="text-center max-w-3xl mx-auto mb-12 reveal"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckblue mb-4">From the Blog</div><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight">Latest engineering notes</h2></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+''' + ''.join(f'''
+          <a href="#{b[0]}" data-nav="{b[0]}" class="tilt-card glass rounded-2xl p-6 reveal group">
+            <div class="text-xs font-mono uppercase tracking-widest text-ckpink mb-2">{b[2]}</div>
+            <h3 class="font-display font-bold text-lg mb-2 group-hover:text-ckblue transition-colors">{b[1]}</h3>
+            <p class="text-sm text-ckbody mb-3">{b[5]}</p>
+            <div class="text-xs text-ckbody/60">{b[3]} · {b[4]}</div>
+          </a>''' for b in BLOG_POSTS[:6]) + '''
+        </div>
+      </div>
+      <div class="py-20 px-6 lg:px-8"><div class="max-w-5xl mx-auto tilt-card glass rounded-3xl p-10 lg:p-14 text-center reveal"><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight mb-4"><span class="gradient-text">Want this customized?</span></h2><p class="text-base md:text-lg text-ckbody max-w-2xl mx-auto mb-8">We do custom workshops and training. Book a call.</p><div class="flex flex-wrap items-center justify-center gap-4"><a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> Book a Demo</a></div></div></div>
+    </section>
+'''
+
+PAGE_CITIES = '''
+    <!-- ========== PAGE: CITIES HUB ========== -->
+    <section data-page="cities" class="page">
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Cities</li></ol></nav></nav>
+      <div class="relative pt-12 pb-16 overflow-hidden">
+        <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+          <div class="reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckpink mb-6"><span class="w-1.5 h-1.5 rounded-full bg-ckpink animate-pulse"></span>13 Cities · 4 Countries</div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-6"><span class="gradient-text">Where We Work</span></h1>
+            <p class="text-lg md:text-xl text-ckbody max-w-3xl mx-auto mb-10 leading-relaxed">UK, US, UAE, and Pakistan. Senior engineers in your time zone. Local market awareness. Global delivery standards.</p>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+''' + ''.join(f'''
+          <a href="#{c[0]}" data-nav="{c[0]}" class="tilt-card glass rounded-2xl p-6 reveal group">
+            <div class="flex items-start justify-between mb-3"><div><i data-lucide="map-pin" class="w-6 h-6 text-ckpink mb-2"></i><h3 class="font-display font-bold text-xl">{c[1]}</h3><div class="text-xs font-mono uppercase tracking-widest text-ckblue">{c[2]}</div></div></div>
+            <p class="text-sm text-ckbody mb-4">{c[3]}</p>
+            <div class="flex items-center gap-2 text-sm text-ckblue">Explore {c[1]} <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+          </a>''' for c in CITIES) + '''
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 pb-16">
+        <div class="tilt-card glass rounded-3xl p-8 lg:p-10 reveal">
+          <h2 class="text-2xl md:text-3xl font-display font-bold mb-6 text-center">Why pick a city-specific agency?</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="text-center"><div class="w-12 h-12 rounded-lg bg-ckblue/10 flex items-center justify-center mx-auto mb-3"><i data-lucide="globe" class="w-6 h-6 text-ckblue"></i></div><h3 class="font-display font-semibold mb-2">Local market awareness</h3><p class="text-sm text-ckbody">We know your competitors, your talent pool, your local SEO landscape, and your regulatory environment.</p></div>
+            <div class="text-center"><div class="w-12 h-12 rounded-lg bg-ckpink/10 flex items-center justify-center mx-auto mb-3"><i data-lucide="clock" class="w-6 h-6 text-ckpink"></i></div><h3 class="font-display font-semibold mb-2">Time-zone aligned</h3><p class="text-sm text-ckbody">Real overlap with your working hours. No async-only communication. No "we'll get back to you tomorrow".</p></div>
+            <div class="text-center"><div class="w-12 h-12 rounded-lg bg-ckpurple/10 flex items-center justify-center mx-auto mb-3"><i data-lucide="shield-check" class="w-6 h-6 text-ckpurple"></i></div><h3 class="font-display font-semibold mb-2">Local compliance</h3><p class="text-sm text-ckbody">GDPR in UK/EU. CCPA in US. PDPL in UAE. PDP in Pakistan. We know what applies to you.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="py-20 px-6 lg:px-8"><div class="max-w-5xl mx-auto tilt-card glass rounded-3xl p-10 lg:p-14 text-center reveal"><h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight mb-4"><span class="gradient-text">Don't see your city?</span></h2><p class="text-base md:text-lg text-ckbody max-w-2xl mx-auto mb-8">We work with clients globally. Book a call and we'll figure out the time-zone logistics.</p><div class="flex flex-wrap items-center justify-center gap-4"><a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> Book a Demo</a></div></div></div>
+    </section>
+'''
+
+PAGE_COOKIES = '''
+    <!-- ========== PAGE: COOKIES ========== -->
+    <section data-page="cookies" class="page">
+      <nav class="breadcrumb pt-28" aria-label="Breadcrumb"><ol class="flex flex-wrap items-center gap-2 text-sm text-ckbody/70 max-w-7xl mx-auto px-6 lg:px-8"><li><a href="#home" data-nav="home" class="hover:text-ckblue transition-colors">Home</a></li><li class="text-ckbody/40">/</li><li class="text-ckbody/90 font-medium" aria-current="page">Cookie Policy</li></ol></nav></nav>
+      <div class="relative pt-12 pb-16 overflow-hidden">
+        <div class="absolute inset-x-0 bottom-0 h-72 perspective-grid opacity-20" aria-hidden="true"></div>
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+          <div class="reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-soft text-xs font-mono uppercase tracking-widest text-ckpink mb-6"><span class="w-1.5 h-1.5 rounded-full bg-ckpink animate-pulse"></span>Legal</div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-6"><span class="gradient-text">Cookie Policy</span></h1>
+            <p class="text-lg md:text-xl text-ckbody max-w-3xl mx-auto mb-10 leading-relaxed">Last updated: August 8, 2026. We use cookies responsibly. No third-party advertising cookies. Ever.</p>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-3xl mx-auto px-6 lg:px-8 pb-16 space-y-6">
+        <div class="tilt-card glass rounded-2xl p-7 reveal"><h2 class="font-display text-2xl font-bold text-ckheading mb-3">What are cookies?</h2><p class="text-ckbody leading-relaxed">Cookies are small text files stored on your device when you visit a website. They help the website remember your actions and preferences over time. We use cookies to make our site work properly, understand how it's used, and improve your experience.</p></div>
+        <div class="tilt-card glass rounded-2xl p-7 reveal"><h2 class="font-display text-2xl font-bold text-ckheading mb-3">Types of cookies we use</h2><ul class="space-y-3 text-ckbody"><li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-ckblue flex-shrink-0 mt-0.5"></i><div><strong class="text-ckheading">Strictly necessary:</strong> Required for the site to function (session, security). Cannot be disabled.</div></li><li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-ckblue flex-shrink-0 mt-0.5"></i><div><strong class="text-ckheading">Analytics:</strong> Anonymous usage data via Google Analytics 4. Helps us improve.</div></li><li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-ckblue flex-shrink-0 mt-0.5"></i><div><strong class="text-ckheading">Functional:</strong> Remember your preferences (theme, language).</div></li><li class="flex items-start gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-ckpink flex-shrink-0 mt-0.5"></i><div><strong class="text-ckheading">Advertising:</strong> We do NOT use advertising cookies. We do NOT run retargeting. We do NOT sell your data.</div></li></ul></div>
+        <div class="tilt-card glass rounded-2xl p-7 reveal"><h2 class="font-display text-2xl font-bold text-ckheading mb-3">Managing cookies</h2><p class="text-ckbody leading-relaxed mb-3">You can control cookies through your browser settings. Most browsers allow you to refuse cookies or alert you when cookies are being sent. Please note that some parts of our site may not function properly if you disable cookies.</p><p class="text-ckbody leading-relaxed">To opt out of Google Analytics across all sites, visit <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" class="text-ckblue hover:underline">tools.google.com/dlpage/gaoptout</a>.</p></div>
+        <div class="tilt-card glass rounded-2xl p-7 reveal"><h2 class="font-display text-2xl font-bold text-ckheading mb-3">Third-party cookies</h2><p class="text-ckbody leading-relaxed">We use minimal third-party services: Google Analytics (analytics), Calendly (booking), and Stripe (payments). Each has its own cookie policy. We do not permit third-party advertising or tracking cookies on our site.</p></div>
+        <div class="tilt-card glass rounded-2xl p-7 reveal"><h2 class="font-display text-2xl font-bold text-ckheading mb-3">Updates to this policy</h2><p class="text-ckbody leading-relaxed">We may update this Cookie Policy from time to time. We will notify you of any material changes by posting the new policy on this page and updating the "Last updated" date above. We encourage you to review this policy periodically.</p></div>
+        <div class="tilt-card glass rounded-2xl p-7 reveal"><h2 class="font-display text-2xl font-bold text-ckheading mb-3">Contact us</h2><p class="text-ckbody leading-relaxed">If you have questions about this Cookie Policy, contact us at <a href="mailto:info@clicktaketech.com" class="text-ckblue hover:underline">info@clicktaketech.com</a> or +44 775 155 3879.</p></div>
+      </div>
+      <div class="py-12 px-6 lg:px-8"><div class="max-w-3xl mx-auto tilt-card glass rounded-3xl p-8 reveal"><h2 class="text-xl font-display font-bold mb-4">Related legal documents</h2><div class="flex flex-wrap gap-4"><a href="#privacy" data-nav="privacy" class="glow-btn rounded-xl px-5 py-2.5 font-display font-semibold text-sm text-white inline-flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4"></i> Privacy Policy</a><a href="#terms" data-nav="terms" class="rounded-xl px-5 py-2.5 font-display font-semibold text-sm glass-soft text-ckheading hover:border-ckblue/40 transition-colors inline-flex items-center gap-2"><i data-lucide="file-text" class="w-4 h-4"></i> Terms of Service</a></div></div></div>
+    </section>
+'''
+
+print("Part 8 (6 new top-level pages: portfolio, pricing, team, resources, cities, cookies) prepared.")
+
+
+# ============================================================================
+# PART 9: ALL 84 SUB-PAGES (services / solutions / case-studies / blog / careers / resources / cities)
+# Generated programmatically from the PAGES_REGISTRY using clicktake_templates.py
+# ============================================================================
+SUB_PAGES_HTML = ""
+for slug, meta in PAGES_REGISTRY.items():
+    template = meta.get("template", "")
+    if template in ("service_detail", "solution_detail", "case_study_detail",
+                    "blog_article", "career_detail", "resource_detail", "city_detail"):
+        SUB_PAGES_HTML += "\n    <!-- ========== PAGE: " + slug.upper() + " ========== -->\n"
+        SUB_PAGES_HTML += render_page(slug, meta)
+        SUB_PAGES_HTML += "\n"
+
+print(f"Part 9 (84 sub-pages: services, solutions, case-studies, blog, careers, resources, cities) prepared. Total: {len(SUB_PAGES_HTML)/1024:.1f} KB")
+
+
+
 # ============================================================================
 # UNIVERSAL FOOTER (4-column)
 # ============================================================================
@@ -3574,6 +3870,8 @@ JS = r'''
 html = (HEAD + AMBIENT + HEADER
         + '<main id="main-content" class="relative" role="main" tabindex="-1">\n'
         + PAGE_HOME + PAGE_SERVICES + PAGE_SOLUTIONS + PAGE_CASES + PAGE_CONTACT + PAGE_ABOUT + PAGE_BLOG + PAGE_CAREERS + PAGE_PRIVACY + PAGE_TERMS
+        + PAGE_PORTFOLIO + PAGE_PRICING + PAGE_TEAM + PAGE_RESOURCES + PAGE_CITIES + PAGE_COOKIES
+        + SUB_PAGES_HTML
         + '</main>\n'
         + FOOTER + JS)
 
@@ -3584,6 +3882,28 @@ html = (html
         .replace("__FAVICON_URI__",     FAVICON_URI)
         .replace("__APPLE_ICON_URI__",  APPLE_ICON_URI)
         .replace("__LOGO_PROD_URL__",   LOGO_PROD_URL))
+
+# Inject the expanded PAGES map for the SPA router (replaces the 10-page map with 100-page map)
+# Generate JS entries from the Python PAGES_REGISTRY
+_js_pages_entries = []
+for _slug, _meta in PAGES_REGISTRY.items():
+    # JS-safe key (slugs are already kebab-safe but may contain hyphens → quote keys)
+    _title = _meta["title"].replace("'", "\\'")
+    _desc = _meta["desc"].replace("'", "\\'").replace("\n", " ")
+    _kw = _meta["kw"].replace("'", "\\'")
+    _url = _meta["url"]
+    _js_pages_entries.append(f"      '{_slug}': {{ title: '{_title}', desc: '{_desc}', kw: '{_kw}', url: '{_url}' }}")
+_js_pages_block = "    const PAGES = {\n" + ",\n".join(_js_pages_entries) + "\n    };\n"
+# Replace the existing PAGES block in the JS — match the const declaration through the closing };
+# that's followed by a blank line + "function navigateTo"
+import re as _re
+html = _re.sub(
+    r"    const PAGES = \{.*?\n    \};\n",
+    _js_pages_block,
+    html,
+    count=1,
+    flags=_re.DOTALL,
+)
 
 OUT = Path("/home/z/my-project/download/clicktake-landing.html")
 OUT.parent.mkdir(parents=True, exist_ok=True)
