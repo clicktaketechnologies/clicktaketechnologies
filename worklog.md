@@ -296,3 +296,43 @@ Stage Summary:
 - Architecture unchanged: Cloudflare Worker (proxy) → Vercel (Next.js app, auto-deploys from GitHub push).
 - After git push, Vercel will auto-deploy and ISR (revalidate=300s) will refresh each page within 5 min of next request.
 - User should hard-refresh browser (Ctrl+Shift+R) to bypass browser cache.
+
+---
+Task ID: design-v6-final
+Agent: main
+Task: Final verification — user reported /case-studies and /contact still showing old design. Multi-patch fix deployed.
+
+Work Log:
+- Patch 1 (commit 0279a77): Added "DESIGN v6 PATCH 2: GLOBAL ENFORCEMENT" to globals.css (~230 lines, 20 rules using attribute selectors). Patched 17 source files (case-studies, contact, blog, team, pricing, portfolio, careers, blog-post, service-detail, solution-detail, solutions, resources, legal, navbar, services, why-choose, process, hero) to remove old-design inline classes at the source.
+- Patch 2 (commit c1514c0): Added "DESIGN v6 PATCH 3" — kill .gradient-text utility + ambient brand-color orbs.
+- Patch 3 (commit b7858db): Source-level fix — removed ambient orbs + gradient-text span from contact-page.tsx hero.
+- Patch 4 (commit 8236fbe): Moved .gradient-text override INTO @layer utilities (root cause: Tailwind v4 layer order beats unlayered rules regardless of specificity).
+- Patch 5 (commit 664a692): Removed NxStoryScene + Nx3DCharacter + Nx3DScene from contact-page and case-studies-page (VLM was seeing these as "blurred wireframe 3D shapes").
+- Patch 6 (commit db7b2b7): Added "DESIGN v6 PATCH 4" — catch-all blur-3xl orb killer. Removed 2 form-section orbs from contact-page.tsx at source.
+- Patch 7 (commit c0fdc47): Killed neon glow shadows on navbar "C" logo + footer logo + deep-dive block badge.
+
+Verification (live site https://clicktaketech.com):
+- /contact HTML: 0 occurrences of from-brand-*, 0 backdrop-blur-md, 0 gradient-text, 0 bg-brand-*/10 blur, 0 blur-3xl. Hero h1 uses font-display (Fraunces), span uses text-[#EC4899]. Form buttons use rounded-xl bg-[#EC4899] (solid pink, 12px radius).
+- /case-studies HTML: 0 occurrences of from-brand-*, 0 backdrop-blur-md, 0 bg-clip-text text-transparent. Filter pills use rounded-[8px] bg-[#EC4899] (active) or border + bg-[#14141A] (inactive). CTA buttons use rounded-[8px] bg-[#EC4899].
+- CSS bundle (3tnnxs_qbix2y.css, 303KB) contains all v6 patches:
+  * P2.1: [class*="bg-clip-text"][class*="text-transparent"] → solid #F5F5F0
+  * P2.2: rounded-full bg-gradient-to-* from-brand-* → solid #EC4899 + 8px radius
+  * P2.3-P2.20: 18 more attribute-selector rules for cards/buttons/badges/forms
+  * P3.1: html.dark .theme-nx .gradient-text (inside @layer utilities) → solid #EC4899
+  * P3.2: [class*="bg-brand-magenta/"][class*="blur-["] → display: none
+  * P4: catch-all blur-3xl + rounded-full → display: none
+- VLM verification: both pages PASS as MODERN EDITORIAL (solid surfaces, solid pink accent, no gradients/glass/glow).
+
+Stage Summary:
+- DESIGN v6 FULLY DEPLOYED on origin/main (commits 0279a77 → c0fdc47, 7 patches).
+- All "old design" tells eliminated from /case-studies and /contact:
+  * Gradient text → solid color (#EC4899 for accents, #F5F5F0 for body)
+  * Glassmorphic cards → solid #14141A surface with crisp 1px border
+  * Pill buttons (9999px) → squircle (8px radius)
+  * Gradient buttons → solid #EC4899
+  * Neon glow shadows → none
+  * Particle/mesh gradient backgrounds → solid #0B0B0F charcoal
+  * Blurred brand-color orbs → removed at source + CSS catch-all killer
+  * 3D wireframe scenes → removed from /contact and /case-studies
+- Architecture unchanged: Cloudflare Worker (proxy) → Vercel (Next.js app, auto-deploys from GitHub push).
+- User should hard-refresh browser (Ctrl+Shift+R) to bypass browser cache.
