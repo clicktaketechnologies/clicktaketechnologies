@@ -790,9 +790,9 @@ html:not(.dark).theme-custom-light body {
       radial-gradient(ellipse 40% 50% at 50% 100%, rgba(155, 61, 255, 0.15) 0%, transparent 60%),
       linear-gradient(180deg, #0A0612 0%, #100820 100%);
   }
-  /* Pink → blue brand gradient for CTA banners */
+  /* v6: solid pink for CTA banners (no gradient) */
   .nx-orange-gradient {
-    background: linear-gradient(135deg, #FF53A9 0%, #E0197A 100%);
+    background: #EC4899;
   }
   .nx-brand-gradient {
     background: none;
@@ -801,32 +801,32 @@ html:not(.dark).theme-custom-light body {
   }
   /* Dark → deep gradient for dark sections */
   .nx-navy-gradient {
-    background: linear-gradient(180deg, #100820 0%, #0A0612 100%);
+    background: #0B0B0F;
   }
-  /* Card with hover lift */
+  /* Card — v6: solid surface, subtle shadow */
   .nx-card {
     background: var(--nx-surface);
     border: 1px solid var(--nx-border);
-    border-radius: 1rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border-radius: 12px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
   }
   .nx-card-hover:hover {
-    transform: translateY(-4px);
-    border-color: var(--nx-brand-pink);
-    box-shadow: 0 20px 40px -16px rgba(255, 83, 169, 0.18);
+    transform: translateY(-2px);
+    border-color: rgba(236, 72, 153, 0.35);
+    box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.5);
   }
-  /* Dark-on-dark card for hero/navy sections */
+  /* Dark-on-dark card — v6: solid surface, no glassmorphism */
   .nx-card-dark {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 1rem;
-    backdrop-filter: blur(12px);
-    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    background: #14141A;
+    border: 1px solid rgba(245, 245, 240, 0.08);
+    border-radius: 12px;
+    backdrop-filter: none;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
   }
   .nx-card-dark:hover {
-    transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 83, 169, 0.5);
+    transform: translateY(-2px);
+    background: #18181F;
+    border-color: rgba(236, 72, 153, 0.35);
   }
   /* Primary CTA — v6: solid pink, squircle, no glow */
   .nx-btn-orange {
@@ -978,25 +978,24 @@ html:not(.dark).theme-custom-light body {
 /* When the site is in dark mode, flip --nx-* tokens to dark palette surfaces
    so the new design renders with proper contrast (dark cards + light text). */
 html.dark .theme-nx {
-  --nx-surface: #100820;
-  --nx-surface-alt: #16102A;
-  --nx-surface-muted: #1E1640;
-  --nx-border: rgba(255, 255, 255, 0.08);
-  --nx-border-strong: rgba(255, 255, 255, 0.16);
-  --nx-ink: #F4F0FF;
-  --nx-ink-soft: #B5A8C8;
-  /* Accessible: #9B8AB8 = 6.32–6.70:1 on dark surfaces (AA). */
-  --nx-ink-muted: #9B8AB8;
-  --background: #0A0612;
-  --foreground: #F4F0FF;
-  --card: #100820;
-  --card-foreground: #F4F0FF;
-  --muted: #1E1640;
+  --nx-surface: #14141A;
+  --nx-surface-alt: #18181F;
+  --nx-surface-muted: #1C1C24;
+  --nx-border: rgba(245, 245, 240, 0.08);
+  --nx-border-strong: rgba(245, 245, 240, 0.16);
+  --nx-ink: #F5F5F0;
+  --nx-ink-soft: #C8C5BD;
+  --nx-ink-muted: #9B978F;
+  --background: #0B0B0F;
+  --foreground: #F5F5F0;
+  --card: #14141A;
+  --card-foreground: #F5F5F0;
+  --muted: #1C1C24;
   /* Accessible: #9B8AB8 = 6.44–6.66:1 on dark surfaces (AA). */
   --muted-foreground: #9B8AB8;
-  --border: rgba(255, 255, 255, 0.08);
-  background: #0A0612;
-  color: #F4F0FF;
+  --border: rgba(245, 245, 240, 0.08);
+  background: #0B0B0F;
+  color: #F5F5F0;
 }
 
 /* Backward compat: legacy class name from previous version */
