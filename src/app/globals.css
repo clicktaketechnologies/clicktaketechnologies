@@ -3234,5 +3234,156 @@ html.theme-elite .ct-story-floater {
 }
 
 /* ════════════════════════════════════════════════════════════════════════
-   END FINAL DESIGN v3
+   DESIGN v5 — site-wide polish (post-v6-audit fixes)
+   Addresses: FAB glow consistency, CTA card border uniformity,
+   body-text contrast on dark surfaces, mobile density, breadcrumb overflow.
+   All rules scoped to .theme-nx so admin pages keep their existing look.
+   ════════════════════════════════════════════════════════════════════════ */
+.theme-nx {
+
+  /* ─── 1. FAB unified glow — applied via .nx-fab-v5 class ─── */
+  /* Multi-layer glow halo (sits behind the gradient core span).
+     Replaces the previous single-shadow look so every floating
+     action button on the site (chat FAB, ToC FAB, scroll-to-top)
+     shares one consistent aesthetic. */
+  .nx-fab-v5 {
+    position: relative;
+    isolation: isolate;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+      0 8px 24px -6px rgba(0, 0, 0, 0.45),
+      0 0 24px -4px rgba(255, 83, 169, 0.35),
+      0 0 40px -6px rgba(19, 109, 255, 0.30);
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
+  }
+  .nx-fab-v5:hover {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.28) inset,
+      0 12px 32px -6px rgba(0, 0, 0, 0.55),
+      0 0 36px -4px rgba(255, 83, 169, 0.55),
+      0 0 60px -6px rgba(19, 109, 255, 0.45);
+  }
+  .nx-fab-v5:active {
+    transform: scale(0.92);
+  }
+
+  /* ─── 2. WhatsApp button — visible hover state + brand-consistent glow ─── */
+  .nx-wa-btn-v5 {
+    position: relative;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+      0 10px 28px -8px rgba(37, 211, 102, 0.45),
+      0 0 32px -8px rgba(37, 211, 102, 0.30);
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
+  }
+  .nx-wa-btn-v5:hover {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.28) inset,
+      0 14px 36px -8px rgba(37, 211, 102, 0.60),
+      0 0 48px -8px rgba(37, 211, 102, 0.45);
+  }
+  .nx-wa-btn-v5:active {
+    transform: scale(0.97);
+  }
+
+  /* ─── 3. CTA card — uniform gradient border + glow ─── */
+  /* The audit flagged that the "Work with us" CTA card looked faint
+     compared to other CTA cards. This makes every .nx-cta-v5 share
+     the same gradient border + soft glow used by .nx-card-dark. */
+  .nx-cta-v5 {
+    position: relative;
+    background:
+      linear-gradient(145deg, rgba(22, 16, 42, 0.75), rgba(12, 8, 24, 0.90)) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid transparent !important;
+    background-image:
+      linear-gradient(145deg, rgba(22, 16, 42, 0.75), rgba(12, 8, 24, 0.90)),
+      linear-gradient(135deg, rgba(255, 83, 169, 0.45), rgba(155, 61, 255, 0.25), rgba(19, 109, 255, 0.45)) !important;
+    background-origin: border-box !important;
+    background-clip: padding-box, border-box !important;
+    box-shadow:
+      0 24px 60px -20px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+      0 1px 0 rgba(255, 255, 255, 0.08) inset,
+      0 0 32px -8px rgba(255, 83, 169, 0.18) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .nx-cta-v5:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 30px 70px -20px rgba(0, 0, 0, 0.65),
+      0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+      0 1px 0 rgba(255, 255, 255, 0.12) inset,
+      0 0 48px -8px rgba(255, 83, 169, 0.30) !important;
+  }
+
+  /* ─── 4. Body text contrast bump on dark surfaces ─── */
+  /* The audit flagged "minor text contrast issues in body paragraphs on
+     dark backgrounds for extended reading". The dark mode token
+     --nx-ink-muted was #9B8AB8 (6.4:1 on dark — passes AA but feels faint
+     on long paragraphs). v5 introduces a dedicated reading color for
+     <p> elements inside .nx-text blocks that's slightly brighter, while
+     keeping --nx-ink-muted for tight metadata (timestamps, captions). */
+  html.dark & {
+    --nx-ink-reading: #C8BBD8; /* 8.0:1 on #100820 — passes AAA */
+  }
+  /* Reading paragraphs inside .nx-text containers (DeepDiveLayout body,
+     NxPageLayout sections) get the brighter reading color. */
+  html.dark & .nx-text p,
+  html.dark & .ck-prose p,
+  html.dark & .nx-text-soft {
+    color: var(--nx-ink-reading, #C8BBD8);
+  }
+  /* Headings stay bright white for hierarchy. */
+  html.dark & .nx-text h2,
+  html.dark & .nx-text h3,
+  html.dark & .nx-text h4 {
+    color: #F4F0FF;
+  }
+  /* Tech-stack chips + metric labels — bump from /60 to /85 for AA on dark */
+  html.dark & .text-muted-foreground {
+    color: #B5A8C8 !important; /* matches --nx-ink-soft, 7.5:1 on #100820 */
+  }
+
+  /* ─── 5. Mobile density — reduce card padding on small screens ─── */
+  /* Audit: "card content density is high, potentially causing readability
+     issues on smaller mobile screens". Slightly tighter padding + smaller
+     font on xs screens prevents text from feeling cramped. */
+  @media (max-width: 380px) {
+    .nx-card,
+    .nx-card-dark {
+      padding: 1rem !important;
+    }
+    .nx-card p,
+    .nx-card-dark p {
+      font-size: 0.8125rem !important;
+      line-height: 1.5 !important;
+    }
+  }
+
+  /* ─── 6. Stat number readability — bump label contrast ─── */
+  /* Audit: "minor text contrast issues in some sub-headers (e.g.,
+     'compounded' in 'Numbers that compounded')". The stat label sits
+     under .nx-stat-num and was using text-white/60. Force /85 on dark. */
+  html.dark & .nx-stats [class*="text-white/60"],
+  html.dark & .nx-stats [class*="text-white/70"] {
+    color: rgba(255, 255, 255, 0.88) !important;
+  }
+
+  /* ─── 7. prefers-reduced-motion ─── */
+  @media (prefers-reduced-motion: reduce) {
+    .nx-fab-v5,
+    .nx-wa-btn-v5,
+    .nx-cta-v5 {
+      transition: none !important;
+    }
+    .nx-fab-v5:hover {
+      transform: none !important;
+    }
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   END DESIGN v5
    ════════════════════════════════════════════════════════════════════════ */

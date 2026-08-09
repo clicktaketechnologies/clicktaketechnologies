@@ -93,26 +93,26 @@ export function NxFooter() {
         <div className="grid gap-10 lg:gap-8 lg:grid-cols-12">
           {/* Brand column */}
           <div className="lg:col-span-4">
-            {/* Logo */}
-            <div className="flex items-center gap-2">
-              <div className="h-10 w-10 rounded-lg nx-brand-gradient grid place-items-center font-black text-white shadow-[0_0_20px_rgba(255,83,169,0.3),0_0_40px_rgba(19,109,255,0.15)]">
+            {/* Logo — v5: sharper container + perfect baseline alignment with header */}
+            <div className="flex items-center gap-2.5">
+              <div className="grid h-10 w-10 place-items-center rounded-xl nx-brand-gradient font-black text-white text-lg leading-none shadow-[0_0_20px_rgba(255,83,169,0.3),0_0_40px_rgba(19,109,255,0.15)] ring-1 ring-white/10">
                 C
               </div>
-              <span className="text-xl font-black tracking-tight nx-text-brand-grad">
+              <span className="text-xl font-black tracking-tight nx-text-brand-grad leading-none">
                 ClickTake
               </span>
             </div>
 
-            {/* Tagline */}
-            <p className="mt-5 text-sm text-white/60 leading-relaxed max-w-sm">
+            {/* Tagline — v5: bumped to /70 for WCAG AA on dark footer */}
+            <p className="mt-5 text-sm text-white/70 leading-relaxed max-w-sm">
               Full-stack digital agency shipping AI-powered websites, SaaS
               platforms, mobile apps and growth systems for ambitious brands
               across the UK, Pakistan, USA &amp; Dubai. 120+ projects delivered
               since {SITE.founded}.
             </p>
 
-            {/* Socials */}
-            <div className="mt-6 flex flex-wrap gap-2">
+            {/* Socials — v5: 44px touch targets with 12px gap (WCAG 2.5.5) */}
+            <div className="mt-6 flex flex-wrap gap-3">
               {SITE.socials.slice(0, 4).map((s) => {
                 const Icon = SOCIAL_ICONS[s.icon] ?? ArrowUpRight;
                 return (
@@ -122,7 +122,7 @@ export function NxFooter() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.name}
-                    className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 grid place-items-center text-white/70 hover:bg-[#FF53A9] hover:text-white hover:border-[#FF53A9] transition"
+                    className="grid h-11 w-11 place-items-center rounded-xl bg-white/5 border border-white/10 text-white/70 hover:bg-[#FF53A9] hover:text-white hover:border-[#FF53A9] hover:scale-110 transition-all duration-200"
                   >
                     <Icon className="h-4 w-4" />
                   </a>
@@ -222,13 +222,13 @@ export function NxFooter() {
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom bar — v5: bumped text to /70 for AA on dark footer */}
         <div className="mt-14 pt-8 border-t border-[#FF53A9]/15 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-xs text-white/40 text-center sm:text-left">
+          <div className="text-xs text-white/70 text-center sm:text-left">
             © {new Date().getFullYear()} {SITE.name}. All rights reserved.
             <span className="hidden sm:inline"> · Built in-house with Next.js + Supabase.</span>
           </div>
-          <div className="flex items-center gap-5 text-xs text-white/50">
+          <div className="flex items-center gap-5 text-xs text-white/70">
             <Link href="/legal/privacy" className="hover:text-[#FF8AC4] transition">Privacy</Link>
             <Link href="/legal/terms" className="hover:text-[#FF8AC4] transition">Terms</Link>
             <Link href="/legal/cookies" className="hover:text-[#FF8AC4] transition">Cookies</Link>

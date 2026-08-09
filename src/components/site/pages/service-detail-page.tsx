@@ -842,7 +842,7 @@ export function ServiceDetailPage({ service }: Props) {
             </div>
           </motion.section>
 
-          {/* ─── 4. WHAT'S INCLUDED ─────────────────────────────── */}
+          {/* ─── 4. WHAT'S INCLUDED — v5: more padding for breathing room ─── */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -851,11 +851,11 @@ export function ServiceDetailPage({ service }: Props) {
             className="mt-12 sm:mt-16"
           >
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4 sm:mb-6">What&apos;s included</h2>
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
               {inclusions.map((inc) => (
                 <div
                   key={inc}
-                  className="flex items-start gap-3 rounded-xl border border-border bg-card/40 backdrop-blur-md p-4"
+                  className="flex items-start gap-3 rounded-xl border border-border bg-card/40 backdrop-blur-md p-4 sm:p-5"
                 >
                   <CheckCircle2 className={`h-5 w-5 shrink-0 ${cat.accentColor}`} />
                   <span className="text-sm leading-relaxed">{inc}</span>
@@ -889,7 +889,7 @@ export function ServiceDetailPage({ service }: Props) {
             </div>
           </motion.section>
 
-          {/* ─── 6. PROCESS ─────────────────────────────────────── */}
+          {/* ─── 6. PROCESS — v5: items-start for crisp vertical alignment ─── */}
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -900,11 +900,11 @@ export function ServiceDetailPage({ service }: Props) {
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4 sm:mb-6">How we engage</h2>
             <ol className="relative border-l border-border pl-6 space-y-6">
               {copy.process.map((step, i) => (
-                <li key={step.t} className="relative">
-                  <span className={`absolute -left-[31px] grid h-6 w-6 place-items-center rounded-full bg-gradient-to-br ${cat.gradient} text-[10px] font-bold text-white`}>
+                <li key={step.t} className="relative items-start">
+                  <span className={`absolute -left-[31px] grid h-6 w-6 place-items-center rounded-full bg-gradient-to-br ${cat.gradient} text-[10px] font-bold text-white ring-2 ring-background`}>
                     {i + 1}
                   </span>
-                  <div className="font-semibold">{step.t}</div>
+                  <div className="font-semibold leading-tight pt-0.5">{step.t}</div>
                   <div className="text-sm text-muted-foreground mt-1 leading-relaxed">{step.d}</div>
                 </li>
               ))}

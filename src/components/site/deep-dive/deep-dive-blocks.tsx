@@ -278,7 +278,7 @@ export function MethodologyStep({
   )
 }
 
-/* ─── FeatureGrid (Tech Stack) ───────────────────────────────────── */
+/* ─── FeatureGrid (Tech Stack) — v5: bigger labels + higher contrast ─── */
 
 export function FeatureGrid({
   categories,
@@ -290,16 +290,16 @@ export function FeatureGrid({
       {categories.map((cat) => (
         <div
           key={cat.name}
-          className="rounded-2xl border nx-bd nx-surface-alt p-5"
+          className="rounded-2xl border nx-bd nx-surface-alt p-5 lg:p-6"
         >
-          <h4 className="text-sm font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)] mb-4">
+          <h4 className="text-[13px] sm:text-sm font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)] mb-4 font-bold">
             {cat.name}
           </h4>
           <ul className="space-y-3">
             {cat.items.map((item) => (
               <li key={item.name}>
-                <div className="text-sm font-semibold nx-text">{item.name}</div>
-                <div className="text-xs nx-text-muted leading-relaxed mt-0.5">
+                <div className="text-[15px] sm:text-base font-semibold nx-text">{item.name}</div>
+                <div className="text-[13px] sm:text-sm nx-text-soft leading-relaxed mt-1">
                   {item.description}
                 </div>
               </li>
@@ -311,7 +311,7 @@ export function FeatureGrid({
   )
 }
 
-/* ─── PillList (Integrations / Compliance) ───────────────────────── */
+/* ─── PillList (Integrations / Compliance) — v5: bigger + higher contrast ─── */
 
 export function PillList({ items }: { items: string[] }) {
   return (
@@ -319,7 +319,7 @@ export function PillList({ items }: { items: string[] }) {
       {items.map((item, i) => (
         <span
           key={i}
-          className="rounded-full border nx-bd-strong nx-surface-muted px-3.5 py-1.5 text-sm nx-text-soft"
+          className="rounded-full border nx-bd-strong nx-surface-muted px-3.5 py-1.5 text-sm nx-text"
         >
           {item}
         </span>

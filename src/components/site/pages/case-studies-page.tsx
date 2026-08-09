@@ -10,7 +10,7 @@ import { NxStoryScene } from "../nx-story-scene";
 import { TiltCard } from "@/components/site/tilt-card";
 import { motion } from "framer-motion";
 import {
-  ArrowUpRight, Sparkles, MapPin, Clock, TrendingUp, CheckCircle2,
+  ArrowLeft, ArrowUpRight, Sparkles, MapPin, Clock, TrendingUp, CheckCircle2,
   AlertCircle, ExternalLink,
 } from "lucide-react";
 import { CASE_STUDIES, type CaseStudy } from "@/lib/site-data";
@@ -199,13 +199,13 @@ export function CaseStudiesIndexPage() {
             </div>
           </motion.div>
 
-          {/* CTA */}
+          {/* CTA — v5: gradient-border glassmorphic card to match other CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-12 rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+            className="nx-cta-v5 mt-12 rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
           >
             <div>
               <div className="flex items-center gap-2 text-lg font-bold">
@@ -237,9 +237,9 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
               <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             href="/case-studies"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 sm:mb-6"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 sm:mb-6 align-middle"
           >
-            ← Back to Case Studies
+            <ArrowLeft className="h-4 w-4" /> Back to Case Studies
           </Link>
 
           <motion.div
@@ -286,7 +286,7 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
             ))}
           </div>
 
-          {/* Challenge */}
+          {/* Challenge — v5: body text uses foreground/90 for AA on dark */}
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -295,10 +295,10 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
             className="mt-12 sm:mt-16"
           >
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4">The challenge</h2>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{cs.challenge}</p>
+            <p className="text-sm sm:text-base text-foreground/90 leading-relaxed">{cs.challenge}</p>
           </motion.section>
 
-          {/* Solution */}
+          {/* Solution — v5: body text uses foreground/90 for AA on dark */}
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -307,7 +307,7 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
             className="mt-12 sm:mt-16"
           >
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4">Our solution</h2>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{cs.solution}</p>
+            <p className="text-sm sm:text-base text-foreground/90 leading-relaxed">{cs.solution}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {cs.tech.map((t) => (
                 <span
@@ -402,13 +402,13 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
             </motion.section>
           )}
 
-          {/* CTA */}
+          {/* CTA — v5: gradient-border glassmorphic card to match other CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-12 rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+            className="nx-cta-v5 mt-12 rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
           >
             <div>
               <div className="flex items-center gap-2 text-lg font-bold">

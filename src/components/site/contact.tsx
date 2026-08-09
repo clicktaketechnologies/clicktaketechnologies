@@ -52,9 +52,9 @@ export function Contact() {
               href="https://wa.me/447391653377"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-7 py-4 text-sm sm:text-base font-bold text-white shadow-xl hover:scale-[1.03] transition"
+              className="nx-wa-btn-v5 group inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-7 py-4 text-sm sm:text-base font-bold text-white shadow-xl transition-transform duration-200 hover:scale-[1.03] active:scale-95"
             >
-              <MessageCircle className="h-4 w-4" />
+              <MessageCircle className="h-4 w-4 transition-transform group-hover:rotate-[-8deg]" />
               WhatsApp Us
             </a>
           </div>

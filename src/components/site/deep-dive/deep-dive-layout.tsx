@@ -166,13 +166,15 @@ function StickyToc({ entries }: { entries: { id: string; label: string }[] }) {
         </div>
       </aside>
 
-      {/* Mobile FAB */}
+      {/* Mobile FAB — v5: gradient border + multi-layer glow */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="xl:hidden fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#FF53A9] to-[#136DFF] text-white shadow-lg shadow-[#FF53A9]/30"
+        className="nx-fab-v5 xl:hidden fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform duration-200 hover:scale-110 active:scale-95"
         aria-label="Open table of contents"
       >
-        <List className="h-5 w-5" />
+        <span className="absolute inset-0 rounded-full bg-gradient-to-br from-[#FF53A9] via-[#9B3DFF] to-[#136DFF]" />
+        <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/25 to-transparent" />
+        <List className="relative z-10 h-5 w-5" />
       </button>
 
       <AnimatePresence>
@@ -342,17 +344,35 @@ function DeepDiveHeroBlock({
         <div className={hasChar ? "grid lg:grid-cols-2 gap-10 lg:gap-16 items-center" : ""}>
           <div>
             {hero.crumbs && hero.crumbs.length > 0 && (
-              <nav className="flex items-center gap-1.5 text-xs text-white/60">
-                {hero.crumbs.map((c, i) => (
-                  <span key={i} className="inline-flex items-center gap-1.5">
-                    {i > 0 && <span className="text-white/30">/</span>}
-                    {c.href ? (
-                      <Link href={c.href} className="hover:text-white transition">{c.label}</Link>
-                    ) : (
-                      <span className="text-white/80">{c.label}</span>
-                    )}
-                  </span>
-                ))}
+              <nav
+                aria-label="Breadcrumb"
+                className="flex flex-wrap items-center gap-1.5 text-xs text-white/70 max-w-full overflow-hidden"
+              >
+                {hero.crumbs.map((c, i) => {
+                  const isLast = i === hero.crumbs!.length - 1;
+                  return (
+                    <span key={i} className="inline-flex items-center gap-1.5 min-w-0">
+                      {i > 0 && <span className="text-white/30 shrink-0" aria-hidden>/</span>}
+                      {c.href && !isLast ? (
+                        <Link
+                          href={c.href}
+                          className="hover:text-white transition truncate max-w-[12rem] sm:max-w-none"
+                          title={c.label}
+                        >
+                          {c.label}
+                        </Link>
+                      ) : (
+                        <span
+                          className="text-white/90 truncate max-w-[14rem] sm:max-w-none"
+                          title={c.label}
+                          aria-current={isLast ? "page" : undefined}
+                        >
+                          {c.label}
+                        </span>
+                      )}
+                    </span>
+                  );
+                })}
               </nav>
             )}
 
