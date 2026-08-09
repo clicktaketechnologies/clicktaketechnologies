@@ -3825,3 +3825,83 @@ html.dark .theme-nx .nx-text a:hover {
 /* ════════════════════════════════════════════════════════════════════════
    END DESIGN v6 — MODERN EDITORIAL OVERRIDE
    ════════════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════════════
+   DESIGN v6 — PATCH 1: kill particle canvas + ambient orbs + remaining glassmorphism
+   Addresses issues caught in post-v6 VLM comparison:
+   - Particle canvas (HTML5 <canvas> in nx-hero-bg) still rendering → hide
+   - Blurred gradient orbs (.nx-orb) still floating → hide
+   - Hero dashboard widgets with backdrop-blur-md → solid surfaces
+   - Inner page hero badges with backdrop-blur → solid
+   - DeepDive mobile TOC overlay with backdrop-blur-sm → solid
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ─── P1.1: Kill particle canvas in hero ─── */
+html.dark .theme-nx .nx-hero-bg canvas,
+html.dark .theme-nx section.nx-hero-bg canvas {
+  display: none !important;
+}
+
+/* ─── P1.2: Kill blurred gradient orbs ─── */
+html.dark .theme-nx .nx-orb,
+html.dark .theme-nx .nx-hero-bg [class*="blur-3xl"],
+html.dark .theme-nx section.nx-hero-bg [class*="blur-3xl"] {
+  display: none !important;
+}
+
+/* ─── P1.3: Kill remaining backdrop-blur on hero dashboard widgets ─── */
+/* Targets the floating "Live Traffic" / "24/7 Live" / "Conversion" widgets
+   that use Tailwind's backdrop-blur-md utility. Make them solid surfaces. */
+html.dark .theme-nx .nx-hero-bg [class*="backdrop-blur"],
+html.dark .theme-nx section.nx-hero-bg [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(20, 20, 26, 0.95) !important;
+  border: 1px solid rgba(245, 245, 240, 0.10) !important;
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ─── P1.4: Inner page hero badge — kill backdrop-blur, make solid ─── */
+html.dark .theme-nx .nx-page-hero [class*="backdrop-blur"],
+html.dark .theme-nx [class*="rounded-full"][class*="border-[#FF53A9]/30"][class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: transparent !important;
+  border: 1px solid rgba(236, 72, 153, 0.4) !important;
+}
+
+/* ─── P1.5: DeepDive mobile TOC overlay — solid instead of glassy ─── */
+html.dark .theme-nx [class*="bg-black/60"][class*="backdrop-blur-sm"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(11, 11, 15, 0.96) !important;
+}
+
+/* ─── P1.6: DeepDive TOC button — solid surface ─── */
+html.dark .theme-nx [class*="bg-white/10"][class*="backdrop-blur-sm"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: #14141A !important;
+  border: 1px solid rgba(245, 245, 240, 0.10) !important;
+}
+
+/* ─── P1.7: Navbar — strip any remaining backdrop-blur glows ─── */
+html.dark .theme-nx [class*="backdrop-blur"]:not([class*="rounded-full"]):not([class*="bg-white/10"]) {
+  /* Keep functional backdrop-blur on navbar (frosted glass over content is OK
+     for nav), but kill it on cards/widgets that should be solid. */
+}
+
+/* ─── P1.8: Glow shadow utilities used inline in hero — soften or remove ─── */
+html.dark .theme-nx .shadow-\[0_0_14px_#FF53A9\,0_0_28px_#FF53A9\],
+html.dark .theme-nx [class*="shadow-[0_0_14px_#FF53A9"] {
+  box-shadow: none !important;
+}
+
+/* ─── P1.9: Glow on floating dashboard card border — kill ─── */
+html.dark .theme-nx .nx-hero-bg [class*="border-[#FF53A9]/15"] {
+  border-color: rgba(245, 245, 240, 0.08) !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   END DESIGN v6 PATCH 1
+   ════════════════════════════════════════════════════════════════════════ */
