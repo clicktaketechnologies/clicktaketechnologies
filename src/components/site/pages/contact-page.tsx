@@ -422,7 +422,7 @@ export function ContactPage() {
                         placeholder="jane@company.com"
                       />
 
-                      {/* Date picker — mock grid of next 5 weekdays */}
+                      {/* Date picker — v5: bumped day/month label contrast for AA */}
                       <Field label="Select a date" error={bookingErrors.date?.message}>
                         <div className="grid grid-cols-5 gap-2">
                           {bookingDates.map((d, idx) => (
@@ -439,9 +439,9 @@ export function ContactPage() {
                                   : "border-border bg-card/40 hover:border-primary/40"
                               }`}
                             >
-                              <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{d.day}</div>
+                              <div className="text-[10px] uppercase tracking-wider text-foreground/70 dark:text-white/85">{d.day}</div>
                               <div className="text-base font-bold">{d.num}</div>
-                              <div className="text-[10px] text-muted-foreground">{d.month}</div>
+                              <div className="text-[10px] text-foreground/70 dark:text-white/85">{d.month}</div>
                             </button>
                           ))}
                         </div>
@@ -531,15 +531,15 @@ export function ContactPage() {
           </div>
         </section>
 
-      {/* FLOATING CHAT */}
-      <div className="fixed bottom-6 right-6 z-50">
+      {/* FLOATING CHAT — v5: gradient border + multi-layer glow + idle pulse */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
         <AnimatePresence>
           {chatOpen && (
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="mb-4 w-80 rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl overflow-hidden"
+              className="w-[20rem] max-w-[calc(100vw-3rem)] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl overflow-hidden"
             >
               <div className="bg-gradient-to-r from-brand-cyan to-brand-magenta p-4 text-white">
                 <div className="flex items-center justify-between">
@@ -587,21 +587,32 @@ export function ContactPage() {
 
         <button
           onClick={() => setChatOpen(!chatOpen)}
-          className="grid h-14 w-14 place-items-center rounded-full bg-gradient-to-r from-brand-cyan to-brand-magenta text-white shadow-2xl shadow-cyan-500/30 hover:scale-110 transition"
-          aria-label="Open chat"
+          className="nx-fab-v5 group grid h-14 w-14 place-items-center rounded-full text-white transition-transform duration-200 hover:scale-110 active:scale-95"
+          aria-label={chatOpen ? "Close chat" : "Open chat"}
         >
-          {chatOpen ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
+          {/* Inner gradient core */}
+          <span className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-cyan via-brand-blue to-brand-magenta" />
+          {/* Glossy highlight */}
+          <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/25 to-transparent" />
+          {/* Idle pulse ring (hidden when open) */}
+          {!chatOpen && (
+            <span className="absolute inset-0 rounded-full bg-brand-cyan/60 animate-ping opacity-40" aria-hidden />
+          )}
+          {/* Icon */}
+          <span className="relative z-10">
+            {chatOpen ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
+          </span>
         </button>
       </div>
     </NxPageLayout>
   );
 }
 
-// ─── Reusable Field wrapper ───
+// ─── Reusable Field wrapper — v5: bumped label contrast for AA on dark ───
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+      <label className="block text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/85 mb-2">
         {label}
       </label>
       {children}

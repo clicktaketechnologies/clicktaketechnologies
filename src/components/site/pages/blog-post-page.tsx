@@ -48,10 +48,10 @@ export function BlogPostPage({ post }: Props) {
         <Nx3DScene density="low" />
 
               <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
+          {/* Breadcrumb — v5: align-middle for crisp icon-text baseline */}
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 sm:mb-6"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 sm:mb-6 align-middle"
           >
             <ArrowLeft className="h-4 w-4" /> Back to Blog
           </Link>
@@ -151,13 +151,13 @@ export function BlogPostPage({ post }: Props) {
             ))}
           </div>
 
-          {/* CTA */}
+          {/* CTA — v5: gradient-border glassmorphic card to match other CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-12 rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+            className="nx-cta-v5 mt-12 rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
           >
             <div>
               <div className="flex items-center gap-2 text-lg font-bold">
