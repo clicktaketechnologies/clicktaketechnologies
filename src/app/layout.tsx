@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces, Inter_Tight } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -27,6 +27,25 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// DESIGN v6 — distinctive display fonts to escape the "Inter-only SaaS template" look.
+// Fraunces: high-contrast serif used for hero H1 only (editorial, premium feel).
+// Inter Tight: tighter geometric sans used for section H2/H3 (modern, technical).
+// Both fall back to existing Geist sans if loading fails.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "900"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const interTight = Inter_Tight({
+  variable: "--font-inter-tight",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 // Mobile-optimized viewport — viewport-fit=cover enables safe-area-inset
@@ -309,7 +328,7 @@ export default async function RootLayout({
         ))}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} ${interTight.variable} antialiased bg-background text-foreground`}
       >
         <ThemeProvider
           attribute="class"
