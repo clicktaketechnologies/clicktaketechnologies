@@ -4,9 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import{
   NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
-import { Nx3DScene } from "../nx-3d-scene";
-import { Nx3DCharacter } from "../nx-3d-character";
-import { NxStoryScene } from "../nx-story-scene";
+// v6: 3D scene removed // import { Nx3DScene } from "../nx-3d-scene";
+// v6: 3D character removed // import { Nx3DCharacter } from "../nx-3d-character";
+// v6: story scene removed // import { NxStoryScene } from "../nx-story-scene";
 import { TiltCard } from "@/components/site/tilt-card";
 import { motion } from "framer-motion";
 import {
@@ -104,14 +104,12 @@ export function CaseStudiesIndexPage() {
 
   return (
     <NxPageLayout>
-        {/* 3D character — floats in hero area, lg+ only */}
-{/* Per-page 3D Story Scene — case-studies variant. Sits behind hero content. */}
-        <NxStoryScene variant="case-studies" />
-                <div className="pointer-events-none absolute right-0 top-24 lg:top-32 xl:top-40 z-[5] hidden lg:block" aria-hidden="true">
+        {/* v6: 3D scenes removed — solid editorial background */}
+        {/* <NxStoryScene variant="case-studies" /> */}
+        {/* <div className="pointer-events-none absolute right-0 top-24 lg:top-32 xl:top-40 z-[5] hidden lg:block" aria-hidden="true">
           <Nx3DCharacter variant="case-studies" size="md" />
-        </div>
-        {/* 3D floating geometric accents */}
-        <Nx3DScene density="low" />
+        </div> */}
+        {/* <Nx3DScene density="low" /> */}
 
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero */}
