@@ -149,8 +149,7 @@ export function ContactPage() {
               {/* HERO */}
         <section className="relative overflow-hidden py-12 lg:py-16">
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute left-1/4 top-0 h-[450px] w-[450px] rounded-full bg-brand-magenta/10 blur-[130px]" />
-            <div className="absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-brand-cyan/10 blur-[130px]" />
+            {/* v6: ambient orbs removed — solid charcoal background */}
           </div>
 
           <div className="relative mx-auto max-w-7xl px-4 text-center">
@@ -160,7 +159,7 @@ export function ContactPage() {
                 Get in Touch
               </div>
               <h1 className="font-display text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-                Let&apos;s start the <span className="gradient-text">conversation.</span>
+                Let&apos;s start the <span className="text-[#EC4899]">conversation.</span>
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
                 Submit a project inquiry or book a discovery call directly on our calendar.
