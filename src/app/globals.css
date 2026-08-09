@@ -2863,3 +2863,376 @@ html.theme-elite .ct-story-floater {
 /* ════════════════════════════════════════════════════════════════════════
    END DESIGN REFRESH v2
    ════════════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════════════
+   CLICKTAKE FINAL DESIGN v3 (2026) — Dramatic Visual Overhaul
+   ════════════════════════════════════════════════════════════════════════
+   This is the FINAL DESIGN LAYER — aggressive visible overrides that
+   transform the site's appearance at first glance. Not subtle polish.
+
+   Key visible changes:
+   1. Glassmorphic navbar with animated gradient bottom-border
+   2. Bigger, bolder hero typography with neon glow
+   3. New button system: gradient fill + glow halo + animated shimmer
+   4. Animated gradient borders on key cards (hero card, CTA sections)
+   5. Enhanced stat numbers with multi-stop gradient + drop-shadow glow
+   6. More dramatic section backgrounds with mesh gradients
+   7. New eyebrow pill style with gradient background
+   8. Stronger card shadows + 3D tilt on hover
+   9. New footer treatment with gradient top-border
+   10. Visible "aurora" gradient ribbons in hero background
+
+   All rules scoped to .theme-nx so admin pages keep their existing look.
+   ════════════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+
+  /* ─── 1. Glassmorphic Navbar ─── */
+  .theme-nx header.fixed,
+  .theme-nx header[class*="fixed"] {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 6, 18, 0.92) 0%,
+      rgba(16, 8, 32, 0.85) 100%
+    ) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border-bottom: 1px solid transparent !important;
+    border-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 83, 169, 0.5) 20%,
+      rgba(155, 61, 255, 0.5) 50%,
+      rgba(19, 109, 255, 0.5) 80%,
+      transparent 100%
+    ) 1 !important;
+    box-shadow:
+      0 4px 30px rgba(0, 0, 0, 0.3),
+      0 1px 0 rgba(255, 255, 255, 0.05) inset !important;
+  }
+  /* When navbar uses light surface (inner pages, light mode), keep glassmorphic
+     but use light glass instead of dark glass. */
+  html:not(.dark) .theme-nx header.fixed:not([class*="nx-hero-bg"]) {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(248, 246, 252, 0.85) 100%
+    ) !important;
+  }
+
+  /* ─── 2. Bigger, Bolder Hero Typography ─── */
+  .theme-nx .nx-hero-bg h1,
+  .theme-nx section.nx-hero-bg h1 {
+    letter-spacing: -0.04em !important;
+    line-height: 1.02 !important;
+    text-shadow:
+      0 0 80px rgba(255, 83, 169, 0.25),
+      0 0 40px rgba(155, 61, 255, 0.15) !important;
+  }
+  /* Boost the brand-gradient headline line specifically */
+  .theme-nx .nx-hero-bg h1 .nx-text-brand-grad,
+  .theme-nx section.nx-hero-bg h1 .nx-text-brand-grad {
+    filter: drop-shadow(0 0 30px rgba(255, 83, 169, 0.4))
+            drop-shadow(0 0 60px rgba(19, 109, 255, 0.25));
+  }
+
+  /* ─── 3. New Button System ─── */
+  /* Primary CTA — animated gradient + glow halo */
+  .theme-nx .nx-btn-orange {
+    background: linear-gradient(
+      135deg,
+      #FF53A9 0%,
+      #FF8AC4 25%,
+      #9B3DFF 60%,
+      #136DFF 100%
+    ) !important;
+    background-size: 200% 200% !important;
+    animation: nx-btn-gradient-shift 4s ease infinite !important;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+      0 10px 30px -8px rgba(255, 83, 169, 0.6),
+      0 6px 20px -6px rgba(155, 61, 255, 0.4),
+      0 0 60px -10px rgba(19, 109, 255, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    position: relative;
+    overflow: hidden;
+  }
+  .theme-nx .nx-btn-orange::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.4) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+  }
+  .theme-nx .nx-btn-orange:hover::before {
+    transform: translateX(100%);
+  }
+  .theme-nx .nx-btn-orange:hover {
+    transform: translateY(-2px) !important;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.25) inset,
+      0 16px 40px -8px rgba(255, 83, 169, 0.75),
+      0 10px 30px -6px rgba(155, 61, 255, 0.55),
+      0 0 80px -10px rgba(19, 109, 255, 0.45) !important;
+  }
+
+  @keyframes nx-btn-gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Outline button — glassmorphic with gradient border */
+  .theme-nx .nx-btn-outline-light {
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1.5px solid transparent !important;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)),
+      linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%) !important;
+    background-origin: border-box !important;
+    background-clip: padding-box, border-box !important;
+    box-shadow:
+      0 8px 24px -8px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
+    position: relative;
+    overflow: hidden;
+  }
+  .theme-nx .nx-btn-outline-light:hover {
+    background-image:
+      linear-gradient(rgba(255, 83, 169, 0.12), rgba(19, 109, 255, 0.12)),
+      linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow:
+      0 12px 30px -8px rgba(255, 83, 169, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset !important;
+  }
+
+  /* ─── 4. Animated Gradient Borders on Cards ─── */
+  /* Apply to: hero dashboard card, CTA section, key feature cards */
+  .theme-nx .nx-card-dark,
+  .theme-nx section.nx-hero-bg .nx-card-dark {
+    background: linear-gradient(
+      145deg,
+      rgba(22, 16, 42, 0.85) 0%,
+      rgba(12, 8, 24, 0.95) 100%
+    ) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid transparent !important;
+    background-image:
+      linear-gradient(145deg, rgba(22, 16, 42, 0.85), rgba(12, 8, 24, 0.95)),
+      linear-gradient(135deg, rgba(255, 83, 169, 0.5), rgba(155, 61, 255, 0.3), rgba(19, 109, 255, 0.5)) !important;
+    background-origin: border-box !important;
+    background-clip: padding-box, border-box !important;
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+      0 1px 0 rgba(255, 255, 255, 0.1) inset !important;
+  }
+
+  /* ─── 5. Enhanced Stat Numbers ─── */
+  .theme-nx .nx-stat-num {
+    background: linear-gradient(
+      135deg,
+      #FF53A9 0%,
+      #FF8AC4 25%,
+      #9B3DFF 60%,
+      #4A90D9 100%
+    ) !important;
+    background-size: 200% 200% !important;
+    animation: nx-stat-gradient-shift 6s ease infinite !important;
+    filter: drop-shadow(0 0 20px rgba(255, 83, 169, 0.3))
+            drop-shadow(0 0 40px rgba(19, 109, 255, 0.2));
+  }
+  @keyframes nx-stat-gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* ─── 6. Dramatic Section Backgrounds ─── */
+  /* Add mesh gradient ribbons to hero and dark sections */
+  .theme-nx .nx-hero-bg {
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 0%, rgba(255, 83, 169, 0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 100% 30%, rgba(19, 109, 255, 0.28) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 50% 100%, rgba(155, 61, 255, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 30% at 80% 80%, rgba(255, 138, 196, 0.12) 0%, transparent 50%),
+      linear-gradient(180deg, #0A0612 0%, #100820 60%, #16102A 100%) !important;
+  }
+
+  .theme-nx .nx-navy-gradient {
+    background:
+      radial-gradient(ellipse 50% 40% at 30% 0%, rgba(255, 83, 169, 0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 80% 100%, rgba(19, 109, 255, 0.12) 0%, transparent 60%),
+      linear-gradient(180deg, #100820 0%, #0A0612 50%, #100820 100%) !important;
+  }
+
+  /* ─── 7. New Eyebrow Pill Style ─── */
+  .theme-nx .nx-eyebrow {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 83, 169, 0.12),
+      rgba(19, 109, 255, 0.08)
+    );
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 83, 169, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* ─── 8. Stronger Card Shadows + 3D Tilt ─── */
+  .theme-nx .nx-card {
+    box-shadow:
+      0 4px 12px rgba(10, 6, 18, 0.06),
+      0 1px 2px rgba(10, 6, 18, 0.04) !important;
+  }
+  .theme-nx .nx-card-hover:hover {
+    transform: translateY(-6px) !important;
+    box-shadow:
+      0 24px 48px -16px rgba(255, 83, 169, 0.20),
+      0 12px 24px -8px rgba(19, 109, 255, 0.15),
+      0 0 0 1px rgba(255, 83, 169, 0.2) !important;
+  }
+
+  /* ─── 9. Footer Gradient Top-Border ─── */
+  .theme-nx footer {
+    position: relative;
+  }
+  .theme-nx footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 83, 169, 0.5) 20%,
+      rgba(155, 61, 255, 0.6) 50%,
+      rgba(19, 109, 255, 0.5) 80%,
+      transparent 100%
+    );
+  }
+
+  /* ─── 10. Aurora Ribbon in Hero ─── */
+  /* Adds visible flowing aurora-like ribbons behind hero content */
+  .theme-nx .nx-hero-bg .nx-aurora-ribbon {
+    position: absolute;
+    width: 200%;
+    height: 200px;
+    pointer-events: none;
+    opacity: 0.35;
+    filter: blur(40px);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 83, 169, 0.6) 30%,
+      rgba(155, 61, 255, 0.4) 50%,
+      rgba(19, 109, 255, 0.6) 70%,
+      transparent 100%
+    );
+    animation: nx-aurora-flow 12s linear infinite;
+  }
+  @keyframes nx-aurora-flow {
+    0% { transform: translateX(-30%) translateY(0) skewY(-2deg); }
+    50% { transform: translateX(-20%) translateY(-20px) skewY(2deg); }
+    100% { transform: translateX(-30%) translateY(0) skewY(-2deg); }
+  }
+
+  /* ─── 11. Logo Cloud + Marquee Enhancement ─── */
+  .theme-nx .nx-brand-gradient {
+    background: linear-gradient(
+      135deg,
+      #FF53A9 0%,
+      #FF8AC4 20%,
+      #9B3DFF 50%,
+      #4A90D9 80%,
+      #136DFF 100%
+    ) !important;
+    background-size: 200% 200% !important;
+    animation: nx-btn-gradient-shift 5s ease infinite !important;
+  }
+
+  /* ─── 12. Headline Glow on Scroll Reveal ─── */
+  .theme-nx [data-nx-reveal].is-visible h2,
+  .theme-nx [data-nx-reveal].is-visible h3 {
+    animation: nx-headline-glow 1s ease-out;
+  }
+  @keyframes nx-headline-glow {
+    0% {
+      text-shadow: 0 0 0 transparent;
+    }
+    50% {
+      text-shadow:
+        0 0 30px rgba(255, 83, 169, 0.4),
+        0 0 60px rgba(19, 109, 255, 0.2);
+    }
+    100% {
+      text-shadow: 0 0 0 transparent;
+    }
+  }
+
+  /* ─── 13. Pill Badge Glow (for hero badge) ─── */
+  .theme-nx .nx-hero-bg [class*="rounded-full"][class*="border-[#FF53A9]"] {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 83, 169, 0.15),
+      rgba(155, 61, 255, 0.10)
+    ) !important;
+    box-shadow:
+      0 0 24px rgba(255, 83, 169, 0.25),
+      0 0 0 1px rgba(255, 83, 169, 0.3) inset !important;
+    backdrop-filter: blur(8px) !important;
+  }
+
+  /* ─── 14. Section Title Underline Accent ─── */
+  /* Adds a gradient underline below section titles (h2) for visual rhythm */
+  .theme-nx .nx-text-soft + .nx-text-soft,
+  .theme-nx h2.nx-text::after {
+    /* no-op — kept here for documentation; the underline is opt-in
+       via .nx-title-underline utility class below */
+  }
+  .theme-nx .nx-title-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .theme-nx .nx-title-underline::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #FF53A9, #9B3DFF, #136DFF);
+    box-shadow: 0 0 16px rgba(255, 83, 169, 0.4);
+  }
+
+  /* ─── 15. prefers-reduced-motion: kill animations only ─── */
+  @media (prefers-reduced-motion: reduce) {
+    .theme-nx .nx-btn-orange,
+    .theme-nx .nx-stat-num,
+    .theme-nx .nx-brand-gradient {
+      animation: none !important;
+    }
+    .theme-nx .nx-hero-bg .nx-aurora-ribbon {
+      display: none;
+    }
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   END FINAL DESIGN v3
+   ════════════════════════════════════════════════════════════════════════ */

@@ -134,6 +134,13 @@ export function NxPageHero({
           the hero's brand feel without competing with the copy. */}
       {storyVariant && <NxStoryScene variant={storyVariant} />}
 
+      {/* Aurora ribbons — flowing gradient bands (FINAL DESIGN v3) */}
+      <div className="nx-aurora-ribbon" style={{ top: "10%", left: "-50%", zIndex: 0 }} />
+      <div
+        className="nx-aurora-ribbon"
+        style={{ top: "50%", left: "-50%", zIndex: 0, animationDelay: "5s", opacity: 0.22 }}
+      />
+
       {/* Subtle dot grid + orbs (matches homepage hero) */}
       <div className="absolute inset-0 nx-dot-grid opacity-30 pointer-events-none" />
       <div className="absolute top-10 -left-20 h-72 w-72 rounded-full bg-[#FF53A9]/15 blur-3xl nx-orb pointer-events-none" />
@@ -193,9 +200,13 @@ export function NxPageHero({
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.05 }}
-              className={`mt-5 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-white leading-[1.08] ${
+              className={`mt-5 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-[-0.04em] text-white leading-[1.04] ${
                 isEffCenter ? "text-center mx-auto max-w-4xl" : "max-w-3xl"
               }`}
+              style={{
+                textShadow:
+                  "0 0 80px rgba(255, 83, 169, 0.20), 0 0 40px rgba(155, 61, 255, 0.12)",
+              }}
             >
               {title}
             </motion.h1>

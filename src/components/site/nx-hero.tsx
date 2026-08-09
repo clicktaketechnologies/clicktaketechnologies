@@ -156,6 +156,17 @@ export function NxHero() {
       ref={heroRef}
       className="relative overflow-hidden nx-hero-bg pt-28 sm:pt-32 lg:pt-36 pb-20 lg:pb-28"
     >
+      {/* Aurora ribbons — flowing gradient bands behind everything */}
+      <div className="nx-aurora-ribbon" style={{ top: "10%", left: "-50%", zIndex: 0 }} />
+      <div
+        className="nx-aurora-ribbon"
+        style={{ top: "40%", left: "-50%", zIndex: 0, animationDelay: "4s", opacity: 0.25 }}
+      />
+      <div
+        className="nx-aurora-ribbon"
+        style={{ top: "70%", left: "-50%", zIndex: 0, animationDelay: "8s", opacity: 0.2 }}
+      />
+
       {/* Particle canvas */}
       <canvas
         ref={canvasRef}
@@ -208,12 +219,12 @@ export function NxHero() {
               Connecting in a Better Way
             </motion.div>
 
-            {/* Headline — bold gradient text */}
+            {/* Headline — bold gradient text (FINAL DESIGN v3: bigger, tighter, glowing) */}
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.05 }}
-              className="mt-6 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight leading-[1.05]"
+              className="mt-6 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[-0.04em] leading-[1.02]"
             >
               <span className="block nx-text-hero-grad">Web Design Services</span>
               <span className="block nx-text-brand-grad animate-gradient">That Build, Market</span>
