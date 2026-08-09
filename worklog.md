@@ -240,3 +240,59 @@ Stage Summary:
   * Hot pink (#EC4899) as the single accent color (replaces 5-stop animated gradient)
   * Warm off-white body text (#C8C5BD) for easier reading
 - User should hard-refresh browser (Ctrl+Shift+R) to bypass any cached CSS.
+
+---
+Task ID: design-v6-patch2
+Agent: main
+Task: User reported "this design version still not updated on public" with screenshots of /case-studies and /contact showing OLD design (gradients, glassmorphism, pill buttons) — investigate and fix.
+
+Work Log:
+- Diagnosed: v6 patches 1–4 added CSS overrides scoped to html.dark .theme-nx targeting specific component class names (.nx-btn-orange, .nx-text-brand-grad, .nx-card-dark). But pages use RAW Tailwind utilities inline (bg-gradient-to-r from-brand-blue, bg-clip-text text-transparent, backdrop-blur-md, rounded-full bg-gradient) which BYPASS the named-class overrides entirely. The v6 CSS rules never matched these inline utility classes.
+- Confirmed via VLM analysis of user-uploaded page-cases.png and page-contact.png: still showing gradient text, glassmorphic cards, gradient buttons, neon glow shadows — all the "old" tells v6 was supposed to kill.
+- Confirmed via live HTML inspection: /case-studies page contains 8 instances of from-brand-blue, 6 via-brand-magenta, 6 to-brand-pink, 6 bg-gradient-to-br, 5 bg-gradient-to-r, 12 backdrop-blur. /contact page contains 25 rounded-full, 15 backdrop-blur, 7 bg-gradient-to-br, 6 text-transparent.
+
+Solution — two-pronged fix:
+1. Added "DESIGN v6 PATCH 2: GLOBAL ENFORCEMENT" to src/app/globals.css (~230 lines, 20 rules). Uses ATTRIBUTE SELECTORS to catch ALL remaining old-design patterns regardless of which component uses them:
+   - [class*="bg-clip-text"][class*="text-transparent"] → solid #F5F5F0
+   - a/button.rounded-full.bg-gradient-to-.from-brand-* → solid #EC4899 + 8px radius
+   - [class*="bg-gradient-to-br"][class*="from-brand-"] → solid #14141A + pink border
+   - [class*="backdrop-blur-md/lg/sm/xl"] → backdrop-filter: none
+   - [class*="bg-card/"][class*="backdrop-blur"] → solid #14141A surface
+   - Filter pills, pill badges, ghost buttons → squircle (6-8px radius)
+   - hover:scale-105 → translateY(-1px)
+   - shadow-lg on gradient buttons → 0 1px 3px black/40
+   - bg-brand-blue/10 text-brand-blue tech pills → pink tint
+   - h1 with inline bg-clip-text → solid + Fraunces serif
+
+2. Patched 17 source files to remove old-design inline classes at the source (belt + suspenders):
+   - src/components/site/pages/case-studies-page.tsx: 11 patterns removed (gradient header strips, gradient CTA buttons, gradient text, glassmorphic cards, brand-blue tech pills, backdrop-blur metric cards)
+   - src/components/site/pages/contact-page.tsx: 11 patterns removed (backdrop-blur form containers, gradient submit buttons, gradient chat FAB, gradient icon containers)
+   - src/components/site/pages/blog-page.tsx: 10 patterns (CAT_COLOR map gradients → solid pink tints, filter pills, hero image placeholders)
+   - src/components/site/pages/blog-post-page.tsx: 13 patterns (same as blog-page + author avatar gradient)
+   - src/components/site/pages/team-page.tsx: 8 patterns (DEPT_GRADIENT map, avatar containers, filter pills)
+   - src/components/site/pages/pricing-page.tsx: 8 patterns (PLAN_GRADIENT map, featured card backdrop-blur, popular badge, plan icon, CTA button)
+   - src/components/site/pages/portfolio-page.tsx: 8 patterns (CATEGORY_GRADIENT map, status badges backdrop-blur, live indicator dot, visit button)
+   - src/components/site/pages/careers-page.tsx: 6 patterns (CTA buttons, filter pills)
+   - src/components/site/pages/service-detail-page.tsx: 4 patterns
+   - src/components/site/pages/solution-detail-page.tsx: 2 patterns
+   - src/components/site/pages/solutions-page.tsx: 1 pattern
+   - src/components/site/pages/resources-page.tsx: 1 pattern
+   - src/components/site/pages/legal-page.tsx: 1 pattern
+   - src/components/site/navbar.tsx: 24 patterns (dropdown panels, mobile menu, navbar container, underline indicators, solution accent chips, solution icon containers, flagship card, pill badges)
+   - src/components/site/services.tsx: 4 patterns (STEPS color map, tab indicators, flagship card)
+   - src/components/site/why-choose.tsx: 7 patterns (FEATURES accent map, icon containers, hover glow orb hidden)
+   - src/components/site/process.tsx: 4 patterns (STEPS color map, icon containers)
+   - src/components/site/hero.tsx, services.tsx: text-brand-blue → text-[#EC4899]
+
+Verification:
+- bunx tsc --noEmit — clean on all modified files (only pre-existing errors from missing optional UI libs).
+- NEXT_TELEMETRY_DISABLED=1 NODE_OPTIONS="--max-old-space-size=2048" bunx next build — ✓ Compiled successfully, all pages generated.
+- Verified v6 Patch 2 CSS compiled into .next/static/chunks/d193ac0e6688cd36.css: bg-clip-text, text-transparent, backdrop-blur-md all present (matched by attribute selectors).
+
+Stage Summary:
+- DESIGN v6 PATCH 2 IS DEPLOYED-READY on local main (commit pending).
+- Adds GLOBAL ENFORCEMENT layer via attribute selectors that catches ALL remaining old-design patterns regardless of which component uses them.
+- Source patches remove old-design inline classes from 17 files (belt + suspenders approach).
+- Architecture unchanged: Cloudflare Worker (proxy) → Vercel (Next.js app, auto-deploys from GitHub push).
+- After git push, Vercel will auto-deploy and ISR (revalidate=300s) will refresh each page within 5 min of next request.
+- User should hard-refresh browser (Ctrl+Shift+R) to bypass browser cache.

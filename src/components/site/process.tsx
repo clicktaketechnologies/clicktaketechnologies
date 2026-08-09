@@ -23,7 +23,7 @@ const STEPS: Step[] = [
     title: "Discover",
     desc: "Audit, user interviews, competitor analysis",
     icon: Search,
-    color: "from-brand-cyan to-brand-blue",
+    color: "bg-[#EC4899]/15 text-[#EC4899]",
     glow: "shadow-cyan-500/25",
   },
   {
@@ -31,7 +31,7 @@ const STEPS: Step[] = [
     title: "Strategy",
     desc: "Roadmap, KPIs, scope, sprint plan",
     icon: Brain,
-    color: "from-brand-blue to-sky-600",
+    color: "bg-[#EC4899]/15 text-[#EC4899]",
     glow: "shadow-blue-500/25",
   },
   {
@@ -39,7 +39,7 @@ const STEPS: Step[] = [
     title: "Design",
     desc: "Wireframes, UI, brand, prototype",
     icon: Pencil,
-    color: "from-brand-cyan to-teal-500",
+    color: "bg-[#EC4899]/15 text-[#EC4899]",
     glow: "shadow-sky-500/25",
   },
   {
@@ -47,7 +47,7 @@ const STEPS: Step[] = [
     title: "Develop",
     desc: "Build, integrate, test, document",
     icon: Cog,
-    color: "from-teal-500 to-brand-cyan",
+    color: "bg-[#EC4899]/15 text-[#EC4899]",
     glow: "shadow-teal-500/25",
   },
   {
@@ -55,7 +55,7 @@ const STEPS: Step[] = [
     title: "Launch",
     desc: "Deploy, monitor, train, hand over",
     icon: Rocket,
-    color: "from-brand-magenta to-brand-blue",
+    color: "bg-[#EC4899]/15 text-[#EC4899]",
     glow: "shadow-fuchsia-500/25",
   },
   {
@@ -63,7 +63,7 @@ const STEPS: Step[] = [
     title: "Grow",
     desc: "Optimize, A/B test, scale, repeat",
     icon: TrendingUp,
-    color: "from-amber-500 to-brand-pink",
+    color: "bg-[#EC4899]/15 text-[#EC4899]",
     glow: "shadow-amber-500/25",
   },
 ];
@@ -107,7 +107,7 @@ export function Process() {
               <div className="group relative h-full rounded-2xl glass p-6 sm:p-7 hover:ct-divider hover:-translate-y-1 transition">
                 <div className="flex items-center justify-between">
                   <span className="text-3xl font-black gradient-text">{s.n}</span>
-                  <span className={`grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br ${s.color} text-white shadow-lg ${s.glow} group-hover:scale-110 transition-transform`}>
+                  <span className={`grid h-10 w-10 place-items-center rounded-xl ${s.color} shadow-sm group-hover:scale-110 transition-transform`}>
                     <s.icon className="h-5 w-5" />
                   </span>
                 </div>

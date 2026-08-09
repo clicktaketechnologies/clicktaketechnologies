@@ -73,7 +73,7 @@ export function LegalPage({ icon, title, lastUpdated, badge, accentClass = "bg-b
               <motion.div
                 key={s.num}
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                className="p-6 rounded-2xl border border-border bg-card/40 backdrop-blur-md shadow-sm transition-colors hover:bg-card/60 hover:border-border/80"
+                className="p-6 rounded-2xl border border-border bg-[#14141A] shadow-sm transition-colors hover:bg-card/60 hover:border-border/80"
               >
                 <h2 className="text-lg font-display font-bold text-foreground mb-3 flex items-center gap-2">
                   <span className="text-primary text-xs">{s.num}</span> {s.title}

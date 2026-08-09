@@ -155,7 +155,7 @@ export function ContactPage() {
 
           <div className="relative mx-auto max-w-7xl px-4 text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-4 py-1.5 text-xs backdrop-blur-xl mb-6">
+              <div className="inline-flex items-center gap-2 rounded-[8px] border border-[#EC4899]/30 bg-transparent px-4 py-1.5 text-xs mb-6">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
                 Get in Touch
               </div>
@@ -179,10 +179,10 @@ export function ContactPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className="group rounded-2xl border border-border/40 bg-card/50 backdrop-blur-md p-5 transition-all hover:border-primary/30 hover:shadow-lg"
+                className="group rounded-2xl border border-border/40 bg-[#14141A] p-5 transition-all hover:border-[#EC4899]/30"
               >
                 <div className="flex items-start gap-3">
-                  <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${o.color} text-white`}>
+                  <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#EC4899]/15 text-[#EC4899]`}>
                     <MapPin className="h-4 w-4" />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -209,12 +209,12 @@ export function ContactPage() {
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 backdrop-blur-xl p-6 lg:p-8"
+              className="relative overflow-hidden rounded-3xl border border-border/60 bg-[#14141A] p-6 lg:p-8"
             >
               <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-brand-cyan/20 blur-3xl" />
               <div className="relative">
                 <div className="flex items-center gap-2 mb-6">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-r from-brand-cyan to-brand-blue text-white">
+                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#EC4899] text-white">
                     <MessageSquare className="h-5 w-5" />
                   </div>
                   <div>
@@ -336,7 +336,7 @@ export function ContactPage() {
                       <button
                         type="submit"
                         disabled={inquirySubmitting}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-magenta px-6 py-3 font-semibold text-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] transition"
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#EC4899] px-6 py-3 font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5 transition"
                       >
                         {inquirySubmitting ? "Sending..." : "Send Inquiry"} <Send className="h-4 w-4" />
                       </button>
@@ -351,12 +351,12 @@ export function ContactPage() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 backdrop-blur-xl p-6 lg:p-8"
+              className="relative overflow-hidden rounded-3xl border border-border/60 bg-[#14141A] p-6 lg:p-8"
             >
               <div className="absolute -right-24 top-0 h-72 w-72 rounded-full bg-brand-magenta/20 blur-3xl" />
               <div className="relative">
                 <div className="flex items-center gap-2 mb-6">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-r from-brand-magenta to-brand-pink text-white">
+                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#EC4899] text-white">
                     <Calendar className="h-5 w-5" />
                   </div>
                   <div>
@@ -476,7 +476,7 @@ export function ContactPage() {
                       <button
                         type="submit"
                         disabled={bookingSubmitting}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-magenta to-brand-pink px-6 py-3 font-semibold text-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] transition"
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#EC4899] px-6 py-3 font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5 transition"
                       >
                         {bookingSubmitting ? "Booking..." : "Confirm Booking"} <Calendar className="h-4 w-4" />
                       </button>
@@ -502,13 +502,13 @@ export function ContactPage() {
                   transition={{ delay: i * 0.1 }}
                 >
                   <TiltCard
-                    className="group/tilt flex items-center gap-4 overflow-hidden rounded-2xl border border-border/60 bg-card/50 p-4 backdrop-blur-md transition-colors duration-300 hover:border-primary/40"
+                    className="group/tilt flex items-center gap-4 overflow-hidden rounded-2xl border border-border/60 bg-[#14141A] p-4 transition-colors duration-300 hover:border-[#EC4899]/40"
                     glow={true}
                     shine={true}
                     maxTilt={8}
                   >
                     <a href={m.href} target="_blank" rel="noreferrer" className="contents">
-                      <div className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${m.glow} text-white shadow-lg`}>
+                      <div className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#EC4899]/15 text-[#EC4899]`}>
                         <Icon className="h-5 w-5" />
                       </div>
                       <div className="min-w-0 flex-1">
@@ -539,9 +539,9 @@ export function ContactPage() {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="w-[20rem] max-w-[calc(100vw-3rem)] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl overflow-hidden"
+              className="w-[20rem] max-w-[calc(100vw-3rem)] rounded-2xl border border-border bg-[#14141A] shadow-2xl overflow-hidden"
             >
-              <div className="bg-gradient-to-r from-brand-cyan to-brand-magenta p-4 text-white">
+              <div className="bg-[#EC4899] p-4 text-white">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-bold">Chat with us</div>
@@ -591,9 +591,9 @@ export function ContactPage() {
           aria-label={chatOpen ? "Close chat" : "Open chat"}
         >
           {/* Inner gradient core */}
-          <span className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-cyan via-brand-blue to-brand-magenta" />
+          <span className="absolute inset-0 rounded-full bg-[#EC4899]" />
           {/* Glossy highlight */}
-          <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/25 to-transparent" />
+          <span className="absolute inset-0 rounded-full bg-white/10" />
           {/* Idle pulse ring (hidden when open) */}
           {!chatOpen && (
             <span className="absolute inset-0 rounded-full bg-brand-cyan/60 animate-ping opacity-40" aria-hidden />

@@ -98,9 +98,9 @@ export function PortfolioPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="rounded-2xl border ct-divider bg-card/60 backdrop-blur-md p-5"
+                className="rounded-2xl border ct-divider bg-[#14141A] p-5"
               >
-                <div className={`inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br ${CATEGORY_GRADIENT[cat]} text-white text-xs font-bold`}>
+                <div className={`inline-flex h-9 w-9 items-center justify-center rounded-lg ${CATEGORY_GRADIENT[cat]} text-xs font-bold`}>
                   {count}
                 </div>
                 <div className="mt-3 text-sm font-semibold">{cat}</div>
@@ -125,10 +125,10 @@ export function PortfolioPage() {
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-12 rounded-2xl border ct-divider bg-card/40 backdrop-blur-md p-5 sm:p-6 text-center"
+            className="mt-12 rounded-2xl border ct-divider bg-[#14141A] p-5 sm:p-6 text-center"
           >
             <div className="inline-flex items-center gap-2 text-sm font-semibold">
-              <Sparkles className="h-4 w-4 text-brand-blue" />
+              <Sparkles className="h-4 w-4 text-[#EC4899]" />
               New projects added weekly via the ClickTake admin panel
             </div>
             <p className="mt-2 text-xs text-muted-foreground max-w-2xl mx-auto">
@@ -144,7 +144,7 @@ export function PortfolioPage() {
 
 function PortfolioCard({ p, index }: { p: ClientPortfolio; index: number }) {
   const Icon = ICONS[p.icon] || Globe;
-  const gradient = CATEGORY_GRADIENT[p.category] || "from-brand-blue to-brand-cyan";
+  const gradient = CATEGORY_GRADIENT[p.category] || "bg-[#EC4899]/15 text-[#EC4899]";
 
   return (
     <motion.div
@@ -154,32 +154,32 @@ function PortfolioCard({ p, index }: { p: ClientPortfolio; index: number }) {
       transition={{ delay: (index % 6) * 0.06 }}
     >
       <TiltCard
-        className="group/tilt relative overflow-hidden rounded-[24px] border ct-divider bg-card/70 backdrop-blur-xl hover:shadow-cyan-500/10"
+        className="group/tilt relative overflow-hidden rounded-[24px] border ct-divider bg-[#14141A] hover:shadow-cyan-500/10"
         glow={true}
         shine={false}
         maxTilt={6}
       >
         {/* Top gradient tile with icon + Live badge */}
         <div className="relative aspect-[16/10] overflow-hidden">
-          <div className={`h-full w-full bg-gradient-to-br ${p.color} transition-transform duration-700 group-hover/tilt:scale-110`} />
+          <div className={`h-full w-full ${p.color} transition-transform duration-700 group-hover/tilt:scale-110`} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.15),transparent_45%)]" />
 
           {/* Live badge top-right */}
-          <div className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full border ct-divider bg-black/40 px-2.5 py-1 text-[10px] font-semibold text-emerald-300 backdrop-blur-md">
+          <div className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-[6px] border ct-divider bg-black/70 px-2.5 py-1 text-[10px] font-semibold text-emerald-300">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
             Live
           </div>
 
           {/* Category chip bottom-left */}
-          <div className="absolute left-4 bottom-4 inline-flex items-center gap-1.5 rounded-full bg-black/40 px-2.5 py-1 text-[10px] font-semibold text-white/90 backdrop-blur-md">
-            <span className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${gradient}`} />
+          <div className="absolute left-4 bottom-4 inline-flex items-center gap-1.5 rounded-[6px] bg-black/70 px-2.5 py-1 text-[10px] font-semibold text-white/90">
+            <span className={`h-1.5 w-1.5 rounded-full bg-[#EC4899]`} />
             {p.category}
           </div>
 
           {/* Big icon center */}
           <div className="absolute inset-0 grid place-items-center">
-            <div className={`grid h-16 w-16 place-items-center rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-white`}>
+            <div className={`grid h-16 w-16 place-items-center rounded-2xl bg-black/50 border border-white/10 text-white`}>
               <Icon className="h-7 w-7" />
             </div>
           </div>
@@ -218,7 +218,7 @@ function PortfolioCard({ p, index }: { p: ClientPortfolio; index: number }) {
               href={p.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-cyan to-brand-magenta px-3.5 py-1.5 text-[11px] font-semibold text-white shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-105"
+              className="group/btn inline-flex items-center gap-1.5 rounded-[8px] bg-[#EC4899] px-3.5 py-1.5 text-[11px] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5"
             >
               Visit live site
               <ExternalLink className="h-3 w-3 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />

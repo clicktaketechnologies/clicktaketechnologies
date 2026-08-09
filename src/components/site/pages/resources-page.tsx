@@ -119,14 +119,14 @@ export function ResourceDetailPage({
           transition={{ duration: 0.5 }}
         >
           <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+            <span className="inline-flex items-center rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#EC4899]">
               {resource.category}
             </span>
             <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
               <Clock className="h-3.5 w-3.5" /> {resource.readTime}
             </span>
           </div>
-          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
+          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0] leading-tight">
             {resource.title}
           </h1>
           <p className="mt-4 sm:mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
@@ -143,7 +143,7 @@ export function ResourceDetailPage({
             className="mt-10 sm:mt-12"
           >
             <div className="flex items-center gap-2 mb-4">
-              <FileText className="h-5 w-5 text-brand-blue shrink-0" />
+              <FileText className="h-5 w-5 text-[#EC4899] shrink-0" />
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
                 What you&apos;ll learn
               </h2>
@@ -167,7 +167,7 @@ export function ResourceDetailPage({
           className="mt-12 sm:mt-16 rounded-2xl border border-brand-blue/30 bg-brand-blue/5 p-6 sm:p-8"
         >
           <div className="flex items-start gap-3">
-            <Sparkles className="h-6 w-6 text-brand-blue shrink-0 mt-0.5" />
+            <Sparkles className="h-6 w-6 text-[#EC4899] shrink-0 mt-0.5" />
             <div>
               <h2 className="text-lg sm:text-xl font-bold tracking-tight">
                 Get the full guide
@@ -212,7 +212,7 @@ export function ResourceDetailPage({
                 <Link
                   key={r.slug}
                   href={`/resources/${r.slug}`}
-                  className="group rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 hover:border-primary/40 hover:bg-card/60 transition"
+                  className="group rounded-2xl border border-border bg-[#14141A] p-5 hover:border-primary/40 hover:bg-card/60 transition"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="rounded-full border border-border bg-secondary/50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">

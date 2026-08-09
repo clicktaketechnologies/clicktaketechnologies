@@ -14,14 +14,14 @@ import {
 import { BLOG_POSTS, BLOG_CATEGORIES, type BlogPost } from "@/lib/site-data";
 
 const CAT_COLOR: Record<string, string> = {
-  "SEO": "from-emerald-500 to-teal-600",
-  "Web Dev": "from-brand-blue to-brand-cyan",
-  "Digital Marketing": "from-amber-500 to-orange-500",
-  "AI Automation": "from-brand-magenta to-brand-pink",
-  "Business Startup": "from-amber-500 to-brand-pink",
-  "E-commerce": "from-brand-cyan to-brand-blue",
-  "Case Studies": "from-brand-pink to-orange-500",
-  "Company News": "from-brand-magenta to-brand-blue",
+  "SEO": "bg-emerald-500/15",
+  "Web Dev": "bg-[#EC4899]/15",
+  "Digital Marketing": "bg-amber-500/15",
+  "AI Automation": "bg-[#EC4899]/15",
+  "Business Startup": "bg-[#EC4899]/15",
+  "E-commerce": "bg-[#EC4899]/15",
+  "Case Studies": "bg-[#EC4899]/15",
+  "Company News": "bg-[#EC4899]/15",
 };
 
 function formatDate(iso: string) {
@@ -30,13 +30,13 @@ function formatDate(iso: string) {
 }
 
 function PostCard({ post }: { post: BlogPost }) {
-  const gradient = CAT_COLOR[post.category] || "from-brand-blue to-brand-cyan";
+  const gradient = CAT_COLOR[post.category] || "bg-[#EC4899]/15";
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group flex flex-col rounded-2xl border border-border bg-card/40 backdrop-blur-md overflow-hidden hover:border-primary/40 hover:bg-card/60 transition"
+      className="group flex flex-col rounded-2xl border border-border bg-[#14141A] overflow-hidden hover:border-primary/40 hover:bg-card/60 transition"
     >
-      <div className={`h-32 ${post.heroImage ? "" : `bg-gradient-to-br ${gradient}`} relative overflow-hidden`}>
+      <div className={`h-32 ${post.heroImage ? "" : `${gradient}`} relative overflow-hidden`}>
         {post.heroImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -50,7 +50,7 @@ function PostCard({ post }: { post: BlogPost }) {
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         <div className="absolute top-3 left-3">
-          <span className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-black">
+          <span className="inline-flex items-center rounded-[6px] bg-[#EC4899] px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
             {post.category}
           </span>
         </div>
@@ -128,10 +128,10 @@ export function BlogIndexPage({ dbPosts = [] }: { dbPosts?: BlogPost[] }) {
             transition={{ duration: 0.5 }}
             className="max-w-3xl"
           >
-            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-brand-blue">
+            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#EC4899]">
               Blog
             </div>
-            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0]">
               Field notes from the ClickTake team.
             </h1>
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
@@ -157,7 +157,7 @@ export function BlogIndexPage({ dbPosts = [] }: { dbPosts?: BlogPost[] }) {
                 onClick={() => setActiveCat("all")}
                 className={`inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold transition ${
                   activeCat === "all"
-                    ? "bg-gradient-to-r from-brand-blue to-brand-cyan text-white"
+                    ? "bg-[#EC4899] text-white"
                     : "border border-border bg-secondary/50 text-foreground hover:border-primary/40"
                 }`}
               >
@@ -169,7 +169,7 @@ export function BlogIndexPage({ dbPosts = [] }: { dbPosts?: BlogPost[] }) {
                   onClick={() => setActiveCat(c)}
                   className={`inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold transition ${
                     activeCat === c
-                      ? "bg-gradient-to-r from-brand-blue to-brand-cyan text-white"
+                      ? "bg-[#EC4899] text-white"
                       : "border border-border bg-secondary/50 text-foreground hover:border-primary/40"
                   }`}
                 >
@@ -181,7 +181,7 @@ export function BlogIndexPage({ dbPosts = [] }: { dbPosts?: BlogPost[] }) {
 
           {/* Posts grid */}
           {filtered.length === 0 ? (
-            <div className="mt-12 rounded-2xl border border-border bg-card/40 backdrop-blur-md p-10 text-center">
+            <div className="mt-12 rounded-2xl border border-border bg-[#14141A] p-10 text-center">
               <Tag className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
               <div className="text-base font-semibold">No articles found</div>
               <p className="mt-1 text-sm text-muted-foreground">
@@ -214,7 +214,7 @@ export function BlogIndexPage({ dbPosts = [] }: { dbPosts?: BlogPost[] }) {
           >
             <div>
               <div className="flex items-center gap-2 text-lg font-bold">
-                <Sparkles className="h-5 w-5 text-brand-blue shrink-0" />
+                <Sparkles className="h-5 w-5 text-[#EC4899] shrink-0" />
                 Want this work shipped for your brand?
               </div>
               <div className="text-sm text-muted-foreground mt-1">
@@ -223,7 +223,7 @@ export function BlogIndexPage({ dbPosts = [] }: { dbPosts?: BlogPost[] }) {
             </div>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition shrink-0"
+              className="inline-flex items-center gap-2 rounded-[8px] bg-[#EC4899] px-5 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 transition shrink-0"
             >
               Book a Call <ArrowUpRight className="h-4 w-4" />
             </Link>

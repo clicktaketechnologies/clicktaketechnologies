@@ -32,10 +32,10 @@ type TabId = "marketing" | "web" | "ai" | "creative" | "essentials";
 
 const TABS: { id: TabId; label: string; accent: string }[] = [
   { id: "marketing",  label: "Digital Marketing", accent: "from-emerald-500 to-teal-600" },
-  { id: "web",        label: "Web & Software",    accent: "from-brand-cyan to-brand-blue" },
-  { id: "ai",         label: "AI Automation",     accent: "from-brand-magenta to-brand-blue" },
-  { id: "creative",   label: "Creative",          accent: "from-brand-pink to-orange-500" },
-  { id: "essentials", label: "Business Essentials", accent: "from-amber-500 to-brand-pink" },
+  { id: "web",        label: "Web & Software",    accent: "bg-[#EC4899]/15 text-[#EC4899]" },
+  { id: "ai",         label: "AI Automation",     accent: "bg-[#EC4899]/15 text-[#EC4899]" },
+  { id: "creative",   label: "Creative",          accent: "bg-[#EC4899]/15 text-[#EC4899]" },
+  { id: "essentials", label: "Business Essentials", accent: "bg-[#EC4899]/15 text-[#EC4899]" },
 ];
 
 function matchesTab(s: ServiceItem, tab: TabId): boolean {
@@ -98,7 +98,7 @@ export function Services() {
                 >
                   {isActive && (
                     <span
-                      className={`absolute inset-0 rounded-full bg-gradient-to-r ${t.accent}`}
+                      className={`absolute inset-0 rounded-full bg-[#EC4899]/20`}
                       aria-hidden
                     />
                   )}
@@ -127,7 +127,7 @@ export function Services() {
                 const styleKey =
                   s.category === "starter-kit" ? "ai" : s.category;
                 const style = CATEGORY_STYLES[styleKey as keyof typeof CATEGORY_STYLES];
-                const accentColor = style?.accentColor ?? "text-brand-blue";
+                const accentColor = style?.accentColor ?? "text-[#EC4899]";
                 const accentBg = style?.accentBg ?? "bg-brand-blue/10";
                 const borderHover = style?.borderHover ?? "hover:border-brand-blue/40";
 
@@ -156,7 +156,7 @@ export function Services() {
                           <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-3">
                             {s.description}
                           </p>
-                          <div className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-brand-blue group-hover:gap-2 transition-all">
+                          <div className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#EC4899] group-hover:gap-2 transition-all">
                             Learn More
                             <ArrowUpRight className="h-3.5 w-3.5" />
                           </div>
@@ -174,16 +174,16 @@ export function Services() {
             <SectionReveal variant="zoomIn" delay={0.1} className="mt-8">
               <Link
                 href="/services/starter-kit"
-                className="group relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-3xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 p-6 sm:p-8 hover:from-amber-500/25 hover:to-brand-pink/25 transition"
+                className="group relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-3xl bg-[#EC4899]/8 border border-[#EC4899]/25 p-6 sm:p-8 hover:bg-[#EC4899]/12 transition"
               >
                 <div className="flex items-start gap-4 min-w-0">
-                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-amber-500 to-brand-pink text-white shadow-lg group-hover:scale-110 transition-transform">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#EC4899]/15 text-[#EC4899] shadow-sm group-hover:scale-110 transition-transform">
                     <Sparkles className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 text-base sm:text-lg font-bold flex-wrap">
                       <span className="truncate">{STARTER_KIT.title}</span>
-                      <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white shrink-0 font-bold uppercase tracking-wider">
+                      <span className="text-[10px] rounded-[6px] bg-[#EC4899] px-2 py-0.5 text-white shrink-0 font-bold uppercase tracking-wider">
                         Flagship
                       </span>
                     </div>

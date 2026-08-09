@@ -18,13 +18,13 @@ const FEATURES: Feature[] = [
     icon: Globe2,
     title: "UK & Pakistan Presence",
     desc: "Two delivery hubs, 12 hours of overlapping work time, and a UK-registered entity for trust.",
-    accent: "from-brand-blue to-brand-cyan",
+    accent: "bg-[#EC4899]/15 text-[#EC4899]",
   },
   {
     icon: Users,
     title: "Full-Stack Digital Team",
     desc: "Strategy, design, engineering, marketing and AI under one roof — no handoffs.",
-    accent: "from-brand-magenta to-brand-blue",
+    accent: "bg-[#EC4899]/15 text-[#EC4899]",
   },
   {
     icon: BarChart3,
@@ -36,19 +36,19 @@ const FEATURES: Feature[] = [
     icon: Eye,
     title: "Transparent Process",
     desc: "Fixed-scope sprints, weekly demos, Notion docs you own. No black boxes.",
-    accent: "from-brand-cyan to-brand-blue",
+    accent: "bg-[#EC4899]/15 text-[#EC4899]",
   },
   {
     icon: TrendingUp,
     title: "Measurable Results",
     desc: "We report on revenue, rankings, and conversion — not vanity metrics.",
-    accent: "from-amber-500 to-brand-pink",
+    accent: "bg-[#EC4899]/15 text-[#EC4899]",
   },
   {
     icon: Heart,
     title: "Long-Term Partnership",
     desc: "Average client retention 2.4 years. We're built to grow with you.",
-    accent: "from-brand-pink to-brand-magenta",
+    accent: "bg-[#EC4899]/15 text-[#EC4899]",
   },
 ];
 
@@ -88,11 +88,11 @@ export function WhyChoose() {
             >
               <div className="group relative h-full rounded-2xl ct-card p-6 sm:p-7 hover:-translate-y-1 transition-transform">
                 {/* hover glow */}
-                <div className={`absolute -top-16 -right-16 h-32 w-32 rounded-full bg-gradient-to-br ${f.accent} opacity-10 blur-3xl group-hover:opacity-25 transition`} />
+                <div className="hidden" />
 
                 <div className="relative">
                   {/* Gradient icon chip */}
-                  <div className={`grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br ${f.accent} text-white shadow-lg group-hover:scale-110 transition-transform`}>
+                  <div className={`grid h-12 w-12 place-items-center rounded-xl ${f.accent} shadow-sm group-hover:scale-110 transition-transform`}>
                     <f.icon className="h-5 w-5" />
                   </div>
                   <h3 className="mt-5 text-lg sm:text-xl font-bold leading-snug">

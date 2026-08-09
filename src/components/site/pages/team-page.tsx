@@ -23,21 +23,21 @@ const DEPT_ICON: Record<string, any> = {
 };
 
 const DEPT_GRADIENT: Record<string, string> = {
-  Leadership: "from-amber-500 to-brand-pink",
-  Development: "from-brand-blue to-brand-cyan",
+  Leadership: "bg-[#EC4899]/15 text-[#EC4899]",
+  Development: "bg-[#EC4899]/15 text-[#EC4899]",
   Marketing: "from-emerald-500 to-teal-600",
-  Creative: "from-brand-pink to-orange-500",
-  Operations: "from-brand-magenta to-brand-blue",
+  Creative: "bg-[#EC4899]/15 text-[#EC4899]",
+  Operations: "bg-[#EC4899]/15 text-[#EC4899]",
 };
 
 function TeamCard({ member }: { member: TeamMember }) {
   const Icon = DEPT_ICON[member.department] || Users;
-  const gradient = DEPT_GRADIENT[member.department] || "from-brand-blue to-brand-cyan";
+  const gradient = DEPT_GRADIENT[member.department] || "bg-[#EC4899]/15 text-[#EC4899]";
 
   return (
-    <div className="rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 hover:border-primary/40 hover:bg-card/60 transition">
+    <div className="rounded-2xl border border-border bg-[#14141A] p-5 hover:border-primary/40 hover:bg-card/60 transition">
       <div className="flex items-start gap-4">
-        <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${gradient} text-white`}>
+        <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl ${gradient}`}>
           <Icon className="h-5 w-5" />
         </div>
         <div className="min-w-0 flex-1">
@@ -90,10 +90,10 @@ export function TeamPage() {
             transition={{ duration: 0.5 }}
             className="max-w-3xl"
           >
-            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-brand-blue">
+            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#EC4899]">
               Team
             </div>
-            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0]">
               One team. Four regions. Forty-two specialists.
             </h1>
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
@@ -114,7 +114,7 @@ export function TeamPage() {
             {SITE.locations.map((l) => (
               <div
                 key={l.country}
-                className="rounded-xl border border-border bg-card/40 backdrop-blur-md p-4"
+                className="rounded-xl border border-border bg-[#14141A] p-4"
               >
                 <div className="text-2xl mb-1">{l.flag}</div>
                 <div className="text-sm font-bold leading-tight">{l.city}</div>
@@ -129,7 +129,7 @@ export function TeamPage() {
           {/* Department filter */}
           <div className="mt-12 sm:mt-16">
             <div className="flex items-center gap-2 mb-4">
-              <Users className="h-5 w-5 text-brand-blue shrink-0" />
+              <Users className="h-5 w-5 text-[#EC4899] shrink-0" />
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Departments</h2>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -137,7 +137,7 @@ export function TeamPage() {
                 onClick={() => setActiveDept("all")}
                 className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
                   activeDept === "all"
-                    ? "bg-gradient-to-r from-brand-blue to-brand-cyan text-white"
+                    ? "bg-[#EC4899] text-white"
                     : "border border-border bg-secondary/50 text-foreground hover:border-primary/40"
                 }`}
               >
@@ -151,7 +151,7 @@ export function TeamPage() {
                     onClick={() => setActiveDept(dept)}
                     className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
                       activeDept === dept
-                        ? "bg-gradient-to-r from-brand-blue to-brand-cyan text-white"
+                        ? "bg-[#EC4899] text-white"
                         : "border border-border bg-secondary/50 text-foreground hover:border-primary/40"
                     }`}
                   >
@@ -225,9 +225,9 @@ export function TeamPage() {
                 return (
                   <div
                     key={v.title}
-                    className="rounded-xl border border-border bg-card/40 backdrop-blur-md p-5"
+                    className="rounded-xl border border-border bg-[#14141A] p-5"
                   >
-                    <Icon className="h-5 w-5 text-brand-blue mb-3" />
+                    <Icon className="h-5 w-5 text-[#EC4899] mb-3" />
                     <div className="text-sm font-semibold mb-1.5">{v.title}</div>
                     <div className="text-xs text-muted-foreground leading-relaxed">{v.desc}</div>
                   </div>
@@ -246,7 +246,7 @@ export function TeamPage() {
           >
             <div>
               <div className="flex items-center gap-2 text-lg font-bold">
-                <Sparkles className="h-5 w-5 text-brand-blue shrink-0" />
+                <Sparkles className="h-5 w-5 text-[#EC4899] shrink-0" />
                 Want to join the team?
               </div>
               <div className="text-sm text-muted-foreground mt-1">
@@ -256,7 +256,7 @@ export function TeamPage() {
             </div>
             <Link
               href="/careers"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition shrink-0"
+              className="inline-flex items-center gap-2 rounded-[8px] bg-[#EC4899] px-5 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 transition shrink-0"
             >
               Browse Careers <ArrowUpRight className="h-4 w-4" />
             </Link>

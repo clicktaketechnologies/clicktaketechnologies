@@ -98,7 +98,7 @@ export function Hero() {
         <SectionReveal variant="fadeUp" delay={0.4}>
           <div className="mt-10 sm:mt-12 flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-3 text-xs sm:text-sm text-muted-foreground">
             <div className="inline-flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-brand-blue" />
+              <Calendar className="h-4 w-4 text-[#EC4899]" />
               <span>Founded {SITE.founded}</span>
             </div>
             <div className="hidden sm:block h-4 w-px bg-border" />

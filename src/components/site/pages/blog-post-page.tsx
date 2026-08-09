@@ -13,14 +13,14 @@ import {
 import { BLOG_POSTS, type BlogPost } from "@/lib/site-data";
 
 const CAT_COLOR: Record<string, string> = {
-  "SEO": "from-emerald-500 to-teal-600",
-  "Web Dev": "from-brand-blue to-brand-cyan",
-  "Digital Marketing": "from-amber-500 to-orange-500",
-  "AI Automation": "from-brand-magenta to-brand-pink",
-  "Business Startup": "from-amber-500 to-brand-pink",
-  "E-commerce": "from-brand-cyan to-brand-blue",
-  "Case Studies": "from-brand-pink to-orange-500",
-  "Company News": "from-brand-magenta to-brand-blue",
+  "SEO": "bg-emerald-500/15 text-emerald-300",
+  "Web Dev": "bg-[#EC4899]/15 text-[#EC4899]",
+  "Digital Marketing": "bg-amber-500/15 text-amber-300",
+  "AI Automation": "bg-[#EC4899]/15 text-[#EC4899]",
+  "Business Startup": "bg-[#EC4899]/15 text-[#EC4899]",
+  "E-commerce": "bg-[#EC4899]/15 text-[#EC4899]",
+  "Case Studies": "bg-[#EC4899]/15 text-[#EC4899]",
+  "Company News": "bg-[#EC4899]/15 text-[#EC4899]",
 };
 
 function formatDate(iso: string) {
@@ -31,7 +31,7 @@ function formatDate(iso: string) {
 interface Props { post: BlogPost; }
 
 export function BlogPostPage({ post }: Props) {
-  const gradient = CAT_COLOR[post.category] || "from-brand-blue to-brand-cyan";
+  const gradient = CAT_COLOR[post.category] || "bg-[#EC4899]/15 text-[#EC4899]";
   const related = BLOG_POSTS
     .filter((p) => p.slug !== post.slug && p.category === post.category)
     .slice(0, 3);
@@ -62,10 +62,10 @@ export function BlogPostPage({ post }: Props) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className={`inline-flex items-center rounded-full bg-gradient-to-r ${gradient} px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white`}>
+            <div className={`inline-flex items-center rounded-[6px] ${gradient} px-3 py-1 text-[10px] font-bold uppercase tracking-widest`}>
               {post.category}
             </div>
-            <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0]">
               {post.title}
             </h1>
             <p className="mt-4 sm:mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
@@ -73,7 +73,7 @@ export function BlogPostPage({ post }: Props) {
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-brand-blue to-brand-cyan text-white text-[10px] font-bold">
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-[#EC4899] text-white text-[10px] font-bold">
                   CT
                 </span>
                 {post.author}
@@ -99,7 +99,7 @@ export function BlogPostPage({ post }: Props) {
               />
             </div>
           ) : (
-            <div className={`mt-8 h-48 sm:h-64 rounded-2xl bg-gradient-to-br ${gradient} relative overflow-hidden`}>
+            <div className={`mt-8 h-48 sm:h-64 rounded-2xl ${gradient} relative overflow-hidden`}>
               <div className="absolute inset-0 bg-black/20" />
               <div className="absolute bottom-4 right-4">
                 <Sparkles className="h-8 w-8 text-white/80" />
@@ -161,7 +161,7 @@ export function BlogPostPage({ post }: Props) {
           >
             <div>
               <div className="flex items-center gap-2 text-lg font-bold">
-                <Sparkles className="h-5 w-5 text-brand-blue shrink-0" />
+                <Sparkles className="h-5 w-5 text-[#EC4899] shrink-0" />
                 Like what you read?
               </div>
               <div className="text-sm text-muted-foreground mt-1">
@@ -170,7 +170,7 @@ export function BlogPostPage({ post }: Props) {
             </div>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition shrink-0"
+              className="inline-flex items-center gap-2 rounded-[8px] bg-[#EC4899] px-5 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 transition shrink-0"
             >
               Book a Call <ArrowUpRight className="h-4 w-4" />
             </Link>
@@ -193,9 +193,9 @@ export function BlogPostPage({ post }: Props) {
                   <Link
                     key={r.slug}
                     href={`/blog/${r.slug}`}
-                    className="group rounded-xl border border-border bg-card/40 backdrop-blur-md p-4 hover:border-primary/40 hover:bg-card/60 transition"
+                    className="group rounded-xl border border-border bg-[#14141A] p-4 hover:border-primary/40 hover:bg-card/60 transition"
                   >
-                    <div className="text-[10px] uppercase tracking-widest text-brand-blue">
+                    <div className="text-[10px] uppercase tracking-widest text-[#EC4899]">
                       {r.category}
                     </div>
                     <div className="mt-1.5 text-sm font-semibold leading-tight line-clamp-2 group-hover:text-foreground text-foreground/90">

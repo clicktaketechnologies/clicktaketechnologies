@@ -3847,3 +3847,231 @@ html.dark .theme-nx .nx-hero-bg [class*="border-[#FF53A9]/15"] {
 /* ════════════════════════════════════════════════════════════════════════
    END DESIGN v6 PATCH 1
    ════════════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════════════
+   DESIGN v6 — PATCH 2: GLOBAL ENFORCEMENT (kill inline old-design utilities)
+   ════════════════════════════════════════════════════════════════════════
+   Triggered by user feedback "still showing old design" on /case-studies
+   and /contact (and other inner pages) after v6 patches 1–4.
+
+   Root cause: v6 patches targeted specific component classes (.nx-btn-orange,
+   .nx-text-brand-grad, .nx-card-dark, etc.) but pages use RAW Tailwind
+   utilities inline (bg-gradient-to-r from-brand-blue, bg-clip-text
+   text-transparent, backdrop-blur-md, rounded-full bg-gradient, etc.) which
+   BYPASS the named-class overrides entirely.
+
+   This patch uses ATTRIBUTE SELECTORS to catch ALL remaining old-design
+   patterns regardless of which component uses them. Scoped to html.dark
+   .theme-nx so admin pages keep their look.
+
+   Patterns killed:
+     1. bg-gradient-to-r / -br / -b with brand-* stops → solid #EC4899 or #14141A
+     2. bg-clip-text + text-transparent (gradient text) → solid #F5F5F0
+     3. backdrop-blur-md / -sm / -lg on cards/widgets → solid surfaces
+     4. rounded-full on bg-gradient buttons → 8px squircle
+     5. shadow-lg on gradient buttons → subtle shadow only
+     6. hover:scale-105 on buttons → translateY(-1px) instead
+     7. from-brand-blue/cyan/magenta/pink backgrounds → solid colors
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ─── P2.1: Kill ALL gradient text (bg-clip-text + text-transparent) ─── */
+html.dark .theme-nx [class*="bg-clip-text"][class*="text-transparent"] {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #F5F5F0 !important;
+  color: #F5F5F0 !important;
+}
+
+/* ─── P2.2: Kill ALL gradient buttons (rounded-full + bg-gradient + brand-*) ─── */
+/* Targets the inline "Book a Call" / "Get Started" buttons on inner pages */
+html.dark .theme-nx a[class*="rounded-full"][class*="bg-gradient-to-"][class*="from-brand-"],
+html.dark .theme-nx button[class*="rounded-full"][class*="bg-gradient-to-"][class*="from-brand-"],
+html.dark .theme-nx a[class*="rounded-full"][class*="bg-gradient"][class*="text-white"],
+html.dark .theme-nx button[class*="rounded-full"][class*="bg-gradient"][class*="text-white"] {
+  background: #EC4899 !important;
+  background-image: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+html.dark .theme-nx a[class*="rounded-full"][class*="bg-gradient-to-"][class*="from-brand-"]:hover,
+html.dark .theme-nx button[class*="rounded-full"][class*="bg-gradient-to-"][class*="from-brand-"]:hover,
+html.dark .theme-nx a[class*="rounded-full"][class*="bg-gradient"][class*="text-white"]:hover,
+html.dark .theme-nx button[class*="rounded-full"][class*="bg-gradient"][class*="text-white"]:hover {
+  background: #EC4899 !important;
+  background-image: none !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px -2px rgba(236, 72, 153, 0.3) !important;
+}
+
+/* Kill hover:scale-105 on these buttons (replace with translateY) */
+html.dark .theme-nx a[class*="rounded-full"][class*="bg-gradient-to-"][class*="hover:scale-105"]:hover,
+html.dark .theme-nx button[class*="rounded-full"][class*="bg-gradient-to-"][class*="hover:scale-105"]:hover {
+  transform: translateY(-1px) !important;
+  scale: 1 !important;
+}
+
+/* ─── P2.3: Kill gradient backgrounds on cards/badges (bg-gradient-to-br with brand-*) ─── */
+/* Targets the gradient header strips on case-study cards, hero image placeholders, etc. */
+html.dark .theme-nx [class*="bg-gradient-to-br"][class*="from-brand-"],
+html.dark .theme-nx [class*="bg-gradient-to-r"][class*="from-brand-"]:not([class*="rounded-full"]):not([class*="text-white"]) {
+  background: #14141A !important;
+  background-image: none !important;
+  border: 1px solid rgba(236, 72, 153, 0.2) !important;
+}
+
+/* ─── P2.4: Kill ALL backdrop-blur on cards/widgets (force solid surfaces) ─── */
+html.dark .theme-nx [class*="backdrop-blur-md"],
+html.dark .theme-nx [class*="backdrop-blur-lg"],
+html.dark .theme-nx [class*="backdrop-blur-sm"],
+html.dark .theme-nx [class*="backdrop-blur-xl"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Make backdrop-blur cards solid (the card itself, not nav) */
+html.dark .theme-nx [class*="bg-card/"][class*="backdrop-blur"],
+html.dark .theme-nx [class*="bg-secondary/"][class*="backdrop-blur"],
+html.dark .theme-nx [class*="bg-background/"][class*="backdrop-blur"] {
+  background: #14141A !important;
+  border: 1px solid rgba(245, 245, 240, 0.10) !important;
+}
+
+/* ─── P2.5: Pill-shaped filter/CTA buttons with gradient fills ─── */
+/* Inner page filter chips: "All (X)", "SEO (X)", etc. */
+html.dark .theme-nx button[class*="rounded-full"][class*="bg-gradient-to-r"][class*="from-brand-blue"] {
+  background: #EC4899 !important;
+  background-image: none !important;
+  border-radius: 8px !important;
+  color: #fff !important;
+}
+
+html.dark .theme-nx button[class*="rounded-full"][class*="border"][class*="bg-secondary/"][class*="hover:border-primary"] {
+  border-radius: 8px !important;
+}
+
+/* ─── P2.6: Pill badges (rounded-full + uppercase tracking) — squircle ─── */
+html.dark .theme-nx [class*="rounded-full"][class*="uppercase"][class*="tracking-widest"] {
+  border-radius: 6px !important;
+}
+
+/* ─── P2.7: Filter pills on case-studies / portfolio pages ─── */
+html.dark .theme-nx button[class*="rounded-full"][class*="px-3"][class*="py-1.5"][class*="text-xs"][class*="font-semibold"] {
+  border-radius: 8px !important;
+}
+
+/* ─── P2.8: Outline/ghost buttons — squircle + solid border ─── */
+html.dark .theme-nx a[class*="rounded-full"][class*="border"][class*="bg-transparent"],
+html.dark .theme-nx button[class*="rounded-full"][class*="border"][class*="bg-transparent"],
+html.dark .theme-nx a[class*="rounded-full"][class*="border"][class*="hover:border-primary"] {
+  border-radius: 8px !important;
+}
+
+/* ─── P2.9: Card hover scale — kill, replace with subtle border lift ─── */
+html.dark .theme-nx [class*="hover:scale-105"] {
+  transition: border-color 0.2s ease, transform 0.15s ease !important;
+}
+
+html.dark .theme-nx [class*="hover:scale-105"]:hover {
+  transform: translateY(-2px) !important;
+  scale: 1 !important;
+}
+
+/* ─── P2.10: shadow-lg on cards/buttons — soften (no neon glow) ─── */
+html.dark .theme-nx [class*="bg-gradient-to-"][class*="shadow-lg"],
+html.dark .theme-nx [class*="from-brand-"][class*="shadow-lg"] {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* ─── P2.11: Metric/stat cards with bg-card/50 backdrop-blur — solid ─── */
+html.dark .theme-nx [class*="bg-card/50"],
+html.dark .theme-nx [class*="bg-card/40"],
+html.dark .theme-nx [class*="bg-card/60"] {
+  background: #14141A !important;
+  border: 1px solid rgba(245, 245, 240, 0.08) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ─── P2.12: Tech-stack pills (bg-brand-blue/10 + text-brand-blue) ─── */
+html.dark .theme-nx [class*="bg-brand-blue/10"][class*="text-brand-blue"],
+html.dark .theme-nx [class*="bg-brand-blue/10"][class*="border-brand-blue/30"] {
+  background: rgba(236, 72, 153, 0.08) !important;
+  border-color: rgba(236, 72, 153, 0.25) !important;
+  color: #F5F5F0 !important;
+  border-radius: 6px !important;
+}
+
+/* ─── P2.13: amber/emerald status pills — keep semantic colors, squircle ─── */
+html.dark .theme-nx [class*="rounded-full"][class*="bg-amber-500/10"],
+html.dark .theme-nx [class*="rounded-full"][class*="bg-emerald-500/10"] {
+  border-radius: 6px !important;
+  backdrop-filter: none !important;
+}
+
+/* ─── P2.14: Form inputs — kill any glassmorphism, solid surface ─── */
+html.dark .theme-nx input[class*="backdrop-blur"],
+html.dark .theme-nx textarea[class*="backdrop-blur"],
+html.dark .theme-nx select[class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: #0F0F14 !important;
+  border: 1px solid rgba(245, 245, 240, 0.12) !important;
+}
+
+/* ─── P2.15: Hero H1 with inline bg-clip-text on inner pages ─── */
+/* Inner pages use: <h1 class="... bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent"> */
+html.dark .theme-nx h1[class*="bg-clip-text"][class*="text-transparent"] {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #F5F5F0 !important;
+  color: #F5F5F0 !important;
+  font-family: var(--font-fraunces), var(--font-geist-sans), Georgia, serif !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.04 !important;
+}
+
+/* ─── P2.16: Disclaimer/alert boxes (amber-500/5, emerald-500/5) — solid ─── */
+html.dark .theme-nx [class*="bg-amber-500/5"][class*="border-amber-500/30"],
+html.dark .theme-nx [class*="bg-emerald-500/5"][class*="border-emerald-500/30"] {
+  background: rgba(20, 20, 26, 0.95) !important;
+  backdrop-filter: none !important;
+}
+
+/* ─── P2.17: WhatsApp / chat FABs — squircle, solid ─── */
+html.dark .theme-nx a[class*="rounded-full"][class*="bg-green"],
+html.dark .theme-nx button[class*="rounded-full"][class*="bg-green"] {
+  border-radius: 12px !important;
+}
+
+/* ─── P2.18: Breadcrumb pills, badge containers — squircle ─── */
+html.dark .theme-nx [class*="rounded-full"][class*="bg-white/90"],
+html.dark .theme-nx [class*="rounded-full"][class*="bg-white/10"],
+html.dark .theme-nx [class*="rounded-full"][class*="bg-black/30"] {
+  border-radius: 6px !important;
+}
+
+/* ─── P2.19: "Sparkles" hero image placeholder gradient on detail pages ─── */
+/* The bg-gradient-to-br from-brand-blue via-brand-magenta to-brand-pink blocks */
+html.dark .theme-nx [class*="bg-gradient-to-br"][class*="via-brand-magenta"] {
+  background: #1A1A22 !important;
+  background-image: none !important;
+  border: 1px solid rgba(236, 72, 153, 0.15) !important;
+}
+
+/* ─── P2.20: nx-cta-v5 CTA cards — ensure solid surface ─── */
+html.dark .theme-nx .nx-cta-v5[class*="bg-card"],
+html.dark .theme-nx .nx-cta-v5[class*="bg-card/40"],
+html.dark .theme-nx .nx-cta-v5[class*="bg-card/50"] {
+  background: #14141A !important;
+  border: 1px solid rgba(236, 72, 153, 0.2) !important;
+  backdrop-filter: none !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   END DESIGN v6 PATCH 2 — GLOBAL ENFORCEMENT
+   ════════════════════════════════════════════════════════════════════════ */

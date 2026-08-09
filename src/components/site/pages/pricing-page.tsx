@@ -23,34 +23,34 @@ const PLAN_ICON: Record<string, any> = {
 
 const PLAN_GRADIENT: Record<string, string> = {
   starter: "from-emerald-500 to-teal-600",
-  growth: "from-brand-blue to-brand-cyan",
-  scale: "from-brand-magenta to-brand-pink",
+  growth: "bg-[#EC4899]/15 text-[#EC4899]",
+  scale: "bg-[#EC4899]/15 text-[#EC4899]",
   custom: "from-amber-500 to-orange-500",
 };
 
 function PricingCard({ plan }: { plan: PricingPlan }) {
   const Icon = PLAN_ICON[plan.slug] || Sparkles;
-  const gradient = PLAN_GRADIENT[plan.slug] || "from-brand-blue to-brand-cyan";
+  const gradient = PLAN_GRADIENT[plan.slug] || "bg-[#EC4899]/15 text-[#EC4899]";
   const isCustom = plan.slug === "custom";
 
   return (
     <TiltCard
       className={`relative rounded-2xl border p-6 sm:p-7 flex flex-col ${
         plan.highlight
-          ? "border-brand-blue/40 bg-card/80 backdrop-blur-md shadow-xl shadow-brand-blue/10"
-          : "border-border bg-card/40 backdrop-blur-md"
+          ? "border-[#EC4899]/40 bg-[#14141A] shadow-xl"
+          : "border-border bg-[#14141A]"
       }`}
       glow={plan.highlight}
       shine={true}
       maxTilt={8}
     >
       {plan.highlight && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-[6px] bg-[#EC4899] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
           Most Popular
         </div>
       )}
       <div className="flex items-center gap-3 mb-2">
-        <div className={`grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br ${gradient} text-white`}>
+        <div className={`grid h-10 w-10 place-items-center rounded-xl ${gradient}`}>
           <Icon className="h-5 w-5" />
         </div>
         <div>
@@ -74,7 +74,7 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
       <ul className="mt-5 space-y-2 flex-1">
         {plan.features.map((f) => (
           <li key={f} className="flex items-start gap-2 text-sm">
-            <Check className="h-4 w-4 shrink-0 text-brand-blue mt-0.5" />
+            <Check className="h-4 w-4 shrink-0 text-[#EC4899] mt-0.5" />
             <span className="text-foreground/90">{f}</span>
           </li>
         ))}
@@ -90,7 +90,7 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
         href={isCustom ? "/contact?subject=custom-quote" : "/contact"}
         className={`mt-6 inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition shrink-0 ${
           plan.highlight
-            ? `bg-gradient-to-r ${gradient} text-white shadow-lg hover:scale-105`
+            ? `bg-[#EC4899] text-white hover:-translate-y-0.5`
             : "border border-border bg-secondary/50 text-foreground hover:border-primary/40 hover:bg-secondary"
         }`}
       >
@@ -147,10 +147,10 @@ export function PricingPage() {
             transition={{ duration: 0.5 }}
             className="max-w-3xl"
           >
-            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-brand-blue">
+            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#EC4899]">
               Pricing
             </div>
-            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0]">
               Transparent pricing. No universal packages — every engagement is scoped.
             </h1>
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
@@ -198,7 +198,7 @@ export function PricingPage() {
               ].map((item) => (
                 <div
                   key={item}
-                  className="flex items-start gap-3 rounded-xl border border-border bg-card/30 backdrop-blur-md p-4"
+                  className="flex items-start gap-3 rounded-xl border border-border bg-[#14141A] p-4"
                 >
                   <X className="h-5 w-5 shrink-0 text-amber-400 mt-0.5" />
                   <span className="text-sm text-muted-foreground">{item}</span>
@@ -216,18 +216,18 @@ export function PricingPage() {
             className="mt-16 sm:mt-20"
           >
             <div className="flex items-center gap-2 mb-4 sm:mb-6">
-              <HelpCircle className="h-5 w-5 text-brand-blue shrink-0" />
+              <HelpCircle className="h-5 w-5 text-[#EC4899] shrink-0" />
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Frequently asked questions</h2>
             </div>
             <div className="space-y-3">
               {FAQS.map((faq) => (
                 <details
                   key={faq.q}
-                  className="group rounded-xl border border-border bg-card/40 backdrop-blur-md p-4 [&_summary]:cursor-pointer"
+                  className="group rounded-xl border border-border bg-[#14141A] p-4 [&_summary]:cursor-pointer"
                 >
                   <summary className="flex items-center justify-between gap-3 text-sm font-semibold list-none">
                     <span>{faq.q}</span>
-                    <ChevronRight className="h-4 w-4 shrink-0 transition-transform group-open:rotate-90 text-brand-blue" />
+                    <ChevronRight className="h-4 w-4 shrink-0 transition-transform group-open:rotate-90 text-[#EC4899]" />
                   </summary>
                   <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
                 </details>
@@ -245,7 +245,7 @@ export function PricingPage() {
           >
             <div>
               <div className="flex items-center gap-2 text-lg font-bold">
-                <Sparkles className="h-5 w-5 text-brand-blue shrink-0" />
+                <Sparkles className="h-5 w-5 text-[#EC4899] shrink-0" />
                 Still not sure which plan fits?
               </div>
               <div className="text-sm text-muted-foreground mt-1">
@@ -255,7 +255,7 @@ export function PricingPage() {
             </div>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition shrink-0"
+              className="inline-flex items-center gap-2 rounded-[8px] bg-[#EC4899] px-5 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 transition shrink-0"
             >
               Book a Free Consultation <ArrowUpRight className="h-4 w-4" />
             </Link>

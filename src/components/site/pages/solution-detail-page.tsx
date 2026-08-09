@@ -64,11 +64,11 @@ export function SolutionDetailPage({ solution }: Props) {
               <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brand-blue to-brand-cyan text-white">
                 <Icon className="h-6 w-6" />
               </div>
-              <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-brand-blue">
+              <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#EC4899]">
                 {solution.audience}
               </div>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0]">
               {solution.title}
             </h1>
             <p className="mt-3 sm:mt-4 text-xl sm:text-2xl font-semibold text-foreground/80">
@@ -83,7 +83,7 @@ export function SolutionDetailPage({ solution }: Props) {
               {solution.outcomes.map((o) => (
                 <div
                   key={o.label}
-                  className="rounded-xl border border-border bg-card/50 backdrop-blur-md p-4"
+                  className="rounded-xl border border-border bg-[#14141A] p-4"
                 >
                   <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
                     {o.label}
@@ -110,7 +110,7 @@ export function SolutionDetailPage({ solution }: Props) {
               {solution.pain_points.map((p, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 rounded-xl border border-border bg-card/40 backdrop-blur-md p-4"
+                  className="flex items-start gap-3 rounded-xl border border-border bg-[#14141A] p-4"
                 >
                   <AlertTriangle className="h-5 w-5 shrink-0 text-amber-400 mt-0.5" />
                   <span className="text-sm sm:text-base text-muted-foreground leading-relaxed">{p}</span>
@@ -128,16 +128,16 @@ export function SolutionDetailPage({ solution }: Props) {
             className="mt-12 sm:mt-16"
           >
             <div className="flex items-center gap-2 mb-4 sm:mb-6">
-              <Sparkles className="h-5 w-5 text-brand-blue shrink-0" />
+              <Sparkles className="h-5 w-5 text-[#EC4899] shrink-0" />
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight">How ClickTake solves it</h2>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               {solution.our_solution.map((s, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 rounded-xl border border-border bg-card/40 backdrop-blur-md p-4"
+                  className="flex items-start gap-3 rounded-xl border border-border bg-[#14141A] p-4"
                 >
-                  <CheckCircle2 className="h-5 w-5 shrink-0 text-brand-blue mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 shrink-0 text-[#EC4899] mt-0.5" />
                   <span className="text-sm leading-relaxed">{s}</span>
                 </div>
               ))}
@@ -161,7 +161,7 @@ export function SolutionDetailPage({ solution }: Props) {
                   <Link
                     key={s.slug}
                     href={`/services/${s.slug}`}
-                    className="group flex items-start gap-3 rounded-xl border border-border bg-card/40 backdrop-blur-md p-4 hover:border-primary/40 hover:bg-card/60 transition"
+                    className="group flex items-start gap-3 rounded-xl border border-border bg-[#14141A] p-4 hover:border-primary/40 hover:bg-card/60 transition"
                   >
                     <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-blue to-brand-cyan text-white">
                       <ArrowUpRight className="h-4 w-4" />
@@ -190,7 +190,7 @@ export function SolutionDetailPage({ solution }: Props) {
           >
             <div className="min-w-0">
               <div className="flex items-center gap-2 text-lg font-bold">
-                <Sparkles className="h-5 w-5 text-brand-blue shrink-0" />
+                <Sparkles className="h-5 w-5 text-[#EC4899] shrink-0" />
                 {solution.cta}
               </div>
               <div className="text-sm text-muted-foreground mt-1">
@@ -199,7 +199,7 @@ export function SolutionDetailPage({ solution }: Props) {
             </div>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition shrink-0"
+              className="inline-flex items-center gap-2 rounded-[8px] bg-[#EC4899] px-5 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 transition shrink-0"
             >
               Book a Call <ArrowUpRight className="h-4 w-4" />
             </Link>
