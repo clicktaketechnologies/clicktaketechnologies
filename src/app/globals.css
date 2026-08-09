@@ -795,7 +795,9 @@ html:not(.dark).theme-custom-light body {
     background: linear-gradient(135deg, #FF53A9 0%, #E0197A 100%);
   }
   .nx-brand-gradient {
-    background: linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%);
+    background: none;
+    color: #F5F5F0;
+    -webkit-text-fill-color: #F5F5F0;
   }
   /* Dark → deep gradient for dark sections */
   .nx-navy-gradient {
@@ -826,77 +828,84 @@ html:not(.dark).theme-custom-light body {
     background: rgba(255, 255, 255, 0.07);
     border-color: rgba(255, 83, 169, 0.5);
   }
-  /* Pill button — pink primary CTA */
+  /* Primary CTA — v6: solid pink, squircle, no glow */
   .nx-btn-orange {
-    background: linear-gradient(135deg, #FF53A9 0%, #E0197A 100%);
+    background: #EC4899;
     color: #ffffff;
-    border-radius: 9999px;
+    border-radius: 8px;
     font-weight: 700;
-    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 10px 30px -10px rgba(255, 83, 169, 0.5);
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    box-shadow: none;
+    border: 1px solid #EC4899;
   }
   .nx-btn-orange:hover {
-    background: linear-gradient(135deg, #E0197A 0%, #136DFF 100%);
-    transform: translateY(-1px);
-    box-shadow: 0 14px 36px -10px rgba(255, 83, 169, 0.65);
+    background: #DB2777;
+    border-color: #DB2777;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.5);
   }
-  /* Outline button — for use on dark backgrounds */
+  /* Outline button — v6: solid 1px border, transparent fill */
   .nx-btn-outline-light {
     background: transparent;
     color: #ffffff;
-    border: 1.5px solid rgba(255, 255, 255, 0.3);
-    border-radius: 9999px;
+    border: 1px solid rgba(245, 245, 240, 0.25);
+    border-radius: 8px;
     font-weight: 700;
-    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
   }
   .nx-btn-outline-light:hover {
-    border-color: var(--nx-brand-blue);
-    color: var(--nx-brand-blue-soft);
-    background: rgba(19, 109, 255, 0.08);
-    transform: translateY(-1px);
+    border-color: rgba(245, 245, 240, 0.6);
+    background: rgba(245, 245, 240, 0.04);
+    transform: translateY(-2px);
   }
-  /* Pink → blue text gradient (replaces orange) */
+  /* v6: solid color text (no gradient) */
   .nx-text-orange-grad {
-    background: linear-gradient(135deg, #FF8AC4 0%, #FF53A9 50%, #136DFF 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent !important;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: #EC4899 !important;
+    -webkit-text-fill-color: #EC4899 !important;
   }
-  /* Brand tri-stop text gradient (pink → purple → blue) */
+  /* v6: solid color text (no gradient) */
   .nx-text-brand-grad {
-    background: linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent !important;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: #F5F5F0 !important;
+    -webkit-text-fill-color: #F5F5F0 !important;
   }
-  /* Hero text — white → soft lavender gradient (matches h1-line1 from design) */
+  /* v6: solid color text (no gradient) */
   .nx-text-hero-grad {
-    background: linear-gradient(135deg, #FFFFFF 0%, rgba(200, 190, 255, 0.9) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent !important;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: #F5F5F0 !important;
+    -webkit-text-fill-color: #F5F5F0 !important;
   }
-  /* Subtle dotted grid background for dark sections */
+  /* v6: disable dot grid (was 'p5.js sketch energy' per audit) */
   .nx-dot-grid {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-    background-size: 24px 24px;
+    background-image: none;
   }
-  /* Stat number — oversized bold with gradient text */
+  /* Stat number — v6: solid off-white, no gradient */
   .nx-stat-num {
     font-weight: 900;
     letter-spacing: -0.04em;
     line-height: 1;
-    background: linear-gradient(135deg, #FF53A9, #136DFF);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: #F5F5F0;
+    -webkit-text-fill-color: #F5F5F0;
+    font-feature-settings: "tnum", "lnum";
   }
-  /* Section eyebrow label */
+  /* Section eyebrow label — v6: minimal, no pill */
   .nx-eyebrow {
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-size: 0.7rem;
-    font-weight: 700;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #EC4899;
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
   }
 
   /* ─── Light/dark adaptive surface utilities (theme-aware) ──────────
@@ -2920,67 +2929,50 @@ html.theme-elite .ct-story-floater {
     ) !important;
   }
 
-  /* ─── 2. Bigger, Bolder Hero Typography ─── */
+  /* ─── 2. Hero Typography — v6: Fraunces serif, no glow ─── */
   .theme-nx .nx-hero-bg h1,
   .theme-nx section.nx-hero-bg h1 {
-    letter-spacing: -0.04em !important;
-    line-height: 1.02 !important;
-    text-shadow:
-      0 0 80px rgba(255, 83, 169, 0.25),
-      0 0 40px rgba(155, 61, 255, 0.15) !important;
+    font-family: var(--font-fraunces), var(--font-geist-sans), Georgia, serif !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.035em !important;
+    line-height: 1.04 !important;
+    text-shadow: none !important;
+    font-optical-sizing: auto;
   }
-  /* Boost the brand-gradient headline line specifically */
+  /* Hero H1 accent line — solid hot pink, no drop-shadow glow */
   .theme-nx .nx-hero-bg h1 .nx-text-brand-grad,
   .theme-nx section.nx-hero-bg h1 .nx-text-brand-grad {
-    filter: drop-shadow(0 0 30px rgba(255, 83, 169, 0.4))
-            drop-shadow(0 0 60px rgba(19, 109, 255, 0.25));
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    color: #EC4899 !important;
+    -webkit-text-fill-color: #EC4899 !important;
+    filter: none !important;
   }
 
-  /* ─── 3. New Button System ─── */
-  /* Primary CTA — animated gradient + glow halo */
+  /* ─── 3. Button System — v6 Modern Editorial: solid fill, squircle, no glow ─── */
   .theme-nx .nx-btn-orange {
-    background: linear-gradient(
-      135deg,
-      #FF53A9 0%,
-      #FF8AC4 25%,
-      #9B3DFF 60%,
-      #136DFF 100%
-    ) !important;
-    background-size: 200% 200% !important;
-    animation: nx-btn-gradient-shift 4s ease infinite !important;
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.15) inset,
-      0 10px 30px -8px rgba(255, 83, 169, 0.6),
-      0 6px 20px -6px rgba(155, 61, 255, 0.4),
-      0 0 60px -10px rgba(19, 109, 255, 0.3) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    background: #EC4899 !important;
+    background-size: auto !important;
+    animation: none !important;
+    box-shadow: none !important;
+    border: 1px solid #EC4899 !important;
+    border-radius: 8px !important;
     position: relative;
     overflow: hidden;
+    transition: transform 0.15s ease, background-color 0.15s ease !important;
   }
   .theme-nx .nx-btn-orange::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      120deg,
-      transparent 30%,
-      rgba(255, 255, 255, 0.4) 50%,
-      transparent 70%
-    );
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-    pointer-events: none;
+    display: none;
   }
   .theme-nx .nx-btn-orange:hover::before {
-    transform: translateX(100%);
+    display: none;
   }
   .theme-nx .nx-btn-orange:hover {
+    background: #DB2777 !important;
+    border-color: #DB2777 !important;
     transform: translateY(-2px) !important;
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.25) inset,
-      0 16px 40px -8px rgba(255, 83, 169, 0.75),
-      0 10px 30px -6px rgba(155, 61, 255, 0.55),
-      0 0 80px -10px rgba(19, 109, 255, 0.45) !important;
+    box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.5) !important;
   }
 
   @keyframes nx-btn-gradient-shift {
@@ -2988,120 +2980,100 @@ html.theme-elite .ct-story-floater {
     50% { background-position: 100% 50%; }
   }
 
-  /* Outline button — glassmorphic with gradient border */
+  /* Outline button — solid 1px border, no glassmorphism, no gradient */
   .theme-nx .nx-btn-outline-light {
-    background: rgba(255, 255, 255, 0.05) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border: 1.5px solid transparent !important;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)),
-      linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%) !important;
-    background-origin: border-box !important;
-    background-clip: padding-box, border-box !important;
-    box-shadow:
-      0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid rgba(245, 245, 240, 0.25) !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
     position: relative;
     overflow: hidden;
+    transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease !important;
   }
   .theme-nx .nx-btn-outline-light:hover {
-    background-image:
-      linear-gradient(rgba(255, 83, 169, 0.12), rgba(19, 109, 255, 0.12)),
-      linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%) !important;
+    border-color: rgba(245, 245, 240, 0.6) !important;
+    background: rgba(245, 245, 240, 0.04) !important;
     transform: translateY(-2px) !important;
-    box-shadow:
-      0 12px 30px -8px rgba(255, 83, 169, 0.4),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset !important;
+    box-shadow: none !important;
   }
 
-  /* ─── 4. Animated Gradient Borders on Cards ─── */
-  /* Apply to: hero dashboard card, CTA section, key feature cards */
+  /* ─── 4. Solid Card Surfaces — v6 Modern Editorial: no glassmorphism, no gradient border ─── */
   .theme-nx .nx-card-dark,
   .theme-nx section.nx-hero-bg .nx-card-dark {
-    background: linear-gradient(
-      145deg,
-      rgba(22, 16, 42, 0.85) 0%,
-      rgba(12, 8, 24, 0.95) 100%
-    ) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid transparent !important;
-    background-image:
-      linear-gradient(145deg, rgba(22, 16, 42, 0.85), rgba(12, 8, 24, 0.95)),
-      linear-gradient(135deg, rgba(255, 83, 169, 0.5), rgba(155, 61, 255, 0.3), rgba(19, 109, 255, 0.5)) !important;
-    background-origin: border-box !important;
-    background-clip: padding-box, border-box !important;
+    background: #14141A !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid rgba(245, 245, 240, 0.08) !important;
+    border-radius: 12px !important;
     box-shadow:
-      0 30px 80px rgba(0, 0, 0, 0.6),
-      0 0 0 1px rgba(255, 255, 255, 0.05) inset,
-      0 1px 0 rgba(255, 255, 255, 0.1) inset !important;
+      0 1px 0 rgba(245, 245, 240, 0.04) inset,
+      0 8px 24px -12px rgba(0, 0, 0, 0.6) !important;
   }
 
-  /* ─── 5. Enhanced Stat Numbers ─── */
+  /* ─── 5. Stat Numbers — v6: solid off-white, no gradient, no glow ─── */
   .theme-nx .nx-stat-num {
-    background: linear-gradient(
-      135deg,
-      #FF53A9 0%,
-      #FF8AC4 25%,
-      #9B3DFF 60%,
-      #4A90D9 100%
-    ) !important;
-    background-size: 200% 200% !important;
-    animation: nx-stat-gradient-shift 6s ease infinite !important;
-    filter: drop-shadow(0 0 20px rgba(255, 83, 169, 0.3))
-            drop-shadow(0 0 40px rgba(19, 109, 255, 0.2));
+    background: none !important;
+    color: #F5F5F0 !important;
+    -webkit-text-fill-color: #F5F5F0 !important;
+    animation: none !important;
+    filter: none !important;
+    font-feature-settings: "tnum", "lnum";
   }
   @keyframes nx-stat-gradient-shift {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
   }
 
-  /* ─── 6. Dramatic Section Backgrounds ─── */
-  /* Add mesh gradient ribbons to hero and dark sections */
+  /* ─── 6. Solid Section Backgrounds — v6: deep charcoal, no mesh gradient ─── */
   .theme-nx .nx-hero-bg {
     background:
-      radial-gradient(ellipse 60% 50% at 20% 0%, rgba(255, 83, 169, 0.22) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 60% at 100% 30%, rgba(19, 109, 255, 0.28) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 50% at 50% 100%, rgba(155, 61, 255, 0.18) 0%, transparent 60%),
-      radial-gradient(ellipse 30% 30% at 80% 80%, rgba(255, 138, 196, 0.12) 0%, transparent 50%),
-      linear-gradient(180deg, #0A0612 0%, #100820 60%, #16102A 100%) !important;
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(236, 72, 153, 0.06) 0%, transparent 60%),
+      #0B0B0F !important;
   }
 
   .theme-nx .nx-navy-gradient {
-    background:
-      radial-gradient(ellipse 50% 40% at 30% 0%, rgba(255, 83, 169, 0.10) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 50% at 80% 100%, rgba(19, 109, 255, 0.12) 0%, transparent 60%),
-      linear-gradient(180deg, #100820 0%, #0A0612 50%, #100820 100%) !important;
+    background: #0B0B0F !important;
   }
 
-  /* ─── 7. New Eyebrow Pill Style ─── */
+  /* ─── 7. Eyebrow Label — v6: minimal tracked-out text with dot, no pill ─── */
   .theme-nx .nx-eyebrow {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 83, 169, 0.12),
-      rgba(19, 109, 255, 0.08)
-    );
-    padding: 0.4rem 0.85rem;
-    border-radius: 9999px;
-    border: 1px solid rgba(255, 83, 169, 0.25);
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    color: #EC4899;
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    font-weight: 500;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
   }
+  .theme-nx .nx-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #EC4899;
+    flex-shrink: 0;
+  }
 
-  /* ─── 8. Stronger Card Shadows + 3D Tilt ─── */
+  /* ─── 8. Card Shadows — v6: subtle single-direction shadow, no neon glow ─── */
   .theme-nx .nx-card {
     box-shadow:
-      0 4px 12px rgba(10, 6, 18, 0.06),
-      0 1px 2px rgba(10, 6, 18, 0.04) !important;
+      0 1px 0 rgba(245, 245, 240, 0.04) inset,
+      0 4px 12px -8px rgba(0, 0, 0, 0.4) !important;
   }
   .theme-nx .nx-card-hover:hover {
-    transform: translateY(-6px) !important;
+    transform: translateY(-2px) !important;
     box-shadow:
-      0 24px 48px -16px rgba(255, 83, 169, 0.20),
-      0 12px 24px -8px rgba(19, 109, 255, 0.15),
-      0 0 0 1px rgba(255, 83, 169, 0.2) !important;
+      0 1px 0 rgba(245, 245, 240, 0.06) inset,
+      0 8px 20px -8px rgba(0, 0, 0, 0.5) !important;
   }
 
   /* ─── 9. Footer Gradient Top-Border ─── */
@@ -3150,37 +3122,22 @@ html.theme-elite .ct-story-floater {
     100% { transform: translateX(-30%) translateY(0) skewY(-2deg); }
   }
 
-  /* ─── 11. Logo Cloud + Marquee Enhancement ─── */
+  /* ─── 11. Brand text — v6: solid off-white, no animated gradient ─── */
   .theme-nx .nx-brand-gradient {
-    background: linear-gradient(
-      135deg,
-      #FF53A9 0%,
-      #FF8AC4 20%,
-      #9B3DFF 50%,
-      #4A90D9 80%,
-      #136DFF 100%
-    ) !important;
-    background-size: 200% 200% !important;
-    animation: nx-btn-gradient-shift 5s ease infinite !important;
+    background: none !important;
+    color: #F5F5F0 !important;
+    -webkit-text-fill-color: #F5F5F0 !important;
+    animation: none !important;
   }
 
-  /* ─── 12. Headline Glow on Scroll Reveal ─── */
+  /* ─── 12. Headline Glow — v6: disabled (no glow on scroll reveal) ─── */
   .theme-nx [data-nx-reveal].is-visible h2,
   .theme-nx [data-nx-reveal].is-visible h3 {
-    animation: nx-headline-glow 1s ease-out;
+    animation: none;
   }
   @keyframes nx-headline-glow {
-    0% {
-      text-shadow: 0 0 0 transparent;
-    }
-    50% {
-      text-shadow:
-        0 0 30px rgba(255, 83, 169, 0.4),
-        0 0 60px rgba(19, 109, 255, 0.2);
-    }
-    100% {
-      text-shadow: 0 0 0 transparent;
-    }
+    0%, 100% { text-shadow: none; }
+    50% { text-shadow: none; }
   }
 
   /* ─── 13. Pill Badge Glow (for hero badge) ─── */
