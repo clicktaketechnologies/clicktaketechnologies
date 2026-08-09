@@ -241,6 +241,22 @@
   .gradient-text {
     @apply bg-gradient-to-r from-[#136DFF] to-[#FF53A9] bg-clip-text text-transparent;
   }
+  /* v6 Patch 3 — override .gradient-text in same @layer utilities to beat Tailwind */
+  html.dark .theme-nx .gradient-text,
+  html.dark .theme-nx span.gradient-text,
+  html.dark .theme-nx h1 .gradient-text,
+  html.dark .theme-nx h2 .gradient-text,
+  html.dark .theme-nx h3 .gradient-text,
+  html.dark .theme-nx p .gradient-text,
+  html.dark .theme-nx a .gradient-text {
+    background: none !important;
+    background-image: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: #EC4899 !important;
+    color: #EC4899 !important;
+    text-shadow: none !important;
+  }
   .gradient-bg {
     background: linear-gradient(135deg, #136DFF 0%, #FF53A9 100%);
   }
@@ -4086,14 +4102,7 @@ html.dark .theme-nx .nx-cta-v5[class*="bg-card/50"] {
    - .nx-divider (h-px gradient line) — keep as decorative accent
    ════════════════════════════════════════════════════════════════════════ */
 
-/* ─── P3.1: Kill .gradient-text utility — solid color ─── */
-html.dark .theme-nx .gradient-text {
-  background: none !important;
-  -webkit-background-clip: initial !important;
-  background-clip: initial !important;
-  -webkit-text-fill-color: #EC4899 !important;
-  color: #EC4899 !important;
-}
+/* ─── P3.1: (Moved into @layer utilities above to beat Tailwind's layered rule) ─── */
 
 /* ─── P3.2: Kill ambient blurred brand-color orbs on contact page ─── */
 html.dark .theme-nx [class*="bg-brand-magenta/"][class*="blur-["],
