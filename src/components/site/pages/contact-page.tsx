@@ -207,7 +207,7 @@ export function ContactPage() {
               transition={{ duration: 0.5 }}
               className="relative overflow-hidden rounded-3xl border border-border/60 bg-[#14141A] p-6 lg:p-8"
             >
-              <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-brand-cyan/20 blur-3xl" />
+              {/* v6: ambient orb removed */}
               <div className="relative">
                 <div className="flex items-center gap-2 mb-6">
                   <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#EC4899] text-white">
@@ -349,7 +349,7 @@ export function ContactPage() {
               transition={{ duration: 0.5 }}
               className="relative overflow-hidden rounded-3xl border border-border/60 bg-[#14141A] p-6 lg:p-8"
             >
-              <div className="absolute -right-24 top-0 h-72 w-72 rounded-full bg-brand-magenta/20 blur-3xl" />
+              {/* v6: ambient orb removed */}
               <div className="relative">
                 <div className="flex items-center gap-2 mb-6">
                   <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#EC4899] text-white">
@@ -592,7 +592,7 @@ export function ContactPage() {
           <span className="absolute inset-0 rounded-full bg-white/10" />
           {/* Idle pulse ring (hidden when open) */}
           {!chatOpen && (
-            <span className="absolute inset-0 rounded-full bg-brand-cyan/60 animate-ping opacity-40" aria-hidden />
+            <span className="absolute inset-0 rounded-full bg-[#EC4899]/60 animate-ping opacity-40" aria-hidden />
           )}
           {/* Icon */}
           <span className="relative z-10">

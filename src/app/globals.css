@@ -4124,3 +4124,35 @@ html.dark .theme-nx [class*="rounded-full"][class*="blur-[80px]"][class*="bg-bra
 /* ════════════════════════════════════════════════════════════════════════
    END DESIGN v6 PATCH 3
    ════════════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════════════
+   DESIGN v6 — PATCH 4: KILL ALL BLUR-3XL ORBS (CATCH-ALL)
+   ════════════════════════════════════════════════════════════════════════
+   Post-deploy VLM verification found form-section orbs still visible on
+   /contact page. Root cause: orbs used bg-brand-cyan/20 blur-3xl (no .nx-orb
+   class) inside form cards, bypassing P1.2 orb killer.
+
+   This catch-all hides ANY element with blur-3xl + rounded-full + a colored
+   background, anywhere in the .theme-nx scope.
+   ════════════════════════════════════════════════════════════════════════ */
+
+html.dark .theme-nx [class*="rounded-full"][class*="blur-3xl"],
+html.dark .theme-nx [class*="rounded-full"][class*="blur-2xl"],
+html.dark .theme-nx [class*="rounded-full"][class*="blur-[80px]"],
+html.dark .theme-nx [class*="rounded-full"][class*="blur-[100px]"],
+html.dark .theme-nx [class*="rounded-full"][class*="blur-[130px]"] {
+  display: none !important;
+}
+
+/* Also kill any decorative blurred element that's not a UI shadow */
+html.dark .theme-nx [class*="blur-3xl"][class*="bg-brand-"],
+html.dark .theme-nx [class*="blur-3xl"][class*="bg-[#FF53A9]"],
+html.dark .theme-nx [class*="blur-3xl"][class*="bg-[#136DFF]"],
+html.dark .theme-nx [class*="blur-3xl"][class*="bg-[#9B3DFF]"],
+html.dark .theme-nx [class*="blur-3xl"][class*="bg-[#EC4899]"] {
+  display: none !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   END DESIGN v6 PATCH 4
+   ════════════════════════════════════════════════════════════════════════ */
