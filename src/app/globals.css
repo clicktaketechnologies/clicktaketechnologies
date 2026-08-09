@@ -113,20 +113,17 @@
 }
 
 .dark {
-  /* ClickTake custom dark theme — tri-stop radial gradient palette:
-       base #03000D, mid #070018, deep #0D0025
-     Applied as a single solid color (#03000D) here so the BackgroundScene
-     canvas can overlay its own gradient orbs on top. The full tri-stop
-     gradient is also available as a utility class (.ct-bg-gradient) below. */
-  --background: #03000D;
-  --foreground: #F0EBF8;
-  --card: #0D0025;
-  --card-foreground: #F0EBF8;
-  --popover: #0D0025;
-  --popover-foreground: #F0EBF8;
-  --primary: #136DFF;
+  /* v6 Modern Editorial — solid deep charcoal (#0B0B0F) replaces tri-stop
+     purple gradient base. Cleaner, more premium, less "SaaS template". */
+  --background: #0B0B0F;
+  --foreground: #F5F5F0;
+  --card: #14141A;
+  --card-foreground: #F5F5F0;
+  --popover: #14141A;
+  --popover-foreground: #F5F5F0;
+  --primary: #EC4899;
   --primary-foreground: #ffffff;
-  --secondary: #070018;
+  --secondary: #18181F;
   --secondary-foreground: #F0EBF8;
   --muted: #070018;
   /* #9B8AB8 hits 6.44–6.66:1 on dark surfaces (AA). Previous #7A6B95 was only
@@ -191,10 +188,11 @@
      `position: fixed` (its own GPU layer) and covers this background
      anyway, so the body's background can scroll naturally with content. */
   .dark body {
-    background:
-      radial-gradient(ellipse at 18% 12%, rgba(74, 144, 217, 0.10) 0%, transparent 55%),
-      radial-gradient(ellipse at 82% 88%, rgba(224, 25, 122, 0.10) 0%, transparent 55%),
-      linear-gradient(180deg, #03000D 0%, #070018 55%, #0D0025 100%);
+    /* v6 Modern Editorial — solid deep charcoal, no mesh gradient.
+       The previous tri-stop radial gradient was flagged by VLM audit as
+       "SaaS template default" / "p5.js sketch energy". Replaced with a
+       single solid color for a cleaner, more premium editorial feel. */
+    background: #0B0B0F;
   }
 
   /* Hide native cursor on fine-pointer devices — custom cursor takes over.
@@ -246,14 +244,9 @@
   .gradient-bg {
     background: linear-gradient(135deg, #136DFF 0%, #FF53A9 100%);
   }
-  /* ClickTake tri-stop dark background — base #03000D → mid #070018 → deep #0D0025.
-     Use on body / page wrappers to get the layered radial-gradient look the brand
-     spec calls for, on top of which the BackgroundScene canvas paints its orbs. */
+  /* v6 Modern Editorial — utility class now solid (was tri-stop mesh gradient) */
   .ct-bg-gradient {
-    background:
-      radial-gradient(ellipse at 18% 12%, rgba(74, 144, 217, 0.18) 0%, transparent 55%),
-      radial-gradient(ellipse at 82% 88%, rgba(224, 25, 122, 0.18) 0%, transparent 55%),
-      linear-gradient(180deg, #03000D 0%, #070018 55%, #0D0025 100%);
+    background: #0B0B0F;
   }
   /* Glass surfaces adapt to theme — light gets white tint, dark gets black tint */
   .glass {
@@ -442,20 +435,18 @@ html:not(.dark) .theme-elite .input-base {
    keeping contrast ratios safe.
 */
 .theme-custom {
-  /* Default custom palette — overridden by inline custom vars from Theme Editor.
-     These mirror .dark so the site is never broken if the admin hasn't saved
-     custom tokens yet. */
-  --background: #03000D;
-  --foreground: #F0EBF8;
-  --card: #0D0025;
-  --card-foreground: #F0EBF8;
-  --popover: #0D0025;
-  --popover-foreground: #F0EBF8;
-  --primary: #136DFF;
+  /* v6 Modern Editorial — solid deep charcoal (mirrors .dark) */
+  --background: #0B0B0F;
+  --foreground: #F5F5F0;
+  --card: #14141A;
+  --card-foreground: #F5F5F0;
+  --popover: #14141A;
+  --popover-foreground: #F5F5F0;
+  --primary: #EC4899;
   --primary-foreground: #ffffff;
-  --secondary: #070018;
+  --secondary: #18181F;
   --secondary-foreground: #F0EBF8;
-  --muted: #070018;
+  --muted: #1C1C24;
   /* #9B8AB8 hits 6.44–6.66:1 on dark surfaces (AA). Previous #7A6B95 was only
      4.05–4.32:1 (AA-LARGE-ONLY). */
   --muted-foreground: #9B8AB8;
@@ -488,14 +479,9 @@ html:not(.dark) .theme-elite .input-base {
   --input: #e2e8f0;
 }
 
-/* Ensure .theme-custom body still gets the dark gradient overlay if the
-   user hasn't opted into light custom tokens. (Removed `background-attachment:
-   fixed` for the same scroll-jank reason as .dark body above.) */
+/* v6 Modern Editorial — .theme-custom body uses solid charcoal (was mesh gradient) */
 .theme-custom:not(.theme-custom-light) body {
-  background:
-    radial-gradient(ellipse at 18% 12%, rgba(74, 144, 217, 0.10) 0%, transparent 55%),
-    radial-gradient(ellipse at 82% 88%, rgba(224, 25, 122, 0.10) 0%, transparent 55%),
-    linear-gradient(180deg, #03000D 0%, #070018 55%, #0D0025 100%);
+  background: #0B0B0F;
 }
 
 /* ─── Text-visibility safety net (light/dark/system/custom) ────────────────
