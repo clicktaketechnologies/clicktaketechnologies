@@ -246,7 +246,7 @@ export function MethodologyStep({
     <div className="relative grid sm:grid-cols-[auto_1fr] gap-4 sm:gap-6">
       {/* Timeline marker */}
       <div className="flex sm:flex-col items-center sm:items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#FF53A9] to-[#136DFF] text-sm font-black text-white shadow-[0_0_20px_rgba(255,83,169,0.3)]">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EC4899] text-sm font-black text-white">
           {index}
         </div>
         {!isLast && (

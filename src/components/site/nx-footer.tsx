@@ -95,7 +95,7 @@ export function NxFooter() {
           <div className="lg:col-span-4">
             {/* Logo — v5: sharper container + perfect baseline alignment with header */}
             <div className="flex items-center gap-2.5">
-              <div className="grid h-10 w-10 place-items-center rounded-xl nx-brand-gradient font-black text-white text-lg leading-none shadow-[0_0_20px_rgba(255,83,169,0.3),0_0_40px_rgba(19,109,255,0.15)] ring-1 ring-white/10">
+              <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#EC4899] font-black text-white text-lg leading-none ring-1 ring-white/10">
                 C
               </div>
               <span className="text-xl font-black tracking-tight nx-text-brand-grad leading-none">
