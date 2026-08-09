@@ -4075,3 +4075,43 @@ html.dark .theme-nx .nx-cta-v5[class*="bg-card/50"] {
 /* ════════════════════════════════════════════════════════════════════════
    END DESIGN v6 PATCH 2 — GLOBAL ENFORCEMENT
    ════════════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════════════
+   DESIGN v6 — PATCH 3: KILL REMAINING GRADIENT-TEXT UTILITY + AMBIENT ORBS
+   ════════════════════════════════════════════════════════════════════════
+   Caught in post-deploy verification of v6 Patch 2:
+   - .gradient-text utility class still defined with bg-clip-text gradient
+   - Contact page still has 2 large blurred brand-color orbs (bg-brand-*/10 blur-[130px])
+   - Scroll progress bar (top, 3px, gradient) — keep as decorative accent
+   - .nx-divider (h-px gradient line) — keep as decorative accent
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ─── P3.1: Kill .gradient-text utility — solid color ─── */
+html.dark .theme-nx .gradient-text {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #EC4899 !important;
+  color: #EC4899 !important;
+}
+
+/* ─── P3.2: Kill ambient blurred brand-color orbs on contact page ─── */
+html.dark .theme-nx [class*="bg-brand-magenta/"][class*="blur-["],
+html.dark .theme-nx [class*="bg-brand-cyan/"][class*="blur-["],
+html.dark .theme-nx [class*="bg-brand-pink/"][class*="blur-["],
+html.dark .theme-nx [class*="bg-brand-blue/"][class*="blur-["] {
+  display: none !important;
+}
+
+/* ─── P3.3: Generic blurred orb killer (any brand color + blur) ─── */
+html.dark .theme-nx [class*="rounded-full"][class*="blur-[3xl]"][class*="bg-brand-"],
+html.dark .theme-nx [class*="rounded-full"][class*="blur-[2xl]"][class*="bg-brand-"],
+html.dark .theme-nx [class*="rounded-full"][class*="blur-[130px]"][class*="bg-brand-"],
+html.dark .theme-nx [class*="rounded-full"][class*="blur-[100px]"][class*="bg-brand-"],
+html.dark .theme-nx [class*="rounded-full"][class*="blur-[80px]"][class*="bg-brand-"] {
+  display: none !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   END DESIGN v6 PATCH 3
+   ════════════════════════════════════════════════════════════════════════ */
