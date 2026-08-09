@@ -144,30 +144,32 @@ export default function HomeContent() {
         <NxHero />
         {/* Brand marquee band — scrolling services list */}
         <Marquee items={MARQUEE_ITEMS} />
-        <NxLogoCloud />
+        <div data-nx-reveal>
+          <NxLogoCloud />
+        </div>
         {/* Stats — with 3D floating accents */}
-        <div className="relative overflow-hidden">
+        <div data-nx-reveal className="relative overflow-hidden">
           <Nx3DScene density="low" corner="top-right" />
           <div className="relative z-10">
             <NxStats />
           </div>
         </div>
         {/* Services — with 3D floating accents */}
-        <div id="services" className="relative overflow-hidden scroll-mt-24">
+        <div id="services" data-nx-reveal className="relative overflow-hidden scroll-mt-24">
           <Nx3DScene density="medium" />
           <div className="relative z-10">
             <NxServices />
           </div>
         </div>
         {/* Why Choose — with 3D floating accents */}
-        <div className="relative overflow-hidden">
+        <div data-nx-reveal className="relative overflow-hidden">
           <Nx3DScene density="low" corner="bottom-left" />
           <div className="relative z-10">
             <NxWhyChoose />
           </div>
         </div>
         {/* Process — with 3D floating accents */}
-        <div className="relative overflow-hidden">
+        <div data-nx-reveal className="relative overflow-hidden">
           <Nx3DScene density="medium" />
           <div className="relative z-10">
             <NxProcess />
@@ -175,7 +177,7 @@ export default function HomeContent() {
         </div>
         {/* Testimonials — NEW 3D cylindrical carousel (replaces grid).
             Auto-rotating, pause-on-hover, navigation dots, animated avatars. */}
-        <section id="testimonials" className="relative py-24 sm:py-32 nx-navy-gradient overflow-hidden scroll-mt-24">
+        <section id="testimonials" data-nx-reveal className="relative py-24 sm:py-32 nx-navy-gradient overflow-hidden scroll-mt-24">
           <div className="absolute top-1/4 -left-20 h-96 w-96 rounded-full bg-[#FF53A9]/10 blur-3xl pointer-events-none" />
           <div className="absolute bottom-1/4 -right-20 h-96 w-96 rounded-full bg-[#136DFF]/10 blur-3xl pointer-events-none" />
           <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
@@ -195,8 +197,12 @@ export default function HomeContent() {
             <CylindricalTestimonials items={CYL_TESTIMONIALS} autoMs={14000} />
           </div>
         </section>
-        <NxFaq />
-        <NxCta />
+        <div data-nx-reveal>
+          <NxFaq />
+        </div>
+        <div data-nx-reveal>
+          <NxCta />
+        </div>
       </main>
       <NxFooter />
       {/* Scroll-to-top floating button — appears after scrolling down */}

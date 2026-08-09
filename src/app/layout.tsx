@@ -11,6 +11,7 @@ import { buildWebSiteJsonLd } from "@/components/site/json-ld";
 import { Analytics } from "@/components/site/analytics";
 import { SkipToContent } from "@/components/site/enhanced/skip-to-content";
 import { CommandPalette } from "@/components/site/enhanced/command-palette";
+import { DesignRefresh } from "@/components/site/design-refresh";
 
 // Force ISR revalidation every 5 minutes so the CDN never serves stale HTML
 // for more than 5 minutes after a deploy. Without this, Vercel can serve
@@ -322,6 +323,10 @@ export default async function RootLayout({
             {/* Command palette — mounted once at root, opened via Cmd+K / Ctrl+K
                 or the navbar search button. Listens for the shortcut globally. */}
             <CommandPalette />
+            {/* DesignRefresh — site-wide enhancement layer (scroll reveal,
+                card spotlight, smooth anchor scroll). Mounted once at root
+                so every page gets the new design polish automatically. */}
+            <DesignRefresh />
             {children}
             <Toaster />
             {/* Expose site tools to AI agents via the WebMCP browser API

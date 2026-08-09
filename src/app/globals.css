@@ -2632,3 +2632,234 @@ html.theme-elite .ct-story-floater {
   border-radius: 0.5rem;
   margin: 1.5rem 0;
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   CLICKTAKE DESIGN REFRESH v2 (2026) — Site-wide Polish Layer
+   ════════════════════════════════════════════════════════════════════════
+   This is a NON-DESTRUCTIVE enhancement layer that augments the existing
+   nx-* design system with:
+
+   • Refined typography rhythm (headings, paragraphs, lead text)
+   • Smooth scroll-margin for anchor navigation (no navbar overlap)
+   • Visible focus-visible ring for keyboard navigation (a11y)
+   • Selection color matched to brand pink
+   • New micro-interactions: button press scale, link shimmer, card spotlight
+   • Scroll-reveal animations ([data-nx-reveal] → .is-visible)
+   • Subtle background grain texture overlay
+   • Improved prose spacing for ck-prose
+   • prefers-reduced-motion respected everywhere
+
+   Layer order: appended AFTER existing rules so it can override refinements
+   without touching the original design tokens. All rules scoped to .theme-nx
+   (the page wrapper) so admin pages keep their existing look.
+   ════════════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+
+  /* ─── Selection color (brand pink) ─── */
+  .theme-nx ::selection {
+    background: rgba(255, 83, 169, 0.28);
+    color: inherit;
+  }
+  .theme-nx ::-moz-selection {
+    background: rgba(255, 83, 169, 0.28);
+    color: inherit;
+  }
+
+  /* ─── Smooth scroll margin for anchor navigation ───
+     Prevents sticky navbar (h-20 = 5rem) from covering section titles
+     when jumping to #anchors. */
+  .theme-nx [id],
+  .theme-nx section[id] {
+    scroll-margin-top: 6rem;
+  }
+
+  /* ─── Visible focus ring for keyboard navigation (a11y) ───
+     Only shows for keyboard focus (not mouse clicks) via :focus-visible */
+  .theme-nx a:focus-visible,
+  .theme-nx button:focus-visible,
+  .theme-nx input:focus-visible,
+  .theme-nx textarea:focus-visible,
+  .theme-nx select:focus-visible,
+  .theme-nx [tabindex]:focus-visible {
+    outline: 2px solid var(--nx-brand-pink, #FF53A9);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* ─── Refined typography rhythm ─── */
+  .theme-nx h1,
+  .theme-nx h2,
+  .theme-nx h3 {
+    text-wrap: balance;
+    letter-spacing: -0.025em;
+  }
+  .theme-nx h4,
+  .theme-nx h5,
+  .theme-nx h6 {
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+  }
+  .theme-nx p {
+    text-wrap: pretty;
+  }
+
+  /* ─── Micro-interaction: button press scale ───
+     Adds tactile "click" feel to all CTAs. */
+  .theme-nx .nx-btn-orange:active,
+  .theme-nx .nx-btn-outline-light:active,
+  .theme-nx a[class*="nx-btn"]:active,
+  .theme-nx button[class*="nx-btn"]:active {
+    transform: scale(0.97);
+    transition-duration: 0.08s;
+  }
+
+  /* ─── Micro-interaction: card spotlight hover ───
+     Cards with .nx-card or .nx-card-dark get a soft radial spotlight
+     that follows the mouse. The spotlight is set via --mx/--my CSS vars
+     updated by the DesignRefresh client component. */
+  .theme-nx .nx-card,
+  .theme-nx .nx-card-dark {
+    position: relative;
+    isolation: isolate;
+  }
+  .theme-nx .nx-card::before,
+  .theme-nx .nx-card-dark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle 200px at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 83, 169, 0.10),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .theme-nx .nx-card:hover::before,
+  .theme-nx .nx-card-dark:hover::before {
+    opacity: 1;
+  }
+
+  /* ─── Micro-interaction: link shimmer on hover ───
+     Inline links inside .nx-text blocks get a subtle underline sweep. */
+  .theme-nx .nx-text a:not(.nx-btn-orange):not(.nx-btn-outline-light):not([class*="btn"]):not([class*="nav"]) {
+    position: relative;
+    color: var(--nx-brand-blue-deep, #136DFF);
+    text-decoration: underline;
+    text-decoration-color: rgba(19, 109, 255, 0.35);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+  .theme-nx .nx-text a:not(.nx-btn-orange):not(.nx-btn-outline-light):not([class*="btn"]):not([class*="nav"]):hover {
+    color: var(--nx-brand-pink-deep, #E0197A);
+    text-decoration-color: var(--nx-brand-pink, #FF53A9);
+  }
+
+  /* ─── Scroll reveal: fade-in-up on intersection ───
+     Elements with [data-nx-reveal] start invisible + offset down.
+     When the DesignRefresh observer adds .is-visible, they animate in. */
+  .theme-nx [data-nx-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .theme-nx [data-nx-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .theme-nx [data-nx-reveal][data-nx-reveal-delay="1"] { transition-delay: 0.08s; }
+  .theme-nx [data-nx-reveal][data-nx-reveal-delay="2"] { transition-delay: 0.16s; }
+  .theme-nx [data-nx-reveal][data-nx-reveal-delay="3"] { transition-delay: 0.24s; }
+  .theme-nx [data-nx-reveal][data-nx-reveal-delay="4"] { transition-delay: 0.32s; }
+  .theme-nx [data-nx-reveal][data-nx-reveal-delay="5"] { transition-delay: 0.40s; }
+
+  /* ─── Variant: reveal from left ─── */
+  .theme-nx [data-nx-reveal="left"] {
+    transform: translateX(-32px);
+  }
+  .theme-nx [data-nx-reveal="left"].is-visible {
+    transform: translateX(0);
+  }
+  /* ─── Variant: reveal from right ─── */
+  .theme-nx [data-nx-reveal="right"] {
+    transform: translateX(32px);
+  }
+  .theme-nx [data-nx-reveal="right"].is-visible {
+    transform: translateX(0);
+  }
+  /* ─── Variant: reveal with scale ─── */
+  .theme-nx [data-nx-reveal="scale"] {
+    transform: scale(0.94);
+  }
+  .theme-nx [data-nx-reveal="scale"].is-visible {
+    transform: scale(1);
+  }
+
+  /* ─── Subtle background grain texture (very faint) ───
+     Adds a film-grain feel that softens flat color blocks. */
+  .theme-nx .nx-hero-bg::after,
+  .theme-nx .nx-navy-gradient::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── Image hover: subtle scale on container ─── */
+  .theme-nx .nx-card img,
+  .theme-nx .nx-card-dark img {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .theme-nx .nx-card:hover img,
+  .theme-nx .nx-card-dark:hover img {
+    transform: scale(1.04);
+  }
+
+  /* ─── Improved hr separator with brand gradient ─── */
+  .theme-nx .nx-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--nx-border-strong, rgba(255, 255, 255, 0.16)) 20%,
+      var(--nx-border-strong, rgba(255, 255, 255, 0.16)) 80%,
+      transparent
+    );
+    border: none;
+    margin: 3rem 0;
+  }
+
+  /* ─── Reduced motion: disable all reveal + parallax ─── */
+  @media (prefers-reduced-motion: reduce) {
+    .theme-nx [data-nx-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .theme-nx .nx-card::before,
+    .theme-nx .nx-card-dark::before {
+      display: none;
+    }
+    .theme-nx .nx-orb {
+      animation: none !important;
+    }
+    .theme-nx html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   END DESIGN REFRESH v2
+   ════════════════════════════════════════════════════════════════════════ */
