@@ -3387,3 +3387,441 @@ html.theme-elite .ct-story-floater {
 /* ════════════════════════════════════════════════════════════════════════
    END DESIGN v5
    ════════════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════════════
+   DESIGN v6 — MODERN EDITORIAL OVERRIDE
+   ────────────────────────────────────────────────────────────────────────
+   Triggered by user feedback "still showing old design" after v5 polish.
+   VLM audit across 6 pages (home, services, contact, portfolio, blog, about)
+   flagged the SAME 5 "old" tells on every page:
+
+     1. Glassmorphism cards (semi-transparent + blur) — 2021 SaaS template
+     2. Pink→Purple→Blue gradient text & buttons — Cyberpunk/Web3 era
+     3. Pill-shaped fully-rounded buttons — Webflow template era
+     4. Neon glow drop-shadows on CTAs — cheapens perceived value
+     5. Particle/dot-grid + gradient-mesh backgrounds — p5.js sketch energy
+     6. Pill badges with dotted/glass borders — Tailwind default
+     7. Animated brand-gradient on headlines — generic AI/SaaS template
+     8. Aurora ribbons — generic SaaS-core
+
+   v6 kills all of the above and replaces with:
+     • Solid deep-charcoal surfaces (#0B0B0F) with crisp 1px borders
+     • Solid high-contrast typography (no gradient text)
+     • Squircle buttons (8px radius) with solid fill + mechanical hover
+     • Single-direction subtle shadows (no glow, no neon)
+     • Subtle SVG grain texture overlay (tactile depth, breaks digital smoothness)
+     • Distinctive serif (Fraunces) for hero H1 — editorial, premium feel
+     • Tighter geometric sans (Inter Tight) for section headings
+     • Increased body line-height (1.7) for editorial breathing room
+     • Minimal tracked-out uppercase eyebrow labels (no pill, no border)
+
+   This layer overrides v3 (dramatic visual overhaul) and v5 (polish) rules.
+   All rules scoped to html.dark .theme-nx so admin pages keep their look.
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ─── 1. SOLID BACKGROUND — kill gradient mesh + dot grids ─── */
+html.dark .theme-nx,
+html.dark .theme-nx body {
+  background-color: #0B0B0F !important;
+  background-image: none !important;
+}
+
+html.dark .theme-nx .nx-hero-bg,
+html.dark .theme-nx section.nx-hero-bg {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(236, 72, 153, 0.06) 0%, transparent 60%),
+    #0B0B0F !important;
+}
+
+html.dark .theme-nx .nx-navy-gradient {
+  background: #0B0B0F !important;
+}
+
+html.dark .theme-nx .nx-dot-grid {
+  background-image: none !important;
+}
+
+/* ─── 2. KILL AURORA RIBBONS — display:none ─── */
+html.dark .theme-nx .nx-aurora-ribbon {
+  display: none !important;
+}
+
+/* ─── 3. KILL GRADIENT TEXT — solid high-contrast color ─── */
+html.dark .theme-nx .nx-text-brand-grad,
+html.dark .theme-nx .nx-text-orange-grad,
+html.dark .theme-nx .nx-text-hero-grad,
+html.dark .theme-nx .nx-brand-gradient,
+html.dark .theme-nx .nx-stat-num {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  color: #F5F5F0 !important;
+  -webkit-text-fill-color: #F5F5F0 !important;
+  animation: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Hero H1 accent line — single solid accent color (hot pink) instead of gradient */
+html.dark .theme-nx .nx-hero-bg h1 .nx-text-brand-grad,
+html.dark .theme-nx section.nx-hero-bg h1 .nx-text-brand-grad {
+  color: #EC4899 !important;
+  -webkit-text-fill-color: #EC4899 !important;
+}
+
+/* Stat numbers — solid off-white with subtle pink accent (no animation, no glow) */
+html.dark .theme-nx .nx-stat-num {
+  color: #F5F5F0 !important;
+  -webkit-text-fill-color: #F5F5F0 !important;
+  font-feature-settings: "tnum", "lnum";
+}
+
+/* ─── 4. KILL HEADLINE GLOW — clean editorial type ─── */
+html.dark .theme-nx .nx-hero-bg h1,
+html.dark .theme-nx section.nx-hero-bg h1,
+html.dark .theme-nx [data-nx-reveal].is-visible h2,
+html.dark .theme-nx [data-nx-reveal].is-visible h3 {
+  text-shadow: none !important;
+  animation: none !important;
+}
+
+/* Hero H1 — Fraunces serif, tighter tracking, no glow */
+html.dark .theme-nx .nx-hero-bg h1,
+html.dark .theme-nx section.nx-hero-bg h1 {
+  font-family: var(--font-fraunces), var(--font-geist-sans), Georgia, serif !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.04 !important;
+  font-optical-sizing: auto;
+}
+
+/* Section H2/H3 — Inter Tight (tighter geometric sans, modern technical feel) */
+html.dark .theme-nx h2,
+html.dark .theme-nx h3,
+html.dark .theme-nx .nx-text h2,
+html.dark .theme-nx .nx-text h3 {
+  font-family: var(--font-inter-tight), var(--font-geist-sans), system-ui, sans-serif !important;
+  letter-spacing: -0.025em !important;
+}
+
+/* ─── 5. SQUIRCLE BUTTONS — solid fill, mechanical hover, no glow ─── */
+html.dark .theme-nx .nx-btn-orange,
+html.dark .theme-nx .nx-btn-orange:hover {
+  background: #EC4899 !important;
+  background-image: none !important;
+  background-size: auto !important;
+  animation: none !important;
+  border: 1px solid #EC4899 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  position: relative !important;
+  overflow: visible !important;
+  transition: transform 0.15s ease, background-color 0.15s ease !important;
+}
+
+html.dark .theme-nx .nx-btn-orange::before {
+  display: none !important; /* kill shimmer sweep */
+}
+
+html.dark .theme-nx .nx-btn-orange:hover {
+  background: #DB2777 !important;
+  border-color: #DB2777 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark .theme-nx .nx-btn-orange:active {
+  transform: translateY(0) !important;
+}
+
+/* Outline button — solid 1px border, transparent fill, no glassmorphism */
+html.dark .theme-nx .nx-btn-outline-light,
+html.dark .theme-nx .nx-btn-outline-light:hover {
+  background: transparent !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(245, 245, 240, 0.25) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease !important;
+}
+
+html.dark .theme-nx .nx-btn-outline-light:hover {
+  border-color: rgba(245, 245, 240, 0.6) !important;
+  background: rgba(245, 245, 240, 0.04) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ─── 6. SOLID CARDS — kill glassmorphism + gradient borders ─── */
+html.dark .theme-nx .nx-card-dark,
+html.dark .theme-nx section.nx-hero-bg .nx-card-dark {
+  background: #14141A !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(245, 245, 240, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 0 rgba(245, 245, 240, 0.04) inset, 0 8px 24px -12px rgba(0, 0, 0, 0.6) !important;
+  transition: transform 0.2s ease, border-color 0.2s ease !important;
+}
+
+html.dark .theme-nx .nx-card-dark:hover {
+  transform: translateY(-2px) !important;
+  background: #18181F !important;
+  border-color: rgba(236, 72, 153, 0.35) !important;
+  box-shadow: 0 1px 0 rgba(245, 245, 240, 0.06) inset, 0 12px 32px -12px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Solid cards (light surface) — keep solid, no glass */
+html.dark .theme-nx .nx-card {
+  background: #14141A !important;
+  border: 1px solid rgba(245, 245, 240, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 0 rgba(245, 245, 240, 0.04) inset, 0 4px 12px -8px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark .theme-nx .nx-card-hover:hover {
+  transform: translateY(-2px) !important;
+  border-color: rgba(236, 72, 153, 0.35) !important;
+  box-shadow: 0 1px 0 rgba(245, 245, 240, 0.06) inset, 0 8px 20px -8px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ─── 7. MINIMAL EYEBROW — kill pill bg/border, tracked-out text only ─── */
+html.dark .theme-nx .nx-eyebrow {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  color: #EC4899 !important;
+  font-family: var(--font-geist-mono), ui-monospace, monospace !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.18em !important;
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+/* Add a small solid dot before eyebrow text — modern alternative to pill */
+html.dark .theme-nx .nx-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #EC4899;
+  flex-shrink: 0;
+}
+
+/* ─── 8. KILL HERO BADGE PILL GLOW ─── */
+html.dark .theme-nx .nx-hero-bg [class*="rounded-full"][class*="border-[#FF53A9"],
+html.dark .theme-nx .nx-hero-bg [class*="rounded-full"][class*="border-[#EC4899"] {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(236, 72, 153, 0.4) !important;
+  border-radius: 9999px !important;
+}
+
+/* ─── 9. TITLE UNDERLINE — solid pink, no gradient, no glow ─── */
+html.dark .theme-nx .nx-title-underline::after {
+  background: #EC4899 !important;
+  box-shadow: none !important;
+  width: 40px !important;
+  height: 2px !important;
+}
+
+/* ─── 10. CTA CARDS — solid surface, no gradient border, no glow ─── */
+html.dark .theme-nx .nx-cta-v5 {
+  background: #14141A !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(245, 245, 240, 0.08) !important;
+  background-origin: padding-box !important;
+  background-clip: padding-box !important;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 0 rgba(245, 245, 240, 0.04) inset, 0 8px 24px -12px rgba(0, 0, 0, 0.6) !important;
+}
+
+html.dark .theme-nx .nx-cta-v5:hover {
+  transform: translateY(-2px) !important;
+  border-color: rgba(236, 72, 153, 0.35) !important;
+  box-shadow: 0 1px 0 rgba(245, 245, 240, 0.06) inset, 0 12px 32px -12px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* ─── 11. FAB — strip neon glow, keep functional ─── */
+html.dark .theme-nx .nx-fab-v5,
+html.dark .theme-nx .nx-fab-v5:hover {
+  background: #14141A !important;
+  border: 1px solid rgba(245, 245, 240, 0.12) !important;
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 9999px !important; /* FAB stays circular — standard pattern */
+}
+
+html.dark .theme-nx .nx-fab-v5:hover {
+  border-color: rgba(236, 72, 153, 0.5) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* WhatsApp button — solid green, no neon */
+html.dark .theme-nx .nx-wa-btn-v5,
+html.dark .theme-nx .nx-wa-btn-v5:hover {
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ─── 12. BODY TYPOGRAPHY — editorial line-height, better readability ─── */
+html.dark .theme-nx p,
+html.dark .theme-nx .nx-text p,
+html.dark .theme-nx .ck-prose p,
+html.dark .theme-nx .nx-text-soft {
+  line-height: 1.7 !important;
+  color: #C8C5BD !important; /* warm off-white, easier on eyes than pure white */
+}
+
+html.dark .theme-nx .nx-text h2,
+html.dark .theme-nx .nx-text h3,
+html.dark .theme-nx .nx-text h4 {
+  color: #F5F5F0 !important;
+  margin-top: 2rem !important;
+}
+
+/* ─── 13. SUBTLE GRAIN TEXTURE OVERLAY — tactile depth, breaks digital smoothness ─── */
+html.dark .theme-nx::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Ensure content stays above grain layer */
+html.dark .theme-nx > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── 14. NAVBAR — strip glassmorphism, use solid surface ─── */
+html.dark .theme-nx header[class*="backdrop-blur"],
+html.dark .theme-nx nav[class*="backdrop-blur"],
+html.dark .theme-nx .nx-navbar[class*="backdrop-blur"] {
+  background: rgba(11, 11, 15, 0.92) !important;
+  backdrop-filter: saturate(180%) blur(8px) !important;
+  border-bottom: 1px solid rgba(245, 245, 240, 0.06) !important;
+  border-image: none !important;
+}
+
+/* ─── 15. SECTION DIVIDERS — thin solid line, no gradient ─── */
+html.dark .theme-nx .nx-divider {
+  background: rgba(245, 245, 240, 0.08) !important;
+  height: 1px !important;
+  border: none !important;
+}
+
+/* ─── 16. IMAGE HOVER — calmer scale, no overscroll ─── */
+html.dark .theme-nx .nx-card img,
+html.dark .theme-nx .nx-card-dark img {
+  transition: transform 0.4s ease !important;
+}
+
+html.dark .theme-nx .nx-card:hover img,
+html.dark .theme-nx .nx-card-dark:hover img {
+  transform: scale(1.02) !important; /* was 1.04 — too aggressive */
+}
+
+/* ─── 17. SCROLL REVEAL — keep fade, kill headline glow + dramatic offsets ─── */
+html.dark .theme-nx [data-nx-reveal] {
+  opacity: 0;
+  transform: translateY(12px); /* was larger — too dramatic */
+  transition: opacity 0.6s ease, transform 0.6s ease !important;
+}
+
+html.dark .theme-nx [data-nx-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0) !important;
+  animation: none !important;
+}
+
+html.dark .theme-nx [data-nx-reveal="left"],
+html.dark .theme-nx [data-nx-reveal="right"],
+html.dark .theme-nx [data-nx-reveal="scale"] {
+  transform: translateY(12px) !important;
+}
+
+html.dark .theme-nx [data-nx-reveal="left"].is-visible,
+html.dark .theme-nx [data-nx-reveal="right"].is-visible,
+html.dark .theme-nx [data-nx-reveal="scale"].is-visible {
+  transform: translateY(0) !important;
+}
+
+/* ─── 18. CARD SPOTLIGHT — disable mouse-follow glow (too SaaS-y) ─── */
+html.dark .theme-nx .nx-card::before,
+html.dark .theme-nx .nx-card-dark::before {
+  display: none !important;
+}
+
+/* ─── 19. INLINE LINK HOVER — simple underline, no gradient sweep ─── */
+html.dark .theme-nx .nx-text a {
+  color: #EC4899 !important;
+  text-decoration: underline;
+  text-decoration-color: rgba(236, 72, 153, 0.3);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease !important;
+}
+
+html.dark .theme-nx .nx-text a:hover {
+  text-decoration-color: #EC4899;
+}
+
+/* ─── 20. prefers-reduced-motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  html.dark .theme-nx [data-nx-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  html.dark .theme-nx .nx-btn-orange,
+  html.dark .theme-nx .nx-btn-outline-light,
+  html.dark .theme-nx .nx-card,
+  html.dark .theme-nx .nx-card-dark,
+  html.dark .theme-nx .nx-card-hover,
+  html.dark .theme-nx .nx-cta-v5,
+  html.dark .theme-nx .nx-fab-v5 {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ─── 21. LIGHT MODE FALLBACK — keep clean editorial look in light mode ─── */
+/* Most pages render in dark mode (default), but admin/auth pages may render light. */
+.theme-nx:not(html.dark *) .nx-btn-orange {
+  background: #EC4899 !important;
+  background-image: none !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  animation: none !important;
+  border: 1px solid #EC4899 !important;
+}
+
+.theme-nx:not(html.dark *) .nx-text-brand-grad,
+.theme-nx:not(html.dark *) .nx-text-orange-grad,
+.theme-nx:not(html.dark *) .nx-text-hero-grad,
+.theme-nx:not(html.dark *) .nx-brand-gradient,
+.theme-nx:not(html.dark *) .nx-stat-num {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  color: #0A0612 !important;
+  -webkit-text-fill-color: #0A0612 !important;
+  animation: none !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   END DESIGN v6 — MODERN EDITORIAL OVERRIDE
+   ════════════════════════════════════════════════════════════════════════ */
