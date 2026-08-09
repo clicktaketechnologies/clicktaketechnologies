@@ -323,6 +323,14 @@ function DeepDiveHeroBlock({
       {/* Per-page 3D Story Scene — content-tied character + ambient orbs.
           Sits behind all hero content (z-0). */}
       {storyVariant && <NxStoryScene variant={storyVariant} />}
+
+      {/* Aurora ribbons — flowing gradient bands (FINAL DESIGN v3) */}
+      <div className="nx-aurora-ribbon" style={{ top: "10%", left: "-50%", zIndex: 0 }} />
+      <div
+        className="nx-aurora-ribbon"
+        style={{ top: "50%", left: "-50%", zIndex: 0, animationDelay: "5s", opacity: 0.22 }}
+      />
+
       <div className="absolute inset-0 nx-dot-grid opacity-30 pointer-events-none" />
       <div className="absolute top-10 -left-20 h-72 w-72 rounded-full bg-[#FF53A9]/15 blur-3xl nx-orb pointer-events-none" />
       <div
