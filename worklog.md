@@ -336,3 +336,45 @@ Stage Summary:
   * 3D wireframe scenes → removed from /contact and /case-studies
 - Architecture unchanged: Cloudflare Worker (proxy) → Vercel (Next.js app, auto-deploys from GitHub push).
 - User should hard-refresh browser (Ctrl+Shift+R) to bypass browser cache.
+
+---
+Task ID: design-v5-v6-source-fix
+Agent: main
+Task: User reported "implement v5 on live site" — investigate remaining old-design source patterns and fix them.
+
+Work Log:
+- Audited live site HTML across 12 pages for old-design tells (from-brand-*, backdrop-blur-md, bg-clip-text text-transparent).
+- Found 4 pages with stale source-level old-design patterns that CSS attribute-selector enforcement only PARTIALLY catches:
+  * /services: 22 from-brand-* instances (gradient icon chips via site-data.ts color strings)
+  * /solutions: 6 from-brand-* (gradient icon chips)
+  * / (homepage): 6 backdrop-blur-md (hero dashboard widgets + work.tsx portfolio pills + nx-cta)
+  * /legal: 8 backdrop-blur-md (legal card grid + CTA card)
+- Also found hero.tsx line 64 still had bg-gradient-to-r from-brand-cyan via-brand-blue to-[#136DFF] bg-clip-text text-transparent animate-gradient on "ClickTake Technologies" headline (v6 CSS override catches it visually but source was wrong).
+- Also found why-choose.tsx had 1 remaining emerald-to-teal accent gradient.
+- Also found site-data.ts had 16 from-brand-* gradient string literals being injected as Tailwind classes at render time.
+
+Source-level fixes (commit 8023adb):
+- src/components/site/hero.tsx: gradient text → solid text-[#EC4899]
+- src/components/site/pages/resources-page.tsx: 2 buttons (gradient + ghost) → solid #EC4899 squircle + solid #14141A ghost
+- src/components/site/pages/solutions-page.tsx: gradient icon chip → bg-[#EC4899]/15 text-[#EC4899] border-[#EC4899]/30
+- src/components/site/pages/solution-detail-page.tsx: 2 gradient icon chips → pink-tinted
+- src/components/site/why-choose.tsx: 1 remaining emerald-teal accent → pink-tinted
+- src/components/site/work.tsx: 2 backdrop-blur-md pills (ExternalLink + metric) → solid bg-black/70 rounded-[8px]/[6px]
+- src/components/site/nx-cta.tsx: glassmorphic CTA card → solid #14141A border-white/15
+- src/components/site/nx-hero.tsx: 3 backdrop-blur-md removed from floating dashboard widgets (inline rgba(16,8,32,0.92) bg already solid)
+- src/app/services/[[...slug]]/page.tsx: glassmorphic service card → solid #14141A
+- src/app/legal/page.tsx: 4 fixes (2 glassmorphic cards → solid #14141A, 2 brand-blue text links → #EC4899, 1 brand-blue badge → #EC4899 pill)
+- src/lib/site-data.ts: 16 from-brand-* gradient string literals → bg-[#EC4899]/15 text-[#EC4899]
+
+Verification:
+- bunx tsc --noEmit — clean on all modified files (only pre-existing optional UI lib errors: react-day-picker, embla, recharts, cmdk, vaul, input-otp, react-resizable-panels — not related to changes, not used on live site).
+- NEXT_TELEMETRY_DISABLED=1 NODE_OPTIONS="--max-old-space-size=2048" bunx next build — ✓ Compiled successfully, 511 static pages generated.
+- Verified v5+v6 markers compiled into .next/static/chunks/1bcf9c18164aef03.css (302KB): nx-fab-v5, nx-wa-btn-v5, nx-cta-v5, nx-ink-reading, EC4899, bg-clip-text all present.
+- git push origin main — pushed (8db1240..8023adb), Vercel auto-deploy triggered.
+
+Stage Summary:
+- All remaining source-level old-design patterns KILLED across 11 files (commit 8023adb on origin/main).
+- v5 polish layer (FAB glow, contrast bumps, breadcrumb fixes, footer social spacing) + v6 Modern Editorial (solid surfaces, squircle buttons, no gradients/glass/glows, Fraunces serif, #EC4899 single accent) now consistently applied at source.
+- Vercel auto-deploy triggered; ISR will refresh each page within 5 min of next request.
+- CSS attribute-selector enforcement layer remains as belt-and-suspenders fallback for any future inline-class regressions.
+- User should hard-refresh browser (Ctrl+Shift+R) to bypass browser cache.
