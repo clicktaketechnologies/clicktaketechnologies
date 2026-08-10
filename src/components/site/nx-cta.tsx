@@ -130,7 +130,7 @@ export function NxCta() {
               <a
                 key={c.label}
                 href={c.href}
-                className="group rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-5 text-left hover:bg-white/15 transition"
+                className="group rounded-2xl bg-[#14141A] border border-white/15 p-5 text-left hover:border-[#EC4899]/40 transition"
               >
                 <div className="flex items-center gap-3">
                   <div className="h-10 w-10 rounded-xl bg-white/20 grid place-items-center shrink-0">

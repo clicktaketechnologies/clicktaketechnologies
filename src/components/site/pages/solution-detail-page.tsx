@@ -61,7 +61,7 @@ export function SolutionDetailPage({ solution }: Props) {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brand-blue to-brand-cyan text-white">
+              <div className="grid h-12 w-12 place-items-center rounded-xl bg-[#EC4899]/15 text-[#EC4899] border border-[#EC4899]/30">
                 <Icon className="h-6 w-6" />
               </div>
               <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#EC4899]">
@@ -163,7 +163,7 @@ export function SolutionDetailPage({ solution }: Props) {
                     href={`/services/${s.slug}`}
                     className="group flex items-start gap-3 rounded-xl border border-border bg-[#14141A] p-4 hover:border-primary/40 hover:bg-card/60 transition"
                   >
-                    <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-blue to-brand-cyan text-white">
+                    <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#EC4899]/15 text-[#EC4899] border border-[#EC4899]/30">
                       <ArrowUpRight className="h-4 w-4" />
                     </div>
                     <div className="min-w-0 flex-1">

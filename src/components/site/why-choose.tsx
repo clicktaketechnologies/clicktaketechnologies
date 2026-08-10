@@ -30,7 +30,7 @@ const FEATURES: Feature[] = [
     icon: BarChart3,
     title: "Data-Driven Approach",
     desc: "Every decision backed by analytics, user research and A/B tests — not vibes.",
-    accent: "from-emerald-500 to-teal-600",
+    accent: "bg-[#EC4899]/15 text-[#EC4899]",
   },
   {
     icon: Eye,

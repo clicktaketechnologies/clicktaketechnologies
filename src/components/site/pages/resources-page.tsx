@@ -181,13 +181,13 @@ export function ResourceDetailPage({
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition"
+                  className="inline-flex items-center gap-2 rounded-[8px] bg-[#EC4899] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_1px_3px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 transition"
                 >
                   Book a free consult <Send className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/blog"
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-5 py-2.5 text-sm font-semibold hover:border-primary/40 hover:bg-secondary transition"
+                  className="inline-flex items-center gap-2 rounded-[8px] border border-border bg-[#14141A] px-5 py-2.5 text-sm font-semibold hover:border-[#EC4899]/40 hover:bg-[#1a1a22] transition"
                 >
                   Read the blog <ArrowUpRight className="h-4 w-4" />
                 </Link>

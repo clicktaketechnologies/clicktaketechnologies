@@ -78,7 +78,7 @@ export function SolutionsIndexPage() {
                   >
                     <Link href={`/solutions/${s.slug}`} className="contents">
                       <div className="flex items-start justify-between mb-4">
-                        <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brand-blue to-brand-cyan text-white">
+                        <div className="grid h-12 w-12 place-items-center rounded-xl bg-[#EC4899]/15 text-[#EC4899] border border-[#EC4899]/30">
                           <Icon className="h-6 w-6" />
                         </div>
                         <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover/tilt:text-foreground transition" />

@@ -339,7 +339,7 @@ export default async function Page({ params }: Params) {
                 <Link
                   key={s.slug}
                   href={`/services/${s.slug}`}
-                  className={`group rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 hover:${style.borderHover} hover:bg-card/60 transition`}
+                  className={`group rounded-2xl border border-border bg-[#14141A] p-5 hover:${style.borderHover} hover:bg-[#1a1a22] transition`}
                 >
                   <h3 className="text-base font-bold leading-snug group-hover:text-primary transition">
                     {s.title}

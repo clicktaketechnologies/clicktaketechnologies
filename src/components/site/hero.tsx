@@ -61,7 +61,7 @@ export function Hero() {
           <h1 className="mt-6 sm:mt-8 text-4xl leading-[1.05] sm:text-6xl sm:leading-[1.05] lg:text-7xl lg:leading-[1.02] font-black tracking-tight">
             <span className="block text-foreground">Build, Market &amp; Scale</span>
             <span className="block text-foreground">Your Business with</span>
-            <span className="block bg-gradient-to-r from-brand-cyan via-brand-blue to-[#136DFF] bg-clip-text text-transparent animate-gradient">
+            <span className="block text-[#EC4899]">
               ClickTake Technologies
             </span>
           </h1>
