@@ -20,11 +20,11 @@ const ICONS: Record<string, any> = {
 
 function RoleCard({ role, onApply }: { role: CareerRole; onApply: (slug: string) => void }) {
   return (
-    <div className="rounded-2xl border border-border bg-[#14141A] p-5 hover:border-primary/40 hover:bg-card/60 transition">
+    <div className="rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 hover:border-primary/40 hover:bg-card/60 transition">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h3 className="text-base sm:text-lg font-bold leading-tight">{role.title}</h3>
-          <div className="text-[11px] uppercase tracking-widest text-[#EC4899] mt-1">
+          <div className="text-[11px] uppercase tracking-widest text-brand-blue mt-1">
             {role.department}
           </div>
         </div>
@@ -52,7 +52,7 @@ function RoleCard({ role, onApply }: { role: CareerRole; onApply: (slug: string)
         </Link>
         <button
           onClick={() => onApply(role.slug)}
-          className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#EC4899] px-3 py-1.5 text-xs font-semibold text-white hover:-translate-y-0.5 transition"
+          className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-3 py-1.5 text-xs font-semibold text-white hover:scale-105 transition"
         >
           Apply now <Send className="h-3 w-3" />
         </button>
@@ -143,10 +143,10 @@ export function CareersPage() {
             transition={{ duration: 0.5 }}
             className="max-w-3xl"
           >
-            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#EC4899]">
+            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-brand-blue">
               Careers
             </div>
-            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0]">
+            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
               Build the future of AI, web and growth — with us.
             </h1>
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
@@ -167,9 +167,9 @@ export function CareersPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.4, delay: (i % 6) * 0.04 }}
-                  className="rounded-xl border border-border bg-[#14141A] p-5"
+                  className="rounded-xl border border-border bg-card/40 backdrop-blur-md p-5"
                 >
-                  <Icon className="h-5 w-5 text-[#EC4899] mb-3" />
+                  <Icon className="h-5 w-5 text-brand-blue mb-3" />
                   <div className="text-sm font-semibold mb-1.5">{p.title}</div>
                   <div className="text-xs text-muted-foreground leading-relaxed">{p.desc}</div>
                 </motion.div>
@@ -186,7 +186,7 @@ export function CareersPage() {
             className="mt-16 sm:mt-20"
           >
             <div className="flex items-center gap-2 mb-4">
-              <Briefcase className="h-5 w-5 text-[#EC4899] shrink-0" />
+              <Briefcase className="h-5 w-5 text-brand-blue shrink-0" />
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Open roles</h2>
             </div>
 
@@ -196,7 +196,7 @@ export function CareersPage() {
                 onClick={() => setActiveDept("all")}
                 className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
                   activeDept === "all"
-                    ? "bg-[#EC4899] text-white"
+                    ? "bg-gradient-to-r from-brand-blue to-brand-cyan text-white"
                     : "border border-border bg-secondary/50 text-foreground hover:border-primary/40"
                 }`}
               >
@@ -211,7 +211,7 @@ export function CareersPage() {
                     onClick={() => setActiveDept(dept)}
                     className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
                       activeDept === dept
-                        ? "bg-[#EC4899] text-white"
+                        ? "bg-gradient-to-r from-brand-blue to-brand-cyan text-white"
                         : "border border-border bg-secondary/50 text-foreground hover:border-primary/40"
                     }`}
                   >
@@ -260,7 +260,7 @@ export function CareersPage() {
             className="mt-16 sm:mt-20"
           >
             <div className="flex items-center gap-2 mb-4">
-              <Send className="h-5 w-5 text-[#EC4899] shrink-0" />
+              <Send className="h-5 w-5 text-brand-blue shrink-0" />
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
                 {showForm ? "Apply now" : "Submit an open application"}
               </h2>
@@ -279,7 +279,7 @@ export function CareersPage() {
                   <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
                     Thank you for applying to ClickTake Technologies. We will review your application
                     and respond within 5 business days. If you don&apos;t hear from us by then, please
-                    email <a href="mailto:careers@clicktaketech.com" className="text-[#EC4899] hover:underline">careers@clicktaketech.com</a>.
+                    email <a href="mailto:careers@clicktaketech.com" className="text-brand-blue hover:underline">careers@clicktaketech.com</a>.
                   </p>
                   <button
                     onClick={() => { setSubmitted(false); setShowForm(false); }}
@@ -292,7 +292,7 @@ export function CareersPage() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="rounded-2xl border border-border bg-[#14141A] p-5 sm:p-6 space-y-4"
+                className="rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 sm:p-6 space-y-4"
               >
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
@@ -416,13 +416,13 @@ export function CareersPage() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex items-center gap-2 rounded-[8px] bg-[#EC4899] px-5 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 transition disabled:opacity-50 disabled:hover:scale-100"
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition disabled:opacity-50 disabled:hover:scale-100"
                   >
                     {submitting ? "Submitting…" : "Submit application"} <Send className="h-4 w-4" />
                   </button>
                   <p className="text-[11px] text-muted-foreground">
                     By submitting, you agree to our{" "}
-                    <Link href="/legal/privacy" className="text-[#EC4899] hover:underline">Privacy Policy</Link>.
+                    <Link href="/legal/privacy" className="text-brand-blue hover:underline">Privacy Policy</Link>.
                     We review every application — no AI screening, no auto-rejects.
                   </p>
                 </div>
@@ -453,14 +453,14 @@ export function CareerDetailPage({ role }: { role: CareerRole }) {
           transition={{ duration: 0.5 }}
         >
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#EC4899]">
+            <span className="inline-flex items-center rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-brand-blue">
               {role.department}
             </span>
             <span className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
               {role.type}
             </span>
           </div>
-          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0]">
+          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
             {role.title}
           </h1>
           <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
@@ -478,7 +478,7 @@ export function CareerDetailPage({ role }: { role: CareerRole }) {
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href={`/careers?role=${role.slug}#careers-application-form`}
-              className="inline-flex items-center gap-2 rounded-[8px] bg-[#EC4899] px-5 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 transition"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition"
             >
               Apply now <Send className="h-4 w-4" />
             </Link>
@@ -506,7 +506,7 @@ export function CareerDetailPage({ role }: { role: CareerRole }) {
               <ul className="space-y-2.5">
                 {role.responsibilities.map((r, i) => (
                   <li key={i} className="flex gap-2.5 text-sm text-muted-foreground leading-relaxed">
-                    <CheckCircle2 className="h-4 w-4 text-[#EC4899] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-brand-blue shrink-0 mt-0.5" />
                     <span>{r}</span>
                   </li>
                 ))}
@@ -551,7 +551,7 @@ export function CareerDetailPage({ role }: { role: CareerRole }) {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="space-y-4"
           >
-            <div className="rounded-2xl border border-border bg-[#14141A] p-5 sticky top-24">
+            <div className="rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 sticky top-24">
               <h3 className="text-sm font-semibold mb-3">Role summary</h3>
               <dl className="space-y-2 text-xs">
                 <div className="flex justify-between gap-2">
@@ -569,14 +569,14 @@ export function CareerDetailPage({ role }: { role: CareerRole }) {
               </dl>
               <Link
                 href={`/careers?role=${role.slug}#careers-application-form`}
-                className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-[8px] bg-[#EC4899] px-4 py-2.5 text-xs font-semibold text-white hover:-translate-y-0.5 transition"
+                className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-4 py-2.5 text-xs font-semibold text-white shadow-lg hover:scale-105 transition"
               >
                 Apply now <Send className="h-3.5 w-3.5" />
               </Link>
               <p className="mt-3 text-[11px] text-muted-foreground leading-relaxed">
                 We review every application within 5 business days. No AI screening,
                 no auto-rejects. Email{" "}
-                <a href="mailto:careers@clicktaketech.com" className="text-[#EC4899] hover:underline">
+                <a href="mailto:careers@clicktaketech.com" className="text-brand-blue hover:underline">
                   careers@clicktaketech.com
                 </a>{" "}
                 with questions.

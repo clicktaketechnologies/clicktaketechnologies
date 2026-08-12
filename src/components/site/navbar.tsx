@@ -41,20 +41,20 @@ const SOLUTION_ICONS: Record<string, LucideIcon> = {
 
 /* Map solution slug → brand accent gradient for the icon chip */
 const SOLUTION_ACCENTS: Record<string, { chip: string; text: string }> = {
-  startups:          { chip: "bg-[#EC4899]",        text: "text-amber-400" },
-  "local-businesses":{ chip: "bg-emerald-500",       text: "text-emerald-400" },
-  "ecommerce-brands":{ chip: "bg-[#EC4899]",       text: "text-[#EC4899]" },
-  "repair-shops":    { chip: "bg-[#EC4899]",    text: "text-[#EC4899]" },
-  "uk-businesses":   { chip: "bg-[#EC4899]",       text: "text-[#EC4899]" },
-  agencies:          { chip: "bg-[#EC4899]",    text: "text-[#EC4899]" },
+  startups:          { chip: "from-amber-500 to-brand-pink",        text: "text-amber-400" },
+  "local-businesses":{ chip: "from-emerald-500 to-teal-600",       text: "text-emerald-400" },
+  "ecommerce-brands":{ chip: "from-brand-cyan to-brand-blue",       text: "text-brand-cyan" },
+  "repair-shops":    { chip: "from-brand-magenta to-brand-blue",    text: "text-brand-magenta" },
+  "uk-businesses":   { chip: "from-brand-blue to-brand-cyan",       text: "text-brand-blue" },
+  agencies:          { chip: "from-brand-pink to-brand-magenta",    text: "text-brand-pink" },
 };
 
 /* ───────────────── CATEGORY DISPLAY CONFIG ───────────────── */
 const CATEGORY_DISPLAY: Record<string, { group: string; accentColor: string }> = {
-  ai:           { group: "AI & Machine Learning", accentColor: "text-[#EC4899]" },
-  web:          { group: "Web Development",       accentColor: "text-[#EC4899]" },
+  ai:           { group: "AI & Machine Learning", accentColor: "text-brand-magenta" },
+  web:          { group: "Web Development",       accentColor: "text-brand-cyan" },
   marketing:    { group: "Digital Marketing",     accentColor: "text-emerald-400" },
-  creative:     { group: "Creative Services",     accentColor: "text-[#EC4899]" },
+  creative:     { group: "Creative Services",     accentColor: "text-brand-pink" },
 };
 
 type NavLink = { label: string; href: string; mega?: boolean };
@@ -222,7 +222,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop nav — visible on lg+, but link density adapts to viewport */}
-          <nav className="hidden lg:flex items-center gap-0.5 rounded-[10px] border ct-divider ct-surface px-1.5 py-1.5 whitespace-nowrap max-w-[58vw] xl:max-w-none overflow-hidden">
+          <nav className="hidden lg:flex items-center gap-0.5 rounded-full border ct-divider ct-surface px-1.5 py-1.5 backdrop-blur-xl whitespace-nowrap max-w-[58vw] xl:max-w-none overflow-hidden">
             {NAV_LINKS.map((l: NavLink) => {
               const isAnchor = l.href.startsWith("#") || l.href.includes("#");
               const isMega = !!l.mega;
@@ -238,7 +238,7 @@ export function Navbar() {
                       className="group relative rounded-full px-3 xl:px-4 py-2 text-[13px] font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap"
                     >
                       {l.label}
-                      <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-[#EC4899] transition-all group-hover:w-8" />
+                      <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-brand-cyan to-brand-magenta transition-all group-hover:w-8" />
                     </Link>
                   </span>
                 );
@@ -280,7 +280,7 @@ export function Navbar() {
                       className="group relative rounded-full px-3 xl:px-4 py-2 text-[13px] font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap flex items-center"
                     >
                       {l.label}
-                      <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-[#EC4899] transition-all group-hover:w-8" />
+                      <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-brand-cyan to-brand-magenta transition-all group-hover:w-8" />
                       <ChevronDown className={`ml-1 inline h-4 w-4 transition-transform ${isThisOpen ? "rotate-180" : ""}`} />
                     </Link>
 
@@ -303,9 +303,9 @@ export function Navbar() {
                                Two-column grid with brand-tinted icon chips per
                                solution. Each row is a hover-able Link with title +
                                audience subtitle. Footer CTA links to the index page. */
-                            <div className="w-[min(760px,calc(100vw-2rem))] rounded-2xl border border-border bg-[#14141A] shadow-2xl p-4 sm:p-5">
+                            <div className="w-[min(760px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-4 sm:p-5">
                               <div className="mb-3 flex items-center justify-between px-1">
-                                <div className="text-[10px] font-bold uppercase tracking-widest text-[#EC4899]">
+                                <div className="text-[10px] font-bold uppercase tracking-widest text-brand-blue">
                                   Solutions by audience
                                 </div>
                                 <div className="text-[10px] text-muted-foreground">
@@ -315,7 +315,7 @@ export function Navbar() {
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
                                 {SOLUTIONS.map((sol) => {
                                   const Icon = SOLUTION_ICONS[sol.slug] || Sparkles;
-                                  const accent = SOLUTION_ACCENTS[sol.slug] || { chip: "bg-[#EC4899]", text: "text-[#EC4899]" };
+                                  const accent = SOLUTION_ACCENTS[sol.slug] || { chip: "from-brand-blue to-brand-cyan", text: "text-brand-blue" };
                                   return (
                                     <Link
                                       key={sol.slug}
@@ -323,7 +323,7 @@ export function Navbar() {
                                       onClick={() => setMegaOpen(null)}
                                       className="group/sol flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
                                     >
-                                      <div className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#EC4899]/15 text-[#EC4899] shadow-sm group-hover/sol:scale-110 transition-transform`}>
+                                      <div className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${accent.chip} text-white shadow-sm group-hover/sol:scale-110 transition-transform`}>
                                         <Icon className="h-4 w-4" />
                                       </div>
                                       <div className="min-w-0 flex-1">
@@ -346,7 +346,7 @@ export function Navbar() {
                                 <Link
                                   href="/solutions"
                                   onClick={() => setMegaOpen(null)}
-                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#EC4899] hover:underline"
+                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-blue hover:underline"
                                 >
                                   View all solutions <ArrowUpRight className="h-3.5 w-3.5" />
                                 </Link>
@@ -359,9 +359,9 @@ export function Navbar() {
                                4-column grid grouped by category (AI / Web / Marketing /
                                Creative), each item with a brand-tinted icon. Bottom CTA
                                row links to the Starter Kit flagship offering. */
-                            <div className="w-[min(960px,calc(100vw-2rem))] rounded-2xl border border-border bg-[#14141A] shadow-2xl p-4 sm:p-5">
+                            <div className="w-[min(960px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-4 sm:p-5">
                               <div className="mb-3 flex items-center justify-between px-1">
-                                <div className="text-[10px] font-bold uppercase tracking-widest text-[#EC4899]">
+                                <div className="text-[10px] font-bold uppercase tracking-widest text-brand-blue">
                                   Services by category
                                 </div>
                                 <div className="text-[10px] text-muted-foreground">
@@ -411,16 +411,16 @@ export function Navbar() {
                                 <Link
                                   href="/services/starter-kit"
                                   onClick={() => setMegaOpen(null)}
-                                  className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-[#EC4899]/8 border border-[#EC4899]/25 p-3 sm:p-3.5 hover:bg-[#EC4899]/12 transition group/flagship"
+                                  className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 p-3 sm:p-3.5 hover:from-amber-500/25 hover:to-brand-pink/25 transition group/flagship"
                                 >
                                   <div className="flex items-center gap-3 min-w-0">
-                                    <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#EC4899]/15 text-[#EC4899] shadow-sm group-hover/flagship:scale-110 transition-transform">
+                                    <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-amber-500 to-brand-pink text-white shadow-sm group-hover/flagship:scale-110 transition-transform">
                                       <Sparkles className="h-4 w-4" />
                                     </div>
                                     <div className="min-w-0">
                                       <div className="flex items-center gap-2 text-sm font-bold flex-wrap">
                                         <span className="truncate">{STARTER_KIT.title}</span>
-                                        <span className="text-[10px] rounded-[6px] bg-[#EC4899] px-2 py-0.5 text-white shrink-0 font-bold uppercase tracking-wider">
+                                        <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white shrink-0 font-bold uppercase tracking-wider">
                                           Flagship
                                         </span>
                                       </div>
@@ -440,9 +440,9 @@ export function Navbar() {
                                Two groups: SHOWCASE (Portfolio + Case Studies) and
                                LEARN (Blog + Pricing). Each link has a brand-tinted
                                icon chip + title + short subtitle. */
-                            <div className="w-[min(640px,calc(100vw-2rem))] rounded-2xl border border-border bg-[#14141A] shadow-2xl p-4 sm:p-5">
+                            <div className="w-[min(640px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-4 sm:p-5">
                               {/* SHOWCASE */}
-                              <div className="mb-1 px-1 text-[10px] font-bold uppercase tracking-widest text-[#EC4899]">
+                              <div className="mb-1 px-1 text-[10px] font-bold uppercase tracking-widest text-brand-magenta">
                                 Showcase
                               </div>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
@@ -451,7 +451,7 @@ export function Navbar() {
                                   onClick={() => setMegaOpen(null)}
                                   className="group/res flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
                                 >
-                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#EC4899]/15 text-[#EC4899] shadow-sm group-hover/res:scale-110 transition-transform">
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-cyan to-brand-blue text-white shadow-sm group-hover/res:scale-110 transition-transform">
                                     <Briefcase className="h-4 w-4" />
                                   </div>
                                   <div className="min-w-0 flex-1">
@@ -469,7 +469,7 @@ export function Navbar() {
                                   onClick={() => setMegaOpen(null)}
                                   className="group/res flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
                                 >
-                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#EC4899]/15 text-[#EC4899] shadow-sm group-hover/res:scale-110 transition-transform">
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-magenta to-brand-blue text-white shadow-sm group-hover/res:scale-110 transition-transform">
                                     <FileText className="h-4 w-4" />
                                   </div>
                                   <div className="min-w-0 flex-1">
@@ -485,7 +485,7 @@ export function Navbar() {
                               </div>
 
                               {/* LEARN */}
-                              <div className="mt-4 mb-1 px-1 text-[10px] font-bold uppercase tracking-widest text-[#EC4899]">
+                              <div className="mt-4 mb-1 px-1 text-[10px] font-bold uppercase tracking-widest text-brand-blue">
                                 Learn
                               </div>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
@@ -494,7 +494,7 @@ export function Navbar() {
                                   onClick={() => setMegaOpen(null)}
                                   className="group/res flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
                                 >
-                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#EC4899]/15 text-[#EC4899] shadow-sm group-hover/res:scale-110 transition-transform">
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-blue to-brand-cyan text-white shadow-sm group-hover/res:scale-110 transition-transform">
                                     <BookOpen className="h-4 w-4" />
                                   </div>
                                   <div className="min-w-0 flex-1">
@@ -512,7 +512,7 @@ export function Navbar() {
                                   onClick={() => setMegaOpen(null)}
                                   className="group/res flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
                                 >
-                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-emerald-500/15 text-emerald-400 shadow-sm group-hover/res:scale-110 transition-transform">
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-sm group-hover/res:scale-110 transition-transform">
                                     <Tag className="h-4 w-4" />
                                   </div>
                                   <div className="min-w-0 flex-1">
@@ -534,7 +534,7 @@ export function Navbar() {
                                 <Link
                                   href="/resources"
                                   onClick={() => setMegaOpen(null)}
-                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#EC4899] hover:underline"
+                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-blue hover:underline"
                                 >
                                   View all resources <ArrowUpRight className="h-3.5 w-3.5" />
                                 </Link>
@@ -545,8 +545,8 @@ export function Navbar() {
                           {which === "company" && (
                             /* ─── COMPANY MEGA MENU ───
                                Single group ABOUT US with About + Team + Careers. */
-                            <div className="w-[min(520px,calc(100vw-2rem))] rounded-2xl border border-border bg-[#14141A] shadow-2xl p-4 sm:p-5">
-                              <div className="mb-1 px-1 text-[10px] font-bold uppercase tracking-widest text-[#EC4899]">
+                            <div className="w-[min(520px,calc(100vw-2rem))] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl p-4 sm:p-5">
+                              <div className="mb-1 px-1 text-[10px] font-bold uppercase tracking-widest text-brand-magenta">
                                 About us
                               </div>
                               <div className="grid grid-cols-1 gap-1">
@@ -555,7 +555,7 @@ export function Navbar() {
                                   onClick={() => setMegaOpen(null)}
                                   className="group/co flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
                                 >
-                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#EC4899]/15 text-[#EC4899] shadow-sm group-hover/co:scale-110 transition-transform">
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-blue to-brand-cyan text-white shadow-sm group-hover/co:scale-110 transition-transform">
                                     <Info className="h-4 w-4" />
                                   </div>
                                   <div className="min-w-0 flex-1">
@@ -573,7 +573,7 @@ export function Navbar() {
                                   onClick={() => setMegaOpen(null)}
                                   className="group/co flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
                                 >
-                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#EC4899]/15 text-[#EC4899] shadow-sm group-hover/co:scale-110 transition-transform">
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-cyan to-brand-blue text-white shadow-sm group-hover/co:scale-110 transition-transform">
                                     <Users className="h-4 w-4" />
                                   </div>
                                   <div className="min-w-0 flex-1">
@@ -591,7 +591,7 @@ export function Navbar() {
                                   onClick={() => setMegaOpen(null)}
                                   className="group/co flex items-start gap-3 rounded-xl px-2.5 py-2.5 hover:bg-secondary transition"
                                 >
-                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#EC4899]/15 text-[#EC4899] shadow-sm group-hover/co:scale-110 transition-transform">
+                                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-pink to-brand-magenta text-white shadow-sm group-hover/co:scale-110 transition-transform">
                                     <GraduationCap className="h-4 w-4" />
                                   </div>
                                   <div className="min-w-0 flex-1">
@@ -613,7 +613,7 @@ export function Navbar() {
                                 <Link
                                   href="/about"
                                   onClick={() => setMegaOpen(null)}
-                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#EC4899] hover:underline"
+                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-blue hover:underline"
                                 >
                                   Meet ClickTake <ArrowUpRight className="h-3.5 w-3.5" />
                                 </Link>
@@ -635,7 +635,7 @@ export function Navbar() {
                     className="group relative rounded-full px-3 xl:px-4 py-2 text-[13px] font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap"
                   >
                     {l.label}
-                    <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-[#EC4899] transition-all group-hover:w-8" />
+                    <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-brand-cyan to-brand-magenta transition-all group-hover:w-8" />
                   </button>
                 );
               }
@@ -647,7 +647,7 @@ export function Navbar() {
                   className="group relative rounded-full px-3 xl:px-4 py-2 text-[13px] font-semibold text-muted-foreground hover:text-foreground transition whitespace-nowrap"
                 >
                   {l.label}
-                  <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-[#EC4899] transition-all group-hover:w-8" />
+                  <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-brand-cyan to-brand-magenta transition-all group-hover:w-8" />
                 </Link>
               );
             })}
@@ -692,7 +692,7 @@ export function Navbar() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setOpen(false)}
-                className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-black/70 z-40 lg:hidden"
+                className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
               />
               {/* Full-height slide-down panel — fills viewport below the header bar.
                   Uses dynamic viewport height (100dvh) so mobile browser chrome
@@ -797,7 +797,7 @@ export function Navbar() {
                             <Link
                               href="/solutions"
                               onClick={() => setOpen(false)}
-                              className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#EC4899]"
+                              className="block px-3 py-2 rounded-lg text-xs font-semibold text-brand-blue"
                             >
                               View all solutions →
                             </Link>
@@ -824,7 +824,7 @@ export function Navbar() {
                           className="overflow-hidden"
                         >
                           <div className="pl-3 pr-1 pb-2 space-y-0.5">
-                            <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#EC4899]">
+                            <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-magenta">
                               Showcase
                             </div>
                             <Link href="/portfolio" onClick={() => setOpen(false)} className="flex items-start gap-2 px-3 py-2 rounded-lg ct-hover text-sm">
@@ -835,7 +835,7 @@ export function Navbar() {
                               <ChevronRight className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
                               <span className="font-medium">Case Studies</span>
                             </Link>
-                            <div className="px-3 py-1.5 mt-1 text-[10px] font-bold uppercase tracking-widest text-[#EC4899]">
+                            <div className="px-3 py-1.5 mt-1 text-[10px] font-bold uppercase tracking-widest text-brand-blue">
                               Learn
                             </div>
                             <Link href="/blog" onClick={() => setOpen(false)} className="flex items-start gap-2 px-3 py-2 rounded-lg ct-hover text-sm">
@@ -890,11 +890,11 @@ export function Navbar() {
                       <Link
                         href="/services/starter-kit"
                         onClick={() => setOpen(false)}
-                        className="mt-1 flex items-center gap-2 px-4 py-3 rounded-xl bg-[#EC4899]/8 border border-[#EC4899]/25 text-sm font-semibold"
+                        className="mt-1 flex items-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-amber-500/15 to-brand-pink/15 border border-amber-500/30 text-sm font-semibold"
                       >
                         <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
                         <span className="truncate flex-1">{STARTER_KIT.title}</span>
-                        <span className="text-[10px] rounded-[6px] bg-[#EC4899] px-2 py-0.5 text-white shrink-0">
+                        <span className="text-[10px] rounded-full bg-gradient-to-r from-amber-500 to-brand-pink px-2 py-0.5 text-white shrink-0">
                           FLAGSHIP
                         </span>
                       </Link>
@@ -910,14 +910,14 @@ export function Navbar() {
                         href="tel:+447391653377"
                         className="flex items-center gap-2 px-4 py-3 rounded-xl border ct-divider ct-surface text-sm"
                       >
-                        <Phone className="h-4 w-4 text-[#EC4899] shrink-0" />
+                        <Phone className="h-4 w-4 text-brand-blue shrink-0" />
                         <span className="truncate">+44 7391 653377 (UK)</span>
                       </a>
                       <a
                         href="tel:+923069753003"
                         className="flex items-center gap-2 px-4 py-3 rounded-xl border ct-divider ct-surface text-sm"
                       >
-                        <Phone className="h-4 w-4 text-[#EC4899] shrink-0" />
+                        <Phone className="h-4 w-4 text-brand-pink shrink-0" />
                         <span className="truncate">+92 306 9753003 (PK)</span>
                       </a>
                     </div>

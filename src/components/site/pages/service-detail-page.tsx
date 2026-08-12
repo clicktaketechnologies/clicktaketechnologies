@@ -777,7 +777,7 @@ export function ServiceDetailPage({ service }: Props) {
             <div className={`text-[10px] sm:text-xs font-semibold uppercase tracking-widest ${cat.accentColor}`}>
               {cat.eyebrow}
             </div>
-            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0]">
+            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
               {service.title}
             </h1>
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
@@ -789,7 +789,7 @@ export function ServiceDetailPage({ service }: Props) {
               {deliverables.map((d) => (
                 <div
                   key={d.label}
-                  className="rounded-xl border border-border bg-[#14141A] p-4"
+                  className="rounded-xl border border-border bg-card/50 backdrop-blur-md p-4"
                 >
                   <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
                     {d.label}
@@ -855,7 +855,7 @@ export function ServiceDetailPage({ service }: Props) {
               {inclusions.map((inc) => (
                 <div
                   key={inc}
-                  className="flex items-start gap-3 rounded-xl border border-border bg-[#14141A] p-4 sm:p-5"
+                  className="flex items-start gap-3 rounded-xl border border-border bg-card/40 backdrop-blur-md p-4 sm:p-5"
                 >
                   <CheckCircle2 className={`h-5 w-5 shrink-0 ${cat.accentColor}`} />
                   <span className="text-sm leading-relaxed">{inc}</span>
@@ -880,7 +880,7 @@ export function ServiceDetailPage({ service }: Props) {
               {copy.benefits.map((b) => (
                 <div
                   key={b.title}
-                  className="rounded-xl border border-border bg-[#14141A] p-5 hover:border-primary/30 transition"
+                  className="rounded-xl border border-border bg-card/40 backdrop-blur-md p-5 hover:border-primary/30 transition"
                 >
                   <div className={`text-sm font-semibold mb-1.5 ${cat.accentColor}`}>{b.title}</div>
                   <div className="text-sm text-muted-foreground leading-relaxed">{b.desc}</div>
@@ -956,7 +956,7 @@ export function ServiceDetailPage({ service }: Props) {
               {copy.faqs.map((faq) => (
                 <details
                   key={faq.q}
-                  className="group rounded-xl border border-border bg-[#14141A] p-4 [&_summary]:cursor-pointer"
+                  className="group rounded-xl border border-border bg-card/40 backdrop-blur-md p-4 [&_summary]:cursor-pointer"
                 >
                   <summary className="flex items-center justify-between gap-3 text-sm font-semibold list-none">
                     <span>{faq.q}</span>
@@ -990,7 +990,7 @@ export function ServiceDetailPage({ service }: Props) {
               {REGION_COPY.map((r) => (
                 <div
                   key={r.city}
-                  className="rounded-xl border border-border bg-[#14141A] p-4 hover:border-primary/30 hover:bg-card/60 transition"
+                  className="rounded-xl border border-border bg-card/40 backdrop-blur-md p-4 hover:border-primary/30 hover:bg-card/60 transition"
                 >
                   <div className="text-2xl mb-1.5">{r.flag}</div>
                   <div className="text-sm font-bold leading-tight">{r.city}</div>
@@ -1027,7 +1027,7 @@ export function ServiceDetailPage({ service }: Props) {
                   <Link
                     key={s.slug}
                     href={`/services/${s.slug}`}
-                    className="group flex items-start gap-3 rounded-xl border border-border bg-[#14141A] p-4 hover:border-primary/40 hover:bg-card/60 transition"
+                    className="group flex items-start gap-3 rounded-xl border border-border bg-card/40 backdrop-blur-md p-4 hover:border-primary/40 hover:bg-card/60 transition"
                   >
                     <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${cat.gradient} text-white`}>
                       <ArrowUpRight className="h-4 w-4" />
@@ -1046,7 +1046,7 @@ export function ServiceDetailPage({ service }: Props) {
               <div className="mt-6">
                 <Link
                   href="/services"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-[#EC4899] hover:underline"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-brand-blue hover:underline"
                 >
                   Browse all services <ArrowUpRight className="h-4 w-4" />
                 </Link>
@@ -1060,7 +1060,7 @@ export function ServiceDetailPage({ service }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-12 sm:mt-16 rounded-2xl border border-border bg-[#14141A] p-6 sm:p-8"
+            className="mt-12 sm:mt-16 rounded-2xl border border-border bg-card/50 backdrop-blur-md p-6 sm:p-8"
           >
             <div className="flex items-center gap-2 mb-2">
               <MapPin className={`h-5 w-5 ${cat.accentColor} shrink-0`} />
@@ -1083,7 +1083,7 @@ export function ServiceDetailPage({ service }: Props) {
                     <span>{country.flag}</span>
                     {c.name}
                     {c.hasOffice && (
-                      <span className="text-[10px] text-[#EC4899]/70">HQ</span>
+                      <span className="text-[10px] text-brand-blue/70">HQ</span>
                     )}
                   </Link>
                 );

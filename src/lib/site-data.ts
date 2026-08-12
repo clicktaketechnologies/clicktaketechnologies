@@ -116,7 +116,7 @@ export type ServiceCategoryStyle = {
 
 export const CATEGORY_STYLES: Record<string, ServiceCategoryStyle> = {
   ai: {
-    gradient: "bg-[#EC4899]/15 text-[#EC4899]",
+    gradient: "from-brand-magenta to-brand-blue",
     glow: "color-mix(in oklab, var(--brand-magenta) 12%, transparent)",
     borderHover: "hover:border-brand-magenta/40",
     accentColor: "text-brand-magenta",
@@ -129,7 +129,7 @@ export const CATEGORY_STYLES: Record<string, ServiceCategoryStyle> = {
     group: "AI & Machine Learning",
   },
   web: {
-    gradient: "bg-[#EC4899]/15 text-[#EC4899]",
+    gradient: "from-brand-cyan to-brand-blue",
     glow: "color-mix(in oklab, var(--brand-cyan) 12%, transparent)",
     borderHover: "hover:border-brand-cyan/40",
     accentColor: "text-brand-cyan",
@@ -155,7 +155,7 @@ export const CATEGORY_STYLES: Record<string, ServiceCategoryStyle> = {
     group: "Digital Marketing",
   },
   creative: {
-    gradient: "bg-[#EC4899]/15 text-[#EC4899]",
+    gradient: "from-brand-pink to-orange-500",
     glow: "color-mix(in oklab, var(--brand-pink) 12%, transparent)",
     borderHover: "hover:border-brand-pink/40",
     accentColor: "text-brand-pink",
@@ -349,7 +349,7 @@ export const PROCESS_STEPS = [
     title: "Discovery",
     desc: "Deep research into your goals, users and positioning to uncover opportunities that drive long-term growth.",
     icon: "Search",
-    color: "bg-[#EC4899]/15 text-[#EC4899]",
+    color: "from-brand-cyan to-brand-blue",
     glow: "shadow-cyan-500/25",
     glowRaw: "rgba(0,200,255,0.3)",
     detail: "Competitor audits · User research · Market positioning · KPI mapping",
@@ -360,7 +360,7 @@ export const PROCESS_STEPS = [
     title: "Strategy",
     desc: "A scalable roadmap aligned with branding, user experience and measurable business impact.",
     icon: "Brain",
-    color: "bg-[#EC4899]/15 text-[#EC4899]",
+    color: "from-brand-blue to-sky-600",
     glow: "shadow-blue-500/25",
     glowRaw: "rgba(59,130,246,0.3)",
     detail: "Tech stack selection · Wireframes · Sprint planning · Resource allocation",
@@ -371,7 +371,7 @@ export const PROCESS_STEPS = [
     title: "Design",
     desc: "Premium interfaces crafted with motion, clarity and immersive visual systems that captivate.",
     icon: "Pencil",
-    color: "bg-[#EC4899]/15 text-[#EC4899]",
+    color: "from-brand-cyan to-teal-500",
     glow: "shadow-sky-500/25",
     glowRaw: "rgba(14,165,233,0.3)",
     detail: "UI/UX systems · Component libraries · Motion design · Brand integration",
@@ -393,7 +393,7 @@ export const PROCESS_STEPS = [
     title: "Launch",
     desc: "Deployment, optimisation and continuous iteration focused on performance and growth metrics.",
     icon: "Rocket",
-    color: "bg-[#EC4899]/15 text-[#EC4899]",
+    color: "from-brand-cyan to-brand-blue",
     glow: "shadow-cyan-500/25",
     glowRaw: "rgba(0,200,255,0.3)",
     detail: "CI/CD pipeline · Analytics setup · SEO launch · Growth tracking",
@@ -503,14 +503,14 @@ export const OFFICES = [
     addr: "Flat 312, Kitts Green Road, Birmingham B33 9SB",
     phone: "+44 7391 653377",
     hours: "Mon-Sat: 09:30 AM - 09:00 PM GMT",
-    color: "bg-[#EC4899]/15 text-[#EC4899]",
+    color: "from-brand-cyan to-brand-blue",
   },
   {
     label: "Pakistan · Multan HQ",
     addr: "Office #12, B.C.G Chowk, Paracha Street, Multan 60600",
     phone: "+92 306 9753003",
     hours: "Mon-Sat: 09:30 AM - 09:00 PM PKT",
-    color: "bg-[#EC4899]/15 text-[#EC4899]",
+    color: "from-brand-magenta to-brand-blue",
   },
   {
     label: "Pakistan · Multan (Dev)",
@@ -534,14 +534,14 @@ export const CONTACT_METHODS = [
     label: "WhatsApp · United Kingdom",
     value: "+44 7391 653377",
     href: "https://wa.me/447391653377",
-    glow: "bg-[#EC4899]/15 text-[#EC4899]",
+    glow: "from-brand-cyan to-brand-blue",
   },
   {
     icon: "Mail",
     label: "Email Address",
     value: "Info@clicktaketech.com",
     href: "mailto:Info@clicktaketech.com",
-    glow: "bg-[#EC4899]/15 text-[#EC4899]",
+    glow: "from-brand-magenta to-brand-magenta",
   },
 ];
 
@@ -599,8 +599,8 @@ export const RESOURCES = [
 
 // ─── ABOUT (matches original About.tsx data) ──
 export const ABOUT_STATS = [
-  { val: "120+", label: "Projects Shipped", icon: "Code2", color: "bg-[#EC4899]/15 text-[#EC4899]" },
-  { val: "80+", label: "Happy Clients", icon: "Users", color: "bg-[#EC4899]/15 text-[#EC4899]" },
+  { val: "120+", label: "Projects Shipped", icon: "Code2", color: "from-brand-cyan to-brand-blue" },
+  { val: "80+", label: "Happy Clients", icon: "Users", color: "from-brand-magenta to-brand-magenta" },
   { val: "5.0", label: "Average Rating", icon: "Star", color: "from-amber-400 to-orange-500" },
   { val: "6+", label: "Years Active", icon: "TrendingUp", color: "from-teal-400 to-brand-cyan" },
 ];
@@ -617,14 +617,14 @@ export const ABOUT_VALUES = [
     icon: "Award",
     title: "Results-First Mindset",
     desc: "Every decision we make is tied to your KPIs — traffic, leads, conversions, revenue.",
-    color: "bg-[#EC4899]/15 text-[#EC4899]",
+    color: "from-brand-magenta to-brand-magenta",
     glowRaw: "color-mix(in oklab, var(--brand-magenta) 20%, transparent)",
   },
   {
     icon: "Globe",
     title: "Global Delivery",
     desc: "Teams in the UK, Pakistan, USA and Dubai — coordinated across time zones for 18-hour coverage.",
-    color: "bg-[#EC4899]/15 text-[#EC4899]",
+    color: "from-brand-cyan to-brand-blue",
     glowRaw: "rgba(0,200,255,0.2)",
   },
 ];
@@ -1556,7 +1556,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     icon: "School",
     year: "2025",
     region: "Global",
-    color: "bg-[#EC4899]/15 text-[#EC4899]",
+    color: "from-brand-blue/25 to-brand-cyan/40",
   },
 ];
 

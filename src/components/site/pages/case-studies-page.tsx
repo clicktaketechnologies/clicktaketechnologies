@@ -4,9 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import{
   NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
-// v6: 3D scene removed // import { Nx3DScene } from "../nx-3d-scene";
-// v6: 3D character removed // import { Nx3DCharacter } from "../nx-3d-character";
-// v6: story scene removed // import { NxStoryScene } from "../nx-story-scene";
+import { Nx3DScene } from "../nx-3d-scene";
+import { Nx3DCharacter } from "../nx-3d-character";
+import { NxStoryScene } from "../nx-story-scene";
 import { TiltCard } from "@/components/site/tilt-card";
 import { motion } from "framer-motion";
 import {
@@ -41,19 +41,19 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
   const status = STATUS_LABELS[cs.result_status] || STATUS_LABELS.pending;
   return (
     <TiltCard
-      className="group/tilt flex flex-col rounded-2xl border border-border bg-[#14141A] overflow-hidden hover:border-[#EC4899]/40 transition-colors"
+      className="group/tilt flex flex-col rounded-2xl border border-border bg-card/40 backdrop-blur-md overflow-hidden hover:border-primary/40 transition-colors"
       glow={true}
       shine={true}
       maxTilt={8}
     >
       <Link href={`/case-studies/${cs.slug}`} className="contents">
-        <div className="h-40 bg-[#1A1A22] border-b border-[#EC4899]/20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/10" />
+        <div className="h-40 bg-gradient-to-br from-brand-blue via-brand-magenta to-brand-pink relative overflow-hidden">
+          <div className="absolute inset-0 bg-black/30" />
           <div className="absolute top-3 left-3 flex flex-col gap-2">
-            <span className="inline-flex items-center rounded-[6px] bg-[#EC4899] px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
+            <span className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-black">
               {cs.industry}
             </span>
-            <span className={`inline-flex items-center rounded-[6px] border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${status.color}`}>
+            <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${status.color}`}>
               {status.label}
             </span>
           </div>
@@ -72,7 +72,7 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
             {cs.services.slice(0, 3).map((s) => (
               <span
                 key={s}
-                className="inline-flex items-center rounded-[6px] border border-border bg-[#0F0F14] px-2 py-0.5 text-[10px] font-medium"
+                className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-2 py-0.5 text-[10px] font-medium"
               >
                 {SERVICE_LABELS[s] || s}
               </span>
@@ -82,7 +82,7 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
             {cs.metrics.slice(0, 2).map((m) => (
               <div
                 key={m.label}
-                className="rounded-lg border border-border bg-[#0F0F14] px-2.5 py-1.5"
+                className="rounded-lg border border-border bg-secondary/30 px-2.5 py-1.5"
               >
                 <div className="text-[10px] text-muted-foreground uppercase tracking-widest">{m.label}</div>
                 <div className="text-sm font-bold leading-tight">{m.value}</div>
@@ -104,12 +104,14 @@ export function CaseStudiesIndexPage() {
 
   return (
     <NxPageLayout>
-        {/* v6: 3D scenes removed — solid editorial background */}
-        {/* <NxStoryScene variant="case-studies" /> */}
-        {/* <div className="pointer-events-none absolute right-0 top-24 lg:top-32 xl:top-40 z-[5] hidden lg:block" aria-hidden="true">
+        {/* 3D character — floats in hero area, lg+ only */}
+{/* Per-page 3D Story Scene — case-studies variant. Sits behind hero content. */}
+        <NxStoryScene variant="case-studies" />
+                <div className="pointer-events-none absolute right-0 top-24 lg:top-32 xl:top-40 z-[5] hidden lg:block" aria-hidden="true">
           <Nx3DCharacter variant="case-studies" size="md" />
-        </div> */}
-        {/* <Nx3DScene density="low" /> */}
+        </div>
+        {/* 3D floating geometric accents */}
+        <Nx3DScene density="low" />
 
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero */}
@@ -119,10 +121,10 @@ export function CaseStudiesIndexPage() {
             transition={{ duration: 0.5 }}
             className="max-w-3xl"
           >
-            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#EC4899]">
+            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-brand-blue">
               Case Studies
             </div>
-            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0]">
+            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
               Real engagements. Real numbers. No fake case studies.
             </h1>
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
@@ -136,10 +138,10 @@ export function CaseStudiesIndexPage() {
           <div className="mt-8 flex flex-wrap gap-2">
             <button
               onClick={() => setFilter("all")}
-              className={`inline-flex items-center rounded-[8px] px-3 py-1.5 text-xs font-semibold transition ${
+              className={`inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold transition ${
                 filter === "all"
-                  ? "bg-[#EC4899] text-white"
-                  : "border border-border bg-[#14141A] text-foreground hover:border-[#EC4899]/40"
+                  ? "bg-gradient-to-r from-brand-blue to-brand-cyan text-white"
+                  : "border border-border bg-secondary/50 text-foreground hover:border-primary/40"
               }`}
             >
               All ({CASE_STUDIES.length})
@@ -150,10 +152,10 @@ export function CaseStudiesIndexPage() {
                 <button
                   key={s}
                   onClick={() => setFilter(s)}
-                  className={`inline-flex items-center rounded-[8px] px-3 py-1.5 text-xs font-semibold transition ${
+                  className={`inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold transition ${
                     filter === s
-                      ? "bg-[#EC4899] text-white"
-                      : "border border-border bg-[#14141A] text-foreground hover:border-[#EC4899]/40"
+                      ? "bg-gradient-to-r from-brand-blue to-brand-cyan text-white"
+                      : "border border-border bg-secondary/50 text-foreground hover:border-primary/40"
                   }`}
                 >
                   {SERVICE_LABELS[s] || s} ({count})
@@ -207,7 +209,7 @@ export function CaseStudiesIndexPage() {
           >
             <div>
               <div className="flex items-center gap-2 text-lg font-bold">
-                <Sparkles className="h-5 w-5 text-[#EC4899] shrink-0" />
+                <Sparkles className="h-5 w-5 text-brand-blue shrink-0" />
                 Want to be our next case study?
               </div>
               <div className="text-sm text-muted-foreground mt-1">
@@ -216,7 +218,7 @@ export function CaseStudiesIndexPage() {
             </div>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-[8px] bg-[#EC4899] px-5 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 transition shrink-0"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition shrink-0"
             >
               Book a Call <ArrowUpRight className="h-4 w-4" />
             </Link>
@@ -246,14 +248,14 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
             transition={{ duration: 0.5 }}
           >
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center rounded-[6px] border border-[#EC4899]/25 bg-[#EC4899]/8 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#EC4899]">
+              <span className="inline-flex items-center rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-brand-blue">
                 {cs.industry}
               </span>
-              <span className={`inline-flex items-center rounded-[6px] border px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${status.color}`}>
+              <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${status.color}`}>
                 {status.label}
               </span>
             </div>
-            <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0]">
+            <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               {cs.client}
             </h1>
             <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
@@ -267,7 +269,8 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
           </motion.div>
 
           {/* Hero image */}
-          <div className="mt-8 h-48 sm:h-72 rounded-2xl bg-[#1A1A22] border border-[#EC4899]/15 relative overflow-hidden flex items-end justify-end p-4">
+          <div className="mt-8 h-48 sm:h-72 rounded-2xl bg-gradient-to-br from-brand-blue via-brand-magenta to-brand-pink relative overflow-hidden">
+            <div className="absolute inset-0 bg-black/30" />
             <div className="absolute bottom-4 right-4">
               <Sparkles className="h-8 w-8 text-white/80" />
             </div>
@@ -276,7 +279,7 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
           {/* Metrics strip */}
           <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
             {cs.metrics.map((m) => (
-              <div key={m.label} className="rounded-xl border border-border bg-[#14141A] p-4">
+              <div key={m.label} className="rounded-xl border border-border bg-card/50 backdrop-blur-md p-4">
                 <div className="text-[10px] uppercase tracking-widest text-muted-foreground">{m.label}</div>
                 <div className="mt-1 text-base sm:text-lg font-bold">{m.value}</div>
               </div>
@@ -309,7 +312,7 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
               {cs.tech.map((t) => (
                 <span
                   key={t}
-                  className="inline-flex items-center rounded-[6px] border border-[#EC4899]/25 bg-[#EC4899]/8 px-3 py-1.5 text-xs font-medium text-[#F5F5F0]"
+                  className="inline-flex items-center rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1.5 text-xs font-medium text-brand-blue"
                 >
                   {t}
                 </span>
@@ -347,7 +350,7 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
                 href={cs.live_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#EC4899] hover:underline"
+                className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-blue hover:underline"
               >
                 Visit live site <ExternalLink className="h-4 w-4" />
               </a>
@@ -376,10 +379,10 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
                     <Link
                       key={r.slug}
                       href={`/case-studies/${r.slug}`}
-                      className="group rounded-xl border border-border bg-[#14141A] p-4 hover:border-[#EC4899]/40 transition"
+                      className="group rounded-xl border border-border bg-card/40 backdrop-blur-md p-4 hover:border-primary/40 hover:bg-card/60 transition"
                     >
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-[10px] uppercase tracking-widest text-[#EC4899]">
+                        <span className="text-[10px] uppercase tracking-widest text-brand-blue">
                           {r.industry}
                         </span>
                         <span className={`text-[10px] uppercase tracking-widest ${rStatus.color}`}>
@@ -409,7 +412,7 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
           >
             <div>
               <div className="flex items-center gap-2 text-lg font-bold">
-                <Sparkles className="h-5 w-5 text-[#EC4899] shrink-0" />
+                <Sparkles className="h-5 w-5 text-brand-blue shrink-0" />
                 Want results like these?
               </div>
               <div className="text-sm text-muted-foreground mt-1">
@@ -418,7 +421,7 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
             </div>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-[8px] bg-[#EC4899] px-5 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 transition shrink-0"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition shrink-0"
             >
               Book a Call <ArrowUpRight className="h-4 w-4" />
             </Link>

@@ -61,7 +61,7 @@ export function Hero() {
           <h1 className="mt-6 sm:mt-8 text-4xl leading-[1.05] sm:text-6xl sm:leading-[1.05] lg:text-7xl lg:leading-[1.02] font-black tracking-tight">
             <span className="block text-foreground">Build, Market &amp; Scale</span>
             <span className="block text-foreground">Your Business with</span>
-            <span className="block text-[#EC4899]">
+            <span className="block bg-gradient-to-r from-brand-cyan via-brand-blue to-[#136DFF] bg-clip-text text-transparent animate-gradient">
               ClickTake Technologies
             </span>
           </h1>
@@ -98,7 +98,7 @@ export function Hero() {
         <SectionReveal variant="fadeUp" delay={0.4}>
           <div className="mt-10 sm:mt-12 flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-3 text-xs sm:text-sm text-muted-foreground">
             <div className="inline-flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-[#EC4899]" />
+              <Calendar className="h-4 w-4 text-brand-blue" />
               <span>Founded {SITE.founded}</span>
             </div>
             <div className="hidden sm:block h-4 w-px bg-border" />

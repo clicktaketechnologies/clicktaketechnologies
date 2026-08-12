@@ -79,7 +79,7 @@ export default function Page() {
               you have any questions about these policies, email{" "}
               <a
                 href="mailto:legal@clicktaketech.com"
-                className="text-[#EC4899] hover:underline"
+                className="text-brand-blue hover:underline"
               >
                 legal@clicktaketech.com
               </a>
@@ -94,18 +94,18 @@ export default function Page() {
                 <Link
                   key={doc.href}
                   href={doc.href}
-                  className="group rounded-2xl border border-border bg-[#14141A] p-5 sm:p-6 hover:border-[#EC4899]/40 hover:bg-[#1a1a22] transition"
+                  className="group rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 sm:p-6 hover:border-primary/40 hover:bg-card/60 transition"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="shrink-0 rounded-xl border border-border bg-[#EC4899]/10 p-3">
-                      <Icon className="h-5 w-5 text-[#EC4899]" />
+                    <div className="shrink-0 rounded-xl border border-border bg-secondary/50 p-3">
+                      <Icon className="h-5 w-5 text-brand-blue" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
                         <h2 className="text-base sm:text-lg font-bold leading-snug group-hover:text-primary transition">
                           {doc.title}
                         </h2>
-                        <span className="inline-flex items-center rounded-[6px] border border-[#EC4899]/30 bg-[#EC4899]/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-[#EC4899]">
+                        <span className="inline-flex items-center rounded-full border border-brand-blue/30 bg-brand-blue/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-brand-blue">
                           {doc.badge}
                         </span>
                       </div>
@@ -127,7 +127,7 @@ export default function Page() {
             })}
           </div>
 
-          <div className="mt-10 sm:mt-12 rounded-2xl border border-border bg-[#14141A] p-5 sm:p-6">
+          <div className="mt-10 sm:mt-12 rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 sm:p-6">
             <h2 className="text-sm font-semibold mb-2">Need a specific legal document?</h2>
             <p className="text-xs text-muted-foreground leading-relaxed">
               For DPAs (Data Processing Agreements), MSAs (Master Services
@@ -135,7 +135,7 @@ export default function Page() {
               documents, please contact{" "}
               <a
                 href="mailto:legal@clicktaketech.com"
-                className="text-[#EC4899] hover:underline"
+                className="text-brand-blue hover:underline"
               >
                 legal@clicktaketech.com
               </a>

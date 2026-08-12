@@ -44,10 +44,10 @@ export function SolutionsIndexPage() {
             transition={{ duration: 0.5 }}
             className="max-w-3xl"
           >
-            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#EC4899]">
+            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-brand-blue">
               Solutions
             </div>
-            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0]">
+            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
               Built for your business type — not a generic pitch.
             </h1>
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
@@ -71,14 +71,14 @@ export function SolutionsIndexPage() {
                   transition={{ duration: 0.5, delay: i * 0.05 }}
                 >
                   <TiltCard
-                    className="group/tilt block h-full rounded-2xl border border-border bg-[#14141A] p-6 hover:border-primary/40 transition-colors"
+                    className="group/tilt block h-full rounded-2xl border border-border bg-card/40 backdrop-blur-md p-6 hover:border-primary/40 transition-colors"
                     glow={true}
                     shine={true}
                     maxTilt={10}
                   >
                     <Link href={`/solutions/${s.slug}`} className="contents">
                       <div className="flex items-start justify-between mb-4">
-                        <div className="grid h-12 w-12 place-items-center rounded-xl bg-[#EC4899]/15 text-[#EC4899] border border-[#EC4899]/30">
+                        <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brand-blue to-brand-cyan text-white">
                           <Icon className="h-6 w-6" />
                         </div>
                         <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover/tilt:text-foreground transition" />
@@ -118,7 +118,7 @@ export function SolutionsIndexPage() {
           >
             <div>
               <div className="flex items-center gap-2 text-lg font-bold">
-                <Sparkles className="h-5 w-5 text-[#EC4899] shrink-0" />
+                <Sparkles className="h-5 w-5 text-brand-blue shrink-0" />
                 Not sure which solution fits?
               </div>
               <div className="text-sm text-muted-foreground mt-1">
@@ -127,7 +127,7 @@ export function SolutionsIndexPage() {
             </div>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-[8px] bg-[#EC4899] px-5 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 transition shrink-0"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition shrink-0"
             >
               Book a Call <ArrowUpRight className="h-4 w-4" />
             </Link>

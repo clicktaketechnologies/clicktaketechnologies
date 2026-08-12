@@ -165,7 +165,7 @@ export function NxNavbar() {
           <div className="flex items-center justify-between h-16 lg:h-18">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="ClickTake home">
-              <div className="h-9 w-9 rounded-lg bg-[#EC4899] grid place-items-center font-black text-white text-sm">
+              <div className="h-9 w-9 rounded-lg nx-brand-gradient grid place-items-center font-black text-white text-sm shadow-[0_0_20px_rgba(255,83,169,0.3),0_0_40px_rgba(19,109,255,0.15)]">
                 C
               </div>
               <span className={`text-lg font-black tracking-tight hidden sm:block nx-text-brand-grad ${logoTextClass}`}>
