@@ -378,3 +378,29 @@ Stage Summary:
 - Vercel auto-deploy triggered; ISR will refresh each page within 5 min of next request.
 - CSS attribute-selector enforcement layer remains as belt-and-suspenders fallback for any future inline-class regressions.
 - User should hard-refresh browser (Ctrl+Shift+R) to bypass browser cache.
+
+---
+Task ID: design-revert-to-v3
+Agent: main
+Task: User uploaded 4 screenshots of the design they want live (home, services, contact, case-studies). VLM analysis confirmed the screenshots show v3 dark premium design — NOT v6 modern editorial. User wants v3 back.
+
+Work Log:
+- VLM-analyzed uploaded screenshots (page-home.png, page-services.png, page-contact(1).png, page-cases(1).png).
+- Confirmed screenshots show: dark navy/black bg with purple/blue radial gradient atmosphere, gradient pink-to-purple text on headline keywords, glassmorphic cards (translucent dark + blur + thin border), gradient blue-to-pink pill buttons with soft glow, 3D robot character in hero, floating dashboard widgets, blur orbs, green WhatsApp FAB, glassmorphic navbar.
+- These are ALL the v3 design elements that v6 had destroyed in favor of flat editorial style.
+- Root cause: my interpretation of "still showing old design" was wrong — the user actually LIKED v3 (with gradients/glass/3D character). They meant the live site was stale vs their v3 mockups, NOT that v3 was old. v6 modern editorial was the wrong direction.
+
+Revert (commit eecb805):
+- git checkout 778a302 -- src/ — restored all src files to v5 state (v3 design + v5 polish).
+- 30 files changed, 585 insertions(+), 1366 deletions(-).
+- Restored: gradient text on hero, aurora background, glassmorphic cards, gradient pill buttons with glow, 3D robot character on /contact and /case-studies, floating dashboard widgets in hero, ambient orbs, particle canvas, neon logo glows.
+- v5 polish layer preserved: FAB glow, contrast bumps, breadcrumb fixes, footer social spacing.
+- All 13 v6 commits undone (8b1f2ea through 8023adb).
+- Build verified clean: NEXT_TELEMETRY_DISABLED=1 NODE_OPTIONS="--max-old-space-size=2048" bunx next build — ✓ Compiled successfully, 511 static pages generated.
+- CSS bundle 0ec3fb58a19a4360.css contains v3 markers: aurora-ribbon, backdrop-blur-md, from-brand-cyan, gradient-text.
+
+Stage Summary:
+- V3 DARK PREMIUM DESIGN RESTORED on origin/main (commit eecb805).
+- All v6 flattening undone. Site now matches the screenshots the user uploaded.
+- Vercel auto-deploy triggered.
+- User should hard-refresh browser (Ctrl+Shift+R) to bypass browser cache.
