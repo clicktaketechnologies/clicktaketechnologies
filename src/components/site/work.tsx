@@ -75,13 +75,13 @@ export function Work() {
                   <Link
                     href={p.url}
                     aria-label={`View ${p.title} case study`}
-                    className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-[8px] border ct-divider bg-black/70 text-white transition-all duration-300 hover:rotate-12 hover:bg-white hover:text-black"
+                    className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border ct-divider bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:rotate-12 hover:bg-white hover:text-black"
                   >
                     <ExternalLink className="h-4 w-4" />
                   </Link>
 
                   {/* metric pill */}
-                  <div className="absolute left-5 top-5 rounded-[6px] border ct-divider bg-black/70 px-3 py-1 text-xs font-semibold text-white">
+                  <div className="absolute left-5 top-5 rounded-full border ct-divider bg-black/30 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
                     {p.metric}
                   </div>
 

@@ -414,7 +414,7 @@ export function NxHero() {
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-0 -right-3 z-[4] rounded-xl p-3.5"
+                  className="absolute top-0 -right-3 z-[4] rounded-xl p-3.5 backdrop-blur-md"
                   style={{
                     background: "rgba(16,8,32,0.92)",
                     border: "1px solid rgba(19,109,255,0.3)",
@@ -436,7 +436,7 @@ export function NxHero() {
                 <motion.div
                   animate={{ y: [0, -12, 0] }}
                   transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute bottom-8 -right-5 z-[4] rounded-xl p-3.5 min-w-[150px]"
+                  className="absolute bottom-8 -right-5 z-[4] rounded-xl p-3.5 backdrop-blur-md min-w-[150px]"
                   style={{
                     background: "rgba(16,8,32,0.92)",
                     border: "1px solid rgba(255,83,169,0.3)",
@@ -466,7 +466,7 @@ export function NxHero() {
                 <motion.div
                   animate={{ y: [0, -8, 0] }}
                   transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute bottom-0 -left-5 z-[4] rounded-xl p-3.5"
+                  className="absolute bottom-0 -left-5 z-[4] rounded-xl p-3.5 backdrop-blur-md"
                   style={{
                     background: "rgba(16,8,32,0.92)",
                     border: "1px solid rgba(0,230,118,0.3)",
