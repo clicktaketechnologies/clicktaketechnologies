@@ -66,7 +66,7 @@ export function NxHero() {
             >
               <span className="block">Engineering</span>
               <span className="block">Tomorrow's</span>
-              <span className="block bg-gradient-to-r from-[#EC4899] via-[#9B3DFF] to-[#6366F1] bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                 Intelligence,
               </span>
               <span className="block">Today.</span>
@@ -94,9 +94,9 @@ export function NxHero() {
             >
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-sm sm:text-base font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] transition-all hover:shadow-[0_8px_40px_rgba(236,72,153,0.5)] hover:scale-[1.02]"
+                className="group inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-sm sm:text-base font-bold text-white shadow-[0_8px_30px_rgba(155,61,255,0.35)] transition-all hover:shadow-[0_8px_40px_rgba(155,61,255,0.55)] hover:scale-[1.02]"
                 style={{
-                  background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)",
+                  background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)",
                 }}
               >
                 Book a Demo
@@ -261,8 +261,8 @@ function RobotCharacter() {
           <div
             className="w-10 h-10 rounded-full grid place-items-center"
             style={{
-              background: "linear-gradient(135deg, #FF53A9, #EC4899)",
-              boxShadow: "0 0 20px rgba(255,83,169,0.5)",
+              background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)",
+              boxShadow: "0 0 20px rgba(155,61,255,0.6)",
             }}
           >
             <span className="text-white text-lg">♥</span>

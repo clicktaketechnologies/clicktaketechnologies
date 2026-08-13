@@ -20,7 +20,7 @@ export function ContactPage() {
         title={
           <>
             Let's build something{" "}
-            <span className="bg-gradient-to-r from-[#EC4899] via-[#9B3DFF] to-[#6366F1] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
               extraordinary.
             </span>
           </>
@@ -91,14 +91,14 @@ function MultiStepForm() {
             <div
               className={`grid h-8 w-8 place-items-center rounded-full text-sm font-bold transition-all ${
                 s <= step
-                  ? "bg-gradient-to-br from-[#3B82F6] to-[#EC4899] text-white"
+                  ? "bg-gradient-to-br from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] text-white"
                   : "border border-white/20 text-white/40"
               }`}
             >
               {s < step ? <Check className="h-4 w-4" /> : s}
             </div>
             {s < 3 && (
-              <div className={`h-px w-12 ${s < step ? "bg-[#EC4899]" : "bg-white/20"}`} />
+              <div className={`h-px w-12 ${s < step ? "bg-[#FF8AC4]" : "bg-white/20"}`} />
             )}
           </div>
         ))}
@@ -120,7 +120,7 @@ function MultiStepForm() {
               placeholder="Alex Morgan"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#EC4899]/50 focus:outline-none focus:ring-2 focus:ring-[#EC4899]/20 transition-all"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#FF8AC4]/50 focus:outline-none focus:ring-2 focus:ring-[#9B3DFF]/20 transition-all"
             />
           </div>
           <div>
@@ -132,7 +132,7 @@ function MultiStepForm() {
               placeholder="alex@yourcompany.com"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#EC4899]/50 focus:outline-none focus:ring-2 focus:ring-[#EC4899]/20 transition-all"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#FF8AC4]/50 focus:outline-none focus:ring-2 focus:ring-[#9B3DFF]/20 transition-all"
             />
           </div>
           <div>
@@ -144,7 +144,7 @@ function MultiStepForm() {
               placeholder="+447751553879"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#EC4899]/50 focus:outline-none focus:ring-2 focus:ring-[#EC4899]/20 transition-all"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#FF8AC4]/50 focus:outline-none focus:ring-2 focus:ring-[#9B3DFF]/20 transition-all"
             />
           </div>
           <div>
@@ -156,7 +156,7 @@ function MultiStepForm() {
               placeholder="Your Company Inc."
               value={formData.company}
               onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#EC4899]/50 focus:outline-none focus:ring-2 focus:ring-[#EC4899]/20 transition-all"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#FF8AC4]/50 focus:outline-none focus:ring-2 focus:ring-[#9B3DFF]/20 transition-all"
             />
           </div>
           <div>
@@ -171,14 +171,14 @@ function MultiStepForm() {
                   onClick={() => toggleNeed(opt)}
                   className={`flex items-center gap-2 rounded-xl border px-4 py-3 text-sm text-left transition-all ${
                     formData.needs.includes(opt)
-                      ? "border-[#EC4899]/50 bg-[#EC4899]/10 text-white"
+                      ? "border-[#FF8AC4]/50 bg-[#FF8AC4]/10 text-white"
                       : "border-white/10 bg-white/5 text-white/60 hover:border-white/20"
                   }`}
                 >
                   <div
                     className={`grid h-4 w-4 place-items-center rounded border ${
                       formData.needs.includes(opt)
-                        ? "border-[#EC4899] bg-[#EC4899]"
+                        ? "border-[#FF8AC4] bg-[#FF8AC4]"
                         : "border-white/30"
                     }`}
                   >
@@ -194,7 +194,7 @@ function MultiStepForm() {
               type="button"
               onClick={() => setStep(2)}
               className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-              style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+              style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
             >
               Continue
               <ArrowRight className="h-4 w-4" />
@@ -214,7 +214,7 @@ function MultiStepForm() {
             <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
               Project Budget
             </label>
-            <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#EC4899]/50 focus:outline-none">
+            <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#FF8AC4]/50 focus:outline-none">
               <option className="bg-[#0A0A14]">&lt; $10K</option>
               <option className="bg-[#0A0A14]">$10K – $50K</option>
               <option className="bg-[#0A0A14]">$50K – $100K</option>
@@ -225,7 +225,7 @@ function MultiStepForm() {
             <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
               Timeline
             </label>
-            <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#EC4899]/50 focus:outline-none">
+            <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#FF8AC4]/50 focus:outline-none">
               <option className="bg-[#0A0A14]">ASAP (Rush)</option>
               <option className="bg-[#0A0A14]">1–3 months</option>
               <option className="bg-[#0A0A14]">3–6 months</option>
@@ -239,7 +239,7 @@ function MultiStepForm() {
             <textarea
               rows={4}
               placeholder="Tell us about your project goals, current stack, and any specific requirements..."
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#EC4899]/50 focus:outline-none focus:ring-2 focus:ring-[#EC4899]/20 transition-all resize-none"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#FF8AC4]/50 focus:outline-none focus:ring-2 focus:ring-[#9B3DFF]/20 transition-all resize-none"
             />
           </div>
           <div className="flex justify-between pt-2">
@@ -254,7 +254,7 @@ function MultiStepForm() {
               type="button"
               onClick={() => setStep(3)}
               className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-              style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+              style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
             >
               Continue
               <ArrowRight className="h-4 w-4" />
@@ -276,14 +276,14 @@ function MultiStepForm() {
             </label>
             <input
               type="date"
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#EC4899]/50 focus:outline-none"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#FF8AC4]/50 focus:outline-none"
             />
           </div>
           <div>
             <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
               Preferred Time
             </label>
-            <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#EC4899]/50 focus:outline-none">
+            <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#FF8AC4]/50 focus:outline-none">
               <option className="bg-[#0A0A14]">09:00 – 10:00 GMT</option>
               <option className="bg-[#0A0A14]">10:00 – 11:00 GMT</option>
               <option className="bg-[#0A0A14]">14:00 – 15:00 GMT</option>
@@ -291,7 +291,7 @@ function MultiStepForm() {
               <option className="bg-[#0A0A14]">16:00 – 17:00 GMT</option>
             </select>
           </div>
-          <div className="rounded-xl border border-[#EC4899]/20 bg-[#EC4899]/5 p-4">
+          <div className="rounded-xl border border-[#FF8AC4]/20 bg-[#9B3DFF]/5 p-4">
             <p className="text-sm text-white/70">
               <strong className="text-white">Summary:</strong> {formData.name || "—"} from{" "}
               {formData.company || "—"} wants to discuss{" "}
@@ -309,7 +309,7 @@ function MultiStepForm() {
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-              style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+              style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
             >
               Book Demo
               <ArrowRight className="h-4 w-4" />
@@ -326,7 +326,7 @@ function DirectContactSidebar() {
   const contacts = [
     {
       icon: Mail,
-      iconColor: "#3B82F6",
+      iconColor: "#9B3DFF",
       iconBg: "rgba(59,130,246,0.15)",
       label: "EMAIL",
       value: "info@clicktaketech.com",
@@ -334,7 +334,7 @@ function DirectContactSidebar() {
     },
     {
       icon: Phone,
-      iconColor: "#EC4899",
+      iconColor: "#FF8AC4",
       iconBg: "rgba(236,72,153,0.15)",
       label: "PHONE · WHATSAPP",
       value: "+447751553879",
@@ -350,7 +350,7 @@ function DirectContactSidebar() {
     },
     {
       icon: MapPin,
-      iconColor: "#3B82F6",
+      iconColor: "#9B3DFF",
       iconBg: "rgba(59,130,246,0.15)",
       label: "HQ",
       value: "Remote-first · Global team",
@@ -378,12 +378,12 @@ function DirectContactSidebar() {
                 <div className="text-[10px] font-mono uppercase tracking-[1.5px] text-white/40">
                   {c.label}
                 </div>
-                <div className="text-sm text-white group-hover:text-[#EC4899] transition-colors truncate">
+                <div className="text-sm text-white group-hover:text-[#FF8AC4] transition-colors truncate">
                   {c.value}
                 </div>
               </div>
               {c.href && (
-                <ArrowRight className="h-4 w-4 text-white/30 group-hover:text-[#EC4899] transition-colors" />
+                <ArrowRight className="h-4 w-4 text-white/30 group-hover:text-[#FF8AC4] transition-colors" />
               )}
             </div>
           );
@@ -425,7 +425,7 @@ function WhatHappensNext() {
       <div className="space-y-4">
         {steps.map((s, i) => (
           <div key={i} className="flex items-start gap-4">
-            <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-[#3B82F6] to-[#EC4899] text-sm font-bold text-white shrink-0">
+            <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] text-sm font-bold text-white shrink-0">
               {s.n}
             </div>
             <div>

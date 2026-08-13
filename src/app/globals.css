@@ -3387,3 +3387,223 @@ html.theme-elite .ct-story-floater {
 /* ════════════════════════════════════════════════════════════════════════
    END DESIGN v5
    ════════════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════════════
+   V5 DARK PREMIUM ENFORCEMENT LAYER (commit: v5-forever)
+   ────────────────────────────────────────────────────────────────────────
+   Purpose: Permanently lock the entire site to the Dark Premium Cyberpunk /
+   Web3 (v5) design system. This layer:
+     1. Forces the deep dark canvas #03000D with ambient orb scenes.
+     2. Standardizes all gradient text + CTA buttons + badges to the canonical
+        4-stop brand gradient: #FF8AC4 → #9B3DFF → #136DFF.
+     3. Restores glassmorphism (backdrop-blur-md + thin borders + neon
+        drop-shadows) on all cards.
+     4. Forces rounded-full pill geometry on all CTA buttons + gradient fills
+        + neon glow halos.
+     5. Guarantees aurora ribbons + ambient orbs render on every hero.
+   This layer is scoped to .theme-nx so admin pages keep their own look.
+   ════════════════════════════════════════════════════════════════════════ */
+.theme-nx {
+  /* ─── 1. Deep dark canvas (#03000D) with ambient gradient atmosphere ─── */
+  background-color: #03000D !important;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124, 58, 237, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 100% 50%, rgba(19, 109, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 0% 50%, rgba(255, 138, 196, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #03000D 0%, #070018 55%, #0D0025 100%) !important;
+  background-attachment: fixed;
+  color: #F4F0FF;
+}
+
+/* Kill any inline solid #050510 / #030014 section backgrounds so the ambient
+   gradient atmosphere shows through consistently on every page. */
+.theme-nx section[style*="#050510"],
+.theme-nx section[style*="#030014"],
+.theme-nx section[style*="#03000D"] {
+  background: transparent !important;
+}
+
+/* ─── 2. Canonical 4-stop gradient: #FF8AC4 → #9B3DFF → #136DFF ─── */
+/* Force EVERY gradient-clipped text span to the brand 4-stop gradient.
+   Catches: from-[#EC4899]...to-[#6366F1], from-[#3B82F6]...to-[#60A5FA],
+   from-[#EC4899]...to-[#F472B6], from-brand-cyan...to-[#136DFF], etc. */
+.theme-nx [class*="bg-clip-text"][class*="text-transparent"],
+.theme-nx span[class*="bg-gradient-to-"][class*="bg-clip-text"],
+.theme-nx .gradient-text,
+.theme-nx .nx-gradient-text {
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+
+/* Force every gradient CTA button (currently 2-stop blue→pink) to the
+   canonical 4-stop brand gradient. Catches inline-style buttons using
+   linear-gradient(135deg, #3B82F6 0%, #EC4899 100%) and similar. */
+.theme-nx a[class*="rounded-full"][style*="linear-gradient"][style*="135deg"],
+.theme-nx button[class*="rounded-full"][style*="linear-gradient"][style*="135deg"],
+.theme-nx a[style*="linear-gradient(135deg, #3B82F6"],
+.theme-nx a[style*="linear-gradient(135deg,#3B82F6"],
+.theme-nx button[style*="linear-gradient(135deg, #3B82F6"],
+.theme-nx a[style*="linear-gradient(135deg, #FF53A9"],
+.theme-nx button[style*="linear-gradient(135deg, #FF53A9"] {
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
+  box-shadow: 0 8px 30px rgba(155, 61, 255, 0.35), 0 0 20px rgba(255, 138, 196, 0.25) !important;
+}
+
+/* Step-indicator circles, badge dots, icon chips using 2-stop blue→pink
+   also get the canonical 4-stop gradient. */
+.theme-nx [class*="bg-gradient-to-br"][class*="from-[#3B82F6]"][class*="to-[#EC4899]"],
+.theme-nx [class*="bg-gradient-to-br"][class*="from-[#3B82F6]"][class*="to-[#60A5FA]"],
+.theme-nx [class*="bg-gradient-to-r"][class*="from-[#3B82F6]"][class*="to-[#60A5FA]"],
+.theme-nx [class*="bg-gradient-to-r"][class*="from-[#EC4899]"][class*="to-[#F472B6]"],
+.theme-nx [class*="bg-gradient-to-r"][class*="from-[#EC4899]"][class*="to-[#9B3DFF]"] {
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
+}
+
+/* Pink-only "compounded" / "extraordinary" / "intelligence," gradient
+   headlines — unify to the 4-stop brand gradient. */
+.theme-nx h1 span[class*="bg-gradient-to-r"][class*="from-[#EC4899]"],
+.theme-nx h2 span[class*="bg-gradient-to-r"][class*="from-[#EC4899]"],
+.theme-nx h3 span[class*="bg-gradient-to-r"][class*="from-[#EC4899]"],
+.theme-nx h1 span[class*="bg-gradient-to-r"][class*="from-[#3B82F6]"],
+.theme-nx h2 span[class*="bg-gradient-to-r"][class*="from-[#3B82F6]"],
+.theme-nx h3 span[class*="bg-gradient-to-r"][class*="from-[#3B82F6]"] {
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
+}
+
+/* ─── 3. Glassmorphism on all cards (backdrop-blur-md + thin border + neon shadow) ─── */
+.theme-nx [class*="rounded-2xl"][class*="border-white/10"][class*="bg-white/[0.0"],
+.theme-nx [class*="rounded-2xl"][class*="border-white/10"][class*="bg-white/[0.03]"],
+.theme-nx [class*="rounded-2xl"][class*="border-white/10"][class*="bg-white/[0.04]"],
+.theme-nx [class*="rounded-2xl"][class*="border-white/10"][class*="bg-white/[0.05]"],
+.theme-nx [class*="rounded-3xl"][class*="border-white/10"][class*="bg-white/[0.02"] {
+  backdrop-filter: blur(12px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 138, 196, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* On hover, glass cards lift + glow with the brand purple. */
+.theme-nx [class*="rounded-2xl"][class*="border-white/10"]:hover,
+.theme-nx [class*="rounded-3xl"][class*="border-white/10"]:hover {
+  border-color: rgba(255, 138, 196, 0.35) !important;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(155, 61, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  transform: translateY(-2px);
+}
+
+/* ─── 4. Pill buttons (rounded-full) + gradient fills + neon glow halos ─── */
+/* Force rounded-full on every CTA / nav / pill button. Catches rounded-xl,
+   rounded-lg, rounded-md that should be pills. */
+.theme-nx a[class*="inline-flex"][class*="items-center"][class*="justify-center"][class*="px-"][class*="py-"][class*="rounded-xl"],
+.theme-nx button[class*="inline-flex"][class*="items-center"][class*="justify-center"][class*="px-"][class*="py-"][class*="rounded-xl"] {
+  border-radius: 9999px !important;
+}
+
+/* Ghost/secondary pill buttons (border + bg-white/5) get a subtle purple
+   glow on hover. */
+.theme-nx a[class*="rounded-full"][class*="border-white/20"][class*="bg-white/5"]:hover,
+.theme-nx a[class*="rounded-full"][class*="border-white/15"][class*="bg-white/5"]:hover,
+.theme-nx a[class*="rounded-full"][class*="border-white/20"][class*="bg-white/[0.05]"]:hover {
+  border-color: rgba(255, 138, 196, 0.45) !important;
+  box-shadow: 0 0 20px rgba(155, 61, 255, 0.3) !important;
+  background-color: rgba(155, 61, 255, 0.08) !important;
+}
+
+/* ─── 5. Aurora ribbon + ambient orbs visible on every hero ─── */
+/* Ensure the .nx-hero-bg wrapper renders its aurora ribbon + orbs even on
+   pages that don't explicitly include them. Applied via the section hero
+   pattern. */
+.theme-nx .nx-hero-bg,
+.theme-nx section[class*="min-h-screen"][class*="nx-surface"],
+.theme-nx section[class*="relative"][class*="nx-surface"][class*="overflow-hidden"]:first-of-type {
+  position: relative;
+}
+
+.theme-nx .nx-hero-bg::before,
+.theme-nx section[class*="min-h-screen"][class*="nx-surface"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(255, 138, 196, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(19, 109, 255, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(155, 61, 255, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ambient floating orbs — render on every hero section. */
+.theme-nx section[class*="min-h-screen"][class*="nx-surface"] .nx-orb,
+.theme-nx .nx-hero-bg .nx-orb {
+  filter: blur(60px) saturate(150%);
+  opacity: 0.7;
+  animation: nx-orb-drift 14s ease-in-out infinite;
+}
+
+@keyframes nx-orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.1); }
+  66% { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+/* ─── 6. Form inputs — glassmorphic + neon focus ring ─── */
+.theme-nx input[class*="rounded-xl"][class*="border-white/10"][class*="bg-white/5"],
+.theme-nx textarea[class*="rounded-xl"][class*="border-white/10"][class*="bg-white/5"],
+.theme-nx select[class*="rounded-xl"][class*="border-white/10"][class*="bg-white/5"] {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.theme-nx input[class*="focus:border-[#EC4899]"],
+.theme-nx textarea[class*="focus:border-[#EC4899]"],
+.theme-nx select[class*="focus:border-[#EC4899]"],
+.theme-nx input[class*="focus:ring-[#EC4899]"],
+.theme-nx textarea[class*="focus:ring-[#EC4899]"] {
+  /* Unify focus color to brand purple. */
+  --tw-ring-color: rgba(155, 61, 255, 0.25) !important;
+}
+
+.theme-nx input:focus,
+.theme-nx textarea:focus,
+.theme-nx select:focus {
+  border-color: rgba(255, 138, 196, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(155, 61, 255, 0.2), 0 0 20px rgba(155, 61, 255, 0.15) !important;
+  outline: none !important;
+}
+
+/* ─── 7. Tech-stack chips + category badges — glassmorphic with subtle gradient border ─── */
+.theme-nx span[class*="rounded-full"][class*="border-white/10"][class*="bg-white/5"],
+.theme-nx span[class*="rounded-full"][class*="border-white/15"][class*="bg-white/5"] {
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  border-color: rgba(255, 138, 196, 0.18) !important;
+  background-color: rgba(155, 61, 255, 0.06) !important;
+}
+
+/* ─── 8. Reduce-motion safety ─── */
+@media (prefers-reduced-motion: reduce) {
+  .theme-nx .nx-orb,
+  .theme-nx section[class*="min-h-screen"][class*="nx-surface"] .nx-orb {
+    animation: none !important;
+  }
+  .theme-nx [class*="rounded-2xl"][class*="border-white/10"]:hover,
+  .theme-nx [class*="rounded-3xl"][class*="border-white/10"]:hover {
+    transform: none !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   END V5 ENFORCEMENT LAYER
+   ════════════════════════════════════════════════════════════════════════ */

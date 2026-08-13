@@ -17,7 +17,7 @@ export function CaseStudiesPage() {
         title={
           <>
             Real clients.{" "}
-            <span className="bg-gradient-to-r from-[#EC4899] via-[#9B3DFF] to-[#6366F1] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
               Real numbers.
             </span>
           </>
@@ -84,7 +84,7 @@ export function CaseStudiesPage() {
                       className={`text-xs font-bold ${
                         m.change.startsWith("-") && !m.change.startsWith("-$")
                           ? "text-[#00e676]"
-                          : "text-[#EC4899]"
+                          : "text-[#FF8AC4]"
                       }`}
                     >
                       {m.change}
@@ -112,7 +112,7 @@ export function CaseStudiesPage() {
               <div className="lg:col-span-2">
                 <h2 className="text-3xl sm:text-4xl font-black text-white">
                   Your case study is{" "}
-                  <span className="bg-gradient-to-r from-[#EC4899] to-[#F472B6] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                     next.
                   </span>
                 </h2>
@@ -124,7 +124,7 @@ export function CaseStudiesPage() {
                   <Link
                     href="/contact"
                     className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-                    style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+                    style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
                   >
                     Book a Demo
                     <ArrowRight className="h-4 w-4" />

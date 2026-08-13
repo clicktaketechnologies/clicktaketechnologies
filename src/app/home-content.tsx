@@ -3,6 +3,15 @@
 import { NxNavbar } from "@/components/site/nx-navbar";
 import { NxHero } from "@/components/site/nx-hero";
 import { NxFooter } from "@/components/site/nx-footer";
+import dynamic from "next/dynamic";
+
+/* Particle background network — same one used by NxPageLayout on inner
+   pages. Mounted on the homepage so the particle canvas is visible across
+   every page on the site, per v5 spec. */
+const NxThreeScene = dynamic(
+  () => import("@/components/site/nx-three-scene").then((m) => m.NxThreeScene),
+  { ssr: false }
+);
 import { ScrollProgress } from "@/components/site/scroll-progress";
 import { ScrollToTop } from "@/components/site/scroll-animations";
 import { motion } from "framer-motion";
@@ -35,6 +44,9 @@ export default function HomeContent() {
   return (
     <div className="theme-nx min-h-screen nx-surface nx-text relative">
       <ScrollProgress />
+      {/* Particle background network — ambient Three.js canvas with 600 particles.
+          Same one used by NxPageLayout on inner pages. */}
+      <NxThreeScene hideTorusKnot particleCount={600} />
       <NxNavbar />
       <main id="main-content" className="relative z-10">
         <NxHero />
@@ -72,7 +84,7 @@ function StatsBar() {
               className="p-6 sm:p-8 text-center"
               style={{ background: "#0A0A14" }}
             >
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#3B82F6]">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#FF8AC4]">
                 {s.num}
               </div>
               <div className="mt-2 text-sm font-bold text-white">{s.label}</div>
@@ -128,7 +140,7 @@ function FourPillars() {
           </div>
           <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
             Four pillars. One delivery{" "}
-            <span className="bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
               engine.
             </span>
           </h2>
@@ -195,21 +207,21 @@ function NumbersThatCompounded() {
       cat: "FINTECH · LATENCY",
       metric: "-72%",
       detail: "p99 API latency",
-      barColor: "linear-gradient(90deg, #3B82F6, #60A5FA)",
+      barColor: "linear-gradient(90deg, #FF8AC4, #9B3DFF, #136DFF)",
       pct: "72%",
     },
     {
       cat: "E-COMMERCE · CVR",
       metric: "+38%",
       detail: "Checkout conversion",
-      barColor: "linear-gradient(90deg, #EC4899, #F472B6)",
+      barColor: "linear-gradient(90deg, #FF8AC4, #9B3DFF, #136DFF)",
       pct: "38%",
     },
     {
       cat: "HEALTHCARE · COST",
       metric: "-$1.4M",
       detail: "Annual cloud spend",
-      barColor: "linear-gradient(90deg, #3B82F6, #60A5FA)",
+      barColor: "linear-gradient(90deg, #FF8AC4, #9B3DFF, #136DFF)",
       pct: "58%",
     },
   ];
@@ -220,12 +232,12 @@ function NumbersThatCompounded() {
           {/* Left: text */}
           <div className="lg:col-span-2">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-white/70">
-              <span className="h-1 w-1 rounded-full bg-[#EC4899]" />
+              <span className="h-1 w-1 rounded-full bg-[#FF8AC4]" />
               Production Impact
             </div>
             <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
               Numbers that{" "}
-              <span className="bg-gradient-to-r from-[#EC4899] to-[#F472B6] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                 compounded.
               </span>
             </h2>
@@ -236,7 +248,7 @@ function NumbersThatCompounded() {
             <Link
               href="/case-studies"
               className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-              style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+              style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
             >
               Read full case studies
               <ArrowRight className="h-4 w-4" />
@@ -302,8 +314,8 @@ function CtaSection() {
             <div className="lg:col-span-2">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
                 Ready to deploy your{" "}
-                <span className="text-[#3B82F6]">AI</span>{" "}
-                <span className="bg-gradient-to-r from-[#EC4899] to-[#F472B6] bg-clip-text text-transparent">
+                <span className="text-[#FF8AC4]">AI</span>{" "}
+                <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                   workforce?
                 </span>
               </h2>
@@ -315,7 +327,7 @@ function CtaSection() {
                 <Link
                   href="/contact"
                   className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-                  style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+                  style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
                 >
                   Book a Demo
                   <ArrowRight className="h-4 w-4" />
@@ -369,7 +381,7 @@ function MiniRobot() {
       >
         <div
           className="absolute top-6 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full grid place-items-center"
-          style={{ background: "linear-gradient(135deg, #FF53A9, #EC4899)" }}
+          style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
         >
           <span className="text-white text-[10px]">♥</span>
         </div>
@@ -395,10 +407,10 @@ function MiniRobot() {
           }}
         >
           <div className="absolute left-1.5 top-1.5 w-5 h-5 rounded-full" style={{ background: "#1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "#60A5FA" }} />
+            <div className="absolute inset-1 rounded-full" style={{ background: "#FF8AC4" }} />
           </div>
           <div className="absolute right-1.5 top-1.5 w-5 h-5 rounded-full" style={{ background: "#1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "#F472B6" }} />
+            <div className="absolute inset-1 rounded-full" style={{ background: "#136DFF" }} />
           </div>
         </div>
       </div>

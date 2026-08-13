@@ -22,7 +22,7 @@ export function ServicesPage() {
         title={
           <>
             Full-spectrum{" "}
-            <span className="bg-gradient-to-r from-[#EC4899] via-[#9B3DFF] to-[#6366F1] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
               engineering
             </span>{" "}
             services.
@@ -89,7 +89,7 @@ export function ServicesPage() {
                       <ul className="space-y-2">
                         {card.deliverables.map((d) => (
                           <li key={d} className="flex items-start gap-2 text-[13px] text-white/70">
-                            <Check className="h-4 w-4 text-[#EC4899] shrink-0 mt-0.5" />
+                            <Check className="h-4 w-4 text-[#FF8AC4] shrink-0 mt-0.5" />
                             {d}
                           </li>
                         ))}
@@ -109,7 +109,7 @@ export function ServicesPage() {
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
               Four steps.{" "}
-              <span className="bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                 Six weeks to live.
               </span>
             </h2>
@@ -133,7 +133,7 @@ export function ServicesPage() {
                   {step.n}
                 </div>
                 <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                <div className="text-[10px] font-mono uppercase tracking-[1.5px] text-[#EC4899] mb-3">
+                <div className="text-[10px] font-mono uppercase tracking-[1.5px] text-[#FF8AC4] mb-3">
                   {step.weeks}
                 </div>
                 <p className="text-sm text-white/60 leading-relaxed">{step.desc}</p>
@@ -179,7 +179,7 @@ export function ServicesPage() {
               <div className="lg:col-span-2">
                 <h2 className="text-3xl sm:text-4xl font-black text-white">
                   Ready to scope your first{" "}
-                  <span className="bg-gradient-to-r from-[#EC4899] to-[#F472B6] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                     sprint?
                   </span>
                 </h2>
@@ -191,7 +191,7 @@ export function ServicesPage() {
                   <Link
                     href="/contact"
                     className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-                    style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+                    style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
                   >
                     Book a Demo
                     <ArrowRight className="h-4 w-4" />
@@ -310,8 +310,8 @@ function MiniCharacter({ variant }: { variant: "engineer" | "robot" }) {
             className="absolute left-1/2 -translate-x-1/2 rounded-lg"
             style={{ top: "15px", width: "44px", height: "18px", background: "linear-gradient(135deg, #7C3AED, #4F46E5)" }}
           >
-            <div className="absolute left-1 top-1 w-3 h-3 rounded-full" style={{ background: "#60A5FA" }} />
-            <div className="absolute right-1 top-1 w-3 h-3 rounded-full" style={{ background: "#F472B6" }} />
+            <div className="absolute left-1 top-1 w-3 h-3 rounded-full" style={{ background: "#FF8AC4" }} />
+            <div className="absolute right-1 top-1 w-3 h-3 rounded-full" style={{ background: "#136DFF" }} />
           </div>
         </div>
       </div>
@@ -330,7 +330,7 @@ function MiniCharacter({ variant }: { variant: "engineer" | "robot" }) {
       >
         <div
           className="absolute top-4 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full grid place-items-center"
-          style={{ background: "linear-gradient(135deg, #FF53A9, #EC4899)" }}
+          style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
         >
           <span className="text-white text-[8px]">♥</span>
         </div>
@@ -349,10 +349,10 @@ function MiniCharacter({ variant }: { variant: "engineer" | "robot" }) {
           style={{ top: "20px", width: "56px", height: "22px", background: "linear-gradient(135deg, #7C3AED, #4F46E5)" }}
         >
           <div className="absolute left-1 top-1 w-4 h-4 rounded-full" style={{ background: "#1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "#60A5FA" }} />
+            <div className="absolute inset-1 rounded-full" style={{ background: "#FF8AC4" }} />
           </div>
           <div className="absolute right-1 top-1 w-4 h-4 rounded-full" style={{ background: "#1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "#F472B6" }} />
+            <div className="absolute inset-1 rounded-full" style={{ background: "#136DFF" }} />
           </div>
         </div>
       </div>
