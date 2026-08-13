@@ -326,7 +326,7 @@ export default async function Page({ params }: Params) {
               <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
                 {category.title}
               </h1>
-              <p className={`mt-2 text-base sm:text-lg font-medium bg-gradient-to-r ${style.gradient} bg-clip-text text-transparent`}>
+              <p className={`mt-2 text-base sm:text-lg font-medium text-foreground bg-gradient-to-r ${style.gradient} bg-clip-text text-transparent`}>
                 {category.tagline}
               </p>
               <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed">

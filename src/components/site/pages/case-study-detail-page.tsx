@@ -120,7 +120,7 @@ export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; relat
                 {status.label}
               </span>
             </div>
-            <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               {cs.client}
             </h1>
             <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">

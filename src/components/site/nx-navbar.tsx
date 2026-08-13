@@ -95,6 +95,20 @@ export function NxNavbar() {
     setMega(null);
   }, [pathname]);
 
+  /* Lock body scroll while the mobile drawer is open — prevents iOS Safari
+     rubber-band bleed-through and keeps the drawer as the only scrollable
+     surface. Re-locks when re-opened; restores the prior overflow on cleanup. */
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (mobileOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+  }, [mobileOpen]);
+
   /* Click outside to close mega */
   useEffect(() => {
     if (!mega) return;

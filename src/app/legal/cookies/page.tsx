@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     images: [DEFAULT_OG_IMAGE],
   },
   alternates: { canonical: "https://clicktaketech.com/legal/cookies" },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cookie Policy | ClickTake Technologies",
+    description: "How ClickTake Technologies uses cookies and how you can control them.",
+  },
 };
 
 export default function Page() {

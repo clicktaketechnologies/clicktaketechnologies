@@ -96,8 +96,6 @@ export const NAV_LINKS_SECONDARY = [
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
-  { label: "Process", href: "/***REMOVED***process" },
-  { label: "Testimonials", href: "/***REMOVED***testimonials" },
 ] as const;
 
 // ─── SERVICE CATEGORY STYLES (matches original CATEGORY_STYLES + CATEGORY_DISPLAY) ──

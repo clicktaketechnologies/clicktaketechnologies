@@ -47,7 +47,7 @@ export function SolutionsIndexPage() {
             <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-brand-blue">
               Solutions
             </div>
-            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
               Built for your business type — not a generic pitch.
             </h1>
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
