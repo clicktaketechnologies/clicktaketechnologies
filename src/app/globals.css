@@ -559,7 +559,7 @@ p[class*="text-white/90"], span[class*="text-white/90"], div[class*="text-white/
    The :not() chain has very high specificity (0,13,1) so without these
    exceptions, gradient text would inherit the parent color instead of
    showing the gradient. */
-span:not(.text-white):not(.text-foreground):not(.text-muted-foreground):not(.text-primary):not(.text-brand-blue):not(.text-brand-pink):not(.text-brand-cyan):not(.text-brand-magenta):not(.text-amber-400):not(.text-emerald-400):not(.nx-text-hero-grad):not(.nx-text-brand-grad):not(.nx-text-orange-grad) {
+span:not(.text-white):not(.text-foreground):not(.text-muted-foreground):not(.text-primary):not(.text-brand-blue):not(.text-brand-pink):not(.text-brand-cyan):not(.text-brand-magenta):not(.text-amber-400):not(.text-emerald-400):not(.text-transparent):not(.nx-text-hero-grad):not(.nx-text-brand-grad):not(.nx-text-orange-grad) {
   color: inherit;
 }
 /* Inputs should always use foreground on the input background for visibility */
