@@ -3630,5 +3630,77 @@ html.theme-elite .ct-story-floater {
 }
 
 /* ════════════════════════════════════════════════════════════════════════
+   VISIBILITY SAFETY NET (light + dark mode)
+   Guarantees:
+   1. Every gradient-clipped heading (bg-clip-text text-transparent) shows a
+      high-contrast solid fallback color when background-clip:text is
+      unsupported (older Safari, print, screen readers, email pre-fetchers).
+   2. No text element renders as transparent without a paint source.
+   3. Paragraph + subtitle text stays readable in both light and dark modes.
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* 1. Fallback color for gradient-clipped text. We use `@supports not` so
+   browsers WITHOUT background-clip:text paint the foreground color
+   (text-foreground / text-white) that we added to the className. Browsers
+   WITH support ignore this rule and use the gradient. */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .theme-nx [class*="bg-clip-text"][class*="text-transparent"],
+  .theme-nx .gradient-text,
+  .theme-nx .nx-gradient-text,
+  .theme-nx .nx-text-brand-grad,
+  .theme-nx .nx-text-orange-grad,
+  .theme-nx .nx-text-pink-grad,
+  .theme-nx .nx-text-blue-grad,
+  .theme-nx .nx-text-hero-grad {
+    -webkit-text-fill-color: currentColor !important;
+    color: var(--foreground, currentColor) !important;
+    background-image: none !important;
+  }
+}
+
+/* 2. Print styles — gradients don't render in print; force solid black for
+   all text so headings remain visible when the page is printed. */
+@media print {
+  .theme-nx [class*="bg-clip-text"][class*="text-transparent"],
+  .theme-nx .gradient-text,
+  .theme-nx .nx-gradient-text,
+  .theme-nx .nx-text-brand-grad,
+  .theme-nx .nx-text-orange-grad,
+  .theme-nx .nx-text-pink-grad,
+  .theme-nx .nx-text-blue-grad,
+  .theme-nx .nx-text-hero-grad {
+    -webkit-text-fill-color: #000 !important;
+    color: #000 !important;
+    background-image: none !important;
+  }
+}
+
+/* 3. Paragraph + subtitle contrast floor — never let body text drop below
+   a 4.5:1 ratio against the page background, in either mode. Only applies
+   to text elements that have NOT been given an explicit color class
+   (text-white, text-brand-*, text-muted-foreground, etc.). */
+.theme-nx p:not([class*="text-"]):not([style*="color"]),
+.theme-nx li:not([class*="text-"]):not([style*="color"]) {
+  color: rgb(var(--foreground));
+}
+.theme-nx .text-muted-foreground {
+  /* ensure muted text is at least AA against the surface */
+  color: color-mix(in oklab, rgb(var(--foreground)) 72%, transparent);
+}
+
+/* 4. Heading fallback color — for headings WITHOUT an explicit color class,
+   default to --foreground so they're visible in both light and dark mode.
+   Headings that carry text-white / text-foreground / text-brand-* / a
+   bg-clip-text gradient are left alone (they have their own color source). */
+.theme-nx h1:not([class*="text-"]):not([style*="color"]),
+.theme-nx h2:not([class*="text-"]):not([style*="color"]),
+.theme-nx h3:not([class*="text-"]):not([style*="color"]),
+.theme-nx h4:not([class*="text-"]):not([style*="color"]),
+.theme-nx h5:not([class*="text-"]):not([style*="color"]),
+.theme-nx h6:not([class*="text-"]):not([style*="color"]) {
+  color: rgb(var(--foreground));
+}
+
+/* ════════════════════════════════════════════════════════════════════════
    END V5 ENFORCEMENT LAYER
    ════════════════════════════════════════════════════════════════════════ */

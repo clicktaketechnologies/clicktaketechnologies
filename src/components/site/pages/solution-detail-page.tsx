@@ -68,7 +68,7 @@ export function SolutionDetailPage({ solution }: Props) {
                 {solution.audience}
               </div>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
               {solution.title}
             </h1>
             <p className="mt-3 sm:mt-4 text-xl sm:text-2xl font-semibold text-foreground/80">

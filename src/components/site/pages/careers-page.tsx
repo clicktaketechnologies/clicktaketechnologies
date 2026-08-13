@@ -146,7 +146,7 @@ export function CareersPage() {
             <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-brand-blue">
               Careers
             </div>
-            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
               Build the future of AI, web and growth — with us.
             </h1>
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
@@ -460,7 +460,7 @@ export function CareerDetailPage({ role }: { role: CareerRole }) {
               {role.type}
             </span>
           </div>
-          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
             {role.title}
           </h1>
           <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">

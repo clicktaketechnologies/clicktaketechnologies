@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     images: [DEFAULT_OG_IMAGE],
   },
   alternates: { canonical: "https://clicktaketech.com/legal/terms" },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service | ClickTake Technologies",
+    description: "Terms of Service for working with ClickTake Technologies Ltd.",
+  },
 };
 
 export default function Page() {

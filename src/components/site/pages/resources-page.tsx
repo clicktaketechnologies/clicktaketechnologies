@@ -126,7 +126,7 @@ export function ResourceDetailPage({
               <Clock className="h-3.5 w-3.5" /> {resource.readTime}
             </span>
           </div>
-          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
+          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
             {resource.title}
           </h1>
           <p className="mt-4 sm:mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">

@@ -341,6 +341,8 @@ function CtaSection() {
                 </a>
                 <a
                   href="https://wa.link/qz8eg"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all"
                 >
                   <MessageCircle className="h-4 w-4 text-[#25D366]" />

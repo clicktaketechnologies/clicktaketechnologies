@@ -65,7 +65,7 @@ export function BlogPostPage({ post }: Props) {
             <div className={`inline-flex items-center rounded-full bg-gradient-to-r ${gradient} px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white`}>
               {post.category}
             </div>
-            <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               {post.title}
             </h1>
             <p className="mt-4 sm:mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
