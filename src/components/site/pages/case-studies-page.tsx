@@ -26,7 +26,7 @@ export function CaseStudiesPage() {
       />
 
       {/* Case study cards — vertical list */}
-      <section className="py-16 px-4 lg:px-8" style={{ background: "#050510" }}>
+      <section className="py-16 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-5xl space-y-8">
           {CASES.map((c, i) => (
             <motion.div
@@ -98,7 +98,7 @@ export function CaseStudiesPage() {
       </section>
 
       {/* CTA: Your case study is next */}
-      <section className="py-24 px-4 lg:px-8" style={{ background: "#030014" }}>
+      <section className="py-24 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-5xl">
           <div
             className="rounded-3xl border border-white/10 p-8 sm:p-12 lg:p-16 overflow-hidden relative"

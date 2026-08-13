@@ -29,7 +29,7 @@ export function ContactPage() {
       />
 
       {/* Main content: Form + Sidebar */}
-      <section className="py-16 px-4 lg:px-8" style={{ background: "#050510" }}>
+      <section className="py-16 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-6xl">
           <div className="grid lg:grid-cols-5 gap-8">
             {/* Left: Multi-step form (3 cols) */}
@@ -215,10 +215,10 @@ function MultiStepForm() {
               Project Budget
             </label>
             <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#FF8AC4]/50 focus:outline-none">
-              <option className="bg-[#0A0A14]">&lt; $10K</option>
-              <option className="bg-[#0A0A14]">$10K – $50K</option>
-              <option className="bg-[#0A0A14]">$50K – $100K</option>
-              <option className="bg-[#0A0A14]">$100K+</option>
+              <option className="bg-[#070018]">&lt; $10K</option>
+              <option className="bg-[#070018]">$10K – $50K</option>
+              <option className="bg-[#070018]">$50K – $100K</option>
+              <option className="bg-[#070018]">$100K+</option>
             </select>
           </div>
           <div>
@@ -226,10 +226,10 @@ function MultiStepForm() {
               Timeline
             </label>
             <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#FF8AC4]/50 focus:outline-none">
-              <option className="bg-[#0A0A14]">ASAP (Rush)</option>
-              <option className="bg-[#0A0A14]">1–3 months</option>
-              <option className="bg-[#0A0A14]">3–6 months</option>
-              <option className="bg-[#0A0A14]">6+ months</option>
+              <option className="bg-[#070018]">ASAP (Rush)</option>
+              <option className="bg-[#070018]">1–3 months</option>
+              <option className="bg-[#070018]">3–6 months</option>
+              <option className="bg-[#070018]">6+ months</option>
             </select>
           </div>
           <div>
@@ -284,11 +284,11 @@ function MultiStepForm() {
               Preferred Time
             </label>
             <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#FF8AC4]/50 focus:outline-none">
-              <option className="bg-[#0A0A14]">09:00 – 10:00 GMT</option>
-              <option className="bg-[#0A0A14]">10:00 – 11:00 GMT</option>
-              <option className="bg-[#0A0A14]">14:00 – 15:00 GMT</option>
-              <option className="bg-[#0A0A14]">15:00 – 16:00 GMT</option>
-              <option className="bg-[#0A0A14]">16:00 – 17:00 GMT</option>
+              <option className="bg-[#070018]">09:00 – 10:00 GMT</option>
+              <option className="bg-[#070018]">10:00 – 11:00 GMT</option>
+              <option className="bg-[#070018]">14:00 – 15:00 GMT</option>
+              <option className="bg-[#070018]">15:00 – 16:00 GMT</option>
+              <option className="bg-[#070018]">16:00 – 17:00 GMT</option>
             </select>
           </div>
           <div className="rounded-xl border border-[#FF8AC4]/20 bg-[#9B3DFF]/5 p-4">

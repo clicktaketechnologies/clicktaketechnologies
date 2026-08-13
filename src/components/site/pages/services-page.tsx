@@ -32,7 +32,7 @@ export function ServicesPage() {
       />
 
       {/* Service Cards */}
-      <section className="py-20 px-4 lg:px-8" style={{ background: "#050510" }}>
+      <section className="py-20 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-6xl space-y-6">
           {SERVICE_CARDS.map((card, i) => {
             const Icon = card.icon;
@@ -104,7 +104,7 @@ export function ServicesPage() {
       </section>
 
       {/* Process Section */}
-      <section className="py-24 px-4 lg:px-8" style={{ background: "#030014" }}>
+      <section className="py-24 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-6xl">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
@@ -144,7 +144,7 @@ export function ServicesPage() {
       </section>
 
       {/* CTA 1: Dedicated Engineer */}
-      <section className="py-20 px-4 lg:px-8" style={{ background: "#050510" }}>
+      <section className="py-20 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-5xl">
           <div className="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md p-8 sm:p-12">
             <div className="flex items-start gap-6">
@@ -166,7 +166,7 @@ export function ServicesPage() {
       </section>
 
       {/* CTA 2: Ready to Scope */}
-      <section className="py-20 px-4 lg:px-8" style={{ background: "#030014" }}>
+      <section className="py-20 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-5xl">
           <div
             className="rounded-3xl border border-white/10 p-8 sm:p-12 lg:p-16 overflow-hidden relative"

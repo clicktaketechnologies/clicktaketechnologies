@@ -71,7 +71,7 @@ function StatsBar() {
     { num: "10M+", label: "API Requests / Day", sub: "Served at p99 <120ms" },
   ];
   return (
-    <section className="relative py-16 px-4 lg:px-8" style={{ background: "#030014" }}>
+    <section className="relative py-16 px-4 lg:px-8" style={{ background: "#03000D" }}>
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/10" style={{ background: "rgba(255,255,255,0.06)" }}>
           {stats.map((s, i) => (
@@ -82,7 +82,7 @@ function StatsBar() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className="p-6 sm:p-8 text-center"
-              style={{ background: "#0A0A14" }}
+              style={{ background: "#070018" }}
             >
               <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#FF8AC4]">
                 {s.num}
@@ -130,7 +130,7 @@ function FourPillars() {
     },
   ];
   return (
-    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#050510" }}>
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#03000D" }}>
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
@@ -226,7 +226,7 @@ function NumbersThatCompounded() {
     },
   ];
   return (
-    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#030014" }}>
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#03000D" }}>
       <div className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-5 gap-12 items-center">
           {/* Left: text */}
@@ -298,7 +298,7 @@ function NumbersThatCompounded() {
 /* ─── CTA SECTION ─── Book a Demo + email + WhatsApp with mini robot */
 function CtaSection() {
   return (
-    <section className="relative py-24 sm:py-32 px-4 lg:px-8 overflow-hidden" style={{ background: "#050510" }}>
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8 overflow-hidden" style={{ background: "#03000D" }}>
       {/* Purple radial gradient bg */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -450,7 +450,7 @@ function TechStrip() {
     "Terraform", "Next.js 16", "LangGraph", "Anthropic", "Kubernetes", "Redis",
   ];
   return (
-    <section className="py-12 border-y border-white/5" style={{ background: "#030014" }}>
+    <section className="py-12 border-y border-white/5" style={{ background: "#03000D" }}>
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="text-center mb-6">
           <div className="text-[10px] font-mono uppercase tracking-[2px] text-white/40">

@@ -741,9 +741,9 @@ html:not(.dark).theme-custom-light body {
 }
 
 .dark {
-  --nx-surface: #100820;
-  --nx-surface-alt: #16102A;
-  --nx-surface-muted: #1E1640;
+  --nx-surface: #03000D;
+  --nx-surface-alt: #070018;
+  --nx-surface-muted: #0D0025;
   --nx-border: rgba(255, 255, 255, 0.08);
   --nx-border-strong: rgba(255, 255, 255, 0.16);
   --nx-ink: #F4F0FF;
@@ -785,13 +785,15 @@ html:not(.dark).theme-custom-light body {
 }
 
 @layer utilities {
-  /* Hero background — tri-stop dark with pink/blue/purple radial glows */
+  /* Hero background — tri-stop dark with pink/blue/purple radial glows.
+     V5 spec: base canvas is #03000D (was #0A0612) so the hero seamlessly
+     blends into the body's deep dark canvas. */
   .nx-hero-bg {
     background:
       radial-gradient(ellipse 60% 50% at 20% 0%, rgba(255, 83, 169, 0.18) 0%, transparent 60%),
       radial-gradient(ellipse 50% 60% at 100% 30%, rgba(19, 109, 255, 0.22) 0%, transparent 60%),
       radial-gradient(ellipse 40% 50% at 50% 100%, rgba(155, 61, 255, 0.15) 0%, transparent 60%),
-      linear-gradient(180deg, #0A0612 0%, #100820 100%);
+      linear-gradient(180deg, #03000D 0%, #070018 100%);
   }
   /* Pink → blue brand gradient for CTA banners */
   .nx-orange-gradient {
@@ -802,7 +804,7 @@ html:not(.dark).theme-custom-light body {
   }
   /* Dark → deep gradient for dark sections */
   .nx-navy-gradient {
-    background: linear-gradient(180deg, #100820 0%, #0A0612 100%);
+    background: linear-gradient(180deg, #070018 0%, #03000D 100%);
   }
   /* Card with hover lift */
   .nx-card {
@@ -972,26 +974,33 @@ html:not(.dark).theme-custom-light body {
 }
 
 /* When the site is in dark mode, flip --nx-* tokens to dark palette surfaces
-   so the new design renders with proper contrast (dark cards + light text). */
+   so the new design renders with proper contrast (dark cards + light text).
+
+   V5 CYBERPUNK ENFORCEMENT: per the global dark-canvas spec, the deep dark
+   background is #03000D (was #0A0612). This matches the body's .dark
+   --background token and the radial-gradient base in `.dark body`. Inner
+   pages and home page now share the EXACT same deep canvas — no more
+   visible seam between hero (which used #03000D via the body gradient) and
+   page body (which used #0A0612 via this token). */
 html.dark .theme-nx {
-  --nx-surface: #100820;
-  --nx-surface-alt: #16102A;
-  --nx-surface-muted: #1E1640;
+  --nx-surface: #03000D;
+  --nx-surface-alt: #070018;
+  --nx-surface-muted: #0D0025;
   --nx-border: rgba(255, 255, 255, 0.08);
   --nx-border-strong: rgba(255, 255, 255, 0.16);
   --nx-ink: #F4F0FF;
   --nx-ink-soft: #B5A8C8;
   /* Accessible: #9B8AB8 = 6.32–6.70:1 on dark surfaces (AA). */
   --nx-ink-muted: #9B8AB8;
-  --background: #0A0612;
+  --background: #03000D;
   --foreground: #F4F0FF;
-  --card: #100820;
+  --card: #0D0025;
   --card-foreground: #F4F0FF;
-  --muted: #1E1640;
+  --muted: #0D0025;
   /* Accessible: #9B8AB8 = 6.44–6.66:1 on dark surfaces (AA). */
   --muted-foreground: #9B8AB8;
   --border: rgba(255, 255, 255, 0.08);
-  background: #0A0612;
+  background: #03000D;
   color: #F4F0FF;
 }
 
