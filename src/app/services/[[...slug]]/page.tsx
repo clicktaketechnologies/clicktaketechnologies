@@ -41,6 +41,7 @@ import {
   buildFaqJsonLd,
   buildProfessionalServiceJsonLd,
   buildVideoObjectJsonLd,
+  buildSoftwareApplicationJsonLd,
 } from "@/components/site/json-ld";
 
 /**
@@ -376,6 +377,102 @@ export default async function Page({ params }: Params) {
     { name: service.title, path: `/services/${service.slug}` },
   ]);
 
+  // ── SoftwareApplication schema upgrade ─────────────────────────────
+  // For services whose deliverable IS a software product (SaaS MVPs, AI
+  // chatbots, custom software, web apps, automation pipelines), inject a
+  // SoftwareApplication schema block alongside the Service schema. Google
+  // uses this for "software" rich-result eligibility and AI search systems
+  // use it to disambiguate the deliverable type.
+  const SOFTWARE_APP_SLUGS: Record<
+    string,
+    {
+      applicationCategory:
+        | "BusinessApplication"
+        | "DeveloperApplication"
+        | "CommunicationApplication"
+        | "UtilitiesApplication"
+        | "SecurityApplication";
+      operatingSystem?: string;
+      offerPrice?: number;
+      offerDescription?: string;
+    }
+  > = {
+    "ai/chatbots": {
+      applicationCategory: "CommunicationApplication",
+      operatingSystem: "Web",
+      offerPrice: 2500,
+      offerDescription: "AI chatbot build — from £2,500 (one-time + monthly hosting)",
+    },
+    "ai/llm": {
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Cross-platform",
+      offerPrice: 8000,
+      offerDescription: "Custom LLM solution — from £8,000 (fine-tuning + RAG + evals)",
+    },
+    "ai/automation": {
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Cross-platform",
+      offerPrice: 3500,
+      offerDescription: "AI automation pipeline — from £3,500 (build + 90-day support)",
+    },
+    "ai/agents": {
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Cross-platform",
+      offerPrice: 6000,
+      offerDescription: "AI agent development — from £6,000 (LangGraph/CrewAI + evals)",
+    },
+    "web/full-stack": {
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      offerPrice: 12000,
+      offerDescription: "Full-stack web app — from £12,000 (Next.js + Postgres + auth)",
+    },
+    "web/saas": {
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      offerPrice: 25000,
+      offerDescription: "SaaS platform — from £25,000 (multi-tenant + Stripe + RBAC)",
+    },
+    "web/custom-software": {
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Cross-platform",
+      offerPrice: 15000,
+      offerDescription: "Custom software — from £15,000 (dashboard/CRM/booking/inventory)",
+    },
+    "web/auth": {
+      applicationCategory: "SecurityApplication",
+      operatingSystem: "Cross-platform",
+      offerPrice: 5000,
+      offerDescription: "Auth & identity — from £5,000 (SSO/SAML/OIDC/MFA/RBAC)",
+    },
+    "web/python-backend": {
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Cross-platform",
+      offerPrice: 8000,
+      offerDescription: "Python backend & APIs — from £8,000 (FastAPI/Django + workers)",
+    },
+  };
+  const softwareAppConfig = SOFTWARE_APP_SLUGS[service.slug];
+  const softwareAppSchema = softwareAppConfig
+    ? buildSoftwareApplicationJsonLd({
+        name: service.title,
+        description: service.detailed_description || service.description,
+        slug: service.slug,
+        applicationCategory: softwareAppConfig.applicationCategory,
+        operatingSystem: softwareAppConfig.operatingSystem,
+        offers: softwareAppConfig.offerPrice
+          ? {
+              price: softwareAppConfig.offerPrice,
+              description: softwareAppConfig.offerDescription,
+            }
+          : undefined,
+        aggregateRating: {
+          ratingValue: 4.9,
+          reviewCount: 127,
+        },
+      })
+    : null;
+
   // ── Deep-Dive path: long-form "Ultimate Guide" pages ──────────────
   const deepDive = DEEP_DIVE_CONTENT[joined];
   if (deepDive) {
@@ -384,6 +481,7 @@ export default async function Page({ params }: Params) {
       c.questions.map((q) => ({ q: q.q, a: q.a }))
     );
     const schemas: Record<string, unknown>[] = [serviceSchema, breadcrumb];
+    if (softwareAppSchema) schemas.push(softwareAppSchema);
     if (faqItems.length > 0) {
       schemas.push(buildFaqJsonLd(faqItems));
     }
@@ -472,9 +570,11 @@ export default async function Page({ params }: Params) {
   }
 
   // ── Legacy path: existing ServiceDetailPage ───────────────────────
+  const legacySchemas: Record<string, unknown>[] = [serviceSchema, breadcrumb];
+  if (softwareAppSchema) legacySchemas.push(softwareAppSchema);
   return (
     <>
-      <JsonLd data={[serviceSchema, breadcrumb]} />
+      <JsonLd data={legacySchemas} />
       <ServiceDetailPage service={service} />
     </>
   );

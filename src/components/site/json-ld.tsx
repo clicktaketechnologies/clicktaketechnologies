@@ -478,6 +478,112 @@ export function buildProfessionalServiceJsonLd(opts: {
 }
 
 /**
+ * Build a schema.org SoftwareApplication block. Used on service detail
+ * pages where the deliverable is a software product (SaaS MVP, internal
+ * tool, automation pipeline, AI chatbot, mobile app, etc.) — gives Google
+ * rich-result eligibility for "software" queries and helps AI search
+ * systems understand the deliverable type.
+ *
+ * Per Google guidelines:
+ *  - `applicationCategory` must be one of the schema.org categories
+ *    (e.g. "BusinessApplication", "DeveloperApplication", "MultimediaApplication")
+ *  - `operatingSystem` is required for SoftwareApplication
+ *  - `offers` with a fixed price enables price rich-result
+ *  - `aggregateRating` enables star-rating rich-result
+ *
+ * @see https://schema.org/SoftwareApplication
+ * @see https://developers.google.com/search/docs/appearance/structured-data/software-app
+ */
+export function buildSoftwareApplicationJsonLd(opts: {
+  name: string;
+  description: string;
+  slug: string;
+  applicationCategory?:
+    | "BusinessApplication"
+    | "DeveloperApplication"
+    | "MultimediaApplication"
+    | "CommunicationApplication"
+    | "FinanceApplication"
+    | "GameApplication"
+    | "EducationApplication"
+    | "HealthApplication"
+    | "SecurityApplication"
+    | "ShoppingApplication"
+    | "SocialNetworkingApplication"
+    | "TravelApplication"
+    | "UtilitiesApplication";
+  operatingSystem?: string; // e.g. "Web", "iOS", "Android", "Cross-platform"
+  offers?: {
+    price: number;
+    priceCurrency?: string; // default GBP
+    description?: string;
+  };
+  aggregateRating?: {
+    ratingValue: number;
+    reviewCount: number;
+    bestRating?: number;
+  };
+  imageUrl?: string;
+  datePublished?: string; // ISO 8601
+}) {
+  const url = `${SITE.url}/services/${opts.slug}`;
+  const currency = "GBP";
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: opts.name,
+    description: opts.description,
+    url,
+    applicationCategory: opts.applicationCategory || "BusinessApplication",
+    operatingSystem: opts.operatingSystem || "Web",
+    ...(opts.imageUrl ? { image: opts.imageUrl } : {}),
+    ...(opts.datePublished ? { datePublished: opts.datePublished } : {}),
+    offers: opts.offers
+      ? {
+          "@type": "Offer",
+          price: String(opts.offers.price),
+          priceCurrency: opts.offers.priceCurrency || currency,
+          ...(opts.offers.description
+            ? { description: opts.offers.description }
+            : {}),
+          availability: "https://schema.org/InStock",
+        }
+      : {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: currency,
+          description: "Custom quote — price varies by scope",
+          availability: "https://schema.org/InStock",
+        },
+    ...(opts.aggregateRating
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: String(opts.aggregateRating.ratingValue),
+            reviewCount: String(opts.aggregateRating.reviewCount),
+            bestRating: String(opts.aggregateRating.bestRating || 5),
+            worstRating: "1",
+          },
+        }
+      : {}),
+    publisher: {
+      "@type": "Organization",
+      name: SITE.name,
+      legalName: "ClickTake Technologies Ltd",
+      url: SITE.url,
+      email: SITE.email,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE.url}/clicktake-logo.png`,
+        width: 512,
+        height: 512,
+      },
+    },
+  };
+}
+
+/**
  * Build a schema.org VideoObject block for a video embedded on a page.
  *
  * Required for Google Video rich results and for AI Overview citation
