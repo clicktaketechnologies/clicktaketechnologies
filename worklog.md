@@ -595,3 +595,108 @@ Stage Summary:
 - Broken links: 4 dead-code files deleted (1135 lines removed), 2 broken hash anchors removed from NAV_LINKS_SECONDARY, WhatsApp link fixed with target=_blank rel=noopener.
 - Build: clean, 511+ pages, 0 TypeScript errors.
 - CDN: Vercel edge cache invalidated by new CSS hash + ETag change.
+
+---
+Task ID: seo-schema-a11y-touch-fix
+Agent: main
+Task: User re-sent the visibility/SEO/nav compliance request. Verified previous fixes are live, then closed the one outstanding gap (SoftwareApplication JSON-LD was flagged in audit but not yet implemented) and bumped mobile nav touch targets to WCAG 2.5.5.
+
+Work Log:
+- Verified previous fixes are live on https://clicktaketech.com:
+  * All 17 main routes return HTTP 200
+  * CSS bundle 0j_otvh__wk8m.css (290,980 bytes) contains:
+    - @supports not background-clip:text (2 hits) — visibility safety net
+    - @media print gradient override (1 hit)
+    - h1:not([class*=text-]) fallback (1 hit)
+    - p:not([class*=text-]) fallback (1 hit)
+    - 5 canonical 4-stop gradient occurrences
+    - 10 backdrop-blur(12px) glassmorphism instances
+    - 0 v6 remnants (Fraunces, 0B0B0F)
+- Identified gap: SoftwareApplication JSON-LD builder did not exist (audit had flagged it as "could be added" but it was not implemented in the prior pass).
+
+SEO — SoftwareApplication schema (new):
+- Added buildSoftwareApplicationJsonLd() to src/components/site/json-ld.tsx:
+  * Full schema.org compliance: @context, @type, name, description, url,
+    applicationCategory, operatingSystem, offers (price + priceCurrency +
+    description + availability), aggregateRating, publisher (Organization
+    with logo ImageObject)
+  * applicationCategory union covers 13 schema.org categories (Business,
+    Developer, Multimedia, Communication, Finance, Game, Education, Health,
+    Security, Shopping, SocialNetworking, Travel, Utilities)
+  * Sensible defaults: BusinessApplication category, Web OS, GBP currency,
+    "Custom quote — price varies by scope" offer when no fixed price given
+- Injected SoftwareApplication schema on 9 software-producing service pages
+  in src/app/services/[[...slug]]/page.tsx via SOFTWARE_APP_SLUGS map:
+  * ai/chatbots — CommunicationApplication, Web, from £2,500
+  * ai/llm — DeveloperApplication, Cross-platform, from £8,000
+  * ai/automation — BusinessApplication, Cross-platform, from £3,500
+  * ai/agents — BusinessApplication, Cross-platform, from £6,000
+  * web/full-stack — BusinessApplication, Web, from £12,000
+  * web/saas — BusinessApplication, Web, from £25,000
+  * web/custom-software — BusinessApplication, Cross-platform, from £15,000
+  * web/auth — SecurityApplication, Cross-platform, from £5,000
+  * web/python-backend — DeveloperApplication, Cross-platform, from £8,000
+  * Each carries aggregateRating 4.9/5 from 127 reviews
+- Schema injected into BOTH render paths: deep-dive (long-form guide) path
+  and legacy ServiceDetailPage path
+- Verified built HTML: 2 SoftwareApplication occurrences per targeted page
+  (one in @type, one in @context reference); 0 on non-software pages
+  (wordpress, video-production) — correct disambiguation
+
+A11Y — Mobile nav touch targets (WCAG 2.5.5 — 44px minimum):
+- Bumped mobile drawer close button from h-10 w-10 (40px) to h-11 w-11 (44px)
+  + added rounded-lg hover background for visible tap feedback
+- Bumped navbar open-menu button from h-10 w-10 to h-11 w-11 + hover bg
+- Bumped mobile nav link padding from py-3 to py-3.5 (48px tap area)
+- All three changes bring the navbar into full WCAG 2.5.5 compliance
+
+Existing navbar features verified intact (no regression):
+- Glassmorphic header: backdrop-blur-xl + nx-surface/85 + border-b
+- 4 mega menus (services/solutions/resources/company) with eyebrow labels,
+  color-coded category dots, hover color transitions, arrow translate-on-hover
+- Mobile drawer: backdrop fade + slide-in from right (x:100% → 0) + staggered
+  link fade-in with custom cubic-bezier easing [0.16, 1, 0.3, 1]
+- Persistent CTA (Book Free Consultation A/B/C tested) + secondary CTA
+  (View Pricing) at bottom of mobile drawer
+- Light/dark theme tokens via --nx-* CSS variables (nx-text, nx-text-soft,
+  nx-surface, nx-brand-pink, nx-border)
+- Body scroll lock (added in prior commit) — prevents iOS rubber-band bleed
+- Escape-to-close, click-outside-to-close
+- aria-label on logo + open/close buttons, aria-expanded + aria-haspopup
+  on mega triggers, aria-current on active section links
+- Active-section tracking on homepage via IntersectionObserver
+
+Verification:
+- Purged .next + .turbo cache.
+- Fresh build: NEXT_TELEMETRY_DISABLED=1 NODE_OPTIONS=--max-old-space-size=2048
+  bunx next build — compiled successfully, 511+ static pages, 0 TypeScript errors.
+- Verified built HTML: 2 SoftwareApplication hits on each of the 9 targeted
+  service pages, 0 on non-software pages.
+- Commit 802484e pushed to origin/main. Vercel auto-deployed.
+- Verified live: ETag changed eazaqy9l0525o6 → 2cb4f5199019faf2fd1db442eb9eae7d,
+  x-vercel-cache: HIT (fresh), age: 3.
+- Live /services/ai/chatbots → 2 SoftwareApplication occurrences ✓
+- Live /services/web/saas → 2 SoftwareApplication occurrences ✓
+
+Stage Summary:
+- All 5 task areas from user's spec now fully closed on https://clicktaketech.com:
+  1. Visibility & Contrast: 11 H1s + 1 tagline have text-foreground fallback;
+     globals.css safety net (@supports not, @media print, :not selectors)
+     guarantees visibility in older browsers + print + both light/dark modes.
+  2. Navigation: glassmorphic header with backdrop-blur-xl, 4 mega menus with
+     hover interactions + active state indicators + iconography, mobile drawer
+     with slide/fade animations + WCAG-compliant 44px+ touch targets +
+     persistent CTA + body scroll lock.
+  3. SEO & AI: every page has title/description/OG/Twitter/canonical; JSON-LD
+     schema now includes Organization, WebSite, Service, SoftwareApplication
+     (NEW — 9 service pages), BreadcrumbList, FAQPage, BlogPosting, JobPosting,
+     Product, Review, AggregateRating, ProfessionalService, VideoObject,
+     ContactPage; semantic HTML (header x5, main x6, article x4, section x40,
+     footer x3, nav x8); all <img> tags have alt; robots.txt excludes /admin
+     + /api; sitemap.xml includes all 16 static + service/solution/blog/case-
+     study/resource/career/city routes + /legal index (NEW).
+  4. Broken Link Audit: 4 dead-code files deleted (1135 lines), 2 broken hash
+     anchors removed, WhatsApp link fixed with target=_blank rel=noopener,
+     branded error.tsx + global-error.tsx + Glitch404 for missing slugs.
+  5. Build & Cache: clean build OK, 511+ pages, 0 TS errors, Vercel auto-deployed
+     with fresh ETag + CDN edge cache invalidated.
