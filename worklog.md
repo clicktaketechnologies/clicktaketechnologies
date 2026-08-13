@@ -404,3 +404,35 @@ Stage Summary:
 - All v6 flattening undone. Site now matches the screenshots the user uploaded.
 - Vercel auto-deploy triggered.
 - User should hard-refresh browser (Ctrl+Shift+R) to bypass browser cache.
+
+---
+Task ID: design-full-rebuild-v7
+Agent: main
+Task: User sent 4 screenshots (home, services, contact, case-studies) showing a completely different design — "Engineering Tomorrow's Intelligence, Today" with 3D robot, Four Pillars, multi-step form, vertical case list. Rebuilt all 4 pages to match.
+
+Work Log:
+- VLM-analyzed all 4 screenshots to extract exact copy, layout, sections, colors.
+- Confirmed screenshots show a COMPLETELY DIFFERENT design from what was live:
+  * Home: "Engineering Tomorrow's Intelligence, Today" + 3D robot + Four Pillars + Numbers That Compounded
+  * Services: 4 horizontal-split cards + process timeline + dual CTAs with robots
+  * Contact: multi-step form (1-2-3) + direct-contact sidebar + What's Next list
+  * Cases: vertical list with 3-metric grids + character CTA
+- Rebuilt all 4 page components from scratch to match screenshots exactly.
+
+Rebuild (commit 8245ce5):
+- src/components/site/nx-hero.tsx: New hero with "Engineering Tomorrow's Intelligence, Today" headline (gradient on "Intelligence,"), 3D robot character (CSS/SVG-based with VR goggles, tablet, animated charts), floating glass widgets (BUILD PIPELINE 98%, LIVE DEPLOY +1,284), trust badges (SOC 2, AWS·GCP·Azure, 99.9% SLA, GDPR·CCPA)
+- src/app/home-content.tsx: Complete rewrite with new sections — StatsBar (4 metrics), FourPillars (2x2 grid), NumbersThatCompounded (3 case metric cards), CtaSection (mini robot), TechStrip
+- src/components/site/pages/services-page.tsx: 4 horizontal-split cards (numbered + STACK + DELIVERABLES), 4-step process timeline, dual CTA banners with mini characters
+- src/components/site/pages/contact-page.tsx: Multi-step form (3 steps with step indicators), DirectContactSidebar (4 rows), WhatHappensNext (3 numbered steps)
+- src/components/site/pages/case-studies-page.tsx: Vertical list of 4 detailed case cards with 3-metric grids, character CTA. Separated CaseStudyDetailPage to case-study-detail-page.tsx for /case-studies/[slug] route
+- Build verified: 511 static pages generated successfully
+- TypeScript: clean (only pre-existing optional UI lib errors)
+
+Stage Summary:
+- ALL 4 PAGES REBUILT to match user screenshots (commit 8245ce5 on origin/main)
+- Home: Engineering Tomorrow's Intelligence + 3D robot + Four Pillars + Numbers
+- Services: 4 horizontal-split cards + process timeline + dual CTAs
+- Contact: Multi-step form + direct sidebar + What's Next
+- Cases: Vertical list with 3-metric grids + character CTA
+- Vercel auto-deploy triggered
+- User should hard-refresh browser (Ctrl+Shift+R) to bypass browser cache
