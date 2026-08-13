@@ -752,3 +752,34 @@ Stage Summary:
 - V5 Cyberpunk theme: .theme-nx wraps every route, 4-stop gradient (#FF8AC4 → #9B3DFF → #136DFF) enforced on all headlines/CTAs/badges, glassmorphism on all cards, particle background (600 particles) on every page, 3D characters on heroes, aurora ribbons + ambient orbs on every hero section.
 - SEO/Schema: 18 JSON-LD schemas, full OG/Twitter/canonical, 460 sitemap entries, robots.txt with AI bot rules, all nav links valid.
 - Build: clean, 511 pages, 0 errors. CSS bundle 65f2604eab245fd9.css (298,287 bytes). Ready for git push + Vercel auto-deploy.
+
+---
+Task ID: v5-global-dark-enforce
+Agent: main
+Task: Enforce V5 Cyberpunk / Dark Web3 UI globally across EVERY route (fix home-only design leak — inner pages were rendering legacy light layout)
+
+Work Log:
+- Audited src/app/layout.tsx, src/app/home-content.tsx, src/components/site/nx-page-layout.tsx, and all 19 inner page components in src/components/site/pages/
+- Confirmed all inner page components DO import NxPageLayout (no missing wrappers), but the ThemeProvider used enableSystem which let prefers-color-scheme: light flip pages to light mode — triggering the LIGHT MODE ADAPTATION LAYER (lines 3736+ of globals.css) which converts dark #030014 sections to white surfaces
+- Identified token mismatch: html.dark .theme-nx block set --background:#0A0612 (not #03000D), causing a visible seam between hero (which used #03000D via body .dark gradient) and page body
+- layout.tsx: replaced enableSystem with forcedTheme="dark" so next-themes ALWAYS adds class="dark" to <html>; light-mode CSS layer is now permanently inert
+- layout.tsx: wrapped {children} in <div className="theme-nx min-h-screen nx-surface nx-text relative"> as a defensive global scope — even admin/auth pages that don't import NxPageLayout now inherit v5 tokens
+- layout.tsx: simplified FOUC themeInitScript to always apply class="dark" + colorScheme="dark" (no more prefers-color-scheme probing); elite/custom admin overlays still honored
+- globals.css html.dark .theme-nx: --background #0A0612 -> #03000D; --nx-surface #100820 -> #03000D; --nx-surface-alt #16102A -> #070018; --nx-surface-muted #1E1640 -> #0D0025 (matches body .dark tokens)
+- globals.css .dark block: --nx-surface tokens aligned to #03000D spec for consistency
+- globals.css .nx-hero-bg: linear-gradient base #0A0612/#100820 -> #03000D/#070018 (hero seamlessly blends into body)
+- globals.css .nx-navy-gradient: base #100820/#0A0612 -> #070018/#03000D
+- home-content.tsx: StatsBar outer #030014 -> #03000D; stat tile inner #0A0A14 -> #070018; 4 more section bgs #030014 -> #03000D
+- contact-page.tsx, services-page.tsx (5 occurrences), case-studies-page.tsx (2 occurrences): all legacy #030014/#050510 replaced with #03000D
+- Created scripts/update-legacy-dark-colors.sh — persisted sed script to re-run if any legacy hex creeps back in future PRs
+- Purged .next, .turbo, node_modules/.cache before clean rebuild
+- npm run build: ✓ Compiled successfully in 33.1s with 0 TypeScript errors (only pre-existing DATABASE_URL dev-DB warnings)
+- Committed (d7cbcbd) and pushed to main — Vercel auto-deploy triggered
+
+Stage Summary:
+- forcedTheme="dark" + global .theme-nx wrapper = v5 cyberpunk canvas (#03000D) now renders on EVERY route universally
+- Light-mode adaptation layer is inert — can never flip dark sections to white
+- Token alignment between body .dark and .theme-nx eliminates the home/inner visible seam
+- Hero gradient base now matches page body — seamless deep dark canvas from top of hero through footer
+- All legacy dark hexes (#030014/#0A0A14/#050510/#050518) purged from page components, replaced with v5 spec #03000D/#070018
+- Build green; Vercel deploy in progress; CDN edge cache will be purged automatically on deploy completion
