@@ -17,7 +17,7 @@ export function CaseStudiesPage() {
         title={
           <>
             Real clients.{" "}
-            <span className="bg-gradient-to-r from-[***REMOVED***EC4899] via-[***REMOVED***9B3DFF] to-[***REMOVED***6366F1] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
               Real numbers.
             </span>
           </>
@@ -84,7 +84,7 @@ export function CaseStudiesPage() {
                       className={`text-xs font-bold ${
                         m.change.startsWith("-") && !m.change.startsWith("-$")
                           ? "text-[***REMOVED***00e676]"
-                          : "text-[***REMOVED***EC4899]"
+                          : "text-[***REMOVED***FF8AC4]"
                       }`}
                     >
                       {m.change}
@@ -112,7 +112,7 @@ export function CaseStudiesPage() {
               <div className="lg:col-span-2">
                 <h2 className="text-3xl sm:text-4xl font-black text-white">
                   Your case study is{" "}
-                  <span className="bg-gradient-to-r from-[***REMOVED***EC4899] to-[***REMOVED***F472B6] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
                     next.
                   </span>
                 </h2>
@@ -124,7 +124,7 @@ export function CaseStudiesPage() {
                   <Link
                     href="/contact"
                     className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-                    style={{ background: "linear-gradient(135deg, ***REMOVED***3B82F6 0%, ***REMOVED***EC4899 100%)" }}
+                    style={{ background: "linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)" }}
                   >
                     Book a Demo
                     <ArrowRight className="h-4 w-4" />
