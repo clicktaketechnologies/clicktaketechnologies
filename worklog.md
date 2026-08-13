@@ -436,3 +436,64 @@ Stage Summary:
 - Cases: Vertical list with 3-metric grids + character CTA
 - Vercel auto-deploy triggered
 - User should hard-refresh browser (Ctrl+Shift+R) to bypass browser cache
+
+---
+Task ID: v5-permanent-lock
+Agent: main
+Task: Permanently deploy Dark Premium Cyberpunk / Web3 (v5) across entire site. User spec: revert any flat editorial remnants, restore #03000D deep dark canvas with ambient orbs, standardize 4-stop gradient #FF8AC4 → #9B3DFF → #136DFF on headlines/CTAs/badges, restore glassmorphism (backdrop-blur-md + neon drop-shadows), restore rounded-full pill buttons with gradient fills + glow halos, ensure particle bg + aurora ribbons + 3D characters visible everywhere, clean build cache + redeploy.
+
+Work Log:
+- Audited codebase for v6 flat-editorial remnants: ZERO instances of Fraunces, EC4899-as-solid-accent, PATCH N, 0B0B0F, or squircle button patterns. V7 rebuilt pages (nx-hero, contact-page, case-studies-page, services-page, home-content) used a mix of #EC4899/#3B82F6 2-stop gradients — needed standardization to canonical 4-stop.
+- Appended V5 ENFORCEMENT LAYER to src/app/globals.css (~225 lines, scoped to .theme-nx):
+  1. Deep dark canvas #03000D + ambient radial gradient atmosphere (3 radial glows + linear gradient)
+  2. Canonical 4-stop gradient: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) forced on:
+     - Every [class*="bg-clip-text"][class*="text-transparent"] span
+     - .gradient-text, .nx-gradient-text, .nx-text-brand-grad, .nx-text-orange-grad, .nx-text-pink-grad, .nx-text-blue-grad
+     - Every gradient CTA button (inline-style linear-gradient(135deg, #3B82F6...#EC4899))
+     - Step-indicator circles + icon chips (bg-gradient-to-br from-[#3B82F6]...to-[#EC4899])
+     - h1/h2/h3 gradient headline spans
+  3. Glassmorphism: backdrop-blur(12px) saturate(140%) + thin pink-tinted border + neon drop-shadow on every rounded-2xl/3xl card with border-white/10; hover lift + purple glow (translateY(-2px) + box-shadow 0 12px 40px rgba(0,0,0,0.5) + 0 0 24px rgba(155,61,255,0.25))
+  4. Pill buttons: forces rounded-full (9999px) on every inline-flex CTA button with rounded-xl; ghost pill buttons get purple glow on hover
+  5. Aurora ribbon + ambient floating orbs: ::before pseudo-element on every hero section adds 3 radial-gradient glows (pink top-left, blue top-right, purple bottom-center); .nx-orb elements get blur(60px) saturate(150%) + 14s drift animation
+  6. Form inputs: glassmorphic bg + neon purple focus ring (border #FF8AC4/50 + box-shadow 0 0 0 3px rgba(155,61,255,0.2))
+  7. Tech-stack chips: glassmorphic bg with subtle purple tint
+  8. prefers-reduced-motion safety (disables orb animation + hover transforms)
+- Updated legacy .nx-text-orange-grad + .nx-text-brand-grad utility classes to use canonical 4-stop gradient (was using #FF53A9 as middle stop instead of #9B3DFF)
+- Source-level updates in v7 pages to use canonical 4-stop gradient directly:
+  * nx-hero.tsx: headline "Intelligence," + CTA button + robot heart emblem
+  * contact-page.tsx: hero headline, step indicators, form focus rings, 3 CTA buttons, sidebar icon colors, What Happens Next numbered badges
+  * case-studies-page.tsx: hero headline, metric change colors, CTA button
+  * services-page.tsx: hero headline, process timeline accent color, CTA button, mini-character eye colors
+  * home-content.tsx: stats number color, Four Pillars headline, Numbers section headline + bar gradients + CTA, CTA section AI accent + button, mini-character eye colors
+- Added NxThreeScene (600-particle Three.js canvas) to homepage via dynamic import — previously only inner pages had the particle background via NxPageLayout. Now every page on the site displays the particle network.
+- Purged .next + .turbo build cache
+- Fresh production build: NEXT_TELEMETRY_DISABLED=1 NODE_OPTIONS="--max-old-space-size=2048" bunx next build — ✓ Compiled successfully, 511+ static pages generated
+- Two commits pushed: 430640d (v5 enforcement layer + source updates + particle canvas) and b0bb77d (legacy utility class unification)
+- Vercel auto-deployed both commits. Verified live at https://clicktaketech.com
+
+Verification on live CSS bundle (1--7ap3mse1ij.css, 293,447 bytes):
+- Canonical 4-stop gradient "linear-gradient(135deg,#ff8ac4 0%,#9b3dff 50%,#136dff 100%)": 4 occurrences
+- nx-orb-drift keyframe: 2 occurrences
+- backdrop-filter:blur(12px): 10 occurrences
+- Neon CTA shadow #9b3dff59 (rgba(155,61,255,0.35) minified): 2 occurrences
+- nx-text-orange-grad enforced: 3 occurrences
+- nx-text-brand-grad enforced: 5 occurrences
+- Fraunces serif (v6 pattern): 0 occurrences
+- PATCH N (v6 pattern): 0 occurrences
+
+Cross-page verification (all 13 main pages):
+- Every page has 7 .theme-nx wrappers (NxPageLayout scope)
+- Pages with v7 rebuilt components (/, /services, /case-studies, /contact) have 2-5 canonical 4-stop gradient spans in HTML
+- Pages using legacy NxPageHero utility classes (/about, /blog, /pricing, /careers, /solutions, /legal, /team, /portfolio, /resources) get their gradient text auto-overridden to the 4-stop brand gradient by the enforcement layer
+
+Stage Summary:
+- Dark Premium Cyberpunk / Web3 (v5) design PERMANENTLY LOCKED across entire site (commit b0bb77d on origin/main).
+- CSS enforcement layer scoped to .theme-nx guarantees v5 spec compliance on every page that uses NxPageLayout or the home-content wrapper — covers Home, Services, Solutions, Case Studies, Contact, Blog, Pricing, Careers, Legal, Team, Resources, Portfolio, Cities, About + all detail pages.
+- Deep dark canvas #03000D + ambient orbs + aurora ribbons visible on every hero.
+- Canonical 4-stop gradient #FF8AC4 → #9B3DFF → #136DFF on every headline, CTA button, badge, and icon chip.
+- Glassmorphism (backdrop-blur(12px) + thin pink-tinted borders + neon purple drop-shadows) on every card; hover lift + glow.
+- Pill buttons (rounded-full) with gradient fills + neon glow halos across the entire site.
+- Particle background network (600 particles) rendered on every page via NxThreeScene.
+- 3D robot character preserved on homepage hero + 3D story scenes on /contact and /case-studies.
+- Vercel auto-deployed both commits. CDN edge cache invalidated by new CSS hash (1--7ap3mse1ij.css).
+- User should hard-refresh browser (Ctrl+Shift+R) to bypass any local browser cache.
