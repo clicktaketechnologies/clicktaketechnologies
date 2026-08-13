@@ -3597,7 +3597,27 @@ html.theme-elite .ct-story-floater {
   background-color: rgba(155, 61, 255, 0.06) !important;
 }
 
-/* ─── 8. Reduce-motion safety ─── */
+/* ─── 8. Catch remaining 2-stop brand-* gradients → canonical 4-stop ─── */
+/* Force every bg-gradient-to-* using from-brand-* utility classes
+   (cyan/blue/magenta/pink) to the canonical 4-stop brand gradient.
+   Catches: from-brand-cyan to-brand-magenta (visit-site buttons, nav underlines),
+   from-brand-blue to-brand-cyan (icon chips), from-brand-magenta to-brand-blue,
+   from-brand-cyan to-brand-blue, from-brand-blue to-sky-600, from-brand-cyan to-teal-500, etc. */
+.theme-nx [class*="bg-gradient-to-"][class*="from-brand-cyan"],
+.theme-nx [class*="bg-gradient-to-"][class*="from-brand-blue"],
+.theme-nx [class*="bg-gradient-to-"][class*="from-brand-magenta"],
+.theme-nx [class*="bg-gradient-to-"][class*="from-brand-pink"],
+.theme-nx [class*="bg-gradient-to-"][class*="from-brand-purple"] {
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
+}
+
+/* Also catch any from-[#FF53A9] (legacy pink variant) on non-text spans. */
+.theme-nx [class*="bg-gradient-to-"][class*="from-[#FF53A9]"],
+.theme-nx [class*="bg-gradient-to-"][class*="from-[#ff53a9]"] {
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
+}
+
+/* ─── 9. Reduce-motion safety ─── */
 @media (prefers-reduced-motion: reduce) {
   .theme-nx .nx-orb,
   .theme-nx section[class*="min-h-screen"][class*="nx-surface"] .nx-orb {
