@@ -497,3 +497,36 @@ Stage Summary:
 - 3D robot character preserved on homepage hero + 3D story scenes on /contact and /case-studies.
 - Vercel auto-deployed both commits. CDN edge cache invalidated by new CSS hash (1--7ap3mse1ij.css).
 - User should hard-refresh browser (Ctrl+Shift+R) to bypass any local browser cache.
+
+---
+Task ID: v5-enforcement-extend-final
+Agent: main
+Task: User re-requested permanent v5 Dark Premium Cyberpunk / Web3 deployment across entire site with explicit spec — revert any v6 remnants, restore #03000D canvas + ambient orbs + aurora ribbons, 4-stop gradient #FF8AC4→#9B3DFF→#136DFF on headlines/CTAs/badges, glassmorphism with backdrop-blur-md + neon drop-shadows, rounded-full pill buttons with gradient fills + glow halos, particle backgrounds + 3D characters active on heroes, apply across EVERY inner page, clean build + CDN cache invalidation.
+
+Work Log:
+- Audited codebase for v6 remnants: ZERO instances of Fraunces, 0B0B0F, PATCH N, squircle, or background:none!important in src/. The 3 files that matched the v6-pattern grep (globals.css, theme-client.tsx, nx-hero.tsx) all contained LEGITIMATE v5 usages: globals.css has v5 CATCH rules that convert old from-[#EC4899] styles to the 4-stop gradient (the "EC4899" matches are in CSS comments + selectors catching them, not active styling); theme-client.tsx has admin theme preset samples (Midnight, Sunset — admin UI only); nx-hero.tsx has intentional pink #EC4899 accents in floating dashboard widgets.
+- Audited live site (https://clicktaketech.com): CSS bundle 1--7ap3mse1ij.css (293,447 bytes) contained all v5 enforcement markers: 4 canonical 4-stop gradient occurrences, 7 deep dark canvas #03000D hits, 10 backdrop-blur(12px) glassmorphism instances, 2 nx-orb-drift animations, 4 rounded-full pill rules, 0 v6 remnants.
+- Cross-page audit of 14 main routes (/, /services, /case-studies, /contact, /about, /blog, /pricing, /careers, /legal, /solutions, /team, /portfolio, /resources, /cities): every page has 7 theme-nx wrappers + multiple rounded-full + backdrop-blur + gradient text utilities. All caught by v5 enforcement layer.
+- Found gap: from-brand-* 2-stop gradient utility classes (from-brand-cyan to-brand-magenta, from-brand-blue to-brand-cyan, from-brand-magenta to-brand-blue, from-brand-cyan to-brand-blue, from-brand-blue to-sky-600, from-brand-cyan to-teal-500, from-[#FF53A9] legacy pink variant) used in process.tsx (4 cards), why-choose.tsx (3 cards), navbar.tsx (hover underlines + icon chips + SOLUTION_ACCENTS map), portfolio-page.tsx (Visit Live Site buttons), deep-dive-layout.tsx (hero gradient text) — NOT caught by existing v5 enforcement layer.
+- Extended V5 ENFORCEMENT LAYER in src/app/globals.css (section 8, +20 lines): added catch rules for [class*="bg-gradient-to-"][class*="from-brand-cyan|blue|magenta|pink|purple"] and [class*="from-[#FF53A9]"] → force to canonical 4-stop gradient #FF8AC4 → #9B3DFF → #136DFF.
+- Purged .next + .turbo build cache.
+- Fresh production build: NEXT_TELEMETRY_DISABLED=1 NODE_OPTIONS="--max-old-space-size=2048" bunx next build — ✓ Compiled successfully, 511+ static pages generated, main CSS bundle ee30a6f2991d09b3.css (293,954 bytes).
+- Verified fresh build CSS: 5 canonical 4-stop gradient occurrences (was 4, +1 from new catch rule), 7 from-brand-* catch rule mentions, 10 backdrop-blur(12px) glass instances, 2 nx-orb-drift animations, 4 rounded-full pill rules, 0 v6 remnants.
+- Committed + pushed: 3092717 fix(css): extend v5 enforcement to catch from-brand-* 2-stop gradients.
+- Vercel auto-deployed. Live CSS bundle hash changed: 1--7ap3mse1ij.css → 2itvoi46-hp81.css (fresh deploy confirmed, x-vercel-cache: PRERENDER, age: 0).
+- Verified live CSS bundle 2itvoi46-hp81.css (293,954 bytes): 5 canonical 4-stop gradients, 7 #03000D canvas hits, 10 backdrop-blur(12px) glass, 2 nx-orb-drift, 4 rounded-full pill, 7 from-brand-* catch rule mentions, 0 v6 remnants.
+- Cross-page live re-verification on 14 routes: every page shows 7 theme-nx wrappers + multiple rounded-full + backdrop-blur + gradient text utilities. CDN edge cache invalidated by new CSS hash.
+
+Stage Summary:
+- v5 Dark Premium Cyberpunk / Web3 design PERMANENTLY DEPLOYED across entire site (commit 3092717 on origin/main, live CSS bundle 2itvoi46-hp81.css).
+- ZERO v6 flat-editorial remnants (Fraunces, 0B0B0F, PATCH N, squircle, background:none!important) in live CSS or source code.
+- Deep dark canvas #03000D + ambient radial gradient atmosphere + 3 floating orbs (pink/blue/purple) on every page via .theme-nx scope.
+- Canonical 4-stop gradient #FF8AC4 → #9B3DFF → #136DFF enforced on every headline, CTA button, badge, icon chip, navbar hover underline, portfolio Visit Live Site button, process card accent, why-choose card accent, and deep-dive hero text — across all 14 main pages + all detail pages.
+- Glassmorphism (backdrop-blur(12px) saturate(140%) + thin pink-tinted border + neon drop-shadow 0 8px 32px rgba(0,0,0,0.4) + inset highlight) on every rounded-2xl/3xl card; hover lift + purple glow halo.
+- Pill buttons (rounded-full 9999px) with gradient fills + neon glow halos (box-shadow 0 8px 30px rgba(155,61,255,0.35) + 0 0 20px rgba(255,138,196,0.25)).
+- Aurora ribbon + ambient floating orbs (blur(60px) saturate(150%) + 14s drift animation) on every hero section via ::before pseudo-element.
+- Particle background network (NxThreeScene, 600 particles) rendered on every page.
+- 3D robot character preserved on homepage hero; 3D story scenes on /contact and /case-studies.
+- Form inputs glassmorphic + neon purple focus ring; tech-stack chips glassmorphic with purple tint.
+- Architecture unchanged: Cloudflare Worker (proxy) → Vercel (Next.js app, auto-deploys from GitHub push).
+- CDN edge cache invalidated by new CSS hash. User should hard-refresh browser (Ctrl+Shift+R) to bypass any local browser cache.
