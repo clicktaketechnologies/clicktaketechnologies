@@ -75,7 +75,10 @@
   --ct-text: #F0EBF8;
   --ct-muted: #7A6B95;
 
-  --background: #ffffff;
+  /* Light mode canvas — #FAFAFC per brand spec (was #ffffff).
+     The slight cool tint differentiates the canvas from pure-white cards
+     and gives the page a softer, more "designed" feel. */
+  --background: #FAFAFC;
   --foreground: #0a0e1a;
   --card: #ffffff;
   --card-foreground: #0a0e1a;
@@ -956,7 +959,8 @@ html:not(.dark).theme-custom-light body {
   --nx-ink-soft: #4A3B5C;
   /* Accessible: #6E5F80 = 5.04–5.81:1 on light surfaces (AA). */
   --nx-ink-muted: #6E5F80;
-  --background: #FFFFFF;
+  /* Light mode canvas — #FAFAFC per brand spec (was #FFFFFF). */
+  --background: #FAFAFC;
   --foreground: #0A0612;
   --card: #FFFFFF;
   --card-foreground: #0A0612;
@@ -3703,4 +3707,243 @@ html.theme-elite .ct-story-floater {
 
 /* ════════════════════════════════════════════════════════════════════════
    END V5 ENFORCEMENT LAYER
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════════════
+   LIGHT MODE ADAPTATION LAYER
+   ════════════════════════════════════════════════════════════════════════
+   The v5 Dark Premium Cyberpunk design was authored for dark mode — many
+   page components use hardcoded `text-white`, `bg-white/[0.03]` glass
+   cards, `border-white/10`, and `style={{ background: "#030014" }}` dark
+   section backgrounds. In dark mode these render perfectly. In LIGHT mode
+   they would render as invisible white-on-white.
+
+   This layer catches every dark-authored pattern and flips it to a theme-
+   aware token (var(--nx-surface) / var(--nx-ink) / var(--nx-border)) so
+   the site is fully usable in light mode WITHOUT rewriting every component.
+
+   Carve-outs preserve the original dark styling inside always-dark regions:
+     - .nx-hero-bg            (hero sections — always dark for visual impact)
+     - .nx-orange-gradient    (CTA banners with brand gradient)
+     - .nx-navy-gradient      (navy gradient sections)
+     - .nx-brand-gradient     (logo badge)
+     - .nx-btn-orange         (primary gradient CTA button)
+     - .nx-btn-outline-light  (glassmorphic outline button)
+     - Gradient buttons       (bg-gradient-to-* or style*="linear-gradient")
+     - Navbar transparent     (header.bg-transparent over dark homepage hero)
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* 1. Sections with hardcoded dark inline backgrounds → light surface.
+      Only targets <section> elements (where dark strips live) — div-level
+      dark backgrounds inside hero are preserved by the .nx-hero-bg carve-out.
+      Excludes .nx-hero-bg / .nx-orange-gradient / .nx-navy-gradient sections
+      (always-dark hero/CTA banners that should remain dark for visual impact). */
+html:not(.dark) .theme-nx section[style*="#030014"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
+html:not(.dark) .theme-nx section[style*="#050510"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
+html:not(.dark) .theme-nx section[style*="#03000D"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
+html:not(.dark) .theme-nx section[style*="#050518"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
+html:not(.dark) .theme-nx section[style*="#0A0A14"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient) {
+  background: var(--nx-surface-alt) !important;
+}
+
+/* 1a. Divs with hardcoded dark inline backgrounds (stat tiles, icon chips,
+      accent panels) → light surface. Catches the homepage stats bar tiles
+      and similar small dark surfaces inside (now-light) sections. */
+html:not(.dark) .theme-nx div[style*="#030014"],
+html:not(.dark) .theme-nx div[style*="#050510"],
+html:not(.dark) .theme-nx div[style*="#03000D"],
+html:not(.dark) .theme-nx div[style*="#050518"],
+html:not(.dark) .theme-nx div[style*="#0A0A14"] {
+  background: var(--nx-surface) !important;
+}
+
+/* 1b. CARVE-OUT: divs inside always-dark containers — restore dark surface.
+       Without this, dark accent panels inside hero/CTA banners would be
+       flipped to white, breaking the visual hierarchy. */
+html:not(.dark) .theme-nx .nx-hero-bg div[style*="#030014"],
+html:not(.dark) .theme-nx .nx-hero-bg div[style*="#050510"],
+html:not(.dark) .theme-nx .nx-hero-bg div[style*="#03000D"],
+html:not(.dark) .theme-nx .nx-hero-bg div[style*="#050518"],
+html:not(.dark) .theme-nx .nx-hero-bg div[style*="#0A0A14"],
+html:not(.dark) .theme-nx .nx-orange-gradient div[style*="#030014"],
+html:not(.dark) .theme-nx .nx-orange-gradient div[style*="#050510"],
+html:not(.dark) .theme-nx .nx-orange-gradient div[style*="#0A0A14"],
+html:not(.dark) .theme-nx .nx-navy-gradient div[style*="#030014"],
+html:not(.dark) .theme-nx .nx-navy-gradient div[style*="#050510"],
+html:not(.dark) .theme-nx .nx-navy-gradient div[style*="#0A0A14"],
+html:not(.dark) .theme-nx .nx-card-dark div[style*="#030014"],
+html:not(.dark) .theme-nx .nx-card-dark div[style*="#050510"],
+html:not(.dark) .theme-nx .nx-card-dark div[style*="#0A0A14"] {
+  background: #0A0A14 !important;
+}
+
+/* 2. Glass card backgrounds (bg-white/[0.0X], bg-white/5, bg-white/10,
+      bg-white/20) → solid light surface so the card is visible.
+      Card sits on the (now-light) section bg, so we use --nx-surface (white)
+      to differentiate from --nx-surface-alt (#F8F6FC). */
+html:not(.dark) .theme-nx [class*="bg-white/[0.0"],
+html:not(.dark) .theme-nx [class*="bg-white/5"],
+html:not(.dark) .theme-nx [class*="bg-white/10"],
+html:not(.dark) .theme-nx [class*="bg-white/20"] {
+  background-color: var(--nx-surface) !important;
+}
+
+/* 3. Border-white/X → theme border (visible in both modes). */
+html:not(.dark) .theme-nx [class*="border-white/10"],
+html:not(.dark) .theme-nx [class*="border-white/15"],
+html:not(.dark) .theme-nx [class*="border-white/20"],
+html:not(.dark) .theme-nx [class*="border-white/30"] {
+  border-color: var(--nx-border) !important;
+}
+
+/* 4. text-white and text-white/XX variants → theme ink (dark).
+      This is the broadest rule — catches every text-white in the page. */
+html:not(.dark) .theme-nx .text-white,
+html:not(.dark) .theme-nx [class*="text-white/"] {
+  color: var(--nx-ink) !important;
+}
+
+/* 4a. CARVE-OUT: keep text-white inside always-dark hero/banner regions.
+       These regions have their own dark backgrounds, so white text is
+       correct in both modes. */
+html:not(.dark) .theme-nx .nx-hero-bg .text-white,
+html:not(.dark) .theme-nx .nx-hero-bg [class*="text-white/"],
+html:not(.dark) .theme-nx .nx-orange-gradient .text-white,
+html:not(.dark) .theme-nx .nx-orange-gradient [class*="text-white/"],
+html:not(.dark) .theme-nx .nx-navy-gradient .text-white,
+html:not(.dark) .theme-nx .nx-navy-gradient [class*="text-white/"],
+html:not(.dark) .theme-nx .nx-brand-gradient .text-white,
+html:not(.dark) .theme-nx .nx-brand-gradient [class*="text-white/"],
+html:not(.dark) .theme-nx .nx-btn-orange .text-white,
+html:not(.dark) .theme-nx .nx-btn-orange[class*="text-white"],
+html:not(.dark) .theme-nx .nx-btn-outline-light .text-white,
+html:not(.dark) .theme-nx .nx-btn-outline-light[class*="text-white"],
+html:not(.dark) .theme-nx .nx-card-dark .text-white,
+html:not(.dark) .theme-nx .nx-card-dark [class*="text-white/"] {
+  color: #ffffff !important;
+}
+
+/* 4b. CARVE-OUT: gradient buttons (Tailwind bg-gradient-to-* or inline
+       style linear-gradient) — the gradient bg is dark enough that white
+       text is correct in both modes. Restores white on the button itself
+       AND on any descendant text-white (icon labels, etc.). */
+html:not(.dark) .theme-nx [class*="bg-gradient-to-"].text-white,
+html:not(.dark) .theme-nx [class*="bg-gradient-to-"] .text-white,
+html:not(.dark) .theme-nx [style*="linear-gradient"].text-white,
+html:not(.dark) .theme-nx [style*="linear-gradient"] .text-white,
+html:not(.dark) .theme-nx [class*="bg-gradient-to-"][class*="text-white/"],
+html:not(.dark) .theme-nx [class*="bg-gradient-to-"] [class*="text-white/"],
+html:not(.dark) .theme-nx [style*="linear-gradient"][class*="text-white/"],
+html:not(.dark) .theme-nx [style*="linear-gradient"] [class*="text-white/"] {
+  color: #ffffff !important;
+}
+
+/* 4c. CARVE-OUT: navbar transparent state (over dark homepage hero).
+       The header has class "bg-transparent" only when isHome && !scrolled.
+       White text on transparent navbar over dark hero = correct in both modes. */
+html:not(.dark) .theme-nx header.bg-transparent .text-white,
+html:not(.dark) .theme-nx header.bg-transparent [class*="text-white/"] {
+  color: #ffffff !important;
+}
+
+/* 4d. CARVE-OUT: navbar transparent state also needs its bg-white/10 hover
+       restored (would otherwise be flipped to --nx-surface by rule 2). */
+html:not(.dark) .theme-nx header.bg-transparent [class*="bg-white/10"],
+html:not(.dark) .theme-nx header.bg-transparent [class*="hover:bg-white/10"] {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 5. Placeholders → muted ink (visible in light mode). */
+html:not(.dark) .theme-nx [class*="placeholder:text-white"]::placeholder {
+  color: var(--nx-ink-muted) !important;
+  opacity: 0.7 !important;
+}
+
+/* 5a. CARVE-OUT: keep placeholder white inside always-dark regions. */
+html:not(.dark) .theme-nx .nx-hero-bg [class*="placeholder:text-white"]::placeholder,
+html:not(.dark) .theme-nx .nx-orange-gradient [class*="placeholder:text-white"]::placeholder,
+html:not(.dark) .theme-nx .nx-navy-gradient [class*="placeholder:text-white"]::placeholder {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* 6. Form inputs (input/textarea/select with bg-white/5) → proper surface.
+      Ensures typed text, borders, and focus states all work in light mode. */
+html:not(.dark) .theme-nx input[class*="bg-white/5"],
+html:not(.dark) .theme-nx textarea[class*="bg-white/5"],
+html:not(.dark) .theme-nx select[class*="bg-white/5"],
+html:not(.dark) .theme-nx input[class*="bg-white/10"],
+html:not(.dark) .theme-nx textarea[class*="bg-white/10"],
+html:not(.dark) .theme-nx select[class*="bg-white/10"] {
+  background-color: var(--nx-surface) !important;
+  color: var(--nx-ink) !important;
+  border-color: var(--nx-border-strong) !important;
+}
+
+/* 6a. Form input focus states — keep the brand-pink focus ring. */
+html:not(.dark) .theme-nx input:focus,
+html:not(.dark) .theme-nx textarea:focus,
+html:not(.dark) .theme-nx select:focus {
+  border-color: rgba(255, 138, 196, 0.5) !important;
+  box-shadow: 0 0 0 2px rgba(155, 61, 255, 0.15) !important;
+  outline: none !important;
+}
+
+/* 7. Dark hex utility backgrounds (bg-[#030014] etc.) → light surface. */
+html:not(.dark) .theme-nx [class*="bg-[#030014]"],
+html:not(.dark) .theme-nx [class*="bg-[#050510]"],
+html:not(.dark) .theme-nx [class*="bg-[#03000D]"],
+html:not(.dark) .theme-nx [class*="bg-[#050518]"],
+html:not(.dark) .theme-nx [class*="bg-[#0A0A14]"] {
+  background-color: var(--nx-surface-alt) !important;
+}
+
+/* 8. CARVE-OUT: glass cards inside always-dark regions — keep glass effect.
+       Without this, cards inside hero would flip to solid white. */
+html:not(.dark) .theme-nx .nx-hero-bg [class*="bg-white/[0.0"],
+html:not(.dark) .theme-nx .nx-hero-bg [class*="bg-white/5"],
+html:not(.dark) .theme-nx .nx-hero-bg [class*="bg-white/10"],
+html:not(.dark) .theme-nx .nx-hero-bg [class*="bg-white/20"],
+html:not(.dark) .theme-nx .nx-orange-gradient [class*="bg-white/[0.0"],
+html:not(.dark) .theme-nx .nx-orange-gradient [class*="bg-white/5"],
+html:not(.dark) .theme-nx .nx-orange-gradient [class*="bg-white/10"],
+html:not(.dark) .theme-nx .nx-navy-gradient [class*="bg-white/[0.0"],
+html:not(.dark) .theme-nx .nx-navy-gradient [class*="bg-white/5"],
+html:not(.dark) .theme-nx .nx-navy-gradient [class*="bg-white/10"],
+html:not(.dark) .theme-nx .nx-card-dark [class*="bg-white/[0.0"],
+html:not(.dark) .theme-nx .nx-card-dark [class*="bg-white/5"],
+html:not(.dark) .theme-nx .nx-card-dark [class*="bg-white/10"] {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* 9. CARVE-OUT: borders inside always-dark regions — keep white-tinted. */
+html:not(.dark) .theme-nx .nx-hero-bg [class*="border-white/10"],
+html:not(.dark) .theme-nx .nx-hero-bg [class*="border-white/15"],
+html:not(.dark) .theme-nx .nx-hero-bg [class*="border-white/20"],
+html:not(.dark) .theme-nx .nx-hero-bg [class*="border-white/30"],
+html:not(.dark) .theme-nx .nx-orange-gradient [class*="border-white/10"],
+html:not(.dark) .theme-nx .nx-orange-gradient [class*="border-white/20"],
+html:not(.dark) .theme-nx .nx-navy-gradient [class*="border-white/10"],
+html:not(.dark) .theme-nx .nx-navy-gradient [class*="border-white/20"],
+html:not(.dark) .theme-nx .nx-card-dark [class*="border-white/10"],
+html:not(.dark) .theme-nx .nx-card-dark [class*="border-white/20"] {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 10. Select <option> elements — they inherit OS styling but we force a
+        readable surface in light mode so the dropdown doesn't show white
+        text on white background. */
+html:not(.dark) .theme-nx option {
+  background-color: var(--nx-surface) !important;
+  color: var(--nx-ink) !important;
+}
+
+/* 11. Bg-black/60 backdrop (mobile drawer overlay) — keep dark in both modes.
+        This is a scrim, not a content surface, so darkness is correct. */
+html:not(.dark) .theme-nx .bg-black\/60,
+html:not(.dark) .theme-nx [class*="bg-black/60"] {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   END LIGHT MODE ADAPTATION LAYER
    ════════════════════════════════════════════════════════════════════════ */

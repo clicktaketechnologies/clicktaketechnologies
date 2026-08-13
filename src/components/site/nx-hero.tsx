@@ -22,7 +22,7 @@ export function NxHero() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden nx-surface"
+      className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden nx-surface nx-hero-bg"
       style={{
         background:
           "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.15) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 100% 50%, rgba(19,109,255,0.08) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 0% 50%, rgba(255,83,169,0.08) 0%, transparent 50%), #050510",
