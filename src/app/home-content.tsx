@@ -2,211 +2,455 @@
 
 import { NxNavbar } from "@/components/site/nx-navbar";
 import { NxHero } from "@/components/site/nx-hero";
-import { NxLogoCloud } from "@/components/site/nx-logo-cloud";
-import { NxStats } from "@/components/site/nx-stats";
-import { NxServices } from "@/components/site/nx-services";
-import { NxWhyChoose } from "@/components/site/nx-why-choose";
-import { NxProcess } from "@/components/site/nx-process";
-import { NxFaq } from "@/components/site/nx-faq";
-import { NxCta } from "@/components/site/nx-cta";
 import { NxFooter } from "@/components/site/nx-footer";
-import { Nx3DScene } from "@/components/site/nx-3d-scene";
 import { ScrollProgress } from "@/components/site/scroll-progress";
-import { Marquee } from "@/components/site/marquee";
-import { CylindricalTestimonials } from "@/components/site/enhanced/cylindrical-testimonials";
 import { ScrollToTop } from "@/components/site/scroll-animations";
-import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import {
+  ArrowRight,
+  Code2,
+  Cloud,
+  Brain,
+  ShieldCheck,
+  Mail,
+  MessageCircle,
+  TrendingUp,
+} from "lucide-react";
 
-/* Three.js ambient background — lazy-loaded, client-only.
- * Renders the wireframe torus knot + particle field + icosahedron + mouse
- * parallax from clicktake-3d-v3.html. SSR is disabled (three.js needs window). */
-const NxThreeScene = dynamic(
-  () => import("@/components/site/nx-three-scene").then((m) => m.NxThreeScene),
-  { ssr: false }
-);
-
-const MARQUEE_ITEMS = [
-  "Digital Marketing",
-  "Web Development",
-  "SEO & PPC",
-  "Brand Identity",
-  "Social Media",
-  "AI Solutions",
-  "Video Production",
-  "E-Commerce",
-];
-
-/* Testimonial data for the cylindrical carousel — same quotes as
-   nx-testimonials.tsx, formatted with avatar initials + brand colors. */
-const CYL_TESTIMONIALS = [
-  {
-    quote:
-      "ClickTake rebuilt our SaaS platform in 6 weeks — what our previous agency couldn't ship in 9 months. The new platform handles 3x the traffic at half the cost.",
-    name: "Sarah Mitchell",
-    role: "CEO, FinTech Startup",
-    location: "London, UK",
-    avatar: "SM",
-    color: "#FF53A9",
-    rating: 5,
-  },
-  {
-    quote:
-      "The AI automation they built saved us 30 hours a week in manual ops work. The team genuinely understands LLMs — not just slapping a chatbot on top of an API.",
-    name: "Ahmed Al-Rashid",
-    role: "COO, E-commerce Group",
-    location: "Dubai, UAE",
-    avatar: "AR",
-    color: "#136DFF",
-    rating: 5,
-  },
-  {
-    quote:
-      "We went from page 4 to page 1 on Google for our top keywords in 90 days. Their SEO content engine is real — every article ranks, not just a few.",
-    name: "Mike Chen",
-    role: "Founder, B2B SaaS",
-    location: "Austin, TX",
-    avatar: "MC",
-    color: "#10B981",
-    rating: 5,
-  },
-  {
-    quote:
-      "Best agency we've worked with in 10 years. Senior engineers, weekly demos, fixed price, no scope creep. They actually do what they say they'll do.",
-    name: "Fatima Khan",
-    role: "CTO, HealthTech",
-    location: "Multan, PK",
-    avatar: "FK",
-    color: "#FF53A9",
-    rating: 5,
-  },
-  {
-    quote:
-      "Their design team is world-class. They rebuilt our brand identity, website and product UI in one sprint — conversions jumped 47% in the first month.",
-    name: "James Patterson",
-    role: "VP Marketing, SaaS",
-    location: "Manchester, UK",
-    avatar: "JP",
-    color: "#F59E0B",
-    rating: 5,
-  },
-  {
-    quote:
-      "The mobile app they shipped hit #4 in App Store productivity within 2 weeks. The team thinks like product people, not just code monkeys.",
-    name: "Priya Sharma",
-    role: "Product Lead, Startup",
-    location: "Remote, USA",
-    avatar: "PS",
-    color: "#8B5CF6",
-    rating: 5,
-  },
-];
-
-/* Homepage — NEW competitor-inspired redesign (2024).
- *
- * Design language: Deep navy + pink/blue/purple accent + bento grids + bold heavy type.
- * Inspired by: Vention (split hero, floating cards), Index.dev (navy + orange
- * + bento), Future Processing (orange CTA + split-view panels), Itransition
- * (pill tags, dark stat sections), Brocoders (bold typography).
+/* CLICKTAKE HOMEPAGE — "Engineering Tomorrow's Intelligence" design.
+ * Matches user-uploaded screenshots: hero with 3D robot, stats bar,
+ * Four Pillars grid, Numbers That Compounded, CTA with mini robot.
  *
  * Section order:
- *  1. Hero (split layout, dark navy + 3D floating dashboard card)
- *  2. Logo cloud (tech partners marquee)
- *  3. Stats banner (4 oversized metrics)
- *  4. Services (bento grid with category tabs)
- *  5. Why Choose (interactive split-view panel)
- *  6. Process (vertical timeline on navy)
- *  7. Testimonials (3-column card grid)
- *  8. FAQ (accordion)
- *  9. CTA (orange gradient block + contact channels)
- * 10. Footer (dark navy, multi-column)
- *
- * 3D design: Each major section is wrapped in a relative container with a
- * Nx3DScene background (floating geometric shapes in brand colors) for a
- * cohesive 3D feel across the entire page. The homepage also mounts a
- * full-screen NxThreeScene (Three.js) behind the hero — wireframe torus
- * knot + 1400-particle field + mouse parallax — matching the
- * clicktake-3d-v3.html reference.
- *
- * DARK MODE: The .theme-nx wrapper exposes --nx-* tokens that flip under
- * html.dark. Hero/CTA/Footer are always-dark (intentional). Light-surface
- * sections (Stats, Services, WhyChoose, Testimonials, FAQ) use the new
- * .nx-surface / .nx-text utility classes so they render with proper
- * contrast in both light and dark mode. */
+ *  1. Hero (split layout, dark navy + 3D robot character)
+ *  2. Stats Bar (4 oversized metrics)
+ *  3. Four Pillars (2x2 grid of service cards)
+ *  4. Numbers That Compounded (3 case study cards)
+ *  5. CTA (Book a Demo + email + WhatsApp)
+ *  6. Tech Stack marquee
+ *  7. Footer
+ */
 export default function HomeContent() {
   return (
     <div className="theme-nx min-h-screen nx-surface nx-text relative">
-      {/* Top scroll-progress bar (gradient pink → purple) */}
       <ScrollProgress />
-      {/* Full-screen Three.js ambient background — torus knot + particles + icosahedron */}
-      <NxThreeScene />
       <NxNavbar />
       <main id="main-content" className="relative z-10">
         <NxHero />
-        {/* Brand marquee band — scrolling services list */}
-        <Marquee items={MARQUEE_ITEMS} />
-        <div data-nx-reveal>
-          <NxLogoCloud />
-        </div>
-        {/* Stats — with 3D floating accents */}
-        <div data-nx-reveal className="relative overflow-hidden">
-          <Nx3DScene density="low" corner="top-right" />
-          <div className="relative z-10">
-            <NxStats />
-          </div>
-        </div>
-        {/* Services — with 3D floating accents */}
-        <div id="services" data-nx-reveal className="relative overflow-hidden scroll-mt-24">
-          <Nx3DScene density="medium" />
-          <div className="relative z-10">
-            <NxServices />
-          </div>
-        </div>
-        {/* Why Choose — with 3D floating accents */}
-        <div data-nx-reveal className="relative overflow-hidden">
-          <Nx3DScene density="low" corner="bottom-left" />
-          <div className="relative z-10">
-            <NxWhyChoose />
-          </div>
-        </div>
-        {/* Process — with 3D floating accents */}
-        <div data-nx-reveal className="relative overflow-hidden">
-          <Nx3DScene density="medium" />
-          <div className="relative z-10">
-            <NxProcess />
-          </div>
-        </div>
-        {/* Testimonials — NEW 3D cylindrical carousel (replaces grid).
-            Auto-rotating, pause-on-hover, navigation dots, animated avatars. */}
-        <section id="testimonials" data-nx-reveal className="relative py-24 sm:py-32 nx-navy-gradient overflow-hidden scroll-mt-24">
-          <div className="absolute top-1/4 -left-20 h-96 w-96 rounded-full bg-[#FF53A9]/10 blur-3xl pointer-events-none" />
-          <div className="absolute bottom-1/4 -right-20 h-96 w-96 rounded-full bg-[#136DFF]/10 blur-3xl pointer-events-none" />
-          <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <div className="inline-flex items-center gap-2 nx-eyebrow text-[#FF8AC4]">
-                <span className="h-1 w-8 rounded-full bg-[#FF53A9]" />
-                What clients say
-              </div>
-              <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
-                Rated{" "}
-                <span className="nx-text-orange-grad">5.0 by 120+ founders.</span>
-              </h2>
-              <p className="mt-5 text-base sm:text-lg text-white/60 leading-relaxed">
-                Auto-rotating carousel — hover to pause, click dots to navigate.
-              </p>
-            </div>
-            <CylindricalTestimonials items={CYL_TESTIMONIALS} autoMs={14000} />
-          </div>
-        </section>
-        <div data-nx-reveal>
-          <NxFaq />
-        </div>
-        <div data-nx-reveal>
-          <NxCta />
-        </div>
+        <StatsBar />
+        <FourPillars />
+        <NumbersThatCompounded />
+        <CtaSection />
+        <TechStrip />
       </main>
       <NxFooter />
-      {/* Scroll-to-top floating button — appears after scrolling down */}
       <ScrollToTop />
     </div>
+  );
+}
+
+/* ─── STATS BAR ─── 4 oversized metrics in a horizontal row */
+function StatsBar() {
+  const stats = [
+    { num: "99.9%", label: "Uptime SLA", sub: "Across all production environments" },
+    { num: "150+", label: "Enterprise Apps", sub: "Shipped to production since 2019" },
+    { num: "40%", label: "AI Workflow Efficiency", sub: "Avg. lift across client base" },
+    { num: "10M+", label: "API Requests / Day", sub: "Served at p99 <120ms" },
+  ];
+  return (
+    <section className="relative py-16 px-4 lg:px-8" style={{ background: "#030014" }}>
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/10" style={{ background: "rgba(255,255,255,0.06)" }}>
+          {stats.map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="p-6 sm:p-8 text-center"
+              style={{ background: "#0A0A14" }}
+            >
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#3B82F6]">
+                {s.num}
+              </div>
+              <div className="mt-2 text-sm font-bold text-white">{s.label}</div>
+              <div className="mt-1 text-[11px] text-white/50 leading-relaxed">{s.sub}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── FOUR PILLARS ─── 2x2 grid of service capability cards */
+function FourPillars() {
+  const pillars = [
+    {
+      icon: Code2,
+      title: "Custom Web & Mobile",
+      desc: "Next.js 16, React Native, Flutter. Production apps with design systems, observability, and CI/CD baked in from day one.",
+      tags: ["Next.js 16 · React 19", "Design system + Storybook", "E2E Playwright suite"],
+      bg: "#1E3A8A",
+    },
+    {
+      icon: Cloud,
+      title: "Cloud & DevOps",
+      desc: "AWS, GCP, Azure, IaC with Terraform, GitOps with ArgoCD, observability with OpenTelemetry + Grafana stack.",
+      tags: ["Terraform · ArgoCD", "K8s autoscaling", "p99 < 120ms SLAs"],
+      bg: "#831843",
+    },
+    {
+      icon: Brain,
+      title: "AI / ML Pipelines",
+      desc: "Multi-agent orchestration, RAG over your enterprise data, custom LLM fine-tuning. From PoC to production in 6 weeks.",
+      tags: ["LangGraph · OpenAI · Anthropic", "Pinecone · Weaviate · pgvector", "VLLM serving"],
+      bg: "#581C87",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Security Systems",
+      desc: "Zero-trust architectures, SOC 2 Type II audit prep, SAST/DAST in CI, pen-test remediation. Compliance as code.",
+      tags: ["SOC 2 · HIPAA · GDPR", "Semgrep · Snyk · OWASP", "WAF + Bot defense"],
+      bg: "#1E3A8A",
+    },
+  ];
+  return (
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#050510" }}>
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-white/70">
+            <span className="h-1 w-1 rounded-full bg-[#FF53A9]" />
+            Core Capabilities
+          </div>
+          <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
+            Four pillars. One delivery{" "}
+            <span className="bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] bg-clip-text text-transparent">
+              engine.
+            </span>
+          </h2>
+          <p className="mt-5 text-base sm:text-lg text-white/60 leading-relaxed">
+            Every ClickTake engagement is structured around four tightly-integrated practices.
+            They share the same design system, the same observability stack, and the same
+            engineering bar — so your roadmap ships as one coherent product, not four vendor
+            handoffs.
+          </p>
+        </div>
+
+        {/* 2x2 grid */}
+        <div className="grid sm:grid-cols-2 gap-6">
+          {pillars.map((p, i) => {
+            const Icon = p.icon;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 sm:p-8 hover:border-white/20 hover:bg-white/[0.05] transition-all"
+              >
+                <div
+                  className="grid h-12 w-12 place-items-center rounded-xl mb-5"
+                  style={{ background: p.bg }}
+                >
+                  <Icon className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">{p.title}</h3>
+                <p className="text-sm text-white/60 leading-relaxed mb-5">{p.desc}</p>
+                <div className="space-y-1.5">
+                  {p.tags.map((t) => (
+                    <div key={t} className="text-[11px] font-mono uppercase tracking-wider text-white/50">
+                      · {t}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Bottom button */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all"
+          >
+            Explore all services
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── NUMBERS THAT COMPOUNDED ─── 3 case study metric cards */
+function NumbersThatCompounded() {
+  const cases = [
+    {
+      cat: "FINTECH · LATENCY",
+      metric: "-72%",
+      detail: "p99 API latency",
+      barColor: "linear-gradient(90deg, #3B82F6, #60A5FA)",
+      pct: "72%",
+    },
+    {
+      cat: "E-COMMERCE · CVR",
+      metric: "+38%",
+      detail: "Checkout conversion",
+      barColor: "linear-gradient(90deg, #EC4899, #F472B6)",
+      pct: "38%",
+    },
+    {
+      cat: "HEALTHCARE · COST",
+      metric: "-$1.4M",
+      detail: "Annual cloud spend",
+      barColor: "linear-gradient(90deg, #3B82F6, #60A5FA)",
+      pct: "58%",
+    },
+  ];
+  return (
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#030014" }}>
+      <div className="mx-auto max-w-7xl">
+        <div className="grid lg:grid-cols-5 gap-12 items-center">
+          {/* Left: text */}
+          <div className="lg:col-span-2">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-white/70">
+              <span className="h-1 w-1 rounded-full bg-[#EC4899]" />
+              Production Impact
+            </div>
+            <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
+              Numbers that{" "}
+              <span className="bg-gradient-to-r from-[#EC4899] to-[#F472B6] bg-clip-text text-transparent">
+                compounded.
+              </span>
+            </h2>
+            <p className="mt-5 text-base text-white/60 leading-relaxed">
+              Three real client outcomes from the past 18 months. Each metric is measured
+              against the client's pre-engagement baseline and verified by their analytics team.
+            </p>
+            <Link
+              href="/case-studies"
+              className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
+              style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+            >
+              Read full case studies
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          {/* Right: 3 cards */}
+          <div className="lg:col-span-3 grid gap-4">
+            {cases.map((c, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 hover:border-white/20 transition-all"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-[10px] font-mono uppercase tracking-[1.5px] text-white/50">
+                    {c.cat}
+                  </div>
+                  <TrendingUp className="h-4 w-4 text-white/30" />
+                </div>
+                <div className="flex items-baseline gap-3 mb-3">
+                  <div className="text-4xl font-black text-white">{c.metric}</div>
+                  <div className="text-sm text-white/60">{c.detail}</div>
+                </div>
+                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: c.pct }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1, delay: 0.3 }}
+                    className="h-full rounded-full"
+                    style={{ background: c.barColor }}
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── CTA SECTION ─── Book a Demo + email + WhatsApp with mini robot */
+function CtaSection() {
+  return (
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8 overflow-hidden" style={{ background: "#050510" }}>
+      {/* Purple radial gradient bg */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(124,58,237,0.12) 0%, transparent 60%)",
+        }}
+      />
+      <div className="relative mx-auto max-w-5xl">
+        <div className="rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-md p-8 sm:p-12 lg:p-16 overflow-hidden relative">
+          <div className="grid lg:grid-cols-3 gap-8 items-center">
+            {/* Left: text + buttons */}
+            <div className="lg:col-span-2">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
+                Ready to deploy your{" "}
+                <span className="text-[#3B82F6]">AI</span>{" "}
+                <span className="bg-gradient-to-r from-[#EC4899] to-[#F472B6] bg-clip-text text-transparent">
+                  workforce?
+                </span>
+              </h2>
+              <p className="mt-5 text-base text-white/60 leading-relaxed max-w-xl">
+                Book a 30-minute architecture review. We'll map your roadmap, identify the
+                highest-ROI automation, and ship a working PoC within 6 weeks.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
+                  style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+                >
+                  Book a Demo
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a
+                  href="mailto:info@clicktaketech.com"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all"
+                >
+                  <Mail className="h-4 w-4" />
+                  info@clicktaketech.com
+                </a>
+                <a
+                  href="https://wa.link/qz8eg"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all"
+                >
+                  <MessageCircle className="h-4 w-4 text-[#25D366]" />
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+
+            {/* Right: mini robot */}
+            <div className="hidden lg:flex justify-center">
+              <MiniRobot />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* Mini robot for CTA section — simpler version */
+function MiniRobot() {
+  return (
+    <div className="relative" style={{ width: "180px", height: "220px" }}>
+      {/* Glow */}
+      <div
+        className="absolute inset-0 rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(255,83,169,0.2) 0%, transparent 70%)" }}
+      />
+      {/* Body */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-[40px] rounded-b-[30px]"
+        style={{
+          width: "110px",
+          height: "120px",
+          background: "linear-gradient(180deg, #1E3A8A, #1E1B4B)",
+          border: "1px solid rgba(255,255,255,0.08)",
+        }}
+      >
+        <div
+          className="absolute top-6 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full grid place-items-center"
+          style={{ background: "linear-gradient(135deg, #FF53A9, #EC4899)" }}
+        >
+          <span className="text-white text-[10px]">♥</span>
+        </div>
+      </div>
+      {/* Head */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2 rounded-full"
+        style={{
+          top: "0",
+          width: "90px",
+          height: "85px",
+          background: "linear-gradient(180deg, #F5C9A6, #D4A574)",
+        }}
+      >
+        {/* Goggles */}
+        <div
+          className="absolute left-1/2 -translate-x-1/2 rounded-xl"
+          style={{
+            top: "25px",
+            width: "72px",
+            height: "28px",
+            background: "linear-gradient(135deg, #7C3AED, #4F46E5)",
+          }}
+        >
+          <div className="absolute left-1.5 top-1.5 w-5 h-5 rounded-full" style={{ background: "#1E1B4B" }}>
+            <div className="absolute inset-1 rounded-full" style={{ background: "#60A5FA" }} />
+          </div>
+          <div className="absolute right-1.5 top-1.5 w-5 h-5 rounded-full" style={{ background: "#1E1B4B" }}>
+            <div className="absolute inset-1 rounded-full" style={{ background: "#F472B6" }} />
+          </div>
+        </div>
+      </div>
+      {/* Floating particles */}
+      {[
+        { top: "10%", left: "-10%", color: "#FF53A9" },
+        { top: "40%", right: "-10%", color: "#136DFF" },
+        { bottom: "20%", left: "-15%", color: "#9B3DFF" },
+      ].map((p, i) => (
+        <motion.div
+          key={i}
+          animate={{ y: [0, -10, 0], opacity: [0.4, 0.8, 0.4] }}
+          transition={{ duration: 3 + i, repeat: Infinity, delay: i * 0.5 }}
+          className="absolute rounded-full"
+          style={{
+            top: p.top,
+            bottom: p.bottom,
+            left: p.left,
+            right: p.right,
+            width: "6px",
+            height: "6px",
+            background: p.color,
+            boxShadow: `0 0 8px ${p.color}`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+/* ─── TECH STRIP ─── horizontal scrolling tech logos */
+function TechStrip() {
+  const techs = [
+    "Python", "OpenAI", "Docker", "PostgreSQL", "AWS", "Vercel",
+    "Terraform", "Next.js 16", "LangGraph", "Anthropic", "Kubernetes", "Redis",
+  ];
+  return (
+    <section className="py-12 border-y border-white/5" style={{ background: "#030014" }}>
+      <div className="mx-auto max-w-7xl px-4 lg:px-8">
+        <div className="text-center mb-6">
+          <div className="text-[10px] font-mono uppercase tracking-[2px] text-white/40">
+            Production Stack
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+          {techs.map((t) => (
+            <span key={t} className="text-sm font-mono text-white/40 hover:text-white/70 transition-colors">
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

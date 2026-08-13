@@ -1,626 +1,440 @@
 'use client'
 
-import { useState, useMemo } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
 import {
-  Mail, Phone, MapPin, Clock, CheckCircle2, MessageSquare,
-  Calendar, Send, X, AlertCircle, MessageCircle,
+  Mail, Phone, MapPin, ArrowRight, Check, MessageCircle,
 } from "lucide-react";
-import{
-  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
-import { Nx3DScene } from "../nx-3d-scene";
-import { Nx3DCharacter } from "../nx-3d-character";
-import { NxStoryScene } from "../nx-story-scene";
-import { TiltCard } from "@/components/site/tilt-card";
-import { TurnstileWidget } from "../turnstile-widget";
-import { FloatingInput, validators } from "@/components/site/enhanced/floating-input";
-import { toast } from "sonner";
-import {
-  inquirySchema,
-  bookingSchema,
-  type InquiryFormValues,
-  type BookingFormValues,
-} from "@/lib/contact-schema";
-import { OFFICES, CONTACT_METHODS, CONTACT_BENEFITS, BOOKING_TIMES, getBookingDates } from "@/lib/site-data";
+import { NxPageLayout, NxPageHero } from "../nx-page-layout";
 
-const ICONS: Record<string, any> = { MessageCircle, Phone, Mail, MapPin, Clock };
-
+/* CONTACT PAGE — "Let's build something extraordinary" design.
+ * Matches user-uploaded screenshot: hero, multi-step form (1-2-3),
+ * direct-contact sidebar, "What happens next" numbered list.
+ */
 export function ContactPage() {
-  // ─── Inquiry form ───
-  const {
-    register: registerInquiry,
-    handleSubmit: handleInquiryFormSubmit,
-    formState: { errors: inquiryErrors, isSubmitting: inquirySubmitting },
-    setValue: setInquiryValue,
-    watch: watchInquiry,
-    reset: resetInquiryForm,
-  } = useForm<InquiryFormValues>({
-    resolver: zodResolver(inquirySchema),
-    defaultValues: { service: "Web Dev", budget: "£5,000 - £10,000" },
-  });
-
-  const [inquirySuccess, setInquirySuccess] = useState(false);
-  const [inquiryResetTrigger, setInquiryResetTrigger] = useState(0);
-  const [submittedInquiryName, setSubmittedInquiryName] = useState("");
-  const [submittedInquiryEmail, setSubmittedInquiryEmail] = useState("");
-
-  const onInquirySubmit = async (values: InquiryFormValues) => {
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: "inquiry", data: values }),
-      });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error || "Submission failed");
-
-      setSubmittedInquiryName(values.name);
-      setSubmittedInquiryEmail(values.email);
-      setInquirySuccess(true);
-      resetInquiryForm();
-    } catch (err: any) {
-      toast.error(err.message || "Something went wrong. Please try again.");
-      setInquiryResetTrigger((n) => n + 1);
-      setInquiryValue("turnstileToken", "");
-    }
-  };
-
-  // ─── Booking form ───
-  const bookingDates = useMemo(() => getBookingDates(), []);
-  const {
-    register: registerBooking,
-    handleSubmit: handleBookingFormSubmit,
-    formState: { errors: bookingErrors, isSubmitting: bookingSubmitting },
-    setValue: setBookingValue,
-    reset: resetBookingForm,
-    watch: watchBooking,
-  } = useForm<BookingFormValues>({
-    resolver: zodResolver(bookingSchema),
-    defaultValues: {
-      date: `${bookingDates[0].day}, ${bookingDates[0].num} ${bookingDates[0].month}`,
-      time: BOOKING_TIMES[0],
-    },
-  });
-
-  const [selectedDateIdx, setSelectedDateIdx] = useState(0);
-  const [bookingSuccess, setBookingSuccess] = useState(false);
-  const [bookingResetTrigger, setBookingResetTrigger] = useState(0);
-  const [submittedBooking, setSubmittedBooking] = useState({ name: "", email: "", date: "", time: "" });
-  const selectedTime = watchBooking("time");
-
-  const onBookingSubmit = async (values: BookingFormValues) => {
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: "booking", data: values }),
-      });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error || "Booking failed");
-
-      setSubmittedBooking({ name: values.name, email: values.email, date: values.date, time: values.time });
-      setBookingSuccess(true);
-      resetBookingForm();
-    } catch (err: any) {
-      toast.error(err.message || "Something went wrong. Please try again.");
-      setBookingResetTrigger((n) => n + 1);
-      setBookingValue("turnstileToken", "");
-    }
-  };
-
-  // ─── Floating chat ───
-  const [chatOpen, setChatOpen] = useState(false);
-  const [chatInput, setChatInput] = useState("");
-  const [chatMessages, setChatMessages] = useState<Array<{ sender: "user" | "agent"; text: string }>>([
-    { sender: "agent", text: "Hey! Zain here from ClickTake. What digital challenge can we help you solve today?" },
-  ]);
-
-  const sendChatMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!chatInput.trim()) return;
-    const userMsg = chatInput;
-    setChatMessages((prev) => [...prev, { sender: "user", text: userMsg }]);
-    setChatInput("");
-    setTimeout(() => {
-      setChatMessages((prev) => [
-        ...prev,
-        {
-          sender: "agent",
-          text: "Thanks for reaching out! A specialist will get in touch with you shortly, or feel free to book a direct call on our scheduler above.",
-        },
-      ]);
-    }, 1500);
-  };
-
   return (
     <NxPageLayout>
-        {/* Per-page 3D Story Scene — contact variant = concentric pulse waves
-            emanating from the center, mirroring the "reach out" narrative. */}
-        <NxStoryScene variant="contact" />
-        {/* 3D character — floats in hero area, lg+ only */}
-        <div className="pointer-events-none absolute right-0 top-24 lg:top-32 xl:top-40 z-[5] hidden lg:block" aria-hidden="true">
-          <Nx3DCharacter variant="contact" size="md" />
+      <NxPageHero
+        eyebrow="Book a Demo"
+        title={
+          <>
+            Let's build something{" "}
+            <span className="bg-gradient-to-r from-[#EC4899] via-[#9B3DFF] to-[#6366F1] bg-clip-text text-transparent">
+              extraordinary.
+            </span>
+          </>
+        }
+        subtitle="Three short steps. Pick a slot. A senior engineer (not a salesperson) joins the call with a draft architecture for your use case. Average response time: under 4 hours during business days."
+      />
+
+      {/* Main content: Form + Sidebar */}
+      <section className="py-16 px-4 lg:px-8" style={{ background: "#050510" }}>
+        <div className="mx-auto max-w-6xl">
+          <div className="grid lg:grid-cols-5 gap-8">
+            {/* Left: Multi-step form (3 cols) */}
+            <div className="lg:col-span-3">
+              <MultiStepForm />
+            </div>
+
+            {/* Right: Direct contact sidebar (2 cols) */}
+            <div className="lg:col-span-2 space-y-6">
+              <DirectContactSidebar />
+              <WhatHappensNext />
+            </div>
+          </div>
         </div>
-        {/* 3D floating geometric accents */}
-        <Nx3DScene density="low" />
-
-              {/* HERO */}
-        <section className="relative overflow-hidden py-12 lg:py-16">
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute left-1/4 top-0 h-[450px] w-[450px] rounded-full bg-brand-magenta/10 blur-[130px]" />
-            <div className="absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-brand-cyan/10 blur-[130px]" />
-          </div>
-
-          <div className="relative mx-auto max-w-7xl px-4 text-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <div className="inline-flex items-center gap-2 rounded-full border ct-divider bg-card/60 px-4 py-1.5 text-xs backdrop-blur-xl mb-6">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
-                Get in Touch
-              </div>
-              <h1 className="font-display text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-                Let&apos;s start the <span className="gradient-text">conversation.</span>
-              </h1>
-              <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
-                Submit a project inquiry or book a discovery call directly on our calendar.
-                Our team follows up within 24 hours.
-              </p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* OFFICES */}
-        <section className="mx-auto max-w-7xl px-4 mt-8">
-          <div className="grid gap-4 md:grid-cols-3">
-            {OFFICES.map((o, i) => (
-              <motion.div
-                key={o.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="group rounded-2xl border border-border/40 bg-card/50 backdrop-blur-md p-5 transition-all hover:border-primary/30 hover:shadow-lg"
-              >
-                <div className="flex items-start gap-3">
-                  <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${o.color} text-white`}>
-                    <MapPin className="h-4 w-4" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{o.label}</div>
-                    <div className="mt-2 text-sm leading-relaxed text-foreground">{o.addr}</div>
-                    <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <Phone className="h-3 w-3" /> {o.phone}
-                    </div>
-                    <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <Clock className="h-3 w-3" /> {o.hours}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* FORMS */}
-        <section className="mx-auto max-w-7xl px-4 mt-16">
-          <div className="grid gap-8 lg:grid-cols-2">
-            {/* INQUIRY FORM */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 backdrop-blur-xl p-6 lg:p-8"
-            >
-              <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-brand-cyan/20 blur-3xl" />
-              <div className="relative">
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-r from-brand-cyan to-brand-blue text-white">
-                    <MessageSquare className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h2 className="font-display text-xl font-bold">Project Inquiry</h2>
-                    <p className="text-xs text-muted-foreground">Tell us about your project — we respond within 24 hours.</p>
-                  </div>
-                </div>
-
-                <AnimatePresence mode="wait">
-                  {inquirySuccess ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      className="rounded-2xl border border-green-500/30 bg-green-500/5 p-6 text-center"
-                    >
-                      <CheckCircle2 className="mx-auto h-12 w-12 text-green-500" />
-                      <h3 className="mt-4 text-lg font-bold">Thanks, {submittedInquiryName}!</h3>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        We&apos;ve received your inquiry and sent a confirmation to {submittedInquiryEmail}.
-                        A senior team member will be in touch within 24 hours.
-                      </p>
-                      <button
-                        onClick={() => setInquirySuccess(false)}
-                        className="mt-4 text-xs underline text-muted-foreground hover:text-foreground"
-                      >
-                        Submit another inquiry
-                      </button>
-                    </motion.div>
-                  ) : (
-                    <motion.form
-                      key="form"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      onSubmit={handleInquiryFormSubmit(onInquirySubmit)}
-                      className="space-y-4"
-                    >
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <FloatingInput
-                          id="inquiry-name"
-                          label="Name"
-                          value={watchInquiry("name") || ""}
-                          onChange={(v) => setInquiryValue("name", v, { shouldValidate: true })}
-                          required
-                          autoComplete="name"
-                          draftKey="inquiry-name"
-                          validate={validators.required("Name")}
-                          touched={!!inquiryErrors.name}
-                          placeholder="Jane Doe"
-                        />
-                        <FloatingInput
-                          id="inquiry-email"
-                          label="Email"
-                          type="email"
-                          value={watchInquiry("email") || ""}
-                          onChange={(v) => setInquiryValue("email", v, { shouldValidate: true })}
-                          required
-                          autoComplete="email"
-                          draftKey="inquiry-email"
-                          validate={(v) => validators.required("Email")(v) || validators.email(v)}
-                          touched={!!inquiryErrors.email}
-                          placeholder="jane@company.com"
-                        />
-                      </div>
-
-                      <FloatingInput
-                        id="inquiry-company"
-                        label="Company (optional)"
-                        value={watchInquiry("company") || ""}
-                        onChange={(v) => setInquiryValue("company", v)}
-                        autoComplete="organization"
-                        placeholder="Acme Inc."
-                      />
-
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <Field label="Service" error={inquiryErrors.service?.message}>
-                          <select {...registerInquiry("service")} className="input-base">
-                            <option>Web Dev</option>
-                            <option>AI Solutions</option>
-                            <option>SEO Marketing</option>
-                            <option>Creative Branding</option>
-                            <option>Starter Kit</option>
-                          </select>
-                        </Field>
-                        <Field label="Budget" error={inquiryErrors.budget?.message}>
-                          <select {...registerInquiry("budget")} className="input-base">
-                            <option>Under £5,000</option>
-                            <option>£5,000 - £10,000</option>
-                            <option>£10,000 - £25,000</option>
-                            <option>£25,000+</option>
-                          </select>
-                        </Field>
-                      </div>
-
-                      <FloatingInput
-                        id="inquiry-message"
-                        label="Project details"
-                        multiline
-                        rows={4}
-                        value={watchInquiry("message") || ""}
-                        onChange={(v) => setInquiryValue("message", v, { shouldValidate: true })}
-                        required
-                        maxLength={2000}
-                        draftKey="inquiry-message"
-                        validate={validators.required("Project details")}
-                        touched={!!inquiryErrors.message}
-                        placeholder="Tell us about your goals, timeline, and any constraints..."
-                      />
-
-                      <Field label="Verification" error={inquiryErrors.turnstileToken?.message}>
-                        <TurnstileWidget
-                          onChange={(t) => setInquiryValue("turnstileToken", t)}
-                          resetTrigger={inquiryResetTrigger}
-                        />
-                      </Field>
-
-                      <button
-                        type="submit"
-                        disabled={inquirySubmitting}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-magenta px-6 py-3 font-semibold text-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] transition"
-                      >
-                        {inquirySubmitting ? "Sending..." : "Send Inquiry"} <Send className="h-4 w-4" />
-                      </button>
-                    </motion.form>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-
-            {/* BOOKING FORM */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 backdrop-blur-xl p-6 lg:p-8"
-            >
-              <div className="absolute -right-24 top-0 h-72 w-72 rounded-full bg-brand-magenta/20 blur-3xl" />
-              <div className="relative">
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-r from-brand-magenta to-brand-pink text-white">
-                    <Calendar className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h2 className="font-display text-xl font-bold">Book a Discovery Call</h2>
-                    <p className="text-xs text-muted-foreground">30 minutes — free, no obligation.</p>
-                  </div>
-                </div>
-
-                <AnimatePresence mode="wait">
-                  {bookingSuccess ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      className="rounded-2xl border border-green-500/30 bg-green-500/5 p-6 text-center"
-                    >
-                      <CheckCircle2 className="mx-auto h-12 w-12 text-green-500" />
-                      <h3 className="mt-4 text-lg font-bold">Booked, {submittedBooking.name}!</h3>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        We&apos;ve sent a calendar invite to {submittedBooking.email} for{" "}
-                        <strong>{submittedBooking.date} at {submittedBooking.time}</strong>.
-                      </p>
-                      <button
-                        onClick={() => setBookingSuccess(false)}
-                        className="mt-4 text-xs underline text-muted-foreground hover:text-foreground"
-                      >
-                        Book another slot
-                      </button>
-                    </motion.div>
-                  ) : (
-                    <motion.form
-                      key="form"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      onSubmit={handleBookingFormSubmit(onBookingSubmit)}
-                      className="space-y-4"
-                    >
-                      <FloatingInput
-                        id="booking-name"
-                        label="Name"
-                        value={watchBooking("name") || ""}
-                        onChange={(v) => setBookingValue("name", v, { shouldValidate: true })}
-                        required
-                        autoComplete="name"
-                        draftKey="booking-name"
-                        validate={validators.required("Name")}
-                        touched={!!bookingErrors.name}
-                        placeholder="Jane Doe"
-                      />
-                      <FloatingInput
-                        id="booking-email"
-                        label="Email"
-                        type="email"
-                        value={watchBooking("email") || ""}
-                        onChange={(v) => setBookingValue("email", v, { shouldValidate: true })}
-                        required
-                        autoComplete="email"
-                        draftKey="booking-email"
-                        validate={(v) => validators.required("Email")(v) || validators.email(v)}
-                        touched={!!bookingErrors.email}
-                        placeholder="jane@company.com"
-                      />
-
-                      {/* Date picker — v5: bumped day/month label contrast for AA */}
-                      <Field label="Select a date" error={bookingErrors.date?.message}>
-                        <div className="grid grid-cols-5 gap-2">
-                          {bookingDates.map((d, idx) => (
-                            <button
-                              key={idx}
-                              type="button"
-                              onClick={() => {
-                                setSelectedDateIdx(idx);
-                                setBookingValue("date", `${d.day}, ${d.num} ${d.month}`);
-                              }}
-                              className={`rounded-xl border p-3 text-center transition ${
-                                selectedDateIdx === idx
-                                  ? "border-primary bg-primary/10 text-foreground"
-                                  : "border-border bg-card/40 hover:border-primary/40"
-                              }`}
-                            >
-                              <div className="text-[10px] uppercase tracking-wider text-foreground/70 dark:text-white/85">{d.day}</div>
-                              <div className="text-base font-bold">{d.num}</div>
-                              <div className="text-[10px] text-foreground/70 dark:text-white/85">{d.month}</div>
-                            </button>
-                          ))}
-                        </div>
-                      </Field>
-
-                      <Field label="Select a time" error={bookingErrors.time?.message}>
-                        <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                          {BOOKING_TIMES.map((t) => (
-                            <button
-                              key={t}
-                              type="button"
-                              onClick={() => setBookingValue("time", t)}
-                              className={`rounded-lg border px-3 py-2 text-xs font-medium transition ${
-                                selectedTime === t
-                                  ? "border-primary bg-primary/10 text-foreground"
-                                  : "border-border bg-card/40 hover:border-primary/40"
-                              }`}
-                            >
-                              {t}
-                            </button>
-                          ))}
-                        </div>
-                      </Field>
-
-                      <Field label="Verification" error={bookingErrors.turnstileToken?.message}>
-                        <TurnstileWidget
-                          onChange={(t) => setBookingValue("turnstileToken", t)}
-                          resetTrigger={bookingResetTrigger}
-                        />
-                      </Field>
-
-                      <button
-                        type="submit"
-                        disabled={bookingSubmitting}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-magenta to-brand-pink px-6 py-3 font-semibold text-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] transition"
-                      >
-                        {bookingSubmitting ? "Booking..." : "Confirm Booking"} <Calendar className="h-4 w-4" />
-                      </button>
-                    </motion.form>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* BENEFITS / CONTACT METHODS */}
-        <section className="mx-auto max-w-7xl px-4 mt-16">
-          <div className="grid gap-6 md:grid-cols-3">
-            {CONTACT_METHODS.map((m, i) => {
-              const Icon = ICONS[m.icon] || Mail;
-              return (
-                <motion.div
-                  key={m.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <TiltCard
-                    className="group/tilt flex items-center gap-4 overflow-hidden rounded-2xl border border-border/60 bg-card/50 p-4 backdrop-blur-md transition-colors duration-300 hover:border-primary/40"
-                    glow={true}
-                    shine={true}
-                    maxTilt={8}
-                  >
-                    <a href={m.href} target="_blank" rel="noreferrer" className="contents">
-                      <div className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${m.glow} text-white shadow-lg`}>
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{m.label}</div>
-                        <div className="mt-1 truncate font-medium text-foreground">{m.value}</div>
-                      </div>
-                    </a>
-                  </TiltCard>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            {CONTACT_BENEFITS.map((b) => (
-              <div key={b} className="flex items-center gap-3 text-sm text-muted-foreground rounded-xl border border-border/40 bg-card/30 p-3">
-                <CheckCircle2 className="h-4 w-4 text-primary" /> {b}
-              </div>
-            ))}
-          </div>
-        </section>
-
-      {/* FLOATING CHAT — v5: gradient border + multi-layer glow + idle pulse */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-        <AnimatePresence>
-          {chatOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="w-[20rem] max-w-[calc(100vw-3rem)] rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl overflow-hidden"
-            >
-              <div className="bg-gradient-to-r from-brand-cyan to-brand-magenta p-4 text-white">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-bold">Chat with us</div>
-                    <div className="text-xs opacity-80">Typically replies in a few minutes</div>
-                  </div>
-                  <button onClick={() => setChatOpen(false)} className="rounded-full hover:bg-white/20 hover:text-white p-1" aria-label="Close chat">
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-              <div className="h-64 overflow-y-auto p-3 space-y-2">
-                {chatMessages.map((m, i) => (
-                  <div
-                    key={i}
-                    className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}
-                  >
-                    <div
-                      className={`max-w-[80%] rounded-2xl px-3 py-2 text-xs ${
-                        m.sender === "user"
-                          ? "bg-primary text-white"
-                          : "bg-secondary text-foreground"
-                      }`}
-                    >
-                      {m.text}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <form onSubmit={sendChatMessage} className="border-t border-border p-2 flex gap-2">
-                <input
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  placeholder="Type a message..."
-                  className="flex-1 bg-transparent text-sm outline-none px-2"
-                />
-                <button type="submit" className="rounded-lg bg-primary px-3 py-1 text-xs font-semibold text-white">
-                  Send
-                </button>
-              </form>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <button
-          onClick={() => setChatOpen(!chatOpen)}
-          className="nx-fab-v5 group grid h-14 w-14 place-items-center rounded-full text-white transition-transform duration-200 hover:scale-110 active:scale-95"
-          aria-label={chatOpen ? "Close chat" : "Open chat"}
-        >
-          {/* Inner gradient core */}
-          <span className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-cyan via-brand-blue to-brand-magenta" />
-          {/* Glossy highlight */}
-          <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/25 to-transparent" />
-          {/* Idle pulse ring (hidden when open) */}
-          {!chatOpen && (
-            <span className="absolute inset-0 rounded-full bg-brand-cyan/60 animate-ping opacity-40" aria-hidden />
-          )}
-          {/* Icon */}
-          <span className="relative z-10">
-            {chatOpen ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
-          </span>
-        </button>
-      </div>
+      </section>
     </NxPageLayout>
   );
 }
 
-// ─── Reusable Field wrapper — v5: bumped label contrast for AA on dark ───
-function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+/* ─── MULTI-STEP FORM ─── Step 1 of 3: Project information */
+function MultiStepForm() {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    needs: [] as string[],
+  });
+
+  const NEEDS_OPTIONS = [
+    "Custom Web/Mobile App",
+    "Cloud / DevOps",
+    "AI / ML Pipeline",
+    "Security Audit",
+  ];
+
+  const toggleNeed = (need: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      needs: prev.needs.includes(need)
+        ? prev.needs.filter((n) => n !== need)
+        : [...prev.needs, need],
+    }));
+  };
+
   return (
-    <div>
-      <label className="block text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/85 mb-2">
-        {label}
-      </label>
-      {children}
-      {error && (
-        <div className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400">
-          <AlertCircle className="h-3 w-3" /> {error}
-        </div>
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 sm:p-8">
+      {/* Form title */}
+      <h2 className="text-xl font-bold text-white mb-1">Tell us about your project</h2>
+      <p className="text-sm text-white/50 mb-6">
+        Step {step} of 3: {step === 1 ? "Project information" : step === 2 ? "Project details" : "Schedule"}
+      </p>
+
+      {/* Step indicators */}
+      <div className="flex items-center gap-3 mb-8">
+        {[1, 2, 3].map((s) => (
+          <div key={s} className="flex items-center gap-3">
+            <div
+              className={`grid h-8 w-8 place-items-center rounded-full text-sm font-bold transition-all ${
+                s <= step
+                  ? "bg-gradient-to-br from-[#3B82F6] to-[#EC4899] text-white"
+                  : "border border-white/20 text-white/40"
+              }`}
+            >
+              {s < step ? <Check className="h-4 w-4" /> : s}
+            </div>
+            {s < 3 && (
+              <div className={`h-px w-12 ${s < step ? "bg-[#EC4899]" : "bg-white/20"}`} />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Step 1: Project information */}
+      {step === 1 && (
+        <motion.div
+          initial={{ opacity: 0, x: 10 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="space-y-5"
+        >
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
+              Full Name *
+            </label>
+            <input
+              type="text"
+              placeholder="Alex Morgan"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#EC4899]/50 focus:outline-none focus:ring-2 focus:ring-[#EC4899]/20 transition-all"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
+              Work Email *
+            </label>
+            <input
+              type="email"
+              placeholder="alex@yourcompany.com"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#EC4899]/50 focus:outline-none focus:ring-2 focus:ring-[#EC4899]/20 transition-all"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
+              Phone / WhatsApp
+            </label>
+            <input
+              type="tel"
+              placeholder="+447751553879"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#EC4899]/50 focus:outline-none focus:ring-2 focus:ring-[#EC4899]/20 transition-all"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
+              Company *
+            </label>
+            <input
+              type="text"
+              placeholder="Your Company Inc."
+              value={formData.company}
+              onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#EC4899]/50 focus:outline-none focus:ring-2 focus:ring-[#EC4899]/20 transition-all"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
+              What do you need? *
+            </label>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {NEEDS_OPTIONS.map((opt) => (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => toggleNeed(opt)}
+                  className={`flex items-center gap-2 rounded-xl border px-4 py-3 text-sm text-left transition-all ${
+                    formData.needs.includes(opt)
+                      ? "border-[#EC4899]/50 bg-[#EC4899]/10 text-white"
+                      : "border-white/10 bg-white/5 text-white/60 hover:border-white/20"
+                  }`}
+                >
+                  <div
+                    className={`grid h-4 w-4 place-items-center rounded border ${
+                      formData.needs.includes(opt)
+                        ? "border-[#EC4899] bg-[#EC4899]"
+                        : "border-white/30"
+                    }`}
+                  >
+                    {formData.needs.includes(opt) && <Check className="h-3 w-3 text-white" />}
+                  </div>
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="flex justify-end pt-2">
+            <button
+              type="button"
+              onClick={() => setStep(2)}
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
+              style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+            >
+              Continue
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </motion.div>
       )}
+
+      {/* Step 2: Project details (placeholder for now) */}
+      {step === 2 && (
+        <motion.div
+          initial={{ opacity: 0, x: 10 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="space-y-5"
+        >
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
+              Project Budget
+            </label>
+            <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#EC4899]/50 focus:outline-none">
+              <option className="bg-[#0A0A14]">&lt; $10K</option>
+              <option className="bg-[#0A0A14]">$10K – $50K</option>
+              <option className="bg-[#0A0A14]">$50K – $100K</option>
+              <option className="bg-[#0A0A14]">$100K+</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
+              Timeline
+            </label>
+            <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#EC4899]/50 focus:outline-none">
+              <option className="bg-[#0A0A14]">ASAP (Rush)</option>
+              <option className="bg-[#0A0A14]">1–3 months</option>
+              <option className="bg-[#0A0A14]">3–6 months</option>
+              <option className="bg-[#0A0A14]">6+ months</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
+              Project Description
+            </label>
+            <textarea
+              rows={4}
+              placeholder="Tell us about your project goals, current stack, and any specific requirements..."
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[#EC4899]/50 focus:outline-none focus:ring-2 focus:ring-[#EC4899]/20 transition-all resize-none"
+            />
+          </div>
+          <div className="flex justify-between pt-2">
+            <button
+              type="button"
+              onClick={() => setStep(1)}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all"
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              onClick={() => setStep(3)}
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
+              style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+            >
+              Continue
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Step 3: Schedule (placeholder for now) */}
+      {step === 3 && (
+        <motion.div
+          initial={{ opacity: 0, x: 10 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="space-y-5"
+        >
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
+              Preferred Date
+            </label>
+            <input
+              type="date"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#EC4899]/50 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-[1.5px] text-white/50 mb-2">
+              Preferred Time
+            </label>
+            <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#EC4899]/50 focus:outline-none">
+              <option className="bg-[#0A0A14]">09:00 – 10:00 GMT</option>
+              <option className="bg-[#0A0A14]">10:00 – 11:00 GMT</option>
+              <option className="bg-[#0A0A14]">14:00 – 15:00 GMT</option>
+              <option className="bg-[#0A0A14]">15:00 – 16:00 GMT</option>
+              <option className="bg-[#0A0A14]">16:00 – 17:00 GMT</option>
+            </select>
+          </div>
+          <div className="rounded-xl border border-[#EC4899]/20 bg-[#EC4899]/5 p-4">
+            <p className="text-sm text-white/70">
+              <strong className="text-white">Summary:</strong> {formData.name || "—"} from{" "}
+              {formData.company || "—"} wants to discuss{" "}
+              {formData.needs.length > 0 ? formData.needs.join(", ") : "—"}.
+            </p>
+          </div>
+          <div className="flex justify-between pt-2">
+            <button
+              type="button"
+              onClick={() => setStep(2)}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all"
+            >
+              Back
+            </button>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
+              style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+            >
+              Book Demo
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </motion.div>
+      )}
+    </div>
+  );
+}
+
+/* ─── DIRECT CONTACT SIDEBAR ─── */
+function DirectContactSidebar() {
+  const contacts = [
+    {
+      icon: Mail,
+      iconColor: "#3B82F6",
+      iconBg: "rgba(59,130,246,0.15)",
+      label: "EMAIL",
+      value: "info@clicktaketech.com",
+      href: "mailto:info@clicktaketech.com",
+    },
+    {
+      icon: Phone,
+      iconColor: "#EC4899",
+      iconBg: "rgba(236,72,153,0.15)",
+      label: "PHONE · WHATSAPP",
+      value: "+447751553879",
+      href: "tel:+447751553879",
+    },
+    {
+      icon: MessageCircle,
+      iconColor: "#25D366",
+      iconBg: "rgba(37,211,102,0.15)",
+      label: "WHATSAPP",
+      value: "wa.link/iqz8eg",
+      href: "https://wa.link/iqz8eg",
+    },
+    {
+      icon: MapPin,
+      iconColor: "#3B82F6",
+      iconBg: "rgba(59,130,246,0.15)",
+      label: "HQ",
+      value: "Remote-first · Global team",
+      href: null,
+    },
+  ];
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6">
+      <h3 className="text-lg font-bold text-white mb-1">Direct contact</h3>
+      <p className="text-sm text-white/50 mb-5">
+        Prefer email? Reach out directly — we read every message.
+      </p>
+      <div className="space-y-3">
+        {contacts.map((c, i) => {
+          const Icon = c.icon;
+          const content = (
+            <div className="flex items-center gap-3 group">
+              <div
+                className="grid h-10 w-10 place-items-center rounded-xl shrink-0"
+                style={{ background: c.iconBg }}
+              >
+                <Icon className="h-5 w-5" style={{ color: c.iconColor }} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="text-[10px] font-mono uppercase tracking-[1.5px] text-white/40">
+                  {c.label}
+                </div>
+                <div className="text-sm text-white group-hover:text-[#EC4899] transition-colors truncate">
+                  {c.value}
+                </div>
+              </div>
+              {c.href && (
+                <ArrowRight className="h-4 w-4 text-white/30 group-hover:text-[#EC4899] transition-colors" />
+              )}
+            </div>
+          );
+          return c.href ? (
+            <a key={i} href={c.href} className="block">
+              {content}
+            </a>
+          ) : (
+            <div key={i}>{content}</div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ─── WHAT HAPPENS NEXT ─── */
+function WhatHappensNext() {
+  const steps = [
+    {
+      n: "1",
+      title: "Senior engineer reviews your brief",
+      desc: "Within 4 hours during business days.",
+    },
+    {
+      n: "2",
+      title: "30-minute architecture call",
+      desc: "We bring a draft architecture + ballpark estimate.",
+    },
+    {
+      n: "3",
+      title: "Working PoC in 6 weeks",
+      desc: "Fixed-scope, fixed-fee. No long-term contract required.",
+    },
+  ];
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6">
+      <h3 className="text-lg font-bold text-white mb-5">What happens next?</h3>
+      <div className="space-y-4">
+        {steps.map((s, i) => (
+          <div key={i} className="flex items-start gap-4">
+            <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-[#3B82F6] to-[#EC4899] text-sm font-bold text-white shrink-0">
+              {s.n}
+            </div>
+            <div>
+              <div className="text-sm font-bold text-white mb-1">{s.title}</div>
+              <div className="text-xs text-white/50 leading-relaxed">{s.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

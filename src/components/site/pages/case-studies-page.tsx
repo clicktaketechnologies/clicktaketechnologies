@@ -1,432 +1,316 @@
 'use client'
 
-import { useState } from "react";
-import Link from "next/link";
-import{
-  NxPageLayout, NxPageHero, NxPageSection, NxSectionHeader, NxButton} from "../nx-page-layout";
-import { Nx3DScene } from "../nx-3d-scene";
-import { Nx3DCharacter } from "../nx-3d-character";
-import { NxStoryScene } from "../nx-story-scene";
-import { TiltCard } from "@/components/site/tilt-card";
 import { motion } from "framer-motion";
-import {
-  ArrowLeft, ArrowUpRight, Sparkles, MapPin, Clock, TrendingUp, CheckCircle2,
-  AlertCircle, ExternalLink,
-} from "lucide-react";
-import { CASE_STUDIES, type CaseStudy } from "@/lib/site-data";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, TrendingUp } from "lucide-react";
+import { NxPageLayout, NxPageHero } from "../nx-page-layout";
 
-const SERVICE_LABELS: Record<string, string> = {
-  "seo": "SEO",
-  "digital-marketing/content-strategy": "Content Strategy",
-  "web/redesign": "Website Redesign",
-  "creative/web-design": "Web Design",
-  "creative/graphic-design": "Graphic Design",
-  "web/ecommerce": "E-commerce",
-  "web/full-stack": "Web Dev",
-  "ai/automation": "AI Automation",
-  "digital-marketing/social-media": "Social Media",
-  "creative/video-production": "Video Editing",
-  "digital-marketing/paid-advertising": "Paid Ads",
-  "web/custom-software": "Custom Software",
-  "web/saas": "SaaS",
-};
-
-const STATUS_LABELS: Record<string, { label: string; color: string }> = {
-  shipped: { label: "Shipped", color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30" },
-  "in-progress": { label: "In progress", color: "text-amber-400 bg-amber-500/10 border-amber-500/30" },
-  pending: { label: "Coming soon", color: "text-muted-foreground bg-muted border-border" },
-};
-
-function CaseStudyCard({ cs }: { cs: CaseStudy }) {
-  const status = STATUS_LABELS[cs.result_status] || STATUS_LABELS.pending;
-  return (
-    <TiltCard
-      className="group/tilt flex flex-col rounded-2xl border border-border bg-card/40 backdrop-blur-md overflow-hidden hover:border-primary/40 transition-colors"
-      glow={true}
-      shine={true}
-      maxTilt={8}
-    >
-      <Link href={`/case-studies/${cs.slug}`} className="contents">
-        <div className="h-40 bg-gradient-to-br from-brand-blue via-brand-magenta to-brand-pink relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/30" />
-          <div className="absolute top-3 left-3 flex flex-col gap-2">
-            <span className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-black">
-              {cs.industry}
-            </span>
-            <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${status.color}`}>
-              {status.label}
-            </span>
-          </div>
-          <div className="absolute bottom-3 left-3 right-3">
-            <div className="text-sm font-bold text-white leading-tight">{cs.client}</div>
-            <div className="text-[11px] text-white/80 mt-0.5 flex items-center gap-1">
-              <MapPin className="h-3 w-3" /> {cs.location}
-            </div>
-          </div>
-        </div>
-        <div className="flex-1 p-5">
-          <h3 className="text-base sm:text-lg font-bold leading-tight group-hover/tilt:text-foreground text-foreground/90 line-clamp-2">
-            {cs.challenge.split(".")[0]}.
-          </h3>
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {cs.services.slice(0, 3).map((s) => (
-              <span
-                key={s}
-                className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-2 py-0.5 text-[10px] font-medium"
-              >
-                {SERVICE_LABELS[s] || s}
-              </span>
-            ))}
-          </div>
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            {cs.metrics.slice(0, 2).map((m) => (
-              <div
-                key={m.label}
-                className="rounded-lg border border-border bg-secondary/30 px-2.5 py-1.5"
-              >
-                <div className="text-[10px] text-muted-foreground uppercase tracking-widest">{m.label}</div>
-                <div className="text-sm font-bold leading-tight">{m.value}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Link>
-    </TiltCard>
-  );
-}
-
-export function CaseStudiesIndexPage() {
-  const [filter, setFilter] = useState<string | "all">("all");
-  const allServices = Array.from(new Set(CASE_STUDIES.flatMap((c) => c.services)));
-  const filtered = filter === "all"
-    ? CASE_STUDIES
-    : CASE_STUDIES.filter((c) => c.services.includes(filter));
-
+/* CASE STUDIES PAGE — "Real clients. Real numbers." design.
+ * Matches user-uploaded screenshot: hero, vertical list of detailed case
+ * study cards with 3-metric grids, character CTA at bottom.
+ */
+export function CaseStudiesPage() {
   return (
     <NxPageLayout>
-        {/* 3D character — floats in hero area, lg+ only */}
-{/* Per-page 3D Story Scene — case-studies variant. Sits behind hero content. */}
-        <NxStoryScene variant="case-studies" />
-                <div className="pointer-events-none absolute right-0 top-24 lg:top-32 xl:top-40 z-[5] hidden lg:block" aria-hidden="true">
-          <Nx3DCharacter variant="case-studies" size="md" />
-        </div>
-        {/* 3D floating geometric accents */}
-        <Nx3DScene density="low" />
+      <NxPageHero
+        eyebrow="Case Studies"
+        title={
+          <>
+            Real clients.{" "}
+            <span className="bg-gradient-to-r from-[#EC4899] via-[#9B3DFF] to-[#6366F1] bg-clip-text text-transparent">
+              Real numbers.
+            </span>
+          </>
+        }
+        subtitle="Four engagements from the past 18 months. Every metric is measured against the client's pre-engagement baseline and verified by their analytics team. Tech tags reflect the actual production stack — not what we wanted to use, what we shipped."
+      />
 
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Hero */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-3xl"
-          >
-            <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-brand-blue">
-              Case Studies
-            </div>
-            <h1 className="mt-2 sm:mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
-              Real engagements. Real numbers. No fake case studies.
-            </h1>
-            <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              We publish case studies only when there are real, verifiable results to share. Engagements
-              in progress are labeled as such — we will not invent metrics for marketing. ClickTake
-              Technologies ships work across the UK, Pakistan, USA and Dubai.
-            </p>
-          </motion.div>
-
-          {/* Filter */}
-          <div className="mt-8 flex flex-wrap gap-2">
-            <button
-              onClick={() => setFilter("all")}
-              className={`inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-                filter === "all"
-                  ? "bg-gradient-to-r from-brand-blue to-brand-cyan text-white"
-                  : "border border-border bg-secondary/50 text-foreground hover:border-primary/40"
-              }`}
-            >
-              All ({CASE_STUDIES.length})
-            </button>
-            {allServices.map((s) => {
-              const count = CASE_STUDIES.filter((c) => c.services.includes(s)).length;
-              return (
-                <button
-                  key={s}
-                  onClick={() => setFilter(s)}
-                  className={`inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-                    filter === s
-                      ? "bg-gradient-to-r from-brand-blue to-brand-cyan text-white"
-                      : "border border-border bg-secondary/50 text-foreground hover:border-primary/40"
-                  }`}
-                >
-                  {SERVICE_LABELS[s] || s} ({count})
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Cards */}
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((c, i) => (
-              <motion.div
-                key={c.slug}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.4, delay: (i % 6) * 0.04 }}
-              >
-                <CaseStudyCard cs={c} />
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Disclaimer */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
-            className="mt-12 rounded-2xl border border-amber-500/30 bg-amber-500/5 p-5"
-          >
-            <div className="flex items-start gap-3">
-              <AlertCircle className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
-              <div className="text-sm text-foreground/80 leading-relaxed">
-                <strong className="text-foreground">No fake results.</strong> Some clients are
-                confidential — we publish real metrics but redact names. Engagements in progress
-                are labeled &quot;In progress&quot; with preliminary metrics; full case studies are
-                published at the 6-month mark. We never invent testimonials, never fabricate
-                metrics, and never publish a case study without the client&apos;s written consent.
-              </div>
-            </div>
-          </motion.div>
-
-          {/* CTA — v5: gradient-border glassmorphic card to match other CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="nx-cta-v5 mt-12 rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-          >
-            <div>
-              <div className="flex items-center gap-2 text-lg font-bold">
-                <Sparkles className="h-5 w-5 text-brand-blue shrink-0" />
-                Want to be our next case study?
-              </div>
-              <div className="text-sm text-muted-foreground mt-1">
-                Book a free 30-minute consultation. We&apos;ll scope it together.
-              </div>
-            </div>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition shrink-0"
-            >
-              Book a Call <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </motion.div>
-        </div>
-    </NxPageLayout>
-  );
-}
-
-// ─── Detail page ──────────────────────────────────────────────────────────────
-
-export function CaseStudyDetailPage({ cs, related = [] }: { cs: CaseStudy; related?: CaseStudy[] }) {
-  const status = STATUS_LABELS[cs.result_status] || STATUS_LABELS.pending;
-  return (
-    <NxPageLayout>
-              <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/case-studies"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 sm:mb-6 align-middle"
-          >
-            <ArrowLeft className="h-4 w-4" /> Back to Case Studies
-          </Link>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-brand-blue">
-                {cs.industry}
-              </span>
-              <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${status.color}`}>
-                {status.label}
-              </span>
-            </div>
-            <h1 className="mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-              {cs.client}
-            </h1>
-            <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
-              <span className="inline-flex items-center gap-1.5">
-                <MapPin className="h-3.5 w-3.5" /> {cs.location}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Clock className="h-3.5 w-3.5" /> {cs.timeline}
-              </span>
-            </div>
-          </motion.div>
-
-          {/* Hero image */}
-          <div className="mt-8 h-48 sm:h-72 rounded-2xl bg-gradient-to-br from-brand-blue via-brand-magenta to-brand-pink relative overflow-hidden">
-            <div className="absolute inset-0 bg-black/30" />
-            <div className="absolute bottom-4 right-4">
-              <Sparkles className="h-8 w-8 text-white/80" />
-            </div>
-          </div>
-
-          {/* Metrics strip */}
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {cs.metrics.map((m) => (
-              <div key={m.label} className="rounded-xl border border-border bg-card/50 backdrop-blur-md p-4">
-                <div className="text-[10px] uppercase tracking-widest text-muted-foreground">{m.label}</div>
-                <div className="mt-1 text-base sm:text-lg font-bold">{m.value}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Challenge — v5: body text uses foreground/90 for AA on dark */}
-          <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
-            className="mt-12 sm:mt-16"
-          >
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4">The challenge</h2>
-            <p className="text-sm sm:text-base text-foreground/90 leading-relaxed">{cs.challenge}</p>
-          </motion.section>
-
-          {/* Solution — v5: body text uses foreground/90 for AA on dark */}
-          <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
-            className="mt-12 sm:mt-16"
-          >
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4">Our solution</h2>
-            <p className="text-sm sm:text-base text-foreground/90 leading-relaxed">{cs.solution}</p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {cs.tech.map((t) => (
-                <span
-                  key={t}
-                  className="inline-flex items-center rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1.5 text-xs font-medium text-brand-blue"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          </motion.section>
-
-          {/* Results */}
-          <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
-            className="mt-12 sm:mt-16"
-          >
-            <div className="flex items-center gap-2 mb-4">
-              <TrendingUp className="h-5 w-5 text-emerald-400 shrink-0" />
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Results</h2>
-            </div>
-            <div className={`rounded-2xl border p-5 ${
-              cs.result_status === "shipped"
-                ? "border-emerald-500/30 bg-emerald-500/5"
-                : "border-amber-500/30 bg-amber-500/5"
-            }`}>
-              {cs.result_status === "shipped" ? (
-                <CheckCircle2 className="h-5 w-5 text-emerald-400 mb-3" />
-              ) : (
-                <AlertCircle className="h-5 w-5 text-amber-400 mb-3" />
-              )}
-              <p className="text-sm sm:text-base text-foreground/90 leading-relaxed">{cs.result_summary}</p>
-            </div>
-
-            {cs.live_url && (
-              <a
-                href={cs.live_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-blue hover:underline"
-              >
-                Visit live site <ExternalLink className="h-4 w-4" />
-              </a>
-            )}
-          </motion.section>
-
-          {/* Related case studies — boosts internal dofollow inlinks from 1 → 4
-              on each detail page (clears Ahrefs "only 1 dofollow inlink" notice
-              on the 6 case-study detail pages). Mirrors the "More in {category}"
-              block on the blog post detail page. */}
-          {related.length > 0 && (
-            <motion.section
+      {/* Case study cards — vertical list */}
+      <section className="py-16 px-4 lg:px-8" style={{ background: "#050510" }}>
+        <div className="mx-auto max-w-5xl space-y-8">
+          {CASES.map((c, i) => (
+            <motion.div
+              key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5 }}
-              className="mt-12 sm:mt-16"
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 sm:p-8 hover:border-white/20 transition-all"
             >
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4">
-                More case studies
-              </h2>
-              <div className="grid gap-4 sm:grid-cols-3">
-                {related.map((r) => {
-                  const rStatus = STATUS_LABELS[r.result_status] || STATUS_LABELS.pending;
-                  return (
-                    <Link
-                      key={r.slug}
-                      href={`/case-studies/${r.slug}`}
-                      className="group rounded-xl border border-border bg-card/40 backdrop-blur-md p-4 hover:border-primary/40 hover:bg-card/60 transition"
+              {/* Top row: category + year/duration + tech tags */}
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-bold text-white/80"
+                  >
+                    {c.emoji} {c.category}
+                  </span>
+                  <span className="text-[11px] font-mono uppercase tracking-[1.5px] text-white/40">
+                    {c.year} · {c.duration}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {c.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-mono text-white/50"
                     >
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-[10px] uppercase tracking-widest text-brand-blue">
-                          {r.industry}
-                        </span>
-                        <span className={`text-[10px] uppercase tracking-widest ${rStatus.color}`}>
-                          {rStatus.label}
-                        </span>
-                      </div>
-                      <div className="mt-1.5 text-sm font-semibold leading-tight line-clamp-2 group-hover:text-foreground text-foreground/90">
-                        {r.client}
-                      </div>
-                      <div className="mt-2 text-[11px] text-muted-foreground">
-                        {r.location} · {r.timeline}
-                      </div>
-                    </Link>
-                  );
-                })}
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </motion.section>
-          )}
 
-          {/* CTA — v5: gradient-border glassmorphic card to match other CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="nx-cta-v5 mt-12 rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-          >
-            <div>
-              <div className="flex items-center gap-2 text-lg font-bold">
-                <Sparkles className="h-5 w-5 text-brand-blue shrink-0" />
-                Want results like these?
+              {/* Title + description */}
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">{c.title}</h3>
+              <p className="text-sm text-white/60 leading-relaxed mb-6">{c.desc}</p>
+
+              {/* 3-metric grid */}
+              <div className="grid sm:grid-cols-3 gap-3">
+                {c.metrics.map((m, j) => (
+                  <div
+                    key={j}
+                    className="rounded-xl border border-white/10 bg-white/[0.03] p-4"
+                  >
+                    <div className="text-[10px] font-mono uppercase tracking-[1.5px] text-white/40 mb-2">
+                      {m.label}
+                    </div>
+                    <div className="flex items-baseline gap-1.5 mb-1">
+                      <span className="text-xs text-white/40 line-through">{m.before}</span>
+                      <ArrowRight className="h-3 w-3 text-white/30" />
+                      <span className="text-lg font-black text-white">{m.after}</span>
+                    </div>
+                    <div
+                      className={`text-xs font-bold ${
+                        m.change.startsWith("-") && !m.change.startsWith("-$")
+                          ? "text-[#00e676]"
+                          : "text-[#EC4899]"
+                      }`}
+                    >
+                      {m.change}
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="text-sm text-muted-foreground mt-1">
-                Book a free 30-minute consultation. We&apos;ll scope your engagement together.
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA: Your case study is next */}
+      <section className="py-24 px-4 lg:px-8" style={{ background: "#030014" }}>
+        <div className="mx-auto max-w-5xl">
+          <div
+            className="rounded-3xl border border-white/10 p-8 sm:p-12 lg:p-16 overflow-hidden relative"
+            style={{
+              background:
+                "radial-gradient(ellipse 80% 60% at 30% 50%, rgba(124,58,237,0.12) 0%, transparent 60%), rgba(255,255,255,0.02)",
+            }}
+          >
+            <div className="grid lg:grid-cols-3 gap-8 items-center">
+              {/* Left: text + buttons */}
+              <div className="lg:col-span-2">
+                <h2 className="text-3xl sm:text-4xl font-black text-white">
+                  Your case study is{" "}
+                  <span className="bg-gradient-to-r from-[#EC4899] to-[#F472B6] bg-clip-text text-transparent">
+                    next.
+                  </span>
+                </h2>
+                <p className="mt-4 text-base text-white/60 leading-relaxed">
+                  Book a 30-minute architecture review. We'll whiteboard your highest-ROI
+                  automation and ship a working PoC within 6 weeks.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
+                    style={{ background: "linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)" }}
+                  >
+                    Book a Demo
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="/services"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all"
+                  >
+                    See services
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Right: character illustration */}
+              <div className="hidden lg:flex justify-center">
+                <CharacterWithLaptop />
               </div>
             </div>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition shrink-0"
-            >
-              Book a Call <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </motion.div>
+          </div>
         </div>
+      </section>
     </NxPageLayout>
   );
 }
+
+/* Character with laptop — CSS-based stylized illustration */
+function CharacterWithLaptop() {
+  return (
+    <div className="relative" style={{ width: "160px", height: "200px" }}>
+      {/* Glow */}
+      <div
+        className="absolute inset-0 rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(255,83,169,0.15) 0%, transparent 70%)" }}
+      />
+      {/* Body */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-[40px] rounded-b-[30px]"
+        style={{
+          width: "100px",
+          height: "110px",
+          background: "linear-gradient(180deg, #1E3A8A, #1E1B4B)",
+          border: "1px solid rgba(255,255,255,0.08)",
+        }}
+      />
+      {/* Head */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2 rounded-full"
+        style={{
+          top: "0",
+          width: "80px",
+          height: "75px",
+          background: "linear-gradient(180deg, #F5C9A6, #D4A574)",
+        }}
+      >
+        {/* Glasses */}
+        <div
+          className="absolute left-1/2 -translate-x-1/2 rounded-xl"
+          style={{ top: "22px", width: "64px", height: "20px", background: "linear-gradient(135deg, #7C3AED, #4F46E5)" }}
+        >
+          <div className="absolute left-1 top-1 w-4 h-4 rounded-full" style={{ background: "#1E1B4B" }}>
+            <div className="absolute inset-1 rounded-full" style={{ background: "#60A5FA" }} />
+          </div>
+          <div className="absolute right-1 top-1 w-4 h-4 rounded-full" style={{ background: "#1E1B4B" }}>
+            <div className="absolute inset-1 rounded-full" style={{ background: "#F472B6" }} />
+          </div>
+        </div>
+        {/* Smile */}
+        <div
+          className="absolute left-1/2 -translate-x-1/2 rounded-full"
+          style={{ bottom: "15px", width: "24px", height: "6px", background: "rgba(0,0,0,0.25)", borderRadius: "0 0 12px 12px" }}
+        />
+      </div>
+      {/* Laptop */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2 rounded-lg p-1.5"
+        style={{
+          bottom: "20px",
+          width: "80px",
+          height: "50px",
+          background: "rgba(15,10,30,0.9)",
+          border: "1px solid rgba(255,255,255,0.15)",
+        }}
+      >
+        {/* Chart on screen */}
+        <div className="flex items-end justify-between h-full gap-0.5">
+          {[30, 50, 40, 70, 60, 85, 75].map((h, i) => (
+            <motion.div
+              key={i}
+              animate={{ height: [`${h}%`, `${h + 8}%`, `${h}%`] }}
+              transition={{ duration: 2, repeat: Infinity, delay: i * 0.1 }}
+              className="flex-1 rounded-t"
+              style={{
+                height: `${h}%`,
+                background: i % 2 === 0
+                  ? "linear-gradient(180deg, #FF53A9, #9B3DFF)"
+                  : "linear-gradient(180deg, #136DFF, #4A90D9)",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+      {/* Floating particles */}
+      {[0, 1, 2].map((i) => (
+        <motion.div
+          key={i}
+          animate={{ y: [0, -10, 0], opacity: [0.4, 0.8, 0.4] }}
+          transition={{ duration: 3 + i, repeat: Infinity, delay: i * 0.5 }}
+          className="absolute rounded-full"
+          style={{
+            top: `${15 + i * 25}%`,
+            left: i % 2 === 0 ? "-8%" : "auto",
+            right: i % 2 === 1 ? "-8%" : "auto",
+            width: "6px",
+            height: "6px",
+            background: ["#FF53A9", "#136DFF", "#9B3DFF"][i],
+            boxShadow: `0 0 8px ${["#FF53A9", "#136DFF", "#9B3DFF"][i]}`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+/* ─── DATA ─── */
+const CASES = [
+  {
+    emoji: "🏦",
+    category: "FinTech · B2B",
+    year: "2024",
+    duration: "14 weeks",
+    tech: ["Next.js 16", "Python", "FastAPI", "PostgreSQL", "Redis", "Docker", "AWS", "Terraform"],
+    title: "Real-time Payments API — p99 latency cut 72%",
+    desc: "A Series-C fintech processing $4.2B/yr in B2B payments needed to bring p99 API latency under 200ms to qualify for tier-1 bank partnerships. We rebuilt the request hot-path, replaced synchronous compliance calls with an event-driven sidecar, and migrated to a multi-region active-active Postgres+Redis topology.",
+    metrics: [
+      { label: "P99 Latency", before: "720ms", after: "200ms", change: "-72%" },
+      { label: "Throughput", before: "8K rps", after: "22K rps", change: "+175%" },
+      { label: "Infra Cost / Mo", before: "$48K", after: "$31K", change: "-35%" },
+    ],
+  },
+  {
+    emoji: "🛒",
+    category: "E-commerce · D2C",
+    year: "2024",
+    duration: "10 weeks",
+    tech: ["Next.js 16", "Python", "OpenAI", "LangGraph", "Pinecone", "PostgreSQL", "Vercel"],
+    title: "AI Shopping Assistant — +38% checkout conversion",
+    desc: "A 9-figure D2C skincare brand deployed a RAG-grounded shopping assistant across PDP pages and cart. We built the retrieval pipeline over 14K SKUs + 280K reviews, integrated a multi-agent orchestrator for product-match + ingredient-safety checks, and A/B-tested against the static chatbot for 8 weeks.",
+    metrics: [
+      { label: "Checkout CVR", before: "2.6%", after: "3.6%", change: "+38%" },
+      { label: "Avg. Order Value", before: "$42", after: "$54", change: "+29%" },
+      { label: "Returns Rate", before: "12.4%", after: "8.1%", change: "-35%" },
+    ],
+  },
+  {
+    emoji: "🏥",
+    category: "Healthcare · HIPAA",
+    year: "2023",
+    duration: "22 weeks",
+    tech: ["Python", "FastAPI", "Weaviate", "OpenAI", "BGE-Reranker", "PostgreSQL", "Docker", "GCP"],
+    title: "Clinical Notes RAG — $1.4M annual cloud savings",
+    desc: "A regional hospital network (1,200 beds, 14 facilities) needed to make 18M anonymized clinical notes searchable for clinical research. We built a hybrid RAG pipeline with per-patient ACLs, replaced a $2.4M/yr third-party search contract with a self-hosted stack, and gave researchers sub-second retrieval across the full corpus.",
+    metrics: [
+      { label: "Annual Cloud Spend", before: "$2.4M", after: "$1.0M", change: "-$1.4M / yr" },
+      { label: "Retrieval P99", before: "4.8s", after: "112ms", change: "-98%" },
+      { label: "Researcher NPS", before: "+8", after: "+72", change: "+64 pts" },
+    ],
+  },
+  {
+    emoji: "🚚",
+    category: "Logistics · Enterprise",
+    year: "2024",
+    duration: "18 weeks",
+    tech: ["Python", "LangGraph", "Anthropic", "PostgreSQL", "Redis", "Kafka", "Kubernetes", "AWS"],
+    title: "Fleet Orchestration Agents — 31% fewer empty miles",
+    desc: "A national last-mile logistics operator (1,800 trucks, 40 hubs) needed to reduce deadhead miles. We deployed a multi-agent orchestrator that runs every 90 seconds: a forecast agent predicts demand, a matcher agent proposes load pairings, a validator agent checks DOT compliance, and a human-in-loop dispatcher approves exceptions.",
+    metrics: [
+      { label: "Empty Miles", before: "21.4%", after: "14.8%", change: "-31%" },
+      { label: "Fuel Spend / Mo", before: "$2.8M", after: "$2.1M", change: "-25%" },
+      { label: "On-Time Delivery", before: "91.2%", after: "96.4%", change: "+5.2 pts" },
+    ],
+  },
+];
+
+/* Alias for route import compatibility */
+export const CaseStudiesIndexPage = CaseStudiesPage;
+
+/* Re-export detail page for /case-studies/[slug] route */
+export { CaseStudyDetailPage } from "./case-study-detail-page";
