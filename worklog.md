@@ -530,3 +530,68 @@ Stage Summary:
 - Form inputs glassmorphic + neon purple focus ring; tech-stack chips glassmorphic with purple tint.
 - Architecture unchanged: Cloudflare Worker (proxy) → Vercel (Next.js app, auto-deploys from GitHub push).
 - CDN edge cache invalidated by new CSS hash. User should hard-refresh browser (Ctrl+Shift+R) to bypass any local browser cache.
+
+---
+Task ID: visibility-seo-nav-fix
+Agent: main
+Task: Fix UI visibility (light + dark mode), modernize navigation, resolve hidden headings, ensure full SEO & broken link compliance across entire site.
+
+Work Log:
+- Ran comprehensive audit via Explore subagent (194 .tsx files scanned) — identified 11 H1s with from-foreground to-foreground/60|70 bg-clip-text text-transparent pattern (no fallback color), 1 gradient <p> tagline, 4 dead-code component files (navbar.tsx, footer.tsx, process.tsx, testimonials.tsx — 0 imports), broken /#process + /#testimonials anchors in NAV_LINKS_SECONDARY, missing /legal in sitemap, missing twitter:card on 3 legal sub-pages, no error.tsx/global-error.tsx, no body scroll lock on nx-navbar mobile drawer, WhatsApp wa.link missing target=_blank.
+
+VISIBILITY & CONTRAST fixes:
+- Added text-foreground fallback class to 11 H1s across team-page, resources-page, solution-detail-page, service-detail-page, pricing-page, blog-page, blog-post-page, case-study-detail-page, careers-page (x2), solutions-page. Headings no longer vanish when background-clip:text unsupported.
+- Added text-foreground fallback to gradient <p> tagline at services/[[...slug]]/page.tsx:329.
+- Appended VISIBILITY SAFETY NET section to globals.css:
+  * @supports not (background-clip: text) — forces currentColor on all gradient text classes when browser lacks support
+  * @media print — forces solid black on all gradient text so headings print
+  * p:not([class*=text-]) / li:not([class*=text-]) — defaults to --foreground so unstyled text remains readable in both modes
+  * text-muted-foreground — boosted to color-mix 72% foreground for AA contrast
+  * h1-h6:not([class*=text-]) — defaults to --foreground (gradient/explicit color classes left alone)
+
+NAVIGATION modernization:
+- Added body scroll lock useEffect to nx-navbar.tsx — locks document.body.style.overflow=hidden while mobile drawer is open, restores prior value on cleanup. Prevents iOS Safari rubber-band bleed-through.
+- Existing navbar features verified in place: backdrop-blur-xl glassmorphism, 4 mega menus (services/solutions/resources/company), full-screen mobile slide drawer with framer-motion, light/dark theme tokens via --nx-* CSS vars, hide-on-scroll-down with show-on-scroll-up, escape-to-close, click-outside-to-close, aria-expanded/haspopup/current, active-section tracking on homepage.
+
+SEO & AI OPTIMIZATION:
+- Added /legal index page to sitemap.ts (was missing — route existed and was linked from footer but not in sitemap).
+- Added explicit twitter:card summary_large_image to /legal/privacy, /legal/terms, /legal/cookies (legal index already had one).
+- Created src/app/error.tsx — branded route error boundary with gradient headline, error ID display, Try again + Homepage + Go back buttons.
+- Created src/app/global-error.tsx — dependency-free global error boundary with own <html>/<body> shell and inline styles (no UI library imports so a broken chunk can't take it down).
+
+BROKEN LINK AUDIT & cleanup:
+- Deleted dead-code src/components/site/navbar.tsx (947 lines, 0 imports)
+- Deleted dead-code src/components/site/footer.tsx (180 lines, 0 imports)
+- Deleted dead-code src/components/site/process.tsx (0 imports)
+- Deleted dead-code src/components/site/testimonials.tsx (0 imports)
+- Removed broken /#process and /#testimonials entries from NAV_LINKS_SECONDARY in src/lib/site-data.ts (targets existed only in deleted components).
+- Added target=_blank rel=noopener noreferrer to WhatsApp wa.link in home-content.tsx (was bouncing visitors off the site).
+
+VERIFICATION:
+- Purged .next + .turbo cache.
+- Fresh build: NEXT_TELEMETRY_DISABLED=1 NODE_OPTIONS=--max-old-space-size=2048 bunx next build — compiled successfully, 511+ static pages, 0 TypeScript errors (only pre-existing DATABASE_URL dev-DB warnings, not blocking).
+- New CSS bundle 0j_otvh__wk8m.css (290,980 bytes) verified live:
+  * @supports not background-clip:text (2 hits)
+  * @media print gradient override (1 hit)
+  * h1:not([class*=text-]) fallback (1 hit)
+  * p:not([class*=text-]) fallback (1 hit)
+  * color-mix(in oklab foreground) muted-contrast boost (1 hit)
+  * 5 canonical 4-stop gradient occurrences
+  * 7 #03000D canvas hits
+  * 10 backdrop-blur(12px) glassmorphism instances
+  * 4 rounded-full pill button rules
+  * 0 v6 remnants (Fraunces, 0B0B0F, squircle)
+- Live HTTP checks: /, /legal, /legal/privacy, /legal/terms, /legal/cookies all 200; /nonexistent-test-page → 404 (Glitch404 renders).
+- Live twitter:card present on all 3 legal sub-pages (2 hits each — one in HTML head meta, one in OG fallback).
+- /legal now in sitemap.xml.
+- robots.txt excludes /admin/ and /api/ as before.
+- Commit bd0ab5c pushed to origin/main. Vercel auto-deployed: ETag changed 189zmg7z3dd2595 → f03c3d653fa548977048b11b5364e2ca, x-vercel-cache: PRERENDER, age: 0, new CSS hash 0j_otvh__wk8m.css.
+
+Stage Summary:
+- All 5 task areas complete and live on https://clicktaketech.com.
+- Visibility: 11 H1s + 1 tagline have text-foreground fallback; globals.css safety net guarantees gradient text remains visible in older browsers + print; paragraph + heading default to --foreground when no explicit color class.
+- Navigation: nx-navbar mobile drawer now locks body scroll; existing glassmorphism/mega-menu/mobile drawer/theme tokens/accessibility all verified intact.
+- SEO: /legal in sitemap, twitter:card on all 4 legal pages, branded error.tsx + global-error.tsx for runtime crash recovery, JSON-LD schema coverage verified (Organization, WebSite, Service, BreadcrumbList, FAQPage, BlogPosting, JobPosting, Product, AggregateRating, Review, ProfessionalService, VideoObject, ContactPage).
+- Broken links: 4 dead-code files deleted (1135 lines removed), 2 broken hash anchors removed from NAV_LINKS_SECONDARY, WhatsApp link fixed with target=_blank rel=noopener.
+- Build: clean, 511+ pages, 0 TypeScript errors.
+- CDN: Vercel edge cache invalidated by new CSS hash + ETag change.
