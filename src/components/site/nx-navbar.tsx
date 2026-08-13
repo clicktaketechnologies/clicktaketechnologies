@@ -277,7 +277,7 @@ export function NxNavbar() {
               </div>
               <button
                 onClick={() => setMobileOpen(true)}
-                className={`h-10 w-10 grid place-items-center ${transparent ? "text-white" : "nx-text"}`}
+                className={`h-11 w-11 grid place-items-center rounded-lg hover:bg-[color-mix(in_oklab,var(--nx-ink)_6%,transparent)] transition ${transparent ? "text-white" : "nx-text"}`}
                 aria-label="Open menu"
               >
                 <Menu className="h-6 w-6" />
@@ -443,7 +443,7 @@ export function NxNavbar() {
                 </div>
                 <button
                   onClick={() => setMobileOpen(false)}
-                  className="h-10 w-10 grid place-items-center nx-text"
+                  className="h-11 w-11 grid place-items-center nx-text rounded-lg hover:bg-[color-mix(in_oklab,var(--nx-ink)_6%,transparent)] transition"
                   aria-label="Close menu"
                 >
                   <X className="h-6 w-6" />
@@ -459,7 +459,7 @@ export function NxNavbar() {
                   >
                     <Link
                       href={link.href}
-                      className="block px-4 py-3 rounded-xl text-base font-semibold nx-text-soft hover:bg-[color-mix(in_oklab,var(--nx-ink)_5%,transparent)] hover:nx-text transition"
+                      className="block px-4 py-3.5 rounded-xl text-base font-semibold nx-text-soft hover:bg-[color-mix(in_oklab,var(--nx-ink)_5%,transparent)] hover:nx-text transition"
                     >
                       {link.label}
                     </Link>
