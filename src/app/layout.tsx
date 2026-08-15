@@ -126,34 +126,51 @@ export const metadata: Metadata = {
 };
 
 /**
- * FOUC-prevention: runs before React hydrates. With forcedTheme="dark" set on
- * the ThemeProvider, the site ALWAYS renders dark. This script must apply
- * `class="dark"` to <html> on the very first paint to prevent any flash of
- * light-mode canvas before next-themes hydrates.
+ * FOUC-prevention: runs before React hydrates. Reads the saved theme from
+ * localStorage (written by next-themes under the "theme" key) and applies
+ * the .dark class to <html> immediately, so the very first paint matches
+ * what the user previously chose.
  *
- * System preference and stored theme are intentionally IGNORED — the v5
- * Dark Premium Cyberpunk design is the canonical, universal look across
- * every route. The light-mode adaptation layer in globals.css is inert
- * under forced dark.
+ * Supports 5 modes: dark (default), light, system, custom, elite.
+ * - system: reads prefers-color-scheme
+ * - custom: applies .custom + .dark if user-saved dark flag is true
  *
- * The only stored flag still honored is `theme-custom-vars` / `theme-elite`
- * — admin-set custom tokens (rare, admin-only) still apply on top of dark.
+ * This is critical for the ThemeToggle to feel responsive — without this
+ * inline script, the very first paint would always be dark (default) and
+ * only flip to light after React hydrates, causing a visible flash.
  */
 const themeInitScript = `
 (function() {
   try {
-    var root = document.documentElement;
-    root.classList.add('dark');
-    root.style.colorScheme = 'dark';
-
-    // Elite Mode (admin-only premium overlay) layers aurora + scanlines
-    // on top of the dark base. Honor it if the user previously enabled it.
     var stored = localStorage.getItem('theme');
-    if (stored === 'elite') {
-      root.classList.add('theme-elite');
+    var root = document.documentElement;
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var isDark = true; // default
+
+    if (stored === 'light') {
+      isDark = false;
+    } else if (stored === 'dark') {
+      isDark = true;
+    } else if (stored === 'system' || stored === null) {
+      isDark = prefersDark;
     } else if (stored === 'custom') {
+      // custom theme — uses CSS variables set via inline style on <html>.
+      // The custom theme can be light or dark depending on user-saved
+      // "custom-dark" flag in localStorage (set by the admin theme editor).
+      var customDark = localStorage.getItem('theme-custom-dark');
+      isDark = customDark === null ? true : customDark === 'true';
       root.classList.add('theme-custom');
+    } else if (stored === 'elite') {
+      // Elite Mode — premium dark canvas with luxury overrides. Always dark
+      // base + .theme-elite class so global CSS layers the aurora, scan
+      // lines, holographic corners, and gradient borders on top.
+      isDark = true;
+      root.classList.add('theme-elite');
     }
+
+    if (isDark) root.classList.add('dark');
+    else root.classList.remove('dark');
+    root.style.colorScheme = isDark ? 'dark' : 'light';
 
     // Apply custom CSS variables if present (admin-set theme tokens)
     var customVars = localStorage.getItem('theme-custom-vars');
@@ -301,7 +318,7 @@ export default async function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          forcedTheme="dark"
+          enableSystem
           disableTransitionOnChange
         >
           <Providers>
@@ -327,12 +344,14 @@ export default async function RootLayout({
               the CSS variables are idempotent. Pages that don't wrap (e.g.
               admin, auth) still get the dark canvas + token scope.
 
-              forcedTheme="dark" above guarantees next-themes ALWAYS adds
-              class="dark" to <html>, so the html.dark .theme-nx token block
-              (which sets --background:#03000D, --nx-surface:#03000D, etc.)
-              always wins. The LIGHT MODE ADAPTATION LAYER in globals.css
-              (html:not(.dark) selectors) is inert under forced dark, so the
-              cyberpunk dark canvas never flips to white surfaces.
+              The .theme-nx scope is theme-aware: under html.dark it activates
+              the v5 Dark Premium Cyberpunk palette (#03000D canvas, neon
+              gradients, glassmorphic dark cards). Under html:not(.dark) the
+              LIGHT MODE ADAPTATION LAYER in globals.css flips the same
+              components to a clean light palette (#FAFAFC canvas, white
+              glass cards, deep slate text). The user controls which palette
+              is active via the ThemeToggle in the navbar (setTheme('dark' |
+              'light' | 'system')).
             */}
             <div className="theme-nx min-h-screen nx-surface nx-text relative">
               {children}

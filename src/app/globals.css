@@ -75,22 +75,28 @@
   --ct-text: #F0EBF8;
   --ct-muted: #7A6B95;
 
-  /* Light mode canvas — #FAFAFC per brand spec (was #ffffff).
-     The slight cool tint differentiates the canvas from pure-white cards
-     and gives the page a softer, more "designed" feel. */
+  /* ─── LIGHT MODE CANVAS (per v5 light-theme spec) ─────────────────────
+     Canvas  : #FAFAFC (off-white, slight cool tint differentiates from
+                        pure-white cards — gives the page a softer feel)
+     Card    : rgba(255, 255, 255, 0.85) — glassmorphic white card on top
+               of #FAFAFC canvas; combined with backdrop-blur-md gives the
+               frosted-glass look in light mode
+     Text    : #0F172A (deep slate / near-black) — 17.9:1 on #FAFAFC (AAA)
+     Muted   : #475569 (dark slate) — 7.1:1 on #FAFAFC (AAA)
+     Borders : slate-200 / slate-300 family — soft grey for separation
+     ──────────────────────────────────────────────────────────────────── */
   --background: #FAFAFC;
-  --foreground: #0a0e1a;
-  --card: #ffffff;
-  --card-foreground: #0a0e1a;
+  --foreground: #0F172A;
+  --card: rgba(255, 255, 255, 0.85);
+  --card-foreground: #0F172A;
   --popover: #ffffff;
-  --popover-foreground: #0a0e1a;
+  --popover-foreground: #0F172A;
   --primary: #136DFF;
   --primary-foreground: #ffffff;
   --secondary: #f1f5f9;
-  --secondary-foreground: #0a0e1a;
+  --secondary-foreground: #0F172A;
   --muted: #f1f5f9;
-  /* #475569 reaches 6.92:1 on muted and 7.58:1 on white (AAA). Previous #64748b
-     was only 4.34:1 on muted surfaces (AA-LARGE-ONLY). */
+  /* #475569 reaches 7.1:1 on #FAFAFC canvas (AAA). */
   --muted-foreground: #475569;
   /* Accessible accent pink — see --brand-accent note above. */
   --accent: #C2185B;
@@ -106,11 +112,11 @@
   --chart-4: #10b981;
   --chart-5: #f59e0b;
   --sidebar: #ffffff;
-  --sidebar-foreground: #0a0e1a;
+  --sidebar-foreground: #0F172A;
   --sidebar-primary: #136DFF;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #f1f5f9;
-  --sidebar-accent-foreground: #0a0e1a;
+  --sidebar-accent-foreground: #0F172A;
   --sidebar-border: #e2e8f0;
   --sidebar-ring: #136DFF;
 }
@@ -715,16 +721,19 @@ html:not(.dark).theme-custom-light body {
   --nx-electric: #136DFF;
   --nx-electric-soft: #4A90D9;
   /* Surface tokens for cards on light bg */
-  --nx-surface: #FFFFFF;
+  --nx-surface: #FAFAFC;
   --nx-surface-alt: #F8F6FC;
   --nx-surface-muted: #F1EDF8;
   --nx-border: #E5E0EE;
   --nx-border-strong: #CBD0E1;
-  /* Text — #6E5F80 hits 5.04–5.81:1 on light surfaces (AA). Previous #8C7B95
-     was 3.38–3.90:1 (AA-LARGE-ONLY). */
-  --nx-ink: #0A0612;
-  --nx-ink-soft: #4A3B5C;
-  --nx-ink-muted: #6E5F80;
+  /* Text — V5 light-theme spec: #0F172A deep slate (17.9:1 on #FAFAFC canvas, AAA).
+     Previous #0A0612 was 19.5:1 (marginally higher but visually identical); using
+     slate family for harmony with --foreground / --muted-foreground tokens. */
+  --nx-ink: #0F172A;
+  --nx-ink-soft: #334155;
+  /* Accessible: #475569 hits 7.1:1 on #FAFAFC canvas (AAA). Previous #6E5F80
+     was 5.04–5.81:1 (AA only). */
+  --nx-ink-muted: #475569;
   /* Success / accents */
   --nx-green: #10B981;
   --nx-yellow: #F59E0B;
@@ -952,22 +961,24 @@ html:not(.dark).theme-custom-light body {
    It does NOT force light mode — it only sets base tokens that adapt. */
 .theme-nx {
   /* Adaptive surface/text tokens — these are overridden by html.dark below. */
-  --nx-surface: #FFFFFF;
+  --nx-surface: #FAFAFC;
   --nx-surface-alt: #F8F6FC;
   --nx-surface-muted: #F1EDF8;
   --nx-border: #E5E0EE;
   --nx-border-strong: #CBD0E1;
-  --nx-ink: #0A0612;
-  --nx-ink-soft: #4A3B5C;
-  /* Accessible: #6E5F80 = 5.04–5.81:1 on light surfaces (AA). */
-  --nx-ink-muted: #6E5F80;
+  /* V5 light-theme spec: deep slate #0F172A (was #0A0612).
+     17.9:1 on #FAFAFC canvas (AAA). */
+  --nx-ink: #0F172A;
+  --nx-ink-soft: #334155;
+  /* Accessible: #475569 = 7.1:1 on #FAFAFC canvas (AAA). */
+  --nx-ink-muted: #475569;
   /* Light mode canvas — #FAFAFC per brand spec (was #FFFFFF). */
   --background: #FAFAFC;
-  --foreground: #0A0612;
-  --card: #FFFFFF;
-  --card-foreground: #0A0612;
+  --foreground: #0F172A;
+  --card: rgba(255, 255, 255, 0.85);
+  --card-foreground: #0F172A;
   --muted: #F1EDF8;
-  /* Accessible: #475569 = 6.92:1 on muted (AA/AAA). */
+  /* Accessible: #475569 = 7.1:1 on #FAFAFC (AAA). */
   --muted-foreground: #475569;
   --border: #E5E0EE;
   min-height: 100vh;
@@ -1006,15 +1017,15 @@ html.dark .theme-nx {
 
 /* Backward compat: legacy class name from previous version */
 .theme-nx-light {
-  --nx-surface: #FFFFFF;
+  --nx-surface: #FAFAFC;
   --nx-surface-alt: #F8F6FC;
   --nx-surface-muted: #F1EDF8;
   --nx-border: #E5E0EE;
   --nx-border-strong: #CBD0E1;
-  --nx-ink: #0A0612;
-  --nx-ink-soft: #4A3B5C;
-  /* Accessible: #6E5F80 = 5.04–5.81:1 on light surfaces (AA). */
-  --nx-ink-muted: #6E5F80;
+  --nx-ink: #0F172A;
+  --nx-ink-soft: #334155;
+  /* Accessible: #475569 = 7.1:1 on #FAFAFC canvas (AAA). */
+  --nx-ink-muted: #475569;
 }
 
 /* ─── TiltCard — 3D cursor-following card (clicktake-3d-v3 reference) ─── */
