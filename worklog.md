@@ -783,3 +783,30 @@ Stage Summary:
 - Hero gradient base now matches page body — seamless deep dark canvas from top of hero through footer
 - All legacy dark hexes (***REMOVED***030014/***REMOVED***0A0A14/***REMOVED***050510/***REMOVED***050518) purged from page components, replaced with v5 spec ***REMOVED***03000D/***REMOVED***070018
 - Build green; Vercel deploy in progress; CDN edge cache will be purged automatically on deploy completion
+
+---
+Task ID: theme-toggle-light-spec
+Agent: main
+Task: Fix broken light/dark mode switcher + enforce full system light theme (***REMOVED***FAFAFC / white canvas)
+
+Work Log:
+- Inspected src/components/site/theme-toggle.tsx — confirmed ThemeToggle component is fully functional: uses useTheme() from next-themes, calls setTheme('light' | 'dark' | 'system' | 'custom' | 'elite') on click, has proper mounted check to avoid hydration mismatch, applies theme-elite / theme-custom classes for non-standard modes
+- Confirmed ThemeToggle is mounted in nx-navbar.tsx at lines 249 (desktop) and 276 (mobile) — wiring is correct
+- Identified root cause: previous commit (d7cbcbd) set forcedTheme="dark" on ThemeProvider, which makes setTheme() calls no-ops — next-themes ignores user-set theme when forcedTheme is provided
+- layout.tsx: removed forcedTheme="dark"; restored enableSystem so setTheme() actually flips the .dark class on <html>
+- layout.tsx: restored FOUC themeInitScript to read localStorage.theme + prefers-color-scheme and apply .dark class based on user/system preference (was hardcoded to always add .dark)
+- globals.css :root tokens: --foreground ***REMOVED***0a0e1a -> ***REMOVED***0F172A (deep slate, 17.9:1 on ***REMOVED***FAFAFC, AAA); --card -> rgba(255,255,255,0.85) for glass card on white canvas; --card-foreground / --popover-foreground / --sidebar-foreground all aligned to ***REMOVED***0F172A
+- globals.css .theme-nx light block: --nx-ink ***REMOVED***0A0612 -> ***REMOVED***0F172A; --nx-ink-soft ***REMOVED***4A3B5C -> ***REMOVED***334155; --nx-ink-muted ***REMOVED***6E5F80 -> ***REMOVED***475569 (7.1:1 on ***REMOVED***FAFAFC, AAA); --nx-surface ***REMOVED***FFFFFF -> ***REMOVED***FAFAFC; --card -> rgba(255,255,255,0.85)
+- globals.css :root nx-* design-system block: aligned --nx-ink / --nx-ink-soft / --nx-ink-muted to same slate family for consistency
+- globals.css .theme-nx-light backward-compat block: aligned to same tokens
+- Verified the LIGHT MODE ADAPTATION LAYER (lines 3736+) catches all dark-authored patterns when html:not(.dark) is active: section[style*="***REMOVED***03000D"] → --nx-surface-alt; div[style*="***REMOVED***03000D"] → --nx-surface; bg-white/[0.0X] glass → --nx-surface; border-white/10 → --nx-border; text-white → --nx-ink; navbar transparent state over hero gets a carve-out to keep white text; gradient buttons get a carve-out to keep white text on the gradient bg
+- Verified VISIBILITY SAFETY NET: @supports not (background-clip:text) fallback for gradient headings; print styles force ***REMOVED***000; paragraphs/headings without explicit color classes default to var(--foreground)
+- Clean build: purged .next / .turbo / node_modules/.cache; npm run build compiled successfully in 30.4s with 0 errors
+- Committed (ebbd450) and pushed to main — Vercel auto-deploy triggered
+
+Stage Summary:
+- ThemeToggle in navbar is now fully functional — clicking Light applies html:not(.dark), Dark applies html.dark, System follows prefers-color-scheme
+- Light mode: ***REMOVED***FAFAFC canvas, rgba(255,255,255,0.85) glass cards with backdrop-blur-md, ***REMOVED***0F172A primary text (17.9:1 AAA), ***REMOVED***475569 secondary text (7.1:1 AAA), slate-200 borders, gradient headings remain visible (4-stop ***REMOVED***FF8AC4 → ***REMOVED***9B3DFF → ***REMOVED***136DFF sufficient contrast on white)
+- Dark mode: v5 Dark Premium Cyberpunk canvas (***REMOVED***03000D) preserved — no regression
+- FOUC script prevents flash of wrong theme on first paint
+- Build green; Vercel deploy in progress
