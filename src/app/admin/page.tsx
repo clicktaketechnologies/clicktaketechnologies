@@ -5,49 +5,84 @@ import { AdminDashboardClient } from "./dashboard-client";
 
 export const dynamic = "force-dynamic";
 
+// ─── Defensive query helper ─────────────────────────────────────────────────
+// The dashboard fires 11 parallel Prisma queries. If even ONE throws — e.g.
+// because a table or column is missing in production due to a pending
+// `drizzle-kit push` migration — Promise.all rejects and the entire page falls
+// into error.tsx, locking the user out of the admin panel entirely.
+//
+// Promise.allSettled isolates each query: a rejected query becomes a `rejected`
+// result instead of throwing the whole batch. We then destructure each result
+// with a fallback (0 for counts, [] for findMany) so a broken/missing table
+// degrades gracefully instead of crashing the page. The dashboard client
+// already renders empty states, so partial DB availability is visible.
+async function run<T>(label: string, fn: () => Promise<T>): Promise<T | null> {
+  try {
+    return await fn();
+  } catch (err) {
+    console.error(`[admin/dashboard] query "${label}" failed:`, err);
+    return null;
+  }
+}
+
 export default async function AdminDashboardPage() {
   const session = await getServerSession();
   if (!session?.user) redirect("/admin/login?callbackUrl=/admin");
 
-  // Fetch KPIs in parallel
+  // Fetch KPIs in parallel — Promise.allSettled means a single missing table
+  // or column degrades to a null result instead of crashing the whole page.
   const [
-    leadsCount,
-    newLeadsCount,
-    convertedLeadsCount,
-    pagesCount,
-    servicesCount,
-    publishedPages,
-    emailSentCount,
-    teamCount,
-    recentLeads,
-    recentAudit,
-    dailyLeads,
+    leadsCountR,
+    newLeadsCountR,
+    convertedLeadsCountR,
+    pagesCountR,
+    servicesCountR,
+    publishedPagesR,
+    emailSentCountR,
+    teamCountR,
+    recentLeadsR,
+    recentAuditR,
+    dailyLeadsR,
   ] = await Promise.all([
-    prisma.lead.count({ where: { deletedAt: null } }),
-    prisma.lead.count({ where: { deletedAt: null, status: "New" } }),
-    prisma.lead.count({ where: { deletedAt: null, status: "Converted" } }),
-    prisma.page.count(),
-    prisma.service.count(),
-    prisma.page.count({ where: { isPublished: true } }),
-    prisma.smtpLog.count({ where: { status: "sent" } }),
-    prisma.teamMember.count({ where: { isActive: true } }),
-    prisma.lead.findMany({
+    run<number>("leads.count", () => prisma.lead.count({ where: { deletedAt: null } })),
+    run<number>("leads.count.new", () => prisma.lead.count({ where: { deletedAt: null, status: "New" } })),
+    run<number>("leads.count.converted", () => prisma.lead.count({ where: { deletedAt: null, status: "Converted" } })),
+    run<number>("pages.count", () => prisma.page.count()),
+    run<number>("services.count", () => prisma.service.count()),
+    run<number>("pages.count.published", () => prisma.page.count({ where: { isPublished: true } })),
+    run<number>("smtpLogs.count", () => prisma.smtpLog.count({ where: { status: "sent" } })),
+    run<number>("teamMembers.count", () => prisma.teamMember.count({ where: { isActive: true } })),
+    run<any[]>("leads.recent", () => prisma.lead.findMany({
       where: { deletedAt: null },
       orderBy: { createdAt: "desc" },
       take: 5,
-    }),
-    prisma.auditLog.findMany({
+    })),
+    run<any[]>("auditLogs.recent", () => prisma.auditLog.findMany({
       orderBy: { createdAt: "desc" },
       take: 8,
-    }),
-    prisma.lead.findMany({
+    })),
+    run<{ createdAt: Date; status: string }[]>("leads.daily", () => prisma.lead.findMany({
       where: {
         deletedAt: null,
         createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
       },
       select: { createdAt: true, status: true },
-    }),
+    })),
   ]);
+
+  // Coalesce nulls to safe defaults — TS now has full type inference because
+  // each result comes directly from prisma.* (no generic helper involved).
+  const leadsCount = leadsCountR ?? 0;
+  const newLeadsCount = newLeadsCountR ?? 0;
+  const convertedLeadsCount = convertedLeadsCountR ?? 0;
+  const pagesCount = pagesCountR ?? 0;
+  const servicesCount = servicesCountR ?? 0;
+  const publishedPages = publishedPagesR ?? 0;
+  const emailSentCount = emailSentCountR ?? 0;
+  const teamCount = teamCountR ?? 0;
+  const recentLeads = recentLeadsR ?? [];
+  const recentAudit = recentAuditR ?? [];
+  const dailyLeads = dailyLeadsR ?? [];
 
   // Build last-14-days chart data
   const days: { date: string; count: number }[] = [];
