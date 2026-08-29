@@ -810,3 +810,26 @@ Stage Summary:
 - Dark mode: v5 Dark Premium Cyberpunk canvas (***REMOVED***03000D) preserved — no regression
 - FOUC script prevents flash of wrong theme on first paint
 - Build green; Vercel deploy in progress
+
+---
+Task ID: qa-full-audit
+Agent: main
+Task: Comprehensive QA audit — links, branding, colors, SEO, content + fix all issues found
+
+Work Log:
+- Created and ran 7 QA audit scripts (scripts/qa-*.py): link-integrity (v1+v2), sitemap, API endpoints, color palette, dead components (v1+v2), SEO metadata
+- LINK INTEGRITY: 90 unique internal links across src/ checked against 57 filesystem routes + 7 dynamic patterns → 0 broken; 17 admin nav links → all resolve; 44 referenced /api/* endpoints → all have route.ts; all 7 dynamic routes call notFound(); sitemap entries all map to real routes
+- BRANDING: "ClickTake Technologies" consistent (112 occurrences, variants contextual); logo mark consistent (C on nx-brand-gradient in navbar + footer); SITE config accurate (phones, locations, socials)
+- COLORS: 153 off-palette hexes flagged → triaged all: email-template HTML (own palette), 3D character illustration colors (robot outfit ***REMOVED***1E3A8A→***REMOVED***1E1B4B, skin ***REMOVED***F5C9A6→***REMOVED***D4A574), theme presets, elite variants, admin DB seeds, content text quotes — ALL legitimate, zero UI chrome violations
+- SEO: 23/23 public pages pass title/description/canonical/JSON-LD checks; no lorem/placeholder content (matches are intentional copy or API docs); not-found branded + noindex; all img elements carry alt
+- FIX 1 (SEO-critical): public/robots.txt (bare static file, missing Sitemap directive + Content-Signal headers) was SHADOWING the dynamic /robots.txt route (Next.js serves public/ before app routes). Also found duplicate src/app/robots.ts creating route ambiguity. Deleted both; canonical src/app/robots.txt/route.ts now serves with Content-Signal + AI crawler allow-list + Sitemap directive
+- FIX 2: deleted 27 dead components (25 never-imported + 2 dead-chain deps hero-3d & nx-r3f-character only imported by dead parents) + 4 untracked legacy leftovers (footer/navbar/process/testimonials.tsx). Verified via exact import-statement resolution before deletion; production build passed after
+- FIX 3: renamed 12 URL-derived portfolio slugs to clean SEO slugs (logitrack-blzq-onrender-com → logitrack, mearnsgadgetrepair-co-uk → mearns-gadget-repair, panel-clicktake-web-app → clicktake-panel, etc.) — verified slugs consumed nowhere before rename
+- Build: ✓ compiled successfully in 31.6s after all changes
+- Commit 58d529c created locally. PUSH FAILED: git remote token expired ("could not read Password for https://...@github.com") — 3 attempts failed. Commit is safe locally; needs re-push once credentials are refreshed.
+
+Stage Summary:
+- Zero broken links, zero brand inconsistencies, 23/23 pages SEO-complete
+- robots.txt now serves the rich Content-Signal version (was silently shadowed by a bare static file)
+- 27 dead components removed; 12 ugly slugs cleaned
+- PENDING: git push blocked by expired remote token — run `git push origin main` once credentials are refreshed
