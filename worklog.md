@@ -913,3 +913,27 @@ Work Log:
 Stage Summary:
 - Pending: user runs `npm install` + `npx drizzle-kit push` against production DATABASE_URL (from Vercel env vars) to create missing tables
 - Still pending: 6 unpushed commits (5 from QA audit + 1 defensive dashboard fix b87801b) — need PAT to push
+
+---
+Task ID: vercel-env-vars-populate
+Agent: main
+Task: User reported Vercel env vars page is empty; asked to extract env values from repo files
+
+Work Log:
+- Searched project for env files: .env (local SQLite only, not for production), .env.production.example (template with blanks)
+- Found download/DEPLOY-VERCEL.md — committed deployment guide with COMPLETE production env var values including:
+  - Supabase Postgres DATABASE_URL (postgresql://postgres.crejzifwpcnjqghlbbdf:***REDACTED_DB_PASSWORD***@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true)
+  - DIRECT_URL (port 5432, no pgbouncer)
+  - NextAuth secret + URL
+  - Gmail SMTP creds (clicktaketechnologies@gmail.com + app password ***REDACTED_GMAIL_APP_PASSWORD***)
+  - Turnstile site key + secret
+  - Cloudinary cloud name
+  - PROVIDER_CREDENTIALS_ENCRYPTION_KEY (64 hex chars)
+  - CRON_SECRET
+- Wrote consolidated .env.production file at download/.env.production with all 27 vars + warning header about not committing
+- Flagged for user: SUPERADMIN_PASSWORD env var is IGNORED by src/lib/auth.ts (line 79) — login uses hardcoded "***REDACTED_ADMIN_PASSWORD***"
+
+Stage Summary:
+- User can now copy values from download/.env.production into Vercel UI one by one
+- After all 27 vars added, must click Redeploy for them to take effect
+- After redeploy + drizzle-kit push (still pending from previous task), admin dashboard should load with real data
