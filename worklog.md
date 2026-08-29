@@ -849,3 +849,29 @@ Work Log:
 Stage Summary:
 - QA audit commits (d73a06c, 4c9fb92, 0c545e5) remain unpushed — production still runs ebbd450 (site fine, audit fixes not yet live)
 - Unblock options: (1) user supplies fresh GitHub PAT (repo scope) -> update remote URL and push; (2) user clones production repo locally, applies bundle via git pull, pushes with own credentials
+
+---
+Task ID: admin-login-info
+Agent: main
+Task: User reported "Unexpected error" (Error ID: 3073716446) on live site; requested admin panel login URL + credentials
+
+Work Log:
+- Confirmed error page is OUR src/app/error.tsx boundary (text "Unexpected error / An unexpected error occurred while rendering this page..." matches verbatim)
+- Error ID 3073716446 = Next.js error.digest (opaque auto-hash, doesn't identify the failing route)
+- Live production is at commit ebbd450 (QA audit commits still unpushed, ahead 5 — but the 2 newest are just bundle/worklog artifacts, not site-affecting)
+- Found admin login route: src/app/admin/login/page.tsx → /admin/login
+- Found auth config: src/lib/auth.ts
+  - Credentials provider, validates against AdminUser table (bcrypt)
+  - ensureSeedAdmin() auto-creates super-admin on first login attempt IF table is empty
+  - Default email: process.env.SUPERADMIN_EMAIL || "admin@clicktaketech.com"
+  - DEFAULT PASSWORD HARDCODED: "***REDACTED_ADMIN_PASSWORD***" (line 79; SUPERADMIN_PASSWORD env var is INTENTIONALLY IGNORED per user's prior decision to avoid lockout)
+- Local .env has DATABASE_URL=file:/home/z/my-project/db/custom.db (LOCAL SQLite, not production)
+- Production .env.production.example expects postgresql://... — if Vercel env var is missing/invalid, any Prisma-touching page will throw and trigger error.tsx
+- Cannot determine which route threw without Vercel runtime logs (user did not specify which page they were on)
+
+Stage Summary:
+- Admin URL: https://clicktaketech.com/admin/login
+- Default email: admin@clicktaketech.com
+- Default password: ***REDACTED_ADMIN_PASSWORD*** (hardcoded; ignored SUPERADMIN_PASSWORD)
+- Caveat: admin user is auto-seeded on first login attempt; requires production DATABASE_URL to be reachable. If the rendering error the user saw is DB-related, login will also fail until DB is restored.
+- Next step: ask user which URL they were on when the error appeared; check Vercel runtime logs for that route's stack trace
