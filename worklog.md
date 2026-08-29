@@ -898,3 +898,18 @@ Stage Summary:
 - Unblocks user from accessing admin panel even before running `drizzle-kit push` against production
 - Pending push to origin/main (token still expired in this env); when pushed, will resolve the post-login error boundary
 - ROOT CAUSE still pending: production DB schema drift — user should run `bun run db:push` (or npx drizzle-kit push) against their production DATABASE_URL to create missing tables/columns. After that, all KPI counts will show real numbers instead of zeros.
+
+---
+Task ID: drizzle-push-guidance
+Agent: main
+Task: User hit "Cannot find module 'drizzle-kit'" when running `npx drizzle-kit push` on freshly cloned repo
+
+Work Log:
+- Diagnosed: fresh clone has no node_modules; npx grabbed drizzle-kit from global npm cache but drizzle.config.ts does `import { defineConfig } from "drizzle-kit"` which needs LOCAL node_modules to resolve
+- Confirmed drizzle-kit@0.31.10 + drizzle-orm@0.45.2 + pg@8.22.0 are already in package.json — just need `npm install`
+- Provided user with PowerShell-compatible steps: npm install → set DATABASE_URL env var (NOT in .env file) → npx drizzle-kit push
+- Warned about strict mode in drizzle.config.ts (will prompt for confirmation before applying changes)
+
+Stage Summary:
+- Pending: user runs `npm install` + `npx drizzle-kit push` against production DATABASE_URL (from Vercel env vars) to create missing tables
+- Still pending: 6 unpushed commits (5 from QA audit + 1 defensive dashboard fix b87801b) — need PAT to push
