@@ -875,3 +875,26 @@ Stage Summary:
 - Default password: ***REDACTED_ADMIN_PASSWORD*** (hardcoded; ignored SUPERADMIN_PASSWORD)
 - Caveat: admin user is auto-seeded on first login attempt; requires production DATABASE_URL to be reachable. If the rendering error the user saw is DB-related, login will also fail until DB is restored.
 - Next step: ask user which URL they were on when the error appeared; check Vercel runtime logs for that route's stack trace
+
+---
+Task ID: admin-dashboard-defensive
+Agent: main
+Task: User reported "Unexpected error" appearing AFTER admin login (VLM-read screenshot showed error.tsx boundary, Error ID 2204629257). Diagnose + fix.
+
+Work Log:
+- Used VLM (z-ai vision) to read uploaded screenshot — confirmed the screen IS our error.tsx boundary, not NextAuth's default error page
+- Login SUCCEEDED (form would have shown toast "Invalid email or password" otherwise, not navigated to error page) — so authorize() ran, prisma.adminUser.findUnique worked, bcrypt verified, JWT set
+- router.push("/admin") fired, /admin/page.tsx threw during SSR, error.tsx boundary caught
+- Inspected /admin/page.tsx: fires 11 parallel prisma queries via Promise.all against lead / page / service / smtpLog / teamMember / auditLog — Promise.all rejects if ANY one throws
+- Inspected src/lib/db.ts: throws explicitly if DATABASE_URL is SQLite/empty; prisma shim exported as `any` (cast at line 883)
+- Inspected schema.ts: 10 pgTable definitions for the dashboard tables; Vercel build script (`next build`) does NOT run `db:push` or any migration — production DB may be missing tables/columns from schema drift
+- Fix: wrapped each of 11 queries in try/catch via run<T>() helper returning null on failure; coalesced nulls to safe defaults (0 / []); client component already renders empty states
+- Iterated through 3 versions of helper signature to get TS inference right with the `prisma as any` shim — final version uses explicit type params `run<number>(...)` / `run<any[]>(...)` on each call site
+- Verified: tsc --noEmit clean for admin/page.tsx (only pre-existing shadcn dep errors remain); next build green
+- Committed locally as b87801b
+
+Stage Summary:
+- /admin/dashboard will now render with partial data (zeros, empty lists) instead of crashing when production DB is missing tables or columns
+- Unblocks user from accessing admin panel even before running `drizzle-kit push` against production
+- Pending push to origin/main (token still expired in this env); when pushed, will resolve the post-login error boundary
+- ROOT CAUSE still pending: production DB schema drift — user should run `bun run db:push` (or npx drizzle-kit push) against their production DATABASE_URL to create missing tables/columns. After that, all KPI counts will show real numbers instead of zeros.
