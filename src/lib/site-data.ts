@@ -1413,7 +1413,7 @@ export type ClientPortfolio = {
 
 export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
   {
-    slug: "dib-t0ug-onrender-com",
+    slug: "dib",
     name: "DibNow",
     category: "SaaS Platform",
     url: "https://dib-t0ug.onrender.com/",
@@ -1425,7 +1425,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     color: "from-cyan-500/25 to-blue-500/40",
   },
   {
-    slug: "panel-clicktake-web-app",
+    slug: "clicktake-panel",
     name: "Panel \u2014 Employee Management",
     category: "SaaS Platform",
     url: "https://panel-clicktake.web.app/",
@@ -1437,7 +1437,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     color: "from-indigo-500/25 to-violet-500/40",
   },
   {
-    slug: "logitrack-blzq-onrender-com",
+    slug: "logitrack",
     name: "LogiTrack",
     category: "SaaS Platform",
     url: "https://logitrack-blzq.onrender.com",
@@ -1449,7 +1449,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     color: "from-emerald-500/25 to-teal-500/40",
   },
   {
-    slug: "clickopticx-onrender-com",
+    slug: "clickopticx",
     name: "ClickOpticX",
     category: "SaaS Platform",
     url: "https://clickopticx.onrender.com",
@@ -1461,7 +1461,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     color: "from-amber-500/25 to-orange-500/40",
   },
   {
-    slug: "mearnsgadgetrepair-co-uk",
+    slug: "mearns-gadget-repair",
     name: "Mearns Gadget Repair",
     category: "Gadget Repair",
     url: "https://www.mearnsgadgetrepair.co.uk",
@@ -1473,7 +1473,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     color: "from-fuchsia-500/25 to-pink-500/40",
   },
   {
-    slug: "gadgetdoctorls-co-uk",
+    slug: "gadget-doctor-ls",
     name: "Gadget Doctor LS",
     category: "Gadget Repair",
     url: "https://www.gadgetdoctorls.co.uk",
@@ -1485,7 +1485,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     color: "from-rose-500/25 to-red-500/40",
   },
   {
-    slug: "gadgetrepairsglasgow-co-uk",
+    slug: "gadget-repairs-glasgow",
     name: "Gadget Repairs Glasgow",
     category: "Gadget Repair",
     url: "https://www.gadgetrepairsglasgow.co.uk",
@@ -1497,7 +1497,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     color: "from-violet-500/25 to-purple-500/40",
   },
   {
-    slug: "nltceducation-web-app",
+    slug: "nltc-nottingham",
     name: "NLTC Nottingham",
     category: "Education",
     url: "https://nltceducation.web.app/",
@@ -1509,7 +1509,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     color: "from-sky-500/25 to-cyan-500/40",
   },
   {
-    slug: "students-learning-hub-web-app",
+    slug: "students-learning-hub",
     name: "Students Learning Hub",
     category: "Education",
     url: "https://students-learning-hub.web.app/",
@@ -1521,7 +1521,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     color: "from-lime-500/25 to-emerald-500/40",
   },
   {
-    slug: "slasa-co-uk",
+    slug: "slasa",
     name: "SLASA",
     category: "Education",
     url: "https://www.slasa.co.uk",
@@ -1533,7 +1533,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     color: "from-amber-500/25 to-yellow-500/40",
   },
   {
-    slug: "techrepairsglasgow-co-uk",
+    slug: "tech-repairs-glasgow",
     name: "Tech Repairs Glasgow",
     category: "Gadget Repair",
     url: "https://www.techrepairsglasgow.co.uk",
@@ -1545,7 +1545,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolio[] = [
     color: "from-indigo-500/25 to-blue-500/40",
   },
   {
-    slug: "clicktake-academy-web-app",
+    slug: "clicktake-academy",
     name: "ClickTake Academy",
     category: "SaaS Platform",
     url: "https://clicktake-academy.web.app/",
