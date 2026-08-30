@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8">
+<title>Login Contrast Test</title>
+<style>
+  /* Simulate the :root tokens */
+  :root {
+    --background: ***REMOVED***FAFAFC;
+    --foreground: ***REMOVED***0F172A;
+    --card: rgba(255, 255, 255, 0.85);
+    --card-foreground: ***REMOVED***0F172A;
+    --muted: ***REMOVED***f1f5f9;
+    --muted-foreground: ***REMOVED***475569;
+    --border: ***REMOVED***e2e8f0;
+    --nx-ink: ***REMOVED***0F172A;
+    --nx-ink-soft: ***REMOVED***334155;
+    --nx-ink-muted: ***REMOVED***475569;
+  }
+  /* Simulate html.dark .theme-nx { ... } */
+  html.dark .theme-nx {
+    --nx-ink: ***REMOVED***F4F0FF;
+    --foreground: ***REMOVED***F4F0FF;
+    --muted-foreground: ***REMOVED***9B8AB8;
+    color: ***REMOVED***F4F0FF;
+  }
+  /* Simulate .theme-nx wrapper */
+  .theme-nx {
+    --nx-ink: ***REMOVED***0F172A;
+    --foreground: ***REMOVED***0F172A;
+    --muted-foreground: ***REMOVED***475569;
+  }
+  /* The OLD buggy rule */
+  .old-rule .text-muted-foreground {
+    color: color-mix(in oklab, rgb(var(--foreground)) 72%, transparent);
+  }
+  /* The NEW fixed rule — no override, lets Tailwind utility apply */
+  .new-rule .text-muted-foreground {
+    /* (empty — let Tailwind's `.text-muted-foreground { color: var(--muted-foreground) }` win) */
+  }
+  /* Tailwind-style utility */
+  .text-muted-foreground {
+    color: var(--muted-foreground);
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: system-ui;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin: 20px;
+    max-width: 400px;
+  }
+  h1 { margin: 0 0 4px; }
+  .label { text-transform: uppercase; font-size: 11px; font-weight: 600; }
+  .footer { font-size: 11px; }
+  h1, .label, .footer { display: block; }
+</style>
+</head>
+<body>
+<div class="theme-nx">
+  <div class="card old-rule">
+    <strong>OLD RULE (buggy)</strong>
+    <h1>Admin Portal</h1>
+    <p class="text-muted-foreground">Sign in to ClickTake Technologies control center</p>
+    <span class="label text-muted-foreground">EMAIL ADDRESS</span><br>
+    <span class="label text-muted-foreground">PASSWORD</span><br><br>
+    <span class="footer text-muted-foreground">Don't have an account? Request access</span>
+  </div>
+  <div class="card new-rule">
+    <strong>NEW RULE (fixed)</strong>
+    <h1>Admin Portal</h1>
+    <p class="text-muted-foreground">Sign in to ClickTake Technologies control center</p>
+    <span class="label text-muted-foreground">EMAIL ADDRESS</span><br>
+    <span class="label text-muted-foreground">PASSWORD</span><br><br>
+    <span class="footer text-muted-foreground">Don't have an account? Request access</span>
+  </div>
+</div>
+<script>
+  const elements = document.querySelectorAll('.text-muted-foreground');
+  for (const el of elements) {
+    const cs = getComputedStyle(el);
+    const parent = el.closest('.card');
+    const cardLabel = parent.querySelector('strong').textContent;
+    const cardBg = getComputedStyle(parent).backgroundColor;
+    console.log(`[${cardLabel}] text="${el.textContent.substring(0,40)}..." color=${cs.color} | card bg=${cardBg}`);
+  }
+</script>
+</body>
+</html>

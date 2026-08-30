@@ -235,7 +235,7 @@ export default function AdminLoginForm() {
               </label>
               <Link
                 href="/admin/forgot-password"
-                className="text-[***REMOVED***FF53A9] hover:text-[***REMOVED***E0197A] dark:text-[***REMOVED***FF8AC4] dark:hover:text-[***REMOVED***FF53A9] hover:underline font-medium transition-colors"
+                className="text-[***REMOVED***C2185B] hover:text-[***REMOVED***9F1245] dark:text-[***REMOVED***FF8AC4] dark:hover:text-[***REMOVED***FF53A9] hover:underline font-medium transition-colors"
               >
                 Forgot password?
               </Link>
@@ -294,7 +294,7 @@ export default function AdminLoginForm() {
             Don&apos;t have an account?{" "}
             <Link
               href="/admin/create-admin"
-              className="text-[***REMOVED***FF53A9] hover:text-[***REMOVED***E0197A] dark:text-[***REMOVED***FF8AC4] dark:hover:text-[***REMOVED***FF53A9] hover:underline font-medium transition-colors"
+              className="text-[***REMOVED***C2185B] hover:text-[***REMOVED***9F1245] dark:text-[***REMOVED***FF8AC4] dark:hover:text-[***REMOVED***FF53A9] hover:underline font-medium transition-colors"
             >
               Request access
             </Link>

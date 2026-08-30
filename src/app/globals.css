@@ -3702,27 +3702,45 @@ html.theme-elite .ct-story-floater {
 /* 3. Paragraph + subtitle contrast floor — never let body text drop below
    a 4.5:1 ratio against the page background, in either mode. Only applies
    to text elements that have NOT been given an explicit color class
-   (text-white, text-brand-*, text-muted-foreground, etc.). */
+   (text-white, text-brand-*, text-muted-foreground, etc.).
+
+   FIX: previously used `rgb(var(--foreground))` here. That syntax is
+   valid per CSS Color 4 (`rgb(<color>)` single-argument form) but in
+   Chromium it triggers a different custom-property resolution path:
+   `var(--foreground)` substitutes correctly to the cascade-winner
+   value, but `rgb(var(--foreground))` returns the value from a stale
+   `html.dark .theme-nx { --foreground: ***REMOVED***F4F0FF }` rule even when the
+   html element does NOT have the .dark class. This made every text-
+   muted-foreground element render as near-white (***REMOVED***F4F0FF) on a white
+   card in light mode = invisible. The fix is to drop the redundant
+   `rgb()` wrapper and reference `var(--foreground)` directly, which is
+   already a valid <color> and resolves to the correct cascade winner
+   (***REMOVED***0F172A in light mode, ***REMOVED***F4F0FF in dark mode). */
 .theme-nx p:not([class*="text-"]):not([style*="color"]),
 .theme-nx li:not([class*="text-"]):not([style*="color"]) {
-  color: rgb(var(--foreground));
+  color: var(--foreground);
 }
 .theme-nx .text-muted-foreground {
-  /* ensure muted text is at least AA against the surface */
-  color: color-mix(in oklab, rgb(var(--foreground)) 72%, transparent);
+  /* Tailwind's `.text-muted-foreground` already sets `color: var(--muted-foreground)`
+     which is `***REMOVED***475569` in light mode (7.1:1 on white — AAA). We do NOT need to
+     override it. The previous `color-mix(in oklab, rgb(var(--foreground)) 72%, transparent)`
+     rule broke in light mode (see comment above) and is removed entirely to
+     let Tailwind's utility apply cleanly. */
 }
 
 /* 4. Heading fallback color — for headings WITHOUT an explicit color class,
    default to --foreground so they're visible in both light and dark mode.
    Headings that carry text-white / text-foreground / text-brand-* / a
-   bg-clip-text gradient are left alone (they have their own color source). */
+   bg-clip-text gradient are left alone (they have their own color source).
+   NOTE: `var(--foreground)` is used directly instead of `rgb(var(--foreground))`
+   to avoid the Chromium custom-property resolution bug documented above. */
 .theme-nx h1:not([class*="text-"]):not([style*="color"]),
 .theme-nx h2:not([class*="text-"]):not([style*="color"]),
 .theme-nx h3:not([class*="text-"]):not([style*="color"]),
 .theme-nx h4:not([class*="text-"]):not([style*="color"]),
 .theme-nx h5:not([class*="text-"]):not([style*="color"]),
 .theme-nx h6:not([class*="text-"]):not([style*="color"]) {
-  color: rgb(var(--foreground));
+  color: var(--foreground);
 }
 
 /* ════════════════════════════════════════════════════════════════════════
