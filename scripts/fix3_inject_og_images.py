@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 FIX-3a: Inject `images: [DEFAULT_OG_IMAGE]` into every openGraph block
 that's missing it. Also adds the import where needed.
@@ -13,10 +13,10 @@ from pathlib import Path
 SRC = Path("/home/z/my-project/src/app")
 IMPORT_LINE = 'import { DEFAULT_OG_IMAGE } from "@/lib/og-image";'
 
-***REMOVED*** Files that need a full openGraph block added (FIX-3b)
-***REMOVED*** These are the 4 Ahrefs-flagged pages with NO openGraph at all
+# Files that need a full openGraph block added (FIX-3b)
+# These are the 4 Ahrefs-flagged pages with NO openGraph at all
 FIX_3B_FILES = {
-    "services/[[...slug]]/page.tsx": None,  ***REMOVED*** Special: need to add OG to the no-slug branch
+    "services/[[...slug]]/page.tsx": None,  # Special: need to add OG to the no-slug branch
     "legal/privacy/page.tsx": 'https://clicktaketech.com/legal/privacy',
     "legal/terms/page.tsx": 'https://clicktaketech.com/legal/terms',
     "legal/cookies/page.tsx": 'https://clicktaketech.com/legal/cookies',
@@ -27,7 +27,7 @@ def find_og_blocks(text):
     blocks = []
     for m in re.finditer(r'openGraph:\s*\{', text):
         start = m.start()
-        ***REMOVED*** Find matching closing brace
+        # Find matching closing brace
         depth = 1
         i = m.end()
         while i < len(text) and depth > 0:
@@ -43,35 +43,35 @@ def has_images(block):
     return bool(re.search(r'\bimages:\s*\[', block))
 
 def has_url(block):
-    ***REMOVED*** Match both `url: "..."` and shorthand `url,`
+    # Match both `url: "..."` and shorthand `url,`
     return bool(re.search(r'\burl\b\s*[:,]', block))
 
 def add_import_if_missing(text):
     """Add the DEFAULT_OG_IMAGE import after the last existing import."""
     if IMPORT_LINE in text:
         return text
-    ***REMOVED*** Find all import lines
+    # Find all import lines
     imports = list(re.finditer(r'^import\s.*?;\s*$', text, re.MULTILINE))
     if not imports:
-        ***REMOVED*** No imports — add at top
+        # No imports — add at top
         return IMPORT_LINE + "\n" + text
     last_import = imports[-1]
-    ***REMOVED*** Insert after the last import
+    # Insert after the last import
     pos = last_import.end()
     return text[:pos] + "\n" + IMPORT_LINE + text[pos:]
 
 def inject_images_into_block(block):
     """Add `images: [DEFAULT_OG_IMAGE],` as the first property inside the openGraph block."""
-    ***REMOVED*** Find the opening `{` after `openGraph:`
+    # Find the opening `{` after `openGraph:`
     m = re.match(r'(openGraph:\s*\{)(\s*)(.*)', block, re.DOTALL)
     if not m:
         return block
     prefix = m.group(1)
     whitespace = m.group(2)
     rest = m.group(3)
-    ***REMOVED*** Insert images as first property
-    ***REMOVED*** Use the same indentation as the existing properties
-    ***REMOVED*** Find the indentation of the first property
+    # Insert images as first property
+    # Use the same indentation as the existing properties
+    # Find the indentation of the first property
     first_prop_match = re.match(r'(\s*)(\w)', rest)
     if first_prop_match:
         indent = first_prop_match.group(1)
@@ -87,14 +87,14 @@ stats = {
     "fix3b_blocks_added": 0,
 }
 
-***REMOVED*** Process all page.tsx files
+# Process all page.tsx files
 for page_file in sorted(SRC.rglob("page.tsx")):
     stats["files_scanned"] += 1
     original = page_file.read_text()
     text = original
     rel_path = str(page_file.relative_to(SRC))
 
-    ***REMOVED*** FIX-3a: Inject images into existing OG blocks
+    # FIX-3a: Inject images into existing OG blocks
     blocks = find_og_blocks(text)
     blocks_to_patch = []
     for start, end, content in blocks:
@@ -102,25 +102,25 @@ for page_file in sorted(SRC.rglob("page.tsx")):
             blocks_to_patch.append((start, end, content))
 
     if blocks_to_patch:
-        ***REMOVED*** Add import first
+        # Add import first
         text = add_import_if_missing(text)
         if IMPORT_LINE not in original:
             stats["imports_added"] += 1
 
-        ***REMOVED*** Re-find blocks (positions may have shifted due to import addition)
+        # Re-find blocks (positions may have shifted due to import addition)
         blocks = find_og_blocks(text)
-        ***REMOVED*** Patch from last to first so positions don't shift
+        # Patch from last to first so positions don't shift
         blocks_to_patch = [(s, e, c) for s, e, c in blocks if not has_images(c)]
         for start, end, content in reversed(blocks_to_patch):
             new_block = inject_images_into_block(content)
             text = text[:start] + new_block + text[end:]
             stats["blocks_patched"] += 1
 
-    ***REMOVED*** FIX-3b: Add full openGraph block to the 4 flagged pages
+    # FIX-3b: Add full openGraph block to the 4 flagged pages
     if rel_path in FIX_3B_FILES and FIX_3B_FILES[rel_path]:
-        ***REMOVED*** Legal pages: add openGraph to the metadata export
+        # Legal pages: add openGraph to the metadata export
         url = FIX_3B_FILES[rel_path]
-        ***REMOVED*** Check if openGraph already exists
+        # Check if openGraph already exists
         if "openGraph" not in text:
             og_block = f'''  openGraph: {{
     title: "{{TITLE}}",
@@ -131,36 +131,36 @@ for page_file in sorted(SRC.rglob("page.tsx")):
     images: [DEFAULT_OG_IMAGE],
   }},
 '''
-            ***REMOVED*** For legal pages, we need to extract title and description from existing metadata
-            ***REMOVED*** and insert openGraph after the description line
-            ***REMOVED*** Pattern: `description: "...",` followed by `alternates:`
+            # For legal pages, we need to extract title and description from existing metadata
+            # and insert openGraph after the description line
+            # Pattern: `description: "...",` followed by `alternates:`
             desc_match = re.search(r'(description:\s*")(.*?)("\s*,\s*\n)', text)
             title_match = re.search(r'(title:\s*")(.*?)("\s*,\s*\n)', text)
             if desc_match and title_match:
                 title_val = title_match.group(2)
                 desc_val = desc_match.group(2)
                 og_block = og_block.replace("{{TITLE}}", title_val).replace("{{DESC}}", desc_val)
-                ***REMOVED*** Insert after the description line
+                # Insert after the description line
                 insert_pos = desc_match.end()
-                ***REMOVED*** Find the `alternates:` line and insert before it
+                # Find the `alternates:` line and insert before it
                 alt_match = re.search(r'\n\s*alternates:', text[insert_pos:])
                 if alt_match:
                     insert_pos = insert_pos + alt_match.start()
                 text = text[:insert_pos] + og_block + text[insert_pos:]
-                ***REMOVED*** Add import
+                # Add import
                 text = add_import_if_missing(text)
                 if IMPORT_LINE not in original:
                     stats["imports_added"] += 1
                 stats["fix3b_blocks_added"] += 1
 
-    ***REMOVED*** Special case: services/[[...slug]]/page.tsx — add openGraph to the no-slug branch
+    # Special case: services/[[...slug]]/page.tsx — add openGraph to the no-slug branch
     if rel_path == "services/[[...slug]]/page.tsx":
-        ***REMOVED*** The no-slug branch has:
-        ***REMOVED***   alternates: { canonical: "https://clicktaketech.com/services" },
-        ***REMOVED***   keywords: [...]
-        ***REMOVED*** We need to add openGraph before keywords
+        # The no-slug branch has:
+        #   alternates: { canonical: "https://clicktaketech.com/services" },
+        #   keywords: [...]
+        # We need to add openGraph before keywords
         if 'openGraph' not in text.split('if (!slug)')[1].split('}')[0] if 'if (!slug)' in text else True:
-            ***REMOVED*** Check if the no-slug branch already has openGraph
+            # Check if the no-slug branch already has openGraph
             no_slug_match = re.search(
                 r'(if \(!slug\) \{[\s\S]*?alternates:\s*\{\s*canonical:\s*"https://clicktaketech\.com/services"\s*\},\s*\n)(\s*keywords:)',
                 text

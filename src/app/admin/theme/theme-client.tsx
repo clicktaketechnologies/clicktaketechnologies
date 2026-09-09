@@ -23,11 +23,11 @@ type Theme = {
 type Props = { themes: Theme[]; canWrite: boolean };
 
 const PRESET_THEMES = [
-  { name: "ClickTake Dark", mode: "dark", primary: "***REMOVED***136DFF", accent: "***REMOVED***FF53A9", background: "***REMOVED***0a0a0f", foreground: "***REMOVED***fafafa", muted: "***REMOVED***1a1a25", border: "***REMOVED***2a2a35", card: "***REMOVED***15151f" },
-  { name: "ClickTake Light", mode: "light", primary: "***REMOVED***136DFF", accent: "***REMOVED***FF53A9", background: "***REMOVED***ffffff", foreground: "***REMOVED***0a0a0f", muted: "***REMOVED***f4f4f5", border: "***REMOVED***e4e4e7", card: "***REMOVED***ffffff" },
-  { name: "Midnight", mode: "dark", primary: "***REMOVED***8B5CF6", accent: "***REMOVED***EC4899", background: "***REMOVED***0f0a1f", foreground: "***REMOVED***fafafa", muted: "***REMOVED***1f1a2f", border: "***REMOVED***2f2a3f", card: "***REMOVED***1a152a" },
-  { name: "Emerald", mode: "dark", primary: "***REMOVED***10B981", accent: "***REMOVED***F59E0B", background: "***REMOVED***0a1a14", foreground: "***REMOVED***fafafa", muted: "***REMOVED***1a2a24", border: "***REMOVED***2a3a34", card: "***REMOVED***15251f" },
-  { name: "Sunset", mode: "light", primary: "***REMOVED***F97316", accent: "***REMOVED***EC4899", background: "***REMOVED***fffbeb", foreground: "***REMOVED***1c1917", muted: "***REMOVED***fef3c7", border: "***REMOVED***fde68a", card: "***REMOVED***ffffff" },
+  { name: "ClickTake Dark", mode: "dark", primary: "#136DFF", accent: "#FF53A9", background: "#0a0a0f", foreground: "#fafafa", muted: "#1a1a25", border: "#2a2a35", card: "#15151f" },
+  { name: "ClickTake Light", mode: "light", primary: "#136DFF", accent: "#FF53A9", background: "#ffffff", foreground: "#0a0a0f", muted: "#f4f4f5", border: "#e4e4e7", card: "#ffffff" },
+  { name: "Midnight", mode: "dark", primary: "#8B5CF6", accent: "#EC4899", background: "#0f0a1f", foreground: "#fafafa", muted: "#1f1a2f", border: "#2f2a3f", card: "#1a152a" },
+  { name: "Emerald", mode: "dark", primary: "#10B981", accent: "#F59E0B", background: "#0a1a14", foreground: "#fafafa", muted: "#1a2a24", border: "#2a3a34", card: "#15251f" },
+  { name: "Sunset", mode: "light", primary: "#F97316", accent: "#EC4899", background: "#fffbeb", foreground: "#1c1917", muted: "#fef3c7", border: "#fde68a", card: "#ffffff" },
 ];
 
 export function ThemeClient({ themes, canWrite }: Props) {
@@ -36,13 +36,13 @@ export function ThemeClient({ themes, canWrite }: Props) {
   const [form, setForm] = useState({
     name: "",
     mode: "dark",
-    primary: "***REMOVED***136DFF",
-    accent: "***REMOVED***FF53A9",
-    background: "***REMOVED***0a0a0f",
-    foreground: "***REMOVED***fafafa",
-    muted: "***REMOVED***1a1a25",
-    border: "***REMOVED***2a2a35",
-    card: "***REMOVED***15151f",
+    primary: "#136DFF",
+    accent: "#FF53A9",
+    background: "#0a0a0f",
+    foreground: "#fafafa",
+    muted: "#1a1a25",
+    border: "#2a2a35",
+    card: "#15151f",
     isActive: false,
   });
   const [saving, setSaving] = useState(false);

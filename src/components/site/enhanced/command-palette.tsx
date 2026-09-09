@@ -324,7 +324,7 @@ export function CommandPalette() {
 
             {/* Modal */}
             <motion.div
-              className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-popover/95 shadow-2xl shadow-black/60 dark:border-white/10 dark:bg-[***REMOVED***0a0612]/95"
+              className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-popover/95 shadow-2xl shadow-black/60 dark:border-white/10 dark:bg-[#0a0612]/95"
               initial={reduced ? undefined : { opacity: 0, y: -16, scale: 0.97 }}
               animate={reduced ? undefined : { opacity: 1, y: 0, scale: 1 }}
               exit={reduced ? undefined : { opacity: 0, y: -8, scale: 0.98 }}
@@ -385,13 +385,13 @@ export function CommandPalette() {
                           aria-selected={isActive}
                           className={`group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors ${
                             isActive
-                              ? "bg-[***REMOVED***FF53A9]/15 text-foreground dark:text-white"
+                              ? "bg-[#FF53A9]/15 text-foreground dark:text-white"
                               : "text-muted-foreground hover:bg-accent dark:text-white/80 dark:hover:bg-white/5"
                           }`}
                         >
                           <span
                             className={`grid h-8 w-8 shrink-0 place-items-center rounded-md ${
-                              isActive ? "bg-[***REMOVED***FF53A9]/20 text-[***REMOVED***FF8AC4]" : "bg-muted text-muted-foreground dark:bg-white/5 dark:text-white/60"
+                              isActive ? "bg-[#FF53A9]/20 text-[#FF8AC4]" : "bg-muted text-muted-foreground dark:bg-white/5 dark:text-white/60"
                             }`}
                           >
                             <Icon className="h-4 w-4" />

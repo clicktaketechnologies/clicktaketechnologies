@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * Nx3DCharacterInteractive — Phase 3 ***REMOVED***1 micro-interaction wrapper.
+ * Nx3DCharacterInteractive — Phase 3 #1 micro-interaction wrapper.
  *
  * Wraps the CSS-only Nx3DCharacter with four motion layers:
  *

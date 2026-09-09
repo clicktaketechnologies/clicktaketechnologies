@@ -1,4 +1,4 @@
-***REMOVED*** B2B Video Production Service Page — SEO, GEO & Schema Rewrite
+# B2B Video Production Service Page — SEO, GEO & Schema Rewrite
 
 > Target page: `https://clicktaketech.com/services/creative/video-production`
 > Brand: ClickTake Technologies
@@ -8,9 +8,9 @@
 
 ---
 
-***REMOVED******REMOVED*** STEP 1 — Automated Keyword Taxonomy Engine
+## STEP 1 — Automated Keyword Taxonomy Engine
 
-***REMOVED******REMOVED******REMOVED*** 1.1 Input signal extraction
+### 1.1 Input signal extraction
 
 | Signal | Value |
 |---|---|
@@ -24,7 +24,7 @@
 
 The slug `creative/video-production` decomposes into the tokens `creative`, `video`, `production`. The current H1 leads with the secondary term "Video Editing" — a high-volume but low-intent keyword that positions the page as an editing commodity rather than a B2B production partner. The token "production" is the higher-value commercial signal and should lead the H1, with "editing" demoted to a supporting role inside the body copy. The current meta description is also 197 characters — 42 characters over the 155-char SERP truncation limit — which means it is being cut off in Google's results and losing the CTA.
 
-***REMOVED******REMOVED******REMOVED*** 1.2 Extracted keyword set
+### 1.2 Extracted keyword set
 
 **Primary Keyword (BOFU Commercial)**
 
@@ -59,7 +59,7 @@ Rationale: exact-match commercial intent, geographic qualifier ("UK") matches th
 
 BOFU Commercial / Transactional. The buyer is a B2B marketing leader, founder, or head of growth who has budget approved, has been burned by a previous agency or freelancer, and is evaluating 2–4 production partners against a fixed scope. The page must therefore lead with proof (numbers, case studies), reduce friction (fixed-scope pricing, script approvals, IP ownership), and close with a low-risk next step (free creative audit call, not "contact us").
 
-***REMOVED******REMOVED******REMOVED*** 1.3 Keyword placement matrix
+### 1.3 Keyword placement matrix
 
 | Placement | Primary KW | Secondary KWs | LSI terms |
 |---|---|---|---|
@@ -76,9 +76,9 @@ BOFU Commercial / Transactional. The buyer is a B2B marketing leader, founder, o
 
 ---
 
-***REMOVED******REMOVED*** STEP 2 — Video Content Audit & Fixes
+## STEP 2 — Video Content Audit & Fixes
 
-***REMOVED******REMOVED******REMOVED*** 2.1 Audit findings
+### 2.1 Audit findings
 
 The existing page is structurally strong (12 sections, 498 lines of deep-dive content, real case studies with verifiable metrics) but exhibits five concrete issues that suppress SERP performance, AI-search citation, and conversion rate.
 
@@ -102,7 +102,7 @@ The existing final CTA ("Ready to Ship Video That Performs?") is competent but g
 
 The page has no concise, LLM-citable declarative summary that Perplexity, ChatGPT, Gemini or Google AI Overviews can quote verbatim. AI search tools extract answers from the first 50–80 words of a section, and they prefer declarative, third-person, fact-dense paragraphs. The current hero `geoDefinition` field is 380 words — too long for an LLM to quote in full. Fix: add a dedicated 50-word GEO answer block in the upper third of the page, written in third person, declarative, fact-dense, with the brand name, primary keyword, deliverables, geographies, and one quantified outcome.
 
-***REMOVED******REMOVED******REMOVED*** 2.2 Fix summary
+### 2.2 Fix summary
 
 | Issue | Fix | Lift expected |
 |---|---|---|
@@ -115,9 +115,9 @@ The page has no concise, LLM-citable declarative summary that Perplexity, ChatGP
 
 ---
 
-***REMOVED******REMOVED*** STEP 3 — Full Content Rewrite
+## STEP 3 — Full Content Rewrite
 
-***REMOVED******REMOVED******REMOVED*** 3.1 Metadata & hero section
+### 3.1 Metadata & hero section
 
 **Optimised Title Tag (59 chars)**
 
@@ -155,7 +155,7 @@ The sub-headline layers three things in order: (1) the full production scope (sc
 
 ```html
 <!-- Hero showreel embed — replace SHOWREEL_ID with the Vimeo/YouTube ID -->
-<div class="hero-showreel" style="aspect-ratio:16/9; background:***REMOVED***0a0a0a;">
+<div class="hero-showreel" style="aspect-ratio:16/9; background:#0a0a0a;">
   <iframe
     src="https://player.vimeo.com/video/SHOWREEL_ID?title=0&byline=0&portrait=0"
     width="100%" height="100%" frameborder="0"
@@ -169,11 +169,11 @@ The sub-headline layers three things in order: (1) the full production scope (sc
 Two hero CTAs, primary and secondary:
 
 - Primary: **Book Video Strategy Call** → `/contact?intent=video-strategy-call`
-- Secondary: **Watch Showreel** → `***REMOVED***showreel` (anchor scrolls to the embed above)
+- Secondary: **Watch Showreel** → `#showreel` (anchor scrolls to the embed above)
 
 The primary CTA uses the word "Strategy" rather than "Free Consultation" because B2B buyers respond better to a strategy-framed next step than to a sales-framed one. The secondary CTA is non-blocking — buyers who want to see work first can self-qualify without filling a form.
 
-***REMOVED******REMOVED******REMOVED*** 3.2 GEO answer block (for AI search engines)
+### 3.2 GEO answer block (for AI search engines)
 
 This block is written specifically for citation by Perplexity, ChatGPT, Gemini and Google AI Overviews. It is 50 words, third-person, declarative, fact-dense, and contains the brand name, primary keyword, deliverables, geographies, and one quantified outcome.
 
@@ -183,7 +183,7 @@ Word count: 50. The structure follows the LLM-citation pattern: `[Brand] provide
 
 Place this block immediately under the hero section, marked with an HTML comment `<!-- GEO answer block — optimised for LLM citation -->` so the engineering team knows not to refactor or reword it. The block should also be replicated verbatim in the JSON-LD `Service.description` field (see Step 4) so structured-data extractors return the same string.
 
-***REMOVED******REMOVED******REMOVED*** 3.3 Video service capabilities matrix
+### 3.3 Video service capabilities matrix
 
 | Video Type | Ideal Use Case | Core Deliverables | Average Turnaround |
 |---|---|---|---|
@@ -198,31 +198,31 @@ Place this block immediately under the hero section, marked with an HTML comment
 
 The matrix is designed to be the single most-screenshotted element on the page. B2B buyers paste comparison tables into internal evaluation docs, Slack threads and Notion pages — each paste is a followed internal link that distributes the page's link equity. The "Average Turnaround" column is the highest-value data point: most agency pages omit turnaround entirely, which forces buyers to call for a quote. Publishing turnaround shortens the sales cycle by 30–40% because unqualified buyers self-select out.
 
-***REMOVED******REMOVED******REMOVED*** 3.4 Four-step production methodology
+### 3.4 Four-step production methodology
 
 The existing five-phase methodology is collapsed to four steps for scannability, with each step explicitly named against the user's workflow template. The five-phase detail is preserved in the deep-dive section below the fold.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** Step 1 — Pre-Production & Scriptwriting
+#### Step 1 — Pre-Production & Scriptwriting
 
 Every cut begins with a written brief defining the objective (awareness, consideration, conversion, retention), the audience, the platform, the length, the hook, the proof, the CTA and the success metric (VTR, CTR, CPV, ROAS). From the brief we write a shot-by-shot script with timecodes, on-screen text, voiceover and b-roll references — mapped to the hook-problem-solution-proof-CTA structure: hook in seconds 0–3, problem in 3–8, solution in 8–18, proof in 18–25, CTA in 25–30. The script becomes a 6–12 frame storyboard showing the visual at each beat, with notes on motion, transitions, captions and aspect-ratio considerations. Brief, script and storyboard sign off before any footage is shot or sourced — this is the single most important gate in the entire pipeline. Skipping it is the root cause of 80% of late, over-budget, under-performing video. Deliverables: creative brief, shot-by-shot script with timecodes, 6–12 frame storyboard, hook-problem-solution-proof-CTA mapping document.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** Step 2 — Filming & Animation
+#### Step 2 — Filming & Animation
 
 Depending on the script, we either shoot (in-house crew in Birmingham and Multan, partner crews in Austin and Dubai) or source b-roll from licensed stock libraries (Artgrid, Storyblocks, Filmpac) and AI-generated footage (Runway ML, Sora where available). Shoots are crewed for a 4K ProRes 422 HQ master, with on-set monitoring for centre-safe framing — the discipline of keeping the subject within the central 9:16 crop of a 16:9 frame so the vertical derivative does not decapitate the speaker. Animation runs in parallel: motion graphics built in After Effects against a reusable design system — kinetic typography for captions, lower-thirds for talking-head, transitions between beats, animated product callouts. The motion-design kit is exported as Lottie for web and app embeds (10–20× smaller than MP4) and as MP4-with-alpha for paid social. Voiceover is recorded in-house or cast via Voices.com / Voice123, mixed to −16 LUFS for web and YouTube. Music is licensed from Artlist, Epidemic Sound or Musicbed with platform-cleared sync rights. Deliverables: 4K master footage OR sourced b-roll package, recorded voiceover, licensed music, motion-graphics kit, product asset library.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** Step 3 — Post-Production & Colour Grading
+#### Step 3 — Post-Production & Colour Grading
 
 The editor cuts against the storyboard in Premiere Pro, building the master 16:9 timeline with placeholder graphics. Motion graphics are layered in via Adobe Dynamic Link from After Effects. The V1 cut is uploaded to Frame.io for timecoded review — we expect 1–2 review cycles per cut, each closing within 24 hours. Sound design runs in Adobe Audition: voiceover cleaned, music mixed at −23 LUFS with sidechain compression under the VO at −16 LUFS, sound effects layered for impact beats. Colour grading happens in DaVinci Resolve: primary correction, creative LUT applied for brand warmth, skin tones protected, highlights rolled off to survive platform compression (Meta and TikTok recompress to 3–5 Mbps, which crushes shadow detail and shifts reds — we grade to compensate). Captions are transcribed via Rev (human-verified, 99% accuracy), burned-in via After Effects with brand typography, and exported as a sidecar SRT for accessibility compliance. Deliverables: sound-mixed master, colour-graded master with LUT, burned-in captions, sidecar SRT.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** Step 4 — Optimisation & Deployment
+#### Step 4 — Optimisation & Deployment
 
 The master cut is conformed to 9:16 vertical and 1:1 square in Premiere Pro with reframing adjustments — subject re-centred, captions repositioned, motion graphics re-fitted. Each derivative is encoded to the platform's spec: Meta Reels (H.264, 1080×1920, 30fps, 8 Mbps), TikTok (H.264, 1080×1920, 30fps, 8 Mbps), YouTube Shorts (H.264, 1080×1920, 30fps, 12 Mbps), YouTube long-form (H.264 or H.265, 1920×1080, 30fps, 12–18 Mbps), LinkedIn (H.264, 1080×1080 or 1920×1080, 30fps, 8 Mbps). Every file is QC'd against the platform's published spec sheet before delivery — rejected uploads cost a day of campaign time. The final delivery package per cut: 6 video files (3 aspect ratios × 2 captioned/uncaptioned), 1 sidecar SRT, 1 thumbnail set (3 ratios), 1 metadata sheet (title, description, tags, hashtags, end-card URL, CTA text), and the platform-spec QC report. For retainer engagements, source files (Premiere project, After Effects project, motion-design kit, asset archive) are transferred at project close. For landing-page embeds, we ship WebM + MP4 with a poster image, JSON-LD VideoObject schema (see Step 4 below), and a lazy-load implementation that protects Core Web Vitals (LCP <2.5s, CLS <0.1).
 
-***REMOVED******REMOVED******REMOVED*** 3.5 High-converting closing section (the "Video Closing Fix")
+### 3.5 High-converting closing section (the "Video Closing Fix")
 
 The closing section is engineered to overcome the three buyer hesitations that kill B2B video deals: (1) fear of open-ended retainers, (2) fear of unapproved scripts going to shoot, (3) fear of agency lock-in via withheld source files. Each hesitation is addressed with a specific structural commitment, not a marketing claim.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** The three friction-killers
+#### The three friction-killers
 
 **Fixed-scope pricing, signed before shoot day.** Every engagement starts with a fixed-scope quote delivered within 3 business days of the brief. The quote breaks down per-cut cost, shoot cost (if any), motion-design system cost, music licensing, voiceover, and the multi-aspect-ratio delivery matrix. There are no hourly rates, no "we'll see how it goes" clauses, no change-order surprises. If the scope changes mid-engagement, we re-quote before proceeding — you sign the new scope before we do the new work.
 
@@ -230,7 +230,7 @@ The closing section is engineered to overcome the three buyer hesitations that k
 
 **Full IP ownership, transferred at project close.** All final delivered video files, source files (Premiere project, After Effects project, motion-design kit), scripts, storyboards and music sync licences are your IP, transferred in a structured archive at project close. We retain no rights to your proprietary work. We do not hold source files hostage to retain the relationship. We ask for permission to reference the engagement in our portfolio (case study + 5–10 second clip) — this is optional and you can decline.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** Three-step action callout
+#### Three-step action callout
 
 The buyer's path from interest to launch is compressed to three explicit steps with timeboxed commitments.
 
@@ -240,42 +240,42 @@ The buyer's path from interest to launch is compressed to three explicit steps w
 
 **3. Launch Your Video Sprint.** Kickoff is a 30-minute alignment call with the editor and motion designer. The five-phase methodology runs from there: brief and script (day 1–3), footage and assets (day 3–7), master edit and motion (day 7–12), sound and colour and captions (day 12–15), multi-aspect-ratio delivery and QC (day 15–17). First cut ships in 1–3 weeks. Volume programmes ship 3–4 days per cut after the motion system is built.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** Primary closing CTA & secondary contact option
+#### Primary closing CTA & secondary contact option
 
 - **Primary CTA button:** `Book Video Strategy Call` → `/contact?intent=video-strategy-call`
 - **Secondary contact:** Prefer email? Write to `hello@clicktaketech.com` with the subject line `Video brief — [your company]`. A creative lead responds within 4 business hours, UK time, with a calendar link and a request for any existing creative you want reviewed.
 
-***REMOVED******REMOVED******REMOVED*** 3.6 Structured FAQ section
+### 3.6 Structured FAQ section
 
 Five H3-headed FAQs targeting the five most common buyer questions observed in pre-sales calls. Each answer is 80–120 words, fact-dense, and structured for FAQPage schema extraction (see Step 4).
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** Who owns the video raw footage and source files after the engagement?
+#### Who owns the video raw footage and source files after the engagement?
 
 You do — fully. All final delivered video files, raw footage (where shot by our crew), source files (Premiere project, After Effects project, motion-design kit, asset archive), scripts, storyboards and music sync licences are your IP, transferred in a structured archive at project close. We retain no rights to your proprietary work and do not hold source files hostage to retain the relationship. The transfer is documented in the IP assignment clause of the master services agreement, signed before any production begins. We ask for optional permission to reference the engagement in our portfolio (case study + 5–10 second clip) — you can decline and the engagement proceeds on standard terms.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** How long does a 90-second SaaS explainer video take to produce?
+#### How long does a 90-second SaaS explainer video take to produce?
 
-A 90-second SaaS explainer — scripted storyboard, motion-graphic or live-action with motion graphics, voiceover, music, colour grade, burned-in captions, multi-aspect-ratio delivery — takes 4 weeks end-to-end. Phase-by-phase: brief, script and storyboard (3 days), footage and asset acquisition including any shoot (4–7 days), master edit and motion graphics (5 days), sound design, colour and captions (3 days), multi-aspect-ratio delivery and platform-spec QC (2 days). The 4-week timeline assumes one round of revisions on the V1 cut; additional revision cycles add 24–48 hours each. For SaaS explainers reusing an existing motion-design system (cut ***REMOVED***2 onwards), the timeline compresses to 2–2.5 weeks.
+A 90-second SaaS explainer — scripted storyboard, motion-graphic or live-action with motion graphics, voiceover, music, colour grade, burned-in captions, multi-aspect-ratio delivery — takes 4 weeks end-to-end. Phase-by-phase: brief, script and storyboard (3 days), footage and asset acquisition including any shoot (4–7 days), master edit and motion graphics (5 days), sound design, colour and captions (3 days), multi-aspect-ratio delivery and platform-spec QC (2 days). The 4-week timeline assumes one round of revisions on the V1 cut; additional revision cycles add 24–48 hours each. For SaaS explainers reusing an existing motion-design system (cut #2 onwards), the timeline compresses to 2–2.5 weeks.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** Do you handle voiceover licensing and music sync rights?
+#### Do you handle voiceover licensing and music sync rights?
 
 Yes — both are included in every fixed-scope quote. Voiceover is cast via Voices.com or Voice123 (or recorded in-house for UK English), with usage rights negotiated for the channels and territories you specify. Music is licensed from Artlist, Epidemic Sound or Musicbed with platform-cleared sync rights for paid social, YouTube, web embed and broadcast. Sync licences are transferred to your brand at project close where the licence allows. We do not use unlicensed library music or "we'll fix the licence later" library tracks — every cut ships with documented chain-of-title for all audio assets, which protects you from platform copyright claims and retroactive licensing demands.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** Can you deliver in 9:16 vertical, 1:1 square and 16:9 horizontal from a single master?
+#### Can you deliver in 9:16 vertical, 1:1 square and 16:9 horizontal from a single master?
 
 Yes — this is the default delivery, not an add-on. Every master cut is designed from frame one to derive 9:16 vertical, 1:1 square and 16:9 horizontal derivatives without re-editing. The discipline is called centre-safe framing: the subject and key text are kept within the central 9:16 crop of the 16:9 frame, lower-third captions are positioned to survive both 16:9 and 9:16, and motion graphics are built in aspect-ratio-aware After Effects compositions. The delivery matrix per cut is 1 master × 3 aspect ratios × 2 captioned/uncaptioned variants = 6 deliverable files, plus a sidecar SRT and a thumbnail set in 3 ratios. Multi-aspect-ratio delivery adds 15–25% to the cost of a single 16:9 cut and reaches 100% of paid-social impression inventory instead of ~50%.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** What does a B2B video production engagement cost?
+#### What does a B2B video production engagement cost?
 
 Single-cut production ranges from £3,000 (60-second motion-graphic explainer, no shoot) to £18,000 (60-second live-action ad with 1-day studio shoot, professional voiceover, full motion-graphics package). Volume programmes (16–32 cuts per month) drop per-cut cost to £1,200–£3,000 via motion-system reuse and batched production. Retainers range from £6,000–£18,000/month depending on cut volume and complexity. Every quote is fixed-scope, signed before shoot day, with no hourly rates and no change-order surprises. We provide a written quote within 3 business days of the brief call — and we will tell you upfront if your scope suggests a smaller engagement than you initially planned.
 
 ---
 
-***REMOVED******REMOVED*** STEP 4 — Technical Schema Generation
+## STEP 4 — Technical Schema Generation
 
 The page requires three JSON-LD blocks, all served in the `<script type="application/ld+json">` format inside the page's `<head>`. The blocks are: (1) a `Service` (ProfessionalService subtype) block describing the offering, (2) a `VideoObject` block for the hero showreel embed, and (3) an `FAQPage` block for the five FAQs above. All three are valid against Google's Rich Results Test and the Schema.org validator.
 
-***REMOVED******REMOVED******REMOVED*** 4.1 Service / ProfessionalService schema
+### 4.1 Service / ProfessionalService schema
 
 ```json
 {
@@ -393,7 +393,7 @@ The page requires three JSON-LD blocks, all served in the `<script type="applica
 
 Note: the `description` field replicates the GEO answer block verbatim. This is intentional — when an LLM extractor pulls the structured-data description, it returns the same string as the on-page GEO block, which reinforces citation consistency. The `aggregateRating` field should only be included if you have a real review count; if not, remove the entire `aggregateRating` block (Google penalises fabricated review schema). The `priceSpecification.minPrice` and `maxPrice` fields are drawn from the FAQ answer on cost (Section 3.6).
 
-***REMOVED******REMOVED******REMOVED*** 4.2 VideoObject schema
+### 4.2 VideoObject schema
 
 ```json
 {
@@ -440,7 +440,7 @@ Placeholder fields to populate before deploy:
 
 The `transcript` field is the highest-leverage placeholder. Google indexes it for video search, YouTube-style discovery and AI Overview citation. Without it, the VideoObject schema passes validation but does not earn video rich results. Aim for 500–800 words, structured as `[timecode] scene description: voiceover text` — this format is parseable by both Google's video indexer and LLM extractors.
 
-***REMOVED******REMOVED******REMOVED*** 4.3 FAQPage schema
+### 4.3 FAQPage schema
 
 ```json
 {
@@ -460,7 +460,7 @@ The `transcript` field is the highest-leverage placeholder. Google indexes it fo
       "name": "How long does a 90-second SaaS explainer video take to produce?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A 90-second SaaS explainer — scripted storyboard, motion-graphic or live-action with motion graphics, voiceover, music, colour grade, burned-in captions, multi-aspect-ratio delivery — takes 4 weeks end-to-end. Phase-by-phase: brief, script and storyboard (3 days), footage and asset acquisition including any shoot (4–7 days), master edit and motion graphics (5 days), sound design, colour and captions (3 days), multi-aspect-ratio delivery and platform-spec QC (2 days). The 4-week timeline assumes one round of revisions on the V1 cut; additional revision cycles add 24–48 hours each. For SaaS explainers reusing an existing motion-design system (cut ***REMOVED***2 onwards), the timeline compresses to 2–2.5 weeks."
+        "text": "A 90-second SaaS explainer — scripted storyboard, motion-graphic or live-action with motion graphics, voiceover, music, colour grade, burned-in captions, multi-aspect-ratio delivery — takes 4 weeks end-to-end. Phase-by-phase: brief, script and storyboard (3 days), footage and asset acquisition including any shoot (4–7 days), master edit and motion graphics (5 days), sound design, colour and captions (3 days), multi-aspect-ratio delivery and platform-spec QC (2 days). The 4-week timeline assumes one round of revisions on the V1 cut; additional revision cycles add 24–48 hours each. For SaaS explainers reusing an existing motion-design system (cut #2 onwards), the timeline compresses to 2–2.5 weeks."
       }
     },
     {
@@ -491,7 +491,7 @@ The `transcript` field is the highest-leverage placeholder. Google indexes it fo
 }
 ```
 
-***REMOVED******REMOVED******REMOVED*** 4.4 Schema deployment notes
+### 4.4 Schema deployment notes
 
 All three JSON-LD blocks should be injected into the page's `<head>` via the existing `JsonLd` component in `src/components/site/json-ld.tsx`. The `buildServiceJsonLd` helper currently produces a bare `Service` block — it should be extended (or overridden inline on this page) to emit the richer `ProfessionalService` block with `hasOfferCatalog` and `aggregateRating` fields shown above. The `buildFaqJsonLd` helper already accepts the `{q, a}[]` shape used by the FAQ section and can be reused without modification. The `VideoObject` block has no existing helper and should be added as a new export (`buildVideoObjectJsonLd`) in the same file, accepting `{ name, description, thumbnailUrl, uploadDate, contentUrl, embedUrl, duration, transcript }` and returning the structured object.
 
@@ -505,7 +505,7 @@ Validation checklist before deploy:
 
 ---
 
-***REMOVED******REMOVED*** Implementation handoff
+## Implementation handoff
 
 The rewrite above is structured for direct handoff to engineering. The required codebase changes are:
 

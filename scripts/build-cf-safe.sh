@@ -1,12 +1,12 @@
-***REMOVED***!/bin/bash
-***REMOVED*** Build the Cloudflare Worker bundle (.open-next/) using stub env values.
-***REMOVED*** At runtime on Cloudflare, the Worker reads real values from wrangler.toml [vars] + secrets.
-***REMOVED*** Build-time env vars are only needed to satisfy Next.js's static prerender step.
+#!/bin/bash
+# Build the Cloudflare Worker bundle (.open-next/) using stub env values.
+# At runtime on Cloudflare, the Worker reads real values from wrangler.toml [vars] + secrets.
+# Build-time env vars are only needed to satisfy Next.js's static prerender step.
 
 set -e
 cd "$(dirname "$0")/.."
 
-***REMOVED*** Stub env vars (build-time only — replaced at runtime by wrangler secrets)
+# Stub env vars (build-time only — replaced at runtime by wrangler secrets)
 export NODE_ENV=production
 export NEXT_PUBLIC_SUPABASE_URL="https://crejzifwpcnjqghlbbdf.supabase.co"
 export NEXT_PUBLIC_SUPABASE_ANON_KEY="***REDACTED_SUPABASE_ANON_KEY***"
@@ -29,7 +29,7 @@ export CAREERS_EMAIL="careers@clicktaketech.com"
 export PROVIDER_ALERT_TO="alerts@clicktaketech.com"
 export BACKEND_URL=""
 
-***REMOVED*** Run the cloudflare build (uses stub db.ts internally)
+# Run the cloudflare build (uses stub db.ts internally)
 echo "── build-cf-safe: running patch + opennextjs-cloudflare build ──"
 bash scripts/patch-pg-cloudflare.sh
 bash scripts/build-cloudflare.sh

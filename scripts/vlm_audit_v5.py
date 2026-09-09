@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """VLM audit on the 16 sampled v5 pages."""
 import subprocess
 import json

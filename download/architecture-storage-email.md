@@ -1,4 +1,4 @@
-***REMOVED*** ClickTake Technologies — Storage & Email Architecture
+# ClickTake Technologies — Storage & Email Architecture
 
 > **Version**: 1.0  
 > **Last updated**: 2026-07-19  
@@ -7,33 +7,33 @@
 
 ---
 
-***REMOVED******REMOVED*** Table of Contents
+## Table of Contents
 
-1. [Architecture Overview](***REMOVED***1-architecture-overview)
-2. [Media Optimization & CDNs](***REMOVED***2-media-optimization--cdns)
+1. [Architecture Overview](#1-architecture-overview)
+2. [Media Optimization & CDNs](#2-media-optimization--cdns)
    - 2.1 Provider Matrix
    - 2.2 Cloudflare Configuration (Full Switch vs Failover)
    - 2.3 Media Adapter Interface
    - 2.4 Admin Panel UI
-3. [Object Storage](***REMOVED***3-object-storage)
+3. [Object Storage](#3-object-storage)
    - 3.1 Provider Matrix
    - 3.2 Recommended Strategy (R2 + B2 + Cloudinary)
    - 3.3 Storage Adapter Interface
    - 3.4 Failover & Replication
-4. [Email Services](***REMOVED***4-email-services)
+4. [Email Services](#4-email-services)
    - 4.1 Provider Matrix (11 providers)
    - 4.2 Admin-Configurable Provider Chain
    - 4.3 Email Adapter Interface
    - 4.4 Failover Logic
    - 4.5 Admin Panel UI
-5. [Database Schema Additions](***REMOVED***5-database-schema-additions)
-6. [Environment Variables](***REMOVED***6-environment-variables)
-7. [Deployment Notes](***REMOVED***7-deployment-notes)
-8. [Migration Path](***REMOVED***8-migration-path)
+5. [Database Schema Additions](#5-database-schema-additions)
+6. [Environment Variables](#6-environment-variables)
+7. [Deployment Notes](#7-deployment-notes)
+8. [Migration Path](#8-migration-path)
 
 ---
 
-***REMOVED******REMOVED*** 1. Architecture Overview
+## 1. Architecture Overview
 
 The ClickTake platform uses a **multi-provider adapter pattern** for storage and email. The system has three abstraction layers:
 
@@ -79,9 +79,9 @@ The ClickTake platform uses a **multi-provider adapter pattern** for storage and
 
 ---
 
-***REMOVED******REMOVED*** 2. Media Optimization & CDNs
+## 2. Media Optimization & CDNs
 
-***REMOVED******REMOVED******REMOVED*** 2.1 Provider Matrix
+### 2.1 Provider Matrix
 
 | Provider | Free Tier | Optimization Features | Edge Network | Best For |
 |---|---|---|---|---|
@@ -91,11 +91,11 @@ The ClickTake platform uses a **multi-provider adapter pattern** for storage and
 | **Uploadcare** | 3GB storage, 3k transformations/mo, 500 uploads/mo | Adaptive compression, smart crop, AI face detection | AWS CloudFront | Uploads + transforms |
 | **TwicPics** | 1TB bandwidth, 25k transformations/mo | AI-driven responsive images, context-aware | Multi-CDN | E-commerce, retail |
 
-***REMOVED******REMOVED******REMOVED*** 2.2 Cloudflare Configuration (Full Switch vs Failover)
+### 2.2 Cloudflare Configuration (Full Switch vs Failover)
 
 The Cloudflare media layer supports two modes — switchable from the admin panel without code changes.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** Mode 1: Full Switch (all media via Cloudflare)
+#### Mode 1: Full Switch (all media via Cloudflare)
 
 All image URLs in the app rewrite to `https://images.clicktaketech.com/<key>?width=…&height=…&format=auto`. A Cloudflare Worker intercepts requests and applies:
 
@@ -139,7 +139,7 @@ export default {
 };
 ```
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** Mode 2: Failover (primary → Cloudflare)
+#### Mode 2: Failover (primary → Cloudflare)
 
 A Cloudflare Worker sits in front of the primary CDN (Cloudinary/ImageKit/etc.). On 5xx errors or timeout (2s), it transparently rewrites the request to Cloudflare Images backed by R2.
 
@@ -190,7 +190,7 @@ export default {
 - After 3 consecutive successes, error counter resets, traffic returns to primary
 - Admin receives Slack/email alert on every failover event
 
-***REMOVED******REMOVED******REMOVED*** 2.3 Media Adapter Interface
+### 2.3 Media Adapter Interface
 
 ```typescript
 // src/lib/providers/media/types.ts
@@ -227,16 +227,16 @@ export interface MediaProvider {
 ```
 src/lib/providers/media/
 ├── types.ts
-├── cloudflare.ts        ***REMOVED*** Cloudflare Images adapter
-├── cloudinary.ts        ***REMOVED*** Cloudinary adapter
-├── imagekit.ts          ***REMOVED*** ImageKit adapter
-├── uploadcare.ts        ***REMOVED*** Uploadcare adapter
-├── twicpics.ts          ***REMOVED*** TwicPics adapter
-├── registry.ts          ***REMOVED*** selects active provider + handles failover
-└── index.ts             ***REMOVED*** public API: getMediaUrl(), uploadImage()
+├── cloudflare.ts        # Cloudflare Images adapter
+├── cloudinary.ts        # Cloudinary adapter
+├── imagekit.ts          # ImageKit adapter
+├── uploadcare.ts        # Uploadcare adapter
+├── twicpics.ts          # TwicPics adapter
+├── registry.ts          # selects active provider + handles failover
+└── index.ts             # public API: getMediaUrl(), uploadImage()
 ```
 
-***REMOVED******REMOVED******REMOVED*** 2.4 Admin Panel UI
+### 2.4 Admin Panel UI
 
 **Path**: `/admin/settings` → "Media & CDN" tab
 
@@ -267,9 +267,9 @@ src/lib/providers/media/
 
 ---
 
-***REMOVED******REMOVED*** 3. Object Storage
+## 3. Object Storage
 
-***REMOVED******REMOVED******REMOVED*** 3.1 Provider Matrix
+### 3.1 Provider Matrix
 
 | Provider | Free Tier | Egress Cost | Region | Bandwidth Alliance | Use Case |
 |---|---|---|---|---|---|
@@ -278,7 +278,7 @@ src/lib/providers/media/
 | **Cloudinary** | 25 credits/mo (~25 GB storage) | Metered | Multi-CDN | No | Transformed/processed media |
 | **Supabase Storage** (existing) | 1GB storage, 2GB bandwidth | Metered | Single region | No | User-uploaded avatars, small files |
 
-***REMOVED******REMOVED******REMOVED*** 3.2 Recommended Strategy
+### 3.2 Recommended Strategy
 
 **Three-tier storage layout:**
 
@@ -295,7 +295,7 @@ src/lib/providers/media/
 - Cloudinary free tier covers ~25k transforms/mo — plenty for a marketing site
 - Combined free storage: **20GB across R2 + B2** + 25GB Cloudinary = **45GB free**
 
-***REMOVED******REMOVED******REMOVED*** 3.3 Storage Adapter Interface
+### 3.3 Storage Adapter Interface
 
 ```typescript
 // src/lib/providers/storage/types.ts
@@ -339,16 +339,16 @@ export interface UploadResult {
 ```
 src/lib/providers/storage/
 ├── types.ts
-├── r2.ts                ***REMOVED*** Cloudflare R2 adapter (S3-compatible API)
-├── b2.ts                ***REMOVED*** Backblaze B2 adapter (S3-compatible API)
-├── cloudinary.ts        ***REMOVED*** Cloudinary storage adapter
-├── supabase.ts          ***REMOVED*** Supabase Storage adapter (existing fallback)
-├── replicator.ts        ***REMOVED*** async replication R2 → B2
-├── registry.ts          ***REMOVED*** active provider + replication orchestrator
-└── index.ts             ***REMOVED*** public API: upload(), get(), delete()
+├── r2.ts                # Cloudflare R2 adapter (S3-compatible API)
+├── b2.ts                # Backblaze B2 adapter (S3-compatible API)
+├── cloudinary.ts        # Cloudinary storage adapter
+├── supabase.ts          # Supabase Storage adapter (existing fallback)
+├── replicator.ts        # async replication R2 → B2
+├── registry.ts          # active provider + replication orchestrator
+└── index.ts             # public API: upload(), get(), delete()
 ```
 
-***REMOVED******REMOVED******REMOVED*** 3.4 Failover & Replication
+### 3.4 Failover & Replication
 
 **Read failover:**
 
@@ -401,9 +401,9 @@ async function replicateToB2(key: string, file: Buffer, contentType: string) {
 
 ---
 
-***REMOVED******REMOVED*** 4. Email Services
+## 4. Email Services
 
-***REMOVED******REMOVED******REMOVED*** 4.1 Provider Matrix
+### 4.1 Provider Matrix
 
 | Provider | Free Tier | Best For | Type | Notes |
 |---|---|---|---|---|
@@ -419,7 +419,7 @@ async function replicateToB2(key: string, file: Buffer, contentType: string) {
 | **MailerLite** | 1000 subscribers, 12k/mo | Newsletters | API | Best for marketing lists |
 | **Sender** | 2500 subscribers, 15k/mo | Marketing automation | API | Most generous subscriber tier |
 
-***REMOVED******REMOVED******REMOVED*** 4.2 Admin-Configurable Provider Chain
+### 4.2 Admin-Configurable Provider Chain
 
 The admin panel lets you configure **up to 5 email providers in a failover chain**. The system tries them in order until one succeeds.
 
@@ -432,7 +432,7 @@ The admin panel lets you configure **up to 5 email providers in a failover chain
 | **Development / staging** | Mailtrap → console log |
 | **Backup email hosting** | Zoho (SMTP) → Cloudflare Email Routing (forwarding) |
 
-***REMOVED******REMOVED******REMOVED*** 4.3 Email Adapter Interface
+### 4.3 Email Adapter Interface
 
 ```typescript
 // src/lib/providers/email/types.ts
@@ -489,22 +489,22 @@ export type EmailFeature =
 ```
 src/lib/providers/email/
 ├── types.ts
-├── smtp.ts              ***REMOVED*** generic SMTP adapter (works with Mailtrap, Zoho, Brevo SMTP, custom)
-├── brevo.ts             ***REMOVED*** Brevo API adapter
-├── mailgun.ts           ***REMOVED*** Mailgun API adapter
-├── elastic-email.ts     ***REMOVED*** Elastic Email API adapter
-├── mailjet.ts           ***REMOVED*** Mailjet API adapter
-├── cloudflare-routing.ts ***REMOVED*** Cloudflare Email Routing (inbound forwarding)
-├── zoho.ts              ***REMOVED*** Zoho Mail SMTP adapter
-├── zeptomail.ts         ***REMOVED*** ZeptoMail API adapter
-├── mailerlite.ts        ***REMOVED*** MailerLite API adapter
-├── sender.ts            ***REMOVED*** Sender API adapter
-├── mailtrap.ts          ***REMOVED*** Mailtrap API adapter
-├── registry.ts          ***REMOVED*** provider chain + failover
-└── index.ts             ***REMOVED*** public API: sendEmail(), testEmailProvider()
+├── smtp.ts              # generic SMTP adapter (works with Mailtrap, Zoho, Brevo SMTP, custom)
+├── brevo.ts             # Brevo API adapter
+├── mailgun.ts           # Mailgun API adapter
+├── elastic-email.ts     # Elastic Email API adapter
+├── mailjet.ts           # Mailjet API adapter
+├── cloudflare-routing.ts # Cloudflare Email Routing (inbound forwarding)
+├── zoho.ts              # Zoho Mail SMTP adapter
+├── zeptomail.ts         # ZeptoMail API adapter
+├── mailerlite.ts        # MailerLite API adapter
+├── sender.ts            # Sender API adapter
+├── mailtrap.ts          # Mailtrap API adapter
+├── registry.ts          # provider chain + failover
+└── index.ts             # public API: sendEmail(), testEmailProvider()
 ```
 
-***REMOVED******REMOVED******REMOVED*** 4.4 Failover Logic
+### 4.4 Failover Logic
 
 ```typescript
 // src/lib/providers/email/registry.ts
@@ -554,7 +554,7 @@ export async function sendEmailWithFailover(params: SendEmailParams): Promise<Se
 - Auth error (401/403) → mark provider as misconfigured, alert admin
 - 5 errors in 5 min → provider marked down for 10 min cooldown
 
-***REMOVED******REMOVED******REMOVED*** 4.5 Admin Panel UI
+### 4.5 Admin Panel UI
 
 **Path**: `/admin/settings` → "Email" tab
 
@@ -600,7 +600,7 @@ export async function sendEmailWithFailover(params: SendEmailParams): Promise<Se
 
 ---
 
-***REMOVED******REMOVED*** 5. Database Schema Additions
+## 5. Database Schema Additions
 
 Add the following models to `prisma/schema.prisma`:
 
@@ -687,112 +687,112 @@ model StorageObject {
 
 ---
 
-***REMOVED******REMOVED*** 6. Environment Variables
+## 6. Environment Variables
 
 All provider credentials are **stored in the database** (encrypted), but the following base env vars are still required at boot time (for the very first provider before DB is populated):
 
 ```env
-***REMOVED*** ─── Storage: Cloudflare R2 (primary) ───
+# ─── Storage: Cloudflare R2 (primary) ───
 R2_ACCOUNT_ID=...
 R2_ACCESS_KEY_ID=...
 R2_SECRET_ACCESS_KEY=...
 R2_BUCKET_NAME=clicktake-media
 
-***REMOVED*** ─── Storage: Backblaze B2 (backup) ───
+# ─── Storage: Backblaze B2 (backup) ───
 B2_APPLICATION_KEY_ID=...
 B2_APPLICATION_KEY=...
 B2_BUCKET_ID=...
 B2_BUCKET_NAME=clicktake-backup
 
-***REMOVED*** ─── Media CDN: Cloudflare Images ───
+# ─── Media CDN: Cloudflare Images ───
 CLOUDFLARE_IMAGES_ACCOUNT_HASH=...
 CLOUDFLARE_IMAGES_API_TOKEN=...
 CLOUDFLARE_IMAGES_DELIVERY_DOMAIN=images.clicktaketech.com
 
-***REMOVED*** ─── Media CDN: Cloudinary (optional) ───
+# ─── Media CDN: Cloudinary (optional) ───
 CLOUDINARY_CLOUD_NAME=...
 CLOUDINARY_API_KEY=...
 CLOUDINARY_API_SECRET=...
 
-***REMOVED*** ─── Media CDN: ImageKit (optional) ───
+# ─── Media CDN: ImageKit (optional) ───
 IMAGEKIT_PUBLIC_KEY=...
 IMAGEKIT_PRIVATE_KEY=...
 IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/clicktake
 
-***REMOVED*** ─── Media CDN: Uploadcare (optional) ───
+# ─── Media CDN: Uploadcare (optional) ───
 UPLOADCARE_PUBLIC_KEY=...
 UPLOADCARE_SECRET_KEY=...
 
-***REMOVED*** ─── Media CDN: TwicPics (optional) ───
+# ─── Media CDN: TwicPics (optional) ───
 TWICPICS_DOMAIN=clicktake.twic.pics
 TWICPICS_API_KEY=...
 
-***REMOVED*** ─── Email: Brevo ───
+# ─── Email: Brevo ───
 BREVO_API_KEY=...
 
-***REMOVED*** ─── Email: Mailgun ───
+# ─── Email: Mailgun ───
 MAILGUN_API_KEY=...
 MAILGUN_DOMAIN=mail.clicktaketech.com
 
-***REMOVED*** ─── Email: Elastic Email ───
+# ─── Email: Elastic Email ───
 ELASTIC_EMAIL_API_KEY=...
 
-***REMOVED*** ─── Email: Mailjet ───
+# ─── Email: Mailjet ───
 MJ_APIKEY_PUBLIC=...
 MJ_APIKEY_PRIVATE=...
 
-***REMOVED*** ─── Email: Zoho ───
+# ─── Email: Zoho ───
 ZOHO_SMTP_HOST=smtp.zoho.com
 ZOHO_SMTP_PORT=587
 ZOHO_SMTP_USER=...
 ZOHO_SMTP_PASS=...
 
-***REMOVED*** ─── Email: ZeptoMail ───
+# ─── Email: ZeptoMail ───
 ZEPTOMAIL_API_KEY=...
 
-***REMOVED*** ─── Email: MailerLite ───
+# ─── Email: MailerLite ───
 MAILERLITE_API_KEY=...
 
-***REMOVED*** ─── Email: Sender ───
+# ─── Email: Sender ───
 SENDER_API_KEY=...
 
-***REMOVED*** ─── Email: Mailtrap ───
+# ─── Email: Mailtrap ───
 MAILTRAP_API_KEY=...
 MAILTRAP_INBOX_ID=...
 
-***REMOVED*** ─── Email: Cloudflare Email Routing (inbound) ───
+# ─── Email: Cloudflare Email Routing (inbound) ───
 CLOUDFLARE_EMAIL_ROUTING_ZONE_ID=...
 
-***REMOVED*** ─── Email: Generic SMTP (any custom provider) ───
+# ─── Email: Generic SMTP (any custom provider) ───
 SMTP_HOST=...
 SMTP_PORT=587
 SMTP_USER=...
 SMTP_PASS=...
 SMTP_FROM=ClickTake <noreply@clicktaketech.com>
 
-***REMOVED*** ─── Encryption key for credentials stored in DB ───
-PROVIDER_CREDENTIALS_ENCRYPTION_KEY=...   ***REMOVED*** 32-byte hex, never commit
+# ─── Encryption key for credentials stored in DB ───
+PROVIDER_CREDENTIALS_ENCRYPTION_KEY=...   # 32-byte hex, never commit
 ```
 
 ---
 
-***REMOVED******REMOVED*** 7. Deployment Notes
+## 7. Deployment Notes
 
-***REMOVED******REMOVED******REMOVED*** 7.1 Provider initialization order (on first boot)
+### 7.1 Provider initialization order (on first boot)
 
 1. Read `ProviderConfig` table → build adapter instances
 2. For each adapter, run `healthCheck()` → write to `ProviderHealth`
 3. Pick healthy providers in priority order → populate runtime registry
 4. Start failover watchdog (background cron every 5 min)
 
-***REMOVED******REMOVED******REMOVED*** 7.2 Cloudflare-specific optimizations
+### 7.2 Cloudflare-specific optimizations
 
 - **R2 + Cloudflare Workers**: Use Workers binding `R2_BUCKET` for zero-egress reads
 - **Cloudflare Images**: Use `cf.image` property in fetch options (no extra API call)
 - **Email Routing**: Configure MX records in Cloudflare DNS to forward inbound emails to `info@`, `support@` → `admin@clicktaketech.com`
 - **Email Worker**: A Worker can intercept inbound emails (via `email` event) → log to DB → trigger webhook
 
-***REMOVED******REMOVED******REMOVED*** 7.3 Free-tier budget guardrails
+### 7.3 Free-tier budget guardrails
 
 | Layer | Free limit | Alert threshold |
 |---|---|---|
@@ -806,7 +806,7 @@ PROVIDER_CREDENTIALS_ENCRYPTION_KEY=...   ***REMOVED*** 32-byte hex, never commi
 | ZeptoMail | 10k total trial | 8k → email admin |
 | Mailtrap | 1000/mo | 800 → block sends (dev only) |
 
-***REMOVED******REMOVED******REMOVED*** 7.4 Compliance notes
+### 7.4 Compliance notes
 
 - **GDPR (UK/EU customers)**: Cloudinary EU region, Brevo EU infrastructure, Mailjet EU infra — all GDPR-compliant
 - **Data residency**: R2 lets you pin objects to EU/US regions via `r2-region` header
@@ -814,16 +814,16 @@ PROVIDER_CREDENTIALS_ENCRYPTION_KEY=...   ***REMOVED*** 32-byte hex, never commi
 
 ---
 
-***REMOVED******REMOVED*** 8. Migration Path
+## 8. Migration Path
 
-***REMOVED******REMOVED******REMOVED*** 8.1 Phase 1 (Week 1) — Scaffolding
+### 8.1 Phase 1 (Week 1) — Scaffolding
 
 1. Add Prisma models (`ProviderConfig`, `ProviderHealth`, `ProviderUsage`, `EmailLog`, `StorageObject`)
 2. Create `src/lib/providers/` directory with `types.ts` files for each category
 3. Add admin panel UI scaffolding under `/admin/settings` with three new tabs: "Media & CDN", "Object Storage", "Email Providers"
 4. Encrypt-credentials helper (`src/lib/crypto.ts`) — AES-256-GCM with `PROVIDER_CREDENTIALS_ENCRYPTION_KEY`
 
-***REMOVED******REMOVED******REMOVED*** 8.2 Phase 2 (Week 2) — Storage adapters
+### 8.2 Phase 2 (Week 2) — Storage adapters
 
 1. Implement R2 adapter (S3-compatible via `@aws-sdk/client-s3`)
 2. Implement B2 adapter (S3-compatible)
@@ -832,14 +832,14 @@ PROVIDER_CREDENTIALS_ENCRYPTION_KEY=...   ***REMOVED*** 32-byte hex, never commi
 5. Wire registry with read-failover + write-replication
 6. Add admin "Test Connection" + "Force Failover Test" buttons
 
-***REMOVED******REMOVED******REMOVED*** 8.3 Phase 3 (Week 2-3) — Media CDN adapters
+### 8.3 Phase 3 (Week 2-3) — Media CDN adapters
 
 1. Implement Cloudflare Images adapter (URL builder + upload API)
 2. Implement Cloudinary, ImageKit, Uploadcare, TwicPics adapters
 3. Build Cloudflare Worker (`failover-router`) — deploy via `wrangler deploy`
 4. Wire admin "Mode" toggle (Full Switch vs Failover)
 
-***REMOVED******REMOVED******REMOVED*** 8.4 Phase 4 (Week 3) — Email adapters
+### 8.4 Phase 4 (Week 3) — Email adapters
 
 1. Implement SMTP adapter (using `nodemailer`) — works for Mailtrap, Zoho, custom
 2. Implement API adapters for Brevo, Mailgun, Elastic Email, Mailjet, ZeptoMail, MailerLite, Sender, Mailtrap
@@ -847,7 +847,7 @@ PROVIDER_CREDENTIALS_ENCRYPTION_KEY=...   ***REMOVED*** 32-byte hex, never commi
 4. Wire failover chain logic with health tracking
 5. Add email analytics dashboard under `/admin/email`
 
-***REMOVED******REMOVED******REMOVED*** 8.5 Phase 5 (Week 4) — Testing & rollout
+### 8.5 Phase 5 (Week 4) — Testing & rollout
 
 1. Integration tests for every adapter (mock + live API tests)
 2. Load test failover logic (simulate provider down → verify switch)
@@ -858,7 +858,7 @@ PROVIDER_CREDENTIALS_ENCRYPTION_KEY=...   ***REMOVED*** 32-byte hex, never commi
 
 ---
 
-***REMOVED******REMOVED*** Appendix A: File Structure (final)
+## Appendix A: File Structure (final)
 
 ```
 src/lib/providers/
@@ -895,30 +895,30 @@ src/lib/providers/
 │   ├── mailtrap.ts
 │   ├── registry.ts
 │   └── index.ts
-├── crypto.ts             ***REMOVED*** AES-256-GCM encryption helper
-├── health-checker.ts     ***REMOVED*** cron job
-├── usage-tracker.ts      ***REMOVED*** usage logging
-└── index.ts              ***REMOVED*** public API surface
+├── crypto.ts             # AES-256-GCM encryption helper
+├── health-checker.ts     # cron job
+├── usage-tracker.ts      # usage logging
+└── index.ts              # public API surface
 
 src/app/admin/settings/
 ├── page.tsx
-├── settings-client.tsx   ***REMOVED*** existing — extend with 3 new tabs
-├── media-tab.tsx         ***REMOVED*** NEW
-├── storage-tab.tsx       ***REMOVED*** NEW
-└── email-tab.tsx         ***REMOVED*** NEW
+├── settings-client.tsx   # existing — extend with 3 new tabs
+├── media-tab.tsx         # NEW
+├── storage-tab.tsx       # NEW
+└── email-tab.tsx         # NEW
 
 src/app/api/admin/providers/
-├── route.ts              ***REMOVED*** GET/POST provider configs
-├── [id]/route.ts         ***REMOVED*** GET/PATCH/DELETE single provider
-├── test/route.ts         ***REMOVED*** POST — run health check on a provider
-└── failover/route.ts     ***REMOVED*** POST — force failover test
+├── route.ts              # GET/POST provider configs
+├── [id]/route.ts         # GET/PATCH/DELETE single provider
+├── test/route.ts         # POST — run health check on a provider
+└── failover/route.ts     # POST — force failover test
 
 workers/cloudflare/
-├── media-failover-router.ts   ***REMOVED*** deployed via wrangler
-└── email-inbound-handler.ts   ***REMOVED*** deployed via wrangler
+├── media-failover-router.ts   # deployed via wrangler
+└── email-inbound-handler.ts   # deployed via wrangler
 ```
 
-***REMOVED******REMOVED*** Appendix B: Provider Selection Cheat Sheet
+## Appendix B: Provider Selection Cheat Sheet
 
 | Need | Recommended Provider |
 |---|---|

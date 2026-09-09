@@ -15,7 +15,7 @@ import { LiveStatBadge } from "@/components/site/live-stat-badge"
  * Left: badge → headline (gradient on "Intelligence,") → subtext → 2 CTAs → trust badges
  * Right: 3D robot character (CSS/SVG-based) + 2 floating glass widgets
  *
- * Brand colors: ***REMOVED***FF53A9 pink, ***REMOVED***136DFF blue, ***REMOVED***9B3DFF purple.
+ * Brand colors: #FF53A9 pink, #136DFF blue, #9B3DFF purple.
  * Background: deep navy with radial gradient atmosphere.
  *
  * METRIC SOURCING — every number in this component comes from
@@ -37,7 +37,7 @@ export function NxHero() {
       // so they don't trigger horizontal scroll on mobile.
       style={{
         background:
-          "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.15) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 100% 50%, rgba(19,109,255,0.08) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 0% 50%, rgba(255,83,169,0.08) 0%, transparent 50%), ***REMOVED***050510",
+          "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.15) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 100% 50%, rgba(19,109,255,0.08) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 0% 50%, rgba(255,83,169,0.08) 0%, transparent 50%), #050510",
       }}
     >
       {/* Subtle grid pattern overlay */}
@@ -56,8 +56,8 @@ export function NxHero() {
           scroll because their absolutely-positioned bounds extend past the
           viewport. We clamp with `inset-x-0` parent + `overflow-hidden` on the
           section, AND hide the orbs below `sm:` as a belt-and-braces measure. */}
-      <div className="absolute top-1/4 -left-20 h-96 w-96 rounded-full bg-[***REMOVED***9B3DFF]/20 blur-3xl nx-orb pointer-events-none hidden sm:block" />
-      <div className="absolute bottom-1/4 -right-20 h-96 w-96 rounded-full bg-[***REMOVED***FF53A9]/15 blur-3xl nx-orb pointer-events-none hidden sm:block" style={{ animationDelay: "3s" }} />
+      <div className="absolute top-1/4 -left-20 h-96 w-96 rounded-full bg-[#9B3DFF]/20 blur-3xl nx-orb pointer-events-none hidden sm:block" />
+      <div className="absolute bottom-1/4 -right-20 h-96 w-96 rounded-full bg-[#FF53A9]/15 blur-3xl nx-orb pointer-events-none hidden sm:block" style={{ animationDelay: "3s" }} />
 
       <div className="relative mx-auto max-w-7xl px-4 lg:px-8" style={{ zIndex: 2 }}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -68,9 +68,9 @@ export function NxHero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 rounded-full border border-[***REMOVED***FF53A9]/30 bg-[***REMOVED***FF53A9]/10 px-3 py-1.5 text-[10px] sm:text-xs font-mono uppercase tracking-[2px] text-[***REMOVED***FF53A9]"
+              className="inline-flex items-center gap-2 rounded-full border border-[#FF53A9]/30 bg-[#FF53A9]/10 px-3 py-1.5 text-[10px] sm:text-xs font-mono uppercase tracking-[2px] text-[#FF53A9]"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-[***REMOVED***FF53A9] animate-pulse" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#FF53A9] animate-pulse" />
               Multi-Agent AI Platform Live
             </motion.div>
 
@@ -83,7 +83,7 @@ export function NxHero() {
             >
               <span className="block">Engineering</span>
               <span className="block">Tomorrow's</span>
-              <span className="block bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                 Intelligence,
               </span>
               <span className="block">Today.</span>
@@ -127,7 +127,7 @@ export function NxHero() {
                 href="/contact"
                 className="group inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-sm sm:text-base font-bold text-white shadow-[0_8px_30px_rgba(155,61,255,0.35)] transition-all hover:shadow-[0_8px_40px_rgba(155,61,255,0.55)] hover:scale-[1.02]"
                 style={{
-                  background: "linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)",
+                  background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)",
                 }}
               >
                 Book a Demo
@@ -156,7 +156,7 @@ export function NxHero() {
                     key={badge}
                     className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-white/60"
                   >
-                    <Shield className="h-3.5 w-3.5 text-[***REMOVED***60A5FA]" />
+                    <Shield className="h-3.5 w-3.5 text-[#60A5FA]" />
                     {badge}
                   </div>
                 )
@@ -246,7 +246,7 @@ function RobotCharacter() {
         style={{
           width: "200px",
           height: "220px",
-          background: "linear-gradient(180deg, ***REMOVED***1E3A8A 0%, ***REMOVED***1E1B4B 100%)",
+          background: "linear-gradient(180deg, #1E3A8A 0%, #1E1B4B 100%)",
           boxShadow:
             "inset 0 -20px 40px rgba(0,0,0,0.3), inset 0 4px 8px rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.4)",
           border: "1px solid rgba(255,255,255,0.08)",
@@ -257,7 +257,7 @@ function RobotCharacter() {
           <div
             className="w-10 h-10 rounded-full grid place-items-center"
             style={{
-              background: "linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)",
+              background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)",
               boxShadow: "0 0 20px rgba(155,61,255,0.6)",
             }}
           >
@@ -294,8 +294,8 @@ function RobotCharacter() {
                 height: `${h}%`,
                 background:
                   i % 2 === 0
-                    ? "linear-gradient(180deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF)"
-                    : "linear-gradient(180deg, ***REMOVED***136DFF, ***REMOVED***4A90D9)",
+                    ? "linear-gradient(180deg, #FF53A9, #9B3DFF)"
+                    : "linear-gradient(180deg, #136DFF, #4A90D9)",
               }}
             />
           ))}
@@ -310,7 +310,7 @@ function RobotCharacter() {
           left: "40px",
           width: "60px",
           height: "20px",
-          background: "linear-gradient(180deg, ***REMOVED***1E3A8A, ***REMOVED***1E1B4B)",
+          background: "linear-gradient(180deg, #1E3A8A, #1E1B4B)",
           transform: "rotate(15deg)",
         }}
       />
@@ -321,7 +321,7 @@ function RobotCharacter() {
           right: "40px",
           width: "60px",
           height: "20px",
-          background: "linear-gradient(180deg, ***REMOVED***1E3A8A, ***REMOVED***1E1B4B)",
+          background: "linear-gradient(180deg, #1E3A8A, #1E1B4B)",
           transform: "rotate(-15deg)",
         }}
       />
@@ -334,7 +334,7 @@ function RobotCharacter() {
           width: "160px",
           height: "150px",
           background:
-            "linear-gradient(180deg, ***REMOVED***F5C9A6 0%, ***REMOVED***E8B88C 60%, ***REMOVED***D4A574 100%)",
+            "linear-gradient(180deg, #F5C9A6 0%, #E8B88C 60%, #D4A574 100%)",
           boxShadow:
             "inset 0 -10px 20px rgba(0,0,0,0.15), inset 0 8px 12px rgba(255,255,255,0.2), 0 10px 30px rgba(0,0,0,0.3)",
         }}
@@ -346,7 +346,7 @@ function RobotCharacter() {
             top: "40px",
             width: "130px",
             height: "50px",
-            background: "linear-gradient(135deg, ***REMOVED***7C3AED 0%, ***REMOVED***4F46E5 100%)",
+            background: "linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%)",
             boxShadow: "0 4px 12px rgba(79,70,229,0.4), inset 0 2px 4px rgba(255,255,255,0.2)",
           }}
         >
@@ -358,7 +358,7 @@ function RobotCharacter() {
               top: "8px",
               width: "42px",
               height: "34px",
-              background: "linear-gradient(135deg, ***REMOVED***1E1B4B, ***REMOVED***0F0A1E)",
+              background: "linear-gradient(135deg, #1E1B4B, #0F0A1E)",
               border: "2px solid rgba(255,255,255,0.1)",
             }}
           >
@@ -367,7 +367,7 @@ function RobotCharacter() {
               style={{
                 width: "16px",
                 height: "16px",
-                background: "radial-gradient(circle at 30% 30%, ***REMOVED***60A5FA, ***REMOVED***3B82F6)",
+                background: "radial-gradient(circle at 30% 30%, #60A5FA, #3B82F6)",
                 boxShadow: "0 0 8px rgba(96,165,250,0.6)",
               }}
             />
@@ -380,7 +380,7 @@ function RobotCharacter() {
               top: "8px",
               width: "42px",
               height: "34px",
-              background: "linear-gradient(135deg, ***REMOVED***1E1B4B, ***REMOVED***0F0A1E)",
+              background: "linear-gradient(135deg, #1E1B4B, #0F0A1E)",
               border: "2px solid rgba(255,255,255,0.1)",
             }}
           >
@@ -389,7 +389,7 @@ function RobotCharacter() {
               style={{
                 width: "16px",
                 height: "16px",
-                background: "radial-gradient(circle at 30% 30%, ***REMOVED***F472B6, ***REMOVED***EC4899)",
+                background: "radial-gradient(circle at 30% 30%, #F472B6, #EC4899)",
                 boxShadow: "0 0 8px rgba(244,114,182,0.6)",
               }}
             />
@@ -425,7 +425,7 @@ function RobotCharacter() {
             style={{
               width: "8px",
               height: "8px",
-              background: "***REMOVED***FF53A9",
+              background: "#FF53A9",
               boxShadow: "0 0 12px rgba(255,83,169,0.8)",
             }}
           />
@@ -434,10 +434,10 @@ function RobotCharacter() {
 
       {/* Floating particles around character */}
       {[
-        { top: "10%", left: "-5%", color: "***REMOVED***FF53A9", delay: 0 },
-        { top: "30%", right: "-5%", color: "***REMOVED***136DFF", delay: 1 },
-        { bottom: "20%", left: "-8%", color: "***REMOVED***9B3DFF", delay: 2 },
-        { bottom: "10%", right: "-3%", color: "***REMOVED***EC4899", delay: 0.5 },
+        { top: "10%", left: "-5%", color: "#FF53A9", delay: 0 },
+        { top: "30%", right: "-5%", color: "#136DFF", delay: 1 },
+        { bottom: "20%", left: "-8%", color: "#9B3DFF", delay: 2 },
+        { bottom: "10%", right: "-3%", color: "#EC4899", delay: 0.5 },
       ].map((p, i) => (
         <motion.div
           key={i}

@@ -56,13 +56,13 @@ export function ScrollIndicator({
         {/* Bouncing dot */}
         {!reduced && (
           <motion.span
-            className="absolute left-1/2 top-1.5 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[***REMOVED***FF53A9]"
+            className="absolute left-1/2 top-1.5 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[#FF53A9]"
             animate={{ y: [0, 14, 0], opacity: [1, 0.3, 1] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
           />
         )}
         {reduced && (
-          <span className="absolute left-1/2 top-1.5 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[***REMOVED***FF53A9]" />
+          <span className="absolute left-1/2 top-1.5 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[#FF53A9]" />
         )}
       </div>
       {/* Chevrons */}

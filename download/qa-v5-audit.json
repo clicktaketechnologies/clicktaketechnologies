@@ -9,7 +9,7 @@
       "severity": "Low",
       "area": "Palette",
       "msg": "21 hex colors not in brand palette",
-      "fix": "Samples: ***REMOVED***5A1A99, ***REMOVED***7A3B23, ***REMOVED***374151, ***REMOVED***F9FAFB, ***REMOVED***7A6F94, ***REMOVED***1f2937, ***REMOVED***FFD9B8, ***REMOVED***E8E2F0",
+      "fix": "Samples: #5A1A99, #7A3B23, #374151, #F9FAFB, #7A6F94, #1f2937, #FFD9B8, #E8E2F0",
       "page": ""
     },
     {

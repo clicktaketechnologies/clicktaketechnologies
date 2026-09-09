@@ -1,11 +1,11 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """QA — SEO metadata audit: verify title/description/OG/twitter/canonical on every public page."""
 import os, re
 
 ROOT = "/home/z/my-project"
 app_dir = os.path.join(ROOT, "src", "app")
 
-***REMOVED*** Page files to audit (public routes only)
+# Page files to audit (public routes only)
 PAGES = []
 for dirpath, dirnames, filenames in os.walk(app_dir):
     if "page.tsx" not in filenames:
@@ -23,14 +23,14 @@ def audit(path, fp):
     with open(fp, encoding="utf-8", errors="ignore") as f:
         c = f.read()
     issues = []
-    ***REMOVED*** Metadata can be `export const metadata` or `export async function generateMetadata`
+    # Metadata can be `export const metadata` or `export async function generateMetadata`
     has_title = bool(re.search(r"title\s*:", c)) or "generateMetadata" in c
     has_desc = bool(re.search(r"description\s*:", c))
     has_canonical = bool(re.search(r"alternates\s*:\s*\{", c)) or re.search(r"canonical\s*:", c)
-    ***REMOVED*** Root layout provides site-wide OG/twitter defaults — page-level override optional
-    ***REMOVED*** but a page exporting its own metadata SHOULD carry OG images (falls back to layout default which HAS og-default)
+    # Root layout provides site-wide OG/twitter defaults — page-level override optional
+    # but a page exporting its own metadata SHOULD carry OG images (falls back to layout default which HAS og-default)
     has_jsonld = "JsonLd" in c or "json-ld" in c or "application/ld+json" in c
-    ***REMOVED*** layout.tsx provides Organization + WebSite + LocalBusiness globally
+    # layout.tsx provides Organization + WebSite + LocalBusiness globally
     if not has_title: issues.append("no title")
     if not has_desc: issues.append("no description")
     if not has_canonical: issues.append("no canonical/alternates")

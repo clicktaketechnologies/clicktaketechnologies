@@ -3,10 +3,10 @@
  * storage provider chain (R2 primary, B2 backup, Cloudinary optional).
  *
  * Usage:
- *   npx tsx scripts/migrate-public-to-storage.ts                ***REMOVED*** dry-run
- *   npx tsx scripts/migrate-public-to-storage.ts --commit       ***REMOVED*** actually upload
- *   npx tsx scripts/migrate-public-to-storage.ts --commit --prefix "legacy/"   ***REMOVED*** namespace keys
- *   npx tsx scripts/migrate-public-to-storage.ts --commit --delete              ***REMOVED*** remove from /public after upload
+ *   npx tsx scripts/migrate-public-to-storage.ts                # dry-run
+ *   npx tsx scripts/migrate-public-to-storage.ts --commit       # actually upload
+ *   npx tsx scripts/migrate-public-to-storage.ts --commit --prefix "legacy/"   # namespace keys
+ *   npx tsx scripts/migrate-public-to-storage.ts --commit --delete              # remove from /public after upload
  *
  * Requirements:
  *   - At least one storage provider configured in the admin panel

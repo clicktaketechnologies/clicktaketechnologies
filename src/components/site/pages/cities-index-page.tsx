@@ -33,7 +33,7 @@ export function CitiesIndexPage({ content }: { content: CitiesIndexContent }) {
         storyVariant="default"
         ctas={
           <>
-            <NxButton href="***REMOVED***cities">Browse cities</NxButton>
+            <NxButton href="#cities">Browse cities</NxButton>
             <NxButton href="/contact" variant="outline">
               Book a consultation
             </NxButton>

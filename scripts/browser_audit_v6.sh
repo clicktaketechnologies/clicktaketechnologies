@@ -1,29 +1,29 @@
-***REMOVED***!/usr/bin/env bash
-***REMOVED*** Comprehensive browser smoke test — all 10 main + 6 new top-level + sample sub-pages per category
+#!/usr/bin/env bash
+# Comprehensive browser smoke test — all 10 main + 6 new top-level + sample sub-pages per category
 set -e
 PAGES=(
-  ***REMOVED*** 10 main pages
+  # 10 main pages
   "home" "services" "solutions" "cases" "contact" "about" "blog" "careers" "privacy" "terms"
-  ***REMOVED*** 6 new top-level pages
+  # 6 new top-level pages
   "portfolio" "pricing" "team" "resources" "cities" "cookies"
-  ***REMOVED*** Service detail samples (one per category)
+  # Service detail samples (one per category)
   "services-seo" "services-seo-web-design" "services-starter-kit"
   "services-ai" "services-ai-llm" "services-ai-chatbots" "services-ai-automation" "services-ai-agents"
   "services-web" "services-web-full-stack" "services-web-saas" "services-web-ecommerce" "services-web-wordpress" "services-web-redesign"
   "services-creative" "services-creative-graphic-design" "services-creative-video-production"
   "services-digital-marketing" "services-digital-marketing-paid-advertising" "services-digital-marketing-cro"
-  ***REMOVED*** Solution detail samples
+  # Solution detail samples
   "solutions-startups" "solutions-ecommerce-brands" "solutions-uk-businesses" "solutions-local-businesses"
-  ***REMOVED*** Case study detail samples
+  # Case study detail samples
   "case-studies-seo-growth-sme" "case-studies-ecommerce-headless-rebuild" "case-studies-custom-software-saas"
-  ***REMOVED*** Blog detail samples
+  # Blog detail samples
   "blog-case-study-lumen-commerce-3x-revenue" "blog-ai-chatbot-for-lead-qualification" "blog-ppc-creative-testing-framework"
   "blog-ai-automation-playbook-for-sme" "blog-wcag-2-2-aa-accessibility-guide"
-  ***REMOVED*** Career detail sample
+  # Career detail sample
   "careers-senior-nextjs-engineer" "careers-ai-ml-engineer"
-  ***REMOVED*** Resource detail sample
+  # Resource detail sample
   "resources-ai-adoption-playbook-2026" "resources-birmingham-seo-guide"
-  ***REMOVED*** City detail samples
+  # City detail samples
   "city-birmingham" "city-london" "city-karachi"
 )
 OUT_DIR="/home/z/my-project/download/qa-v6-pages"
@@ -33,7 +33,7 @@ agent-browser open "file:///home/z/my-project/download/clicktake-landing.html" 2
 agent-browser set viewport 1440 900 2>&1 | tail -1
 agent-browser wait 2500 2>&1 | tail -1
 
-TOTAL=${***REMOVED***PAGES[@]}
+TOTAL=${#PAGES[@]}
 i=0
 ERR=0
 declare -a FAILED
@@ -41,10 +41,10 @@ declare -a FAILED
 for page in "${PAGES[@]}"; do
   i=$((i+1))
   echo "[$i/$TOTAL] === $page ==="
-  agent-browser eval "window.location.hash = '***REMOVED***$page';" 2>&1 | tail -1
+  agent-browser eval "window.location.hash = '#$page';" 2>&1 | tail -1
   agent-browser wait 2500 2>&1 | tail -1
   TITLE=$(agent-browser get title 2>&1 | tail -1)
-  ***REMOVED*** Verify the page actually exists by checking the active section
+  # Verify the page actually exists by checking the active section
   HAS_SECTION=$(agent-browser eval "document.querySelector('[data-page=\"$page\"].active') ? 'YES' : 'NO';" 2>&1 | tail -1)
   echo "  Title: $TITLE | Active section: $HAS_SECTION"
   if [ "$HAS_SECTION" != "YES" ]; then

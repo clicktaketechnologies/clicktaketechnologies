@@ -1,5 +1,5 @@
 /**
- * City Database — single source of truth for Programmatic SEO (Phase 3 ***REMOVED***4).
+ * City Database — single source of truth for Programmatic SEO (Phase 3 #4).
  *
  * Each city generates:
  *   - A city hub page at /cities/[citySlug]
@@ -19,7 +19,7 @@
  * linearly: (cities × services). With 12 cities × 25 services = 300
  * programmatic landing pages + 12 city hubs = 312 new URLs.
  *
- * See /download/clicktake-enterprise-design-brief.pdf §Phase 3 ***REMOVED***4.
+ * See /download/clicktake-enterprise-design-brief.pdf §Phase 3 #4.
  */
 
 export type Country = "GB" | "PK" | "US" | "AE";
@@ -263,7 +263,7 @@ export const CITIES: City[] = [
     hasOffice: true,
     context: {
       economy: "America's fastest-growing tech hub — Tesla, Oracle, Dell HQs, SXSW-driven creative economy, and a venture-funded AI/SaaS corridor along the MoPac expressway.",
-      localContext: "Austin ranks ***REMOVED***1 in net tech job growth for 5 consecutive years (CompTIA Cyberstates 2024), with Tesla's Gigafactory, Oracle's HQ relocation, and Apple's $1B North Austin campus anchoring the ecosystem. The city's SXSW festival drives global creative-tech convergence. ClickTake's Austin desk covers North American business development across US time zones.",
+      localContext: "Austin ranks #1 in net tech job growth for 5 consecutive years (CompTIA Cyberstates 2024), with Tesla's Gigafactory, Oracle's HQ relocation, and Apple's $1B North Austin campus anchoring the ecosystem. The city's SXSW festival drives global creative-tech convergence. ClickTake's Austin desk covers North American business development across US time zones.",
       keyIndustries: ["SaaS & B2B", "Semiconductors", "EV Manufacturing", "Creative Media", "Health-Tech"],
       complianceNotes: "SOC 2 Type II, HIPAA for health-tech, CCPA-equivalent Texas Data Privacy & Security Act (TDPSA, 2024)",
       currency: "$",
@@ -331,7 +331,7 @@ export const CITIES: City[] = [
     hasOffice: true,
     context: {
       economy: "MENA's digital capital — DIFC fintech, Dubai Internet City, AI government strategy, and a free-zone ecosystem serving GCC, Africa, and South Asia.",
-      localContext: "Dubai ranks ***REMOVED***1 in MENA for tech startup investment (Magnitt 2024), with Dubai Internet City (1,600+ tech firms), DIFC's innovation hub (1,000+ fintechs), and the UAE's National AI Strategy 2031 driving government AI adoption. Free zones (DMCC, DIFC, DWTC) enable 100% foreign ownership. ClickTake's Dubai desk covers MENA business development across GCC, North Africa, and South Asia.",
+      localContext: "Dubai ranks #1 in MENA for tech startup investment (Magnitt 2024), with Dubai Internet City (1,600+ tech firms), DIFC's innovation hub (1,000+ fintechs), and the UAE's National AI Strategy 2031 driving government AI adoption. Free zones (DMCC, DIFC, DWTC) enable 100% foreign ownership. ClickTake's Dubai desk covers MENA business development across GCC, North Africa, and South Asia.",
       keyIndustries: ["Fintech", "PropTech", "Logistics", "Government AI", "Tourism Tech"],
       complianceNotes: "UAE PDPL (Personal Data Protection Law), DIFC Data Protection Law, free-zone-specific regulations, NESA cybersecurity for government",
       currency: "AED",

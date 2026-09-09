@@ -1,17 +1,17 @@
-***REMOVED***!/bin/bash
-***REMOVED*** Two-stage Cloudflare Worker build for low-RAM environments.
-***REMOVED*** Stage 1: next build with REAL db.ts (proven to work in 4GB RAM)
-***REMOVED*** Stage 2: swap to stub db.ts + opennextjs-cloudflare build --skipNextBuild
-***REMOVED***
-***REMOVED*** The single-shot `bun run build:cloudflare` OOMs because:
-***REMOVED***   1. It swaps in stub db.ts BEFORE next build
-***REMOVED***   2. opennext runs next build AND packages in same process
-***REMOVED*** This script splits them and uses real db.ts for the build step.
+#!/bin/bash
+# Two-stage Cloudflare Worker build for low-RAM environments.
+# Stage 1: next build with REAL db.ts (proven to work in 4GB RAM)
+# Stage 2: swap to stub db.ts + opennextjs-cloudflare build --skipNextBuild
+#
+# The single-shot `bun run build:cloudflare` OOMs because:
+#   1. It swaps in stub db.ts BEFORE next build
+#   2. opennext runs next build AND packages in same process
+# This script splits them and uses real db.ts for the build step.
 
 set -e
 cd "$(dirname "$0")/.."
 
-***REMOVED*** Stub env vars (build-time only — replaced at runtime by wrangler secrets)
+# Stub env vars (build-time only — replaced at runtime by wrangler secrets)
 export NODE_ENV=production
 export NEXT_TELEMETRY_DISABLED=1
 export NEXT_PUBLIC_SUPABASE_URL="https://crejzifwpcnjqghlbbdf.supabase.co"

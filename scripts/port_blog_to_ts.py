@@ -17,7 +17,7 @@ spec.loader.exec_module(mod)
 ARTICLES = mod.BLOG_ARTICLES
 print(f"Loaded {len(ARTICLES)} articles", file=sys.stderr)
 
-***REMOVED*** Category normalization — map our raw categories to BlogPost category union
+# Category normalization — map our raw categories to BlogPost category union
 CATEGORY_MAP = {
     "AI / Chatbots": "AI Automation",
     "AI / Automation": "AI Automation",
@@ -29,7 +29,7 @@ CATEGORY_MAP = {
     "Social Media": "Digital Marketing",
 }
 
-***REMOVED*** Date string → ISO date
+# Date string → ISO date
 def to_iso(date_str: str) -> str:
     """Convert 'Aug 5, 2026' → '2026-08-05'."""
     from datetime import datetime
@@ -38,7 +38,7 @@ def to_iso(date_str: str) -> str:
     except Exception:
         return "2026-08-01"
 
-***REMOVED*** Read-time → tags derived from title + category
+# Read-time → tags derived from title + category
 def derive_tags(title: str, category: str) -> list:
     t = title.lower()
     tags = []
@@ -59,7 +59,7 @@ out.append("")
 out.append("export const BLOG_POSTS: BlogPost[] = [")
 
 for i, article in enumerate(ARTICLES):
-    ***REMOVED*** Schema: slug, title, category, readTime, date, author, excerpt, heroImage, bodyHtml
+    # Schema: slug, title, category, readTime, date, author, excerpt, heroImage, bodyHtml
     slug = article[0]
     title = article[1]
     raw_cat = article[2]
@@ -74,7 +74,7 @@ for i, article in enumerate(ARTICLES):
     iso = to_iso(date_str)
     tags = derive_tags(title, category)
 
-    ***REMOVED*** Also produce a plain-text body excerpt for SEO/OG (first ~280 chars of excerpt)
+    # Also produce a plain-text body excerpt for SEO/OG (first ~280 chars of excerpt)
     plain_body = excerpt
 
     out.append("  {")
@@ -88,7 +88,7 @@ for i, article in enumerate(ARTICLES):
     out.append(f"    tags: {json.dumps(tags)},")
     out.append(f"    body: {json.dumps(plain_body)},")
     out.append(f"    heroImage: {json.dumps(hero_image)},")
-    ***REMOVED*** Use JSON to safely escape the HTML body
+    # Use JSON to safely escape the HTML body
     out.append(f"    bodyHtml: {json.dumps(body_html)},")
     out.append("  },")
 

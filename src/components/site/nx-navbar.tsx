@@ -230,7 +230,7 @@ export function NxNavbar() {
                       {sectionActive && (
                         <motion.span
                           layoutId="nav-active-underline"
-                          className="absolute left-1/2 -bottom-0.5 h-0.5 w-8 -translate-x-1/2 rounded-full bg-[***REMOVED***FF53A9] shadow-[0_0_8px_***REMOVED***FF53A9]"
+                          className="absolute left-1/2 -bottom-0.5 h-0.5 w-8 -translate-x-1/2 rounded-full bg-[#FF53A9] shadow-[0_0_8px_#FF53A9]"
                           transition={{ type: "spring", stiffness: 400, damping: 30 }}
                         />
                       )}
@@ -241,7 +241,7 @@ export function NxNavbar() {
             </div>
 
             {/* Right CTAs — command palette trigger + theme toggle + primary CTA.
-                Phase 3 ***REMOVED***3 — button label is A/B tested via <AbTest>. Admin
+                Phase 3 #3 — button label is A/B tested via <AbTest>. Admin
                 creates an experiment with key "navbar-primary-cta" and adds
                 variants; the rendered label swaps client-side post-hydrate. */}
             <div className="hidden lg:flex items-center gap-2.5">
@@ -301,10 +301,10 @@ export function NxNavbar() {
                   {mega === "services" && (
                     <div className="grid grid-cols-4 gap-6 p-8">
                       {[
-                        { cat: "marketing", label: "Digital Marketing", color: "***REMOVED***FF53A9" },
-                        { cat: "web", label: "Web & Software", color: "***REMOVED***136DFF" },
-                        { cat: "ai", label: "AI & Automation", color: "***REMOVED***9B3DFF" },
-                        { cat: "creative", label: "Creative & Brand", color: "***REMOVED***FF8AC4" },
+                        { cat: "marketing", label: "Digital Marketing", color: "#FF53A9" },
+                        { cat: "web", label: "Web & Software", color: "#136DFF" },
+                        { cat: "ai", label: "AI & Automation", color: "#9B3DFF" },
+                        { cat: "creative", label: "Creative & Brand", color: "#FF8AC4" },
                       ].map((col) => (
                         <div key={col.cat}>
                           <div className="flex items-center gap-2 mb-3">

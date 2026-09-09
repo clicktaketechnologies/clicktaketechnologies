@@ -129,7 +129,7 @@ export async function GET() {
             required: true,
             content: {
               "application/json": {
-                schema: { $ref: "***REMOVED***/components/schemas/Lead" },
+                schema: { $ref: "#/components/schemas/Lead" },
               },
             },
           },
@@ -239,7 +239,7 @@ export async function GET() {
                 "application/json": {
                   schema: {
                     type: "array",
-                    items: { $ref: "***REMOVED***/components/schemas/Service" },
+                    items: { $ref: "#/components/schemas/Service" },
                   },
                 },
               },
@@ -277,7 +277,7 @@ export async function GET() {
                 "application/json": {
                   schema: {
                     type: "array",
-                    items: { $ref: "***REMOVED***/components/schemas/PortfolioItem" },
+                    items: { $ref: "#/components/schemas/PortfolioItem" },
                   },
                 },
               },
@@ -302,7 +302,7 @@ export async function GET() {
                 "application/json": {
                   schema: {
                     type: "array",
-                    items: { $ref: "***REMOVED***/components/schemas/Office" },
+                    items: { $ref: "#/components/schemas/Office" },
                   },
                 },
               },

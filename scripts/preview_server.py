@@ -22,7 +22,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             pass
 
     def log_message(self, fmt, *args):
-        return  ***REMOVED*** quiet
+        return  # quiet
 
 
 class ReusableTCPServer(socketserver.ThreadingTCPServer):
@@ -31,7 +31,7 @@ class ReusableTCPServer(socketserver.ThreadingTCPServer):
 
 
 def main():
-    ***REMOVED*** Graceful shutdown
+    # Graceful shutdown
     def stop(_sig, _frm):
         sys.exit(0)
     signal.signal(signal.SIGTERM, stop)

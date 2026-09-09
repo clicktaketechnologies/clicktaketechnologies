@@ -54,11 +54,11 @@ const ICON_MAP: Record<string, any> = {
 };
 
 const CATEGORIES = [
-  { value: "ai", label: "AI & Machine Learning", color: "***REMOVED***FF53A9" },
-  { value: "web", label: "Web Development", color: "***REMOVED***136DFF" },
-  { value: "marketing", label: "Digital Marketing", color: "***REMOVED***10B981" },
-  { value: "creative", label: "Creative Services", color: "***REMOVED***F59E0B" },
-  { value: "starter-kit", label: "Flagship Package", color: "***REMOVED***8B5CF6" },
+  { value: "ai", label: "AI & Machine Learning", color: "#FF53A9" },
+  { value: "web", label: "Web Development", color: "#136DFF" },
+  { value: "marketing", label: "Digital Marketing", color: "#10B981" },
+  { value: "creative", label: "Creative Services", color: "#F59E0B" },
+  { value: "starter-kit", label: "Flagship Package", color: "#8B5CF6" },
 ];
 
 type Props = { services: Service[]; canWrite: boolean };
@@ -141,7 +141,7 @@ export function ServicesClient({ services, canWrite }: Props) {
                     <div className="flex items-center gap-3">
                       <div
                         className="flex size-9 items-center justify-center rounded-lg text-white"
-                        style={{ backgroundColor: cat?.color || "***REMOVED***136DFF" }}
+                        style={{ backgroundColor: cat?.color || "#136DFF" }}
                       >
                         <Icon className="size-4" />
                       </div>
@@ -154,7 +154,7 @@ export function ServicesClient({ services, canWrite }: Props) {
                   <td className="px-4 py-3">
                     <span
                       className="rounded-full px-2 py-0.5 text-[10px] font-medium"
-                      style={{ backgroundColor: (cat?.color || "***REMOVED***136DFF") + "20", color: cat?.color || "***REMOVED***136DFF" }}
+                      style={{ backgroundColor: (cat?.color || "#136DFF") + "20", color: cat?.color || "#136DFF" }}
                     >
                       {cat?.label || s.category}
                     </span>
@@ -639,7 +639,7 @@ function JsonListField({
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Phase 3 ***REMOVED***2 — In-Admin LLM Page Creation
+// Phase 3 #2 — In-Admin LLM Page Creation
 // AIServiceGeneratorModal: brief form → calls /api/admin/services/generate →
 // shows QA report + JSON preview → "Apply to editor" hands off the form to
 // ServiceEditorModal for final review and save.

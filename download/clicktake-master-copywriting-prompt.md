@@ -1,4 +1,4 @@
-***REMOVED*** ClickTake Technologies — Master AI Copywriting System Prompt
+# ClickTake Technologies — Master AI Copywriting System Prompt
 
 > **Version:** 1.0 · **Last updated:** 2026-07-25
 > **Purpose:** Reusable system prompt for any LLM (Claude / GPT-4o / Gemini) to author a new ClickTake deep-dive page that matches the existing 32-page "Ultimate Guide" standard: 2,500-3,500 words, 12 sections, McKinsey-level tone, GEO-optimized, Hub & Spoke aware.
@@ -6,7 +6,7 @@
 
 ---
 
-***REMOVED******REMOVED*** How to use this prompt
+## How to use this prompt
 
 1. Copy the **System Prompt** block below verbatim into your LLM's system prompt slot.
 2. Replace every `{{TOKEN}}` placeholder in the **User Brief Template** with the specifics for the page you're authoring.
@@ -15,7 +15,7 @@
 
 ---
 
-***REMOVED******REMOVED*** System Prompt (copy verbatim)
+## System Prompt (copy verbatim)
 
 ```
 You are the Senior Content Strategist at ClickTake Technologies, a high-end
@@ -298,16 +298,16 @@ QA CHECKLIST — verify before returning
 
 ---
 
-***REMOVED******REMOVED*** User Brief Template (fill in and paste as first user message)
+## User Brief Template (fill in and paste as first user message)
 
 ```
 Author a new ClickTake deep-dive page with these specifications.
 
 SERVICE:
-  Slug: {{slug}}                       ***REMOVED*** e.g. "ai/llm" or "web/saas"
-  Title: {{title}}                     ***REMOVED*** e.g. "Large Language Model Deployment"
+  Slug: {{slug}}                       # e.g. "ai/llm" or "web/saas"
+  Title: {{title}}                     # e.g. "Large Language Model Deployment"
   Cluster: {{ai|web|marketing|creative|solution|company}}
-  Pillar page: {{pillar href}}         ***REMOVED*** e.g. "/services/ai"
+  Pillar page: {{pillar href}}         # e.g. "/services/ai"
 
 TARGET READER:
   Role: {{e.g. CTO of a UK fintech, 200-500 employees}}
@@ -344,7 +344,7 @@ OUTPUT:
 
 ---
 
-***REMOVED******REMOVED*** Worked Example — Filled User Brief
+## Worked Example — Filled User Brief
 
 ```
 Author a new ClickTake deep-dive page with these specifications.
@@ -408,7 +408,7 @@ OUTPUT:
 
 ---
 
-***REMOVED******REMOVED*** Revision Loops — when the first draft misses
+## Revision Loops — when the first draft misses
 
 If the draft is too short:
 > "Expand sections 3, 4, 6, 8, 10, and 11 by 30-50% each. Add 2 more use cases, 1 more case study, and 4 more FAQ questions. Final word count must exceed 2,800."
@@ -427,7 +427,7 @@ If the tone is too casual:
 
 ---
 
-***REMOVED******REMOVED*** Authoring Workflow (for the content team)
+## Authoring Workflow (for the content team)
 
 1. **Pick the slug** — must match a row in `/src/lib/seo/hub-spoke-map.ts`. If the slug isn't there yet, add it first (with cluster, pillar, siblings, resources).
 
@@ -449,7 +449,7 @@ If the tone is too casual:
 
 ---
 
-***REMOVED******REMOVED*** Maintenance
+## Maintenance
 
 - **Vocabulary refresh:** every quarter, audit the cluster glossaries against new industry terms. Add terms that have entered mainstream technical usage (e.g. "MCP" for Model Context Protocol in 2025).
 - **Forbidden phrase list:** if a new fluff phrase appears in drafts, add it to the FORBIDDEN list immediately.
@@ -458,7 +458,7 @@ If the tone is too casual:
 
 ---
 
-***REMOVED******REMOVED*** Appendix — Anti-Fluff Reference Card
+## Appendix — Anti-Fluff Reference Card
 
 | Instead of                  | Write                                          |
 | --------------------------- | ---------------------------------------------- |

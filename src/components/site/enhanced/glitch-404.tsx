@@ -97,7 +97,7 @@ export function Glitch404() {
   }, [query]);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-background text-foreground dark:bg-[***REMOVED***0a0612] dark:text-white">
+    <main className="relative min-h-screen overflow-hidden bg-background text-foreground dark:bg-[#0a0612] dark:text-white">
       {/* Particle field background */}
       <ParticleField
         className="absolute inset-0 opacity-40"
@@ -108,8 +108,8 @@ export function Glitch404() {
       />
 
       {/* Gradient orbs */}
-      <div className="pointer-events-none absolute top-1/4 -left-20 h-72 w-72 rounded-full bg-[***REMOVED***FF53A9]/20 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-1/4 -right-20 h-96 w-96 rounded-full bg-[***REMOVED***136DFF]/20 blur-3xl" />
+      <div className="pointer-events-none absolute top-1/4 -left-20 h-72 w-72 rounded-full bg-[#FF53A9]/20 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-1/4 -right-20 h-96 w-96 rounded-full bg-[#136DFF]/20 blur-3xl" />
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center px-4 py-20 text-center">
         {/* Alert badge */}
@@ -117,7 +117,7 @@ export function Glitch404() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-[***REMOVED***FF53A9]/30 bg-[***REMOVED***FF53A9]/10 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[2px] text-[***REMOVED***FF8AC4]"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#FF53A9]/30 bg-[#FF53A9]/10 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[2px] text-[#FF8AC4]"
         >
           <AlertTriangle className="h-3 w-3" />
           Error 404 — Signal Lost
@@ -139,7 +139,7 @@ export function Glitch404() {
               fontSize: "clamp(7rem, 22vw, 14rem)",
               fontWeight: 900,
               lineHeight: 0.9,
-              background: "linear-gradient(135deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF, ***REMOVED***136DFF)",
+              background: "linear-gradient(135deg, #FF53A9, #9B3DFF, #136DFF)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -184,7 +184,7 @@ export function Glitch404() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search for a page…"
-              className="w-full rounded-full border border-border bg-input py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground backdrop-blur focus:border-[***REMOVED***FF53A9] focus:outline-none focus:ring-2 focus:ring-[***REMOVED***FF53A9]/30 dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40"
+              className="w-full rounded-full border border-border bg-input py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground backdrop-blur focus:border-[#FF53A9] focus:outline-none focus:ring-2 focus:ring-[#FF53A9]/30 dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40"
               aria-label="Search for a page"
             />
           </div>
@@ -202,9 +202,9 @@ export function Glitch404() {
                 >
                   <Link
                     href={link.href}
-                    className="group flex flex-col items-start rounded-xl border border-border bg-card p-3 text-left transition-all hover:border-[***REMOVED***FF53A9]/40 hover:bg-[***REMOVED***FF53A9]/5 dark:border-white/10 dark:bg-white/5"
+                    className="group flex flex-col items-start rounded-xl border border-border bg-card p-3 text-left transition-all hover:border-[#FF53A9]/40 hover:bg-[#FF53A9]/5 dark:border-white/10 dark:bg-white/5"
                   >
-                    <span className="text-sm font-semibold text-foreground group-hover:text-[***REMOVED***FF8AC4] dark:text-white">
+                    <span className="text-sm font-semibold text-foreground group-hover:text-[#FF8AC4] dark:text-white">
                       {link.label}
                     </span>
                     <span className="text-[11px] text-muted-foreground dark:text-white/50">{link.description}</span>
@@ -234,7 +234,7 @@ export function Glitch404() {
         >
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full bg-[***REMOVED***FF53A9] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[***REMOVED***FF53A9]/30 transition-transform hover:scale-105"
+            className="inline-flex items-center gap-2 rounded-full bg-[#FF53A9] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#FF53A9]/30 transition-transform hover:scale-105"
           >
             <Home className="h-4 w-4" /> Take me home
           </Link>
@@ -257,7 +257,7 @@ export function Glitch404() {
             >
               <span>
                 Auto-redirecting home in{" "}
-                <span className="font-mono font-bold text-[***REMOVED***FF8AC4]">{secondsLeft}s</span>
+                <span className="font-mono font-bold text-[#FF8AC4]">{secondsLeft}s</span>
               </span>
               <button
                 onClick={() => setCancelled(true)}

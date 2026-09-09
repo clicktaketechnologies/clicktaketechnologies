@@ -250,7 +250,7 @@ export async function GET(req: Request) {
       try {
         const { pool } = await import('@/lib/db')
 
-        // 1) Add deep_dive column to services (added in Phase 3 ***REMOVED***2 but never
+        // 1) Add deep_dive column to services (added in Phase 3 #2 but never
         //    migrated to prod). Idempotent via DO block.
         try {
           await pool.query(`
@@ -271,7 +271,7 @@ export async function GET(req: Request) {
           statements.push({ name: 'services.deep_dive column', sql: 'ALTER TABLE services ADD COLUMN deep_dive text', error: e?.message })
         }
 
-        // 2) Create ab_experiments table (Phase 3 ***REMOVED***3 — A/B Testing Framework)
+        // 2) Create ab_experiments table (Phase 3 #3 — A/B Testing Framework)
         try {
           await pool.query(`
             CREATE TABLE IF NOT EXISTS ab_experiments (

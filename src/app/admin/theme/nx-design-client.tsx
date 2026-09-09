@@ -63,37 +63,37 @@ type NxConfig = {
 };
 
 const DEFAULTS: NxConfig = {
-  "--nx-orange": "***REMOVED***FF53A9",
-  "--nx-orange-soft": "***REMOVED***FF8AC4",
-  "--nx-orange-deep": "***REMOVED***E0197A",
-  "--nx-electric": "***REMOVED***136DFF",
-  "--nx-electric-soft": "***REMOVED***4A90D9",
-  "--nx-navy-900": "***REMOVED***0A0612",
-  "--nx-navy-800": "***REMOVED***100820",
-  "--nx-navy-700": "***REMOVED***16102A",
-  "--nx-navy-600": "***REMOVED***1E1640",
-  "--nx-green": "***REMOVED***10B981",
-  "--nx-yellow": "***REMOVED***F59E0B",
-  "--nx-pink": "***REMOVED***FF53A9",
+  "--nx-orange": "#FF53A9",
+  "--nx-orange-soft": "#FF8AC4",
+  "--nx-orange-deep": "#E0197A",
+  "--nx-electric": "#136DFF",
+  "--nx-electric-soft": "#4A90D9",
+  "--nx-navy-900": "#0A0612",
+  "--nx-navy-800": "#100820",
+  "--nx-navy-700": "#16102A",
+  "--nx-navy-600": "#1E1640",
+  "--nx-green": "#10B981",
+  "--nx-yellow": "#F59E0B",
+  "--nx-pink": "#FF53A9",
   light: {
-    "--nx-surface": "***REMOVED***FFFFFF",
-    "--nx-surface-alt": "***REMOVED***F8F6FC",
-    "--nx-surface-muted": "***REMOVED***F1EDF8",
-    "--nx-border": "***REMOVED***E5E0EE",
-    "--nx-border-strong": "***REMOVED***CBD0E1",
-    "--nx-ink": "***REMOVED***0A0612",
-    "--nx-ink-soft": "***REMOVED***4A3B5C",
-    "--nx-ink-muted": "***REMOVED***8C7B95",
+    "--nx-surface": "#FFFFFF",
+    "--nx-surface-alt": "#F8F6FC",
+    "--nx-surface-muted": "#F1EDF8",
+    "--nx-border": "#E5E0EE",
+    "--nx-border-strong": "#CBD0E1",
+    "--nx-ink": "#0A0612",
+    "--nx-ink-soft": "#4A3B5C",
+    "--nx-ink-muted": "#8C7B95",
   },
   dark: {
-    "--nx-surface": "***REMOVED***100820",
-    "--nx-surface-alt": "***REMOVED***16102A",
-    "--nx-surface-muted": "***REMOVED***1E1640",
+    "--nx-surface": "#100820",
+    "--nx-surface-alt": "#16102A",
+    "--nx-surface-muted": "#1E1640",
     "--nx-border": "rgba(255, 255, 255, 0.08)",
     "--nx-border-strong": "rgba(255, 255, 255, 0.16)",
-    "--nx-ink": "***REMOVED***F4F0FF",
-    "--nx-ink-soft": "***REMOVED***B5A8C8",
-    "--nx-ink-muted": "***REMOVED***7A6B95",
+    "--nx-ink": "#F4F0FF",
+    "--nx-ink-soft": "#B5A8C8",
+    "--nx-ink-muted": "#7A6B95",
   },
 };
 
@@ -109,11 +109,11 @@ const PRESETS: { name: string; desc: string; config: NxConfig }[] = [
     desc: "Warm pink + magenta on dark plum",
     config: {
       ...DEFAULTS,
-      "--nx-orange": "***REMOVED***FF6B9D",
-      "--nx-orange-soft": "***REMOVED***FFA1C0",
-      "--nx-orange-deep": "***REMOVED***E63D7A",
-      "--nx-electric": "***REMOVED***C12BFF",
-      "--nx-electric-soft": "***REMOVED***D862FF",
+      "--nx-orange": "#FF6B9D",
+      "--nx-orange-soft": "#FFA1C0",
+      "--nx-orange-deep": "#E63D7A",
+      "--nx-electric": "#C12BFF",
+      "--nx-electric-soft": "#D862FF",
     },
   },
   {
@@ -121,11 +121,11 @@ const PRESETS: { name: string; desc: string; config: NxConfig }[] = [
     desc: "Cobalt blue + cyan on midnight",
     config: {
       ...DEFAULTS,
-      "--nx-orange": "***REMOVED***3B82F6",
-      "--nx-orange-soft": "***REMOVED***60A5FA",
-      "--nx-orange-deep": "***REMOVED***2563EB",
-      "--nx-electric": "***REMOVED***06B6D4",
-      "--nx-electric-soft": "***REMOVED***22D3EE",
+      "--nx-orange": "#3B82F6",
+      "--nx-orange-soft": "#60A5FA",
+      "--nx-orange-deep": "#2563EB",
+      "--nx-electric": "#06B6D4",
+      "--nx-electric-soft": "#22D3EE",
     },
   },
   {
@@ -133,11 +133,11 @@ const PRESETS: { name: string; desc: string; config: NxConfig }[] = [
     desc: "Deep violet + lavender on near-black",
     config: {
       ...DEFAULTS,
-      "--nx-orange": "***REMOVED***9B3DFF",
-      "--nx-orange-soft": "***REMOVED***B47AFF",
-      "--nx-orange-deep": "***REMOVED***7C2AE8",
-      "--nx-electric": "***REMOVED***C9A4FF",
-      "--nx-electric-soft": "***REMOVED***D8BFFF",
+      "--nx-orange": "#9B3DFF",
+      "--nx-orange-soft": "#B47AFF",
+      "--nx-orange-deep": "#7C2AE8",
+      "--nx-electric": "#C9A4FF",
+      "--nx-electric-soft": "#D8BFFF",
     },
   },
   {
@@ -145,11 +145,11 @@ const PRESETS: { name: string; desc: string; config: NxConfig }[] = [
     desc: "Warm coral + amber on deep maroon",
     config: {
       ...DEFAULTS,
-      "--nx-orange": "***REMOVED***F97316",
-      "--nx-orange-soft": "***REMOVED***FB923C",
-      "--nx-orange-deep": "***REMOVED***EA580C",
-      "--nx-electric": "***REMOVED***FBBF24",
-      "--nx-electric-soft": "***REMOVED***FCD34D",
+      "--nx-orange": "#F97316",
+      "--nx-orange-soft": "#FB923C",
+      "--nx-orange-deep": "#EA580C",
+      "--nx-electric": "#FBBF24",
+      "--nx-electric-soft": "#FCD34D",
     },
   },
   {
@@ -157,11 +157,11 @@ const PRESETS: { name: string; desc: string; config: NxConfig }[] = [
     desc: "Black + premium gold accent",
     config: {
       ...DEFAULTS,
-      "--nx-navy-900": "***REMOVED***000000",
-      "--nx-navy-800": "***REMOVED***0A0A0F",
-      "--nx-orange": "***REMOVED***FBBF24",
-      "--nx-orange-soft": "***REMOVED***FCD34D",
-      "--nx-orange-deep": "***REMOVED***F59E0B",
+      "--nx-navy-900": "#000000",
+      "--nx-navy-800": "#0A0A0F",
+      "--nx-orange": "#FBBF24",
+      "--nx-orange-soft": "#FCD34D",
+      "--nx-orange-deep": "#F59E0B",
     },
   },
 ];
@@ -200,12 +200,12 @@ export function NxDesignClient({ canWrite }: Props) {
       document.head.appendChild(styleEl);
     }
     styleEl.textContent = `
-***REMOVED***nx-preview-pane {
+#nx-preview-pane {
 ${rootVars}
 ${previewMode === "light" ? lightVars : darkVars}
 }
-***REMOVED***nx-preview-pane .dark-mode-only { display: ${previewMode === "dark" ? "block" : "none"}; }
-***REMOVED***nx-preview-pane .light-mode-only { display: ${previewMode === "light" ? "block" : "none"}; }
+#nx-preview-pane .dark-mode-only { display: ${previewMode === "dark" ? "block" : "none"}; }
+#nx-preview-pane .light-mode-only { display: ${previewMode === "light" ? "block" : "none"}; }
     `;
   }, [config, previewMode]);
 
@@ -397,7 +397,7 @@ ${previewMode === "light" ? lightVars : darkVars}
           </div>
         </div>
 
-        {/* Preview pane — wrapped in ***REMOVED***nx-preview-pane so the injected CSS vars apply */}
+        {/* Preview pane — wrapped in #nx-preview-pane so the injected CSS vars apply */}
         <div
           id="nx-preview-pane"
           className="rounded-xl overflow-hidden border"
@@ -428,7 +428,7 @@ ${previewMode === "light" ? lightVars : darkVars}
           {/* Simulated hero */}
           <div
             className="p-6 sm:p-8"
-            style={{ background: config["--nx-navy-900"], color: "***REMOVED***ffffff" }}
+            style={{ background: config["--nx-navy-900"], color: "#ffffff" }}
           >
             <div
               className="inline-block rounded-full px-2.5 py-1 text-[10px] font-bold mb-3"
@@ -538,7 +538,7 @@ function ColorRow({
 }) {
   // If the value is an rgba()/hex with alpha, we can't use type="color".
   // Show a text input instead with a small swatch preview.
-  const isColorPicker = value.startsWith("***REMOVED***") && (value.length === 7 || (allowAlpha && value.length === 9));
+  const isColorPicker = value.startsWith("#") && (value.length === 7 || (allowAlpha && value.length === 9));
 
   return (
     <div className="flex items-center justify-between gap-3">

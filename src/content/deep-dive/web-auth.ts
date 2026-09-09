@@ -35,7 +35,7 @@ export const webAuthDeepDive: DeepDiveContent = {
 
   /* ── Section 2 ──────────────────────────────────────────────────── */
   problem: {
-    title: "Why Auth Is the Most Under-Built Subsystem (and the ***REMOVED***1 Deal Killer)",
+    title: "Why Auth Is the Most Under-Built Subsystem (and the #1 Deal Killer)",
     intro: [
       "Auth is the subsystem engineering teams underinvest in most consistently. It ships as 'email + password + JWT' in week 2, then collects technical debt for 18 months until an enterprise customer's security team asks for SSO, MFA, SCIM, and a signed audit log of every login attempt. At that point, the deal stalls in security review for 6–12 weeks while the engineering team scrambles to retrofit SAML, integrate an IdP, and explain why the JWT secret is hardcoded in the env file.",
       "The pattern is so predictable we can forecast the deal's outcome from the auth architecture. SaaS apps with `is_admin: boolean` and email/password-only auth win ~15% of enterprise deals (those over 500 employees). SaaS apps with SAML SSO, MFA, SCIM, and a real RBAC model win ~55%. The 40-point gap is not closed by feature parity, price, or sales effort — it is closed by identity architecture, or it is not closed at all.",

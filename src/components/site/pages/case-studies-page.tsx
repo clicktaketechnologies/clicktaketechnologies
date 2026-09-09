@@ -17,7 +17,7 @@ export function CaseStudiesPage() {
         title={
           <>
             Real clients.{" "}
-            <span className="bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
               Real numbers.
             </span>
           </>
@@ -26,7 +26,7 @@ export function CaseStudiesPage() {
       />
 
       {/* Case study cards — vertical list */}
-      <section className="py-16 px-4 lg:px-8" style={{ background: "***REMOVED***03000D" }}>
+      <section className="py-16 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-5xl space-y-8">
           {CASES.map((c, i) => (
             <motion.div
@@ -83,8 +83,8 @@ export function CaseStudiesPage() {
                     <div
                       className={`text-xs font-bold ${
                         m.change.startsWith("-") && !m.change.startsWith("-$")
-                          ? "text-[***REMOVED***00e676]"
-                          : "text-[***REMOVED***FF8AC4]"
+                          ? "text-[#00e676]"
+                          : "text-[#FF8AC4]"
                       }`}
                     >
                       {m.change}
@@ -98,7 +98,7 @@ export function CaseStudiesPage() {
       </section>
 
       {/* CTA: Your case study is next */}
-      <section className="py-24 px-4 lg:px-8" style={{ background: "***REMOVED***03000D" }}>
+      <section className="py-24 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-5xl">
           <div
             className="rounded-3xl border border-white/10 p-8 sm:p-12 lg:p-16 overflow-hidden relative"
@@ -112,7 +112,7 @@ export function CaseStudiesPage() {
               <div className="lg:col-span-2">
                 <h2 className="text-3xl sm:text-4xl font-black text-white">
                   Your case study is{" "}
-                  <span className="bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                     next.
                   </span>
                 </h2>
@@ -124,7 +124,7 @@ export function CaseStudiesPage() {
                   <Link
                     href="/contact"
                     className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-                    style={{ background: "linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)" }}
+                    style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
                   >
                     Book a Demo
                     <ArrowRight className="h-4 w-4" />
@@ -166,7 +166,7 @@ function CharacterWithLaptop() {
         style={{
           width: "100px",
           height: "110px",
-          background: "linear-gradient(180deg, ***REMOVED***1E3A8A, ***REMOVED***1E1B4B)",
+          background: "linear-gradient(180deg, #1E3A8A, #1E1B4B)",
           border: "1px solid rgba(255,255,255,0.08)",
         }}
       />
@@ -177,19 +177,19 @@ function CharacterWithLaptop() {
           top: "0",
           width: "80px",
           height: "75px",
-          background: "linear-gradient(180deg, ***REMOVED***F5C9A6, ***REMOVED***D4A574)",
+          background: "linear-gradient(180deg, #F5C9A6, #D4A574)",
         }}
       >
         {/* Glasses */}
         <div
           className="absolute left-1/2 -translate-x-1/2 rounded-xl"
-          style={{ top: "22px", width: "64px", height: "20px", background: "linear-gradient(135deg, ***REMOVED***7C3AED, ***REMOVED***4F46E5)" }}
+          style={{ top: "22px", width: "64px", height: "20px", background: "linear-gradient(135deg, #7C3AED, #4F46E5)" }}
         >
-          <div className="absolute left-1 top-1 w-4 h-4 rounded-full" style={{ background: "***REMOVED***1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "***REMOVED***60A5FA" }} />
+          <div className="absolute left-1 top-1 w-4 h-4 rounded-full" style={{ background: "#1E1B4B" }}>
+            <div className="absolute inset-1 rounded-full" style={{ background: "#60A5FA" }} />
           </div>
-          <div className="absolute right-1 top-1 w-4 h-4 rounded-full" style={{ background: "***REMOVED***1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "***REMOVED***F472B6" }} />
+          <div className="absolute right-1 top-1 w-4 h-4 rounded-full" style={{ background: "#1E1B4B" }}>
+            <div className="absolute inset-1 rounded-full" style={{ background: "#F472B6" }} />
           </div>
         </div>
         {/* Smile */}
@@ -220,8 +220,8 @@ function CharacterWithLaptop() {
               style={{
                 height: `${h}%`,
                 background: i % 2 === 0
-                  ? "linear-gradient(180deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF)"
-                  : "linear-gradient(180deg, ***REMOVED***136DFF, ***REMOVED***4A90D9)",
+                  ? "linear-gradient(180deg, #FF53A9, #9B3DFF)"
+                  : "linear-gradient(180deg, #136DFF, #4A90D9)",
               }}
             />
           ))}
@@ -240,8 +240,8 @@ function CharacterWithLaptop() {
             right: i % 2 === 1 ? "-8%" : "auto",
             width: "6px",
             height: "6px",
-            background: ["***REMOVED***FF53A9", "***REMOVED***136DFF", "***REMOVED***9B3DFF"][i],
-            boxShadow: `0 0 8px ${["***REMOVED***FF53A9", "***REMOVED***136DFF", "***REMOVED***9B3DFF"][i]}`,
+            background: ["#FF53A9", "#136DFF", "#9B3DFF"][i],
+            boxShadow: `0 0 8px ${["#FF53A9", "#136DFF", "#9B3DFF"][i]}`,
           }}
         />
       ))}

@@ -232,7 +232,7 @@ export const localBusinessesSolutionDeepDive: DeepDiveContent = {
       },
       {
         industry: "Phone repair shop (SAB)",
-        problem: "Single-location phone repair shop in Austin with a 4.2-star rating from 19 reviews, ranking ***REMOVED***7 on 'phone repair austin' searches, no GBP posts in 18 months.",
+        problem: "Single-location phone repair shop in Austin with a 4.2-star rating from 19 reviews, ranking #7 on 'phone repair austin' searches, no GBP posts in 18 months.",
         application: "Local solution: SAB-specific local SEO with location-landing-pages for 12 Austin postcodes, GBP optimisation with weekly posts + 40+ repair-before/after photos, Next.js rebuild with click-to-call + same-day-booking widget, SMS review request via Shopify POS integration.",
         result: "Top-3 local pack on 'phone repair [postcode]' for 9 of 12 target postcodes by day 90. Reviews rose from 19 to 87. Walk-in repairs up 47%. Average ticket up 12%.",
       },
@@ -358,7 +358,7 @@ export const localBusinessesSolutionDeepDive: DeepDiveContent = {
       },
       {
         client: "Single-location phone repair shop, Austin TX",
-        situation: "5-year-old phone repair shop in central Austin with 19 Google reviews (4.2 average), ranking ***REMOVED***7 on 'phone repair austin' searches, no GBP posts in 18 months, 4.8s mobile site loading time. Walk-in repairs had plateaued despite the Austin market growing.",
+        situation: "5-year-old phone repair shop in central Austin with 19 Google reviews (4.2 average), ranking #7 on 'phone repair austin' searches, no GBP posts in 18 months, 4.8s mobile site loading time. Walk-in repairs had plateaued despite the Austin market growing.",
         task: "Lift to top-3 local pack on 'phone repair [austin area]' searches across 12 Austin postcodes, ship a faster site with same-day-booking widget, and double review count in 90 days.",
         action: "ClickTake ran the 5-phase methodology: 2-week audit (SAB-specific audit, 10×10 geo-grid baseline across central Austin, competitor analysis of top 5 repair shops, NAP report), 3-week NAP cleanup + SAB citation building (32 directories cleaned, 18 new Austin-specific citations built, GBP optimised as SAB with hidden address + service-area polygon), 4-week Next.js rebuild (12 location-landing-pages for Austin postcodes + click-to-call + same-day-booking widget + 40 repair before/after photos in GBP), 3-week review workflow (Shopify POS integration triggering SMS review request 4 hours post-pickup), 5-week launch + weekly geo-grid tracking.",
         result: "Top-3 local pack on 'phone repair [postcode]' for 9 of 12 target postcodes by day 90 (was 0 of 12 at baseline). Reviews rose from 19 to 87 (4.6 average). Walk-in repairs up 47%. Average ticket up 12% (cross-sell of accessories + warranties on the rebuilt site). Estimated $58K incremental revenue in the first 90 days post-launch.",

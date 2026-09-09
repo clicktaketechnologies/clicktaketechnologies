@@ -1,4 +1,4 @@
-***REMOVED*** Deploy ClickTake to Vercel (Free)
+# Deploy ClickTake to Vercel (Free)
 
 Render's free Web Service tier was discontinued for new accounts — new services
 need at least the Starter plan ($7/mo). **Vercel Hobby is free** and is the
@@ -9,7 +9,7 @@ Cloudflare Worker + Render split and onto Vercel as a single host.
 
 ---
 
-***REMOVED******REMOVED*** What you get
+## What you get
 
 | | Cloudflare Worker (old) | Vercel (new) |
 |---|---|---|
@@ -24,7 +24,7 @@ Cloudflare Worker + Render split and onto Vercel as a single host.
 
 ---
 
-***REMOVED******REMOVED*** Step 1 — Push latest code to GitHub (already done)
+## Step 1 — Push latest code to GitHub (already done)
 
 Latest commit on `main`: `a482fa1 feat(vercel): add vercel.json with hourly provider-health cron`
 
@@ -35,7 +35,7 @@ git push origin main
 
 ---
 
-***REMOVED******REMOVED*** Step 2 — Sign up for Vercel and import the repo
+## Step 2 — Sign up for Vercel and import the repo
 
 1. Go to **https://vercel.com/signup**
 2. Click **Continue with GitHub** → authorize Vercel to access your GitHub account
@@ -46,25 +46,25 @@ git push origin main
 
 ---
 
-***REMOVED******REMOVED*** Step 3 — Add environment variables
+## Step 3 — Add environment variables
 
 Add each of these in the Vercel UI (or use `vercel env pull` later for CLI).
 For each one: select **all environments** (Production, Preview, Development).
 
-***REMOVED******REMOVED******REMOVED*** Database (Supabase)
+### Database (Supabase)
 | Key | Value |
 |---|---|
-| `DATABASE_URL` | `postgresql://postgres.crejzifwpcnjqghlbbdf:***REDACTED_DB_PASSWORD***@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true` |
-| `DIRECT_URL` | `postgresql://postgres.crejzifwpcnjqghlbbdf:***REDACTED_DB_PASSWORD***@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres` |
+| `DATABASE_URL` | `postgresql://postgres:***REDACTED***@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true` |
+| `DIRECT_URL` | `postgresql://postgres:***REDACTED***@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres` |
 | `SUPABASE_SERVICE_ROLE_KEY` | (the long JWT from .env line 28) |
 
-***REMOVED******REMOVED******REMOVED*** Supabase public (NEXT_PUBLIC_*)
+### Supabase public (NEXT_PUBLIC_*)
 | Key | Value |
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://crejzifwpcnjqghlbbdf.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `***REDACTED_SUPABASE_ANON_KEY***` |
 
-***REMOVED******REMOVED******REMOVED*** SMTP / Gmail (nodemailer)
+### SMTP / Gmail (nodemailer)
 | Key | Value |
 |---|---|
 | `GMAIL_USER` | `clicktaketechnologies@gmail.com` |
@@ -78,13 +78,13 @@ For each one: select **all environments** (Production, Preview, Development).
 | `LEADS_EMAIL` | `clicktaketechnologies@gmail.com` |
 | `PROVIDER_ALERT_TO` | `clicktaketechnologies@gmail.com` |
 
-***REMOVED******REMOVED******REMOVED*** Turnstile (bot protection)
+### Turnstile (bot protection)
 | Key | Value |
 |---|---|
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | `0x4AAAAAADpHuqrF417pgTBa` |
 | `TURNSTILE_SECRET_KEY` | `***REDACTED_TURNSTILE_SECRET***` |
 
-***REMOVED******REMOVED******REMOVED*** Cloudinary (media)
+### Cloudinary (media)
 | Key | Value |
 |---|---|
 | `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | `dwioesu97` |
@@ -92,7 +92,7 @@ For each one: select **all environments** (Production, Preview, Development).
 | `CLOUDINARY_CLOUD_NAME` | `dwioesu97` |
 | `CLOUDINARY_UPLOAD_PRESET` | `contact_uploads` |
 
-***REMOVED******REMOVED******REMOVED*** Admin + auth
+### Admin + auth
 | Key | Value |
 |---|---|
 | `SUPERADMIN_EMAIL` | `admin@clicktaketech.com` |
@@ -100,13 +100,13 @@ For each one: select **all environments** (Production, Preview, Development).
 | `NEXTAUTH_URL` | `https://clicktaketech.com` |
 | `NEXTAUTH_SECRET` | `***REDACTED_NEXTAUTH_SECRET***` |
 
-***REMOVED******REMOVED******REMOVED*** Security
+### Security
 | Key | Value |
 |---|---|
 | `PROVIDER_CREDENTIALS_ENCRYPTION_KEY` | `***REDACTED_PROVIDER_ENCRYPTION_KEY***` |
 | `CRON_SECRET` | `***REDACTED_CRON_SECRET***` |
 
-***REMOVED******REMOVED******REMOVED*** ⚠️ DO NOT set these on Vercel
+### ⚠️ DO NOT set these on Vercel
 | Key | Why |
 |---|---|
 | `BACKEND_URL` | If set, middleware will try to proxy /api/* and /admin/* to a backend. Leave it **unset** so Vercel serves everything itself. |
@@ -114,7 +114,7 @@ For each one: select **all environments** (Production, Preview, Development).
 
 ---
 
-***REMOVED******REMOVED*** Step 4 — Deploy
+## Step 4 — Deploy
 
 1. Click **Deploy**
 2. Wait ~2-3 minutes for the build to finish
@@ -123,7 +123,7 @@ For each one: select **all environments** (Production, Preview, Development).
 
 ---
 
-***REMOVED******REMOVED*** Step 5 — Test admin login
+## Step 5 — Test admin login
 
 1. Go to `https://clicktaketechnologies-xyz.vercel.app/admin/login`
 2. Login with:
@@ -136,12 +136,12 @@ to add `DATABASE_URL` to Vercel env vars. Add it and redeploy.
 
 ---
 
-***REMOVED******REMOVED*** Step 6 — Point clicktaketech.com to Vercel
+## Step 6 — Point clicktaketech.com to Vercel
 
 Right now `clicktaketech.com` resolves to your Cloudflare Worker. We need to
 repoint it to Vercel.
 
-***REMOVED******REMOVED******REMOVED*** In Vercel:
+### In Vercel:
 1. Go to your project → **Settings → Domains**
 2. Type `clicktaketech.com` → click Add
 3. Vercel shows a DNS record to add. Usually:
@@ -150,7 +150,7 @@ repoint it to Vercel.
 4. Also add `www.clicktaketech.com` → it'll be set to redirect to apex
    (the Next.js middleware already does this, but adding it in Vercel is cleaner)
 
-***REMOVED******REMOVED******REMOVED*** In Cloudflare DNS:
+### In Cloudflare DNS:
 1. Go to **Cloudflare dashboard → your domain → DNS → Records**
 2. **Delete** the existing record pointing `@` to the Cloudflare Worker
    (it'll be a AAAA record `@ → 100::` or similar Worker route, or a CNAME to `clicktake-web.workers.dev`)
@@ -160,7 +160,7 @@ repoint it to Vercel.
 4. For `www`: Type `CNAME`, Name `www`, Target `cname.vercel-dns.com`, Proxy off
 5. Save
 
-***REMOVED******REMOVED******REMOVED*** ⚠️ Critical: turn OFF Cloudflare proxy (orange cloud → gray cloud)
+### ⚠️ Critical: turn OFF Cloudflare proxy (orange cloud → gray cloud)
 
 If you leave the orange cloud on, Vercel's SSL won't match Cloudflare's SSL and
 you'll get redirect loops. Either:
@@ -168,7 +168,7 @@ you'll get redirect loops. Either:
 - **Alternative**: keep proxy ON, but set Cloudflare SSL/TLS mode to **Full (strict)**
   AND disable "Always Use HTTPS" in Cloudflare. Much more fiddly — just turn it off.
 
-***REMOVED******REMOVED******REMOVED*** Disable the Cloudflare Worker route (cleanup)
+### Disable the Cloudflare Worker route (cleanup)
 1. Cloudflare dashboard → **Workers & Pages → clicktake-web**
 2. Go to **Triggers → Custom Domains**
 3. Remove `clicktaketech.com` and `www.clicktaketech.com` from the Worker
@@ -177,7 +177,7 @@ you'll get redirect loops. Either:
 
 ---
 
-***REMOVED******REMOVED*** Step 7 — Verify everything works
+## Step 7 — Verify everything works
 
 Wait 2-5 min for DNS to propagate, then check:
 
@@ -194,7 +194,7 @@ end-to-end (DB connection works, NextAuth session sets cookie, dashboard loads).
 
 ---
 
-***REMOVED******REMOVED*** Step 8 — (Optional) Move DNS off Cloudflare to Vercel
+## Step 8 — (Optional) Move DNS off Cloudflare to Vercel
 
 If you want to fully consolidate: you can change nameservers from Cloudflare
 to Vercel DNS. But this is **not required** — keeping Cloudflare as DNS-only
@@ -202,7 +202,7 @@ to Vercel DNS. But this is **not required** — keeping Cloudflare as DNS-only
 
 ---
 
-***REMOVED******REMOVED*** Vercel free tier limits you'll actually care about
+## Vercel free tier limits you'll actually care about
 
 | Limit | Hobby tier | Your expected usage |
 |---|---|---|
@@ -218,28 +218,28 @@ If you exceed Hobby limits or want commercial-use compliance, upgrade to
 
 ---
 
-***REMOVED******REMOVED*** Troubleshooting
+## Troubleshooting
 
-***REMOVED******REMOVED******REMOVED*** "401 Unauthorized" on admin login
+### "401 Unauthorized" on admin login
 → `NEXTAUTH_SECRET` not set on Vercel, or mismatched between environments.
 
-***REMOVED******REMOVED******REMOVED*** "Database access is not available"
+### "Database access is not available"
 → `DATABASE_URL` not set on Vercel. Add it and redeploy.
 
-***REMOVED******REMOVED******REMOVED*** Too many redirects on clicktaketech.com
+### Too many redirects on clicktaketech.com
 → Cloudflare proxy is ON. Turn it OFF (gray cloud) for the A/CNAME record
 pointing to Vercel.
 
-***REMOVED******REMOVED******REMOVED*** Turnstile widget doesn't load
+### Turnstile widget doesn't load
 → `NEXT_PUBLIC_TURNSTILE_SITE_KEY` not set on Vercel (must be `NEXT_PUBLIC_*`
 so it's inlined at build time).
 
-***REMOVED******REMOVED******REMOVED*** Email sending fails
+### Email sending fails
 → Check `GMAIL_USER` / `GMAIL_APP_PASSWORD` are set. Gmail app passwords
 sometimes get revoked — regenerate at
 https://myaccount.google.com/apppasswords if needed.
 
-***REMOVED******REMOVED******REMOVED*** Provider health cron doesn't run
+### Provider health cron doesn't run
 → Vercel Hobby cron runs at most once per hour. Check Vercel dashboard →
 your project → **Cron Jobs** tab to see execution history.
 

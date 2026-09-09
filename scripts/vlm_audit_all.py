@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """Run VLM audit on all page screenshots sequentially."""
 import subprocess
 import json

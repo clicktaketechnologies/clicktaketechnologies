@@ -14,15 +14,15 @@ def _breadcrumb(items):
         if i == len(items) - 1:
             parts.append(f'<li class="text-ckbody/90 font-medium" aria-current="page">{escape(label)}</li>')
         else:
-            parts.append(f'<li><a href="***REMOVED***{slug}" data-nav="{slug}" class="hover:text-ckblue transition-colors">{escape(label)}</a></li>')
+            parts.append(f'<li><a href="#{slug}" data-nav="{slug}" class="hover:text-ckblue transition-colors">{escape(label)}</a></li>')
             parts.append('<li class="text-ckbody/40">/</li>')
     parts.append('</ol></nav>')
     return ''.join(parts)
 
 
-***REMOVED*** Varied paragraph templates for blog article sections.
-***REMOVED*** 5 distinct templates per paragraph slot (a/b), cycled by section index.
-***REMOVED*** Each substitutes the section title (s) and avoids duplication across sections.
+# Varied paragraph templates for blog article sections.
+# 5 distinct templates per paragraph slot (a/b), cycled by section index.
+# Each substitutes the section title (s) and avoids duplication across sections.
 _BLOG_PARAS_A = [
     lambda s: f"In this section we dig into {s.lower()} — not as a theoretical concept, but as the exact set of decisions, code patterns, and trade-offs our engineers make on client engagements every week. We open with the most common failure mode we see when teams attempt this on their own, then walk through the architecture or workflow we've settled on after 40+ production deployments. Expect concrete numbers: latency budgets, error rates, cost-per-unit, time-to-shipped. Where a choice is contested in the industry, we name the alternatives we rejected and why. The goal is to leave you with a mental model you can apply on Monday morning, not a list of buzzwords.",
     lambda s: f"Let's be specific about {s.lower()}. We'll start with the version of this that most teams try first — usually copied from a popular blog post or vendor demo — and explain why it breaks at production scale. Then we layer in the changes we've found matter most: observability hooks, fallback paths, the boring security headers nobody remembers, the one database index that takes p99 from 4s to 200ms. We've made every mistake in this list at least once; the goal of this section is to spare you the same debugging sessions. Wherever we reference a tool, we link the exact version we're running and note any flags or config we had to tune.",
@@ -64,7 +64,7 @@ def _hero(slug, eyebrow, title, subtitle, cta_label="Book a Demo", cta_slug="con
             </h1>
             <p class="text-lg md:text-xl text-ckbody max-w-3xl mx-auto mb-10 leading-relaxed">{escape(subtitle)}</p>
             <div class="flex flex-wrap items-center justify-center gap-4">
-              <a href="***REMOVED***{cta_slug}" data-nav="{cta_slug}" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2">
+              <a href="#{cta_slug}" data-nav="{cta_slug}" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2">
                 <i data-lucide="calendar" class="w-4 h-4"></i> {escape(cta_label)}
               </a>
               <a href="https://wa.link/iqz8eg" target="_blank" rel="noopener noreferrer" class="rounded-xl px-7 py-3.5 font-display font-semibold glass-soft text-ckheading hover:border-ckblue/40 transition-colors inline-flex items-center gap-2">
@@ -98,7 +98,7 @@ def _cta_section(title="Ready to deploy your AI workforce?", subtitle="Book a 30
           </h2>
           <p class="text-base md:text-lg text-ckbody max-w-2xl mx-auto mb-8">{escape(subtitle)}</p>
           <div class="flex flex-wrap items-center justify-center gap-4">
-            <a href="***REMOVED***contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2">
+            <a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2">
               <i data-lucide="calendar" class="w-4 h-4"></i> Book a Demo
             </a>
             <a href="mailto:info@clicktaketech.com" class="rounded-xl px-7 py-3.5 font-display font-semibold glass-soft text-ckheading hover:border-ckblue/40 transition-colors inline-flex items-center gap-2">
@@ -112,9 +112,9 @@ def _cta_section(title="Ready to deploy your AI workforce?", subtitle="Book a 30
       </div>'''
 
 
-***REMOVED*** ============================================================================
-***REMOVED*** SERVICE DETAIL PAGE
-***REMOVED*** ============================================================================
+# ============================================================================
+# SERVICE DETAIL PAGE
+# ============================================================================
 def render_service_detail(slug, meta):
     d = meta["data"]
     title = d["title"]
@@ -135,8 +135,8 @@ def render_service_detail(slug, meta):
 
     related_html = ""
     if d.get("related"):
-        rel_slug = d["related"]  ***REMOVED*** e.g. "seo-growth-sme"
-        ***REMOVED*** Find matching case study title from CASE_STUDIES list
+        rel_slug = d["related"]  # e.g. "seo-growth-sme"
+        # Find matching case study title from CASE_STUDIES list
         full_slug = f"case-studies-{rel_slug}"
         rel_title = next((cs[1] for cs in CASE_STUDIES if cs[0] == full_slug), rel_slug.replace("-", " ").title())
         related_html = f'''
@@ -147,7 +147,7 @@ def render_service_detail(slug, meta):
             <h3 class="text-xl md:text-2xl font-display font-bold mb-2">{escape(rel_title)}</h3>
             <p class="text-ckbody">See how we shipped this for a real client.</p>
           </div>
-          <a href="***REMOVED***{full_slug}" data-nav="{full_slug}" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-white inline-flex items-center gap-2 whitespace-nowrap">
+          <a href="#{full_slug}" data-nav="{full_slug}" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-white inline-flex items-center gap-2 whitespace-nowrap">
             Read case study <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
         </div>
@@ -183,9 +183,9 @@ def render_service_detail(slug, meta):
     </section>'''
 
 
-***REMOVED*** ============================================================================
-***REMOVED*** SOLUTION DETAIL PAGE
-***REMOVED*** ============================================================================
+# ============================================================================
+# SOLUTION DETAIL PAGE
+# ============================================================================
 def render_solution_detail(slug, meta):
     d = meta["data"]
     title = d["title"]
@@ -229,9 +229,9 @@ def render_solution_detail(slug, meta):
     </section>'''
 
 
-***REMOVED*** ============================================================================
-***REMOVED*** CASE STUDY DETAIL PAGE
-***REMOVED*** ============================================================================
+# ============================================================================
+# CASE STUDY DETAIL PAGE
+# ============================================================================
 def render_case_study_detail(slug, meta):
     d = meta["data"]
     headline = d["headline"]
@@ -282,9 +282,9 @@ def render_case_study_detail(slug, meta):
     </section>'''
 
 
-***REMOVED*** ============================================================================
-***REMOVED*** BLOG ARTICLE PAGE
-***REMOVED*** ============================================================================
+# ============================================================================
+# BLOG ARTICLE PAGE
+# ============================================================================
 def render_blog_article(slug, meta):
     d = meta["data"]
     title = d["title"]
@@ -296,8 +296,8 @@ def render_blog_article(slug, meta):
     hero_image = d.get("hero_image", "")
     body_html = d.get("body_html", "")
 
-    ***REMOVED*** Render the real markdown-derived body if available; otherwise fall back to
-    ***REMOVED*** the legacy sections+filler rendering for any older blog entries.
+    # Render the real markdown-derived body if available; otherwise fall back to
+    # the legacy sections+filler rendering for any older blog entries.
     if body_html:
         body_section_html = f'<article class="ck-prose reveal space-y-2">{body_html}</article>'
     else:
@@ -309,7 +309,7 @@ def render_blog_article(slug, meta):
           <p class="text-base md:text-lg text-ckbody leading-relaxed">{_blog_para_b(i, s)}</p>
         </section>''' for i, s in enumerate(sections)) + '</article>'
 
-    ***REMOVED*** Optional hero image (from markdown front-matter)
+    # Optional hero image (from markdown front-matter)
     hero_html = f'''
         <div class="rounded-2xl overflow-hidden mb-10 reveal aspect-[16/7] bg-gradient-to-br from-ckblue/30 to-ckpink/30">
           <img src="{escape(hero_image)}" alt="{escape(title)}" class="w-full h-full object-cover" loading="lazy" />
@@ -348,7 +348,7 @@ def render_blog_article(slug, meta):
           <div class="text-xs font-mono uppercase tracking-widest text-ckblue mb-3">Like what you read?</div>
           <h3 class="text-2xl font-display font-bold mb-4">Work with us.</h3>
           <p class="text-ckbody mb-6">We write from production. We can ship for you too.</p>
-          <a href="***REMOVED***contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2">
+          <a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-white inline-flex items-center gap-2">
             <i data-lucide="calendar" class="w-4 h-4"></i> Book a Demo
           </a>
         </div>
@@ -357,9 +357,9 @@ def render_blog_article(slug, meta):
     </section>'''
 
 
-***REMOVED*** ============================================================================
-***REMOVED*** CAREER DETAIL PAGE
-***REMOVED*** ============================================================================
+# ============================================================================
+# CAREER DETAIL PAGE
+# ============================================================================
 def render_career_detail(slug, meta):
     d = meta["data"]
     role = d["role"]
@@ -431,9 +431,9 @@ def render_career_detail(slug, meta):
     </section>'''
 
 
-***REMOVED*** ============================================================================
-***REMOVED*** RESOURCE DETAIL PAGE
-***REMOVED*** ============================================================================
+# ============================================================================
+# RESOURCE DETAIL PAGE
+# ============================================================================
 def render_resource_detail(slug, meta):
     d = meta["data"]
     title = d["title"]
@@ -474,9 +474,9 @@ def render_resource_detail(slug, meta):
     </section>'''
 
 
-***REMOVED*** ============================================================================
-***REMOVED*** CITY DETAIL PAGE
-***REMOVED*** ============================================================================
+# ============================================================================
+# CITY DETAIL PAGE
+# ============================================================================
 def render_city_detail(slug, meta):
     d = meta["data"]
     name = d["name"]
@@ -518,9 +518,9 @@ def render_city_detail(slug, meta):
     </section>'''
 
 
-***REMOVED*** ============================================================================
-***REMOVED*** PORTFOLIO DETAIL PAGE (real client sites)
-***REMOVED*** ============================================================================
+# ============================================================================
+# PORTFOLIO DETAIL PAGE (real client sites)
+# ============================================================================
 def render_portfolio_detail(slug, meta):
     d = meta["data"]
     name = d["name"]
@@ -537,7 +537,7 @@ def render_portfolio_detail(slug, meta):
         for s in stack
     )
 
-    ***REMOVED*** Tech stack section
+    # Tech stack section
     tech_html = f'''
       <div class="max-w-5xl mx-auto px-6 lg:px-8 pb-16">
         <div class="tilt-card glass rounded-3xl p-8 lg:p-10 reveal">
@@ -546,7 +546,7 @@ def render_portfolio_detail(slug, meta):
         </div>
       </div>'''
 
-    ***REMOVED*** Project facts section
+    # Project facts section
     facts_html = f'''
       <div class="max-w-5xl mx-auto px-6 lg:px-8 pb-16">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -574,7 +574,7 @@ def render_portfolio_detail(slug, meta):
         </div>
       </div>'''
 
-    ***REMOVED*** Live preview frame
+    # Live preview frame
     preview_html = f'''
       <div class="max-w-6xl mx-auto px-6 lg:px-8 pb-16">
         <div class="text-center mb-6 reveal">
@@ -624,7 +624,7 @@ def render_portfolio_detail(slug, meta):
               <a href="{url}" target="_blank" rel="noopener noreferrer" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-white inline-flex items-center gap-2">
                 <i data-lucide="external-link" class="w-4 h-4"></i> Visit Live Site
               </a>
-              <a href="***REMOVED***contact" data-nav="contact" class="rounded-xl px-6 py-3 font-display font-semibold glass-soft text-ckheading hover:border-ckblue/40 transition-colors inline-flex items-center gap-2">
+              <a href="#contact" data-nav="contact" class="rounded-xl px-6 py-3 font-display font-semibold glass-soft text-ckheading hover:border-ckblue/40 transition-colors inline-flex items-center gap-2">
                 <i data-lucide="calendar" class="w-4 h-4"></i> Start a Similar Project
               </a>
             </div>
@@ -638,9 +638,9 @@ def render_portfolio_detail(slug, meta):
     </section>'''
 
 
-***REMOVED*** ============================================================================
-***REMOVED*** MAIN DISPATCHER
-***REMOVED*** ============================================================================
+# ============================================================================
+# MAIN DISPATCHER
+# ============================================================================
 TEMPLATE_DISPATCH = {
     "service_detail": render_service_detail,
     "solution_detail": render_solution_detail,
@@ -658,4 +658,4 @@ def render_page(slug, meta):
     template = meta.get("template", "")
     if template in TEMPLATE_DISPATCH:
         return TEMPLATE_DISPATCH[template](slug, meta)
-    return ""  ***REMOVED*** main_* templates are handled by existing build script
+    return ""  # main_* templates are handled by existing build script

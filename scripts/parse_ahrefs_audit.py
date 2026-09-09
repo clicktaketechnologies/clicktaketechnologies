@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Parse Ahrefs Site Audit CSV exports and produce a structured summary.
 Outputs:
@@ -14,8 +14,8 @@ from pathlib import Path
 UPLOAD_DIR = Path("/home/z/my-project/upload")
 OUT_JSON = Path("/home/z/my-project/download/audit_summary.json")
 
-***REMOVED*** Map filename -> (severity, issue_name, kind)
-***REMOVED*** kind: "pages" = list of affected URLs, "links" = source->target link list
+# Map filename -> (severity, issue_name, kind)
+# kind: "pages" = list of affected URLs, "links" = source->target link list
 FILES = {
     "Error-404_page.csv": ("Error", "404 page", "pages"),
     "Error-404_page-links.csv": ("Error", "404 page", "links"),
@@ -39,7 +39,7 @@ SEVERITY_ORDER = {"Error": 0, "Warning": 1, "Notice": 2}
 
 def read_csv(path: Path):
     with open(path, newline="", encoding="utf-8") as f:
-        ***REMOVED*** Ahrefs exports sometimes have a leading BOM
+        # Ahrefs exports sometimes have a leading BOM
         reader = csv.DictReader(f)
         rows = list(reader)
     return reader.fieldnames or [], rows
@@ -54,7 +54,7 @@ def detect_url_field(fieldnames):
     for c in candidates:
         if c in fieldnames:
             return c
-    ***REMOVED*** Fallback: first field containing 'url' (case-insensitive)
+    # Fallback: first field containing 'url' (case-insensitive)
     for c in fieldnames:
         if "url" in c.lower():
             return c
@@ -71,7 +71,7 @@ def main():
     console_lines.append("AHREFS SITE AUDIT — ISSUE SUMMARY")
     console_lines.append("=" * 78)
 
-    ***REMOVED*** Group by severity
+    # Group by severity
     by_severity = defaultdict(list)
 
     for fname, (sev, issue_name, kind) in FILES.items():
@@ -82,7 +82,7 @@ def main():
         fieldnames, rows = read_csv(fpath)
         url_field = detect_url_field(fieldnames)
 
-        ***REMOVED*** Distinct affected URLs (for "pages" kind) or distinct targets (for "links")
+        # Distinct affected URLs (for "pages" kind) or distinct targets (for "links")
         if kind == "pages":
             affected_urls = sorted({r.get(url_field, "").strip() for r in rows if r.get(url_field, "").strip()})
             sample = affected_urls[:8]
@@ -103,8 +103,8 @@ def main():
                 "affected_count": len(affected_urls),
                 "url_field": url_field,
             })
-        else:  ***REMOVED*** links
-            ***REMOVED*** For "links" files, count referring pages and broken targets
+        else:  # links
+            # For "links" files, count referring pages and broken targets
             src_field = None
             tgt_field = None
             for c in fieldnames:
@@ -142,13 +142,13 @@ def main():
                 "tgt_field": tgt_field,
             })
 
-    ***REMOVED*** Print grouped by severity
+    # Print grouped by severity
     total_pages_affected = 0
     for sev in ["Error", "Warning", "Notice"]:
         if sev not in by_severity:
             continue
         console_lines.append("")
-        console_lines.append(f"***REMOVED******REMOVED******REMOVED*** {sev.upper()} ({len(by_severity[sev])} issue type(s))")
+        console_lines.append(f"### {sev.upper()} ({len(by_severity[sev])} issue type(s))")
         console_lines.append("-" * 78)
         for entry in by_severity[sev]:
             console_lines.append(

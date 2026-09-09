@@ -38,8 +38,8 @@ export async function POST(req: NextRequest) {
     data: {
       name,
       mode: mode || "dark",
-      primary: primary || "***REMOVED***136DFF",
-      accent: accent || "***REMOVED***FF53A9",
+      primary: primary || "#136DFF",
+      accent: accent || "#FF53A9",
       background,
       foreground,
       muted,

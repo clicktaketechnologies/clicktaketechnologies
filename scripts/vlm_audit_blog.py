@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """VLM audit on the 4 blog-related pages: blog listing + 3 real articles."""
 import subprocess
 import json

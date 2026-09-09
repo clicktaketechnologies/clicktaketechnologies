@@ -17,7 +17,7 @@ publishedAt: 2026-01-15
 coverImage: https://example.com/image.jpg
 ---
 
-***REMOVED*** Test Article
+# Test Article
 
 This is the **body** of the article. It has multiple paragraphs.
 

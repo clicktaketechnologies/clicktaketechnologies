@@ -1054,7 +1054,7 @@ export function ServiceDetailPage({ service }: Props) {
             </motion.section>
           )}
 
-          {/* ─── SERVING THESE CITIES (Phase 3 ***REMOVED***4 — Programmatic SEO) ─── */}
+          {/* ─── SERVING THESE CITIES (Phase 3 #4 — Programmatic SEO) ─── */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

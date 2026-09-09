@@ -1,5 +1,5 @@
-***REMOVED***!/usr/bin/env bash
-***REMOVED*** Smoke-test 12 representative pages: 4 new top-level + 8 sub-pages
+#!/usr/bin/env bash
+# Smoke-test 12 representative pages: 4 new top-level + 8 sub-pages
 set -e
 PAGES=("home" "portfolio" "pricing" "team" "resources" "cities" "cookies"
        "services-seo" "services-ai-llm" "services-web-ecommerce"
@@ -17,7 +17,7 @@ agent-browser wait 2500 2>&1 | tail -1
 
 for page in "${PAGES[@]}"; do
   echo "=== $page ==="
-  agent-browser eval "window.location.hash = '***REMOVED***$page';" 2>&1 | tail -1
+  agent-browser eval "window.location.hash = '#$page';" 2>&1 | tail -1
   agent-browser wait 3500 2>&1 | tail -1
   TITLE=$(agent-browser get title 2>&1 | tail -1)
   echo "  Title: $TITLE"

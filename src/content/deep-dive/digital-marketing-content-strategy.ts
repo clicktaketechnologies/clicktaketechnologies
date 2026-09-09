@@ -248,7 +248,7 @@ export const contentStrategyDeepDive: DeepDiveContent = {
         industry: "Publishing (Industry Newsletter)",
         problem: "Newsletter had 24,000 subscribers but no search engine presence — all traffic was direct/email. Revenue model depended on newsletter growth, which had plateaued.",
         application: "Repurposed 18 months of newsletter issues into 280 SEO-optimised articles organised into 14 topical clusters. Added programmatic SEO for 1,200 '[company] news' pages tracking portfolio companies. Built topical authority map aligned to the 3 industry verticals covered.",
-        result: "Organic sessions grew from 1,200 to 72,000/month in 14 months. Newsletter subscribers grew to 58,000. Subscription revenue grew 2.6×. Organic became the ***REMOVED***1 acquisition channel for new subscribers.",
+        result: "Organic sessions grew from 1,200 to 72,000/month in 14 months. Newsletter subscribers grew to 58,000. Subscription revenue grew 2.6×. Organic became the #1 acquisition channel for new subscribers.",
       },
       {
         industry: "B2B Lead Gen (Cybersecurity Consulting)",

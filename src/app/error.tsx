@@ -33,10 +33,10 @@ export default function Error({
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_60%_40%_at_50%_30%,rgba(155,61,255,0.10),transparent_60%)]" />
       <div className="relative max-w-xl w-full text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white/80 backdrop-blur-md">
-          <span className="h-1.5 w-1.5 rounded-full bg-[***REMOVED***FF8AC4]" />
+          <span className="h-1.5 w-1.5 rounded-full bg-[#FF8AC4]" />
           Something went wrong
         </div>
-        <h1 className="mt-6 text-4xl sm:text-5xl font-black tracking-tight text-foreground bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
+        <h1 className="mt-6 text-4xl sm:text-5xl font-black tracking-tight text-foreground bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
           Unexpected error
         </h1>
         <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
@@ -52,7 +52,7 @@ export default function Error({
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
             onClick={reset}
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(155,61,255,0.35)] hover:scale-[1.02] active:scale-95 transition"
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(155,61,255,0.35)] hover:scale-[1.02] active:scale-95 transition"
           >
             <RotateCw className="h-4 w-4" />
             Try again

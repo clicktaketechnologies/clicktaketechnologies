@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """Parse the uploaded sitemap.xml and categorize all URLs."""
 import re
 from collections import defaultdict
@@ -7,12 +7,12 @@ from pathlib import Path
 
 SRC = Path("/home/z/my-project/upload/sitemap.xml").read_text(encoding="utf-8")
 
-***REMOVED*** Extract all URLs
+# Extract all URLs
 urls = re.findall(r'<loc>([^<]+)</loc>', SRC)
 print(f"Total URLs in sitemap: {len(urls)}")
 print()
 
-***REMOVED*** Categorize by path depth and prefix
+# Categorize by path depth and prefix
 categories = defaultdict(list)
 for url in urls:
     path = urlparse(url).path.strip('/')
@@ -21,12 +21,12 @@ for url in urls:
     elif path == "sitemap.xml" or path == "rss.xml" or path == "llms.txt" or path == "robots.txt":
         cat = "meta"
     else:
-        ***REMOVED*** First path segment
+        # First path segment
         parts = path.split('/')
         cat = parts[0]
     categories[cat].append(url)
 
-***REMOVED*** Print categories summary
+# Print categories summary
 print("=" * 80)
 print("CATEGORIES SUMMARY")
 print("=" * 80)
@@ -44,7 +44,7 @@ for cat in sorted(categories.keys()):
     if len(categories[cat]) > 5:
         print(f"  ... and {len(categories[cat]) - 5} more")
 
-***REMOVED*** Save full list
+# Save full list
 out = Path("/home/z/my-project/download/sitemap-analysis.txt")
 with out.open("w") as f:
     f.write(f"Total URLs: {len(urls)}\n\n")

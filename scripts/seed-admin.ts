@@ -9,19 +9,19 @@ const SYSTEM_ROLES = [
   {
     name: "Super Admin",
     description: "Full access to everything",
-    color: "***REMOVED***FF53A9",
+    color: "#FF53A9",
     permissions: ["viewDashboard", "readCMS", "writeCMS", "readLeads", "writeLeads", "manageRBAC", "manageSettings"],
   },
   {
     name: "Editor",
     description: "Manage CMS content, services, team",
-    color: "***REMOVED***136DFF",
+    color: "#136DFF",
     permissions: ["viewDashboard", "readCMS", "writeCMS", "readLeads"],
   },
   {
     name: "Sales Support",
     description: "Manage leads and email",
-    color: "***REMOVED***10B981",
+    color: "#10B981",
     permissions: ["viewDashboard", "readLeads", "writeLeads"],
   },
 ];

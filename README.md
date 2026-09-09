@@ -1,8 +1,8 @@
 <div align="center">
 
-***REMOVED*** ClickTake Technologies
+# ClickTake Technologies
 
-***REMOVED******REMOVED******REMOVED*** AI-Powered Digital Agency · UK · Pakistan · USA · Dubai
+### AI-Powered Digital Agency · UK · Pakistan · USA · Dubai
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-blue?logo=react&logoColor=white)](https://react.dev/)
@@ -11,7 +11,7 @@
 [![Drizzle](https://img.shields.io/badge/Drizzle%20ORM-0.45-C5F74F?logo=drizzle&logoColor=black)](https://orm.drizzle.team/)
 [![Three.js](https://img.shields.io/badge/Three.js-0.185-000000?logo=three.js&logoColor=white)](https://threejs.org/)
 [![NextAuth](https://img.shields.io/badge/NextAuth-4-black?logo=next.js&logoColor=white)](https://next-auth.js.org/)
-[![License](https://img.shields.io/badge/License-Proprietary-red.svg)](***REMOVED***license)
+[![License](https://img.shields.io/badge/License-Proprietary-red.svg)](#license)
 
 **Custom software · AI automation · Web & SaaS · Growth marketing · Brand & creative**
 
@@ -21,30 +21,30 @@
 
 ---
 
-***REMOVED******REMOVED*** Table of Contents
+## Table of Contents
 
-- [Overview](***REMOVED***overview)
-- [Highlights](***REMOVED***highlights)
-- [Tech Stack](***REMOVED***tech-stack)
-- [Project Structure](***REMOVED***project-structure)
-- [Getting Started](***REMOVED***getting-started)
-- [Available Scripts](***REMOVED***available-scripts)
-- [Environment Variables](***REMOVED***environment-variables)
-- [Public Pages & Routes](***REMOVED***public-pages--routes)
-- [Admin Panel](***REMOVED***admin-panel)
-- [Blog Manager & Bulk Upload](***REMOVED***blog-manager--bulk-upload)
-- [API Endpoints](***REMOVED***api-endpoints)
-- [Database & Schema](***REMOVED***database--schema)
-- [Authentication & RBAC](***REMOVED***authentication--rbac)
-- [Storage & Email Providers](***REMOVED***storage--email-providers)
-- [SEO & Structured Data](***REMOVED***seo--structured-data)
-- [Deployment](***REMOVED***deployment)
-- [Locations & Contact](***REMOVED***locations--contact)
-- [License](***REMOVED***license)
+- [Overview](#overview)
+- [Highlights](#highlights)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Available Scripts](#available-scripts)
+- [Environment Variables](#environment-variables)
+- [Public Pages & Routes](#public-pages--routes)
+- [Admin Panel](#admin-panel)
+- [Blog Manager & Bulk Upload](#blog-manager--bulk-upload)
+- [API Endpoints](#api-endpoints)
+- [Database & Schema](#database--schema)
+- [Authentication & RBAC](#authentication--rbac)
+- [Storage & Email Providers](#storage--email-providers)
+- [SEO & Structured Data](#seo--structured-data)
+- [Deployment](#deployment)
+- [Locations & Contact](#locations--contact)
+- [License](#license)
 
 ---
 
-***REMOVED******REMOVED*** Overview
+## Overview
 
 This repository contains the production website + admin panel for **ClickTake Technologies** — a multi-region digital agency serving clients across the UK (Birmingham), Pakistan (Multan), USA (Austin, TX), and UAE (Dubai). The site markets four core service lines: AI & Machine Learning, Web Development, Digital Marketing, and Creative Services, plus a flagship "Business Development Starter Kit" package for founders.
 
@@ -52,9 +52,9 @@ The codebase is built on **Next.js 16 (App Router)** with production-grade SSR, 
 
 **Live site:** [clicktaketech.com](https://clicktaketech.com) · **Admin:** [clicktaketech.com/admin](https://clicktaketech.com/admin)
 
-***REMOVED******REMOVED*** Highlights
+## Highlights
 
-***REMOVED******REMOVED******REMOVED*** Public site
+### Public site
 - **Multi-region SEO** — geo-targeted content for UK / Pakistan / USA / Dubai with localized keywords, hours, phone numbers, and addresses.
 - **3D animation system** — Three.js hero (icosahedron + network nodes + dust), per-page 3D story scenes, animated 3D characters, futuristic textboxes, canvas tech-grid background.
 - **Elite theme toggle** — switch between the default brand theme and an alternative "Elite" design system.
@@ -65,7 +65,7 @@ The codebase is built on **Next.js 16 (App Router)** with production-grade SSR, 
 - **SEO primitives** — `sitemap.ts`, `robots.ts`, `llms.txt`, Open Graph, Twitter cards, canonical URLs, locale-aware metadata.
 - **A/B testing** — built-in experiment framework for navbar CTAs and other conversion points.
 
-***REMOVED******REMOVED******REMOVED*** Admin panel (`/admin`)
+### Admin panel (`/admin`)
 - **Dashboard** — KPIs, recent leads, system status.
 - **CMS — Pages** — full CRUD for dynamic content pages with rich-text editor (TipTap), SEO fields, publish toggle.
 - **Blog Posts** — CRUD + **bulk upload from .md / .csv / .pdf** with auto-content extraction.
@@ -81,7 +81,7 @@ The codebase is built on **Next.js 16 (App Router)** with production-grade SSR, 
 - **User Roles (RBAC)** — fine-grained permissions per role.
 - **Security & Logs** — security logs, blocked IPs, audit trail, security settings.
 
-***REMOVED******REMOVED*** Tech Stack
+## Tech Stack
 
 | Layer              | Technology                                              |
 | ------------------ | ------------------------------------------------------ |
@@ -106,176 +106,176 @@ The codebase is built on **Next.js 16 (App Router)** with production-grade SSR, 
 | Runtime            | Node.js 20+ (Vercel) or Bun (self-hosted)              |
 | Deployment         | Vercel (primary), Cloudflare Workers (alt via @opennextjs/cloudflare) |
 
-***REMOVED******REMOVED*** Project Structure
+## Project Structure
 
 ```
 .
 ├── src/
-│   ├── app/                          ***REMOVED*** Next.js App Router
-│   │   ├── layout.tsx                ***REMOVED*** Root layout: theme provider, FOUC script, JSON-LD
-│   │   ├── page.tsx                  ***REMOVED*** Home page (assembles all sections)
-│   │   ├── home-content.tsx          ***REMOVED*** Home page client component
-│   │   ├── globals.css               ***REMOVED*** Tailwind v4 + brand tokens + animations
-│   │   ├── not-found.tsx             ***REMOVED*** 404 page
-│   │   ├── robots.ts                 ***REMOVED*** Dynamic robots.txt
-│   │   ├── sitemap.ts                ***REMOVED*** Dynamic sitemap.xml
-│   │   ├── llms.txt/route.ts         ***REMOVED*** LLMs.txt for AI agents
-│   │   ├── openapi.json/route.ts     ***REMOVED*** OpenAPI 3.1 spec
-│   │   ├── rss.xml/route.ts          ***REMOVED*** RSS feed for blog
-│   │   ├── about/page.tsx            ***REMOVED*** /about
-│   │   ├── contact/page.tsx          ***REMOVED*** /contact
-│   │   ├── portfolio/page.tsx        ***REMOVED*** /portfolio
-│   │   ├── case-studies/             ***REMOVED*** /case-studies + /case-studies/[slug]
-│   │   ├── resources/page.tsx        ***REMOVED*** /resources
-│   │   ├── blog/                     ***REMOVED*** /blog + /blog/[slug] (DB-first with static fallback)
-│   │   ├── services/[[...slug]]/     ***REMOVED*** /services + /services/[category]/[service]
-│   │   ├── solutions/                ***REMOVED*** /solutions + /solutions/[slug]
-│   │   ├── pricing/page.tsx          ***REMOVED*** /pricing
-│   │   ├── team/page.tsx             ***REMOVED*** /team
-│   │   ├── careers/page.tsx          ***REMOVED*** /careers
-│   │   ├── cities/                   ***REMOVED*** /cities + /cities/[city]/[service]
-│   │   ├── legal/                    ***REMOVED*** /legal/{terms,privacy,cookies}
-│   │   ├── admin/                    ***REMOVED*** Admin panel (see below)
-│   │   └── api/                      ***REMOVED*** API routes (see below)
+│   ├── app/                          # Next.js App Router
+│   │   ├── layout.tsx                # Root layout: theme provider, FOUC script, JSON-LD
+│   │   ├── page.tsx                  # Home page (assembles all sections)
+│   │   ├── home-content.tsx          # Home page client component
+│   │   ├── globals.css               # Tailwind v4 + brand tokens + animations
+│   │   ├── not-found.tsx             # 404 page
+│   │   ├── robots.ts                 # Dynamic robots.txt
+│   │   ├── sitemap.ts                # Dynamic sitemap.xml
+│   │   ├── llms.txt/route.ts         # LLMs.txt for AI agents
+│   │   ├── openapi.json/route.ts     # OpenAPI 3.1 spec
+│   │   ├── rss.xml/route.ts          # RSS feed for blog
+│   │   ├── about/page.tsx            # /about
+│   │   ├── contact/page.tsx          # /contact
+│   │   ├── portfolio/page.tsx        # /portfolio
+│   │   ├── case-studies/             # /case-studies + /case-studies/[slug]
+│   │   ├── resources/page.tsx        # /resources
+│   │   ├── blog/                     # /blog + /blog/[slug] (DB-first with static fallback)
+│   │   ├── services/[[...slug]]/     # /services + /services/[category]/[service]
+│   │   ├── solutions/                # /solutions + /solutions/[slug]
+│   │   ├── pricing/page.tsx          # /pricing
+│   │   ├── team/page.tsx             # /team
+│   │   ├── careers/page.tsx          # /careers
+│   │   ├── cities/                   # /cities + /cities/[city]/[service]
+│   │   ├── legal/                    # /legal/{terms,privacy,cookies}
+│   │   ├── admin/                    # Admin panel (see below)
+│   │   └── api/                      # API routes (see below)
 │   │
 │   ├── components/
-│   │   ├── site/                     ***REMOVED*** Public site components
-│   │   │   ├── nx-navbar.tsx         ***REMOVED*** Mega menu navbar (Services/Solutions/Resources/Company)
-│   │   │   ├── nx-footer.tsx         ***REMOVED*** Multi-column footer + socials
-│   │   │   ├── nx-page-layout.tsx    ***REMOVED*** Shared layout for inner pages
-│   │   │   ├── nx-3d-scene.tsx       ***REMOVED*** Three.js floating geometric accents
-│   │   │   ├── nx-3d-character.tsx   ***REMOVED*** Interactive 3D character per page
-│   │   │   ├── nx-story-scene.tsx    ***REMOVED*** Per-page 3D story layer
-│   │   │   ├── nx-three-scene.tsx    ***REMOVED*** Three.js ambient background (particles + icosahedron)
-│   │   │   ├── background-scene.tsx  ***REMOVED*** Canvas tech-grid animation
-│   │   │   ├── custom-cursor.tsx     ***REMOVED*** Aperture cursor + comet trail
-│   │   │   ├── scroll-animations.tsx ***REMOVED*** Scroll progress, reveal, count-up, dividers
-│   │   │   ├── theme-toggle.tsx      ***REMOVED*** Light/dark/Elite switch
-│   │   │   ├── ab-test.tsx           ***REMOVED*** A/B testing component
-│   │   │   ├── social-icons.tsx      ***REMOVED*** 8 social icons (Facebook, IG, LinkedIn, ...)
-│   │   │   ├── json-ld.tsx           ***REMOVED*** JSON-LD schema injectors
-│   │   │   └── pages/                ***REMOVED*** Routed page components
+│   │   ├── site/                     # Public site components
+│   │   │   ├── nx-navbar.tsx         # Mega menu navbar (Services/Solutions/Resources/Company)
+│   │   │   ├── nx-footer.tsx         # Multi-column footer + socials
+│   │   │   ├── nx-page-layout.tsx    # Shared layout for inner pages
+│   │   │   ├── nx-3d-scene.tsx       # Three.js floating geometric accents
+│   │   │   ├── nx-3d-character.tsx   # Interactive 3D character per page
+│   │   │   ├── nx-story-scene.tsx    # Per-page 3D story layer
+│   │   │   ├── nx-three-scene.tsx    # Three.js ambient background (particles + icosahedron)
+│   │   │   ├── background-scene.tsx  # Canvas tech-grid animation
+│   │   │   ├── custom-cursor.tsx     # Aperture cursor + comet trail
+│   │   │   ├── scroll-animations.tsx # Scroll progress, reveal, count-up, dividers
+│   │   │   ├── theme-toggle.tsx      # Light/dark/Elite switch
+│   │   │   ├── ab-test.tsx           # A/B testing component
+│   │   │   ├── social-icons.tsx      # 8 social icons (Facebook, IG, LinkedIn, ...)
+│   │   │   ├── json-ld.tsx           # JSON-LD schema injectors
+│   │   │   └── pages/                # Routed page components
 │   │   │       ├── blog-page.tsx
 │   │   │       ├── blog-post-page.tsx
 │   │   │       ├── service-detail-page.tsx
 │   │   │       ├── contact-page.tsx
 │   │   │       └── legal-page.tsx
-│   │   ├── admin/                    ***REMOVED*** Admin-only components
-│   │   │   ├── rich-text-editor.tsx  ***REMOVED*** TipTap-based WYSIWYG
+│   │   ├── admin/                    # Admin-only components
+│   │   │   ├── rich-text-editor.tsx  # TipTap-based WYSIWYG
 │   │   │   └── ...
-│   │   ├── ui/                       ***REMOVED*** shadcn/ui primitives (40+ components)
-│   │   └── theme-provider.tsx        ***REMOVED*** next-themes wrapper
+│   │   ├── ui/                       # shadcn/ui primitives (40+ components)
+│   │   └── theme-provider.tsx        # next-themes wrapper
 │   │
 │   ├── lib/
-│   │   ├── site-data.ts              ***REMOVED*** ⭐ Single source of truth: SITE, NAV_LINKS, SERVICES, SOLUTIONS, BLOG_POSTS, STARTER_KIT
-│   │   ├── db.ts                     ***REMOVED*** Prisma-compatible shim over Drizzle ORM
-│   │   ├── schema.ts                 ***REMOVED*** Drizzle schema (40+ tables)
-│   │   ├── auth.ts                   ***REMOVED*** NextAuth config + ensureSeedAdmin()
-│   │   ├── permissions.ts            ***REMOVED*** RBAC permission keys + system roles
-│   │   ├── log-audit.ts              ***REMOVED*** Audit log helper
-│   │   ├── ensure-blog-table.ts      ***REMOVED*** Self-heal: CREATE/ALTER cms_blogs on first request
-│   │   ├── mailer.ts                 ***REMOVED*** Email sending + templates
-│   │   ├── contact-schema.ts         ***REMOVED*** Zod schemas for inquiry + booking
-│   │   ├── turnstile.ts              ***REMOVED*** Server-side Turnstile token verifier
-│   │   └── providers/                ***REMOVED*** Storage + Email provider registry
-│   │       ├── storage/              ***REMOVED*** R2/B2/S3 with failover + replication
-│   │       ├── email/                ***REMOVED*** Resend/Brevo/SMTP with failover
-│   │       └── registry.ts           ***REMOVED*** Provider registry
+│   │   ├── site-data.ts              # ⭐ Single source of truth: SITE, NAV_LINKS, SERVICES, SOLUTIONS, BLOG_POSTS, STARTER_KIT
+│   │   ├── db.ts                     # Prisma-compatible shim over Drizzle ORM
+│   │   ├── schema.ts                 # Drizzle schema (40+ tables)
+│   │   ├── auth.ts                   # NextAuth config + ensureSeedAdmin()
+│   │   ├── permissions.ts            # RBAC permission keys + system roles
+│   │   ├── log-audit.ts              # Audit log helper
+│   │   ├── ensure-blog-table.ts      # Self-heal: CREATE/ALTER cms_blogs on first request
+│   │   ├── mailer.ts                 # Email sending + templates
+│   │   ├── contact-schema.ts         # Zod schemas for inquiry + booking
+│   │   ├── turnstile.ts              # Server-side Turnstile token verifier
+│   │   └── providers/                # Storage + Email provider registry
+│   │       ├── storage/              # R2/B2/S3 with failover + replication
+│   │       ├── email/                # Resend/Brevo/SMTP with failover
+│   │       └── registry.ts           # Provider registry
 │   │
 │   └── content/
-│       └── deep-dive/                ***REMOVED*** Per-service 12-section deep-dive content
+│       └── deep-dive/                # Per-service 12-section deep-dive content
 │
 ├── prisma/
-│   └── schema.prisma                 ***REMOVED*** Prisma schema (mirror of Drizzle schema)
+│   └── schema.prisma                 # Prisma schema (mirror of Drizzle schema)
 │
-├── workers/cloudflare/               ***REMOVED*** Cloudflare Worker for media CDN failover
+├── workers/cloudflare/               # Cloudflare Worker for media CDN failover
 │
-├── scripts/                          ***REMOVED*** Migration + admin scripts
-│   ├── seed-admin.ts                 ***REMOVED*** Seed super-admin user
-│   ├── migrate-public-to-storage.ts  ***REMOVED*** Migrate local images to R2/B2
-│   └── patch-prisma-wasm-mjs.sh      ***REMOVED*** Patch Prisma WASM for Cloudflare
+├── scripts/                          # Migration + admin scripts
+│   ├── seed-admin.ts                 # Seed super-admin user
+│   ├── migrate-public-to-storage.ts  # Migrate local images to R2/B2
+│   └── patch-prisma-wasm-mjs.sh      # Patch Prisma WASM for Cloudflare
 │
-├── public/                           ***REMOVED*** Logo + brand images
-├── next.config.ts                    ***REMOVED*** Next.js config (standalone build)
-├── drizzle.config.ts                 ***REMOVED*** Drizzle Kit config
-├── package.json                      ***REMOVED*** Scripts + deps
-└── bun.lock                          ***REMOVED*** Lockfile (Bun)
+├── public/                           # Logo + brand images
+├── next.config.ts                    # Next.js config (standalone build)
+├── drizzle.config.ts                 # Drizzle Kit config
+├── package.json                      # Scripts + deps
+└── bun.lock                          # Lockfile (Bun)
 ```
 
-***REMOVED******REMOVED*** Getting Started
+## Getting Started
 
-***REMOVED******REMOVED******REMOVED*** Prerequisites
+### Prerequisites
 
 - **Node.js 20+** or **Bun 1.1+** (recommended)
 - Git
 - A Postgres database (Neon, Supabase, Railway, or self-hosted)
 
-***REMOVED******REMOVED******REMOVED*** Installation
+### Installation
 
 ```bash
-***REMOVED*** 1. Clone
+# 1. Clone
 git clone https://github.com/clicktaketechnologies/clicktaketechnologies.git
 cd clicktaketechnologies
 
-***REMOVED*** 2. Install dependencies (pick one)
-bun install          ***REMOVED*** recommended — uses bun.lock
-***REMOVED*** or
+# 2. Install dependencies (pick one)
+bun install          # recommended — uses bun.lock
+# or
 npm install
 ```
 
-***REMOVED******REMOVED******REMOVED*** Environment
+### Environment
 
 Create a `.env` file in the project root:
 
 ```env
-***REMOVED*** Database (Postgres for production; SQLite for local dev)
+# Database (Postgres for production; SQLite for local dev)
 DATABASE_URL="postgresql://user:pass@host:5432/db?sslmode=require"
-DIRECT_URL="postgresql://user:pass@host:5432/db?sslmode=require"   ***REMOVED*** same as DATABASE_URL (Neon direct, no pooler)
+DIRECT_URL="postgresql://user:pass@host:5432/db?sslmode=require"   # same as DATABASE_URL (Neon direct, no pooler)
 
-***REMOVED*** NextAuth
+# NextAuth
 NEXTAUTH_URL="https://clicktaketech.com"
 NEXTAUTH_SECRET="<openssl rand -base64 32>"
 
-***REMOVED*** Email (Resend or any SMTP)
+# Email (Resend or any SMTP)
 RESEND_API_KEY=""
 LEADS_EMAIL="Info@clicktaketech.com"
 CONTACT_FROM_EMAIL="noreply@clicktaketech.com"
 
-***REMOVED*** Cloudflare Turnstile (anti-bot for contact form)
+# Cloudflare Turnstile (anti-bot for contact form)
 TURNSTILE_SECRET_KEY=""
 TURNSTILE_SITE_KEY=""
 
-***REMOVED*** Storage (Cloudflare R2 — primary)
+# Storage (Cloudflare R2 — primary)
 R2_ACCOUNT_ID=""
 R2_ACCESS_KEY_ID=""
 R2_SECRET_ACCESS_KEY=""
 R2_BUCKET="clicktake-media"
 
-***REMOVED*** Optional: Backblaze B2 (backup storage)
+# Optional: Backblaze B2 (backup storage)
 B2_APPLICATION_KEY_ID=""
 B2_APPLICATION_KEY=""
 B2_BUCKET="clicktake-media-backup"
 
-***REMOVED*** Optional: Super-admin recovery (delete after first use)
+# Optional: Super-admin recovery (delete after first use)
 SUPERADMIN_EMAIL="admin@clicktaketech.com"
 SUPERADMIN_PASSWORD="***REDACTED_ADMIN_PASSWORD***"
 ```
 
-***REMOVED******REMOVED******REMOVED*** Database setup
+### Database setup
 
 ```bash
-***REMOVED*** Push Drizzle schema to Postgres (creates all tables + indexes)
+# Push Drizzle schema to Postgres (creates all tables + indexes)
 bun run db:push
 
-***REMOVED*** Seed the initial super-admin user
+# Seed the initial super-admin user
 bunx tsx scripts/seed-admin.ts
 ```
 
-***REMOVED******REMOVED******REMOVED*** Run the dev server
+### Run the dev server
 
 ```bash
 bun run dev
-***REMOVED*** or
+# or
 npm run dev
 ```
 
@@ -285,7 +285,7 @@ Open **http://localhost:3000** in your browser. The site defaults to dark theme.
 - Email: `admin@clicktaketech.com`
 - Password: `***REDACTED_ADMIN_PASSWORD***` (set in `src/lib/auth.ts` → `ensureSeedAdmin()`)
 
-***REMOVED******REMOVED*** Available Scripts
+## Available Scripts
 
 | Script                | Description                                                        |
 | --------------------- | ---------------------------------------------------------------- |
@@ -303,7 +303,7 @@ Open **http://localhost:3000** in your browser. The site defaults to dark theme.
 | `seed:admin`          | Seed the initial super-admin user                                |
 | `migrate:media`       | Migrate local images to R2/B2 storage                            |
 
-***REMOVED******REMOVED*** Environment Variables
+## Environment Variables
 
 | Variable                | Required | Description                                       |
 | ----------------------- | -------- | ------------------------------------------------- |
@@ -323,7 +323,7 @@ Open **http://localhost:3000** in your browser. The site defaults to dark theme.
 
 ⚠️ = optional in dev, required for production.
 
-***REMOVED******REMOVED*** Public Pages & Routes
+## Public Pages & Routes
 
 | Route                              | Purpose                                              |
 | ---------------------------------- | --------------------------------------------------- |
@@ -351,14 +351,14 @@ Open **http://localhost:3000** in your browser. The site defaults to dark theme.
 | `/rss.xml`                         | RSS feed for blog posts                              |
 | `/sitemap.xml`                     | Dynamic sitemap                                      |
 | `/robots.txt`                      | Dynamic robots                                       |
-| `/llms.txt`                        ***REMOVED*** LLMs.txt for AI agents
+| `/llms.txt`                        # LLMs.txt for AI agents
 | `/openapi.json`                    | OpenAPI 3.1 spec for /api endpoints                  |
 
-***REMOVED******REMOVED*** Admin Panel
+## Admin Panel
 
 The admin panel is at `/admin` and requires authentication via NextAuth (credentials provider).
 
-***REMOVED******REMOVED******REMOVED*** Admin Modules
+### Admin Modules
 
 | Route                  | Module                  | Description                                          |
 | ---------------------- | ----------------------- | --------------------------------------------------- |
@@ -378,7 +378,7 @@ The admin panel is at `/admin` and requires authentication via NextAuth (credent
 | `/admin/roles`         | User Roles (RBAC)       | Roles + fine-grained permissions                     |
 | `/admin/security`      | Security & Logs         | Security logs, blocked IPs, audit trail              |
 
-***REMOVED******REMOVED******REMOVED*** Default Admin Credentials
+### Default Admin Credentials
 
 - **URL:** `/admin/login`
 - **Email:** `admin@clicktaketech.com`
@@ -386,13 +386,13 @@ The admin panel is at `/admin` and requires authentication via NextAuth (credent
 
 These are seeded by `src/lib/auth.ts` → `ensureSeedAdmin()` on first login attempt. Change the password immediately after first login via the Security module.
 
-***REMOVED******REMOVED*** Blog Manager & Bulk Upload
+## Blog Manager & Bulk Upload
 
 The `/admin/blog` module supports **bulk uploading blog posts from `.md`, `.csv`, and `.pdf` files** with automatic content extraction.
 
-***REMOVED******REMOVED******REMOVED*** Supported File Formats
+### Supported File Formats
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** `.md` (Markdown with YAML frontmatter)
+#### `.md` (Markdown with YAML frontmatter)
 ```markdown
 ---
 title: My Article
@@ -405,7 +405,7 @@ publishedAt: 2026-01-15
 coverImage: https://example.com/image.jpg
 ---
 
-***REMOVED*** Article body in Markdown
+# Article body in Markdown
 
 This is the article content...
 ```
@@ -413,7 +413,7 @@ This is the article content...
 - Body converted from Markdown to HTML by `marked`
 - Creates **1 post per file**
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** `.csv` (Header row + data rows)
+#### `.csv` (Header row + data rows)
 ```csv
 title,slug,excerpt,category,tags,author,content
 First Post,first-post,First excerpt,SEO,"seo|local",ClickTake,"<p>HTML body</p>"
@@ -422,7 +422,7 @@ Second Post,second-post,Second excerpt,Web Dev,"nextjs|react",ClickTake Eng,"<p>
 - Recognized columns: `title`, `slug`, `excerpt`, `category`, `tags` (pipe-separated), `author`, `content`/`body`/`html`/`text`
 - Creates **N posts per file** (one per data row)
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** `.pdf` (Text-based PDFs only)
+#### `.pdf` (Text-based PDFs only)
 - Text extracted by `pdf-parse` v2
 - First meaningful line becomes the title
 - Remaining text is split into paragraphs and wrapped in `<p>` tags
@@ -430,7 +430,7 @@ Second Post,second-post,Second excerpt,Web Dev,"nextjs|react",ClickTake Eng,"<p>
 - Creates **1 post per file**
 - Scanned image PDFs are not supported (no OCR)
 
-***REMOVED******REMOVED******REMOVED*** Upload Behavior
+### Upload Behavior
 
 - All uploaded posts are saved as **DRAFTS** by default (`isPublished=false`) — admin reviews before publishing.
 - Optional form field `publish=true` auto-publishes immediately.
@@ -438,22 +438,22 @@ Second Post,second-post,Second excerpt,Web Dev,"nextjs|react",ClickTake Eng,"<p>
 - Slugs are auto-deduplicated (appends `-2`, `-3`, etc. if a slug already exists).
 - Returns a summary with created posts + any per-file errors.
 
-***REMOVED******REMOVED******REMOVED*** Sample Templates
+### Sample Templates
 
 Sample templates are included in `download/blog-templates/`:
 - `sample-blog-post.md` — single Markdown post with full frontmatter
 - `sample-blog-bulk.csv` — 3-post CSV bulk import example
 
-***REMOVED******REMOVED******REMOVED*** Public Blog Pages
+### Public Blog Pages
 
 - `/blog` queries the `cms_blogs` table for published posts and **merges with static `BLOG_POSTS`** from `site-data.ts`.
 - DB posts take precedence on slug collisions (admin can override static content).
 - ISR with 5-minute revalidation — newly published posts appear within 5 minutes.
 - `/blog/[slug]` resolves DB-first, falls back to static `BLOG_POSTS` if not found.
 
-***REMOVED******REMOVED*** API Endpoints
+## API Endpoints
 
-***REMOVED******REMOVED******REMOVED*** Public APIs
+### Public APIs
 
 | Method | Route                | Description                                  |
 | ------ | -------------------- | -------------------------------------------- |
@@ -466,7 +466,7 @@ Sample templates are included in `download/blog-templates/`:
 | GET    | `/llms.txt`          | LLMs.txt for AI agents                       |
 | GET    | `/openapi.json`      | OpenAPI 3.1 spec                             |
 
-***REMOVED******REMOVED******REMOVED*** Admin APIs (auth required)
+### Admin APIs (auth required)
 
 | Method | Route                            | Description                                  |
 | ------ | -------------------------------- | -------------------------------------------- |
@@ -505,22 +505,22 @@ Sample templates are included in `download/blog-templates/`:
 | GET    | `/api/admin/email/logs`          | Email send logs                              |
 | POST   | `/api/admin/email/send-test`     | Send test email                              |
 
-***REMOVED******REMOVED*** Database & Schema
+## Database & Schema
 
 The codebase uses **Drizzle ORM** (not Prisma directly) for all database access. A Prisma-compatible shim (`src/lib/db.ts`) exposes a `prisma` object whose API mirrors Prisma Client's top-level model access, translating each call to the equivalent Drizzle query. This lets us use Drizzle on Cloudflare Workers (where Prisma's WASM engine has issues) while keeping the familiar Prisma API.
 
-***REMOVED******REMOVED******REMOVED*** Schema Files
+### Schema Files
 
 - **`src/lib/schema.ts`** — Drizzle schema (canonical, 40+ tables)
 - **`prisma/schema.prisma`** — Prisma schema (mirror, for IDE tooling)
 
-***REMOVED******REMOVED******REMOVED*** Production Database
+### Production Database
 
 - **Provider:** Neon Postgres (serverless)
 - **Connection:** Pooled via `DATABASE_URL`, direct via `DIRECT_URL` for migrations
 - **Tables (64 total):** pages, cms_blogs, cms_media, cms_backgrounds, cms_nav_links, cms_typography, cms_themes, cms_theme_presets, cms_font_presets, services, leads, admin_users, admin_roles, role_permissions, audit_logs, security_logs, blocked_ips, team_members, job_openings, job_applications, portfolio_items, testimonials, resources, provider_configs, provider_health, provider_usage, storage_objects, email_logs, email_templates, email_workflows, smtp_logs, seo_page_meta, seo_robots_config, seo_sitemap_config, site_settings, page_views, backups, admin_notifications, ab_experiments, ab_variants, ab_assignments, posts, users, and more.
 
-***REMOVED******REMOVED******REMOVED*** Self-Healing Schema
+### Self-Healing Schema
 
 Some endpoints use idempotent `CREATE TABLE IF NOT EXISTS` / `ALTER TABLE ADD COLUMN IF NOT EXISTS` patterns to self-heal schema drift between code deploys and DB migrations:
 
@@ -528,9 +528,9 @@ Some endpoints use idempotent `CREATE TABLE IF NOT EXISTS` / `ALTER TABLE ADD CO
 - **`/api/admin/recover?action=auto-migrate`** — runs idempotent migrations for `services.deep_dive`, `ab_experiments`, `ab_variants`, `ab_assignments`.
 - **`/api/admin/recover?action=blog-migrate`** — runs idempotent ALTER TABLE for `cms_blogs` with per-statement success/error reporting.
 
-***REMOVED******REMOVED*** Authentication & RBAC
+## Authentication & RBAC
 
-***REMOVED******REMOVED******REMOVED*** NextAuth.js Configuration
+### NextAuth.js Configuration
 
 - **Provider:** Credentials (email + password)
 - **Password hashing:** bcrypt (12 rounds)
@@ -538,7 +538,7 @@ Some endpoints use idempotent `CREATE TABLE IF NOT EXISTS` / `ALTER TABLE ADD CO
 - **Session payload:** `id`, `email`, `name`, `roleId`, `roleName`, `permissions[]`
 - **Config:** `src/lib/auth.ts`
 
-***REMOVED******REMOVED******REMOVED*** Default Super Admin
+### Default Super Admin
 
 On first login attempt, `ensureSeedAdmin()` runs idempotently:
 - Creates `Super Admin` role with all permissions
@@ -546,7 +546,7 @@ On first login attempt, `ensureSeedAdmin()` runs idempotently:
 - Creates `Sales Support` role with lead permissions
 - Creates `admin@clicktaketech.com` user with `***REDACTED_ADMIN_PASSWORD***` password (bcrypt-hashed)
 
-***REMOVED******REMOVED******REMOVED*** Permission System
+### Permission System
 
 Permissions are defined in `src/lib/permissions.ts` and include:
 - `viewDashboard`, `readCMS`, `writeCMS`
@@ -555,9 +555,9 @@ Permissions are defined in `src/lib/permissions.ts` and include:
 - `manageProviders`, `manageThemes`, `manageTypography`
 - `viewSecurity`, `manageSecurity`
 
-***REMOVED******REMOVED*** Storage & Email Providers
+## Storage & Email Providers
 
-***REMOVED******REMOVED******REMOVED*** Storage (R2 → B2 with replication)
+### Storage (R2 → B2 with replication)
 
 - **Primary:** Cloudflare R2 (zero egress fees)
 - **Backup:** Backblaze B2 (async replication, fire-and-forget)
@@ -565,7 +565,7 @@ Permissions are defined in `src/lib/permissions.ts` and include:
 - **DB tracking:** `storage_objects` table records every upload (key, content-type, size, primary provider, replication status)
 - **Registry:** `src/lib/providers/storage/`
 
-***REMOVED******REMOVED******REMOVED*** Email (multi-provider with failover)
+### Email (multi-provider with failover)
 
 - **Supported:** Resend, Brevo, nodemailer (SMTP)
 - **Failover:** priority-based — tries highest-priority active provider first, falls through on error
@@ -574,7 +574,7 @@ Permissions are defined in `src/lib/permissions.ts` and include:
 - **Logs:** every send is logged in `email_logs` + `smtp_logs`
 - **Registry:** `src/lib/providers/email/`
 
-***REMOVED******REMOVED*** SEO & Structured Data
+## SEO & Structured Data
 
 - **`metadata` export** in every page — full Open Graph, Twitter cards, robots directives, locale-aware title template, canonical URLs.
 - **JSON-LD schemas:**
@@ -589,61 +589,61 @@ Permissions are defined in `src/lib/permissions.ts` and include:
 - **OpenAPI 3.1** — `/openapi.json` describes all API endpoints for client SDK generation.
 - **RSS** — `/rss.xml` feeds blog posts.
 
-***REMOVED******REMOVED*** Deployment
+## Deployment
 
-***REMOVED******REMOVED******REMOVED*** Vercel (primary — production)
+### Vercel (primary — production)
 
 1. Push this repo to GitHub (already configured: `clicktaketechnologies/clicktaketechnologies`).
 2. Go to [vercel.com](https://vercel.com) and import the repo.
 3. Framework preset: **Next.js** (auto-detected).
-4. Add all environment variables from the [Environment Variables](***REMOVED***environment-variables) table.
+4. Add all environment variables from the [Environment Variables](#environment-variables) table.
 5. Build command: `next build` (Vercel handles standalone output).
 6. Deploy. Auto-deploys on every push to `main`.
 
 **Production URL:** [clicktaketech.com](https://clicktaketech.com)
 
-***REMOVED******REMOVED******REMOVED*** Cloudflare Workers (alternative)
+### Cloudflare Workers (alternative)
 
 ```bash
-***REMOVED*** Build for Cloudflare Workers
+# Build for Cloudflare Workers
 bun run build:cloudflare
 
-***REMOVED*** Deploy
+# Deploy
 bun run deploy:cloudflare
 ```
 
 The build uses `@opennextjs/cloudflare` to package the Next.js app for Cloudflare Workers. Drizzle ORM runs natively on Workers via the `pg` + `pg-cloudflare` socket adapter (no Prisma WASM engine needed).
 
-***REMOVED******REMOVED******REMOVED*** Self-hosted (Bun + Caddy)
+### Self-hosted (Bun + Caddy)
 
 ```bash
-***REMOVED*** Build
+# Build
 bun run build
 
-***REMOVED*** Run the standalone server (NODE_ENV=production)
+# Run the standalone server (NODE_ENV=production)
 bun run start
 ```
 
 The `build` script outputs a standalone server to `.next/standalone/`. Point a reverse proxy (Caddy, Nginx) at port 3000.
 
-***REMOVED******REMOVED******REMOVED*** Database Migrations
+### Database Migrations
 
 ```bash
-***REMOVED*** Create a migration from schema changes
+# Create a migration from schema changes
 bun run db:migrate -- --name <migration_name>
 
-***REMOVED*** Apply migrations to production
+# Apply migrations to production
 DATABASE_URL="<prod-connection-string>" bun run db:push
 ```
 
 > ⚠️ **Never run `drizzle-kit push --force` against production without a backup.** Use `bun run db:push` (idempotent, safe).
 
-***REMOVED******REMOVED*** Locations & Contact
+## Locations & Contact
 
 | Region                  | City        | Address                                                  | Hours                            |
 | ----------------------- | ----------- | -------------------------------------------------------- | -------------------------------- |
 | 🇬🇧 United Kingdom      | Birmingham  | Flat 312, Kitts Green Road, Birmingham B33 9SB          | Mon–Sat: 09:30 AM – 09:00 PM GMT |
-| 🇵🇰 Pakistan            | Multan      | Office ***REMOVED***12, B.C.G Chowk, Paracha Street, Multan 60600   | Mon–Sat: 09:30 AM – 09:00 PM PKT |
+| 🇵🇰 Pakistan            | Multan      | Office #12, B.C.G Chowk, Paracha Street, Multan 60600   | Mon–Sat: 09:30 AM – 09:00 PM PKT |
 | 🇺🇸 United States       | Austin, TX  | Remote-first · Available across US time zones            | Mon–Fri: 9:00 AM – 6:00 PM CST   |
 | 🇦🇪 United Arab Emirates| Dubai       | Business Bay · Dubai, UAE                                | Mon–Sat: 10:00 AM – 08:00 PM GST |
 
@@ -651,7 +651,7 @@ DATABASE_URL="<prod-connection-string>" bun run db:push
 **Email:** Info@clicktaketech.com
 **Website:** [www.clicktaketech.com](https://www.clicktaketech.com)
 
-***REMOVED******REMOVED******REMOVED*** Social
+### Social
 
 [Facebook](https://www.facebook.com/clicktaketechnologies/) ·
 [Instagram](https://www.instagram.com/clicktaketechnologiesuk/) ·
@@ -662,7 +662,7 @@ DATABASE_URL="<prod-connection-string>" bun run db:push
 [Threads](https://www.threads.net/@clicktaketechnologies) ·
 [Tumblr](https://clicktaketechnologies.tumblr.com/)
 
-***REMOVED******REMOVED*** License
+## License
 
 Proprietary — © 2020–2026 ClickTake Technologies. All rights reserved.
 

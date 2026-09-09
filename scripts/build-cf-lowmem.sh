@@ -1,12 +1,12 @@
-***REMOVED***!/bin/bash
-***REMOVED*** Memory-efficient Cloudflare Worker build for low-RAM environments.
-***REMOVED*** Uses NEXT_TELEMETRY_DISABLED, NEXT_WORKER_CACHE disabled, NODE_OPTIONS max-old-space-size=2048
-***REMOVED*** Runs next build with --no-lint and reduced concurrency to avoid OOM.
+#!/bin/bash
+# Memory-efficient Cloudflare Worker build for low-RAM environments.
+# Uses NEXT_TELEMETRY_DISABLED, NEXT_WORKER_CACHE disabled, NODE_OPTIONS max-old-space-size=2048
+# Runs next build with --no-lint and reduced concurrency to avoid OOM.
 
 set -e
 cd "$(dirname "$0")/.."
 
-***REMOVED*** Stub env vars (build-time only — replaced at runtime by wrangler secrets)
+# Stub env vars (build-time only — replaced at runtime by wrangler secrets)
 export NODE_ENV=production
 export NEXT_TELEMETRY_DISABLED=1
 export NEXT_WORKER_CACHE=false
@@ -31,7 +31,7 @@ export CAREERS_EMAIL="careers@clicktaketech.com"
 export PROVIDER_ALERT_TO="alerts@clicktaketech.com"
 export BACKEND_URL=""
 
-***REMOVED*** Limit Node memory to 2.5GB to leave room for OS + other processes
+# Limit Node memory to 2.5GB to leave room for OS + other processes
 export NODE_OPTIONS="--max-old-space-size=2560"
 
 echo "── build-cf-lowmem: patching pg ──"
@@ -41,7 +41,7 @@ echo "── build-cf-lowmem: swapping in stub db.ts ──"
 cp src/lib/db.ts src/lib/db-impl.ts.bak
 cp src/lib/db-stub.ts src/lib/db.ts
 
-***REMOVED*** Ensure restore even on failure
+# Ensure restore even on failure
 restore_db() {
   if [ -f src/lib/db-impl.ts.bak ]; then
     cp src/lib/db-impl.ts.bak src/lib/db.ts

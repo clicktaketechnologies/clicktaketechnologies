@@ -38,8 +38,8 @@ export const viewport: Viewport = {
   maximumScale: 5,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "***REMOVED***FAFAFC" },
-    { media: "(prefers-color-scheme: dark)", color: "***REMOVED***03000D" },
+    { media: "(prefers-color-scheme: light)", color: "#FAFAFC" },
+    { media: "(prefers-color-scheme: dark)", color: "#03000D" },
   ],
 };
 
@@ -335,7 +335,7 @@ export default async function RootLayout({
               GLOBAL .theme-nx SCOPE WRAPPER
               ──────────────────────────────────────────────────────────────
               Per v5 cyberpunk enforcement spec: EVERY route must inherit the
-              .theme-nx scope so the deep dark canvas (***REMOVED***03000D), nx-* design
+              .theme-nx scope so the deep dark canvas (#03000D), nx-* design
               tokens, and v5 enforcement CSS layer activate universally — even
               if a page forgets to import NxPageLayout.
 
@@ -345,10 +345,10 @@ export default async function RootLayout({
               admin, auth) still get the dark canvas + token scope.
 
               The .theme-nx scope is theme-aware: under html.dark it activates
-              the v5 Dark Premium Cyberpunk palette (***REMOVED***03000D canvas, neon
+              the v5 Dark Premium Cyberpunk palette (#03000D canvas, neon
               gradients, glassmorphic dark cards). Under html:not(.dark) the
               LIGHT MODE ADAPTATION LAYER in globals.css flips the same
-              components to a clean light palette (***REMOVED***FAFAFC canvas, white
+              components to a clean light palette (#FAFAFC canvas, white
               glass cards, deep slate text). The user controls which palette
               is active via the ThemeToggle in the navbar (setTheme('dark' |
               'light' | 'system')).

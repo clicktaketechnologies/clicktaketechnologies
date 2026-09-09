@@ -34,7 +34,7 @@ export async function GET() {
     {
       anchor: AGENT.origin + "/api/premium",
       "service-desc": [
-        { href: AGENT.openApiUrl + "***REMOVED***/paths/~1premium~1get", type: "application/vnd.oai.openapi+json;version=3.1" },
+        { href: AGENT.openApiUrl + "#/paths/~1premium~1get", type: "application/vnd.oai.openapi+json;version=3.1" },
       ],
       "service-doc": [{ href: "https://x402.org", type: "text/html" }],
       status: [{ href: AGENT.healthUrl, type: "application/json" }],

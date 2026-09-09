@@ -9,11 +9,11 @@ publishedAt: 2026-01-15
 coverImage: https://clicktaketech.com/og/seo-audit.jpg
 ---
 
-***REMOVED*** The Complete SEO Audit Checklist for 2026
+# The Complete SEO Audit Checklist for 2026
 
 A complete SEO audit covers three pillars: **technical**, **on-page** and **off-page**. This article walks through the 47-point checklist our team uses for every ClickTake engagement — covering Core Web Vitals, schema markup, internal linking, content gaps, backlink profile and local SEO signals.
 
-***REMOVED******REMOVED*** Technical SEO
+## Technical SEO
 
 - Core Web Vitals (LCP < 2.5s, INP < 200ms, CLS < 0.1)
 - Mobile-first indexing verified in Search Console
@@ -21,7 +21,7 @@ A complete SEO audit covers three pillars: **technical**, **on-page** and **off-
 - XML sitemap submitted and crawlable
 - robots.txt configured correctly
 
-***REMOVED******REMOVED*** On-Page SEO
+## On-Page SEO
 
 - Title tags (50-60 chars, keyword in front)
 - Meta descriptions (150-160 chars)
@@ -29,7 +29,7 @@ A complete SEO audit covers three pillars: **technical**, **on-page** and **off-
 - Image alt text on all images
 - Internal linking depth ≤ 3 clicks from home
 
-***REMOVED******REMOVED*** Off-Page SEO
+## Off-Page SEO
 
 - Backlink profile audited for toxic links
 - Referring domains tracked monthly

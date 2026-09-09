@@ -10,7 +10,7 @@ import { CITIES } from "@/lib/seo/cities";
  * the sitemap would force Googlebot through a redirect on every page —
  * wasting crawl budget and diluting canonical signals.
  *
- * Phase 3 ***REMOVED***4 (Programmatic SEO) adds:
+ * Phase 3 #4 (Programmatic SEO) adds:
  *   - 1 /cities index page
  *   - CITIES.length city hub pages  (/cities/[city])
  *   - CITIES.length × SERVICES.length city × service pages
@@ -19,7 +19,7 @@ import { CITIES } from "@/lib/seo/cities";
  * City × service priority is set by the city's searchTier (3=high, 2=med, 1=low)
  * to bias Googlebot's crawl budget toward the highest-intent markets first.
  *
- * Phase 5 ***REMOVED***1 (Audit fixes) adds:
+ * Phase 5 #1 (Audit fixes) adds:
  *   - /services/[category] parent index pages (creative, web, ai, digital-marketing)
  *   - /careers/[slug] detail pages for each open role
  *   - /resources/[slug] detail pages for each playbook/guide
@@ -116,7 +116,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
   }));
 
-  // ─── Phase 3 ***REMOVED***4 — Programmatic SEO routes ──────────────────────────────
+  // ─── Phase 3 #4 — Programmatic SEO routes ──────────────────────────────
   const programmaticCityHubRoutes = CITIES.map((c) => ({
     url: `${BASE}/cities/${c.slug}`,
     priority: c.hasOffice ? 0.9 : 0.7, // Office cities get a small boost

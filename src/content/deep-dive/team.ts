@@ -18,7 +18,7 @@ export const teamDeepDive: DeepDiveContent = {
     character: "team",
     ctas: [
       { label: "View Open Roles", href: "/careers", variant: "orange" },
-      { label: "Meet the Team", href: "***REMOVED***team-departments", variant: "outline" },
+      { label: "Meet the Team", href: "#team-departments", variant: "outline" },
     ],
     stats: [
       { value: "28", label: "Team members" },
@@ -315,7 +315,7 @@ export const teamDeepDive: DeepDiveContent = {
         client: "Senior AI/ML Engineer, joined 2022 as mid-level",
         situation: "Joined ClickTake in 2022 as a mid-level AI engineer with 3 years of experience at a Lahore-based agency. Compensation was at-market for Pakistan; the draw was the AI practice and the UK client exposure.",
         task: "Grow into a senior IC role within 18 months, ship a production LLM system end-to-end, and represent ClickTake in client demos.",
-        action: "Paired with the CTO on the first LLM engagement (UK legal firm, 2023). Took over tech-lead role on engagement ***REMOVED***3 (UK healthcare LLM scribe, 2024). Promoted to Senior AI/ML Engineer in Q3 2024 after shipping 4 production LLM systems. Spoke at PyCon Pakistan 2024 on 'Production RAG: Eval Harnesses That Don't Suck'.",
+        action: "Paired with the CTO on the first LLM engagement (UK legal firm, 2023). Took over tech-lead role on engagement #3 (UK healthcare LLM scribe, 2024). Promoted to Senior AI/ML Engineer in Q3 2024 after shipping 4 production LLM systems. Spoke at PyCon Pakistan 2024 on 'Production RAG: Eval Harnesses That Don't Suck'.",
         result: "Now leads the AI practice's evaluation-harness workstream. Mentors 2 junior AI engineers. Compensation has grown 95% over 4 years. Turned down 2 FAANG offers to stay — cited the production-LLM portfolio and the Friday R&D time as deciding factors.",
         quote: {
           text: "I joined for the AI work. I'm staying because I get to ship real LLM systems with real evals — not demos. The 4 hours of Friday R&D time is what makes the difference.",

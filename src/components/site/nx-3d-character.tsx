@@ -9,9 +9,9 @@
  * feel like mascots rather than abstract shapes.
  *
  * Brand colors used:
- *   Pink   ***REMOVED***FF53A9 / ***REMOVED***E0197A
- *   Blue   ***REMOVED***136DFF / ***REMOVED***4A90D9
- *   Purple ***REMOVED***9B3DFF / ***REMOVED***7B2FBE
+ *   Pink   #FF53A9 / #E0197A
+ *   Blue   #136DFF / #4A90D9
+ *   Purple #9B3DFF / #7B2FBE
  *
  * Usage:
  *   <Nx3DCharacter variant="services" />
@@ -172,12 +172,12 @@ function CharacterCube({ floatSpeed }: { floatSpeed: number }) {
         }}
       >
         {[
-          { transform: 'translateZ(80px)', bg: 'linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***9B3DFF)' },
-          { transform: 'rotateY(180deg) translateZ(80px)', bg: 'linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***9B3DFF)' },
-          { transform: 'rotateY(90deg) translateZ(80px)', bg: 'linear-gradient(135deg,***REMOVED***9B3DFF,***REMOVED***FF53A9)' },
-          { transform: 'rotateY(-90deg) translateZ(80px)', bg: 'linear-gradient(135deg,***REMOVED***E0197A,***REMOVED***136DFF)' },
-          { transform: 'rotateX(90deg) translateZ(80px)', bg: 'linear-gradient(135deg,***REMOVED***FF8AC4,***REMOVED***4A90D9)' },
-          { transform: 'rotateX(-90deg) translateZ(80px)', bg: 'linear-gradient(135deg,***REMOVED***7B2FBE,***REMOVED***FF53A9)' },
+          { transform: 'translateZ(80px)', bg: 'linear-gradient(135deg,#FF53A9,#9B3DFF)' },
+          { transform: 'rotateY(180deg) translateZ(80px)', bg: 'linear-gradient(135deg,#136DFF,#9B3DFF)' },
+          { transform: 'rotateY(90deg) translateZ(80px)', bg: 'linear-gradient(135deg,#9B3DFF,#FF53A9)' },
+          { transform: 'rotateY(-90deg) translateZ(80px)', bg: 'linear-gradient(135deg,#E0197A,#136DFF)' },
+          { transform: 'rotateX(90deg) translateZ(80px)', bg: 'linear-gradient(135deg,#FF8AC4,#4A90D9)' },
+          { transform: 'rotateX(-90deg) translateZ(80px)', bg: 'linear-gradient(135deg,#7B2FBE,#FF53A9)' },
         ].map((face, i) => (
           <div
             key={i}
@@ -204,7 +204,7 @@ function CharacterCube({ floatSpeed }: { floatSpeed: number }) {
           animation: 'ctSpin 18s linear infinite',
         }}
       >
-        <span className="absolute -top-1 left-1/2 -ml-1 h-2 w-2 rounded-full bg-[***REMOVED***FF53A9] shadow-[0_0_10px_***REMOVED***FF53A9]" />
+        <span className="absolute -top-1 left-1/2 -ml-1 h-2 w-2 rounded-full bg-[#FF53A9] shadow-[0_0_10px_#FF53A9]" />
       </div>
       <div
         className="absolute"
@@ -216,7 +216,7 @@ function CharacterCube({ floatSpeed }: { floatSpeed: number }) {
           animation: 'ctSpin 24s linear infinite reverse',
         }}
       >
-        <span className="absolute -bottom-1 left-1/2 -ml-1 h-1.5 w-1.5 rounded-full bg-[***REMOVED***136DFF] shadow-[0_0_10px_***REMOVED***136DFF]" />
+        <span className="absolute -bottom-1 left-1/2 -ml-1 h-1.5 w-1.5 rounded-full bg-[#136DFF] shadow-[0_0_10px_#136DFF]" />
       </div>
       <StyleBlock />
     </div>
@@ -254,8 +254,8 @@ function CharacterOrb({ floatSpeed }: { floatSpeed: number }) {
           <span
             className="absolute -top-1 left-1/2 -ml-1 h-2 w-2 rounded-full"
             style={{
-              background: ['***REMOVED***FF53A9', '***REMOVED***136DFF', '***REMOVED***9B3DFF'][i],
-              boxShadow: `0 0 12px ${['***REMOVED***FF53A9', '***REMOVED***136DFF', '***REMOVED***9B3DFF'][i]}`,
+              background: ['#FF53A9', '#136DFF', '#9B3DFF'][i],
+              boxShadow: `0 0 12px ${['#FF53A9', '#136DFF', '#9B3DFF'][i]}`,
             }}
           />
         </div>
@@ -266,7 +266,7 @@ function CharacterOrb({ floatSpeed }: { floatSpeed: number }) {
         style={{
           width: 180, height: 180,
           borderRadius: '50%',
-          background: 'radial-gradient(circle at 30% 30%, ***REMOVED***FF8AC4 0%, ***REMOVED***FF53A9 30%, ***REMOVED***9B3DFF 70%, ***REMOVED***136DFF 100%)',
+          background: 'radial-gradient(circle at 30% 30%, #FF8AC4 0%, #FF53A9 30%, #9B3DFF 70%, #136DFF 100%)',
           boxShadow: '0 30px 60px rgba(155,61,255,0.45), inset -10px -10px 30px rgba(0,0,0,0.3), inset 10px 10px 30px rgba(255,255,255,0.18)',
           animation: `ctOrbFloat ${floatSpeed}s ease-in-out infinite`,
         }}
@@ -312,33 +312,33 @@ function CharacterHex({ floatSpeed }: { floatSpeed: number }) {
         <svg width="200" height="230" viewBox="0 0 200 230" fill="none">
           <defs>
             <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="***REMOVED***FF53A9" />
-              <stop offset="50%" stopColor="***REMOVED***9B3DFF" />
-              <stop offset="100%" stopColor="***REMOVED***136DFF" />
+              <stop offset="0%" stopColor="#FF53A9" />
+              <stop offset="50%" stopColor="#9B3DFF" />
+              <stop offset="100%" stopColor="#136DFF" />
             </linearGradient>
             <linearGradient id="hexGradInner" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="***REMOVED***0A0612" />
-              <stop offset="100%" stopColor="***REMOVED***1E1640" />
+              <stop offset="0%" stopColor="#0A0612" />
+              <stop offset="100%" stopColor="#1E1640" />
             </linearGradient>
           </defs>
           {/* Outer hex */}
           <polygon
             points="100,5 185,55 185,175 100,225 15,175 15,55"
-            fill="url(***REMOVED***hexGrad)"
+            fill="url(#hexGrad)"
             stroke="rgba(255,255,255,0.25)"
             strokeWidth="2"
           />
           {/* Inner hex */}
           <polygon
             points="100,30 162,68 162,162 100,200 38,162 38,68"
-            fill="url(***REMOVED***hexGradInner)"
+            fill="url(#hexGradInner)"
             stroke="rgba(255,255,255,0.12)"
             strokeWidth="1"
           />
           {/* Checkmark */}
           <path
             d="M70 115 L92 137 L135 95"
-            stroke="url(***REMOVED***hexGrad)"
+            stroke="url(#hexGrad)"
             strokeWidth="6"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -346,8 +346,8 @@ function CharacterHex({ floatSpeed }: { floatSpeed: number }) {
           />
         </svg>
         {/* Floating accent dots */}
-        <span className="absolute -top-2 -right-2 h-3 w-3 rounded-full bg-[***REMOVED***FF53A9] shadow-[0_0_12px_***REMOVED***FF53A9]" />
-        <span className="absolute bottom-5 -left-3 h-2.5 w-2.5 rounded-full bg-[***REMOVED***136DFF] shadow-[0_0_10px_***REMOVED***136DFF]" />
+        <span className="absolute -top-2 -right-2 h-3 w-3 rounded-full bg-[#FF53A9] shadow-[0_0_12px_#FF53A9]" />
+        <span className="absolute bottom-5 -left-3 h-2.5 w-2.5 rounded-full bg-[#136DFF] shadow-[0_0_10px_#136DFF]" />
       </div>
       <StyleBlock />
     </div>
@@ -377,47 +377,47 @@ function CharacterRocket({ floatSpeed }: { floatSpeed: number }) {
         <svg width="160" height="280" viewBox="0 0 160 280" fill="none">
           <defs>
             <linearGradient id="rocketBody" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="***REMOVED***9B3DFF" />
-              <stop offset="50%" stopColor="***REMOVED***FF53A9" />
-              <stop offset="100%" stopColor="***REMOVED***136DFF" />
+              <stop offset="0%" stopColor="#9B3DFF" />
+              <stop offset="50%" stopColor="#FF53A9" />
+              <stop offset="100%" stopColor="#136DFF" />
             </linearGradient>
             <linearGradient id="rocketFin" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="***REMOVED***FF53A9" />
-              <stop offset="100%" stopColor="***REMOVED***E0197A" />
+              <stop offset="0%" stopColor="#FF53A9" />
+              <stop offset="100%" stopColor="#E0197A" />
             </linearGradient>
             <linearGradient id="rocketWindow" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="***REMOVED***4A90D9" />
-              <stop offset="100%" stopColor="***REMOVED***136DFF" />
+              <stop offset="0%" stopColor="#4A90D9" />
+              <stop offset="100%" stopColor="#136DFF" />
             </linearGradient>
           </defs>
           {/* Flame */}
           <path
             d="M65 220 Q60 245 70 270 Q80 250 80 230 Z"
-            fill="***REMOVED***FF53A9"
+            fill="#FF53A9"
             opacity="0.7"
           />
           <path
             d="M80 220 Q80 250 95 270 Q100 245 95 230 Z"
-            fill="***REMOVED***136DFF"
+            fill="#136DFF"
             opacity="0.7"
           />
           <path
             d="M72 225 Q75 250 80 265 Q85 250 88 225 Z"
-            fill="***REMOVED***FFB800"
+            fill="#FFB800"
             opacity="0.9"
           />
           {/* Fins */}
-          <path d="M40 160 L20 200 L40 200 Z" fill="url(***REMOVED***rocketFin)" />
-          <path d="M120 160 L140 200 L120 200 Z" fill="url(***REMOVED***rocketFin)" />
+          <path d="M40 160 L20 200 L40 200 Z" fill="url(#rocketFin)" />
+          <path d="M120 160 L140 200 L120 200 Z" fill="url(#rocketFin)" />
           {/* Body */}
           <path
             d="M50 80 Q50 30 80 5 Q110 30 110 80 L110 200 L50 200 Z"
-            fill="url(***REMOVED***rocketBody)"
+            fill="url(#rocketBody)"
             stroke="rgba(255,255,255,0.25)"
             strokeWidth="2"
           />
           {/* Window */}
-          <circle cx="80" cy="100" r="20" fill="url(***REMOVED***rocketWindow)" stroke="rgba(255,255,255,0.5)" strokeWidth="3" />
+          <circle cx="80" cy="100" r="20" fill="url(#rocketWindow)" stroke="rgba(255,255,255,0.5)" strokeWidth="3" />
           <circle cx="80" cy="100" r="14" fill="rgba(255,255,255,0.15)" />
           {/* Body band */}
           <rect x="50" y="170" width="60" height="6" fill="rgba(255,255,255,0.3)" />
@@ -432,7 +432,7 @@ function CharacterRocket({ floatSpeed }: { floatSpeed: number }) {
             animation: 'ctSpin 12s linear infinite',
           }}
         >
-          <span className="absolute -top-1 left-1/2 -ml-1 h-2 w-2 rounded-full bg-[***REMOVED***9B3DFF] shadow-[0_0_10px_***REMOVED***9B3DFF]" />
+          <span className="absolute -top-1 left-1/2 -ml-1 h-2 w-2 rounded-full bg-[#9B3DFF] shadow-[0_0_10px_#9B3DFF]" />
         </div>
       </div>
       <StyleBlock />
@@ -463,22 +463,22 @@ function CharacterTrophy({ floatSpeed }: { floatSpeed: number }) {
         <svg width="200" height="250" viewBox="0 0 200 250" fill="none">
           <defs>
             <linearGradient id="trophyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="***REMOVED***FF8AC4" />
-              <stop offset="50%" stopColor="***REMOVED***FF53A9" />
-              <stop offset="100%" stopColor="***REMOVED***9B3DFF" />
+              <stop offset="0%" stopColor="#FF8AC4" />
+              <stop offset="50%" stopColor="#FF53A9" />
+              <stop offset="100%" stopColor="#9B3DFF" />
             </linearGradient>
             <linearGradient id="trophyBase" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="***REMOVED***136DFF" />
-              <stop offset="100%" stopColor="***REMOVED***0E58D6" />
+              <stop offset="0%" stopColor="#136DFF" />
+              <stop offset="100%" stopColor="#0E58D6" />
             </linearGradient>
           </defs>
           {/* Handles */}
-          <path d="M40 50 Q15 50 15 90 Q15 120 45 120" stroke="url(***REMOVED***trophyGrad)" strokeWidth="6" fill="none" />
-          <path d="M160 50 Q185 50 185 90 Q185 120 155 120" stroke="url(***REMOVED***trophyGrad)" strokeWidth="6" fill="none" />
+          <path d="M40 50 Q15 50 15 90 Q15 120 45 120" stroke="url(#trophyGrad)" strokeWidth="6" fill="none" />
+          <path d="M160 50 Q185 50 185 90 Q185 120 155 120" stroke="url(#trophyGrad)" strokeWidth="6" fill="none" />
           {/* Cup */}
           <path
             d="M40 30 L160 30 L150 130 Q150 150 100 150 Q50 150 50 130 Z"
-            fill="url(***REMOVED***trophyGrad)"
+            fill="url(#trophyGrad)"
             stroke="rgba(255,255,255,0.3)"
             strokeWidth="2"
           />
@@ -489,15 +489,15 @@ function CharacterTrophy({ floatSpeed }: { floatSpeed: number }) {
             opacity="0.9"
           />
           {/* Stem */}
-          <rect x="90" y="150" width="20" height="40" fill="url(***REMOVED***trophyBase)" />
+          <rect x="90" y="150" width="20" height="40" fill="url(#trophyBase)" />
           {/* Base */}
-          <rect x="55" y="190" width="90" height="20" rx="4" fill="url(***REMOVED***trophyBase)" />
-          <rect x="45" y="210" width="110" height="14" rx="3" fill="url(***REMOVED***trophyBase)" />
+          <rect x="55" y="190" width="90" height="20" rx="4" fill="url(#trophyBase)" />
+          <rect x="45" y="210" width="110" height="14" rx="3" fill="url(#trophyBase)" />
         </svg>
         {/* Confetti dots */}
-        <span className="absolute top-2 -left-2 h-2 w-2 rounded-full bg-[***REMOVED***FF53A9] animate-bounce" style={{ animationDuration: '2s' }} />
-        <span className="absolute top-10 -right-4 h-2.5 w-2.5 rounded-full bg-[***REMOVED***136DFF] animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.3s' }} />
-        <span className="absolute bottom-20 -left-4 h-2 w-2 rounded-full bg-[***REMOVED***9B3DFF] animate-bounce" style={{ animationDuration: '3s', animationDelay: '0.6s' }} />
+        <span className="absolute top-2 -left-2 h-2 w-2 rounded-full bg-[#FF53A9] animate-bounce" style={{ animationDuration: '2s' }} />
+        <span className="absolute top-10 -right-4 h-2.5 w-2.5 rounded-full bg-[#136DFF] animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.3s' }} />
+        <span className="absolute bottom-20 -left-4 h-2 w-2 rounded-full bg-[#9B3DFF] animate-bounce" style={{ animationDuration: '3s', animationDelay: '0.6s' }} />
       </div>
       <StyleBlock />
     </div>
@@ -530,7 +530,7 @@ function CharacterBook({ floatSpeed }: { floatSpeed: number }) {
           className="absolute left-0 top-0"
           style={{
             width: 110, height: 180,
-            background: 'linear-gradient(135deg,***REMOVED***FF8AC4,***REMOVED***FF53A9)',
+            background: 'linear-gradient(135deg,#FF8AC4,#FF53A9)',
             transform: 'rotateY(-25deg)',
             transformOrigin: 'right center',
             borderRadius: '8px 0 0 8px',
@@ -552,7 +552,7 @@ function CharacterBook({ floatSpeed }: { floatSpeed: number }) {
           className="absolute right-0 top-0"
           style={{
             width: 110, height: 180,
-            background: 'linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***9B3DFF)',
+            background: 'linear-gradient(135deg,#136DFF,#9B3DFF)',
             transform: 'rotateY(25deg)',
             transformOrigin: 'left center',
             borderRadius: '0 8px 8px 0',
@@ -573,7 +573,7 @@ function CharacterBook({ floatSpeed }: { floatSpeed: number }) {
           className="absolute left-1/2 top-0 -ml-1"
           style={{
             width: 4, height: 180,
-            background: 'linear-gradient(180deg,***REMOVED***7B2FBE,***REMOVED***9B3DFF)',
+            background: 'linear-gradient(180deg,#7B2FBE,#9B3DFF)',
             boxShadow: '0 0 10px rgba(155,61,255,0.5)',
           }}
         />
@@ -607,7 +607,7 @@ function CharacterChat({ floatSpeed }: { floatSpeed: number }) {
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***9B3DFF)',
+            background: 'linear-gradient(135deg,#FF53A9,#9B3DFF)',
             borderRadius: '40% 40% 40% 8%',
             boxShadow: '0 30px 60px rgba(155,61,255,0.45), inset 0 2px 0 rgba(255,255,255,0.2)',
             border: '1px solid rgba(255,255,255,0.18)',
@@ -620,7 +620,7 @@ function CharacterChat({ floatSpeed }: { floatSpeed: number }) {
           className="absolute -top-4 -right-6"
           style={{
             width: 70, height: 70,
-            background: 'linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***4A90D9)',
+            background: 'linear-gradient(135deg,#136DFF,#4A90D9)',
             borderRadius: '50% 50% 50% 10%',
             boxShadow: '0 16px 30px rgba(19,109,255,0.4)',
             border: '1px solid rgba(255,255,255,0.18)',
@@ -636,7 +636,7 @@ function CharacterChat({ floatSpeed }: { floatSpeed: number }) {
           className="absolute -bottom-6 -left-8"
           style={{
             width: 50, height: 50,
-            background: 'linear-gradient(135deg,***REMOVED***FF8AC4,***REMOVED***E0197A)',
+            background: 'linear-gradient(135deg,#FF8AC4,#E0197A)',
             borderRadius: '50% 50% 50% 10%',
             boxShadow: '0 16px 30px rgba(255,83,169,0.4)',
             border: '1px solid rgba(255,255,255,0.18)',
@@ -678,20 +678,20 @@ function CharacterTag({ floatSpeed }: { floatSpeed: number }) {
         <svg width="200" height="220" viewBox="0 0 200 220" fill="none">
           <defs>
             <linearGradient id="tagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="***REMOVED***FF53A9" />
-              <stop offset="50%" stopColor="***REMOVED***9B3DFF" />
-              <stop offset="100%" stopColor="***REMOVED***136DFF" />
+              <stop offset="0%" stopColor="#FF53A9" />
+              <stop offset="50%" stopColor="#9B3DFF" />
+              <stop offset="100%" stopColor="#136DFF" />
             </linearGradient>
           </defs>
           {/* Tag body */}
           <path
             d="M30 60 L30 180 Q30 200 50 200 L170 200 Q190 200 190 180 L190 60 Q190 40 170 40 L70 40 L30 80 Z"
-            fill="url(***REMOVED***tagGrad)"
+            fill="url(#tagGrad)"
             stroke="rgba(255,255,255,0.3)"
             strokeWidth="2"
           />
           {/* Hole */}
-          <circle cx="55" cy="65" r="12" fill="***REMOVED***0A0612" stroke="rgba(255,255,255,0.4)" strokeWidth="2" />
+          <circle cx="55" cy="65" r="12" fill="#0A0612" stroke="rgba(255,255,255,0.4)" strokeWidth="2" />
           {/* String */}
           <path d="M55 53 Q40 30 25 15" stroke="rgba(255,255,255,0.5)" strokeWidth="2" fill="none" strokeLinecap="round" />
           {/* Dollar sign */}
@@ -710,8 +710,8 @@ function CharacterTag({ floatSpeed }: { floatSpeed: number }) {
         </svg>
       </div>
       {/* Floating coins */}
-      <span className="absolute top-4 right-6 h-6 w-6 rounded-full bg-[***REMOVED***FFB800] shadow-[0_0_14px_***REMOVED***FFB800] animate-bounce" style={{ animationDuration: '2.5s' }} />
-      <span className="absolute bottom-8 left-4 h-4 w-4 rounded-full bg-[***REMOVED***FFB800] shadow-[0_0_10px_***REMOVED***FFB800] animate-bounce" style={{ animationDuration: '3s', animationDelay: '0.5s' }} />
+      <span className="absolute top-4 right-6 h-6 w-6 rounded-full bg-[#FFB800] shadow-[0_0_14px_#FFB800] animate-bounce" style={{ animationDuration: '2.5s' }} />
+      <span className="absolute bottom-8 left-4 h-4 w-4 rounded-full bg-[#FFB800] shadow-[0_0_10px_#FFB800] animate-bounce" style={{ animationDuration: '3s', animationDelay: '0.5s' }} />
       <StyleBlock />
     </div>
   )
@@ -741,7 +741,7 @@ function CharacterFrame({ floatSpeed }: { floatSpeed: number }) {
         <div
           className="absolute inset-0 rounded-2xl"
           style={{
-            background: 'linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***9B3DFF)',
+            background: 'linear-gradient(135deg,#FF53A9,#9B3DFF)',
             padding: 8,
             boxShadow: '0 30px 60px rgba(155,61,255,0.4)',
           }}
@@ -749,16 +749,16 @@ function CharacterFrame({ floatSpeed }: { floatSpeed: number }) {
           <div
             className="w-full h-full rounded-xl"
             style={{
-              background: 'linear-gradient(180deg,***REMOVED***0A0612 0%,***REMOVED***1E1640 100%)',
+              background: 'linear-gradient(180deg,#0A0612 0%,#1E1640 100%)',
               overflow: 'hidden',
               position: 'relative',
             }}
           >
             {/* Title bar */}
             <div className="flex items-center gap-1.5 p-2 border-b border-white/10">
-              <span className="h-2 w-2 rounded-full bg-[***REMOVED***FF53A9]" />
-              <span className="h-2 w-2 rounded-full bg-[***REMOVED***FFB800]" />
-              <span className="h-2 w-2 rounded-full bg-[***REMOVED***00e676]" />
+              <span className="h-2 w-2 rounded-full bg-[#FF53A9]" />
+              <span className="h-2 w-2 rounded-full bg-[#FFB800]" />
+              <span className="h-2 w-2 rounded-full bg-[#00e676]" />
             </div>
             {/* Chart bars */}
             <div className="flex items-end gap-2 h-2/3 px-3 py-3">
@@ -769,8 +769,8 @@ function CharacterFrame({ floatSpeed }: { floatSpeed: number }) {
                   style={{
                     height: `${h}%`,
                     background: i % 2 === 0
-                      ? 'linear-gradient(180deg,***REMOVED***FF53A9,rgba(255,83,169,0.3))'
-                      : 'linear-gradient(180deg,***REMOVED***136DFF,rgba(19,109,255,0.3))',
+                      ? 'linear-gradient(180deg,#FF53A9,rgba(255,83,169,0.3))'
+                      : 'linear-gradient(180deg,#136DFF,rgba(19,109,255,0.3))',
                   }}
                 />
               ))}
@@ -779,7 +779,7 @@ function CharacterFrame({ floatSpeed }: { floatSpeed: number }) {
             <svg className="absolute inset-0 pointer-events-none" viewBox="0 0 200 160" preserveAspectRatio="none">
               <path
                 d="M10 130 Q40 100 60 110 T100 80 T140 60 T190 30"
-                stroke="***REMOVED***FF8AC4"
+                stroke="#FF8AC4"
                 strokeWidth="2"
                 fill="none"
                 opacity="0.7"
@@ -792,7 +792,7 @@ function CharacterFrame({ floatSpeed }: { floatSpeed: number }) {
           className="absolute -bottom-4 -right-4 rounded-lg"
           style={{
             width: 60, height: 60,
-            background: 'linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***4A90D9)',
+            background: 'linear-gradient(135deg,#136DFF,#4A90D9)',
             boxShadow: '0 16px 30px rgba(19,109,255,0.4)',
             animation: `ctFrameFloat ${floatSpeed * 1.3}s ease-in-out infinite`,
             animationDelay: '0.5s',
@@ -832,8 +832,8 @@ function CharacterPeopleHex({ floatSpeed }: { floatSpeed: number }) {
         <svg width="240" height="220" viewBox="0 0 240 220" fill="none">
           <defs>
             <linearGradient id="phGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="***REMOVED***FF53A9" />
-              <stop offset="100%" stopColor="***REMOVED***9B3DFF" />
+              <stop offset="0%" stopColor="#FF53A9" />
+              <stop offset="100%" stopColor="#9B3DFF" />
             </linearGradient>
           </defs>
           {/* Connecting lines */}
@@ -842,16 +842,16 @@ function CharacterPeopleHex({ floatSpeed }: { floatSpeed: number }) {
           <line x1="120" y1="110" x2="40" y2="170" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeDasharray="4 4" />
           <line x1="120" y1="110" x2="200" y2="170" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeDasharray="4 4" />
           {/* Center hex */}
-          <polygon points="120,60 165,90 165,140 120,170 75,140 75,90" fill="url(***REMOVED***phGrad)" stroke="rgba(255,255,255,0.3)" strokeWidth="2" />
+          <polygon points="120,60 165,90 165,140 120,170 75,140 75,90" fill="url(#phGrad)" stroke="rgba(255,255,255,0.3)" strokeWidth="2" />
           {/* Center person icon */}
           <circle cx="120" cy="100" r="10" fill="white" />
           <path d="M105 130 Q105 115 120 115 Q135 115 135 130 Z" fill="white" />
           {/* Surrounding person dots */}
           {[
-            { x: 40, y: 50, c: '***REMOVED***FF53A9' },
-            { x: 200, y: 50, c: '***REMOVED***136DFF' },
-            { x: 40, y: 170, c: '***REMOVED***9B3DFF' },
-            { x: 200, y: 170, c: '***REMOVED***FF8AC4' },
+            { x: 40, y: 50, c: '#FF53A9' },
+            { x: 200, y: 50, c: '#136DFF' },
+            { x: 40, y: 170, c: '#9B3DFF' },
+            { x: 200, y: 170, c: '#FF8AC4' },
           ].map((p, i) => (
             <g key={i}>
               <circle cx={p.x} cy={p.y} r="20" fill={p.c} stroke="rgba(255,255,255,0.3)" strokeWidth="2" />
@@ -888,9 +888,9 @@ function CharacterCubeStack({ floatSpeed }: { floatSpeed: number }) {
         }}
       >
         {[
-          { y: 0, bg: 'linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***9B3DFF)', label: 'API' },
-          { y: 60, bg: 'linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***9B3DFF)', label: 'DB' },
-          { y: 120, bg: 'linear-gradient(135deg,***REMOVED***9B3DFF,***REMOVED***FF53A9)', label: 'UI' },
+          { y: 0, bg: 'linear-gradient(135deg,#FF53A9,#9B3DFF)', label: 'API' },
+          { y: 60, bg: 'linear-gradient(135deg,#136DFF,#9B3DFF)', label: 'DB' },
+          { y: 120, bg: 'linear-gradient(135deg,#9B3DFF,#FF53A9)', label: 'UI' },
         ].map((cube, i) => (
           <div
             key={i}
@@ -939,38 +939,38 @@ function CharacterShield({ floatSpeed }: { floatSpeed: number }) {
         <svg width="200" height="240" viewBox="0 0 200 240" fill="none">
           <defs>
             <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="***REMOVED***136DFF" />
-              <stop offset="50%" stopColor="***REMOVED***9B3DFF" />
-              <stop offset="100%" stopColor="***REMOVED***FF53A9" />
+              <stop offset="0%" stopColor="#136DFF" />
+              <stop offset="50%" stopColor="#9B3DFF" />
+              <stop offset="100%" stopColor="#FF53A9" />
             </linearGradient>
             <linearGradient id="shieldInner" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="***REMOVED***0A0612" />
-              <stop offset="100%" stopColor="***REMOVED***1E1640" />
+              <stop offset="0%" stopColor="#0A0612" />
+              <stop offset="100%" stopColor="#1E1640" />
             </linearGradient>
           </defs>
           {/* Shield outline */}
           <path
             d="M100 10 L180 40 L180 130 Q180 180 100 220 Q20 180 20 130 L20 40 Z"
-            fill="url(***REMOVED***shieldGrad)"
+            fill="url(#shieldGrad)"
             stroke="rgba(255,255,255,0.3)"
             strokeWidth="2"
           />
           {/* Inner */}
           <path
             d="M100 30 L160 55 L160 130 Q160 170 100 200 Q40 170 40 130 L40 55 Z"
-            fill="url(***REMOVED***shieldInner)"
+            fill="url(#shieldInner)"
             stroke="rgba(255,255,255,0.12)"
             strokeWidth="1"
           />
           {/* Scale of justice */}
-          <line x1="100" y1="60" x2="100" y2="160" stroke="url(***REMOVED***shieldGrad)" strokeWidth="3" />
-          <line x1="60" y1="80" x2="140" y2="80" stroke="url(***REMOVED***shieldGrad)" strokeWidth="3" />
-          <circle cx="60" cy="95" r="12" fill="none" stroke="url(***REMOVED***shieldGrad)" strokeWidth="2.5" />
-          <circle cx="140" cy="95" r="12" fill="none" stroke="url(***REMOVED***shieldGrad)" strokeWidth="2.5" />
-          <line x1="60" y1="80" x2="60" y2="83" stroke="url(***REMOVED***shieldGrad)" strokeWidth="2" />
-          <line x1="140" y1="80" x2="140" y2="83" stroke="url(***REMOVED***shieldGrad)" strokeWidth="2" />
-          <circle cx="100" cy="55" r="6" fill="url(***REMOVED***shieldGrad)" />
-          <path d="M85 165 L100 175 L115 165" stroke="url(***REMOVED***shieldGrad)" strokeWidth="3" fill="none" strokeLinecap="round" />
+          <line x1="100" y1="60" x2="100" y2="160" stroke="url(#shieldGrad)" strokeWidth="3" />
+          <line x1="60" y1="80" x2="140" y2="80" stroke="url(#shieldGrad)" strokeWidth="3" />
+          <circle cx="60" cy="95" r="12" fill="none" stroke="url(#shieldGrad)" strokeWidth="2.5" />
+          <circle cx="140" cy="95" r="12" fill="none" stroke="url(#shieldGrad)" strokeWidth="2.5" />
+          <line x1="60" y1="80" x2="60" y2="83" stroke="url(#shieldGrad)" strokeWidth="2" />
+          <line x1="140" y1="80" x2="140" y2="83" stroke="url(#shieldGrad)" strokeWidth="2" />
+          <circle cx="100" cy="55" r="6" fill="url(#shieldGrad)" />
+          <path d="M85 165 L100 175 L115 165" stroke="url(#shieldGrad)" strokeWidth="3" fill="none" strokeLinecap="round" />
         </svg>
       </div>
       <StyleBlock />

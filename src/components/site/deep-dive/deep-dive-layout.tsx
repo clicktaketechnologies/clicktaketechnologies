@@ -92,7 +92,7 @@ function ReadingProgress() {
   return (
     <div className="fixed top-0 inset-x-0 z-[55] h-1 pointer-events-none">
       <div
-        className="h-full bg-gradient-to-r from-[***REMOVED***FF53A9] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] transition-[width] duration-150"
+        className="h-full bg-gradient-to-r from-[#FF53A9] via-[#9B3DFF] to-[#136DFF] transition-[width] duration-150"
         style={{ width: `${progress}%` }}
       />
     </div>
@@ -150,11 +150,11 @@ function StickyToc({ entries }: { entries: { id: string; label: string }[] }) {
               return (
                 <a
                   key={e.id}
-                  href={`***REMOVED***${e.id}`}
+                  href={`#${e.id}`}
                   onClick={(ev) => handleClick(ev, e.id)}
                   className={`block border-l-2 -ml-px px-3 py-1.5 text-sm transition ${
                     isActive
-                      ? "border-[***REMOVED***FF53A9] nx-text font-medium"
+                      ? "border-[#FF53A9] nx-text font-medium"
                       : "border-transparent nx-text-muted hover:nx-text"
                   }`}
                 >
@@ -172,7 +172,7 @@ function StickyToc({ entries }: { entries: { id: string; label: string }[] }) {
         className="nx-fab-v5 xl:hidden fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform duration-200 hover:scale-110 active:scale-95"
         aria-label="Open table of contents"
       >
-        <span className="absolute inset-0 rounded-full bg-gradient-to-br from-[***REMOVED***FF53A9] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF]" />
+        <span className="absolute inset-0 rounded-full bg-gradient-to-br from-[#FF53A9] via-[#9B3DFF] to-[#136DFF]" />
         <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/25 to-transparent" />
         <List className="relative z-10 h-5 w-5" />
       </button>
@@ -194,7 +194,7 @@ function StickyToc({ entries }: { entries: { id: string; label: string }[] }) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.25 }}
-              className="absolute right-0 top-0 bottom-0 w-72 max-w-[85vw] bg-[***REMOVED***0A0612] border-l border-[***REMOVED***FF53A9]/20 overflow-y-auto p-6"
+              className="absolute right-0 top-0 bottom-0 w-72 max-w-[85vw] bg-[#0A0612] border-l border-[#FF53A9]/20 overflow-y-auto p-6"
             >
               <div className="flex items-center justify-between mb-6">
                 <span className="text-sm font-mono uppercase tracking-wider text-white/60">
@@ -212,7 +212,7 @@ function StickyToc({ entries }: { entries: { id: string; label: string }[] }) {
                 {entries.map((e) => (
                   <a
                     key={e.id}
-                    href={`***REMOVED***${e.id}`}
+                    href={`#${e.id}`}
                     onClick={(ev) => handleClick(ev, e.id)}
                     className={`block rounded-lg px-3 py-2 text-sm transition ${
                       active === e.id
@@ -235,7 +235,7 @@ function StickyToc({ entries }: { entries: { id: string; label: string }[] }) {
 /* ─── Section Wrapper ───────────────────────────────────────────────
  * Every section is wrapped with: scroll-mt for sticky-ToC offset, an
  * id matching the ToC entry, and a 3D character divider between major
- * sections to provide visual breathing room (Rule ***REMOVED***2 of UX rules). */
+ * sections to provide visual breathing room (Rule #2 of UX rules). */
 
 function Section({
   id,
@@ -278,7 +278,7 @@ function SectionHeading({
     <header className="mb-10 max-w-3xl">
       {eyebrow && (
         <div className="mb-3 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[2px] text-[var(--nx-brand-pink-deep)]">
-          <span className="h-1 w-8 rounded-full bg-[***REMOVED***FF53A9]" />
+          <span className="h-1 w-8 rounded-full bg-[#FF53A9]" />
           {eyebrow}
         </div>
       )}
@@ -334,9 +334,9 @@ function DeepDiveHeroBlock({
       />
 
       <div className="absolute inset-0 nx-dot-grid opacity-30 pointer-events-none" />
-      <div className="absolute top-10 -left-20 h-72 w-72 rounded-full bg-[***REMOVED***FF53A9]/15 blur-3xl nx-orb pointer-events-none" />
+      <div className="absolute top-10 -left-20 h-72 w-72 rounded-full bg-[#FF53A9]/15 blur-3xl nx-orb pointer-events-none" />
       <div
-        className="absolute bottom-0 right-10 h-80 w-80 rounded-full bg-[***REMOVED***136DFF]/20 blur-3xl nx-orb pointer-events-none"
+        className="absolute bottom-0 right-10 h-80 w-80 rounded-full bg-[#136DFF]/20 blur-3xl nx-orb pointer-events-none"
         style={{ animationDelay: "3s" }}
       />
 
@@ -379,9 +379,9 @@ function DeepDiveHeroBlock({
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-[***REMOVED***FF53A9]/30 bg-[***REMOVED***FF53A9]/10 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-[***REMOVED***FF8AC4] backdrop-blur"
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#FF53A9]/30 bg-[#FF53A9]/10 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-[#FF8AC4] backdrop-blur"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-[***REMOVED***FF53A9] animate-pulse" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#FF53A9] animate-pulse" />
               {hero.eyebrow}
             </motion.div>
 
@@ -413,7 +413,7 @@ function DeepDiveHeroBlock({
               transition={{ duration: 0.5, delay: 0.15 }}
               className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 max-w-2xl"
             >
-              <div className="text-xs font-mono uppercase tracking-wider text-[***REMOVED***FF8AC4] mb-2">
+              <div className="text-xs font-mono uppercase tracking-wider text-[#FF8AC4] mb-2">
                 What this is
               </div>
               <p className="text-[15px] text-white/80 leading-relaxed">
@@ -691,7 +691,7 @@ export function DeepDiveLayout({
                   {content.businessImpact.metrics.map((m, i) => (
                     <div
                       key={i}
-                      className="rounded-2xl border nx-bd bg-gradient-to-br from-[***REMOVED***FF53A9]/10 to-transparent p-5 text-center"
+                      className="rounded-2xl border nx-bd bg-gradient-to-br from-[#FF53A9]/10 to-transparent p-5 text-center"
                     >
                       <div className="text-3xl sm:text-4xl font-black nx-text nx-stat-num">
                         {m.value}

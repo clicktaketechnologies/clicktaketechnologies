@@ -94,7 +94,7 @@ export const MagneticButton = forwardRef<HTMLButtonElement, MagneticButtonProps>
 
     const sharedClass = cn(
       "nx-magnetic-btn group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-sm font-bold tracking-wide transition-colors duration-200",
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[***REMOVED***FF53A9] focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF53A9] focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       "disabled:opacity-50 disabled:pointer-events-none",
       VARIANT_CLASSES[variant],
       className

@@ -81,7 +81,7 @@ export function PillarContextBanner({ entry }: { entry?: HubSpokeEntry }) {
       transition={{ duration: 0.4, delay: 0.15 }}
       className="nx-surface border nx-bd rounded-xl flex flex-wrap items-center gap-3 px-4 py-3 mb-8 text-sm"
     >
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-[***REMOVED***FF53A9]/10 px-2.5 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-[***REMOVED***FF53A9]">
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FF53A9]/10 px-2.5 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-[#FF53A9]">
         <FolderTree className="size-3.5" />
         {CLUSTER_LABEL[entry.cluster]}
       </span>
@@ -89,7 +89,7 @@ export function PillarContextBanner({ entry }: { entry?: HubSpokeEntry }) {
         Part of the{" "}
         <Link
           href={entry.pillar.href}
-          className="nx-text font-semibold hover:text-[***REMOVED***FF53A9] transition-colors underline-offset-4 hover:underline"
+          className="nx-text font-semibold hover:text-[#FF53A9] transition-colors underline-offset-4 hover:underline"
         >
           {entry.pillar.label}
         </Link>{" "}
@@ -119,7 +119,7 @@ function ResourceColumn({
   icon,
   title,
   links,
-  accent = "***REMOVED***FF53A9",
+  accent = "#FF53A9",
 }: {
   icon: React.ReactNode
   title: string
@@ -148,10 +148,10 @@ function ResourceColumn({
               className="group block rounded-lg px-2 py-1.5 -mx-2 transition-colors hover:bg-[var(--nx-hover,rgba(255,83,169,0.06))]"
             >
               <div className="flex items-start gap-1.5">
-                <span className="nx-text text-sm font-semibold leading-snug group-hover:text-[***REMOVED***FF53A9] transition-colors">
+                <span className="nx-text text-sm font-semibold leading-snug group-hover:text-[#FF53A9] transition-colors">
                   {link.label}
                 </span>
-                <ArrowUpRight className="size-3.5 shrink-0 mt-0.5 nx-text-muted opacity-0 group-hover:opacity-100 group-hover:text-[***REMOVED***FF53A9] transition-all" />
+                <ArrowUpRight className="size-3.5 shrink-0 mt-0.5 nx-text-muted opacity-0 group-hover:opacity-100 group-hover:text-[#FF53A9] transition-all" />
               </div>
               {link.blurb && (
                 <div className="nx-text-muted text-xs leading-relaxed mt-1">
@@ -193,7 +193,7 @@ export function RelatedResources({ entry }: { entry?: HubSpokeEntry }) {
           icon={<Sparkles className="size-3.5" />}
           title="Recommended Services"
           links={bridgeLinks}
-          accent="***REMOVED***9B3DFF"
+          accent="#9B3DFF"
         />
       )
     }
@@ -205,7 +205,7 @@ export function RelatedResources({ entry }: { entry?: HubSpokeEntry }) {
           icon={<Layers className="size-3.5" />}
           title="Related Solutions"
           links={entry.siblings}
-          accent="***REMOVED***136DFF"
+          accent="#136DFF"
         />
       )
     }
@@ -216,7 +216,7 @@ export function RelatedResources({ entry }: { entry?: HubSpokeEntry }) {
         icon={<Layers className="size-3.5" />}
         title="Related Services"
         links={entry.siblings}
-        accent="***REMOVED***FF53A9"
+        accent="#FF53A9"
       />
     )
   }
@@ -229,7 +229,7 @@ export function RelatedResources({ entry }: { entry?: HubSpokeEntry }) {
         icon={<BookOpen className="size-3.5" />}
         title="Blogs & Guides"
         links={entry.resources.blogs}
-        accent="***REMOVED***136DFF"
+        accent="#136DFF"
       />
     )
   }
@@ -242,7 +242,7 @@ export function RelatedResources({ entry }: { entry?: HubSpokeEntry }) {
         icon={<Briefcase className="size-3.5" />}
         title="Case Studies"
         links={entry.resources.caseStudies}
-        accent="***REMOVED***22c55e"
+        accent="#22c55e"
       />
     )
   }
@@ -255,7 +255,7 @@ export function RelatedResources({ entry }: { entry?: HubSpokeEntry }) {
         icon={<Calculator className="size-3.5" />}
         title="Pricing & Resources"
         links={entry.resources.pricing}
-        accent="***REMOVED***f59e0b"
+        accent="#f59e0b"
       />
     )
   }
@@ -266,8 +266,8 @@ export function RelatedResources({ entry }: { entry?: HubSpokeEntry }) {
     <section className="mt-16 pt-12 border-t border-[var(--nx-border)]">
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-2">
-          <FileText className="size-4 text-[***REMOVED***FF53A9]" />
-          <span className="text-xs font-mono uppercase tracking-wider text-[***REMOVED***FF53A9]">
+          <FileText className="size-4 text-[#FF53A9]" />
+          <span className="text-xs font-mono uppercase tracking-wider text-[#FF53A9]">
             Continue Reading
           </span>
         </div>

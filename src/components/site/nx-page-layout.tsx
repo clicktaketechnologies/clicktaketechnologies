@@ -143,13 +143,13 @@ export function NxPageHero({
 
       {/* Subtle dot grid + orbs (matches homepage hero) */}
       <div className="absolute inset-0 nx-dot-grid opacity-30 pointer-events-none" />
-      <div className="absolute top-10 -left-20 h-72 w-72 rounded-full bg-[***REMOVED***FF53A9]/15 blur-3xl nx-orb pointer-events-none" />
+      <div className="absolute top-10 -left-20 h-72 w-72 rounded-full bg-[#FF53A9]/15 blur-3xl nx-orb pointer-events-none" />
       <div
-        className="absolute bottom-0 right-10 h-80 w-80 rounded-full bg-[***REMOVED***136DFF]/20 blur-3xl nx-orb pointer-events-none"
+        className="absolute bottom-0 right-10 h-80 w-80 rounded-full bg-[#136DFF]/20 blur-3xl nx-orb pointer-events-none"
         style={{ animationDelay: "3s" }}
       />
       <div
-        className="absolute top-1/3 left-1/2 h-72 w-72 rounded-full bg-[***REMOVED***9B3DFF]/15 blur-3xl nx-orb pointer-events-none"
+        className="absolute top-1/3 left-1/2 h-72 w-72 rounded-full bg-[#9B3DFF]/15 blur-3xl nx-orb pointer-events-none"
         style={{ animationDelay: "6s" }}
       />
       {/* 3D scene — floating geometric accents */}
@@ -186,11 +186,11 @@ export function NxPageHero({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className={`mt-4 inline-flex items-center gap-2 rounded-full border border-[***REMOVED***FF53A9]/30 bg-[***REMOVED***FF53A9]/10 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-[***REMOVED***FF8AC4] backdrop-blur ${
+                className={`mt-4 inline-flex items-center gap-2 rounded-full border border-[#FF53A9]/30 bg-[#FF53A9]/10 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-[#FF8AC4] backdrop-blur ${
                   isEffCenter ? "flex mx-auto" : ""
                 }`}
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-[***REMOVED***FF53A9] animate-pulse" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FF53A9] animate-pulse" />
                 {eyebrow}
               </motion.div>
             )}
@@ -430,7 +430,7 @@ export function NxButton({ href, children, variant = "orange", className = "" }:
     return (
       <Link
         href={href}
-        className={`inline-flex items-center justify-center gap-2 px-6 py-3 text-sm sm:text-base font-bold rounded-full bg-[***REMOVED***0A0612] text-white hover:bg-[***REMOVED***1E1640] transition shadow-lg ${className}`}
+        className={`inline-flex items-center justify-center gap-2 px-6 py-3 text-sm sm:text-base font-bold rounded-full bg-[#0A0612] text-white hover:bg-[#1E1640] transition shadow-lg ${className}`}
       >
         {children}
         <ArrowRight className="h-4 w-4 nx-arrow" />

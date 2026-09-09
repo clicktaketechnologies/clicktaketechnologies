@@ -146,8 +146,8 @@ export function RbacClient({ users, roles, availablePermissions, currentUser }: 
                         <span
                           className="rounded-full px-2.5 py-1 text-xs font-medium"
                           style={{
-                            backgroundColor: (roles.find((r) => r.name === u.roleName)?.color || "***REMOVED***136DFF") + "20",
-                            color: roles.find((r) => r.name === u.roleName)?.color || "***REMOVED***136DFF",
+                            backgroundColor: (roles.find((r) => r.name === u.roleName)?.color || "#136DFF") + "20",
+                            color: roles.find((r) => r.name === u.roleName)?.color || "#136DFF",
                           }}
                         >
                           {u.roleName}
@@ -410,7 +410,7 @@ function RoleEditorModal({
 }) {
   const [name, setName] = useState(role?.name || "");
   const [description, setDescription] = useState(role?.description || "");
-  const [color, setColor] = useState(role?.color || "***REMOVED***136DFF");
+  const [color, setColor] = useState(role?.color || "#136DFF");
   const [permissions, setPermissions] = useState<string[]>(role?.permissions || []);
   const [saving, setSaving] = useState(false);
 

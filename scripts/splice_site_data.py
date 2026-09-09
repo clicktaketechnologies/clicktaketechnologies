@@ -25,7 +25,7 @@ with open(BLOG_TS) as f:
 with open(PORTFOLIO_TS) as f:
     portfolio_block = f.read().strip()
 
-***REMOVED*** Find BLOG_POSTS start
+# Find BLOG_POSTS start
 start_idx = None
 for i, line in enumerate(src):
     if line.startswith("export const BLOG_POSTS: BlogPost[] = ["):
@@ -33,7 +33,7 @@ for i, line in enumerate(src):
         break
 assert start_idx is not None, "Could not find BLOG_POSTS start"
 
-***REMOVED*** Find matching close `];` (first one at column 0 after start)
+# Find matching close `];` (first one at column 0 after start)
 end_idx = None
 for j in range(start_idx + 1, len(src)):
     if src[j].rstrip() == "];":
@@ -43,7 +43,7 @@ assert end_idx is not None, "Could not find BLOG_POSTS end"
 
 print(f"BLOG_POSTS span: lines {start_idx+1}–{end_idx+1} ({end_idx - start_idx + 1} lines)")
 
-***REMOVED*** Find CASE STUDIES marker (after end_idx)
+# Find CASE STUDIES marker (after end_idx)
 case_marker_idx = None
 for j in range(end_idx + 1, len(src)):
     if "// ─── CASE STUDIES" in src[j]:
@@ -51,12 +51,12 @@ for j in range(end_idx + 1, len(src)):
         break
 assert case_marker_idx is not None, "Could not find CASE STUDIES marker"
 
-***REMOVED*** Rebuild the file
+# Rebuild the file
 new_src = []
-new_src.extend(src[:start_idx])  ***REMOVED*** everything up to (not incl) BLOG_POSTS line
-new_src.append(blog_block + "\n\n")  ***REMOVED*** new BLOG_POSTS (already includes `];`)
-new_src.append(portfolio_block + "\n\n")  ***REMOVED*** CLIENT_PORTFOLIO
-new_src.extend(src[case_marker_idx:])  ***REMOVED*** CASE STUDIES onwards (preserves comment marker)
+new_src.extend(src[:start_idx])  # everything up to (not incl) BLOG_POSTS line
+new_src.append(blog_block + "\n\n")  # new BLOG_POSTS (already includes `];`)
+new_src.append(portfolio_block + "\n\n")  # CLIENT_PORTFOLIO
+new_src.extend(src[case_marker_idx:])  # CASE STUDIES onwards (preserves comment marker)
 
 with open(SITE_DATA, "w") as f:
     f.writelines(new_src)

@@ -1,20 +1,20 @@
-***REMOVED***!/bin/bash
-***REMOVED*** Patch Prisma's WASM loader to fetch the WASM from a static URL instead of
-***REMOVED*** bundling it into the Worker. This saves ~2.2 MB raw / ~0.85 MiB gzip — the
-***REMOVED*** difference between fitting Cloudflare Free plan's 3 MiB limit and not.
-***REMOVED***
-***REMOVED*** The WASM file is hosted at /prisma-wasm/query_engine_bg.wasm (copied to
-***REMOVED*** public/prisma-wasm/ by this script). At runtime, the Prisma loader fetches
-***REMOVED*** it via the global fetch() API.
-***REMOVED***
-***REMOVED*** This patch modifies:
-***REMOVED***   - node_modules/.prisma/client/wasm-worker-loader.mjs (used on workerd)
-***REMOVED***   - node_modules/.prisma/client/wasm-edge-light-loader.mjs (used on edge-light)
-***REMOVED***   - node_modules/@prisma/client/runtime/wasm-engine-edge.js (to handle the
-***REMOVED***     fetch-based loader correctly — it expects a Module, not a Promise<Module>)
-***REMOVED***
-***REMOVED*** After patching, the WASM file is deleted from .prisma/client/ so esbuild
-***REMOVED*** doesn't bundle it.
+#!/bin/bash
+# Patch Prisma's WASM loader to fetch the WASM from a static URL instead of
+# bundling it into the Worker. This saves ~2.2 MB raw / ~0.85 MiB gzip — the
+# difference between fitting Cloudflare Free plan's 3 MiB limit and not.
+#
+# The WASM file is hosted at /prisma-wasm/query_engine_bg.wasm (copied to
+# public/prisma-wasm/ by this script). At runtime, the Prisma loader fetches
+# it via the global fetch() API.
+#
+# This patch modifies:
+#   - node_modules/.prisma/client/wasm-worker-loader.mjs (used on workerd)
+#   - node_modules/.prisma/client/wasm-edge-light-loader.mjs (used on edge-light)
+#   - node_modules/@prisma/client/runtime/wasm-engine-edge.js (to handle the
+#     fetch-based loader correctly — it expects a Module, not a Promise<Module>)
+#
+# After patching, the WASM file is deleted from .prisma/client/ so esbuild
+# doesn't bundle it.
 
 set -e
 
@@ -25,14 +25,14 @@ WASM_URL_PATH="/prisma-wasm/${WASM_FILE}"
 
 echo "==> Patching Prisma WASM loader to use fetch()"
 
-***REMOVED*** 1. Copy the WASM file to public/ so it's served as a static asset
+# 1. Copy the WASM file to public/ so it's served as a static asset
 mkdir -p "$PUBLIC_WASM_DIR"
 if [ -f "$GEN_DIR/$WASM_FILE" ]; then
   cp "$GEN_DIR/$WASM_FILE" "$PUBLIC_WASM_DIR/$WASM_FILE"
   echo "  ✓ copied $WASM_FILE to $PUBLIC_WASM_DIR/"
 fi
 
-***REMOVED*** 2. Patch wasm-worker-loader.mjs (used on Cloudflare Workers / workerd)
+# 2. Patch wasm-worker-loader.mjs (used on Cloudflare Workers / workerd)
 WORKER_LOADER="$GEN_DIR/wasm-worker-loader.mjs"
 if [ -f "$WORKER_LOADER" ]; then
   cat > "$WORKER_LOADER" << EOF
@@ -74,7 +74,7 @@ EOF
   echo "  ✓ patched wasm-worker-loader.mjs"
 fi
 
-***REMOVED*** 3. Patch wasm-edge-light-loader.mjs (used on edge-light runtimes)
+# 3. Patch wasm-edge-light-loader.mjs (used on edge-light runtimes)
 EDGE_LOADER="$GEN_DIR/wasm-edge-light-loader.mjs"
 if [ -f "$EDGE_LOADER" ]; then
   cat > "$EDGE_LOADER" << EOF
@@ -107,7 +107,7 @@ EOF
   echo "  ✓ patched wasm-edge-light-loader.mjs"
 fi
 
-***REMOVED*** 4. Delete the WASM file from .prisma/client/ so esbuild doesn't bundle it
+# 4. Delete the WASM file from .prisma/client/ so esbuild doesn't bundle it
 if [ -f "$GEN_DIR/$WASM_FILE" ]; then
   rm -f "$GEN_DIR/$WASM_FILE"
   echo "  ✓ removed $WASM_FILE from $GEN_DIR/"

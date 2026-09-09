@@ -561,7 +561,7 @@ function ProviderChainPanel({ providers }: { providers: ProviderInfo[] }) {
         <div className="flex items-start gap-3">
           <ShieldCheck className="size-4 mt-0.5 text-brand-blue" />
           <div className="text-xs text-muted-foreground">
-            <strong className="text-foreground">How failover works:</strong> Every outbound email (contact form, lead notifications, test sends) flows through this chain. The system tries provider ***REMOVED***1 first. If it returns an error or times out (10s), the system immediately tries provider ***REMOVED***2, and so on. All attempts are logged to the <code>EmailLog</code> table for audit. Provider credentials are encrypted at rest with AES-256-GCM.
+            <strong className="text-foreground">How failover works:</strong> Every outbound email (contact form, lead notifications, test sends) flows through this chain. The system tries provider #1 first. If it returns an error or times out (10s), the system immediately tries provider #2, and so on. All attempts are logged to the <code>EmailLog</code> table for audit. Provider credentials are encrypted at rest with AES-256-GCM.
           </div>
         </div>
       </Card>

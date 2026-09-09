@@ -367,7 +367,7 @@ function RobotsConfig({ initial, canWrite }: { initial: Props["robots"]; canWrit
   );
 }
 
-// ─── Phase 3 ***REMOVED***4 — Programmatic SEO status panel (read-only) ───────────────
+// ─── Phase 3 #4 — Programmatic SEO status panel (read-only) ───────────────
 //
 // Displays live metrics about the programmatic SEO surface area:
 //   - Total city × service page count
@@ -415,8 +415,8 @@ function ProgrammaticSeoPanel() {
           <div>
             <h3 className="text-lg font-semibold">Programmatic SEO — City × Service</h3>
             <p className="text-sm text-muted-foreground mt-1">
-              Phase 3 ***REMOVED***4 — generates {totalCityPages} location-targeted landing pages ({cities.length} city hubs + {cities.length * serviceCount} city × service pages).
-              Pages are statically generated at build time using the LLM-authored service content (Phase 3 ***REMOVED***2) plus a deterministic city composer — no per-request LLM calls.
+              Phase 3 #4 — generates {totalCityPages} location-targeted landing pages ({cities.length} city hubs + {cities.length * serviceCount} city × service pages).
+              Pages are statically generated at build time using the LLM-authored service content (Phase 3 #2) plus a deterministic city composer — no per-request LLM calls.
             </p>
           </div>
           <a

@@ -92,7 +92,7 @@ export function TiltCard({
 /* ─── Sub-components for the canonical clicktake-3d-v3 card structure ─── */
 
 export function TiltCardIcon({ children }: { children: ReactNode }) {
-  return <span className="ct-tilt-icon block mb-5 text-3xl" style={{ filter: 'drop-shadow(0 0 12px var(--ct-pink, ***REMOVED***E0197A))' }}>{children}</span>
+  return <span className="ct-tilt-icon block mb-5 text-3xl" style={{ filter: 'drop-shadow(0 0 12px var(--ct-pink, #E0197A))' }}>{children}</span>
 }
 
 export function TiltCardNum({ children }: { children: ReactNode }) {
@@ -117,7 +117,7 @@ export function TiltCardTags({ tags }: { tags: string[] }) {
           style={{
             background: 'rgba(224,25,122,0.08)',
             border: '1px solid rgba(224,25,122,0.18)',
-            color: 'var(--ct-pink, ***REMOVED***E0197A)',
+            color: 'var(--ct-pink, #E0197A)',
           }}
         >
           {t}
@@ -128,7 +128,7 @@ export function TiltCardTags({ tags }: { tags: string[] }) {
 }
 
 export function TiltCardArrow({ children }: { children: ReactNode }) {
-  return <div className="ct-tilt-arrow inline-flex items-center gap-1.5 mt-4 text-xs font-semibold uppercase tracking-wide transition-all group-hover/tilt:gap-2.5" style={{ color: 'var(--ct-pink, ***REMOVED***E0197A)' }}>{children}</div>
+  return <div className="ct-tilt-arrow inline-flex items-center gap-1.5 mt-4 text-xs font-semibold uppercase tracking-wide transition-all group-hover/tilt:gap-2.5" style={{ color: 'var(--ct-pink, #E0197A)' }}>{children}</div>
 }
 
 export default TiltCard

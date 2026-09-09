@@ -8,8 +8,8 @@ import os
 with open("/home/z/my-project/download/client-sites-summary.json") as f:
     sites = json.load(f)
 
-***REMOVED*** Manually curated metadata (category, region, year, icon, blurb, tech) for the 12 entries.
-***REMOVED*** Slugs match the client-sites-summary.json `slug` field.
+# Manually curated metadata (category, region, year, icon, blurb, tech) for the 12 entries.
+# Slugs match the client-sites-summary.json `slug` field.
 META = {
     "dib-t0ug-onrender-com": {
         "name": "DibNow",

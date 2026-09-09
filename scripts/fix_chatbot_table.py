@@ -5,8 +5,8 @@ PATH = "/home/z/my-project/blog_src/7-best-ai-chatbots-for-capturing-website-lea
 with open(PATH, "r", encoding="utf-8") as f:
     text = f.read()
 
-***REMOVED*** Build the replacement
-new_table = """***REMOVED******REMOVED******REMOVED*** Comparison overview
+# Build the replacement
+new_table = """### Comparison overview
 
 | Platform  | Best for              | Starting price      | Conditional branching | Native CRM write-back | Booking   | EU/UK data hosting     |
 |-----------|-----------------------|---------------------|-----------------------|-----------------------|-----------|------------------------|
@@ -21,9 +21,9 @@ new_table = """***REMOVED******REMOVED******REMOVED*** Comparison overview
 *Prices are indicative and subject to change. Verify current pricing and features directly with each vendor before purchasing.*
 """
 
-***REMOVED*** Replace from "***REMOVED******REMOVED******REMOVED*** Comparison overview" through the "*Prices are indicative*" line
+# Replace from "### Comparison overview" through the "*Prices are indicative*" line
 pattern = re.compile(
-    r"***REMOVED******REMOVED******REMOVED*** Comparison overview\n.*?\n\*Prices are indicative and subject to change\.[^\n]*\n",
+    r"### Comparison overview\n.*?\n\*Prices are indicative and subject to change\.[^\n]*\n",
     re.DOTALL,
 )
 new_text, n = pattern.subn(new_table, text)

@@ -146,7 +146,7 @@ export function BlogPostPage({ post }: Props) {
                 key={t}
                 className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-2.5 py-1 text-[11px] font-medium"
               >
-                ***REMOVED***{t}
+                #{t}
               </span>
             ))}
           </div>

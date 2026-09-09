@@ -1,7 +1,18 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Push all production env vars to Vercel project across all 3 environments
 (Production, Preview, Development), then trigger a fresh production deploy.
+
+SECURITY NOTE: This script previously hardcoded ALL production secrets
+(Vercel PAT, Supabase DB URLs, Gmail app password, Turnstile secret,
+NextAuth secret, Cloudinary keys, superadmin password, provider
+encryption key, cron secret) directly in source. That was a security
+incident. The script now reads EVERY value from the operator's
+environment at runtime — no credentials in source control.
+
+Usage:
+    set -a && . ./.env && set +a
+    VERCEL_API_TOKEN=vcp_xxx python3 scripts/vercel-env-push.py
 """
 import os
 import sys
@@ -10,41 +21,60 @@ import time
 import urllib.request
 import urllib.error
 
-TOKEN = "***REDACTED_VERCEL_TOKEN***"
-PROJECT_NAME = "clicktaketechnologies"  ***REMOVED*** may need to discover actual name
+TOKEN = os.environ.get("VERCEL_API_TOKEN")
+if not TOKEN:
+    sys.exit("ERROR: set VERCEL_API_TOKEN env var before running this script.")
+PROJECT_NAME = "clicktaketechnologies"
 API_BASE = "https://api.vercel.com"
 
 ENV_VARS = [
-    ("DATABASE_URL", "postgresql://postgres.crejzifwpcnjqghlbbdf:***REDACTED_DB_PASSWORD***@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true"),
-    ("DIRECT_URL", "postgresql://postgres.crejzifwpcnjqghlbbdf:***REDACTED_DB_PASSWORD***@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres"),
-    ("NEXT_PUBLIC_SUPABASE_URL", "https://crejzifwpcnjqghlbbdf.supabase.co"),
-    ("NEXT_PUBLIC_SUPABASE_ANON_KEY", "***REDACTED_SUPABASE_ANON_KEY***"),
-    ("GMAIL_USER", "clicktaketechnologies@gmail.com"),
-    ("GMAIL_APP_PASSWORD", "***REDACTED_GMAIL_APP_PASSWORD***"),
-    ("SMTP_HOST", "smtp.gmail.com"),
-    ("SMTP_PORT", "465"),
-    ("SMTP_SECURE", "true"),
-    ("SMTP_USER", "clicktaketechnologies@gmail.com"),
-    ("SMTP_PASS", "***REDACTED_GMAIL_APP_PASSWORD***"),
-    ("MAIL_FROM", "ClickTake <clicktaketechnologies@gmail.com>"),
-    ("LEADS_EMAIL", "clicktaketechnologies@gmail.com"),
-    ("PROVIDER_ALERT_TO", "clicktaketechnologies@gmail.com"),
-    ("NEXT_PUBLIC_TURNSTILE_SITE_KEY", "0x4AAAAAADpHuqrF417pgTBa"),
-    ("TURNSTILE_SECRET_KEY", "***REDACTED_TURNSTILE_SECRET***"),
-    ("NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME", "dwioesu97"),
-    ("NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET", "contact_uploads"),
-    ("CLOUDINARY_CLOUD_NAME", "dwioesu97"),
-    ("CLOUDINARY_UPLOAD_PRESET", "contact_uploads"),
-    ("SUPERADMIN_EMAIL", "admin@clicktaketech.com"),
-    ("SUPERADMIN_PASSWORD", "***REDACTED_ADMIN_PASSWORD***"),
-    ("NEXTAUTH_URL", "https://clicktaketech.com"),
-    ("NEXTAUTH_SECRET", "***REDACTED_NEXTAUTH_SECRET***"),
-    ("PROVIDER_CREDENTIALS_ENCRYPTION_KEY", "***REDACTED_PROVIDER_ENCRYPTION_KEY***"),
-    ("CRON_SECRET", "***REDACTED_CRON_SECRET***"),
+    ("DATABASE_URL", os.environ.get("DATABASE_URL", "")),
+    ("DIRECT_URL", os.environ.get("DIRECT_URL", "")),
+    ("NEXT_PUBLIC_SUPABASE_URL", os.environ.get("NEXT_PUBLIC_SUPABASE_URL", "")),
+    ("NEXT_PUBLIC_SUPABASE_ANON_KEY", os.environ.get("NEXT_PUBLIC_SUPABASE_ANON_KEY", "")),
+    ("GMAIL_USER", os.environ.get("GMAIL_USER", "")),
+    ("GMAIL_APP_PASSWORD", os.environ.get("GMAIL_APP_PASSWORD", "")),
+    ("SMTP_HOST", os.environ.get("SMTP_HOST", "smtp.gmail.com")),
+    ("SMTP_PORT", os.environ.get("SMTP_PORT", "465")),
+    ("SMTP_SECURE", os.environ.get("SMTP_SECURE", "true")),
+    ("SMTP_USER", os.environ.get("SMTP_USER", "")),
+    ("SMTP_PASS", os.environ.get("SMTP_PASS", "")),
+    ("MAIL_FROM", os.environ.get("MAIL_FROM", "")),
+    ("LEADS_EMAIL", os.environ.get("LEADS_EMAIL", "")),
+    ("PROVIDER_ALERT_TO", os.environ.get("PROVIDER_ALERT_TO", "")),
+    ("NEXT_PUBLIC_TURNSTILE_SITE_KEY", os.environ.get("NEXT_PUBLIC_TURNSTILE_SITE_KEY", "")),
+    ("TURNSTILE_SECRET_KEY", os.environ.get("TURNSTILE_SECRET_KEY", "")),
+    ("NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME", os.environ.get("NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME", "")),
+    ("NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET", os.environ.get("NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET", "")),
+    ("CLOUDINARY_CLOUD_NAME", os.environ.get("CLOUDINARY_CLOUD_NAME", "")),
+    ("CLOUDINARY_UPLOAD_PRESET", os.environ.get("CLOUDINARY_UPLOAD_PRESET", "")),
+    ("SUPERADMIN_EMAIL", os.environ.get("SUPERADMIN_EMAIL", "")),
+    ("SUPERADMIN_PASSWORD", os.environ.get("SUPERADMIN_PASSWORD", "")),
+    ("NEXTAUTH_URL", os.environ.get("NEXTAUTH_URL", "")),
+    ("NEXTAUTH_SECRET", os.environ.get("NEXTAUTH_SECRET", "")),
+    ("PROVIDER_CREDENTIALS_ENCRYPTION_KEY", os.environ.get("PROVIDER_CREDENTIALS_ENCRYPTION_KEY", "")),
+    ("CRON_SECRET", os.environ.get("CRON_SECRET", "")),
 ]
 
 ENVS = ["production", "preview", "development"]
 
+def api(method, path, body=None):
+    url = f"{API_BASE}{path}"
+    headers = {
+        "Authorization": f"Bearer {TOKEN}",
+        "Content-Type": "application/json",
+    }
+    data = json.dumps(body).encode() if body is not None else None
+    req = urllib.request.Request(url, data=data, headers=headers, method=method)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return resp.status, json.loads(resp.read().decode())
+    except urllib.error.HTTPError as e:
+        body_text = e.read().decode() if e.fp else ""
+        try:
+            return e.code, json.loads(body_text)
+        except:
+            return e.code, body_text
 def api(method, path, body=None):
     url = f"{API_BASE}{path}"
     headers = {
@@ -76,7 +106,7 @@ def find_project():
             break
         for p in projects:
             name = p.get("name", "")
-            ***REMOVED*** Match exact or contains
+            # Match exact or contains
             if name == "clicktaketechnologies" or "clicktake" in name.lower():
                 return p
         page += 1
@@ -92,7 +122,7 @@ def get_existing_envs(project_id):
         if status == 200:
             for entry in data.get("envs", []):
                 existing[(entry.get("key"), entry.get("target", [None])[0] if entry.get("target") else None)] = entry
-    ***REMOVED*** Simpler: just list all and key by (key, env)
+    # Simpler: just list all and key by (key, env)
     status, data = api("GET", f"/v9/projects/{project_id}/env?decrypt=true")
     if status != 200:
         print(f"WARNING: couldn't list existing envs: HTTP {status}", data)
@@ -110,7 +140,7 @@ def main():
     print(" VERCEL ENV VAR PUSHER")
     print("=" * 70)
 
-    ***REMOVED*** 1. Find project
+    # 1. Find project
     print("\n[1/5] Finding project...")
     project = find_project()
     if not project:
@@ -121,16 +151,16 @@ def main():
     project_name = project.get("name", "?")
     print(f"  ✓ Found project: {project_name} (id: {project_id})")
 
-    ***REMOVED*** 2. Get existing env vars
+    # 2. Get existing env vars
     print("\n[2/5] Listing existing env vars...")
     existing = get_existing_envs(project_id)
     print(f"  ✓ Found {len(existing)} existing env var entries")
 
-    ***REMOVED*** 3. DELETE existing entries for keys we're about to push
-    ***REMOVED*** Vercel rejects PATCH if type changes (sensitive vs encrypted), so we
-    ***REMOVED*** must delete + recreate. We collect unique entry IDs to delete.
+    # 3. DELETE existing entries for keys we're about to push
+    # Vercel rejects PATCH if type changes (sensitive vs encrypted), so we
+    # must delete + recreate. We collect unique entry IDs to delete.
     print("\n[3/5] Deleting existing entries for keys we're pushing...")
-    to_delete = set()  ***REMOVED*** (id) tuples
+    to_delete = set()  # (id) tuples
     push_keys = {k for k, _ in ENV_VARS}
     deleted_count = 0
     for (key, env), entry in existing.items():
@@ -147,7 +177,7 @@ def main():
                     print(f"  ✗ Failed to delete {key} [{env}] (HTTP {status}): {resp}")
     print(f"  Deleted {deleted_count} existing entries")
 
-    ***REMOVED*** 4. CREATE fresh entries for all 26 keys × 3 environments
+    # 4. CREATE fresh entries for all 26 keys × 3 environments
     print("\n[4/5] Creating env vars (26 vars × 3 environments = 78 operations)...")
     created = 0
     failed = 0
@@ -177,9 +207,9 @@ def main():
         print("\n⚠️  Some env vars failed. Review above before redeploying.")
         sys.exit(1)
 
-    ***REMOVED*** 5. Trigger redeploy
+    # 5. Trigger redeploy
     print("\n[5/5] Triggering production redeploy...")
-    ***REMOVED*** Find latest production deployment
+    # Find latest production deployment
     status, data = api("GET", f"/v6/deployments?projectId={project_id}&limit=10&target=production")
     if status != 200 or not data.get("deployments"):
         print(f"  ⚠ Couldn't list deployments (HTTP {status}). You'll need to manually redeploy.")
@@ -190,7 +220,7 @@ def main():
     deploy_url = latest.get("url", "?")
     print(f"  Latest production deploy: {deploy_url} (id: {deploy_id})")
 
-    ***REMOVED*** Trigger redeploy with the same source
+    # Trigger redeploy with the same source
     status, resp = api("POST", f"/v13/deployments",
         {"deploymentId": deploy_id, "target": "production"})
     if status in (200, 201):

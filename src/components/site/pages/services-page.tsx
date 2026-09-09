@@ -22,7 +22,7 @@ export function ServicesPage() {
         title={
           <>
             Full-spectrum{" "}
-            <span className="bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
               engineering
             </span>{" "}
             services.
@@ -32,7 +32,7 @@ export function ServicesPage() {
       />
 
       {/* Service Cards */}
-      <section className="py-20 px-4 lg:px-8" style={{ background: "***REMOVED***03000D" }}>
+      <section className="py-20 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-6xl space-y-6">
           {SERVICE_CARDS.map((card, i) => {
             const Icon = card.icon;
@@ -89,7 +89,7 @@ export function ServicesPage() {
                       <ul className="space-y-2">
                         {card.deliverables.map((d) => (
                           <li key={d} className="flex items-start gap-2 text-[13px] text-white/70">
-                            <Check className="h-4 w-4 text-[***REMOVED***FF8AC4] shrink-0 mt-0.5" />
+                            <Check className="h-4 w-4 text-[#FF8AC4] shrink-0 mt-0.5" />
                             {d}
                           </li>
                         ))}
@@ -104,12 +104,12 @@ export function ServicesPage() {
       </section>
 
       {/* Process Section */}
-      <section className="py-24 px-4 lg:px-8" style={{ background: "***REMOVED***03000D" }}>
+      <section className="py-24 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-6xl">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
               Four steps.{" "}
-              <span className="bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                 Six weeks to live.
               </span>
             </h2>
@@ -133,7 +133,7 @@ export function ServicesPage() {
                   {step.n}
                 </div>
                 <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                <div className="text-[10px] font-mono uppercase tracking-[1.5px] text-[***REMOVED***FF8AC4] mb-3">
+                <div className="text-[10px] font-mono uppercase tracking-[1.5px] text-[#FF8AC4] mb-3">
                   {step.weeks}
                 </div>
                 <p className="text-sm text-white/60 leading-relaxed">{step.desc}</p>
@@ -144,7 +144,7 @@ export function ServicesPage() {
       </section>
 
       {/* CTA 1: Dedicated Engineer */}
-      <section className="py-20 px-4 lg:px-8" style={{ background: "***REMOVED***03000D" }}>
+      <section className="py-20 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-5xl">
           <div className="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md p-8 sm:p-12">
             <div className="flex items-start gap-6">
@@ -166,7 +166,7 @@ export function ServicesPage() {
       </section>
 
       {/* CTA 2: Ready to Scope */}
-      <section className="py-20 px-4 lg:px-8" style={{ background: "***REMOVED***03000D" }}>
+      <section className="py-20 px-4 lg:px-8" style={{ background: "#03000D" }}>
         <div className="mx-auto max-w-5xl">
           <div
             className="rounded-3xl border border-white/10 p-8 sm:p-12 lg:p-16 overflow-hidden relative"
@@ -179,7 +179,7 @@ export function ServicesPage() {
               <div className="lg:col-span-2">
                 <h2 className="text-3xl sm:text-4xl font-black text-white">
                   Ready to scope your first{" "}
-                  <span className="bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                     sprint?
                   </span>
                 </h2>
@@ -191,7 +191,7 @@ export function ServicesPage() {
                   <Link
                     href="/contact"
                     className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-                    style={{ background: "linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)" }}
+                    style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
                   >
                     Book a Demo
                     <ArrowRight className="h-4 w-4" />
@@ -221,7 +221,7 @@ const SERVICE_CARDS = [
   {
     number: "01",
     icon: Code2,
-    iconBg: "***REMOVED***1E3A8A",
+    iconBg: "#1E3A8A",
     title: "Custom Web & Mobile Apps",
     desc: "Production-grade applications built on Next.js 16, React Native, and Flutter. We don't ship prototypes — we ship products with design systems, observability, CI/CD, and E2E test coverage from day one.",
     stack: ["Next.js 16", "React 19", "TypeScript", "React Native", "Flutter", "Tailwind", "Prisma"],
@@ -230,7 +230,7 @@ const SERVICE_CARDS = [
   {
     number: "02",
     icon: Cloud,
-    iconBg: "***REMOVED***831843",
+    iconBg: "#831843",
     title: "Enterprise Cloud DevOps",
     desc: "AWS, GCP, Azure — pick one or all three. We deliver infrastructure-as-code, GitOps pipelines, autoscaling K8s clusters, and observability stacks that surface regressions before your users do.",
     stack: ["AWS", "GCP", "Azure", "Terraform", "ArgoCD", "Kubernetes", "OpenTelemetry", "Grafana"],
@@ -239,7 +239,7 @@ const SERVICE_CARDS = [
   {
     number: "03",
     icon: Brain,
-    iconBg: "***REMOVED***581C87",
+    iconBg: "#581C87",
     title: "AI / ML Pipelines",
     desc: "From RAG over your internal knowledge base to multi-agent orchestration handling real customer workflows. We move from PoC to production in 6 weeks — with evals, guardrails, and human-in-loop fallbacks.",
     stack: ["LangGraph", "OpenAI", "Anthropic", "Pinecone", "Weaviate", "pgvector", "vLLM", "LangSmith"],
@@ -248,7 +248,7 @@ const SERVICE_CARDS = [
   {
     number: "04",
     icon: ShieldCheck,
-    iconBg: "***REMOVED***1E3A8A",
+    iconBg: "#1E3A8A",
     title: "Security Systems",
     desc: "Zero-trust architectures, compliance as code, and pen-test-ready hardening. We've taken 20+ clients through SOC 2 Type II audit prep with zero findings on first attempt.",
     stack: ["Semgrep", "Snyk", "OWASP ZAP", "HashiCorp Vault", "Cloudflare WAF", "Auth0"],
@@ -293,7 +293,7 @@ function MiniCharacter({ variant }: { variant: "engineer" | "robot" }) {
           style={{
             width: "70px",
             height: "70px",
-            background: "linear-gradient(180deg, ***REMOVED***1E3A8A, ***REMOVED***1E1B4B)",
+            background: "linear-gradient(180deg, #1E3A8A, #1E1B4B)",
             border: "1px solid rgba(255,255,255,0.08)",
           }}
         />
@@ -303,15 +303,15 @@ function MiniCharacter({ variant }: { variant: "engineer" | "robot" }) {
             top: "0",
             width: "55px",
             height: "50px",
-            background: "linear-gradient(180deg, ***REMOVED***F5C9A6, ***REMOVED***D4A574)",
+            background: "linear-gradient(180deg, #F5C9A6, #D4A574)",
           }}
         >
           <div
             className="absolute left-1/2 -translate-x-1/2 rounded-lg"
-            style={{ top: "15px", width: "44px", height: "18px", background: "linear-gradient(135deg, ***REMOVED***7C3AED, ***REMOVED***4F46E5)" }}
+            style={{ top: "15px", width: "44px", height: "18px", background: "linear-gradient(135deg, #7C3AED, #4F46E5)" }}
           >
-            <div className="absolute left-1 top-1 w-3 h-3 rounded-full" style={{ background: "***REMOVED***FF8AC4" }} />
-            <div className="absolute right-1 top-1 w-3 h-3 rounded-full" style={{ background: "***REMOVED***136DFF" }} />
+            <div className="absolute left-1 top-1 w-3 h-3 rounded-full" style={{ background: "#FF8AC4" }} />
+            <div className="absolute right-1 top-1 w-3 h-3 rounded-full" style={{ background: "#136DFF" }} />
           </div>
         </div>
       </div>
@@ -324,13 +324,13 @@ function MiniCharacter({ variant }: { variant: "engineer" | "robot" }) {
         style={{
           width: "85px",
           height: "95px",
-          background: "linear-gradient(180deg, ***REMOVED***1E3A8A, ***REMOVED***1E1B4B)",
+          background: "linear-gradient(180deg, #1E3A8A, #1E1B4B)",
           border: "1px solid rgba(255,255,255,0.08)",
         }}
       >
         <div
           className="absolute top-4 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full grid place-items-center"
-          style={{ background: "linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)" }}
+          style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
         >
           <span className="text-white text-[8px]">♥</span>
         </div>
@@ -341,18 +341,18 @@ function MiniCharacter({ variant }: { variant: "engineer" | "robot" }) {
           top: "0",
           width: "70px",
           height: "65px",
-          background: "linear-gradient(180deg, ***REMOVED***F5C9A6, ***REMOVED***D4A574)",
+          background: "linear-gradient(180deg, #F5C9A6, #D4A574)",
         }}
       >
         <div
           className="absolute left-1/2 -translate-x-1/2 rounded-xl"
-          style={{ top: "20px", width: "56px", height: "22px", background: "linear-gradient(135deg, ***REMOVED***7C3AED, ***REMOVED***4F46E5)" }}
+          style={{ top: "20px", width: "56px", height: "22px", background: "linear-gradient(135deg, #7C3AED, #4F46E5)" }}
         >
-          <div className="absolute left-1 top-1 w-4 h-4 rounded-full" style={{ background: "***REMOVED***1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "***REMOVED***FF8AC4" }} />
+          <div className="absolute left-1 top-1 w-4 h-4 rounded-full" style={{ background: "#1E1B4B" }}>
+            <div className="absolute inset-1 rounded-full" style={{ background: "#FF8AC4" }} />
           </div>
-          <div className="absolute right-1 top-1 w-4 h-4 rounded-full" style={{ background: "***REMOVED***1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "***REMOVED***136DFF" }} />
+          <div className="absolute right-1 top-1 w-4 h-4 rounded-full" style={{ background: "#1E1B4B" }}>
+            <div className="absolute inset-1 rounded-full" style={{ background: "#136DFF" }} />
           </div>
         </div>
       </div>
@@ -368,8 +368,8 @@ function MiniCharacter({ variant }: { variant: "engineer" | "robot" }) {
             right: i % 2 === 1 ? "-5%" : "auto",
             width: "5px",
             height: "5px",
-            background: ["***REMOVED***FF53A9", "***REMOVED***136DFF", "***REMOVED***9B3DFF"][i],
-            boxShadow: `0 0 8px ${["***REMOVED***FF53A9", "***REMOVED***136DFF", "***REMOVED***9B3DFF"][i]}`,
+            background: ["#FF53A9", "#136DFF", "#9B3DFF"][i],
+            boxShadow: `0 0 8px ${["#FF53A9", "#136DFF", "#9B3DFF"][i]}`,
           }}
         />
       ))}

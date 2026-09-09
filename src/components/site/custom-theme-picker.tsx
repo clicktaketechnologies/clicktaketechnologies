@@ -10,7 +10,7 @@ import { Check, RotateCcw, Sparkles, Sun, Moon } from "lucide-react";
  * in layout.tsx + the .theme-custom CSS class in globals.css apply them.
  *
  * STORAGE CONTRACT (must match layout.tsx FOUC script + theme-toggle.tsx):
- *   localStorage["theme-custom-vars"]   = JSON.stringify({ '--primary': '***REMOVED***...', ... })
+ *   localStorage["theme-custom-vars"]   = JSON.stringify({ '--primary': '#...', ... })
  *   localStorage["theme-custom-dark"]   = 'true' | 'false'
  *   localStorage["theme"]               = 'custom'  (set by next-themes setTheme)
  *
@@ -24,8 +24,8 @@ import { Check, RotateCcw, Sparkles, Sun, Moon } from "lucide-react";
  *   --accent, --brand-accent, --brand-pink                       ← secondary color
  */
 export type CustomThemeConfig = {
-  primary: string;   // hex, e.g. "***REMOVED***136DFF"
-  secondary: string; // hex, e.g. "***REMOVED***FF53A9"
+  primary: string;   // hex, e.g. "#136DFF"
+  secondary: string; // hex, e.g. "#FF53A9"
   base: "dark" | "light";
 };
 
@@ -33,17 +33,17 @@ export type CustomThemeConfig = {
 // Each preset is a (primary, secondary) pair chosen for good contrast in both
 // light and dark base modes. Swatches show the two colors side-by-side.
 const PRESETS: { name: string; primary: string; secondary: string }[] = [
-  { name: "ClickTake",     primary: "***REMOVED***136DFF", secondary: "***REMOVED***FF53A9" }, // brand blue + pink
-  { name: "Emerald",       primary: "***REMOVED***10B981", secondary: "***REMOVED***14B8A6" }, // green + teal
-  { name: "Sunset",        primary: "***REMOVED***F97316", secondary: "***REMOVED***EF4444" }, // orange + red
-  { name: "Royal Purple",  primary: "***REMOVED***8B5CF6", secondary: "***REMOVED***6366F1" }, // purple + indigo
-  { name: "Ocean",         primary: "***REMOVED***06B6D4", secondary: "***REMOVED***3B82F6" }, // cyan + blue
-  { name: "Mono",          primary: "***REMOVED***475569", secondary: "***REMOVED***64748B" }, // slate + gray
+  { name: "ClickTake",     primary: "#136DFF", secondary: "#FF53A9" }, // brand blue + pink
+  { name: "Emerald",       primary: "#10B981", secondary: "#14B8A6" }, // green + teal
+  { name: "Sunset",        primary: "#F97316", secondary: "#EF4444" }, // orange + red
+  { name: "Royal Purple",  primary: "#8B5CF6", secondary: "#6366F1" }, // purple + indigo
+  { name: "Ocean",         primary: "#06B6D4", secondary: "#3B82F6" }, // cyan + blue
+  { name: "Mono",          primary: "#475569", secondary: "#64748B" }, // slate + gray
 ];
 
 const DEFAULT_CONFIG: CustomThemeConfig = {
-  primary: "***REMOVED***136DFF",
-  secondary: "***REMOVED***FF53A9",
+  primary: "#136DFF",
+  secondary: "#FF53A9",
   base: "dark",
 };
 
@@ -406,7 +406,7 @@ function ColorField({
   const handleTextChange = (val: string) => {
     setText(val);
     // Only propagate if it's a valid hex color
-    if (/^***REMOVED***[0-9a-fA-F]{6}$/.test(val)) {
+    if (/^#[0-9a-fA-F]{6}$/.test(val)) {
       onChange(val);
     }
   };

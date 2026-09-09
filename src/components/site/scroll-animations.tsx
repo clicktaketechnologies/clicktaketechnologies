@@ -83,7 +83,7 @@ export function ScrollProgressBar() {
                 scaleX,
                 transformOrigin: "0%",
             }}
-            className="fixed top-0 left-0 right-0 z-[999] h-[3px] bg-gradient-to-r from-[***REMOVED***136DFF] via-[***REMOVED***FF53A9] to-[***REMOVED***c12bff]"
+            className="fixed top-0 left-0 right-0 z-[999] h-[3px] bg-gradient-to-r from-[#136DFF] via-[#FF53A9] to-[#c12bff]"
         />
     );
 }

@@ -29,10 +29,10 @@ export default function GlobalError({
         style={{
           margin: 0,
           minHeight: "100vh",
-          background: "***REMOVED***03000D",
+          background: "#03000D",
           backgroundImage:
             "radial-gradient(ellipse 60% 40% at 50% 30%, rgba(155,61,255,0.12), transparent 60%)",
-          color: "***REMOVED***F4F0FF",
+          color: "#F4F0FF",
           fontFamily:
             "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
           display: "flex",
@@ -63,7 +63,7 @@ export default function GlobalError({
                 width: "6px",
                 height: "6px",
                 borderRadius: "9999px",
-                background: "***REMOVED***FF8AC4",
+                background: "#FF8AC4",
               }}
             />
             Critical error
@@ -75,7 +75,7 @@ export default function GlobalError({
               fontWeight: 800,
               letterSpacing: "-0.02em",
               backgroundImage:
-                "linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)",
+                "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               color: "transparent",
@@ -125,11 +125,11 @@ export default function GlobalError({
                 gap: "0.5rem",
                 borderRadius: "9999px",
                 backgroundImage:
-                  "linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)",
+                  "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)",
                 padding: "0.75rem 1.5rem",
                 fontSize: "0.875rem",
                 fontWeight: 700,
-                color: "***REMOVED***fff",
+                color: "#fff",
                 border: "none",
                 cursor: "pointer",
                 boxShadow: "0 8px 30px rgba(155,61,255,0.35)",
@@ -149,7 +149,7 @@ export default function GlobalError({
                 padding: "0.75rem 1.5rem",
                 fontSize: "0.875rem",
                 fontWeight: 700,
-                color: "***REMOVED***F4F0FF",
+                color: "#F4F0FF",
                 textDecoration: "none",
               }}
             >

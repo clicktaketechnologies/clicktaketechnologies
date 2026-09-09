@@ -34,12 +34,12 @@ type Props = {
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  New: "***REMOVED***136DFF",
-  Contacted: "***REMOVED***FF53A9",
-  Qualified: "***REMOVED***10B981",
-  Proposal: "***REMOVED***F59E0B",
-  Converted: "***REMOVED***8B5CF6",
-  Closed: "***REMOVED***6B7280",
+  New: "#136DFF",
+  Contacted: "#FF53A9",
+  Qualified: "#10B981",
+  Proposal: "#F59E0B",
+  Converted: "#8B5CF6",
+  Closed: "#6B7280",
 };
 
 export function CrmClient({ leads, statusCounts, statuses, canWrite }: Props) {
@@ -107,7 +107,7 @@ export function CrmClient({ leads, statusCounts, statuses, canWrite }: Props) {
       {view === "kanban" ? (
         <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
           {statuses.map((status) => {
-            const color = STATUS_COLORS[status] || "***REMOVED***6B7280";
+            const color = STATUS_COLORS[status] || "#6B7280";
             return (
               <div key={status} className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -215,7 +215,7 @@ export function CrmClient({ leads, statusCounts, statuses, canWrite }: Props) {
                   <td className="px-4 py-3">
                     <span
                       className="rounded-full px-2 py-0.5 text-[10px] font-medium"
-                      style={{ backgroundColor: (STATUS_COLORS[l.status] || "***REMOVED***6B7280") + "20", color: STATUS_COLORS[l.status] || "***REMOVED***6B7280" }}
+                      style={{ backgroundColor: (STATUS_COLORS[l.status] || "#6B7280") + "20", color: STATUS_COLORS[l.status] || "#6B7280" }}
                     >
                       {l.status}
                     </span>
@@ -358,7 +358,7 @@ function LeadDrawer({
                       className={`rounded-full px-2.5 py-1 text-xs ${
                         status === s ? "text-white" : "bg-muted text-muted-foreground hover:bg-muted/80"
                       }`}
-                      style={status === s ? { backgroundColor: STATUS_COLORS[s] || "***REMOVED***6B7280" } : {}}
+                      style={status === s ? { backgroundColor: STATUS_COLORS[s] || "#6B7280" } : {}}
                     >
                       {s}
                     </button>

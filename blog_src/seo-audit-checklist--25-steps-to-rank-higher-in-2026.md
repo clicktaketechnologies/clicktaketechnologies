@@ -1,4 +1,4 @@
-***REMOVED*** SEO Audit Checklist: 25 Steps to Rank Higher in 2026
+# SEO Audit Checklist: 25 Steps to Rank Higher in 2026
 
 ![SEO Audit Checklist: 25 Steps to Rank Higher in 2026](https://composeo-article-images.s3.us-east-1.amazonaws.com/seo-audit-checklist-25-steps-to-rank-higher-in-2026-1785665045416.webp)
 
@@ -6,75 +6,75 @@ Most site owners only think about auditing their SEO after rankings have already
 
 What follows is the exact 25-step framework the team at ClickTake Technologies runs on client sites before any optimisation work begins. You can't fix what you haven't measured. The audit covers five layers: technical crawlability, Core Web Vitals and performance, on-page signals, content quality, and backlink health. Some steps require CMS access or developer involvement, particularly HTTPS enforcement, JavaScript rendering checks, and server-level redirects, but the majority can be worked through by any practitioner with the right tools. By the end, you'll have a clear picture of your site's health and a prioritised list of what to fix first.
 
-***REMOVED******REMOVED*** SEO Audit Checklist, Part 1: Technical Foundation, Crawlability, Indexation and Site Architecture
+## SEO Audit Checklist, Part 1: Technical Foundation, Crawlability, Indexation and Site Architecture
 
 This is the layer that determines whether search engines can access your content at all. No amount of strong writing or well-researched keywords fixes a site that Google can't crawl or index properly. The data supports taking this layer seriously: 95.2% of sites have at least one redirect issue, and 35.73% return 4XX errors on at least one page ([Ahrefs site audit dataset](https://ahrefs.com/blog/site-audit-study/)).
 
-***REMOVED******REMOVED******REMOVED*** Step 1: Robots.txt, XML Sitemap and Noindex Directives
+### Step 1: Robots.txt, XML Sitemap and Noindex Directives
 
 Open your robots.txt file directly in a browser and check whether it is accidentally blocking key pages, JavaScript files, or CSS resources that Google needs to render your content. Then pull your XML sitemap and verify it is current and contains only indexable URLs. It should not include redirect destinations or 4XX pages. Notably, 17.68% of sitemaps contain redirect URLs, meaning the sitemap is actively sending crawlers to the wrong place. Use Google Search Console's Coverage report alongside a crawler to surface any pages carrying accidental noindex tags.
 
-***REMOVED******REMOVED******REMOVED*** Step 2: Canonical Tags, Redirect Chains and HTTP Status Codes
+### Step 2: Canonical Tags, Redirect Chains and HTTP Status Codes
 
 Each page should have [exactly one canonical tag](https://developers.google.com/search/docs/crawling-indexing/canonicalization), pointing to the correct preferred version, and that version should return a 200 status without itself being redirected or noindexed. Redirect chains are a specific priority: two or more hops in a redirect sequence waste crawl budget and dilute the link equity passing through. It is also worth noting that 11.11% of XML sitemaps contain non-canonical URLs, meaning the sitemap and canonical signals are actively contradicting each other on a significant share of sites.
 
-***REMOVED******REMOVED******REMOVED*** Step 3: HTTPS, URL Structure and Site Architecture Depth
+### Step 3: HTTPS, URL Structure and Site Architecture Depth
 
 Confirm HTTPS is enforced sitewide with no mixed-content warnings from HTTP resources loading on secure pages. Check URL consistency across trailing slashes, case variants, and parameter-based duplicates. As a practical guideline, your highest-priority pages should be reachable within three clicks from the homepage, shallow architecture tends to concentrate crawl budget where it matters most. Use a crawler to identify orphan pages, those with no internal links pointing to them, which are invisible to both crawlers and users.
 
-***REMOVED******REMOVED*** SEO Audit Checklist, Part 2: Core Web Vitals, Page Speed and Mobile Experience
+## SEO Audit Checklist, Part 2: Core Web Vitals, Page Speed and Mobile Experience
 
 Performance signals both ranking potential and conversion likelihood. In 2026, 50.9% of websites fail Core Web Vitals on mobile and 42.0% fail on desktop (Chrome UX Report, May 2026), which means poor performance is still the norm rather than the exception. A page that loads slowly doesn't just rank lower. It loses real visitors before they read a single word.
 
-***REMOVED******REMOVED******REMOVED*** Step 4: LCP, INP and CLS, the Thresholds That Determine Pass or Fail
+### Step 4: LCP, INP and CLS, the Thresholds That Determine Pass or Fail
 
 The "good" thresholds are: **LCP ≤ 2.5 seconds**, INP ≤ 200 milliseconds, and CLS ≤ 0.1. Google evaluates these at the 75th percentile of real-user Chrome data over a rolling 28-day window, and a page passes only when all three metrics hit the "good" band. One failing metric is enough to push the page into "needs improvement" territory (Google Core Web Vitals documentation). Use Google Search Console's Core Web Vitals report for field data and Lighthouse for lab-level diagnostics on individual pages.
 
-***REMOVED******REMOVED******REMOVED*** Step 5: JavaScript Rendering and Structured Data Validation
+### Step 5: JavaScript Rendering and Structured Data Validation
 
 Sites built on React, Next.js, or similar frameworks need a specific check to confirm that Google is rendering and indexing their actual content, not just the HTML shell. Run a URL inspection in Search Console and compare the rendered HTML to the raw source to identify any content that loads only client-side. For structured data, validate JSON-LD using Google's [Rich Results Test](https://www.wix.com/seo/learn/resource/structured-data-validation): check syntax, confirm required properties are present, and verify that markup values match the visible content on the live page.
 
-***REMOVED******REMOVED*** On-Page SEO Audit Checklist: Titles, Metadata and Internal Linking
+## On-Page SEO Audit Checklist: Titles, Metadata and Internal Linking
 
 Technical health gets you into the game. On-page signals determine where you place. These checks directly influence how Google interprets each page's topic, how much authority flows across the site, and how often your listings earn clicks in the search results.
 
-***REMOVED******REMOVED******REMOVED*** Step 6: Title Tags, Meta Descriptions and Header Hierarchy
+### Step 6: Title Tags, Meta Descriptions and Header Hierarchy
 
 Each page needs a unique title tag that clearly signals its topic and target term, ideally within 60 characters. Meta descriptions don't influence rankings directly, but they influence click-through rate, which feeds back into performance signals Google does care about. Check that every key page has exactly one H1 and that the H2/H3 structure reflects logical content hierarchy rather than decorative formatting.
 
-***REMOVED******REMOVED******REMOVED*** Step 7: Internal Link Architecture and Anchor Text Relevance
+### Step 7: Internal Link Architecture and Anchor Text Relevance
 
 Internal links are how PageRank flows through your site and how crawlers discover new pages. Audit whether your highest-priority pages receive the most internal links. Check that anchor text is descriptive and topically relevant. Newly published content sitting in isolation, with no inbound internal links, is invisible to both crawlers and users and should be linked immediately. **Generic anchor text like "click here" tells Google nothing about the destination page** and represents a straightforward missed opportunity that takes minutes to fix.
 
-***REMOVED******REMOVED******REMOVED*** Step 8: Schema Markup, Coverage and Accuracy Checks
+### Step 8: Schema Markup, Coverage and Accuracy Checks
 
 Check whether key page types, products, articles, FAQs, local business listings, carry appropriate schema markup. Validate that required properties are present, that values match visible on-page content, and that the markup renders correctly on the live URL rather than just in the template. Structured data errors are silent: they won't break your site, but they'll quietly cost you rich result eligibility in the SERPs.
 
-***REMOVED******REMOVED*** 4. Content Quality, Keyword Alignment and Duplication
+## 4. Content Quality, Keyword Alignment and Duplication
 
 Technical and on-page signals create the right conditions. Content is what earns rankings and keeps visitors engaged long enough to convert. This layer of the audit is where you find the issues that are hardest to spot but most damaging to long-term performance.
 
-***REMOVED******REMOVED******REMOVED*** Step 9: Identifying Thin, Duplicate and Cannibalising Content
+### Step 9: Identifying Thin, Duplicate and Cannibalising Content
 
 Thin pages with little unique value are a common drag on crawl budget and a trigger for quality assessments. Duplicate content sends conflicting signals to Google and can result in the wrong version being indexed. [Keyword cannibalism](https://www.semrush.com/blog/keyword-cannibalization-guide/) is subtler: two pages on the same site competing for the same query split authority and rarely rank as well as a single, consolidated page would. Use a crawler to flag pages below a practical word count threshold, then cross-reference with Search Console's Performance report to identify queries where multiple URLs are competing for the same clicks.
 
-***REMOVED******REMOVED******REMOVED*** Step 10: Search Intent Alignment, Content Freshness and UX Navigation
+### Step 10: Search Intent Alignment, Content Freshness and UX Navigation
 
 Every piece of content should match the dominant intent behind its target query, informational, transactional, or navigational. A product page optimised for an informational query will underperform regardless of its technical health, because the format doesn't match what the searcher actually wants. Flag content that hasn't been reviewed in 12-plus months. Audit breadcrumb navigation and site search usability alongside content freshness, because **poor findability hurts both UX signals and crawlability**.
 
-***REMOVED******REMOVED*** 5. Backlink Profile and Off-Page Risk Assessment
+## 5. Backlink Profile and Off-Page Risk Assessment
 
 Backlinks remain one of Google's most durable ranking signals, but not all links are equal and some actively work against you. The final phase of this website SEO audit looks at link quality, topical relevance, and whether your existing profile carries any risk worth addressing.
 
-***REMOVED******REMOVED******REMOVED*** Step 11: Measuring Link Quality, Relevance and Authority Diversity
+### Step 11: Measuring Link Quality, Relevance and Authority Diversity
 
 Pull your backlink profile in Ahrefs or Semrush and look at the distribution of linking domains by authority score, the topical relevance of those domains to your niche, and whether you're over-reliant on a small number of referring domains. A healthy profile has genuine diversity: multiple domain types, varied anchor text, and links from pages that are themselves indexed and crawlable. Concentration risk is as real in backlink profiles as it is in financial portfolios.
 
-***REMOVED******REMOVED******REMOVED*** Step 12: Toxic Links, Unnatural Anchor Text and Competitor Gap Analysis
+### Step 12: Toxic Links, Unnatural Anchor Text and Competitor Gap Analysis
 
 Flag links with spammy anchor text, links from penalised or topically irrelevant domains, and patterns that resemble paid link schemes. If you've inherited a site with a questionable link history, a disavow file may be warranted, but only after manual review, not automated flagging alone. Run a competitor gap analysis to identify high-authority sites linking to your competitors but not to you: these are realistic, in-niche link acquisition targets that already understand your sector.
 
-***REMOVED******REMOVED*** Choosing the Right Tools for Each Phase of Your Technical SEO Checklist
+## Choosing the Right Tools for Each Phase of Your Technical SEO Checklist
 
 A 25-step audit needs the right tools behind it, or conclusions become guesswork. The best free starting point in the stack is Google Search Console, it is also the most accurate, because it reflects Google's actual view of your site rather than a third-party approximation of it.
 
@@ -84,7 +84,7 @@ For paid tools, the options break down by use case. Screaming Frog is a widely u
 
 At ClickTake Technologies, every technical SEO engagement starts with this same five-layer checklist, run across Search Console, Screaming Frog, and Semrush in sequence. Findings from Google's own data are always cross-referenced against crawler output before any recommendations are made. If you'd like a practitioner to run this SEO audit on your site and walk you through the findings, **book a free 30-minute consultation** and we'll identify exactly where your biggest opportunities lie.
 
-***REMOVED******REMOVED*** Turning Your SEO Audit Checklist Findings into an Action Plan
+## Turning Your SEO Audit Checklist Findings into an Action Plan
 
 An audit produces a list of issues. A good audit produces a prioritised list where the highest-impact, lowest-effort fixes come first. Triage findings into three buckets: critical issues that block indexation or create a security risk; high-impact issues that are actively affecting rankings or conversion; and maintenance items that can be scheduled into regular workflow.
 

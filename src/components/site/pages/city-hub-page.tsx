@@ -48,7 +48,7 @@ export function CityHubPage({ content }: { content: CityHubContent }) {
         storyVariant="default"
         ctas={
           <>
-            <NxButton href="***REMOVED***services">Browse services</NxButton>
+            <NxButton href="#services">Browse services</NxButton>
             <NxButton href="/contact" variant="outline">
               Book a consultation
             </NxButton>

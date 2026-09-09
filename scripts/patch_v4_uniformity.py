@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """Patch v4 generator: bring privacy, terms, blog, services, cases up to uniform product standard."""
 import re
 from pathlib import Path
@@ -6,16 +6,16 @@ from pathlib import Path
 SRC = Path("/home/z/my-project/scripts/build_v4_combined.py")
 src = SRC.read_text()
 
-***REMOVED*** ============================================================================
-***REMOVED*** NEW PRIVACY PAGE — 2-col with sidebar quick-nav, mascot, glass cards per section, CTA
-***REMOVED*** ============================================================================
+# ============================================================================
+# NEW PRIVACY PAGE — 2-col with sidebar quick-nav, mascot, glass cards per section, CTA
+# ============================================================================
 NEW_PRIVACY = '''PAGE_PRIVACY = \'\'\'
     <!-- ========== PAGE: PRIVACY ========== -->
     <section data-page="privacy" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-7xl mx-auto px-5 lg:px-8">
           <nav class="crumb text-xs font-mono text-ckbody/70 mb-6" aria-label="Breadcrumb">
-            <a href="***REMOVED***home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Privacy Policy</span>
+            <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Privacy Policy</span>
           </nav>
           <div class="grid lg:grid-cols-3 gap-10 items-start">
             <div class="lg:col-span-2 reveal">
@@ -28,7 +28,7 @@ NEW_PRIVACY = '''PAGE_PRIVACY = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***7B2FBE);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#136DFF,#7B2FBE);">
                         <span class="font-display font-bold text-white text-sm">1</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Who we are</h2>
@@ -40,7 +40,7 @@ NEW_PRIVACY = '''PAGE_PRIVACY = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***7B2FBE);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#FF53A9,#7B2FBE);">
                         <span class="font-display font-bold text-white text-sm">2</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Information we collect</h2>
@@ -53,7 +53,7 @@ NEW_PRIVACY = '''PAGE_PRIVACY = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***7B2FBE,***REMOVED***136DFF);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#7B2FBE,#136DFF);">
                         <span class="font-display font-bold text-white text-sm">3</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">How we use your information</h2>
@@ -66,7 +66,7 @@ NEW_PRIVACY = '''PAGE_PRIVACY = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#136DFF,#FF53A9);">
                         <span class="font-display font-bold text-white text-sm">4</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Data retention</h2>
@@ -78,7 +78,7 @@ NEW_PRIVACY = '''PAGE_PRIVACY = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***136DFF);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#FF53A9,#136DFF);">
                         <span class="font-display font-bold text-white text-sm">5</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Your rights</h2>
@@ -91,7 +91,7 @@ NEW_PRIVACY = '''PAGE_PRIVACY = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***7B2FBE,***REMOVED***FF53A9);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#7B2FBE,#FF53A9);">
                         <span class="font-display font-bold text-white text-sm">6</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Contact</h2>
@@ -110,12 +110,12 @@ NEW_PRIVACY = '''PAGE_PRIVACY = \'\'\'
                 </div>
                 <h3 class="font-display font-bold text-ckheading mb-2">Quick nav</h3>
                 <ul class="space-y-2 text-sm">
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Who we are</a></li>
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Information we collect</a></li>
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>How we use it</a></li>
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Data retention</a></li>
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Your rights</a></li>
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Contact</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Who we are</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Information we collect</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>How we use it</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Data retention</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Your rights</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Contact</a></li>
                 </ul>
               </div>
 
@@ -154,7 +154,7 @@ NEW_PRIVACY = '''PAGE_PRIVACY = \'\'\'
 \'\'\'
 '''
 
-***REMOVED*** Replace the old PAGE_PRIVACY block
+# Replace the old PAGE_PRIVACY block
 src = re.sub(
     r"PAGE_PRIVACY = '''(.*?)'''",
     lambda m: NEW_PRIVACY,

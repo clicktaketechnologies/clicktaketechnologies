@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """QA — sitemap vs routes cross-check + sitemap internal consistency"""
 import os
 import re
@@ -6,11 +6,11 @@ import re
 ROOT = "/home/z/my-project"
 SITE_URL = "https://clicktaketech.com"
 
-***REMOVED*** 1. Parse sitemap.ts for route paths
+# 1. Parse sitemap.ts for route paths
 with open(os.path.join(ROOT, "src", "app", "sitemap.ts")) as f:
     content = f.read()
 
-***REMOVED*** Extract all path literals: path: "/..." or url: `${SITE.url}/...`
+# Extract all path literals: path: "/..." or url: `${SITE.url}/...`
 paths = set()
 for m in re.finditer(r'''path\s*:\s*["'`](/[^"'`]*)["']''', content):
     paths.add(m.group(1))
@@ -18,7 +18,7 @@ for m in re.finditer(r'''\$\{SITE\.url\}(/[^"'`\s]*)''', content):
     p = m.group(1).rstrip("/")
     paths.add(p if p else "/")
 
-***REMOVED*** 2. Build fs routes (same logic as link audit)
+# 2. Build fs routes (same logic as link audit)
 app_dir = os.path.join(ROOT, "src", "app")
 fs_routes = set()
 for dirpath, dirnames, filenames in os.walk(app_dir):
@@ -34,7 +34,7 @@ for dirpath, dirnames, filenames in os.walk(app_dir):
     route = "/" + "/".join(parts) if parts else "/"
     fs_routes.add(route.rstrip("/") or "/")
 
-***REMOVED*** Dynamic content routes (from DB — known slugs used in sitemap)
+# Dynamic content routes (from DB — known slugs used in sitemap)
 print("=" * 70)
 print("SITEMAP AUDIT")
 print("=" * 70)
@@ -57,9 +57,9 @@ def route_matches(fs_route, link):
         i += 1; fi += 1
     return i == len(link_parts)
 
-***REMOVED*** Expand dynamic slugs from content files
+# Expand dynamic slugs from content files
 known_slugs = set()
-***REMOVED*** Blog slugs from prerender list in build log — check content dirs
+# Blog slugs from prerender list in build log — check content dirs
 for sub in ("blog", "resources", "careers", "case-studies", "solutions"):
     subdir = os.path.join(ROOT, "src", "content", sub)
     if os.path.isdir(subdir):
@@ -69,7 +69,7 @@ for sub in ("blog", "resources", "careers", "case-studies", "solutions"):
 broken_sitemap = []
 for p in sorted(paths):
     norm = p.rstrip("/") or "/"
-    ***REMOVED*** strip dynamic template markers
+    # strip dynamic template markers
     if "${" in norm or "{" in norm:
         continue
     if norm in fs_routes:
@@ -84,7 +84,7 @@ print("\nBROKEN SITEMAP ENTRIES:", len(broken_sitemap))
 for p in broken_sitemap:
     print(f"  ✗ {p}")
 
-***REMOVED*** 3. Check routes NOT in sitemap (missing SEO coverage)
+# 3. Check routes NOT in sitemap (missing SEO coverage)
 public_prefixes = ("/", "/about", "/blog", "/careers", "/case-studies",
                    "/cities", "/contact", "/legal", "/portfolio", "/pricing",
                    "/resources", "/services", "/solutions", "/team")
@@ -92,7 +92,7 @@ missing = []
 for r in sorted(fs_routes):
     if r == "/" or r.startswith("/admin") or ".well-known" in r:
         continue
-    if "[" in r and "cities" not in r:  ***REMOVED*** dynamic leaf routes use DB slugs
+    if "[" in r and "cities" not in r:  # dynamic leaf routes use DB slugs
         continue
     if r not in paths and not any(r.startswith(p) for p in paths):
         missing.append(r)

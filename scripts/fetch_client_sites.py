@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Robust fetcher for client sites using requests (with User-Agent).
 Falls back gracefully — saves whatever we can get (title + meta + body text).
@@ -48,16 +48,16 @@ def extract(html: str, url: str) -> dict:
     m = re.search(r'<meta\s+name=["\']description["\'][^>]*content=["\']([^"\']+)["\']', html, re.I | re.S)
     if m:
         desc = re.sub(r'\s+', ' ', m.group(1)).strip()[:400]
-    ***REMOVED*** Strip scripts/styles
+    # Strip scripts/styles
     text = re.sub(r'<script[^>]*>.*?</script>', '', html, flags=re.S | re.I)
     text = re.sub(r'<style[^>]*>.*?</style>', '', text, flags=re.S | re.I)
     text = re.sub(r'<noscript[^>]*>.*?</noscript>', '', text, flags=re.S | re.I)
-    ***REMOVED*** Capture headings for structure
+    # Capture headings for structure
     headings = re.findall(r'<h[1-3][^>]*>([^<]+)</h[1-3]>', text, re.I)
     headings = [re.sub(r'\s+', ' ', h).strip()[:120] for h in headings if len(h.strip()) > 2]
     text = re.sub(r'<[^>]+>', ' ', text)
     text = re.sub(r'\s+', ' ', text).strip()[:6000]
-    ***REMOVED*** Detect tech signals
+    # Detect tech signals
     tech_signals = []
     html_lower = html.lower()
     if "wp-content" in html_lower or "wp-includes" in html_lower:
@@ -102,7 +102,7 @@ def fetch_one(slug: str, url: str) -> dict:
             return data
         else:
             print(f"  ⚠ {slug}: HTTP {r.status_code}")
-            ***REMOVED*** Save partial
+            # Save partial
             data = {"url": url, "title": "", "description": "", "headings": [], "text_excerpt": "", "tech_signals": [], "html_length": 0, "http_status": r.status_code}
             out_file.write_text(json.dumps(data, indent=2))
             return data
@@ -121,9 +121,9 @@ for i, (slug, url) in enumerate(URLS, 1):
     results.append({"slug": slug, **data})
     title = data.get("title", "")[:60]
     print(f"         title: {title!r}")
-    time.sleep(1)  ***REMOVED*** be polite
+    time.sleep(1)  # be polite
 
-***REMOVED*** Save summary
+# Save summary
 Path("/home/z/my-project/download/client-sites-summary.json").write_text(json.dumps(results, indent=2))
 
 print(f"\n=== SUMMARY ===")

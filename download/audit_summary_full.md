@@ -1,4 +1,4 @@
-***REMOVED*** Ahrefs Site Audit — Complete Issue Summary & Fix Plan
+# Ahrefs Site Audit — Complete Issue Summary & Fix Plan
 
 **Project:** clicktaketech.com
 **Audit date:** 2026-08-03
@@ -7,11 +7,11 @@
 
 ---
 
-***REMOVED******REMOVED*** 1. Issues grouped by severity
+## 1. Issues grouped by severity
 
-***REMOVED******REMOVED******REMOVED*** 🔴 ERROR (3 issue types — 4 distinct root causes)
+### 🔴 ERROR (3 issue types — 4 distinct root causes)
 
-| ***REMOVED*** | Issue | Affected pages | Root cause |
+| # | Issue | Affected pages | Root cause |
 |---|---|---|---|
 | E1 | 404 / 4XX page | **96** broken target URLs | Missing routes / missing content |
 | E2 | Indexable page links to broken page | **391** source pages | `hub-spoke-map.ts` hardcodes dead links shown on every DeepDive page |
@@ -29,9 +29,9 @@
 | `/legal` (index) | 1 | ❌ No `/legal/page.tsx` | n/a |
 | **Total** | **96** | | |
 
-***REMOVED******REMOVED******REMOVED*** 🟠 WARNING (4 issue types)
+### 🟠 WARNING (4 issue types)
 
-| ***REMOVED*** | Issue | Affected pages | Root cause |
+| # | Issue | Affected pages | Root cause |
 |---|---|---|---|
 | W1 | Open Graph tags incomplete (missing og:image) | **385** | Pages with own `openGraph` block override root layout and drop `og:image` |
 | W2 | Open Graph URL not matching canonical | **4** — `/services`, `/legal/privacy`, `/legal/terms`, `/legal/cookies` | These pages don't set `openGraph.url`; falls back to homepage |
@@ -44,9 +44,9 @@
 - `/solutions/<slug>` — 6 pages
 - `/` and section indices — ~35 pages
 
-***REMOVED******REMOVED******REMOVED*** 🟡 NOTICE (5 issue types)
+### 🟡 NOTICE (5 issue types)
 
-| ***REMOVED*** | Issue | Affected pages | Status |
+| # | Issue | Affected pages | Status |
 |---|---|---|---|
 | N1 | Indexable page has only 1 dofollow incoming internal link | **12** | Blog/case-study detail pages only linked from their index page |
 | N2 | HTTP→HTTPS redirect | **4** | Informational — redirects already configured correctly |
@@ -56,30 +56,30 @@
 
 ---
 
-***REMOVED******REMOVED*** 2. Prioritised fix plan
+## 2. Prioritised fix plan
 
 **Ranking principle:** template fixes over per-page work, indexable pages first, then by affected-page count.
 
-***REMOVED******REMOVED******REMOVED*** Tier 1 — Critical (do first, biggest impact) ✅ PREVIOUSLY APPROVED
+### Tier 1 — Critical (do first, biggest impact) ✅ PREVIOUSLY APPROVED
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** FIX-1: Purge dead links from `hub-spoke-map.ts` → kills 64 + 14 = 78 of the 96 broken URLs at the source
+#### FIX-1: Purge dead links from `hub-spoke-map.ts` → kills 64 + 14 = 78 of the 96 broken URLs at the source
 - **Why first:** One file edit removes 78 broken targets AND clears the "links to broken page" warning on all 391 source pages. Highest leverage by far.
 - **Approach:** For each `/blog/<slug>` and `/case-studies/<slug>` href in `hub-spoke-map.ts`, check if the slug exists in `BLOG_POSTS` / `CASE_STUDIES`. If not, remove the entry.
 - **Decision:** Remove placeholder links entirely (keep the file honest about what exists). Move unwritten topics to a content backlog in a `TODO.md`, not in the rendered source.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** FIX-2: Add missing routes for `/careers/[slug]`, `/resources/[slug]`, `/services/<top>`, `/legal`
+#### FIX-2: Add missing routes for `/careers/[slug]`, `/resources/[slug]`, `/services/<top>`, `/legal`
 - **2a. `/careers/[slug]/page.tsx`** — new route. Renders `CAREER_ROLES.find(slug)`. Data already exists for 4 of 5 slugs; the 5th (`frontend-engineer-intern`) needs a record added OR the link removed from `careers-page.tsx`. Recommendation: add the record (cheap, real role).
 - **2b. `/resources/[slug]/page.tsx`** — new route. Renders `RESOURCES.find(slug)`. All 6 slugs have data.
 - **2c. `/services/<top>` category index** — 4 category index pages (`/services/ai`, `/services/creative`, `/services/digital-marketing`, `/services/web`). Add early branch in `services/[[...slug]]/page.tsx` that detects single-segment category slugs and renders a category landing page (lists sub-services in that category).
 - **2d. `/legal/page.tsx`** — simple index page listing the 3 legal sub-pages. Also fixes the orphan-page issue for `/legal/terms` and `/legal/cookies` if linked from this index.
 
-***REMOVED******REMOVED******REMOVED*** Tier 2 — High (large affected-page count) ✅ FIX-3 PREVIOUSLY APPROVED + NEW FIX-7
+### Tier 2 — High (large affected-page count) ✅ FIX-3 PREVIOUSLY APPROVED + NEW FIX-7
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** FIX-3: Fix Open Graph inheritance — clears 385 + 4 = 389 warnings
+#### FIX-3: Fix Open Graph inheritance — clears 385 + 4 = 389 warnings
 - **3a. OG image missing (385 pages):** Add a shared `DEFAULT_OG_IMAGE` constant and include `images: [DEFAULT_OG_IMAGE]` in every page-level `openGraph` block. Explicit, easy to audit. (Note: `DEFAULT_OG_IMAGE` already exists at `src/lib/og-image.ts` per import I saw in `cities/[city]/[[...service]]/page.tsx` — need to apply to remaining ~12 page files.)
 - **3b. OG URL ≠ canonical (4 pages):** Add `url: <canonical-url>` to the `openGraph` block on `/services`, `/legal/privacy`, `/legal/terms`, `/legal/cookies`.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** FIX-7 (NEW): Truncate meta descriptions to ≤155 chars — clears 356 + 3 = 359 warnings
+#### FIX-7 (NEW): Truncate meta descriptions to ≤155 chars — clears 356 + 3 = 359 warnings
 - **7a. `/cities/*` template (280 pages):** Edit `src/lib/seo/city-service-content.ts` line 150 — replace concatenation with a length-bounded helper:
   ```ts
   const metaDescription = truncateMeta(
@@ -92,26 +92,26 @@
 - **7d. `/` homepage (1 page):** `src/app/page.tsx` line 25/30/48 — manually shorten the homepage meta description to ≤155 chars. Current is 171 chars.
 - **7e. 3 short meta descriptions (3 pages):** Per-page fix in `src/lib/site-data.ts` — lengthen the `description` for `custom-software-saas` case study, `legal/terms`, and `ecommerce-headless-rebuild` case study to ≥70 chars.
 
-***REMOVED******REMOVED******REMOVED*** Tier 3 — Medium (orphans + low internal-link count)
+### Tier 3 — Medium (orphans + low internal-link count)
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** FIX-4: Link `/legal/terms` and `/legal/cookies` from the footer
+#### FIX-4: Link `/legal/terms` and `/legal/cookies` from the footer
 - Currently footer only links to `/legal/privacy`. Add the other two — also fixed by FIX-2d if the `/legal` index page is linked from the footer.
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** FIX-5: Boost internal links to the 12 single-inlink pages
+#### FIX-5: Boost internal links to the 12 single-inlink pages
 - Add a "Related blog posts" / "More case studies" block to the bottom of each blog post and case study detail page. Template fix in `blog-post-page.tsx` and `case-studies-page.tsx`. Picks 3 sibling slugs from the same category and renders dofollow links.
 
-***REMOVED******REMOVED******REMOVED*** Tier 4 — Low / informational (no code change needed)
+### Tier 4 — Low / informational (no code change needed)
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** FIX-6 (optional): Decide on the 64 unwritten blog posts
+#### FIX-6 (optional): Decide on the 64 unwritten blog posts
 - These are real planned topics referenced as "spoke" content in the SEO hub-spoke strategy. If they will be authored soon, leave them in a content backlog OUTSIDE the rendered HTML. If not, remove from `hub-spoke-map.ts` permanently (covered by FIX-1).
 
-***REMOVED******REMOVED******REMOVED******REMOVED*** FIX-8 (informational, NO action): Redirects, chains, IndexNow
+#### FIX-8 (informational, NO action): Redirects, chains, IndexNow
 - N2 (HTTP→HTTPS), N3 (redirect chains) — your `vercel.json` / Cloudflare config already handles these correctly; Ahrefs is reporting the redirect hops themselves, not a misconfiguration.
 - N5 (IndexNow submission) — optional SEO acceleration. If you want to act on it: set up an IndexNow key at `/api/indexnow/route.ts` and POST the URL list on deploy. Not a bug, so not in scope unless you explicitly want it.
 
 ---
 
-***REMOVED******REMOVED*** 3. Fix matrix (what to approve)
+## 3. Fix matrix (what to approve)
 
 | Fix | Files touched | Est. lines | Affects | Tier | Status |
 |---|---|---|---|---|---|
@@ -134,7 +134,7 @@
 
 ---
 
-***REMOVED******REMOVED*** 4. What I will NOT touch
+## 4. What I will NOT touch
 - The 64 unwritten blog post slugs stay as a content backlog (not auto-generated stub pages — that would create thin content and hurt SEO more than 404s).
 - No redirects to homepage (would be soft-404s).
 - No `robots.txt` disallow (would deindex legitimate future content).

@@ -94,7 +94,7 @@ function StatsBar() {
     },
   ];
   return (
-    <section className="relative py-16 px-4 lg:px-8" style={{ background: "***REMOVED***03000D" }}>
+    <section className="relative py-16 px-4 lg:px-8" style={{ background: "#03000D" }}>
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/10" style={{ background: "rgba(255,255,255,0.06)" }}>
           {stats.map((s, i) => (
@@ -105,9 +105,9 @@ function StatsBar() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className="p-6 sm:p-8 text-center"
-              style={{ background: "***REMOVED***070018" }}
+              style={{ background: "#070018" }}
             >
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[***REMOVED***FF8AC4]">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#FF8AC4]">
                 {s.num}
               </div>
               <div className="mt-2 text-sm font-bold text-white">{s.label}</div>
@@ -128,42 +128,42 @@ function FourPillars() {
       title: "Custom Web & Mobile",
       desc: "Next.js 16, React Native, Flutter. Production apps with design systems, observability, and CI/CD baked in from day one.",
       tags: ["Next.js 16 · React 19", "Design system + Storybook", "E2E Playwright suite"],
-      bg: "***REMOVED***1E3A8A",
+      bg: "#1E3A8A",
     },
     {
       icon: Cloud,
       title: "Cloud & DevOps",
       desc: "AWS, GCP, Azure, IaC with Terraform, GitOps with ArgoCD, observability with OpenTelemetry + Grafana stack.",
       tags: ["Terraform · ArgoCD", "K8s autoscaling", "p99 < 120ms SLAs"],
-      bg: "***REMOVED***831843",
+      bg: "#831843",
     },
     {
       icon: Brain,
       title: "AI / ML Pipelines",
       desc: "Multi-agent orchestration, RAG over your enterprise data, custom LLM fine-tuning. From PoC to production in 6 weeks.",
       tags: ["LangGraph · OpenAI · Anthropic", "Pinecone · Weaviate · pgvector", "VLLM serving"],
-      bg: "***REMOVED***581C87",
+      bg: "#581C87",
     },
     {
       icon: ShieldCheck,
       title: "Security Systems",
       desc: "Zero-trust architectures, SOC 2 Type II audit prep, SAST/DAST in CI, pen-test remediation. Compliance as code.",
       tags: ["SOC 2 · HIPAA · GDPR", "Semgrep · Snyk · OWASP", "WAF + Bot defense"],
-      bg: "***REMOVED***1E3A8A",
+      bg: "#1E3A8A",
     },
   ];
   return (
-    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "***REMOVED***03000D" }}>
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#03000D" }}>
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-white/70">
-            <span className="h-1 w-1 rounded-full bg-[***REMOVED***FF53A9]" />
+            <span className="h-1 w-1 rounded-full bg-[#FF53A9]" />
             Core Capabilities
           </div>
           <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
             Four pillars. One delivery{" "}
-            <span className="bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
               engine.
             </span>
           </h2>
@@ -230,37 +230,37 @@ function NumbersThatCompounded() {
       cat: "FINTECH · LATENCY",
       metric: "-72%",
       detail: "p99 API latency",
-      barColor: "linear-gradient(90deg, ***REMOVED***FF8AC4, ***REMOVED***9B3DFF, ***REMOVED***136DFF)",
+      barColor: "linear-gradient(90deg, #FF8AC4, #9B3DFF, #136DFF)",
       pct: "72%",
     },
     {
       cat: "E-COMMERCE · CVR",
       metric: "+38%",
       detail: "Checkout conversion",
-      barColor: "linear-gradient(90deg, ***REMOVED***FF8AC4, ***REMOVED***9B3DFF, ***REMOVED***136DFF)",
+      barColor: "linear-gradient(90deg, #FF8AC4, #9B3DFF, #136DFF)",
       pct: "38%",
     },
     {
       cat: "HEALTHCARE · COST",
       metric: "-$1.4M",
       detail: "Annual cloud spend",
-      barColor: "linear-gradient(90deg, ***REMOVED***FF8AC4, ***REMOVED***9B3DFF, ***REMOVED***136DFF)",
+      barColor: "linear-gradient(90deg, #FF8AC4, #9B3DFF, #136DFF)",
       pct: "58%",
     },
   ];
   return (
-    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "***REMOVED***03000D" }}>
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#03000D" }}>
       <div className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-5 gap-12 items-center">
           {/* Left: text */}
           <div className="lg:col-span-2">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-white/70">
-              <span className="h-1 w-1 rounded-full bg-[***REMOVED***FF8AC4]" />
+              <span className="h-1 w-1 rounded-full bg-[#FF8AC4]" />
               Production Impact
             </div>
             <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
               Numbers that{" "}
-              <span className="bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                 compounded.
               </span>
             </h2>
@@ -271,7 +271,7 @@ function NumbersThatCompounded() {
             <Link
               href="/case-studies"
               className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-              style={{ background: "linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)" }}
+              style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
             >
               Read full case studies
               <ArrowRight className="h-4 w-4" />
@@ -321,7 +321,7 @@ function NumbersThatCompounded() {
 /* ─── CTA SECTION ─── Book a Demo + email + WhatsApp with mini robot */
 function CtaSection() {
   return (
-    <section className="relative py-24 sm:py-32 px-4 lg:px-8 overflow-hidden" style={{ background: "***REMOVED***03000D" }}>
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8 overflow-hidden" style={{ background: "#03000D" }}>
       {/* Purple radial gradient bg */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -337,8 +337,8 @@ function CtaSection() {
             <div className="lg:col-span-2">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
                 Ready to deploy your{" "}
-                <span className="text-[***REMOVED***FF8AC4]">AI</span>{" "}
-                <span className="bg-gradient-to-r from-[***REMOVED***FF8AC4] via-[***REMOVED***9B3DFF] to-[***REMOVED***136DFF] bg-clip-text text-transparent">
+                <span className="text-[#FF8AC4]">AI</span>{" "}
+                <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
                   workforce?
                 </span>
               </h2>
@@ -350,7 +350,7 @@ function CtaSection() {
                 <Link
                   href="/contact"
                   className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-                  style={{ background: "linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)" }}
+                  style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
                 >
                   Book a Demo
                   <ArrowRight className="h-4 w-4" />
@@ -368,7 +368,7 @@ function CtaSection() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all"
                 >
-                  <MessageCircle className="h-4 w-4 text-[***REMOVED***25D366]" />
+                  <MessageCircle className="h-4 w-4 text-[#25D366]" />
                   WhatsApp
                 </a>
               </div>
@@ -400,13 +400,13 @@ function MiniRobot() {
         style={{
           width: "110px",
           height: "120px",
-          background: "linear-gradient(180deg, ***REMOVED***1E3A8A, ***REMOVED***1E1B4B)",
+          background: "linear-gradient(180deg, #1E3A8A, #1E1B4B)",
           border: "1px solid rgba(255,255,255,0.08)",
         }}
       >
         <div
           className="absolute top-6 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full grid place-items-center"
-          style={{ background: "linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)" }}
+          style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
         >
           <span className="text-white text-[10px]">♥</span>
         </div>
@@ -418,7 +418,7 @@ function MiniRobot() {
           top: "0",
           width: "90px",
           height: "85px",
-          background: "linear-gradient(180deg, ***REMOVED***F5C9A6, ***REMOVED***D4A574)",
+          background: "linear-gradient(180deg, #F5C9A6, #D4A574)",
         }}
       >
         {/* Goggles */}
@@ -428,22 +428,22 @@ function MiniRobot() {
             top: "25px",
             width: "72px",
             height: "28px",
-            background: "linear-gradient(135deg, ***REMOVED***7C3AED, ***REMOVED***4F46E5)",
+            background: "linear-gradient(135deg, #7C3AED, #4F46E5)",
           }}
         >
-          <div className="absolute left-1.5 top-1.5 w-5 h-5 rounded-full" style={{ background: "***REMOVED***1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "***REMOVED***FF8AC4" }} />
+          <div className="absolute left-1.5 top-1.5 w-5 h-5 rounded-full" style={{ background: "#1E1B4B" }}>
+            <div className="absolute inset-1 rounded-full" style={{ background: "#FF8AC4" }} />
           </div>
-          <div className="absolute right-1.5 top-1.5 w-5 h-5 rounded-full" style={{ background: "***REMOVED***1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "***REMOVED***136DFF" }} />
+          <div className="absolute right-1.5 top-1.5 w-5 h-5 rounded-full" style={{ background: "#1E1B4B" }}>
+            <div className="absolute inset-1 rounded-full" style={{ background: "#136DFF" }} />
           </div>
         </div>
       </div>
       {/* Floating particles */}
       {[
-        { top: "10%", left: "-10%", color: "***REMOVED***FF53A9" },
-        { top: "40%", right: "-10%", color: "***REMOVED***136DFF" },
-        { bottom: "20%", left: "-15%", color: "***REMOVED***9B3DFF" },
+        { top: "10%", left: "-10%", color: "#FF53A9" },
+        { top: "40%", right: "-10%", color: "#136DFF" },
+        { bottom: "20%", left: "-15%", color: "#9B3DFF" },
       ].map((p, i) => (
         <motion.div
           key={i}
@@ -473,7 +473,7 @@ function TechStrip() {
     "Terraform", "Next.js 16", "LangGraph", "Anthropic", "Kubernetes", "Redis",
   ];
   return (
-    <section className="py-12 border-y border-white/5" style={{ background: "***REMOVED***03000D" }}>
+    <section className="py-12 border-y border-white/5" style={{ background: "#03000D" }}>
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="text-center mb-6">
           <div className="text-[10px] font-mono uppercase tracking-[2px] text-white/40">

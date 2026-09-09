@@ -1,5 +1,5 @@
 // /api/admin/services/generate
-// Phase 3 ***REMOVED***2 — In-Admin LLM Page Creation.
+// Phase 3 #2 — In-Admin LLM Page Creation.
 // Calls the ZAI backend with the Master Copywriting prompt, returns a
 // structured ServiceFormSchema JSON object the admin UI can review + edit
 // before saving via POST /api/admin/services.

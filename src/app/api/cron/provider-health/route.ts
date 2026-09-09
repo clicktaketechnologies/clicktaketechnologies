@@ -120,42 +120,42 @@ function buildAlertHtml(
     .map(
       (t) => `
       <tr>
-        <td style="padding:8px 12px;border-bottom:1px solid ***REMOVED***e5e7eb;font-weight:600;">${t.providerId}</td>
-        <td style="padding:8px 12px;border-bottom:1px solid ***REMOVED***e5e7eb;text-transform:capitalize;">${t.category}</td>
-        <td style="padding:8px 12px;border-bottom:1px solid ***REMOVED***e5e7eb;">${t.prevStatus}</td>
-        <td style="padding:8px 12px;border-bottom:1px solid ***REMOVED***e5e7eb;color:${t.newStatus === "down" ? "***REMOVED***dc2626" : "***REMOVED***d97706"};font-weight:600;">${t.newStatus}</td>
-        <td style="padding:8px 12px;border-bottom:1px solid ***REMOVED***e5e7eb;font-family:monospace;font-size:11px;">${t.message ? t.message.replace(/</g, "&lt;") : "—"}</td>
-        <td style="padding:8px 12px;border-bottom:1px solid ***REMOVED***e5e7eb;">${t.latencyMs}ms</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;font-weight:600;">${t.providerId}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-transform:capitalize;">${t.category}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;">${t.prevStatus}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;color:${t.newStatus === "down" ? "#dc2626" : "#d97706"};font-weight:600;">${t.newStatus}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;font-family:monospace;font-size:11px;">${t.message ? t.message.replace(/</g, "&lt;") : "—"}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;">${t.latencyMs}ms</td>
       </tr>`,
     )
     .join("");
 
   return `
-    <div style="font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;max-width:680px;margin:0 auto;color:***REMOVED***0f172a;">
-      <div style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);padding:24px;border-radius:12px 12px 0 0;color:white;">
+    <div style="font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;max-width:680px;margin:0 auto;color:#0f172a;">
+      <div style="background:linear-gradient(135deg,#136DFF,#FF53A9);padding:24px;border-radius:12px 12px 0 0;color:white;">
         <h1 style="margin:0;font-size:20px;font-weight:700;">Provider Health Alert</h1>
         <p style="margin:4px 0 0;opacity:0.9;font-size:13px;">ClickTake Technologies · ${new Date().toUTCString()}</p>
       </div>
-      <div style="padding:20px;background:white;border:1px solid ***REMOVED***e5e7eb;border-top:none;border-radius:0 0 12px 12px;">
+      <div style="padding:20px;background:white;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 12px 12px;">
         <p style="margin:0 0 12px;font-size:14px;">
           ${transitions.length} provider(s) changed status during the latest scheduled health check.
-          Review and take action if any are <strong style="color:***REMOVED***dc2626;">down</strong>.
+          Review and take action if any are <strong style="color:#dc2626;">down</strong>.
         </p>
         <table style="width:100%;border-collapse:collapse;font-size:13px;">
           <thead>
-            <tr style="background:***REMOVED***f9fafb;">
-              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid ***REMOVED***e5e7eb;">Provider</th>
-              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid ***REMOVED***e5e7eb;">Category</th>
-              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid ***REMOVED***e5e7eb;">Previous</th>
-              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid ***REMOVED***e5e7eb;">Now</th>
-              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid ***REMOVED***e5e7eb;">Error</th>
-              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid ***REMOVED***e5e7eb;">Latency</th>
+            <tr style="background:#f9fafb;">
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid #e5e7eb;">Provider</th>
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid #e5e7eb;">Category</th>
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid #e5e7eb;">Previous</th>
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid #e5e7eb;">Now</th>
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid #e5e7eb;">Error</th>
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid #e5e7eb;">Latency</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
         </table>
-        <p style="margin:16px 0 0;font-size:12px;color:***REMOVED***6b7280;">
-          Manage providers at <a href="https://clicktaketech.com/admin/providers" style="color:***REMOVED***136DFF;">/admin/providers</a>.
+        <p style="margin:16px 0 0;font-size:12px;color:#6b7280;">
+          Manage providers at <a href="https://clicktaketech.com/admin/providers" style="color:#136DFF;">/admin/providers</a>.
           Alert sent to ${ALERT_TO || "(no recipient configured)"}.
         </p>
       </div>

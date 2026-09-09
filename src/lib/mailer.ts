@@ -99,12 +99,12 @@ export function inquiryThankYouEmail(name: string) {
   return {
     subject: "We received your inquiry — ClickTake Technologies",
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: ***REMOVED***333; line-height: 1.6;">
-        <h2 style="color: ***REMOVED***136DFF;">Thanks for reaching out, ${name}!</h2>
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6;">
+        <h2 style="color: #136DFF;">Thanks for reaching out, ${name}!</h2>
         <p>We've received your project inquiry and a senior member of our team will get back to you within 24 hours.</p>
-        <p>In the meantime, feel free to browse our <a href="https://clicktaketech.com/services" style="color: ***REMOVED***136DFF;">services</a> or <a href="https://clicktaketech.com/portfolio" style="color: ***REMOVED***136DFF;">portfolio</a>.</p>
-        <hr style="border: none; border-top: 1px solid ***REMOVED***E5E7EB; margin: 32px 0;" />
-        <p style="font-size: 12px; color: ***REMOVED***6B7280;">Best regards,<br><strong>ClickTake Technologies</strong></p>
+        <p>In the meantime, feel free to browse our <a href="https://clicktaketech.com/services" style="color: #136DFF;">services</a> or <a href="https://clicktaketech.com/portfolio" style="color: #136DFF;">portfolio</a>.</p>
+        <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 32px 0;" />
+        <p style="font-size: 12px; color: #6B7280;">Best regards,<br><strong>ClickTake Technologies</strong></p>
       </div>
     `,
   };
@@ -114,17 +114,17 @@ export function bookingThankYouEmail(name: string, date: string, time: string) {
   return {
     subject: "Your Discovery Call is Booked — ClickTake Technologies",
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: ***REMOVED***333; line-height: 1.6;">
-        <h2 style="color: ***REMOVED***136DFF;">Booking Confirmed: Discovery Call</h2>
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6;">
+        <h2 style="color: #136DFF;">Booking Confirmed: Discovery Call</h2>
         <p>Hi ${name},</p>
         <p>Thank you for booking a discovery session with <strong>ClickTake Technologies</strong>!</p>
-        <div style="background-color: ***REMOVED***F9FAFB; padding: 20px; border: 1px solid ***REMOVED***E5E7EB; border-radius: 8px; margin: 24px 0;">
+        <div style="background-color: #F9FAFB; padding: 20px; border: 1px solid #E5E7EB; border-radius: 8px; margin: 24px 0;">
           <p style="margin: 0 0 12px 0; font-size: 16px;"><strong>Date:</strong> ${date}</p>
           <p style="margin: 0; font-size: 16px;"><strong>Time:</strong> ${time}</p>
         </div>
         <p>We look forward to speaking with you. If anything changes, just reply to this email.</p>
-        <hr style="border: none; border-top: 1px solid ***REMOVED***E5E7EB; margin: 32px 0;" />
-        <p style="font-size: 12px; color: ***REMOVED***6B7280;">Best regards,<br><strong>The ClickTake Team</strong></p>
+        <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 32px 0;" />
+        <p style="font-size: 12px; color: #6B7280;">Best regards,<br><strong>The ClickTake Team</strong></p>
       </div>
     `,
   };
@@ -149,8 +149,8 @@ export function leadNotificationEmail(args: {
       ? `New Booking: ${args.name} — ${args.date} ${args.time}`
       : `New Inquiry: ${args.service} — ${args.name}`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: ***REMOVED***333; line-height: 1.6;">
-        <h2 style="color: ***REMOVED***136DFF;">${isBooking ? "New discovery call booked" : "New project inquiry"}</h2>
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6;">
+        <h2 style="color: #136DFF;">${isBooking ? "New discovery call booked" : "New project inquiry"}</h2>
         <p><strong>Name:</strong> ${args.name}</p>
         <p><strong>Email:</strong> ${args.email}</p>
         ${args.company ? `<p><strong>Company:</strong> ${args.company}</p>` : ""}
@@ -159,8 +159,8 @@ export function leadNotificationEmail(args: {
         ${args.date ? `<p><strong>Date:</strong> ${args.date}</p>` : ""}
         ${args.time ? `<p><strong>Time:</strong> ${args.time}</p>` : ""}
         ${args.message ? `<p><strong>Message:</strong></p><blockquote>${args.message}</blockquote>` : ""}
-        <hr style="border: none; border-top: 1px solid ***REMOVED***E5E7EB; margin: 32px 0;" />
-        <p style="font-size: 12px; color: ***REMOVED***6B7280;">This lead was saved to the CRM. View it in the admin portal.</p>
+        <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 32px 0;" />
+        <p style="font-size: 12px; color: #6B7280;">This lead was saved to the CRM. View it in the admin portal.</p>
       </div>
     `,
   };

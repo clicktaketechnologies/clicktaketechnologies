@@ -1,10 +1,10 @@
-***REMOVED***!/usr/bin/env bash
-***REMOVED*** Fetch client sites with curl fallback for those that failed page_reader
+#!/usr/bin/env bash
+# Fetch client sites with curl fallback for those that failed page_reader
 set -e
 OUT_DIR="/home/z/my-project/download/client-sites"
 mkdir -p "$OUT_DIR"
 
-***REMOVED*** curl fallback fetcher — saves title + meta description + first chunk of body text
+# curl fallback fetcher — saves title + meta description + first chunk of body text
 fetch_with_curl() {
   local url="$1"
   local slug="$2"
@@ -14,7 +14,7 @@ fetch_with_curl() {
     return 0
   fi
   echo "[curl] $slug ← $url"
-  ***REMOVED*** Fetch HTML, extract title + meta description + first 5000 chars of text
+  # Fetch HTML, extract title + meta description + first 5000 chars of text
   html=$(curl -sL --max-time 30 -A "Mozilla/5.0 (compatible; ClickTakeBot/1.0)" "$url" 2>/dev/null || true)
   if [ -z "$html" ]; then
     echo "  ⚠ empty response"
@@ -29,7 +29,7 @@ if m: title = m.group(1).strip()[:200]
 desc = ''
 m = re.search(r'<meta\s+name=[\"\\']description[\"\\'][^>]*content=[\"\\']([^\"\\']+)[\"\\']', html, re.I)
 if m: desc = m.group(1).strip()[:300]
-***REMOVED*** Strip scripts/styles
+# Strip scripts/styles
 text = re.sub(r'<script[^>]*>.*?</script>', '', html, flags=re.S|re.I)
 text = re.sub(r'<style[^>]*>.*?</style>', '', text, flags=re.S|re.I)
 text = re.sub(r'<[^>]+>', ' ', text)
@@ -41,7 +41,7 @@ print(json.dumps(data))
   echo "  ✓ saved $size bytes"
 }
 
-***REMOVED*** Re-fetch only the ones that failed (delete failed JSONs first)
+# Re-fetch only the ones that failed (delete failed JSONs first)
 for slug in gadgetdoctorls-co-uk gadgetrepairsglasgow-co-uk nltceducation-web-app students-learning-hub-web-app slasa-co-uk techrepairsglasgow-co-uk clicktake-academy-web-app clickopticx-onrender-com logitrack-blzq-onrender-com; do
   f="$OUT_DIR/${slug}.json"
   if [ -f "$f" ]; then
@@ -52,7 +52,7 @@ for slug in gadgetdoctorls-co-uk gadgetrepairsglasgow-co-uk nltceducation-web-ap
   fi
 done
 
-***REMOVED*** Map slugs to URLs and fetch
+# Map slugs to URLs and fetch
 fetch_with_curl "https://clickopticx.onrender.com" "clickopticx-onrender-com"
 fetch_with_curl "https://logitrack-blzq.onrender.com" "logitrack-blzq-onrender-com"
 fetch_with_curl "https://www.gadgetdoctorls.co.uk" "gadgetdoctorls-co-uk"

@@ -1,4 +1,4 @@
-***REMOVED*** Deploy ClickTake to cPanel Hosting
+# Deploy ClickTake to cPanel Hosting
 
 This guide shows how to deploy the Next.js app to a cPanel host that supports
 Node.js via the "Setup Node.js App" feature (CloudLinux + Alt-Node).
@@ -10,7 +10,7 @@ RAM for Next.js production builds.
 
 ---
 
-***REMOVED******REMOVED*** Prerequisites — verify before buying
+## Prerequisites — verify before buying
 
 Check these 3 things in the host's feature page or via live chat:
 
@@ -23,17 +23,17 @@ chat (A2, Namecheap, Hostinger, GreenGeeks) pass all three.
 
 ---
 
-***REMOVED******REMOVED*** Step 1 — Build the app locally
+## Step 1 — Build the app locally
 
 On your local machine (this dev environment):
 
 ```bash
 cd /home/z/my-project
 
-***REMOVED*** Install deps (skip the Cloudflare-specific postinstall patch)
+# Install deps (skip the Cloudflare-specific postinstall patch)
 SKIP_PATCH_PG_CLOUDFLARE=1 bun install --frozen-lockfile
 
-***REMOVED*** Production build (creates .next/standalone/ with self-contained server.js)
+# Production build (creates .next/standalone/ with self-contained server.js)
 NODE_ENV=production bun run build
 ```
 
@@ -51,7 +51,7 @@ So after build, `.next/standalone/` contains everything needed to run.
 
 ---
 
-***REMOVED******REMOVED*** Step 2 — Package the build for upload
+## Step 2 — Package the build for upload
 
 ```bash
 cd /home/z/my-project/.next/standalone
@@ -62,7 +62,7 @@ This creates a ~30–50 MB tarball ready to upload.
 
 ---
 
-***REMOVED******REMOVED*** Step 3 — Create the Node.js app in cPanel
+## Step 3 — Create the Node.js app in cPanel
 
 Log in to cPanel on your host. Find **Setup Node.js App** (under "Software"
 section). Click **Create Application**.
@@ -86,29 +86,29 @@ Click **Create**. cPanel creates:
 
 ---
 
-***REMOVED******REMOVED*** Step 4 — Upload the build
+## Step 4 — Upload the build
 
 You have 3 options. Pick whichever your host supports.
 
-***REMOVED******REMOVED******REMOVED*** Option A — File Manager (easiest, no SSH needed)
+### Option A — File Manager (easiest, no SSH needed)
 1. In cPanel → **File Manager** → navigate to `~/clicktake/`
 2. Delete the default `app.js` and `package.json` if present
 3. Click **Upload** → upload `clicktake-deploy.tar.gz`
 4. Right-click the tarball → **Extract** → extract to current dir
 5. Delete the tarball after extraction
 
-***REMOVED******REMOVED******REMOVED*** Option B — FTP (recommended for repeat deploys)
+### Option B — FTP (recommended for repeat deploys)
 1. In cPanel → **FTP Accounts** → create one if needed
 2. Use FileZilla / WinSCP / Cyberduck to connect
 3. Upload everything inside `.next/standalone/` to `~/clicktake/`
 4. Overwrite existing files
 
-***REMOVED******REMOVED******REMOVED*** Option C — SSH (most reliable, fastest)
+### Option C — SSH (most reliable, fastest)
 ```bash
-***REMOVED*** From your local machine
+# From your local machine
 scp /home/z/my-project/download/clicktake-deploy.tar.gz user@yourhost:~/
 
-***REMOVED*** SSH into the host
+# SSH into the host
 ssh user@yourhost
 cd ~/clicktake
 tar -xzf ~/clicktake-deploy.tar.gz
@@ -117,7 +117,7 @@ rm ~/clicktake-deploy.tar.gz
 
 ---
 
-***REMOVED******REMOVED*** Step 5 — Create the .env file on the server
+## Step 5 — Create the .env file on the server
 
 In cPanel → **File Manager** → navigate to `~/clicktake/` → click **+ File** →
 name it `.env`. Paste the contents of your local `.env` file with these
@@ -128,14 +128,14 @@ name it `.env`. Paste the contents of your local `.env` file with these
 + NODE_ENV=production
 
 - NEXTAUTH_URL=https://clicktaketech.com
-+ NEXTAUTH_URL=https://clicktaketech.com   ***REMOVED*** keep same if domain is set up
++ NEXTAUTH_URL=https://clicktaketech.com   # keep same if domain is set up
 ```
 
 Make sure ALL these are present (copy from local .env):
 
 ```
-DATABASE_URL=postgresql://postgres.crejzifwpcnjqghlbbdf:***REDACTED_DB_PASSWORD***@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true
-DIRECT_URL=postgresql://postgres.crejzifwpcnjqghlbbdf:***REDACTED_DB_PASSWORD***@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres
+DATABASE_URL=postgresql://postgres:***REDACTED***@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true
+DIRECT_URL=postgresql://postgres:***REDACTED***@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres
 SUPABASE_SERVICE_ROLE_KEY=...
 NEXT_PUBLIC_SUPABASE_URL=https://crejzifwpcnjqghlbbdf.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
@@ -171,7 +171,7 @@ modify the startup to load dotenv. See Step 7.
 
 ---
 
-***REMOVED******REMOVED*** Step 6 — Set environment variables via cPanel (alternative to .env)
+## Step 6 — Set environment variables via cPanel (alternative to .env)
 
 Instead of using a `.env` file (which requires code changes to load), you can
 set env vars directly in cPanel:
@@ -185,7 +185,7 @@ require dotenv.
 
 ---
 
-***REMOVED******REMOVED*** Step 7 — Make sure the app loads .env (only if using .env file method)
+## Step 7 — Make sure the app loads .env (only if using .env file method)
 
 If you went with the .env file (Step 5) instead of cPanel env vars (Step 6),
 add this near the top of `~/clicktake/server.js`:
@@ -205,7 +205,7 @@ If you went with Step 6 (cPanel env vars), skip this entirely.
 
 ---
 
-***REMOVED******REMOVED*** Step 8 — Restart the Node app
+## Step 8 — Restart the Node app
 
 In **Setup Node.js App** → click your app → click **Restart**.
 
@@ -215,7 +215,7 @@ URL like `https://server123.host.com/~username/` for testing).
 
 ---
 
-***REMOVED******REMOVED*** Step 9 — Check the Passenger log if anything fails
+## Step 9 — Check the Passenger log if anything fails
 
 In **Setup Node.js App** → click your app → there's a "Log file" path shown,
 usually `~/clicktake/logs/passenger.log`. Click **View** or open it in File
@@ -229,7 +229,7 @@ Common errors:
 
 ---
 
-***REMOVED******REMOVED*** Step 10 — Set up the cron job for provider-health
+## Step 10 — Set up the cron job for provider-health
 
 cPanel includes a Cron Jobs feature. In cPanel → **Cron Jobs** → "Add New Cron
 Job".
@@ -245,11 +245,11 @@ Click **Add New Cron Job**. The provider-health check will now run hourly.
 
 ---
 
-***REMOVED******REMOVED*** Step 11 — Point clicktaketech.com to the cPanel host
+## Step 11 — Point clicktaketech.com to the cPanel host
 
 Your domain is currently on Cloudflare. Two options:
 
-***REMOVED******REMOVED******REMOVED*** Option A — Use Cloudflare as DNS only (recommended)
+### Option A — Use Cloudflare as DNS only (recommended)
 1. In Cloudflare → **DNS → Records**
 2. Delete the existing A/AAAA/CNAME records pointing to the Cloudflare Worker
 3. Add an **A record**: `@ → <cPanel host IP>` (find IP in cPanel → "Server Information" → "Shared IP")
@@ -258,7 +258,7 @@ Your domain is currently on Cloudflare. Two options:
 6. In Cloudflare → **SSL/TLS → Overview** → set mode to **Full** (not Flexible, not Full Strict — cPanel AutoSSL certs are self-signed at the edge)
 7. Cloudflare Worker → Triggers → Custom Domains → remove `clicktaketech.com` and `www.clicktaketech.com`
 
-***REMOVED******REMOVED******REMOVED*** Option B — Use cPanel host's nameservers
+### Option B — Use cPanel host's nameservers
 1. In cPanel → look for "Nameservers" (e.g. `ns1.hostgator.com`, `ns2.hostgator.com`)
 2. In your domain registrar (where you bought `clicktaketech.com`) → update nameservers
 3. Wait 24-48h for DNS propagation
@@ -268,7 +268,7 @@ but slower to propagate.
 
 ---
 
-***REMOVED******REMOVED*** Step 12 — SSL setup
+## Step 12 — SSL setup
 
 cPanel hosts usually include **AutoSSL** (Let's Encrypt) for free. In cPanel →
 **SSL/TLS Status** → click **Run AutoSSL** for `clicktaketech.com` and
@@ -282,7 +282,7 @@ or **Full (strict)** and disable "Always Use HTTPS" in Cloudflare.
 
 ---
 
-***REMOVED******REMOVED*** Step 13 — Verify
+## Step 13 — Verify
 
 Wait 5-10 min for DNS, then test:
 
@@ -298,27 +298,27 @@ Admin login: `admin@clicktaketech.com` / `ChangeMe!2025`
 
 ---
 
-***REMOVED******REMOVED*** Future deploys (after first setup)
+## Future deploys (after first setup)
 
 For subsequent code changes:
 
 ```bash
-***REMOVED*** Local: pull latest, rebuild, repackage
+# Local: pull latest, rebuild, repackage
 cd /home/z/my-project
 git pull
 bun install --frozen-lockfile
 NODE_ENV=production bun run build
 cd .next/standalone && tar -czf /home/z/my-project/download/clicktake-deploy.tar.gz .
 
-***REMOVED*** Upload via FTP/SSH/File Manager to ~/clicktake/
-***REMOVED*** Then in cPanel → Setup Node.js App → Restart
+# Upload via FTP/SSH/File Manager to ~/clicktake/
+# Then in cPanel → Setup Node.js App → Restart
 ```
 
 Total redeploy time: ~5 min once you have the workflow down.
 
 ---
 
-***REMOVED******REMOVED*** When cPanel is NOT a good fit
+## When cPanel is NOT a good fit
 
 - You expect 1000+ daily visitors from multiple continents → use Vercel/Cloudflare for edge caching
 - You want git-push-to-deploy without manual upload → use Vercel

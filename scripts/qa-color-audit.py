@@ -1,17 +1,17 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """QA — Color palette consistency audit.
 Flags hex colors in components that are OUTSIDE the v5 brand palette.
 
 V5 brand palette (approved):
-  Canvas dark : ***REMOVED***03000D ***REMOVED***070018 ***REMOVED***0D0025 (body gradient stops)
-  Canvas light: ***REMOVED***FAFAFC ***REMOVED***F8F6FC ***REMOVED***F1EDF8 (light surfaces)
-  Brand pink  : ***REMOVED***FF53A9 ***REMOVED***FF8AC4 ***REMOVED***E0197A (primary/deep variants)
-  Brand purple: ***REMOVED***9B3DFF ***REMOVED***B27CFF
-  Brand blue  : ***REMOVED***136DFF ***REMOVED***4A90D9 ***REMOVED***0E58D6
-  Text dark   : ***REMOVED***F4F0FF ***REMOVED***F0EBF8 (on dark)
-  Text light  : ***REMOVED***0F172A ***REMOVED***0A0612 ***REMOVED***334155 ***REMOVED***475569 (on light)
-  Accents     : ***REMOVED***10B981 (green) ***REMOVED***F59E0B (amber) ***REMOVED***22d3ee (cyan) ***REMOVED***FFD782 (gold)
-                ***REMOVED***C2185B (accessible pink) ***REMOVED***7B2FBE (purple deep) ***REMOVED***dc2626 (destructive)
+  Canvas dark : #03000D #070018 #0D0025 (body gradient stops)
+  Canvas light: #FAFAFC #F8F6FC #F1EDF8 (light surfaces)
+  Brand pink  : #FF53A9 #FF8AC4 #E0197A (primary/deep variants)
+  Brand purple: #9B3DFF #B27CFF
+  Brand blue  : #136DFF #4A90D9 #0E58D6
+  Text dark   : #F4F0FF #F0EBF8 (on dark)
+  Text light  : #0F172A #0A0612 #334155 #475569 (on light)
+  Accents     : #10B981 (green) #F59E0B (amber) #22d3ee (cyan) #FFD782 (gold)
+                #C2185B (accessible pink) #7B2FBE (purple deep) #dc2626 (destructive)
 """
 import os, re
 from collections import defaultdict
@@ -20,25 +20,25 @@ ROOT = "/home/z/my-project"
 SRC = os.path.join(ROOT, "src")
 
 APPROVED = {
-    ***REMOVED*** dark canvas
-    "03000D", "070018", "0D0025", "030014", "0A0A14", "050510", "050518",  ***REMOVED*** legacy variants tolerated in CSS catch rules
-    ***REMOVED*** light canvas
+    # dark canvas
+    "03000D", "070018", "0D0025", "030014", "0A0A14", "050510", "050518",  # legacy variants tolerated in CSS catch rules
+    # light canvas
     "FAFAFC", "F8F6FC", "F1EDF8", "FFFFFF", "ffffff", "E5E0EE", "CBD0E1",
-    ***REMOVED*** pink family
+    # pink family
     "FF53A9", "FF8AC4", "E0197A", "C2185B", "ff6bb5",
-    ***REMOVED*** purple family
+    # purple family
     "9B3DFF", "B27CFF", "7B2FBE", "c12bff", "d04bff",
-    ***REMOVED*** blue family
+    # blue family
     "136DFF", "4A90D9", "0E58D6", "4d8dff", "4be3ff", "22d3ee",
-    ***REMOVED*** text
+    # text
     "F4F0FF", "F0EBF8", "0F172A", "0A0612", "334155", "475569", "9B8AB8", "6E5F80", "4A3B5C",
-    ***REMOVED*** accents
+    # accents
     "10B981", "F59E0B", "FFD782", "dc2626", "ef4444",
-    ***REMOVED*** misc one-off approved
+    # misc one-off approved
     "000000", "1E1640", "100820", "0A1124",
 }
 
-hex_re = re.compile(r"***REMOVED***([0-9a-fA-F]{6})\b")
+hex_re = re.compile(r"#([0-9a-fA-F]{6})\b")
 off_palette = defaultdict(list)
 
 for dirpath, dirnames, filenames in os.walk(SRC):
@@ -47,7 +47,7 @@ for dirpath, dirnames, filenames in os.walk(SRC):
             continue
         path = os.path.join(dirpath, fn)
         rel = os.path.relpath(path, ROOT)
-        if rel.startswith("src/app/admin"):  ***REMOVED*** admin has its own palette
+        if rel.startswith("src/app/admin"):  # admin has its own palette
             continue
         try:
             with open(path, encoding="utf-8", errors="ignore") as f:
@@ -67,7 +67,7 @@ print("=" * 80)
 total = sum(len(v) for v in off_palette.values())
 print(f"Unique off-palette hexes: {len(off_palette)}  |  total occurrences: {total}\n")
 for h, occ in sorted(off_palette.items(), key=lambda x: -len(x[1])):
-    print(f"  ***REMOVED***{h}  ({len(occ)}×)")
+    print(f"  #{h}  ({len(occ)}×)")
     for rel, ln, line in occ[:3]:
         print(f"      ↳ {rel}:{ln}")
         print(f"          {line}")

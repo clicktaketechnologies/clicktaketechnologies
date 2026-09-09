@@ -18,20 +18,20 @@ TARGET_W, TARGET_H = 1280, 720
 img = Image.open(RAW)
 print(f"Raw size: {img.size}, mode: {img.mode}")
 
-***REMOVED*** Center-crop to 1280x720 (target aspect ratio 16:9)
+# Center-crop to 1280x720 (target aspect ratio 16:9)
 src_w, src_h = img.size
-***REMOVED*** We want the largest 16:9 region that fits inside the source
-target_ratio = TARGET_W / TARGET_H  ***REMOVED*** 1.7778
-src_ratio = src_w / src_h            ***REMOVED*** 1344/768 = 1.75
+# We want the largest 16:9 region that fits inside the source
+target_ratio = TARGET_W / TARGET_H  # 1.7778
+src_ratio = src_w / src_h            # 1344/768 = 1.75
 
 if src_ratio > target_ratio:
-    ***REMOVED*** Source is wider than target — crop horizontally
+    # Source is wider than target — crop horizontally
     new_w = int(src_h * target_ratio)
     new_h = src_h
     left = (src_w - new_w) // 2
     top = 0
 else:
-    ***REMOVED*** Source is taller than target — crop vertically
+    # Source is taller than target — crop vertically
     new_w = src_w
     new_h = int(src_w / target_ratio)
     left = 0
@@ -40,20 +40,20 @@ else:
 cropped = img.crop((left, top, left + new_w, top + new_h))
 print(f"Cropped to: {cropped.size}")
 
-***REMOVED*** Resize to exact target (should already be very close)
+# Resize to exact target (should already be very close)
 final = cropped.resize((TARGET_W, TARGET_H), Image.LANCZOS)
 print(f"Final size: {final.size}")
 
-***REMOVED*** Save PNG (lossless)
+# Save PNG (lossless)
 final.save(PNG_OUT, "PNG", optimize=True)
 print(f"PNG saved: {PNG_OUT} ({PNG_OUT.stat().st_size // 1024} KB)")
 
-***REMOVED*** Save JPG (smaller, for web embed)
-***REMOVED*** Convert to RGB first (JPG doesn't support alpha)
+# Save JPG (smaller, for web embed)
+# Convert to RGB first (JPG doesn't support alpha)
 rgb = final.convert("RGB")
 rgb.save(JPG_OUT, "JPEG", quality=85, optimize=True, progressive=True)
 print(f"JPG saved: {JPG_OUT} ({JPG_OUT.stat().st_size // 1024} KB)")
 
-***REMOVED*** Clean up the raw file
+# Clean up the raw file
 RAW.unlink()
 print(f"Removed raw: {RAW}")

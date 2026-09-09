@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 VLM (AI vision) audit on all screenshots.
 Uses z-ai vision CLI to inspect each page screenshot for:
@@ -18,9 +18,9 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 PROMPT = """You are a QA auditor for a futuristic dark-themed website (ClickTake Technologies).
 Inspect this screenshot of a single page from the site. The design uses:
-- Dark background (***REMOVED***03000D / ***REMOVED***070018 / ***REMOVED***0D0025)
+- Dark background (#03000D / #070018 / #0D0025)
 - Glassmorphism cards (translucent + backdrop-blur + gradient border)
-- Blue (***REMOVED***136DFF), Pink (***REMOVED***FF53A9), Purple (***REMOVED***7B2FBE) accents
+- Blue (#136DFF), Pink (#FF53A9), Purple (#7B2FBE) accents
 - Floating WhatsApp button (green) at bottom-right
 - Top navigation with brand logo + nav links
 
@@ -41,7 +41,7 @@ def audit_one(screenshot: Path) -> dict:
         try:
             return {"page": page, "result": json.loads(out_file.read_text())}
         except Exception:
-            pass  ***REMOVED*** re-run
+            pass  # re-run
     try:
         result = subprocess.run(
             ["z-ai", "vision", "--prompt", PROMPT, "--image", str(screenshot), "--output", str(out_file)],
@@ -50,9 +50,9 @@ def audit_one(screenshot: Path) -> dict:
         if out_file.exists():
             try:
                 data = json.loads(out_file.read_text())
-                ***REMOVED*** Try to extract the actual JSON from response
+                # Try to extract the actual JSON from response
                 content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
-                ***REMOVED*** Find JSON object in content
+                # Find JSON object in content
                 import re
                 m = re.search(r'\{.*\}', content, re.S)
                 if m:
@@ -71,7 +71,7 @@ screenshots = sorted(SCREENSHOT_DIR.glob("page-*.png"))
 print(f"Auditing {len(screenshots)} screenshots with VLM...")
 
 results = []
-***REMOVED*** Run 5 in parallel for speed
+# Run 5 in parallel for speed
 with ThreadPoolExecutor(max_workers=5) as ex:
     futures = {ex.submit(audit_one, s): s for s in screenshots}
     for i, fut in enumerate(as_completed(futures), 1):
@@ -88,7 +88,7 @@ with ThreadPoolExecutor(max_workers=5) as ex:
         else:
             print(f"[{i}/{len(screenshots)}] {r['page']:50s} | ERROR: {str(res)[:100]}")
 
-***REMOVED*** Summary
+# Summary
 print("\n" + "=" * 80)
 print("VLM AUDIT SUMMARY")
 print("=" * 80)
@@ -110,7 +110,7 @@ if scored:
     print(f"  Average content score:  {avg_content:.1f}/10")
     print(f"  Overall average:        {(avg_visual+avg_design+avg_bugs+avg_content)/4:.1f}/10")
     
-    ***REMOVED*** Pages with issues
+    # Pages with issues
     with_issues = [r for r in scored if r["result"].get("issues")]
     if with_issues:
         print(f"\n  Pages with issues: {len(with_issues)}")
@@ -120,7 +120,7 @@ if scored:
     else:
         print(f"\n  ✅ NO ISSUES FOUND — all {len(scored)} pages scored clean.")
 
-***REMOVED*** Save consolidated report
+# Save consolidated report
 report = {
     "total": len(results),
     "scored": len(scored),

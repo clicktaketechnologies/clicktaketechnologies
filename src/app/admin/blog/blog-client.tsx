@@ -759,7 +759,7 @@ publishedAt: 2026-01-15
 coverImage: https://...
 ---
 
-***REMOVED*** Article body in Markdown
+# Article body in Markdown
 
 This is the article content...`}</pre>
                 </div>

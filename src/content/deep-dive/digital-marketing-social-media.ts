@@ -254,7 +254,7 @@ export const socialMediaDeepDive: DeepDiveContent = {
       {
         industry: "Event / Conference Producer",
         problem: "Annual conference with 6-month sales window. Instagram presence with 8,200 followers but irregular posting. Twitter/X had 2,100 followers. No YouTube. Ticket sales driven primarily by email.",
-        application: "6-month social campaign: Instagram Reels featuring past speakers (3/week) + countdown Stories (daily in final 8 weeks). LinkedIn thought leadership from organising team (5 posts/week across 4 team members). Twitter/X live-tweeting from past events + ***REMOVED***hashtag community building. YouTube long-form speaker highlights (1/week). Micro-influencer programme with industry commentators.",
+        application: "6-month social campaign: Instagram Reels featuring past speakers (3/week) + countdown Stories (daily in final 8 weeks). LinkedIn thought leadership from organising team (5 posts/week across 4 team members). Twitter/X live-tweeting from past events + #hashtag community building. YouTube long-form speaker highlights (1/week). Micro-influencer programme with industry commentators.",
         result: "Instagram grew to 24K followers. LinkedIn impressions: 1.8M over 6 months. Ticket sales via social referral grew from 8% to 34%. Last-4-weeks share of sales fell to 41% (vs. 60% prior year) — earlier revenue recognition.",
       },
     ],
@@ -341,7 +341,7 @@ export const socialMediaDeepDive: DeepDiveContent = {
         items: ["Shopify + Instagram Shopping + TikTok Shop", "HubSpot (social-to-deal attribution for B2B)", "Salesforce (social-to-revenue for enterprise)", "Klaviyo / Attentive (social-to-email audience sync)", "Meta CAPI + TikTok Events API (server-side conversion tracking)", "Stripe (promo code redemption tracking)"],
       },
     ],
-    compliance: ["GDPR (EU/UK consent + data residency)", "CCPA / CPRA (California)", "Platform terms of service (each platform's commercial use policy)", "FTC influencer disclosure (***REMOVED***ad, ***REMOVED***sponsored)", "Apple ATT (iOS 14.5+ signal loss)", "Meta data deletion + business verification", "TikTok data privacy compliance (US state-level)", "ASDA / CAP code (UK advertising standards)"],
+    compliance: ["GDPR (EU/UK consent + data residency)", "CCPA / CPRA (California)", "Platform terms of service (each platform's commercial use policy)", "FTC influencer disclosure (#ad, #sponsored)", "Apple ATT (iOS 14.5+ signal loss)", "Meta data deletion + business verification", "TikTok data privacy compliance (US state-level)", "ASDA / CAP code (UK advertising standards)"],
   },
 
   /* ── Section 10 ─────────────────────────────────────────────────── */
@@ -436,7 +436,7 @@ export const socialMediaDeepDive: DeepDiveContent = {
           },
           {
             q: "Do you run influencer programmes?",
-            a: "Yes. We identify 10–30 micro-influencers (10K–100K followers) in your niche, build relationships via DM and comment engagement, activate 2–5 per month for sponsored content or product seeding. We use AspireIQ, Grin, or Tribe Dynamics for influencer CRM depending on scale. Average cost per sponsored post: $800–$4,000 for micro-influencers; $5K–$25K for mid-tier (100K–500K). FTC disclosure (***REMOVED***ad, ***REMOVED***sponsored) enforced on every sponsored post.",
+            a: "Yes. We identify 10–30 micro-influencers (10K–100K followers) in your niche, build relationships via DM and comment engagement, activate 2–5 per month for sponsored content or product seeding. We use AspireIQ, Grin, or Tribe Dynamics for influencer CRM depending on scale. Average cost per sponsored post: $800–$4,000 for micro-influencers; $5K–$25K for mid-tier (100K–500K). FTC disclosure (#ad, #sponsored) enforced on every sponsored post.",
           },
           {
             q: "How do you handle social listening?",

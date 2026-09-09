@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Sample VLM audit — runs serially (1 at a time) on 15 representative pages.
 Picks pages from each category to ensure full coverage.
@@ -13,7 +13,7 @@ SCREENSHOT_DIR = Path("/home/z/my-project/download/qa-v6-pages")
 OUTPUT_DIR = Path("/home/z/my-project/download/qa-vlm-v6")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-***REMOVED*** 15 representative pages covering every category
+# 15 representative pages covering every category
 SAMPLES = [
     "home", "services", "solutions", "cases", "contact",
     "about", "blog", "careers", "privacy", "terms",
@@ -27,7 +27,7 @@ SAMPLES = [
 ]
 
 PROMPT = """You are a QA auditor for a futuristic dark-themed website (ClickTake Technologies).
-Inspect this screenshot. The design uses dark background (***REMOVED***03000D), glassmorphism cards, blue/pink/purple accents, floating WhatsApp button, top nav with brand logo.
+Inspect this screenshot. The design uses dark background (#03000D), glassmorphism cards, blue/pink/purple accents, floating WhatsApp button, top nav with brand logo.
 
 Rate 1-10 each: visual (layout intact?), design (dark glass style?), bugs (any visible issues?), content (headings/cards/CTAs visible?).
 Return JSON only: {"visual": N, "design": N, "bugs": N, "content": N, "issues": ["..."], "summary": "one line"}
@@ -47,7 +47,7 @@ def audit_one(page: str) -> dict:
                 return {"page": page, "result": json.loads(m.group(0))}
         except Exception:
             pass
-    ***REMOVED*** Run serially
+    # Run serially
     try:
         result = subprocess.run(
             ["z-ai", "vision", "--prompt", PROMPT, "--image", str(screenshot), "--output", str(out_file)],
@@ -83,9 +83,9 @@ for i, page in enumerate(SAMPLES, 1):
         print(f"[{i:2d}/{len(SAMPLES)}] {page:50s} | V:{v} D:{d} B:{b} C:{c} | issues: {n_issues}")
     else:
         print(f"[{i:2d}/{len(SAMPLES)}] {page:50s} | ERROR: {str(r.get('error',''))[:80]}")
-    time.sleep(2)  ***REMOVED*** be polite to the API
+    time.sleep(2)  # be polite to the API
 
-***REMOVED*** Summary
+# Summary
 print("\n" + "=" * 80)
 print("VLM SAMPLE AUDIT SUMMARY")
 print("=" * 80)

@@ -19,8 +19,8 @@ export const dynamic = "force-static";
 export function GET() {
   const today = new Date().toISOString().split("T")[0];
   const md = `---
-***REMOVED*** auth.md frontmatter — machine-readable agent_auth metadata
-***REMOVED*** Spec: https://workos.com/auth.md
+# auth.md frontmatter — machine-readable agent_auth metadata
+# Spec: https://workos.com/auth.md
 schema: "https://workos.com/auth.md/schema/v1"
 origin: "${AGENT.origin}"
 contact: "${AGENT.contactEmail}"
@@ -158,7 +158,7 @@ rate_limits:
   write: "30 req/min per token"
 ---
 
-***REMOVED*** auth.md — ClickTake Technologies
+# auth.md — ClickTake Technologies
 
 This document describes how AI agents authenticate with and register for
 access to ClickTake Technologies APIs and tools.
@@ -167,7 +167,7 @@ access to ClickTake Technologies APIs and tools.
 > Contact: ${AGENT.contactEmail}
 > Last updated: ${today}
 
-***REMOVED******REMOVED*** 1. Authentication methods
+## 1. Authentication methods
 
 We support three agent identity types:
 
@@ -177,7 +177,7 @@ We support three agent identity types:
 | \`user_assisted\`  | Agent acting on behalf of a human user (default)     | OIDC ID token via NextAuth |
 | \`user_managed\`   | Agent acting on behalf of a human, fully delegated   | OAuth refresh + access    |
 
-***REMOVED******REMOVED*** 2. OAuth 2.0 / OIDC discovery
+## 2. OAuth 2.0 / OIDC discovery
 
 - Authorization server metadata: ${AGENT.authorizationServerUrl}
 - Protected resource metadata:  ${AGENT.protectedResourceUrl}
@@ -187,7 +187,7 @@ Supported grant types: \`authorization_code\`, \`refresh_token\`, \`client_crede
 Supported scopes: \`openid\`, \`profile\`, \`email\`, \`read:projects\`,
 \`write:leads\`, \`read:portfolio\`.
 
-***REMOVED******REMOVED*** 3. Agent registration
+## 3. Agent registration
 
 To register a new agent for first-party access, send an HTTP POST request
 to the registration endpoint. The flow is fully self-contained — no
@@ -198,7 +198,7 @@ pre-registration, email exchange, or manual approval step is required.
 **Content-Type:** application/json
 **Auth:** none required for the registration call itself
 
-***REMOVED******REMOVED******REMOVED*** 3.1 curl example — request an API key
+### 3.1 curl example — request an API key
 
 \`\`\`bash
 curl -X POST ${AGENT.origin}/api/auth/register \\
@@ -211,7 +211,7 @@ curl -X POST ${AGENT.origin}/api/auth/register \\
   }'
 \`\`\`
 
-***REMOVED******REMOVED******REMOVED*** 3.2 Response (HTTP 201)
+### 3.2 Response (HTTP 201)
 
 \`\`\`json
 {
@@ -221,14 +221,14 @@ curl -X POST ${AGENT.origin}/api/auth/register \\
 }
 \`\`\`
 
-***REMOVED******REMOVED******REMOVED*** 3.3 Use the credential
+### 3.3 Use the credential
 
 \`\`\`bash
 curl ${AGENT.origin}/api/portfolio \\
   -H "Authorization: Bearer ctk_live_xxx"
 \`\`\`
 
-***REMOVED******REMOVED******REMOVED*** 3.4 Registration methods supported
+### 3.4 Registration methods supported
 
 | Method                      | Credential type        | Auth flow                |
 | --------------------------- | ---------------------- | ------------------------ |
@@ -236,7 +236,7 @@ curl ${AGENT.origin}/api/portfolio \\
 | \`api_key_provisioning\`       | api_key                | Bearer                   |
 | \`oidc_authorization_code\`    | oidc_id_token          | Authorization Code       |
 
-***REMOVED******REMOVED******REMOVED*** 3.5 Token lifecycle
+### 3.5 Token lifecycle
 
 | Endpoint                          | Purpose                       |
 | --------------------------------- | ----------------------------- |
@@ -249,7 +249,7 @@ Access tokens expire in 1 hour. Refresh tokens expire in 30 days. Use the
 \`refresh_token\` grant to obtain a new access token without re-authenticating
 the user.
 
-***REMOVED******REMOVED*** 4. MCP and Agent Skills
+## 4. MCP and Agent Skills
 
 - MCP Server Card: ${AGENT.mcpServerCardUrl}
 - MCP transport endpoint: ${AGENT.mcpEndpoint}
@@ -259,7 +259,7 @@ All MCP tool calls require a Bearer token with at least one of the scopes
 listed above. The \`submit-lead\` tool requires \`write:leads\`; all \`read:\`
 tools require their respective read scope.
 
-***REMOVED******REMOVED*** 5. Rate limits
+## 5. Rate limits
 
 - Public read endpoints: 60 req/min per IP
 - Authenticated read endpoints: 600 req/min per token
@@ -267,7 +267,7 @@ tools require their respective read scope.
 
 Rate-limited responses return HTTP 429 with a \`Retry-After\` header.
 
-***REMOVED******REMOVED*** 6. Acceptable use
+## 6. Acceptable use
 
 Agents must:
 
@@ -276,7 +276,7 @@ Agents must:
 - Respect \`robots.txt\` for crawling.
 - Not attempt to enumerate or scrape private portfolio data.
 
-***REMOVED******REMOVED*** 7. Contact
+## 7. Contact
 
 For partnership or API access questions, email ${AGENT.contactEmail}.
 `;

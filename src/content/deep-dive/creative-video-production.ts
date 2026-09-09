@@ -22,7 +22,7 @@ export const videoProductionDeepDive: DeepDiveContent = {
     character: "service-detail",
     ctas: [
       { label: "Book Video Strategy Call", href: "/contact?intent=video-strategy-call", variant: "orange" },
-      { label: "Watch Showreel", href: "***REMOVED***showreel", variant: "outline" },
+      { label: "Watch Showreel", href: "#showreel", variant: "outline" },
     ],
     stats: [
       { value: "1,400+", label: "Videos shipped" },
@@ -106,7 +106,7 @@ export const videoProductionDeepDive: DeepDiveContent = {
       {
         heading: "Layer 3 — Motion graphics, sound design & color",
         body: [
-          "Motion graphics are the kinetic typography, lower-thirds, transitions, product-callouts and animated logos that elevate a cut from 'footage with voiceover' to 'branded video'. We build motion in After Effects against a reusable design system — a 12-frame kit of transitions, a typography kit for captions and headlines, a kinetic-logo kit for openers and end-cards — so motion-design work on cut ***REMOVED***2 is 70% faster than cut ***REMOVED***1. Motion is exported as Lottie where the platform supports it (web, app) and as MP4 with alpha where it does not (paid social).",
+          "Motion graphics are the kinetic typography, lower-thirds, transitions, product-callouts and animated logos that elevate a cut from 'footage with voiceover' to 'branded video'. We build motion in After Effects against a reusable design system — a 12-frame kit of transitions, a typography kit for captions and headlines, a kinetic-logo kit for openers and end-cards — so motion-design work on cut #2 is 70% faster than cut #1. Motion is exported as Lottie where the platform supports it (web, app) and as MP4 with alpha where it does not (paid social).",
           "Sound design is the discipline that makes a cut work in both sound-on and sound-off playback. For sound-off (the 80% case on paid social), burned-in captions carry the message; the soundtrack is mixed to feel energetic through visual rhythm alone. For sound-on (YouTube long-form, podcasts, conference playback), we mix voiceover at -16 LUFS, music at -23 LUFS, with sidechain compression to keep the voice dominant. Color grading happens in DaVinci Resolve against a LUT that survives platform compression — Meta and TikTok recompress to ~3–5 Mbps, which crushes shadow detail and shifts reds; we grade to compensate.",
         ],
       },
@@ -232,7 +232,7 @@ export const videoProductionDeepDive: DeepDiveContent = {
       {
         industry: "Paid social ads for a D2C e-commerce brand",
         problem: "D2C skincare brand running paid social at $80K/month with 6 creatives in rotation. Creative fatigue hit at day 9. ROAS sat at 2.1× (target: 3.5×). Agency was delivering 16:9 only — 60% of Meta impressions were 9:16 and were letterboxed.",
-        application: "A 12-week performance-video engagement: 32-cut creative programme on a 4-hook × 4-visual × 2-CTA testing grid, all delivered in 9:16, 1:1 and 16:9 with burned-in captions. Reusable motion-design system built in After Effects for cut ***REMOVED***2 onwards. Weekly creative refresh replacing fatigued variants. Triple Whale integration for creative-level attribution.",
+        application: "A 12-week performance-video engagement: 32-cut creative programme on a 4-hook × 4-visual × 2-CTA testing grid, all delivered in 9:16, 1:1 and 16:9 with burned-in captions. Reusable motion-design system built in After Effects for cut #2 onwards. Weekly creative refresh replacing fatigued variants. Triple Whale integration for creative-level attribution.",
         result: "ROAS rose from 2.1× to 3.8× in 60 days. Creative win rate hit 61% (was 24%). Creative fatigue extended from day 9 to day 17. Cost-per-view fell 44%. The brand retained ClickTake for ongoing creative at $14K/month.",
       },
       {
@@ -309,11 +309,11 @@ export const videoProductionDeepDive: DeepDiveContent = {
       { value: "3.4×", label: "Avg. VTR vs. benchmark", description: "Average view-through rate on paid-social cuts versus the platform benchmark, measured across 800+ paid cuts." },
       { value: "+62%", label: "Avg. creative win rate", description: "Percentage of paid-social creative variants that beat the control in structured testing-grid programmes." },
       { value: "−44%", label: "Avg. CPV reduction", description: "Average reduction in cost-per-view on paid social after replacing low-VTR creative with testing-grid winners." },
-      { value: "−52%", label: "Per-cut cost at volume", description: "Average reduction in per-cut production cost from cut ***REMOVED***1 to cut ***REMOVED***16, driven by motion-system reuse and batched production." },
+      { value: "−52%", label: "Per-cut cost at volume", description: "Average reduction in per-cut production cost from cut #1 to cut #16, driven by motion-system reuse and batched production." },
     ],
     body: [
       "Paid-media efficiency is the most measurable impact and typically funds the engagement within 60–90 days. A D2C brand running $80K/month on paid social at 2.1× ROAS lifts to 3.8× ROAS by replacing low-VTR creative with testing-grid winners — that is $136K/month additional revenue against a $14K/month retainer, payback in 9 days. The leverage is in the testing grid: 32 cuts in structured rotation beat 6 cuts of higher-production-value work because the platform's fatigue algorithm demands volume, and volume requires a system that produces 16–32 cuts per month per ad set without burning out the editor.",
-      "Production-cost reduction is the second mechanism. The first cut in a programme takes 17 days; the sixteenth cut takes 4 days, because the motion-design system is built, the script framework is established, the editor has batched production rhythm, and the asset library is stocked. Per-cut cost drops 52% from cut ***REMOVED***1 to cut ***REMOVED***16. For a brand producing 24 cuts per month, this is the difference between $96K/month (freelance, bespoke) and $42K/month (ClickTake, system) — a $648K/year saving on a $180K/year retainer.",
+      "Production-cost reduction is the second mechanism. The first cut in a programme takes 17 days; the sixteenth cut takes 4 days, because the motion-design system is built, the script framework is established, the editor has batched production rhythm, and the asset library is stocked. Per-cut cost drops 52% from cut #1 to cut #16. For a brand producing 24 cuts per month, this is the difference between $96K/month (freelance, bespoke) and $42K/month (ClickTake, system) — a $648K/year saving on a $180K/year retainer.",
       "Revenue lift on owned channels is the third mechanism. Adding a 75-second explainer to a SaaS website's hero typically lifts demo-request conversion 25–45% (we have measured this across 18 SaaS engagements). A YouTube long-form programme compounds: subscriber growth, organic search discoverability (YouTube is the world's second-largest search engine), and inbound-pipeline lift attributed to YouTube — typically 4–8× the pre-engagement inbound rate within 6 months. Investor-event openers and pitch videos shorten the fundraising cycle — founders report 20–40% faster round closes when a 60-second opener precedes the partner meeting.",
     ],
   },
@@ -356,7 +356,7 @@ export const videoProductionDeepDive: DeepDiveContent = {
         client: "D2C skincare brand, $4M ARR, $80K/month paid social",
         situation: "The brand's paid social was running 6 creatives in rotation against $80K/month spend. Creative fatigue hit at day 9. ROAS sat at 2.1× (target: 3.5×). The previous agency delivered 16:9 horizontal cuts only — 60% of Meta impressions were 9:16 vertical and were letterboxed, killing CTR on the highest-traffic placement.",
         task: "Lift ROAS from 2.1× to 3.5× within 90 days without increasing spend; produce enough creative volume to keep fatigue under 15% through 16–32 cuts per month per ad set.",
-        action: "ClickTake ran a 12-week performance-video programme. We built a 32-cut creative plan on a 4-hook × 4-visual × 2-CTA testing grid (problem-led, feature-led, social-proof-led, contrarian × UGC, studio, motion-graphic, hybrid × shop-now, learn-more). Every cut was scripted against the hook-problem-solution-proof-CTA framework, delivered in 9:16, 1:1 and 16:9 with burned-in captions and sidecar SRT. We built a reusable motion-design system in After Effects so cuts ***REMOVED***2–32 were produced against pre-built kits. Triple Whale integration gave creative-level attribution. Weekly refresh replaced fatigued variants.",
+        action: "ClickTake ran a 12-week performance-video programme. We built a 32-cut creative plan on a 4-hook × 4-visual × 2-CTA testing grid (problem-led, feature-led, social-proof-led, contrarian × UGC, studio, motion-graphic, hybrid × shop-now, learn-more). Every cut was scripted against the hook-problem-solution-proof-CTA framework, delivered in 9:16, 1:1 and 16:9 with burned-in captions and sidecar SRT. We built a reusable motion-design system in After Effects so cuts #2–32 were produced against pre-built kits. Triple Whale integration gave creative-level attribution. Weekly refresh replaced fatigued variants.",
         result: "ROAS rose from 2.1× to 3.8× in 60 days (target: 3.5×). Creative win rate hit 61% (was 24%). Creative fatigue extended from day 9 to day 17. Cost-per-view fell 44%. The 9:16 vertical derivatives outperformed the 16:9 originals by 2.4× on CTR. The brand retained ClickTake for ongoing creative at $14K/month, replacing a $22K/month agency retainer.",
         quote: {
           text: "We were about to give up on paid social. The first week of the new creative grid was the first week we hit 3× ROAS. The vertical cuts alone paid for the engagement.",
@@ -395,7 +395,7 @@ export const videoProductionDeepDive: DeepDiveContent = {
           },
           {
             q: "What is the typical timeline per cut?",
-            a: "1–3 weeks per cut. Phase-by-phase: Brief, Script & Storyboard (1–3 days), Footage & Asset Acquisition (3–5 days, longer if a shoot is required), Master Edit & Motion Graphics (3–5 days), Sound Design, Color & Captions (2–3 days), Multi-Aspect-Ratio Delivery & QC (1–2 days). Motion-graphic-only cuts ship in 1 week; live-action cuts with shoots take 2–3 weeks. Volume-programme cuts after cut ***REMOVED***1 typically ship in 3–4 days via motion-system reuse.",
+            a: "1–3 weeks per cut. Phase-by-phase: Brief, Script & Storyboard (1–3 days), Footage & Asset Acquisition (3–5 days, longer if a shoot is required), Master Edit & Motion Graphics (3–5 days), Sound Design, Color & Captions (2–3 days), Multi-Aspect-Ratio Delivery & QC (1–2 days). Motion-graphic-only cuts ship in 1 week; live-action cuts with shoots take 2–3 weeks. Volume-programme cuts after cut #1 typically ship in 3–4 days via motion-system reuse.",
           },
           {
             q: "Do you offer ongoing video production retainers?",

@@ -48,12 +48,12 @@ type RGB = [number, number, number]
 
 function readCssHex(varName: string, fallback: string): number {
   if (typeof document === 'undefined') {
-    return parseInt(fallback.replace('***REMOVED***', ''), 16)
+    return parseInt(fallback.replace('#', ''), 16)
   }
   const v = getComputedStyle(document.documentElement).getPropertyValue(varName).trim()
-  if (!v) return parseInt(fallback.replace('***REMOVED***', ''), 16)
-  const hex = v.replace('***REMOVED***', '')
-  return parseInt(hex, 16) || parseInt(fallback.replace('***REMOVED***', ''), 16)
+  if (!v) return parseInt(fallback.replace('#', ''), 16)
+  const hex = v.replace('#', '')
+  return parseInt(hex, 16) || parseInt(fallback.replace('#', ''), 16)
 }
 
 function hexToRgb(hex: number): RGB {
@@ -80,11 +80,11 @@ function readPalette(): ThemePalette {
       document.documentElement.classList.contains('dark'))
 
   return {
-    pink: hexToRgb(readCssHex('--ct-pink', isElite ? '***REMOVED***FF6BB5' : isDark ? '***REMOVED***FF6BB5' : '***REMOVED***E0197A')),
-    purple: hexToRgb(readCssHex('--ct-purple', isElite ? '***REMOVED***B366FF' : isDark ? '***REMOVED***9B3DFF' : '***REMOVED***7B2FBE')),
-    blue: hexToRgb(readCssHex('--ct-blue', isElite ? '***REMOVED***4F9BFF' : isDark ? '***REMOVED***4A90D9' : '***REMOVED***136DFF')),
-    cyan: hexToRgb(readCssHex('--ct-cyan', isElite ? '***REMOVED***78F0FF' : '***REMOVED***22d3ee')),
-    gold: hexToRgb(readCssHex('--ct-gold', '***REMOVED***FFD782')),
+    pink: hexToRgb(readCssHex('--ct-pink', isElite ? '#FF6BB5' : isDark ? '#FF6BB5' : '#E0197A')),
+    purple: hexToRgb(readCssHex('--ct-purple', isElite ? '#B366FF' : isDark ? '#9B3DFF' : '#7B2FBE')),
+    blue: hexToRgb(readCssHex('--ct-blue', isElite ? '#4F9BFF' : isDark ? '#4A90D9' : '#136DFF')),
+    cyan: hexToRgb(readCssHex('--ct-cyan', isElite ? '#78F0FF' : '#22d3ee')),
+    gold: hexToRgb(readCssHex('--ct-gold', '#FFD782')),
     isElite,
     isDark,
   }

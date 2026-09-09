@@ -1,7 +1,7 @@
 
-***REMOVED*** ============================================================================
-***REMOVED*** JAVASCRIPT — router, tilt, glow, particles, observer, form, calendar
-***REMOVED*** ============================================================================
+# ============================================================================
+# JAVASCRIPT — router, tilt, glow, particles, observer, form, calendar
+# ============================================================================
 JS = r'''
   <script>
     // ============================================================
@@ -18,55 +18,55 @@ JS = r'''
         title: 'Services — Custom Software, Cloud DevOps, AI/ML, Security | ClickTake',
         desc: 'Full-spectrum engineering services: custom web/mobile apps (Next.js 16, React Native), enterprise cloud DevOps (AWS/GCP/Azure), AI/ML pipelines, and security systems.',
         kw: 'custom software development services, cloud devops consulting, AI ML pipeline, security audit, Next.js, Terraform, Kubernetes',
-        url: 'https://clicktaketech.com/***REMOVED***services'
+        url: 'https://clicktaketech.com/#services'
       },
       solutions: {
         title: 'AI Platform — Multi-Agent Orchestration, RAG, LLM Fine-Tuning | ClickTake',
         desc: 'Production AI platform: multi-agent orchestration with LangGraph, enterprise RAG over 10M+ documents, custom LLM fine-tuning (LoRA/QLoRA/DPO). p99 < 200ms.',
         kw: 'multi-agent orchestration, LangGraph, enterprise RAG, LLM fine-tuning, LoRA, QLoRA, DPO, vLLM, Pinecone, Weaviate',
-        url: 'https://clicktaketech.com/***REMOVED***solutions'
+        url: 'https://clicktaketech.com/#solutions'
       },
       cases: {
         title: 'Case Studies — Production Client Impact | ClickTake Technologies',
         desc: 'Real client outcomes: 72% latency reduction for fintech, +38% conversion for e-commerce, $1.4M annual savings for healthcare, 31% fewer empty miles for logistics.',
         kw: 'case studies, client success, fintech API, e-commerce AI, healthcare RAG, logistics agents, ROI metrics',
-        url: 'https://clicktaketech.com/***REMOVED***cases'
+        url: 'https://clicktaketech.com/#cases'
       },
       contact: {
         title: 'Contact & Book a Demo | ClickTake Technologies',
         desc: 'Book a 30-minute architecture review with a senior ClickTake engineer. Multi-step form, calendar widget, direct contact: info@clicktaketech.com.',
         kw: 'contact ClickTake, book demo, software consultation, AI architecture review, enterprise software quote',
-        url: 'https://clicktaketech.com/***REMOVED***contact'
+        url: 'https://clicktaketech.com/#contact'
       },
       about: {
         title: 'About — Senior Engineering Team | ClickTake Technologies',
         desc: 'Founded 2019. 38 senior engineers across 9 time zones. 150+ production deployments, 94% client retention, 99.9% uptime SLAs. Ship over polish, radical transparency, no vendor lock-in.',
         kw: 'about ClickTake, senior engineering team, remote-first, software agency, AI consultancy',
-        url: 'https://clicktaketech.com/***REMOVED***about'
+        url: 'https://clicktaketech.com/#about'
       },
       blog: {
         title: 'Blog — Engineering Notes from Production | ClickTake',
         desc: 'Field notes from our engineering team: multi-agent system design, RAG at scale, cloud cost optimization, Next.js 16 migration, SOC 2 prep, fine-tuning vs RAG.',
         kw: 'AI engineering blog, multi-agent systems, RAG pipeline, cloud cost optimization, Next.js 16, SOC 2, LLM fine-tuning',
-        url: 'https://clicktaketech.com/***REMOVED***blog'
+        url: 'https://clicktaketech.com/#blog'
       },
       careers: {
         title: 'Careers — Senior Engineering Roles | ClickTake Technologies',
         desc: 'Remote-first, top-of-market salaries, 38-person senior team. Open roles: Full-Stack Engineer, Staff ML Engineer, Cloud Architect, Security Engineer, Product Designer.',
         kw: 'software engineer jobs, remote AI engineer, ML engineer careers, cloud architect jobs, senior developer roles',
-        url: 'https://clicktaketech.com/***REMOVED***careers'
+        url: 'https://clicktaketech.com/#careers'
       },
       privacy: {
         title: 'Privacy Policy | ClickTake Technologies',
         desc: 'ClickTake Technologies Privacy Policy. GDPR, CCPA, and HIPAA compliant. We do not sell personal information. Contact: info@clicktaketech.com.',
         kw: 'privacy policy, GDPR, CCPA, HIPAA, data protection, ClickTake',
-        url: 'https://clicktaketech.com/***REMOVED***privacy'
+        url: 'https://clicktaketech.com/#privacy'
       },
       terms: {
         title: 'Terms of Service | ClickTake Technologies',
         desc: 'ClickTake Technologies Terms of Service. Governing law: Delaware, USA. Intellectual property, warranty disclaimers, limitation of liability.',
         kw: 'terms of service, ClickTake legal, software consulting agreement, IP rights',
-        url: 'https://clicktaketech.com/***REMOVED***terms'
+        url: 'https://clicktaketech.com/#terms'
       }
     };
 
@@ -99,7 +99,7 @@ JS = r'''
     }
 
     window.addEventListener('hashchange', () => {
-      const hash = (window.location.hash || '***REMOVED***home').replace('***REMOVED***', '');
+      const hash = (window.location.hash || '#home').replace('#', '');
       navigateTo(hash);
     });
 
@@ -108,7 +108,7 @@ JS = r'''
       if (link) {
         e.preventDefault();
         const page = link.getAttribute('data-nav');
-        window.location.hash = '***REMOVED***' + page;
+        window.location.hash = '#' + page;
       }
     });
 
@@ -185,7 +185,7 @@ JS = r'''
       const ctx = canvas.getContext('2d');
       let particles = [];
       let w, h;
-      const COLORS = ['***REMOVED***136DFF', '***REMOVED***FF53A9', '***REMOVED***7B2FBE'];
+      const COLORS = ['#136DFF', '#FF53A9', '#7B2FBE'];
 
       function resize() {
         w = canvas.width = window.innerWidth;
@@ -341,7 +341,7 @@ JS = r'''
       if (window.lucide) window.lucide.createIcons();
       document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
       document.querySelectorAll('[data-counter]').forEach(el => counterObserver.observe(el));
-      const hash = (window.location.hash || '***REMOVED***home').replace('***REMOVED***', '');
+      const hash = (window.location.hash || '#home').replace('#', '');
       navigateTo(PAGES[hash] ? hash : 'home');
     });
   </script>
@@ -349,9 +349,9 @@ JS = r'''
 </html>
 '''
 
-***REMOVED*** ============================================================================
-***REMOVED*** ASSEMBLE & WRITE
-***REMOVED*** ============================================================================
+# ============================================================================
+# ASSEMBLE & WRITE
+# ============================================================================
 html = HEAD + AMBIENT + HEADER + PAGE_HOME + PAGE_SERVICES + PAGE_SOLUTIONS + PAGE_CASES + PAGE_CONTACT + PAGE_ABOUT + PAGE_BLOG + PAGE_CAREERS + PAGE_PRIVACY + PAGE_TERMS + FOOTER + JS
 
 OUT = Path("/home/z/my-project/download/clicktake-landing.html")
@@ -389,6 +389,6 @@ checks = {
 for label, token in checks.items():
     print(f"  [{'OK' if token in html else 'MISSING'}] {label}")
 print(f"\nColor palette compliance:")
-for c in ['***REMOVED***03000D','***REMOVED***070018','***REMOVED***0D0025','***REMOVED***136DFF','***REMOVED***FF53A9','***REMOVED***7B2FBE','***REMOVED***F0EBF8','***REMOVED***9A8CB5']:
+for c in ['#03000D','#070018','#0D0025','#136DFF','#FF53A9','#7B2FBE','#F0EBF8','#9A8CB5']:
     print(f"  [{'OK' if c in html else 'MISSING'}] {c}")
 print(f"\nInternal links (data-nav count): {html.count('data-nav=')}")

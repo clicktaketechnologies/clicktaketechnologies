@@ -23,7 +23,7 @@ import {
 const CANONICAL_HOST = "clicktaketech.com";
 
 /** Static markdown representation of the homepage for AI agents. */
-const HOMEPAGE_MARKDOWN = `***REMOVED*** ClickTake Technologies
+const HOMEPAGE_MARKDOWN = `# ClickTake Technologies
 
 > AI-powered digital agency engineering websites, SaaS platforms, mobile apps and growth systems for ambitious brands across the UK, Pakistan, USA and Dubai.
 
@@ -33,7 +33,7 @@ const HOMEPAGE_MARKDOWN = `***REMOVED*** ClickTake Technologies
 - **Offices:** Birmingham (UK), Multan (PK), Austin TX (USA), Dubai (UAE)
 - **Projects shipped:** 120+
 
-***REMOVED******REMOVED*** What we do
+## What we do
 
 - **Web development** — Next.js, React, headless CMS, e-commerce, JAMstack
 - **AI & automation** — LLM integrations, chatbots, RAG pipelines, agentic workflows
@@ -41,34 +41,34 @@ const HOMEPAGE_MARKDOWN = `***REMOVED*** ClickTake Technologies
 - **SaaS platforms** — Multi-tenant SaaS architecture, billing, dashboards
 - **Growth marketing** — SEO, PPC, content, conversion optimization, analytics
 
-***REMOVED******REMOVED*** Who we work with
+## Who we work with
 
 Startups, scale-ups, and enterprise teams across fintech, healthtech, e-commerce,
 B2B SaaS, education, and real estate. 120+ projects delivered across four regions
 since 2020.
 
-***REMOVED******REMOVED*** How to engage
+## How to engage
 
 1. **Free 30-min consult** — Book a call to scope your project.
 2. **Proposal & estimate** — Receive a fixed-scope proposal within 48 hours.
 3. **Sprint kickoff** — Dedicated PM + engineering pod starts within 1 week.
 4. **Weekly demos** — Ship every Friday; iterate based on feedback.
 
-***REMOVED******REMOVED*** Contact
+## Contact
 
 - **UK:** +44 7391 653377
 - **Pakistan:** +92 306 9753003
 - **Email:** ${AGENT.contactEmail}
 - **Contact form:** ${AGENT.origin}/contact
 
-***REMOVED******REMOVED*** Office hours
+## Office hours
 
 - Birmingham: Mon–Sat 09:30–21:00 GMT
 - Multan: Mon–Sat 09:30–21:00 PKT
 - Austin: Mon–Fri 09:00–18:00 CST
 - Dubai: By appointment
 
-***REMOVED******REMOVED*** For AI agents
+## For AI agents
 
 This site publishes machine-readable metadata for agent discovery:
 
@@ -163,7 +163,7 @@ export async function middleware(req: NextRequest) {
         statusText: upstream.statusText,
         headers: respHeaders,
       });
-      // Phase 3 ***REMOVED***3 — stamp visitor cookie on proxied responses too.
+      // Phase 3 #3 — stamp visitor cookie on proxied responses too.
       stampVisitorCookie(proxyRes as any);
       return proxyRes;
     } catch (err: any) {
@@ -203,7 +203,7 @@ export async function middleware(req: NextRequest) {
   }
 
   /**
-   * Phase 3 ***REMOVED***3 — visitor cookie stamping.
+   * Phase 3 #3 — visitor cookie stamping.
    *
    * If the ct_visitor cookie is missing, set it on the response with a
    * fresh cuid. Otherwise no-op (the existing cookie is preserved).
@@ -261,7 +261,7 @@ export async function middleware(req: NextRequest) {
       res.headers.set("x-robots-tag", "noindex, nofollow");
     }
     stampSecurityHeaders(res.headers);
-    // Phase 3 ***REMOVED***3 — set visitor cookie on every HTML/API response so the
+    // Phase 3 #3 — set visitor cookie on every HTML/API response so the
     // <AbTest> bootstrap fetch (which fires immediately on mount) carries
     // the visitor id. Without this, the first page view cannot record
     // exposures because the cookie isn't set yet.

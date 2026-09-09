@@ -28,7 +28,7 @@ export const SITE = {
       flag: "🇵🇰",
       note: "Engineering & delivery hub — serving Lahore, Karachi, Islamabad & beyond",
       coords: "30.1575° N, 71.5249° E",
-      address: "Office ***REMOVED***12, B.C.G Chowk, Paracha Street, Multan, Punjab 60600, Pakistan",
+      address: "Office #12, B.C.G Chowk, Paracha Street, Multan, Punjab 60600, Pakistan",
       hours: "Mon-Sat: 09:30 AM - 09:00 PM PKT",
       phone: "+92 306 9753003",
     },
@@ -64,8 +64,8 @@ export const SITE = {
     { name: "Tumblr", href: "https://www.tumblr.com/clicktaketechtechnologies", icon: "tumblr" },
   ],
   brand: {
-    primary: "***REMOVED***136DFF",
-    accent: "***REMOVED***FF53A9",
+    primary: "#136DFF",
+    accent: "#FF53A9",
   },
   tagline: "Connecting in a better way",
   founded: 2019,
@@ -453,7 +453,7 @@ export const WORK_CASES = [
     tags: ["Shopify", "Next.js", "AI Recs"],
     image: "/image1.webp",
     glow: "hover:shadow-cyan-500/20",
-    url: "/portfolio***REMOVED***lumen-commerce",
+    url: "/portfolio#lumen-commerce",
     location: "Birmingham, UK",
   },
   {
@@ -465,7 +465,7 @@ export const WORK_CASES = [
     tags: ["React", "Node.js", "OpenAI"],
     image: "/image2.jpg",
     glow: "hover:shadow-indigo-500/20",
-    url: "/portfolio***REMOVED***northwind-saas",
+    url: "/portfolio#northwind-saas",
     location: "Manchester, UK",
   },
   {
@@ -477,7 +477,7 @@ export const WORK_CASES = [
     tags: ["Branding", "Webflow", "Maps API"],
     image: "/image3.jpg",
     glow: "hover:shadow-violet-500/20",
-    url: "/portfolio***REMOVED***atlas-realty",
+    url: "/portfolio#atlas-realty",
     location: "Austin, USA",
   },
   {
@@ -489,7 +489,7 @@ export const WORK_CASES = [
     tags: ["Meta Ads", "Google", "CRO"],
     image: "/image4.jpg",
     glow: "hover:shadow-fuchsia-500/20",
-    url: "/portfolio***REMOVED***verve-studio",
+    url: "/portfolio#verve-studio",
     location: "Dubai, UAE",
   },
 ];
@@ -505,7 +505,7 @@ export const OFFICES = [
   },
   {
     label: "Pakistan · Multan HQ",
-    addr: "Office ***REMOVED***12, B.C.G Chowk, Paracha Street, Multan 60600",
+    addr: "Office #12, B.C.G Chowk, Paracha Street, Multan 60600",
     phone: "+92 306 9753003",
     hours: "Mon-Sat: 09:30 AM - 09:00 PM PKT",
     color: "from-brand-magenta to-brand-blue",
@@ -1639,7 +1639,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: "Conversion", value: "+58%" },
       { label: "AOV", value: "+22%" },
     ],
-    live_url: "***REMOVED***",
+    live_url: "#",
     hero_image: "/image1.webp",
   },
   {

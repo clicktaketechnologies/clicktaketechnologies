@@ -1,4 +1,4 @@
-***REMOVED*** Deployment Guide — ClickTake Technologies
+# Deployment Guide — ClickTake Technologies
 
 This project uses a **dual-platform production deployment**:
 
@@ -17,35 +17,35 @@ The Cloudflare Worker serves public pages directly and proxies all `/api/*` and
 
 ---
 
-***REMOVED******REMOVED*** Part 1 — One-time setup (skip if already done)
+## Part 1 — One-time setup (skip if already done)
 
-***REMOVED******REMOVED******REMOVED*** 1.1 Install CLIs + authenticate
+### 1.1 Install CLIs + authenticate
 
 ```bash
-***REMOVED*** Cloudflare
+# Cloudflare
 bunx wrangler login
-***REMOVED*** (or export CLOUDFLARE_API_TOKEN=cfut_... for CI)
+# (or export CLOUDFLARE_API_TOKEN=cfut_... for CI)
 
-***REMOVED*** Vercel
+# Vercel
 bunx vercel login
-***REMOVED*** (or export VERCEL_TOKEN=vercel_... for CI)
+# (or export VERCEL_TOKEN=vercel_... for CI)
 ```
 
-***REMOVED******REMOVED******REMOVED*** 1.2 Link the Vercel project (first time only)
+### 1.2 Link the Vercel project (first time only)
 
 ```bash
 bunx vercel link
-***REMOVED*** → Use existing project: clicktake-web
-***REMOVED*** (or accept "create new project" the first time)
+# → Use existing project: clicktake-web
+# (or accept "create new project" the first time)
 ```
 
-***REMOVED******REMOVED******REMOVED*** 1.3 Set production env vars
+### 1.3 Set production env vars
 
 Copy `.env.production.example` → `.env.production` and fill in the values.
 Then push them to both platforms:
 
 ```bash
-***REMOVED*** Cloudflare Worker (public + the BACKEND_URL secret)
+# Cloudflare Worker (public + the BACKEND_URL secret)
 bunx wrangler secret put NEXTAUTH_SECRET            < .env.production
 bunx wrangler secret put DATABASE_URL               < .env.production
 bunx wrangler secret put SUPERADMIN_PASSWORD        < .env.production
@@ -53,12 +53,12 @@ bunx wrangler secret put PROVIDER_CREDENTIALS_ENCRYPTION_KEY < .env.production
 bunx wrangler secret put TURNSTILE_SECRET_KEY       < .env.production
 bunx wrangler secret put CRON_SECRET                < .env.production
 
-***REMOVED*** Vercel — pull from .env.production automatically
+# Vercel — pull from .env.production automatically
 bunx vercel env pull .env.local --environment=production
-***REMOVED*** Or set each via dashboard: https://vercel.com/clicktake/clicktake-web/settings/environment-variables
+# Or set each via dashboard: https://vercel.com/clicktake/clicktake-web/settings/environment-variables
 ```
 
-***REMOVED******REMOVED******REMOVED*** 1.4 Run database migration (one-time)
+### 1.4 Run database migration (one-time)
 
 Once the DB is reachable from Vercel, run the migration script to create all
 41 tables required by the Drizzle schema (idempotent — safe to re-run):
@@ -67,7 +67,7 @@ Once the DB is reachable from Vercel, run the migration script to create all
 DATABASE_URL="postgresql://..." npx tsx scripts/migrate-db-standalone.ts
 ```
 
-***REMOVED******REMOVED******REMOVED*** 1.5 Seed the super-admin (one-time)
+### 1.5 Seed the super-admin (one-time)
 
 ```bash
 DATABASE_URL="postgresql://..." SUPERADMIN_EMAIL=admin@clicktaketech.com \
@@ -76,7 +76,7 @@ DATABASE_URL="postgresql://..." SUPERADMIN_EMAIL=admin@clicktaketech.com \
 
 ---
 
-***REMOVED******REMOVED*** Part 2 — Daily deploy (the easy way)
+## Part 2 — Daily deploy (the easy way)
 
 One script does everything: build Vercel → deploy Vercel → build Cloudflare →
 set `BACKEND_URL` → deploy Cloudflare.
@@ -99,73 +99,73 @@ Total time: ~4–6 minutes.
 
 ---
 
-***REMOVED******REMOVED*** Part 3 — Manual deploy (step by step)
+## Part 3 — Manual deploy (step by step)
 
 If you prefer to run each step yourself:
 
-***REMOVED******REMOVED******REMOVED*** 3.1 Deploy to Vercel
+### 3.1 Deploy to Vercel
 
 ```bash
 bun run build:vercel
 bunx vercel --prod --yes
-***REMOVED*** Note the production URL printed at the end, e.g. https://clicktake.vercel.app
+# Note the production URL printed at the end, e.g. https://clicktake.vercel.app
 ```
 
-***REMOVED******REMOVED******REMOVED*** 3.2 Repoint the Cloudflare Worker → Vercel
+### 3.2 Repoint the Cloudflare Worker → Vercel
 
 ```bash
-***REMOVED*** Set the BACKEND_URL secret to the Vercel URL
+# Set the BACKEND_URL secret to the Vercel URL
 echo "https://clicktake.vercel.app" | bunx wrangler secret put BACKEND_URL
 ```
 
-***REMOVED******REMOVED******REMOVED*** 3.3 Deploy the Cloudflare Worker
+### 3.3 Deploy the Cloudflare Worker
 
 ```bash
 bun run deploy:cloudflare
-***REMOVED*** (builds OpenNext bundle + runs wrangler deploy)
+# (builds OpenNext bundle + runs wrangler deploy)
 ```
 
-***REMOVED******REMOVED******REMOVED*** 3.4 Verify
+### 3.4 Verify
 
 ```bash
-curl -sI https://clicktaketech.com/                          | head -1   ***REMOVED*** HTTP/2 200
-curl -s  https://clicktaketech.com/api/health                | head -c 100   ***REMOVED*** {"ok":true,...}
-curl -s  https://clicktaketech.com/api/auth/csrf             | head -c 100   ***REMOVED*** {"csrfToken":"..."}
-curl -sI https://clicktake.vercel.app/api/health             | head -1   ***REMOVED*** HTTP/2 200
+curl -sI https://clicktaketech.com/                          | head -1   # HTTP/2 200
+curl -s  https://clicktaketech.com/api/health                | head -c 100   # {"ok":true,...}
+curl -s  https://clicktaketech.com/api/auth/csrf             | head -c 100   # {"csrfToken":"..."}
+curl -sI https://clicktake.vercel.app/api/health             | head -1   # HTTP/2 200
 ```
 
 ---
 
-***REMOVED******REMOVED*** Part 4 — Smoke test
+## Part 4 — Smoke test
 
 After deploy, run this end-to-end check:
 
 ```bash
-***REMOVED*** Public pages
+# Public pages
 for path in / /services /solutions /pricing /team /careers /blog /case-studies /contact; do
   status=$(curl -sI -o /dev/null -w '%{http_code}' "https://clicktaketech.com${path}")
   printf '  %-25s %s\n' "$path" "$status"
 done
 
-***REMOVED*** Service detail pages (sample)
+# Service detail pages (sample)
 for slug in ai/automation web/wordpress digital-marketing/seo-services creative/web-design web/starter-kit; do
   status=$(curl -sI -o /dev/null -w '%{http_code}' "https://clicktaketech.com/services/${slug}")
   printf '  /services/%-22s %s\n' "$slug" "$status"
 done
 
-***REMOVED*** Solution pages
+# Solution pages
 for slug in startups local-businesses ecommerce-brands repair-shops uk-businesses agencies; do
   status=$(curl -sI -o /dev/null -w '%{http_code}' "https://clicktaketech.com/solutions/${slug}")
   printf '  /solutions/%-22s %s\n' "$slug" "$status"
 done
 
-***REMOVED*** API endpoints
+# API endpoints
 curl -s https://clicktaketech.com/api/health | head -c 200
 echo
 curl -s https://clicktaketech.com/api/auth/csrf | head -c 200
 echo
 
-***REMOVED*** Admin login (CSRF + credentials roundtrip)
+# Admin login (CSRF + credentials roundtrip)
 csrf=$(curl -sc /tmp/cj https://clicktaketech.com/api/auth/csrf | jq -r .csrfToken)
 curl -sb /tmp/cj -c /tmp/cj -X POST https://clicktaketech.com/api/auth/callback/credentials \
   -H "Content-Type: application/x-www-form-urlencoded" \
@@ -178,9 +178,9 @@ All lines should print `200` (or `307` for the admin redirect).
 
 ---
 
-***REMOVED******REMOVED*** Architecture Notes
+## Architecture Notes
 
-***REMOVED******REMOVED******REMOVED*** Why split Cloudflare + Vercel?
+### Why split Cloudflare + Vercel?
 
 - **Cloudflare Workers**: 3 MiB free-plan bundle limit, edge runtime, ideal for
   the public face of the site (SSG pages + ISR-cached content). Global CDN
@@ -191,7 +191,7 @@ All lines should print `200` (or `307` for the admin redirect).
   for admin pages, automatic Postgres connection pooling, preview deploys on
   every PR, built-in cron. No bundle-size limit for the Node runtime.
 
-***REMOVED******REMOVED******REMOVED*** How the proxy works
+### How the proxy works
 
 `src/middleware.ts` runs on every request at the Cloudflare edge. When
 `BACKEND_URL` is set:
@@ -202,7 +202,7 @@ All lines should print `200` (or `307` for the admin redirect).
 Headers preserved: `cookie`, `authorization`, `content-type`, etc.
 Added: `x-forwarded-host`, `x-forwarded-proto`.
 
-***REMOVED******REMOVED******REMOVED*** How the CF bundle stays small
+### How the CF bundle stays small
 
 The CF build (`scripts/build-cloudflare.sh`) swaps in `src/lib/db-stub.ts`
 (a stub that throws on any DB access) before running `opennextjs-cloudflare build`.
@@ -210,7 +210,7 @@ The stub is never executed at runtime because the middleware intercepts
 DB-touching routes first. The real Drizzle client lives in `src/lib/db.ts`
 and is used by the Vercel build.
 
-***REMOVED******REMOVED******REMOVED*** DNS setup (one-time, manual)
+### DNS setup (one-time, manual)
 
 - `clicktaketech.com` A record → Cloudflare (proxied, orange cloud)
 - `www.clicktaketech.com` CNAME → `clicktake-web.<account>.workers.dev`
@@ -221,18 +221,18 @@ and is used by the Vercel build.
 
 ---
 
-***REMOVED******REMOVED*** Local Development
+## Local Development
 
 ```bash
 bun install
 bun run dev
-***REMOVED*** → http://localhost:3000
+# → http://localhost:3000
 ```
 
 In dev, `BACKEND_URL` is not set, so the app runs as a single Next.js server
 with the real Drizzle client. Set `DATABASE_URL` in `.env`.
 
-***REMOVED******REMOVED*** Build Commands
+## Build Commands
 
 | Command | What it does |
 |---------|--------------|
@@ -247,16 +247,16 @@ with the real Drizzle client. Set `DATABASE_URL` in `.env`.
 | `bun run seed:admin` | One-off: seed super-admin + roles |
 | `npx tsx scripts/migrate-db-standalone.ts` | One-off: create DB tables |
 
-***REMOVED******REMOVED*** Rollback
+## Rollback
 
-***REMOVED******REMOVED******REMOVED*** Vercel
+### Vercel
 ```bash
-bunx vercel ls                    ***REMOVED*** list recent deployments
-bunx vercel promote <deployment-url>  ***REMOVED*** promote an older deployment to production
+bunx vercel ls                    # list recent deployments
+bunx vercel promote <deployment-url>  # promote an older deployment to production
 ```
 
-***REMOVED******REMOVED******REMOVED*** Cloudflare
+### Cloudflare
 ```bash
 bunx wrangler deployments list
-bunx wrangler rollback            ***REMOVED*** rolls back to the previous version
+bunx wrangler rollback            # rolls back to the previous version
 ```

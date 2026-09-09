@@ -28,7 +28,7 @@ function buildLlmsTxt(): string {
   const lines: string[] = [];
 
   // H1 — site title
-  lines.push(`***REMOVED*** ${SITE.name}`);
+  lines.push(`# ${SITE.name}`);
   lines.push("");
 
   // Blockquote — one-sentence summary
@@ -38,7 +38,7 @@ function buildLlmsTxt(): string {
   lines.push("");
 
   // Quick facts block
-  lines.push("***REMOVED******REMOVED*** Quick facts");
+  lines.push("## Quick facts");
   lines.push("");
   lines.push(`- Founded: 2019`);
   lines.push(`- Headquarters: Birmingham, United Kingdom (registered HQ)`);
@@ -53,7 +53,7 @@ function buildLlmsTxt(): string {
   lines.push("");
 
   // Agent & crawler entry points
-  lines.push("***REMOVED******REMOVED*** Agent & crawler entry points");
+  lines.push("## Agent & crawler entry points");
   lines.push("");
   lines.push("The following URLs are the canonical machine-readable entry points. All return JSON unless noted.");
   lines.push("");
@@ -72,7 +72,7 @@ function buildLlmsTxt(): string {
   lines.push("");
 
   // Important user-facing pages
-  lines.push("***REMOVED******REMOVED*** Important pages");
+  lines.push("## Important pages");
   lines.push("");
   lines.push(`- [Home](${SITE.url}/): agency overview & service summary`);
   lines.push(`- [Services](${SITE.url}/services): 23 services across AI, Web, Marketing & Creative`);
@@ -88,7 +88,7 @@ function buildLlmsTxt(): string {
   lines.push("");
 
   // Optional links
-  lines.push("***REMOVED******REMOVED*** Optional");
+  lines.push("## Optional");
   lines.push("");
   lines.push(`- [Legal](${SITE.url}/legal): privacy policy, terms of service, cookie policy`);
   lines.push(

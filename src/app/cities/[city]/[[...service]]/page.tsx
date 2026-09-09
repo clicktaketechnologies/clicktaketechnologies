@@ -15,7 +15,7 @@ import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
  * /cities/[city]            → city hub (lists all services in that city)
  * /cities/[city]/[service]  → city × service landing page
  *
- * Phase 3 ***REMOVED***4 — Programmatic SEO.
+ * Phase 3 #4 — Programmatic SEO.
  *
  * Both paths are statically generated at build time via generateStaticParams
  * — no runtime DB or LLM calls. With 12 cities × 25 services this emits

@@ -201,14 +201,14 @@ export function CylindricalTestimonials({
           >
             <span
               className={`block h-full rounded-full transition-all duration-300 ${
-                i === active ? "w-8 bg-[***REMOVED***FF53A9]" : "w-2.5 bg-white/20 group-hover:bg-white/40"
+                i === active ? "w-8 bg-[#FF53A9]" : "w-2.5 bg-white/20 group-hover:bg-white/40"
               }`}
             />
             {i === active && (
               <motion.span
                 layoutId="dot-active-glow"
                 className="absolute inset-0 rounded-full"
-                style={{ boxShadow: "0 0 12px ***REMOVED***FF53A9" }}
+                style={{ boxShadow: "0 0 12px #FF53A9" }}
               />
             )}
           </button>
@@ -249,7 +249,7 @@ function TestimonialCard({ t, isActive }: { t: Testimonial; isActive: boolean })
             animate={isActive ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0.7, scale: 0.9, rotate: 0 }}
             transition={{ delay: idx * 0.05, type: "spring", stiffness: 300 }}
           >
-            <Star className="h-3.5 w-3.5 fill-[***REMOVED***FF53A9] text-[***REMOVED***FF53A9]" />
+            <Star className="h-3.5 w-3.5 fill-[#FF53A9] text-[#FF53A9]" />
           </motion.span>
         ))}
       </div>
@@ -310,13 +310,13 @@ function AvatarWithRing({ item, small = false }: { item: Testimonial; small?: bo
 function FlatCard({ t }: { t: Testimonial }) {
   return (
     <div
-      className="rounded-2xl border border-white/10 bg-[***REMOVED***100820]/80 p-6 backdrop-blur"
+      className="rounded-2xl border border-white/10 bg-[#100820]/80 p-6 backdrop-blur"
       style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.3)" }}
     >
       <Quote className="h-7 w-7 opacity-30 mb-3" style={{ color: t.color }} />
       <div className="mb-3 flex items-center gap-0.5">
         {Array.from({ length: t.rating }).map((_, idx) => (
-          <Star key={idx} className="h-3.5 w-3.5 fill-[***REMOVED***FF53A9] text-[***REMOVED***FF53A9]" />
+          <Star key={idx} className="h-3.5 w-3.5 fill-[#FF53A9] text-[#FF53A9]" />
         ))}
       </div>
       <p className="text-sm leading-relaxed text-white/85 mb-5">&ldquo;{t.quote}&rdquo;</p>

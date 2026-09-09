@@ -280,7 +280,7 @@ export function buildProductJsonLd(opts: {
       ? opts.description
       : `${opts.description} — Pricing: ${opts.priceFrom} (${opts.billing}). Contact us for a fixed-scope quote.`,
     category: opts.category || "Professional Services",
-    url: `${SITE.url}/pricing***REMOVED***${opts.slug}`,
+    url: `${SITE.url}/pricing#${opts.slug}`,
     brand: {
       "@type": "Brand",
       name: SITE.name,

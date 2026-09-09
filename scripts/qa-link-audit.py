@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 QA AUDIT — Link Integrity Checker
 Extracts all internal hrefs from src/ (tsx/ts files) and checks them against
@@ -13,26 +13,26 @@ from collections import defaultdict
 ROOT = "/home/z/my-project"
 SRC = os.path.join(ROOT, "src")
 
-***REMOVED*** 1. Extract route manifest from .next build output
+# 1. Extract route manifest from .next build output
 app_paths_dir = os.path.join(ROOT, ".next", "server", "app")
 routes = set()
 
-***REMOVED*** Static routes from filesystem
+# Static routes from filesystem
 app_dir = os.path.join(SRC, "app")
 for dirpath, dirnames, filenames in os.walk(app_dir):
-    ***REMOVED*** Skip api routes (checked separately)
+    # Skip api routes (checked separately)
     if "/api" in dirpath.replace(app_dir, ""):
         continue
     rel = os.path.relpath(dirpath, app_dir)
     if rel == ".":
         continue
-    ***REMOVED*** Normalize: [[...slug]] = optional catch-all, [slug] = dynamic
+    # Normalize: [[...slug]] = optional catch-all, [slug] = dynamic
     parts = rel.split(os.sep)
     route = "/" + "/".join(parts)
     if "page.tsx" in filenames or "route.ts" in filenames:
         routes.add(route)
 
-***REMOVED*** Expand dynamic routes from build manifest if available
+# Expand dynamic routes from build manifest if available
 build_routes = set()
 manifest_path = os.path.join(ROOT, ".next", "app-path-routes-manifest.json")
 if os.path.exists(manifest_path):
@@ -43,7 +43,7 @@ if os.path.exists(manifest_path):
     except Exception:
         pass
 
-***REMOVED*** From prerender manifest (has actual generated dynamic paths)
+# From prerender manifest (has actual generated dynamic paths)
 prerender_path = os.path.join(ROOT, ".next", "prerender-manifest.json")
 dynamic_paths = set()
 if os.path.exists(prerender_path):
@@ -55,16 +55,16 @@ if os.path.exists(prerender_path):
     except Exception:
         pass
 
-***REMOVED*** 2. Extract all internal hrefs from source files
-href_pattern = re.compile(r'''(?:href|redirect|push|replace)\s*[=(]\s*["'`](/[^"'`\s?***REMOVED***]*)["'`]''')
+# 2. Extract all internal hrefs from source files
+href_pattern = re.compile(r'''(?:href|redirect|push|replace)\s*[=(]\s*["'`](/[^"'`\s?#]*)["'`]''')
 href_tpl_pattern = re.compile(r'''href=\{?\s*[`"](/[^`"\}]*\{[^}]*\}[^`"\}]*)[`"]''')
 
-links = defaultdict(list)  ***REMOVED*** link -> [files]
+links = defaultdict(list)  # link -> [files]
 for dirpath, dirnames, filenames in os.walk(SRC):
     for fn in filenames:
         if not fn.endswith((".tsx", ".ts")):
             continue
-        ***REMOVED*** Skip node_modules, api internals
+        # Skip node_modules, api internals
         path = os.path.join(dirpath, fn)
         try:
             with open(path, encoding="utf-8", errors="ignore") as f:
@@ -73,15 +73,15 @@ for dirpath, dirnames, filenames in os.walk(SRC):
             continue
         for m in href_pattern.finditer(content):
             link = m.group(1)
-            ***REMOVED*** Skip non-page links
+            # Skip non-page links
             if link.startswith(("/api/", "/_next/", "/og-", "/clicktake-logo")):
                 continue
-            ***REMOVED*** Skip static assets with extensions
+            # Skip static assets with extensions
             if re.search(r"\.(png|jpg|jpeg|svg|webp|ico|xml|txt|css|js|json|mp4|webm|pdf)$", link):
                 continue
             links[link].append(os.path.relpath(path, ROOT))
 
-***REMOVED*** 3. Check each link
+# 3. Check each link
 def normalize(r):
     return r.rstrip("/") or "/"
 
@@ -95,7 +95,7 @@ for r in build_routes:
 for p in dynamic_paths:
     known_routes.add(normalize(p))
 
-***REMOVED*** Known valid special routes
+# Known valid special routes
 special = {"/", "/sitemap.xml", "/robots.txt", "/rss.xml", "/llms.txt",
            "/openapi.json", "/auth.md", "/admin", "/admin/login",
            "/legal", "/legal/privacy", "/legal/terms", "/legal/cookies"}
@@ -107,15 +107,15 @@ for link, files in sorted(links.items()):
     if norm in checked:
         continue
     checked.add(norm)
-    ***REMOVED*** Dynamic template links like /blog/${slug} — skip (runtime-generated)
+    # Dynamic template links like /blog/${slug} — skip (runtime-generated)
     if "${" in link or "{" in link:
         continue
-    ***REMOVED*** Has query or hash — strip for check
-    base = link.split("?")[0].split("***REMOVED***")[0] or "/"
+    # Has query or hash — strip for check
+    base = link.split("?")[0].split("#")[0] or "/"
     nb = normalize(base)
     if nb in special or nb in known_routes:
         continue
-    ***REMOVED*** Check prefix match for catch-all routes
+    # Check prefix match for catch-all routes
     prefix_ok = False
     for kr in known_routes:
         if kr != "/" and (nb.startswith(kr + "/") or nb == kr):

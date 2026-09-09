@@ -12,8 +12,8 @@ const SETTING_GROUPS: { name: string; icon: string; settings: { key: string; lab
     settings: [
       { key: "brand.name", label: "Brand Name", type: "text", default: "ClickTake Technologies" },
       { key: "brand.tagline", label: "Tagline", type: "text", default: "Connecting in a better way" },
-      { key: "brand.primary_color", label: "Primary Color", type: "color", default: "***REMOVED***136DFF" },
-      { key: "brand.accent_color", label: "Accent Color", type: "color", default: "***REMOVED***FF53A9" },
+      { key: "brand.primary_color", label: "Primary Color", type: "color", default: "#136DFF" },
+      { key: "brand.accent_color", label: "Accent Color", type: "color", default: "#FF53A9" },
       { key: "brand.logo_url", label: "Logo URL", type: "text", default: "/clicktake-logo.png" },
     ],
   },

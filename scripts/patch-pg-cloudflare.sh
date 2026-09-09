@@ -1,20 +1,20 @@
-***REMOVED***!/bin/bash
-***REMOVED*** Postinstall patch for `pg` package — make pg-cloudflare optional at bundle time.
-***REMOVED***
-***REMOVED*** When bundling for Cloudflare Workers via OpenNext, esbuild doesn't apply
-***REMOVED*** the `workerd` condition, so `require('pg-cloudflare')` resolves to
-***REMOVED*** `dist/empty.js`. Without this patch, esbuild fails with
-***REMOVED*** "Could not resolve pg-cloudflare" because pg's stream.js does a static require.
-***REMOVED***
-***REMOVED*** This patch wraps the require in try/catch so esbuild treats it as optional.
-***REMOVED*** At runtime on Cloudflare Workers, the require succeeds (returning the empty
-***REMOVED*** stub). pg's stream factory then sees `CloudflareSocket` is undefined and
-***REMOVED*** throws — but that's OK because /api/* and /admin/* are proxied to the
-***REMOVED*** Render backend via next.config.ts rewrites, so the CF Worker never
-***REMOVED*** actually executes any DB code.
-***REMOVED***
-***REMOVED*** On Render (Node.js), pg-cloudflare isn't loaded at all — pg uses the
-***REMOVED*** standard net.Socket path.
+#!/bin/bash
+# Postinstall patch for `pg` package — make pg-cloudflare optional at bundle time.
+#
+# When bundling for Cloudflare Workers via OpenNext, esbuild doesn't apply
+# the `workerd` condition, so `require('pg-cloudflare')` resolves to
+# `dist/empty.js`. Without this patch, esbuild fails with
+# "Could not resolve pg-cloudflare" because pg's stream.js does a static require.
+#
+# This patch wraps the require in try/catch so esbuild treats it as optional.
+# At runtime on Cloudflare Workers, the require succeeds (returning the empty
+# stub). pg's stream factory then sees `CloudflareSocket` is undefined and
+# throws — but that's OK because /api/* and /admin/* are proxied to the
+# Render backend via next.config.ts rewrites, so the CF Worker never
+# actually executes any DB code.
+#
+# On Render (Node.js), pg-cloudflare isn't loaded at all — pg uses the
+# standard net.Socket path.
 
 set -e
 

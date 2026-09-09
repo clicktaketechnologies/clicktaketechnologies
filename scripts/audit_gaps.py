@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 ClickTake v4 — Comprehensive gap audit.
 Scans /home/z/my-project/download/clicktake-landing.html for:
@@ -24,9 +24,9 @@ print(f" CLICKTAKE v4 — GAP AUDIT")
 print(f" File: {HTML_FILE.name}  ({len(html.encode())/1024:.1f} KB, {html.count(chr(10))+1} lines)")
 print("=" * 78)
 
-***REMOVED*** ============================================================================
-***REMOVED*** 1. STRUCTURE — tag balance, empty anchors, missing alt, broken hashes
-***REMOVED*** ============================================================================
+# ============================================================================
+# 1. STRUCTURE — tag balance, empty anchors, missing alt, broken hashes
+# ============================================================================
 print("\n[1] STRUCTURE\n" + "-" * 78)
 
 class TagChecker(HTMLParser):
@@ -44,10 +44,10 @@ class TagChecker(HTMLParser):
         if not self.stack:
             self.issues.append(f"  Closing </{tag}> at {self.getpos()} but stack is empty")
             return
-        ***REMOVED*** find matching
+        # find matching
         for i in range(len(self.stack)-1, -1, -1):
             if self.stack[i][0] == tag:
-                ***REMOVED*** anything above is unclosed
+                # anything above is unclosed
                 for t, pos in self.stack[i+1:]:
                     self.issues.append(f"  Unclosed <{t}> opened at line {pos[0]}")
                 self.stack = self.stack[:i]
@@ -66,33 +66,33 @@ if p.issues:
 else:
     print("  Tag balance: OK (all tags properly closed)")
 
-***REMOVED*** Empty href="***REMOVED***"
-empty_hash = re.findall(r'<a[^>]*href="***REMOVED***"[^>]*>([^<]*)</a>', html)
-print(f"  Empty href='***REMOVED***' anchors: {len(empty_hash)}  (should be 0)")
+# Empty href="#"
+empty_hash = re.findall(r'<a[^>]*href="#"[^>]*>([^<]*)</a>', html)
+print(f"  Empty href='#' anchors: {len(empty_hash)}  (should be 0)")
 for a in empty_hash[:5]:
     print(f"    -> '{a.strip()[:60]}'")
 
-***REMOVED*** All hash anchors that have no matching target
-hash_targets = set(re.findall(r'href="***REMOVED***([^"]+)"', html))
+# All hash anchors that have no matching target
+hash_targets = set(re.findall(r'href="#([^"]+)"', html))
 ids_defined = set(re.findall(r'\sid="([^"]+)"', html))
 data_pages = set(re.findall(r'data-page="([^"]+)"', html))
 orphan_hashes = hash_targets - ids_defined - data_pages
 print(f"  Hash anchors without matching id/data-page target: {len(orphan_hashes)}")
 for h in sorted(orphan_hashes)[:10]:
-    print(f"    -> ***REMOVED***{h}")
+    print(f"    -> #{h}")
 
-***REMOVED*** Images without alt
+# Images without alt
 imgs_no_alt = re.findall(r'<img(?![^>]*\salt=)[^>]*>', html)
 print(f"  <img> tags missing alt: {len(imgs_no_alt)}")
 for i in imgs_no_alt[:5]:
     print(f"    -> {i[:80]}")
 
-***REMOVED*** ============================================================================
-***REMOVED*** 2. SEO PER PAGE — title/desc/keywords/canonical/OG/Twitter/JSON-LD
-***REMOVED*** ============================================================================
+# ============================================================================
+# 2. SEO PER PAGE — title/desc/keywords/canonical/OG/Twitter/JSON-LD
+# ============================================================================
 print("\n[2] SEO PER PAGE\n" + "-" * 78)
 
-***REMOVED*** Check SPA router config covers all 10 pages
+# Check SPA router config covers all 10 pages
 router_block = re.search(r'const PAGES\s*=\s*\{(.+?)\};\s*\n\s*(?:function|const|//)', html, re.DOTALL)
 if router_block:
     rb = router_block.group(1)
@@ -105,7 +105,7 @@ if router_block:
         status = "OK" if all([has, title_ok, desc_ok, kw_ok, url_ok]) else "GAP"
         print(f"  [{status}] {pg:12}  title={title_ok} desc={desc_ok} kw={kw_ok} url={url_ok}")
 
-***REMOVED*** Check each page section has an H1
+# Check each page section has an H1
 for pg in PAGES:
     pattern = rf'data-page="{pg}"[^>]*>(.*?)(?=data-page="(?!{pg})"|$)'
     m = re.search(pattern, html, re.DOTALL)
@@ -118,17 +118,17 @@ for pg in PAGES:
     else:
         print(f"  [GAP] {pg:12}  PAGE SECTION NOT FOUND")
 
-***REMOVED*** JSON-LD count
+# JSON-LD count
 jsonld = re.findall(r'<script type="application/ld\+json">', html)
 print(f"  JSON-LD blocks: {len(jsonld)}")
 
-***REMOVED*** Sitemap link in footer?
+# Sitemap link in footer?
 print(f"  Sitemap.xml link present: {'sitemap' in html.lower()}")
 print(f"  robots.txt link present:  {'robots.txt' in html.lower()}")
 
-***REMOVED*** ============================================================================
-***REMOVED*** 3. ACCESSIBILITY — ARIA, landmarks, focus, contrast
-***REMOVED*** ============================================================================
+# ============================================================================
+# 3. ACCESSIBILITY — ARIA, landmarks, focus, contrast
+# ============================================================================
 print("\n[3] ACCESSIBILITY\n" + "-" * 78)
 
 landmarks = {
@@ -150,62 +150,62 @@ print(f"  aria-label count:   {aria_labels}")
 print(f"  aria-hidden count:  {aria_hidden}")
 print(f"  role attributes:    {role_attrs}")
 
-***REMOVED*** Skip link
-has_skip = bool(re.search(r'href="***REMOVED***main"[^>]*>(?:Skip|skip)', html)) or 'skip-link' in html
+# Skip link
+has_skip = bool(re.search(r'href="#main"[^>]*>(?:Skip|skip)', html)) or 'skip-link' in html
 print(f"  Skip-to-main link:  {has_skip}")
 
-***REMOVED*** Focus styles in CSS
+# Focus styles in CSS
 focus_rules = re.findall(r':focus[^{]*\{[^}]+\}', html)
 print(f"  :focus CSS rules:   {len(focus_rules)}")
 print(f"  outline:none count: {html.count('outline:none')}  (should not be 0 globally without replacement)")
 
-***REMOVED*** Form labels
+# Form labels
 inputs = re.findall(r'<input\b[^>]*>', html)
 inputs_with_label = 0
 for inp in inputs:
-    ***REMOVED*** check if there is a <label> with matching for= nearby OR wrapped
-    pass  ***REMOVED*** rough check below
+    # check if there is a <label> with matching for= nearby OR wrapped
+    pass  # rough check below
 labels = re.findall(r'<label\b', html)
 print(f"  <input> count: {len(inputs)}  <label> count: {len(labels)}")
 
-***REMOVED*** Lang attribute
+# Lang attribute
 print(f"  <html lang='en'>: {'lang=\"en\"' in html}")
 
-***REMOVED*** ============================================================================
-***REMOVED*** 4. FUNCTIONAL GAPS — form submit, calendar, routing edge cases
-***REMOVED*** ============================================================================
+# ============================================================================
+# 4. FUNCTIONAL GAPS — form submit, calendar, routing edge cases
+# ============================================================================
 print("\n[4] FUNCTIONAL GAPS\n" + "-" * 78)
 
-***REMOVED*** Form submit handler
+# Form submit handler
 print(f"  Form has submit handler:      {'onsubmit' in html or 'addEventListener' in html and 'submit' in html or 'form.submit' in html}")
 print(f"  Form action attribute:        {bool(re.search(r'<form[^>]*action=', html))}")
 print(f"  Form method attribute:        {bool(re.search(r'<form[^>]*method=', html))}")
 
-***REMOVED*** Calendar logic
+# Calendar logic
 print(f"  Calendar render function:     {'renderCalendar' in html or 'cal-grid' in html}")
 print(f"  Calendar month navigation:    {'cal-prev' in html and 'cal-next' in html}")
 
-***REMOVED*** Routing edge cases
+# Routing edge cases
 print(f"  navigateTo function defined:  {'function navigateTo' in html or 'navigateTo =' in html or 'const navigateTo' in html}")
 print(f"  hashchange listener:          {'hashchange' in html}")
 print(f"  popstate listener:            {'popstate' in html}")
 print(f"  404 fallback page:            {'notFound' in html or 'page-not-found' in html or '404' in html}")
 
-***REMOVED*** Mobile menu
+# Mobile menu
 print(f"  Mobile toggle button:         {'mobile-toggle' in html}")
 print(f"  Mobile close button:          {'mobile-close' in html}")
 print(f"  Mobile menu drawer:           {'mobile-menu' in html}")
 
-***REMOVED*** Service worker / PWA
+# Service worker / PWA
 print(f"  PWA manifest link:            {'manifest' in html.lower()}")
 print(f"  Service worker registration:  {'serviceWorker' in html}")
 
-***REMOVED*** Analytics
+# Analytics
 print(f"  Analytics (gtag/GA4):         {'gtag' in html or 'google-analytics' in html or 'G-' in html}")
 
-***REMOVED*** ============================================================================
-***REMOVED*** 5. CONTENT DEPTH per page
-***REMOVED*** ============================================================================
+# ============================================================================
+# 5. CONTENT DEPTH per page
+# ============================================================================
 print("\n[5] CONTENT DEPTH (word count per page section)\n" + "-" * 78)
 
 for pg in PAGES:
@@ -213,16 +213,16 @@ for pg in PAGES:
     m = re.search(pattern, html, re.DOTALL)
     if m:
         block = m.group(1)
-        ***REMOVED*** strip tags
+        # strip tags
         text = re.sub(r'<[^>]+>', ' ', block)
         text = re.sub(r'\s+', ' ', text).strip()
         words = len(text.split())
         status = "OK" if words >= 200 else "THIN"
         print(f"  [{status}] {pg:12}  {words:5d} words")
 
-***REMOVED*** ============================================================================
-***REMOVED*** 6. CONSISTENCY — shared components across all 10 pages
-***REMOVED*** ============================================================================
+# ============================================================================
+# 6. CONSISTENCY — shared components across all 10 pages
+# ============================================================================
 print("\n[6] CONSISTENCY (header/footer on every page = once globally)\n" + "-" * 78)
 
 print(f"  Single <header id='site-header'>:  {html.count('id=\"site-header\"')}")
@@ -233,53 +233,53 @@ print(f"  Single particle canvas:            {html.count('id=\"particle-canvas\"
 print(f"  Brand logo image count:            {html.count('class=\"brand-logo')}")
 print(f"  Breadcrumb nav count:              {html.count('class=\"crumb\"')}")
 
-***REMOVED*** Nav consistency
+# Nav consistency
 nav_links_in_header = len(re.findall(r'<a[^>]*data-nav="[^"]+"[^>]*>(?:Home|Services|Solutions|Case Studies|About|Blog|Careers|Contact)</a>', html))
 print(f"  Header nav links:                  {nav_links_in_header}  (expected 8)")
 
-***REMOVED*** ============================================================================
-***REMOVED*** 7. KNOWN ISSUES — common pitfalls
-***REMOVED*** ============================================================================
+# ============================================================================
+# 7. KNOWN ISSUES — common pitfalls
+# ============================================================================
 print("\n[7] KNOWN ISSUE PATTERNS\n" + "-" * 78)
 
-***REMOVED*** console.log left in
+# console.log left in
 console_logs = len(re.findall(r'console\.log\(', html))
 print(f"  console.log() calls:        {console_logs}")
 
-***REMOVED*** TODO/FIXME comments
+# TODO/FIXME comments
 todos = len(re.findall(r'(?:TODO|FIXME|XXX|HACK):', html))
 print(f"  TODO/FIXME comments:        {todos}")
 
-***REMOVED*** External HTTP (insecure) URLs
+# External HTTP (insecure) URLs
 http_urls = set(re.findall(r'src="http://[^"]+"', html)) | set(re.findall(r'href="http://[^"]+"', html))
 print(f"  Insecure http:// URLs:      {len(http_urls)}")
 for u in list(http_urls)[:5]:
     print(f"    -> {u}")
 
-***REMOVED*** Inline onclick handlers (anti-pattern)
+# Inline onclick handlers (anti-pattern)
 onclicks = len(re.findall(r'\bonclick="', html))
 print(f"  Inline onclick handlers:    {onclicks}")
 
-***REMOVED*** Empty sections
+# Empty sections
 empty_sections = re.findall(r'<section[^>]*>\s*</section>', html)
 print(f"  Empty <section> blocks:     {len(empty_sections)}")
 
-***REMOVED*** Duplicate IDs
+# Duplicate IDs
 all_ids = re.findall(r'\sid="([^"]+)"', html)
 dup_ids = [i for i in set(all_ids) if all_ids.count(i) > 1]
 print(f"  Duplicate IDs:              {len(dup_ids)}")
 for d in dup_ids[:10]:
     print(f"    -> id=\"{d}\" appears {all_ids.count(d)}x")
 
-***REMOVED*** Buttons without type
+# Buttons without type
 btns_no_type = re.findall(r'<button(?![^>]*\btype=)[^>]*>', html)
 print(f"  <button> without type:      {len(btns_no_type)}  (defaults to 'submit' inside forms)")
 
-***REMOVED*** Placeholder images
+# Placeholder images
 placeholder_imgs = re.findall(r'src="(?:placeholder|TODO|PLACEHOLDER)[^"]*"', html, re.I)
 print(f"  Placeholder images:         {len(placeholder_imgs)}")
 
-***REMOVED*** Lorem ipsum
+# Lorem ipsum
 lorem = len(re.findall(r'lorem\s+ipsum', html, re.I))
 print(f"  Lorem ipsum occurrences:    {lorem}")
 

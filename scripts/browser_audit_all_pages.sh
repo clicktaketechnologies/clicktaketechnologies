@@ -1,5 +1,5 @@
-***REMOVED***!/usr/bin/env bash
-***REMOVED*** Browser-verify each of the 10 pages
+#!/usr/bin/env bash
+# Browser-verify each of the 10 pages
 set -e
 PAGES=("home" "services" "solutions" "cases" "contact" "about" "blog" "careers" "privacy" "terms")
 OUT_DIR="/home/z/my-project/download/qa-pages"
@@ -11,7 +11,7 @@ agent-browser wait 1500 2>&1 | tail -1
 
 for page in "${PAGES[@]}"; do
   echo "=== $page ==="
-  agent-browser eval "window.location.hash = '***REMOVED***$page';" 2>&1 | tail -1
+  agent-browser eval "window.location.hash = '#$page';" 2>&1 | tail -1
   agent-browser wait 3500 2>&1 | tail -1
   TITLE=$(agent-browser get title 2>&1 | tail -1)
   echo "Title: $TITLE"

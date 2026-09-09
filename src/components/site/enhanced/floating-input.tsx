@@ -131,11 +131,11 @@ export const FloatingInput = forwardRef<
     "focus:outline-none focus:ring-2 focus:ring-offset-0",
     "dark:bg-white/5 dark:text-white",
     status === "invalid"
-      ? "border-[***REMOVED***FF5252] focus:ring-[***REMOVED***FF5252]/30"
+      ? "border-[#FF5252] focus:ring-[#FF5252]/30"
       : status === "valid"
-      ? "border-[***REMOVED***00E676] focus:ring-[***REMOVED***00E676]/30"
+      ? "border-[#00E676] focus:ring-[#00E676]/30"
       : focused
-      ? "border-[***REMOVED***FF53A9] focus:ring-[***REMOVED***FF53A9]/30"
+      ? "border-[#FF53A9] focus:ring-[#FF53A9]/30"
       : "border-border hover:border-primary/40 dark:border-white/15 dark:hover:border-white/30",
     loading && "opacity-60 pointer-events-none",
     className
@@ -147,11 +147,11 @@ export const FloatingInput = forwardRef<
       ? "top-2 text-[10px] font-bold uppercase tracking-widest"
       : "top-4 text-sm font-medium",
     status === "invalid"
-      ? "text-[***REMOVED***FF8A8A]"
+      ? "text-[#FF8A8A]"
       : status === "valid"
-      ? "text-[***REMOVED***00E676]"
+      ? "text-[#00E676]"
       : focused
-      ? "text-[***REMOVED***FF8AC4]"
+      ? "text-[#FF8AC4]"
       : "text-muted-foreground dark:text-white/50"
   );
 
@@ -176,7 +176,7 @@ export const FloatingInput = forwardRef<
       {/* Label */}
       <label htmlFor={id} className={labelClass}>
         {label}
-        {required && <span className="ml-0.5 text-[***REMOVED***FF53A9]">*</span>}
+        {required && <span className="ml-0.5 text-[#FF53A9]">*</span>}
       </label>
 
       {/* Input / Textarea */}
@@ -205,11 +205,11 @@ export const FloatingInput = forwardRef<
             animate={{ scale: 1, rotate: 0 }}
             transition={{ type: "spring", stiffness: 400, damping: 18 }}
           >
-            <Check className="h-4 w-4 text-[***REMOVED***00E676]" />
+            <Check className="h-4 w-4 text-[#00E676]" />
           </motion.span>
         )}
         {!loading && status === "invalid" && (
-          <AlertCircle className="h-4 w-4 text-[***REMOVED***FF5252]" />
+          <AlertCircle className="h-4 w-4 text-[#FF5252]" />
         )}
         {/* Char counter */}
         {maxLength && (
@@ -217,7 +217,7 @@ export const FloatingInput = forwardRef<
             className={cn(
               "text-[10px] font-mono",
               (value?.length ?? 0) > maxLength * 0.9
-                ? "text-[***REMOVED***FFB347]"
+                ? "text-[#FFB347]"
                 : "text-muted-foreground/60 dark:text-white/30"
             )}
           >
@@ -235,7 +235,7 @@ export const FloatingInput = forwardRef<
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.15 }}
-            className="mt-1.5 flex items-center gap-1 text-xs text-[***REMOVED***FF8A8A]"
+            className="mt-1.5 flex items-center gap-1 text-xs text-[#FF8A8A]"
           >
             <motion.span
               animate={{ x: [0, -3, 3, -2, 2, 0] }}

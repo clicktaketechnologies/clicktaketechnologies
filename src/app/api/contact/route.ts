@@ -10,7 +10,7 @@ import { recordConversion, VISITOR_COOKIE_NAME } from "@/lib/ab-testing";
 // Saves lead to DB + sends emails via multi-provider chain (Phase 2).
 
 /**
- * Phase 3 ***REMOVED***3 — fire A/B test conversion events.
+ * Phase 3 #3 — fire A/B test conversion events.
  *
  * Reads the ct_visitor cookie from the request and credits ALL active
  * experiments the visitor was exposed to. Fire-and-forget — we do NOT
@@ -124,7 +124,7 @@ export async function POST(req: NextRequest) {
       console.error("[contact/inquiry] internal notify failed:", e);
     }
 
-    // Phase 3 ***REMOVED***3 — credit this conversion to all A/B experiments the
+    // Phase 3 #3 — credit this conversion to all A/B experiments the
     // visitor was exposed to. Fire-and-forget; failure is non-fatal.
     fireAbConversion(req, "lead_submit");
 
@@ -193,7 +193,7 @@ export async function POST(req: NextRequest) {
       console.error("[contact/booking] internal notify failed:", e);
     }
 
-    // Phase 3 ***REMOVED***3 — credit booking conversion to active A/B experiments.
+    // Phase 3 #3 — credit booking conversion to active A/B experiments.
     fireAbConversion(req, "consultation_booked");
 
     return NextResponse.json({ success: true });
@@ -253,7 +253,7 @@ export async function POST(req: NextRequest) {
         <h3>Why ClickTake?</h3>
         <p>${(data.why || "").replace(/\n/g, "<br>")}</p>
         <hr>
-        <p style="color:***REMOVED***888;font-size:12px;">Source: /careers form</p>
+        <p style="color:#888;font-size:12px;">Source: /careers form</p>
       `;
       await sendMail({
         to: process.env.CAREERS_EMAIL || "careers@clicktaketech.com",
@@ -266,7 +266,7 @@ export async function POST(req: NextRequest) {
       console.error("[contact/career] internal notify failed:", e);
     }
 
-    // Phase 3 ***REMOVED***3 — credit career-application conversion to active A/B
+    // Phase 3 #3 — credit career-application conversion to active A/B
     // experiments. Career applications count as 'lead_submit' since they
     // share the same Lead CRM pipeline.
     fireAbConversion(req, "lead_submit");

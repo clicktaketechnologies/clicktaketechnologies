@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Deep per-page audit for ClickTake site.
 For each of 10 pages, extracts the page section from the source HTML
@@ -13,20 +13,20 @@ SRC = HTML_PATH.read_text(encoding="utf-8")
 
 PAGES = ["home", "services", "solutions", "cases", "contact", "about", "blog", "careers", "privacy", "terms"]
 
-***REMOVED*** Brand design tokens that should appear consistently
+# Brand design tokens that should appear consistently
 DESIGN_TOKENS = {
-    "glass": "glass",                  ***REMOVED*** Primary Glassmorphism 2.0 card class
-    "glass_soft": "glass-soft",        ***REMOVED*** Softer Glassmorphism variant
-    "glass_input": "glass-input",      ***REMOVED*** Glass form input
-    "glow_btn": "glow-btn",            ***REMOVED*** Radial glow button
-    "tilt_card": "tilt-card",          ***REMOVED*** 3D tilt card
-    "tilt_layer": "tilt-layer",        ***REMOVED*** Tilt card inner layer
-    "reveal": "reveal",                ***REMOVED*** Scroll-reveal animation
-    "gradient_text": "gradient-text",  ***REMOVED*** Gradient text style
-    "perspective_grid": "perspective-grid",  ***REMOVED*** Hero perspective floor
+    "glass": "glass",                  # Primary Glassmorphism 2.0 card class
+    "glass_soft": "glass-soft",        # Softer Glassmorphism variant
+    "glass_input": "glass-input",      # Glass form input
+    "glow_btn": "glow-btn",            # Radial glow button
+    "tilt_card": "tilt-card",          # 3D tilt card
+    "tilt_layer": "tilt-layer",        # Tilt card inner layer
+    "reveal": "reveal",                # Scroll-reveal animation
+    "gradient_text": "gradient-text",  # Gradient text style
+    "perspective_grid": "perspective-grid",  # Hero perspective floor
 }
 
-***REMOVED*** Required global elements on every page (checked against full SRC since they live outside header/footer)
+# Required global elements on every page (checked against full SRC since they live outside header/footer)
 GLOBAL_ELEMENTS = {
     "header_brand": r'<img[^>]*class="[^"]*brand-logo[^"]*"',
     "nav_links": r'data-nav="',
@@ -38,17 +38,17 @@ GLOBAL_ELEMENTS = {
     "main_landmark": r'<main[^>]*id="main-content"',
 }
 
-***REMOVED*** Split source into per-page sections
+# Split source into per-page sections
 def get_page_section(page_id):
     """Extract the <section data-page="X">...</section> for a given page."""
-    ***REMOVED*** Find the section start
+    # Find the section start
     pat = re.compile(rf'<section[^>]*data-page="{page_id}"[^>]*>', re.I)
     m = pat.search(SRC)
     if not m:
         return None
     start = m.start()
-    ***REMOVED*** Find matching </section> — sections are not nested here, just find next </section>
-    ***REMOVED*** But sections may contain nested sections... use depth counting
+    # Find matching </section> — sections are not nested here, just find next </section>
+    # But sections may contain nested sections... use depth counting
     depth = 0
     i = start
     end = None
@@ -70,7 +70,7 @@ def get_page_section(page_id):
         end = len(SRC)
     return SRC[start:end]
 
-***REMOVED*** Find the global header + footer (shared)
+# Find the global header + footer (shared)
 def get_global_header():
     m = re.search(r'<header[^>]*>.*?</header>', SRC, re.S | re.I)
     return m.group(0) if m else ""
@@ -82,7 +82,7 @@ def get_global_footer():
 HEADER = get_global_header()
 FOOTER = get_global_footer()
 
-***REMOVED*** Per-page audit
+# Per-page audit
 results = {}
 for page in PAGES:
     sec = get_page_section(page)
@@ -90,36 +90,36 @@ for page in PAGES:
         results[page] = {"error": "section not found"}
         continue
 
-    ***REMOVED*** Combine page + header + footer for global-element checks (since header/footer are shared)
+    # Combine page + header + footer for global-element checks (since header/footer are shared)
     full = HEADER + sec + FOOTER
 
     page_checks = {}
 
-    ***REMOVED*** 1. Design tokens used on this page
+    # 1. Design tokens used on this page
     page_checks["design_tokens"] = {}
     for name, token in DESIGN_TOKENS.items():
         cnt = sec.count(token)
         page_checks["design_tokens"][name] = cnt
 
-    ***REMOVED*** 2. Global elements visible — check against full SRC since they live outside the per-page section
+    # 2. Global elements visible — check against full SRC since they live outside the per-page section
     page_checks["global_elements"] = {}
     for name, pat in GLOBAL_ELEMENTS.items():
         found = bool(re.search(pat, SRC, re.I))
         page_checks["global_elements"][name] = found
 
-    ***REMOVED*** 3. Heading hierarchy in this page section
+    # 3. Heading hierarchy in this page section
     h1 = len(re.findall(r'<h1\b', sec, re.I))
     h2 = len(re.findall(r'<h2\b', sec, re.I))
     h3 = len(re.findall(r'<h3\b', sec, re.I))
     h4 = len(re.findall(r'<h4\b', sec, re.I))
     page_checks["headings"] = {"h1": h1, "h2": h2, "h3": h3, "h4": h4}
 
-    ***REMOVED*** 4. Images with alt
+    # 4. Images with alt
     imgs = re.findall(r'<img\s+[^>]*?>', sec, re.I)
     imgs_with_alt = [t for t in imgs if re.search(r'\salt=["\']', t, re.I)]
     page_checks["images"] = {"total": len(imgs), "with_alt": len(imgs_with_alt)}
 
-    ***REMOVED*** 5. CTAs and links
+    # 5. CTAs and links
     page_checks["links"] = {
         "internal_nav": len(re.findall(r'data-nav="', sec)),
         "external_https": len(re.findall(r'href="https://', sec)),
@@ -128,18 +128,18 @@ for page in PAGES:
         "whatsapp": len(re.findall(r'wa\.link/iqz8eg', sec)),
     }
 
-    ***REMOVED*** 6. Page-specific SEO meta (in PAGES map)
+    # 6. Page-specific SEO meta (in PAGES map)
     seo_match = re.search(rf'{page}\s*:\s*\{{(.*?)\}}', SRC[4000:6000] + SRC[4150:4250], re.S)
     page_checks["seo_meta_present"] = bool(seo_match)
 
-    ***REMOVED*** 7. Color usage (count brand color references in style attributes / classes)
+    # 7. Color usage (count brand color references in style attributes / classes)
     page_checks["brand_colors"] = {
         "ckblue": sec.count("ckblue") + sec.count("136DFF") + sec.count("136dff"),
         "ckpink": sec.count("ckpink") + sec.count("FF53A9") + sec.count("ff53a9"),
         "ckpurple": sec.count("ckpurple") + sec.count("7B2FBE") + sec.count("7b2fbe"),
     }
 
-    ***REMOVED*** 8. Animations / interactions
+    # 8. Animations / interactions
     page_checks["interactions"] = {
         "tilt_cards": sec.count("tilt-card"),
         "reveal_elements": sec.count("reveal"),
@@ -147,7 +147,7 @@ for page in PAGES:
         "mascots_refs": sec.lower().count("mascot"),
     }
 
-    ***REMOVED*** 9. Lucide icons used
+    # 9. Lucide icons used
     lucide_icons = re.findall(r'data-lucide="([^"]+)"', sec)
     page_checks["lucide_icons"] = {
         "total": len(lucide_icons),
@@ -155,7 +155,7 @@ for page in PAGES:
         "deprecated_brand": [i for i in lucide_icons if i in ("linkedin", "twitter", "github", "slack")],
     }
 
-    ***REMOVED*** 10. Section length (rough content richness indicator)
+    # 10. Section length (rough content richness indicator)
     page_checks["content_size"] = {
         "chars": len(sec),
         "words_visible": len(re.sub(r'<[^>]+>', ' ', sec).split()),
@@ -163,7 +163,7 @@ for page in PAGES:
 
     results[page] = page_checks
 
-***REMOVED*** Print report
+# Print report
 print("=" * 90)
 print("CLICKTAKE — DEEP PER-PAGE AUDIT")
 print("=" * 90)
@@ -225,7 +225,7 @@ for page in PAGES:
     t = r["design_tokens"]
     print(f"{page:<10} {t['glass']:>6} {t['glass_soft']:>6} {t['glass_input']:>7} {t['glow_btn']:>5} {t['tilt_card']:>5} {t['tilt_layer']:>7} {t['reveal']:>4} {t['perspective_grid']:>6}")
 
-***REMOVED*** Save full JSON
+# Save full JSON
 out_path = Path("/home/z/my-project/download/qa-per-page-audit.json")
 out_path.write_text(json.dumps(results, indent=2), encoding="utf-8")
 print(f"\nFull JSON saved to: {out_path}")

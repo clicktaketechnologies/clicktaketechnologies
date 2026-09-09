@@ -858,7 +858,7 @@ function TimeSeriesChart({
     conversions: s.conversions.slice(-30),
   }));
   const maxVal = Math.max(1, ...slicedSeries.flatMap((s) => s.exposures));
-  const colors = ["***REMOVED***FF53A9", "***REMOVED***136DFF", "***REMOVED***9B3DFF", "***REMOVED***22c55e", "***REMOVED***f59e0b"];
+  const colors = ["#FF53A9", "#136DFF", "#9B3DFF", "#22c55e", "#f59e0b"];
   return (
     <div className="space-y-3">
       {/* Legend */}

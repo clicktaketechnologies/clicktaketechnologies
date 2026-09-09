@@ -15,14 +15,14 @@ import glob
 import html
 from datetime import datetime, timedelta
 
-***REMOVED*** Use the markdown library for the heavy lifting (tables, fenced code, etc.)
+# Use the markdown library for the heavy lifting (tables, fenced code, etc.)
 import markdown as md_lib
 
 BLOG_SRC_DIR = "/home/z/my-project/blog_src"
 OUTPUT_FILE = "/home/z/my-project/scripts/blog_articles_data.py"
 
 
-***REMOVED*** ---- Category heuristics ---------------------------------------------------
+# ---- Category heuristics ---------------------------------------------------
 def derive_category(title: str) -> str:
     t = title.lower()
     if "chatbot" in t or "ai chatbot" in t:
@@ -42,17 +42,17 @@ def derive_category(title: str) -> str:
     return "Insights"
 
 
-***REMOVED*** ---- Read-time estimate ----------------------------------------------------
+# ---- Read-time estimate ----------------------------------------------------
 def estimate_read_time(text: str) -> str:
     words = len(re.findall(r"\w+", text))
-    ***REMOVED*** 220 wpm is a sensible reading speed for technical/marketing content.
+    # 220 wpm is a sensible reading speed for technical/marketing content.
     minutes = max(4, round(words / 220))
     return f"{minutes} min read"
 
 
-***REMOVED*** ---- Date assignment -------------------------------------------------------
-***REMOVED*** Distribute the 9 articles across Feb–Aug 2026 (most recent first by file mtime
-***REMOVED*** reversed, so newest content surfaces at the top of the listing).
+# ---- Date assignment -------------------------------------------------------
+# Distribute the 9 articles across Feb–Aug 2026 (most recent first by file mtime
+# reversed, so newest content surfaces at the top of the listing).
 BASE_DATE = datetime(2026, 8, 5)
 DATE_STEP = timedelta(days=9)
 
@@ -61,22 +61,22 @@ def assign_dates(n: int):
     return [(BASE_DATE - DATE_STEP * i).strftime("%b %-d, %Y") for i in range(n)]
 
 
-***REMOVED*** ---- Markdown → HTML conversion -------------------------------------------
+# ---- Markdown → HTML conversion -------------------------------------------
 def md_to_body_html(md_text: str) -> str:
     """Convert markdown body (after stripping H1/hero/meta line) to styled HTML."""
-    ***REMOVED*** Strip the leading H1 (handled separately as title)
+    # Strip the leading H1 (handled separately as title)
     lines = md_text.split("\n")
     out_lines = []
     seen_nonblank = False
     for ln in lines:
         s = ln.strip()
-        ***REMOVED*** Skip H1 (already captured as title)
-        if s.startswith("***REMOVED*** ") and not s.startswith("***REMOVED******REMOVED*** "):
+        # Skip H1 (already captured as title)
+        if s.startswith("# ") and not s.startswith("## "):
             continue
-        ***REMOVED*** Skip standalone image line at top (hero — handled separately)
+        # Skip standalone image line at top (hero — handled separately)
         if not seen_nonblank and s.startswith("![") and s.endswith(")"):
             continue
-        ***REMOVED*** Skip "Meta description:" bold line
+        # Skip "Meta description:" bold line
         if re.match(r"^\*\*Meta description:\*\*", s, re.IGNORECASE):
             continue
         if s:
@@ -85,10 +85,10 @@ def md_to_body_html(md_text: str) -> str:
 
     body_md = "\n".join(out_lines).strip()
 
-    ***REMOVED*** Convert via markdown library with sensible extensions.
-    ***REMOVED*** NOTE: do NOT use codehilite — it pulls in Pygments inline styles that clash
-    ***REMOVED*** with the ClickTake design system. The `extra` extension already includes
-    ***REMOVED*** fenced_code blocks, tables, attr_list, def_list, footnotes, and abbr.
+    # Convert via markdown library with sensible extensions.
+    # NOTE: do NOT use codehilite — it pulls in Pygments inline styles that clash
+    # with the ClickTake design system. The `extra` extension already includes
+    # fenced_code blocks, tables, attr_list, def_list, footnotes, and abbr.
     body_html = md_lib.markdown(
         body_md,
         extensions=[
@@ -105,52 +105,52 @@ def md_to_body_html(md_text: str) -> str:
         },
     )
 
-    ***REMOVED*** Post-process: apply ClickTake styling classes to elements.
-    ***REMOVED*** H2 → big section heading with gradient underline
+    # Post-process: apply ClickTake styling classes to elements.
+    # H2 → big section heading with gradient underline
     body_html = re.sub(
         r"<h2([^>]*)>(.*?)</h2>",
         r'<h2 class="ck-h2"\1>\2</h2>',
         body_html,
         flags=re.DOTALL,
     )
-    ***REMOVED*** H3 → subsection heading
+    # H3 → subsection heading
     body_html = re.sub(
         r"<h3([^>]*)>(.*?)</h3>",
         r'<h3 class="ck-h3"\1>\2</h3>',
         body_html,
         flags=re.DOTALL,
     )
-    ***REMOVED*** H4 → minor heading
+    # H4 → minor heading
     body_html = re.sub(
         r"<h4([^>]*)>(.*?)</h4>",
         r'<h4 class="ck-h4"\1>\2</h4>',
         body_html,
         flags=re.DOTALL,
     )
-    ***REMOVED*** Paragraphs → prose style
+    # Paragraphs → prose style
     body_html = body_html.replace("<p>", '<p class="ck-prose-p">')
-    ***REMOVED*** Lists
+    # Lists
     body_html = body_html.replace("<ul>", '<ul class="ck-prose-ul">')
     body_html = body_html.replace("<ol>", '<ol class="ck-prose-ol">')
     body_html = body_html.replace("<li>", '<li class="ck-prose-li">')
-    ***REMOVED*** Code blocks — handle <pre><code>...</code></pre> pattern from fenced_code
+    # Code blocks — handle <pre><code>...</code></pre> pattern from fenced_code
     body_html = re.sub(
         r'<pre(?![^>]*class=)([^>]*)>',
         r'<pre class="ck-prose-pre"\1>',
         body_html,
     )
-    ***REMOVED*** Inline code (not inside pre)
+    # Inline code (not inside pre)
     body_html = re.sub(
         r'<code(?![^>]*class)([^>]*)>',
         r'<code class="ck-prose-code"\1>',
         body_html,
     )
-    ***REMOVED*** Blockquotes
+    # Blockquotes
     body_html = body_html.replace("<blockquote>", '<blockquote class="ck-prose-quote">')
-    ***REMOVED*** Tables
+    # Tables
     body_html = body_html.replace("<table>", '<div class="ck-prose-table-wrap"><table class="ck-prose-table">')
     body_html = body_html.replace("</table>", "</table></div>")
-    ***REMOVED*** Images
+    # Images
     body_html = re.sub(
         r'<img([^>]*)/>',
         r'<img\1 class="ck-prose-img" loading="lazy" />',
@@ -160,25 +160,25 @@ def md_to_body_html(md_text: str) -> str:
     return body_html
 
 
-***REMOVED*** ---- Per-file parsing ------------------------------------------------------
+# ---- Per-file parsing ------------------------------------------------------
 def parse_file(path: str) -> dict:
     with open(path, "r", encoding="utf-8") as f:
         raw = f.read()
 
-    ***REMOVED*** Title = first "***REMOVED*** " line
-    m = re.search(r"^***REMOVED***\s+(.+)$", raw, re.MULTILINE)
+    # Title = first "# " line
+    m = re.search(r"^#\s+(.+)$", raw, re.MULTILINE)
     title = m.group(1).strip() if m else os.path.splitext(os.path.basename(path))[0].replace("-", " ").title()
 
-    ***REMOVED*** Meta description (bold line) if present
+    # Meta description (bold line) if present
     md_match = re.search(r"\*\*Meta description:\*\*\s*(.+)", raw)
     meta_desc = md_match.group(1).strip() if md_match else ""
 
-    ***REMOVED*** Hero image = first ![alt](url) line
+    # Hero image = first ![alt](url) line
     img_match = re.search(r"!\[([^\]]*)\]\(([^)]+)\)", raw)
     hero_image = img_match.group(2) if img_match else ""
 
-    ***REMOVED*** Excerpt = first non-empty paragraph after H1 + image + optional meta line
-    ***REMOVED*** Skip the H1, image line, and bold meta line, then take the next paragraph.
+    # Excerpt = first non-empty paragraph after H1 + image + optional meta line
+    # Skip the H1, image line, and bold meta line, then take the next paragraph.
     lines = raw.split("\n")
     excerpt_lines = []
     skipping = True
@@ -189,7 +189,7 @@ def parse_file(path: str) -> dict:
                 break
             continue
         if skipping:
-            if s.startswith("***REMOVED*** ") and not s.startswith("***REMOVED******REMOVED*** "):
+            if s.startswith("# ") and not s.startswith("## "):
                 continue
             if s.startswith("!["):
                 continue
@@ -198,28 +198,28 @@ def parse_file(path: str) -> dict:
             skipping = False
         excerpt_lines.append(s)
     excerpt = " ".join(excerpt_lines).strip()
-    ***REMOVED*** Strip markdown bold/italic markers from excerpt for clean display
+    # Strip markdown bold/italic markers from excerpt for clean display
     excerpt = re.sub(r"\*\*([^*]+)\*\*", r"\1", excerpt)
     excerpt = re.sub(r"\*([^*]+)\*", r"\1", excerpt)
     excerpt = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", excerpt)
-    ***REMOVED*** Cap at ~280 chars at sentence boundary
+    # Cap at ~280 chars at sentence boundary
     if len(excerpt) > 280:
         cut = excerpt[:280].rsplit(" ", 1)[0]
-        ***REMOVED*** Try to end at sentence boundary
+        # Try to end at sentence boundary
         sentence_end = max(cut.rfind(". "), cut.rfind("? "), cut.rfind("! "))
         if sentence_end > 100:
             excerpt = cut[: sentence_end + 1]
         else:
             excerpt = cut + "…"
 
-    ***REMOVED*** Body HTML (everything after the front-matter)
+    # Body HTML (everything after the front-matter)
     body_html = md_to_body_html(raw)
 
-    ***REMOVED*** Slug from filename
+    # Slug from filename
     slug = "blog-" + os.path.splitext(os.path.basename(path))[0]
-    ***REMOVED*** Normalise: strip trailing dashes/duplicates
+    # Normalise: strip trailing dashes/duplicates
     slug = re.sub(r"-+", "-", slug).strip("-")
-    ***REMOVED*** Lowercase
+    # Lowercase
     slug = slug.lower()
 
     return {
@@ -233,17 +233,17 @@ def parse_file(path: str) -> dict:
     }
 
 
-***REMOVED*** ---- Emit Python module ----------------------------------------------------
+# ---- Emit Python module ----------------------------------------------------
 def emit_module(entries: list, dates: list):
     out = ['"""', "Auto-generated blog article data.", "Source: /home/z/my-project/blog_src/*.md", "Regenerate via: python3 scripts/parse_blog_markdown.py", '"""', ""]
     out.append("BLOG_ARTICLES = [")
     for i, e in enumerate(entries):
         category = derive_category(e["title"])
-        read_time = estimate_read_time(e["body_html"])  ***REMOVED*** body only, but fine
+        read_time = estimate_read_time(e["body_html"])  # body only, but fine
         date = dates[i]
         author = "ClickTake Technologies"
-        ***REMOVED*** Use Python triple-quoted strings for the long HTML to avoid quote-escaping headaches.
-        ***REMOVED*** Replace any triple-double-quotes in body to be safe.
+        # Use Python triple-quoted strings for the long HTML to avoid quote-escaping headaches.
+        # Replace any triple-double-quotes in body to be safe.
         body_safe = e["body_html"].replace('"""', '\\"\\"\\"')
         out.append("    (")
         out.append(f"        {e['slug']!r},")
@@ -269,11 +269,11 @@ def main():
     if not files:
         raise SystemExit(f"No markdown files found in {BLOG_SRC_DIR}")
     entries = [parse_file(p) for p in files]
-    ***REMOVED*** Sort by filename so dates are deterministic
+    # Sort by filename so dates are deterministic
     entries.sort(key=lambda e: e["slug"])
     dates = assign_dates(len(entries))
     emit_module(entries, dates)
-    ***REMOVED*** Quick stdout summary
+    # Quick stdout summary
     print("\nParsed articles:")
     for e in entries:
         print(f"  - {e['slug']}")

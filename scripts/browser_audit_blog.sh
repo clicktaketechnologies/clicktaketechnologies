@@ -1,5 +1,5 @@
-***REMOVED***!/usr/bin/env bash
-***REMOVED*** Smoke-test blog pages: blog listing + 3 real article pages
+#!/usr/bin/env bash
+# Smoke-test blog pages: blog listing + 3 real article pages
 set -e
 PAGES=("blog"
        "blog-7-best-ai-chatbots-for-capturing-website-leads-2026"
@@ -15,11 +15,11 @@ agent-browser wait 2500 2>&1 | tail -1
 
 for page in "${PAGES[@]}"; do
   echo "=== $page ==="
-  agent-browser eval "window.location.hash = '***REMOVED***$page';" 2>&1 | tail -1
+  agent-browser eval "window.location.hash = '#$page';" 2>&1 | tail -1
   agent-browser wait 4000 2>&1 | tail -1
   TITLE=$(agent-browser get title 2>&1 | tail -1)
   echo "  Title: $TITLE"
-  ***REMOVED*** Verify the page section actually exists and is visible
+  # Verify the page section actually exists and is visible
   VISIBLE=$(agent-browser eval "(() => { const s = document.querySelector('[data-page=\"$page\"]'); if (!s) return 'NOT_FOUND'; const r = s.getBoundingClientRect(); return 'visible:' + (r.width > 0 && r.height > 0); })()" 2>&1 | tail -1)
   echo "  Visible: $VISIBLE"
   agent-browser screenshot --full "$OUT_DIR/page-$page.png" 2>&1 | tail -1

@@ -1,4 +1,4 @@
-***REMOVED*** Operations Runbook — ClickTake Technologies
+# Operations Runbook — ClickTake Technologies
 
 **Version:** 3.0 (Phase 3)
 **Last updated:** 2026-07-20
@@ -8,7 +8,7 @@ This runbook covers everything an on-call engineer needs to deploy, operate, and
 
 ---
 
-***REMOVED******REMOVED*** 1. Architecture at a Glance
+## 1. Architecture at a Glance
 
 ```
                     ┌─────────────────────────────────────────────────────┐
@@ -40,58 +40,58 @@ This runbook covers everything an on-call engineer needs to deploy, operate, and
 
 ---
 
-***REMOVED******REMOVED*** 2. Daily Operations
+## 2. Daily Operations
 
-***REMOVED******REMOVED******REMOVED*** 2.1 Check system health (no login)
+### 2.1 Check system health (no login)
 
 ```bash
-***REMOVED*** 1. Worker liveness (returns 200 OK)
+# 1. Worker liveness (returns 200 OK)
 curl -sf https://clicktaketech.com/api/health || echo "❌ app down"
 
-***REMOVED*** 2. Media CDN liveness
+# 2. Media CDN liveness
 curl -sf https://media-failover.<your-sub>.workers.dev/__health | jq
 
-***REMOVED*** 3. Cron recent result (admin only)
+# 3. Cron recent result (admin only)
 curl -sf -H "Cookie: next-auth.session-token=..." \
   https://clicktaketech.com/api/admin/providers/health | jq '.summary'
 ```
 
-***REMOVED******REMOVED******REMOVED*** 2.2 Stream live logs
+### 2.2 Stream live logs
 
 ```bash
-***REMOVED*** App logs
-bun run tail                       ***REMOVED*** = wrangler tail clicktake-web
+# App logs
+bun run tail                       # = wrangler tail clicktake-web
 
-***REMOVED*** Media CDN logs
+# Media CDN logs
 cd workers/cloudflare && bunx wrangler tail
 ```
 
-***REMOVED******REMOVED******REMOVED*** 2.3 View email delivery log
+### 2.3 View email delivery log
 
 Open `/admin/email` in the admin panel. Every send (success + failure) is recorded in the `EmailLog` table with `providerId`, `messageId`, `errorMessage`, and timestamp.
 
 ---
 
-***REMOVED******REMOVED*** 3. Deployment
+## 3. Deployment
 
-***REMOVED******REMOVED******REMOVED*** 3.1 First-time setup (one-time)
+### 3.1 First-time setup (one-time)
 
 ```bash
-***REMOVED*** 1. Install deploy tooling
+# 1. Install deploy tooling
 bun add -D @opennextjs/cloudflare wrangler
 
-***REMOVED*** 2. Authenticate
+# 2. Authenticate
 bunx wrangler login
 
-***REMOVED*** 3. Create R2 buckets
+# 3. Create R2 buckets
 bunx wrangler r2 bucket create clicktake-media
 bunx wrangler r2 bucket create media-failover-fallback
 
-***REMOVED*** 4. Create KV namespace for hot-reloadable media CDN config
+# 4. Create KV namespace for hot-reloadable media CDN config
 bunx wrangler kv namespace create MEDIA_CONFIG_KV
-***REMOVED***   → Copy the `id` into workers/cloudflare/wrangler.toml
+#   → Copy the `id` into workers/cloudflare/wrangler.toml
 
-***REMOVED*** 5. Set production secrets (interactive — prompts for each value)
+# 5. Set production secrets (interactive — prompts for each value)
 bunx wrangler secret put DATABASE_URL
 bunx wrangler secret put NEXTAUTH_SECRET
 bunx wrangler secret put NEXTAUTH_URL
@@ -100,46 +100,46 @@ bunx wrangler secret put CRON_SECRET
 bunx wrangler secret put MAIL_FROM
 bunx wrangler secret put PROVIDER_ALERT_TO
 
-***REMOVED*** 6. Generate the encryption key (paste into the prompt above)
+# 6. Generate the encryption key (paste into the prompt above)
 openssl rand -hex 32
 
-***REMOVED*** 7. Generate the NEXTAUTH_SECRET
+# 7. Generate the NEXTAUTH_SECRET
 openssl rand -base64 32
 
-***REMOVED*** 8. Generate the CRON_SECRET (shared secret for the health-check cron)
+# 8. Generate the CRON_SECRET (shared secret for the health-check cron)
 openssl rand -hex 24
 
-***REMOVED*** 9. Push Prisma schema to Supabase Postgres
+# 9. Push Prisma schema to Supabase Postgres
 bun run db:push
 
-***REMOVED*** 10. Seed the initial super-admin
+# 10. Seed the initial super-admin
 bunx tsx scripts/seed-admin.ts
 ```
 
-***REMOVED******REMOVED******REMOVED*** 3.2 Routine deploy
+### 3.2 Routine deploy
 
 ```bash
-***REMOVED*** From the project root:
-bun run deploy:cloudflare         ***REMOVED*** builds + deploys to production
-bun run deploy:staging            ***REMOVED*** builds + deploys to staging env
-bun run deploy:worker             ***REMOVED*** deploys the media CDN failover Worker
+# From the project root:
+bun run deploy:cloudflare         # builds + deploys to production
+bun run deploy:staging            # builds + deploys to staging env
+bun run deploy:worker             # deploys the media CDN failover Worker
 
-***REMOVED*** Or via Cloudflare Pages CI (auto on push to main):
-***REMOVED***   1. Set CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID in GitHub Actions secrets
-***REMOVED***   2. Build command: bun install && bun run build:cloudflare
-***REMOVED***   3. Deploy command: bunx wrangler deploy
+# Or via Cloudflare Pages CI (auto on push to main):
+#   1. Set CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID in GitHub Actions secrets
+#   2. Build command: bun install && bun run build:cloudflare
+#   3. Deploy command: bunx wrangler deploy
 ```
 
-***REMOVED******REMOVED******REMOVED*** 3.3 Rollback
+### 3.3 Rollback
 
 Cloudflare Workers keep the last 10 deployments. Rollback via:
 
 ```bash
-***REMOVED*** List recent versions
+# List recent versions
 bunx wrangler deployments list
 
-***REMOVED*** Rollback to the previous version
-bunx wrangler rollback              ***REMOVED*** interactive picker
+# Rollback to the previous version
+bunx wrangler rollback              # interactive picker
 ```
 
 For the media Worker:
@@ -148,13 +148,13 @@ For the media Worker:
 cd workers/cloudflare && bunx wrangler rollback
 ```
 
-***REMOVED******REMOVED******REMOVED*** 3.4 Database migrations (Supabase Postgres)
+### 3.4 Database migrations (Supabase Postgres)
 
 ```bash
-***REMOVED*** Create a migration from schema changes
+# Create a migration from schema changes
 bun run db:migrate -- --name phase3_provider_tables
 
-***REMOVED*** Apply migrations to production
+# Apply migrations to production
 DATABASE_URL="<prod-connection-string>" bunx prisma migrate deploy
 ```
 
@@ -162,9 +162,9 @@ DATABASE_URL="<prod-connection-string>" bunx prisma migrate deploy
 
 ---
 
-***REMOVED******REMOVED*** 4. Provider Operations
+## 4. Provider Operations
 
-***REMOVED******REMOVED******REMOVED*** 4.1 Add a new email provider
+### 4.1 Add a new email provider
 
 1. Log in to `/admin/providers`.
 2. Click **Email** tab → **Add Provider**.
@@ -176,13 +176,13 @@ DATABASE_URL="<prod-connection-string>" bunx prisma migrate deploy
 
 The registry refreshes automatically on save — no deploy needed.
 
-***REMOVED******REMOVED******REMOVED*** 4.2 Emergency: disable a failing provider
+### 4.2 Emergency: disable a failing provider
 
 ```bash
-***REMOVED*** Option A — via admin UI (preferred)
-***REMOVED***   /admin/providers → click the toggle on the provider row
+# Option A — via admin UI (preferred)
+#   /admin/providers → click the toggle on the provider row
 
-***REMOVED*** Option B — via API (admin token required)
+# Option B — via API (admin token required)
 curl -X PATCH https://clicktaketech.com/api/admin/providers/<id> \
   -H "Content-Type: application/json" \
   -H "Cookie: next-auth.session-token=..." \
@@ -191,7 +191,7 @@ curl -X PATCH https://clicktaketech.com/api/admin/providers/<id> \
 
 The chain re-evaluates on the next request. The disabled provider is skipped; its cooldown timer is cleared.
 
-***REMOVED******REMOVED******REMOVED*** 4.3 Force-refresh the registry (after DB changes outside the UI)
+### 4.3 Force-refresh the registry (after DB changes outside the UI)
 
 ```bash
 curl -X POST https://clicktaketech.com/api/admin/providers/failover \
@@ -211,30 +211,30 @@ Returns the new snapshot:
 }
 ```
 
-***REMOVED******REMOVED******REMOVED*** 4.4 Migrate `/public/` assets to R2/Cloudinary
+### 4.4 Migrate `/public/` assets to R2/Cloudinary
 
 ```bash
-***REMOVED*** Dry-run first
+# Dry-run first
 bun run migrate:media
 
-***REMOVED*** If the output looks right, actually upload
+# If the output looks right, actually upload
 bun run migrate:media:commit
 
-***REMOVED*** To namespace keys under "legacy/" (recommended for first migration)
+# To namespace keys under "legacy/" (recommended for first migration)
 bunx tsx scripts/migrate-public-to-storage.ts --commit --prefix "legacy/"
 
-***REMOVED*** To also delete the local files after successful upload
+# To also delete the local files after successful upload
 bunx tsx scripts/migrate-public-to-storage.ts --commit --delete
 ```
 
 After migration, replace any `<img src="/foo.png">` references in code with the returned CDN URL — or better, use the `getMediaUrl(key)` helper from `@/lib/providers` so the runtime chain handles failover.
 
-***REMOVED******REMOVED******REMOVED*** 4.5 Update the media CDN Worker chain (without redeploying)
+### 4.5 Update the media CDN Worker chain (without redeploying)
 
 ```bash
 cd workers/cloudflare
 
-***REMOVED*** Update the KV key — takes effect on the next request
+# Update the KV key — takes effect on the next request
 bunx wrangler kv key put --binding=MEDIA_CONFIG_KV "providerChain" '{
   "providers": [
     { "id": "cloudinary", "priority": 1, "baseUrl": "https://res.cloudinary.com/<cloud>/image/fetch" },
@@ -247,9 +247,9 @@ The Worker checks KV first; absent that, falls back to the `MEDIA_CONFIG` env va
 
 ---
 
-***REMOVED******REMOVED*** 5. Incident Response
+## 5. Incident Response
 
-***REMOVED******REMOVED******REMOVED*** 5.1 "No emails are going out"
+### 5.1 "No emails are going out"
 
 ```
 1. Check /admin/providers → Email tab
@@ -274,7 +274,7 @@ The Worker checks KV first; absent that, falls back to the `MEDIA_CONFIG` env va
    - Mark the provider as inactive in the UI to skip its cooldown retries.
 ```
 
-***REMOVED******REMOVED******REMOVED*** 5.2 "Images are broken"
+### 5.2 "Images are broken"
 
 ```
 1. Check the media CDN Worker:
@@ -300,7 +300,7 @@ The Worker checks KV first; absent that, falls back to the `MEDIA_CONFIG` env va
    - Or set its priority to 99 via /admin/providers
 ```
 
-***REMOVED******REMOVED******REMOVED*** 5.3 "Site is down / 5xx on every page"
+### 5.3 "Site is down / 5xx on every page"
 
 ```
 1. Check Cloudflare status: https://www.cloudflarestatus.com
@@ -322,7 +322,7 @@ The Worker checks KV first; absent that, falls back to the `MEDIA_CONFIG` env va
    bunx wrangler rollback
 ```
 
-***REMOVED******REMOVED******REMOVED*** 5.4 "Admin can't log in"
+### 5.4 "Admin can't log in"
 
 ```
 1. Try /admin/login → enter credentials
@@ -344,7 +344,7 @@ The Worker checks KV first; absent that, falls back to the `MEDIA_CONFIG` env va
    - Set NEXTAUTH_URL to the exact production URL (https://clicktaketech.com)
 ```
 
-***REMOVED******REMOVED******REMOVED*** 5.5 "Cron health checks stopped"
+### 5.5 "Cron health checks stopped"
 
 ```
 1. Verify the cron is registered:
@@ -365,31 +365,31 @@ The Worker checks KV first; absent that, falls back to the `MEDIA_CONFIG` env va
 
 ---
 
-***REMOVED******REMOVED*** 6. Backup & Recovery
+## 6. Backup & Recovery
 
-***REMOVED******REMOVED******REMOVED*** 6.1 Daily backups (automated)
+### 6.1 Daily backups (automated)
 
 - **Supabase Postgres** — automatic daily backups retained 7 days (free tier) / 30 days (Pro). Restore via Supabase dashboard.
 - **R2 bucket** — versioning enabled by default. Restore via `wrangler r2 object get`.
 - **B2 bucket** — lifecycle rules retain deleted files for 30 days. Restore via Backblaze dashboard.
 - **Cloudinary** — no automatic backup. Use the `migrate:media:commit` script to re-push from `/public/` if needed.
 
-***REMOVED******REMOVED******REMOVED*** 6.2 Manual full backup
+### 6.2 Manual full backup
 
 ```bash
-***REMOVED*** 1. DB snapshot
+# 1. DB snapshot
 pg_dump "$DATABASE_URL" > backups/db-$(date +%Y%m%d).sql
 
-***REMOVED*** 2. R2 bucket sync to local
+# 2. R2 bucket sync to local
 bunx wrangler r2 object list clicktake-media --remote-path / | \
   xargs -I {} bunx wrangler r2 object get clicktake-media/{}
 
-***REMOVED*** 3. Provider configs (encrypted creds + config JSON)
+# 3. Provider configs (encrypted creds + config JSON)
 sqlite3 dev.db "SELECT * FROM provider_config;" > backups/providers-$(date +%Y%m%d).sql
-***REMOVED*** (OR for prod: SELECT * FROM provider_config; in Supabase SQL editor)
+# (OR for prod: SELECT * FROM provider_config; in Supabase SQL editor)
 ```
 
-***REMOVED******REMOVED******REMOVED*** 6.3 Disaster recovery
+### 6.3 Disaster recovery
 
 If the entire production database is lost:
 
@@ -402,43 +402,43 @@ If the entire production database is lost:
 
 ---
 
-***REMOVED******REMOVED*** 7. Security
+## 7. Security
 
-***REMOVED******REMOVED******REMOVED*** 7.1 Rotate the encryption key
+### 7.1 Rotate the encryption key
 
 ```bash
-***REMOVED*** 1. Generate new key
+# 1. Generate new key
 NEW_KEY=$(openssl rand -hex 32)
 
-***REMOVED*** 2. Run rotation script (decrypts with OLD_KEY, re-encrypts with NEW_KEY)
-***REMOVED***    Write a one-off script:
+# 2. Run rotation script (decrypts with OLD_KEY, re-encrypts with NEW_KEY)
+#    Write a one-off script:
 PROVIDER_CREDENTIALS_ENCRYPTION_KEY=$OLD_KEY bunx tsx scripts/rotate-encryption-key.ts $NEW_KEY
 
-***REMOVED*** 3. Update wrangler secret
+# 3. Update wrangler secret
 bunx wrangler secret put PROVIDER_CREDENTIALS_ENCRYPTION_KEY
-***REMOVED***    (paste NEW_KEY when prompted)
+#    (paste NEW_KEY when prompted)
 
-***REMOVED*** 4. Verify by testing one provider via /admin/providers → Test
+# 4. Verify by testing one provider via /admin/providers → Test
 ```
 
-***REMOVED******REMOVED******REMOVED*** 7.2 Rotate NEXTAUTH_SECRET
+### 7.2 Rotate NEXTAUTH_SECRET
 
 ⚠️ Rotating NEXTAUTH_SECRET invalidates ALL active admin sessions — every user gets logged out.
 
 ```bash
 bunx wrangler secret put NEXTAUTH_SECRET
-***REMOVED*** No redeploy needed — Workers pick up new secrets on next request
+# No redeploy needed — Workers pick up new secrets on next request
 ```
 
-***REMOVED******REMOVED******REMOVED*** 7.3 Audit log
+### 7.3 Audit log
 
 Every provider create/update/delete is recorded in the `AuditLog` table (filter by `action LIKE 'provider.%'`). Accessible via `/admin/audit`.
 
 ---
 
-***REMOVED******REMOVED*** 8. Performance Tuning
+## 8. Performance Tuning
 
-***REMOVED******REMOVED******REMOVED*** 8.1 Worker CPU budget
+### 8.1 Worker CPU budget
 
 Each Worker invocation has a 50ms CPU limit. If you see `exceededCPU` in logs:
 
@@ -446,7 +446,7 @@ Each Worker invocation has a 50ms CPU limit. If you see `exceededCPU` in logs:
 - Cache aggressively — the Worker runtime survives between requests within the same isolate.
 - Offload image transforms to the media CDN (don't do sharp inside the Worker).
 
-***REMOVED******REMOVED******REMOVED*** 8.2 Database connection pooling
+### 8.2 Database connection pooling
 
 Supabase provides PgBouncer on port 6543. Use that for the connection string in production:
 
@@ -456,12 +456,12 @@ postgresql://postgres.<project>:<password>@aws-0-<region>.pooler.supabase.com:65
 
 Add `?pgbouncer=true&connection_limit=1` to the `DATABASE_URL` for Workers (they share isolates).
 
-***REMOVED******REMOVED******REMOVED*** 8.3 Edge caching
+### 8.3 Edge caching
 
 The media Worker sets `s-maxage=604800` (1 week at the CDN edge). To bust the cache:
 
 ```bash
-***REMOVED*** Purge by URL
+# Purge by URL
 curl -X POST "https://api.cloudflare.com/client/v4/zones/<zone_id>/purge_cache" \
   -H "Authorization: Bearer $CF_API_TOKEN" \
   -H "Content-Type: application/json" \
@@ -470,7 +470,7 @@ curl -X POST "https://api.cloudflare.com/client/v4/zones/<zone_id>/purge_cache" 
 
 ---
 
-***REMOVED******REMOVED*** 9. Useful Commands Cheatsheet
+## 9. Useful Commands Cheatsheet
 
 | Task | Command |
 |------|---------|
@@ -490,11 +490,11 @@ curl -X POST "https://api.cloudflare.com/client/v4/zones/<zone_id>/purge_cache" 
 
 ---
 
-***REMOVED******REMOVED*** 10. Contacts & Escalation
+## 10. Contacts & Escalation
 
 | Layer | Owner | Escalation |
 |-------|-------|------------|
-| App (Next.js) | Dev team | ***REMOVED***eng-oncall Slack |
+| App (Next.js) | Dev team | #eng-oncall Slack |
 | Cloudflare (Workers/Pages/R2) | DevOps | Cloudflare support (Enterprise plan) |
 | Supabase (DB) | DevOps | Supabase support |
 | Email provider outage | DevOps | Provider status page + failover chain |
@@ -504,12 +504,12 @@ curl -X POST "https://api.cloudflare.com/client/v4/zones/<zone_id>/purge_cache" 
 
 ---
 
-***REMOVED******REMOVED*** 11. Postmortem Template
+## 11. Postmortem Template
 
 After any incident, fill this in within 48 hours and link it from the audit log:
 
 ```markdown
-***REMOVED******REMOVED*** [Date] — [Short title]
+## [Date] — [Short title]
 
 **Impact:** [What users experienced, duration, blast radius]
 **Root cause:** [Technical root cause]

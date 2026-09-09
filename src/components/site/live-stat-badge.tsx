@@ -94,7 +94,7 @@ const VARIANT_CONFIG: Record<
   coverage: {
     icon: TrendingUp,
     iconBg: "rgba(19, 109, 255, 0.20)",
-    iconColor: "***REMOVED***4A90D9",
+    iconColor: "#4A90D9",
     showProgress: true,
     floatDuration: 8,
     floatDelay: 0,
@@ -102,7 +102,7 @@ const VARIANT_CONFIG: Record<
   commits: {
     icon: Activity,
     iconBg: "rgba(0, 230, 118, 0.20)",
-    iconColor: "***REMOVED***00e676",
+    iconColor: "#00e676",
     showProgress: false,
     floatDuration: 9,
     floatDelay: 1,
@@ -258,7 +258,7 @@ function LiveStatBadgeInner({ statKey, className }: Props) {
             className="h-full rounded-full transition-[width] duration-700 ease-out"
             style={{
               width: `${Math.min(displayValue, 100)}%`,
-              background: "linear-gradient(90deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF)",
+              background: "linear-gradient(90deg, #FF53A9, #9B3DFF)",
             }}
           />
         </div>
@@ -321,7 +321,7 @@ function StaticBadge({ statKey, className }: Props) {
             className="h-full rounded-full"
             style={{
               width: `${Math.min(value, 100)}%`,
-              background: "linear-gradient(90deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF)",
+              background: "linear-gradient(90deg, #FF53A9, #9B3DFF)",
             }}
           />
         </div>

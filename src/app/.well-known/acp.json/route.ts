@@ -61,7 +61,7 @@ export async function GET() {
           description: "Sales lead submission endpoint (POST /api/leads).",
           auth_required: true,
           endpoint: `${AGENT.origin}/api/leads`,
-          documentation: AGENT.openApiUrl + "***REMOVED***/paths/~1leads~1post",
+          documentation: AGENT.openApiUrl + "#/paths/~1leads~1post",
         },
         {
           id: "content-delivery",
@@ -79,7 +79,7 @@ export async function GET() {
           description: "Full-text site search (GET /api/search?q=).",
           auth_required: false,
           endpoint: `${AGENT.origin}/api/search`,
-          documentation: AGENT.openApiUrl + "***REMOVED***/paths/~1search~1get",
+          documentation: AGENT.openApiUrl + "#/paths/~1search~1get",
         },
         {
           id: "premium-content",

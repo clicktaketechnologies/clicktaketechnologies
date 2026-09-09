@@ -8,7 +8,7 @@
  * loop, no Three.js. Designed to sit at z-0 behind content (set pointer-events
  * none so it never blocks clicks).
  *
- * Brand colors: pink ***REMOVED***FF53A9, blue ***REMOVED***136DFF, purple ***REMOVED***9B3DFF
+ * Brand colors: pink #FF53A9, blue #136DFF, purple #9B3DFF
  *
  * Usage:
  *   <section className="relative ...">
@@ -48,7 +48,7 @@ type ShapeDef = {
   animationDelay: string
 }
 
-const COLORS = ['***REMOVED***FF53A9', '***REMOVED***136DFF', '***REMOVED***9B3DFF', '***REMOVED***FF8AC4', '***REMOVED***4A90D9', '***REMOVED***7B2FBE']
+const COLORS = ['#FF53A9', '#136DFF', '#9B3DFF', '#FF8AC4', '#4A90D9', '#7B2FBE']
 
 function pseudoRandom(seed: number): number {
   // Deterministic pseudo-random so SSR + CSR match (no hydration warnings).

@@ -4,9 +4,9 @@ Covers: 10 existing main + 6 new top-level + 34 services + 7 solutions + 7 case-
         + 13 blog posts + 6 careers + 7 resources + 13 city pages + 1 cities hub.
 """
 
-***REMOVED*** ============================================================================
-***REMOVED*** PAGE REGISTRY — every page's metadata (used by SPA router for SEO swap)
-***REMOVED*** ============================================================================
+# ============================================================================
+# PAGE REGISTRY — every page's metadata (used by SPA router for SEO swap)
+# ============================================================================
 
 PAGES_REGISTRY = {}
 
@@ -20,7 +20,7 @@ def _reg(slug, title, desc, kw, canonical, template, data=None):
         "data": data or {},
     }
 
-***REMOVED*** ---- EXISTING MAIN PAGES (already in build script; re-register for completeness) ----
+# ---- EXISTING MAIN PAGES (already in build script; re-register for completeness) ----
 _reg("home", "ClickTake Technologies — Software · AI Agents · Cloud Architecture",
      "ClickTake Technologies engineers bespoke software, autonomous AI agents, and cloud architecture. 150+ production deployments across 9 time zones. Ship over polish.",
      "custom software development, AI agents, cloud architecture, software agency, Next.js, Python, AWS",
@@ -71,7 +71,7 @@ _reg("terms", "Terms of Service | ClickTake Technologies",
      "terms of service, ClickTake legal, software consulting agreement, IP rights",
      "https://clicktaketech.com/legal/terms", "main_terms")
 
-***REMOVED*** ---- NEW TOP-LEVEL PAGES ----
+# ---- NEW TOP-LEVEL PAGES ----
 _reg("portfolio", "Portfolio — Selected Work | ClickTake Technologies",
      "Selected client work: fintech APIs, e-commerce platforms, healthcare RAG systems, logistics fleets. 150+ shipped projects across 12 industries.",
      "portfolio, work, projects, client work, software portfolio, case studies",
@@ -102,12 +102,12 @@ _reg("cookies", "Cookie Policy | ClickTake Technologies",
      "cookie policy, GDPR cookies, CCPA cookies, analytics cookies, ClickTake",
      "https://clicktaketech.com/legal/cookies", "main_cookies")
 
-***REMOVED*** ============================================================================
-***REMOVED*** SERVICE PAGES (34)
-***REMOVED*** ============================================================================
+# ============================================================================
+# SERVICE PAGES (34)
+# ============================================================================
 
 SERVICES = [
-    ***REMOVED*** slug, title, short_desc, category, benefits[], stack[], related_case
+    # slug, title, short_desc, category, benefits[], stack[], related_case
     ("services-seo", "Search Engine Optimization (SEO)", "Technical, on-page, and content SEO that compounds. Built for SaaS, e-commerce, and multi-location brands.",
      "Digital Marketing",
      ["Technical SEO audits", "Schema markup", "Core Web Vitals", "Content strategy", "Internal linking", "Rank tracking"],
@@ -138,7 +138,7 @@ SERVICES = [
      ["UX research", "Wireframes", "Hi-fi design", "Design system", "Prototype", "Engineering handoff"],
      ["Figma", "Framer", "Storybook"],
      None),
-    ***REMOVED*** Digital Marketing
+    # Digital Marketing
     ("services-digital-marketing", "Digital Marketing — Full Service", "Performance marketing across paid, organic, social, email. ROAS-positive from month 2.",
      "Digital Marketing",
      ["Paid search", "Paid social", "Content marketing", "Email automation", "Conversion optimization", "Attribution"],
@@ -164,7 +164,7 @@ SERVICES = [
      ["Organic social", "Paid social", "Community management", "Influencer partnerships", "UGC programs", "Analytics"],
      ["Buffer", "Sprout Social", "Meta Business", "TikTok Business"],
      "social-media-growth"),
-    ***REMOVED*** AI services
+    # AI services
     ("services-ai", "AI / ML — Full Service", "Custom AI systems: LLMs, agents, RAG, computer vision, NLP, automation. Production-grade, not demos.",
      "AI / ML",
      ["LLM integration", "RAG pipelines", "Multi-agent systems", "Fine-tuning", "Computer vision", "MLOps"],
@@ -200,7 +200,7 @@ SERVICES = [
      ["Agent architecture", "Tool use", "Planning", "Memory", "Verification", "Multi-agent orchestration"],
      ["LangGraph", "CrewAI", "AutoGen", "Anthropic"],
      None),
-    ***REMOVED*** Web services
+    # Web services
     ("services-web", "Web Development — Full Service", "Next.js, React, Python, Node. Production sites, SaaS, e-commerce, internal tools.",
      "Web Development",
      ["Next.js 16", "React 19", "Python (FastAPI)", "Node.js", "TypeScript", "End-to-end testing"],
@@ -256,7 +256,7 @@ SERVICES = [
      ["DNS management", "SSL certificates", "CDN setup", "Server management", "Email hosting", "Domain strategy"],
      ["Cloudflare", "AWS Route53", "Vercel", "Google Workspace"],
      None),
-    ***REMOVED*** Creative
+    # Creative
     ("services-creative", "Creative — Full Service", "Brand identity, web design, video. Strategy-led creative that ships.",
      "Creative",
      ["Brand strategy", "Identity design", "Web design", "Video production", "Art direction", "Design systems"],
@@ -288,9 +288,9 @@ for slug, title, desc, cat, benefits, stack, related in SERVICES:
          "service_detail",
          {"title": title, "desc": desc, "category": cat, "benefits": benefits, "stack": stack, "related": related})
 
-***REMOVED*** ============================================================================
-***REMOVED*** SOLUTIONS PAGES (7)
-***REMOVED*** ============================================================================
+# ============================================================================
+# SOLUTIONS PAGES (7)
+# ============================================================================
 
 SOLUTIONS = [
     ("solutions-startups", "For Startups", "From MVP to Series A. Ship in 90 days, raise on the traction.",
@@ -322,9 +322,9 @@ for slug, title, tagline, pillars, intro in SOLUTIONS:
          "solution_detail",
          {"title": title, "tagline": tagline, "pillars": pillars, "intro": intro})
 
-***REMOVED*** ============================================================================
-***REMOVED*** CASE STUDY DETAIL PAGES (7)
-***REMOVED*** ============================================================================
+# ============================================================================
+# CASE STUDY DETAIL PAGES (7)
+# ============================================================================
 
 CASE_STUDIES = [
     ("case-studies-seo-growth-sme", "SME SEO Growth — 312% Organic Traffic in 9 Months",
@@ -387,13 +387,13 @@ for slug, headline, client, original_slug, challenge, solution, metrics, stack, 
          {"headline": headline, "client": client, "challenge": challenge, "solution": solution,
           "metrics": metrics, "stack": stack, "quote": quote, "attributed_to": attributed_to})
 
-***REMOVED*** ============================================================================
-***REMOVED*** REAL CLIENT PORTFOLIO (12 live sites)
-***REMOVED*** ============================================================================
-***REMOVED*** Each: (slug, name, category, url, blurb, tech_stack[], icon, year, region)
-***REMOVED*** Data fetched Aug 2026 from live sites.
+# ============================================================================
+# REAL CLIENT PORTFOLIO (12 live sites)
+# ============================================================================
+# Each: (slug, name, category, url, blurb, tech_stack[], icon, year, region)
+# Data fetched Aug 2026 from live sites.
 CLIENT_PORTFOLIO = [
-    ***REMOVED*** ---------- SaaS Platforms (internal products & client tools) ----------
+    # ---------- SaaS Platforms (internal products & client tools) ----------
     ("portfolio-dibnow", "DibNow",
      "SaaS Platform",
      "https://dib-t0ug.onrender.com/",
@@ -424,7 +424,7 @@ CLIENT_PORTFOLIO = [
      "Academy management system v2.6.8. Manage students, teachers, attendance, and visitors. Features quick face-attendance auto-detection, role-based access (Admin, Teacher, Student, Visitor), and parent portal.",
      ["Firebase", "React", "Face API", "PWA"],
      "graduation-cap", "2024-2026", "Pakistan / UK"),
-    ***REMOVED*** ---------- Education / Childcare ----------
+    # ---------- Education / Childcare ----------
     ("portfolio-nltc", "NLTC Nottingham",
      "Education",
      "https://nltceducation.web.app/",
@@ -443,7 +443,7 @@ CLIENT_PORTFOLIO = [
      "Students Learning and Skills Academy in Nottingham. Maths, Science, and English tutors for KS1, KS2, KS3, GCSE, A-level, and adult learners. Open during all school holidays.",
      ["WordPress", "PHP", "MySQL"],
      "calculator", "2024-2026", "Nottingham, UK"),
-    ***REMOVED*** ---------- Gadget Repair (Retail / Multi-Location) ----------
+    # ---------- Gadget Repair (Retail / Multi-Location) ----------
     ("portfolio-mearns-gadget-repair", "Mearns Gadget Repair",
      "Gadget Repair",
      "https://www.mearnsgadgetrepair.co.uk",
@@ -470,7 +470,7 @@ CLIENT_PORTFOLIO = [
      "settings", "2024-2026", "Glasgow, UK"),
 ]
 
-***REMOVED*** Register portfolio detail pages in PAGES_REGISTRY (each gets its own SPA route)
+# Register portfolio detail pages in PAGES_REGISTRY (each gets its own SPA route)
 for slug, name, category, url, blurb, stack, icon, year, region in CLIENT_PORTFOLIO:
     _reg(slug,
          f"{name} — ClickTake Portfolio",
@@ -481,19 +481,19 @@ for slug, name, category, url, blurb, stack, icon, year, region in CLIENT_PORTFO
          {"name": name, "category": category, "url": url, "blurb": blurb,
           "stack": stack, "icon": icon, "year": year, "region": region})
 
-***REMOVED*** ============================================================================
-***REMOVED*** BLOG ARTICLE PAGES — 9 real articles parsed from /home/z/my-project/blog_src/*.md
-***REMOVED*** ============================================================================
-***REMOVED*** Each entry: (slug, title, category, read_time, date, author, excerpt,
-***REMOVED***              hero_image, body_html)
-***REMOVED*** The body_html is fully-rendered HTML (h2/h3/p/ul/ol/code/strong/em/a/img/blockquote/table)
-***REMOVED*** produced by `scripts/parse_blog_markdown.py` from the original markdown sources.
-***REMOVED*** Re-generate after editing any .md file:
-***REMOVED***   python3 scripts/parse_blog_markdown.py
+# ============================================================================
+# BLOG ARTICLE PAGES — 9 real articles parsed from /home/z/my-project/blog_src/*.md
+# ============================================================================
+# Each entry: (slug, title, category, read_time, date, author, excerpt,
+#              hero_image, body_html)
+# The body_html is fully-rendered HTML (h2/h3/p/ul/ol/code/strong/em/a/img/blockquote/table)
+# produced by `scripts/parse_blog_markdown.py` from the original markdown sources.
+# Re-generate after editing any .md file:
+#   python3 scripts/parse_blog_markdown.py
 
-from blog_articles_data import BLOG_ARTICLES  ***REMOVED*** noqa: E402
+from blog_articles_data import BLOG_ARTICLES  # noqa: E402
 
-BLOG_POSTS = BLOG_ARTICLES  ***REMOVED*** alias for backwards compatibility with template registry
+BLOG_POSTS = BLOG_ARTICLES  # alias for backwards compatibility with template registry
 
 for slug, title, category, read_time, date, author, excerpt, hero_image, body_html in BLOG_POSTS:
     _reg(slug,
@@ -506,9 +506,9 @@ for slug, title, category, read_time, date, author, excerpt, hero_image, body_ht
           "author": author, "excerpt": excerpt, "hero_image": hero_image,
           "body_html": body_html})
 
-***REMOVED*** ============================================================================
-***REMOVED*** CAREER DETAIL PAGES (6)
-***REMOVED*** ============================================================================
+# ============================================================================
+# CAREER DETAIL PAGES (6)
+# ============================================================================
 
 CAREERS = [
     ("careers-senior-nextjs-engineer", "Senior Next.js Engineer",
@@ -559,9 +559,9 @@ for slug, role, location_type, salary, summary, responsibilities, requirements, 
          {"role": role, "location_type": location_type, "salary": salary, "summary": summary,
           "responsibilities": responsibilities, "requirements": requirements, "benefits": benefits})
 
-***REMOVED*** ============================================================================
-***REMOVED*** RESOURCE DETAIL PAGES (7)
-***REMOVED*** ============================================================================
+# ============================================================================
+# RESOURCE DETAIL PAGES (7)
+# ============================================================================
 
 RESOURCES = [
     ("resources-ai-adoption-playbook-2026", "AI Adoption Playbook 2026",
@@ -603,9 +603,9 @@ for slug, title, meta, excerpt, sections in RESOURCES:
          "resource_detail",
          {"title": title, "meta": meta, "excerpt": excerpt, "sections": sections})
 
-***REMOVED*** ============================================================================
-***REMOVED*** CITY PAGES (13) — one landing page per city, lists all services available
-***REMOVED*** ============================================================================
+# ============================================================================
+# CITY PAGES (13) — one landing page per city, lists all services available
+# ============================================================================
 
 CITIES = [
     ("city-birmingham", "Birmingham", "UK",
@@ -672,9 +672,9 @@ for slug, name, country, intro, services, blurb in CITIES:
          {"name": name, "country": country, "intro": intro, "services": services, "blurb": blurb})
 
 
-***REMOVED*** ============================================================================
-***REMOVED*** Helper: list all slugs by category (used by nav + footer generation)
-***REMOVED*** ============================================================================
+# ============================================================================
+# Helper: list all slugs by category (used by nav + footer generation)
+# ============================================================================
 
 def pages_by_template(template_name):
     return [(slug, meta) for slug, meta in PAGES_REGISTRY.items() if meta["template"] == template_name]

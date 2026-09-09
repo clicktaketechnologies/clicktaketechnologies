@@ -3,11 +3,11 @@
  * city-specific hero, intro, FAQ, and LocalBusiness JSON-LD into every
  * city × service permutation. NO runtime LLM calls.
  *
- * Phase 3 ***REMOVED***4 — Programmatic SEO.
+ * Phase 3 #4 — Programmatic SEO.
  *
  * The composer pulls service content from the existing static SERVICES
  * array (and optionally from the deepDive JSON column for services
- * authored via Phase 3 ***REMOVED***2's LLM flow). City context comes from
+ * authored via Phase 3 #2's LLM flow). City context comes from
  * /src/lib/seo/cities.ts.
  *
  * Content uniqueness strategy (avoids Google's thin-content penalty):
@@ -269,7 +269,7 @@ function buildJsonLd(
   const localBusiness = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": `${SITE.url}/cities/${city.slug}***REMOVED***business`,
+    "@id": `${SITE.url}/cities/${city.slug}#business`,
     name: `${SITE.name} — ${city.name}`,
     description: `${service.title} in ${city.name}, ${country.name}. ${service.description}`,
     url: canonical,
@@ -305,7 +305,7 @@ function buildJsonLd(
     "@type": "Service",
     name: `${service.title} in ${city.name}`,
     serviceType: cat?.eyebrow || "Service",
-    provider: { "@id": `${SITE.url}/cities/${city.slug}***REMOVED***business` },
+    provider: { "@id": `${SITE.url}/cities/${city.slug}#business` },
     areaServed: { "@type": "City", name: city.name },
     description: service.detailed_description || service.description,
     url: canonical,
@@ -397,7 +397,7 @@ export function composeCityHubContent(city: City): CityHubContent {
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
-      "@id": `${SITE.url}/cities/${city.slug}***REMOVED***business`,
+      "@id": `${SITE.url}/cities/${city.slug}#business`,
       name: `${SITE.name} — ${city.name}`,
       description: `AI, web, marketing and creative services in ${city.name}, ${country.name}.`,
       url: `${SITE.url}/cities/${city.slug}`,

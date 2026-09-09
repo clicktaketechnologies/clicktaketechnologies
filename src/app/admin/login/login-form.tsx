@@ -102,8 +102,8 @@ export default function AdminLoginForm() {
 
   // Hard-coded brand gradient — always renders, independent of Tailwind v4
   // gradient utility quirks or theme token resolution.
-  const brandGradient = "linear-gradient(135deg, ***REMOVED***FF53A9 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)";
-  const brandGradientHover = "linear-gradient(135deg, ***REMOVED***E0197A 0%, ***REMOVED***7B2FBE 50%, ***REMOVED***0E58D6 100%)";
+  const brandGradient = "linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%)";
+  const brandGradientHover = "linear-gradient(135deg, #E0197A 0%, #7B2FBE 50%, #0E58D6 100%)";
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-12">
@@ -111,9 +111,9 @@ export default function AdminLoginForm() {
           opacity so they tint without overpowering the form. In dark mode
           they glow against the navy bg; in light mode they're subtle washes. */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 left-1/2 size-[32rem] -translate-x-1/2 rounded-full bg-[***REMOVED***FF53A9]/15 blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-0 size-[24rem] rounded-full bg-[***REMOVED***136DFF]/15 blur-3xl animate-pulse [animation-delay:1s]" />
-        <div className="absolute top-1/3 left-0 size-[20rem] rounded-full bg-[***REMOVED***9B3DFF]/12 blur-3xl animate-pulse [animation-delay:2s]" />
+        <div className="absolute -top-40 left-1/2 size-[32rem] -translate-x-1/2 rounded-full bg-[#FF53A9]/15 blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-0 size-[24rem] rounded-full bg-[#136DFF]/15 blur-3xl animate-pulse [animation-delay:1s]" />
+        <div className="absolute top-1/3 left-0 size-[20rem] rounded-full bg-[#9B3DFF]/12 blur-3xl animate-pulse [animation-delay:2s]" />
         {/* Subtle dot grid — opacity tuned for both light + dark */}
         <div
           className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]"
@@ -165,7 +165,7 @@ export default function AdminLoginForm() {
                 Email address
               </label>
               <div className="relative group">
-                <Mail className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-[***REMOVED***FF53A9]" />
+                <Mail className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-[#FF53A9]" />
                 <input
                   id="email"
                   type="email"
@@ -173,7 +173,7 @@ export default function AdminLoginForm() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@company.com"
                   autoComplete="email"
-                  className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-3 text-sm text-foreground outline-none transition-all focus:border-[***REMOVED***FF53A9] focus:ring-2 focus:ring-[***REMOVED***FF53A9]/20 hover:border-[***REMOVED***FF53A9]/40 placeholder:text-muted-foreground/70"
+                  className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-3 text-sm text-foreground outline-none transition-all focus:border-[#FF53A9] focus:ring-2 focus:ring-[#FF53A9]/20 hover:border-[#FF53A9]/40 placeholder:text-muted-foreground/70"
                 />
               </div>
               {emailError && (
@@ -193,7 +193,7 @@ export default function AdminLoginForm() {
                 Password
               </label>
               <div className="relative group">
-                <Lock className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-[***REMOVED***FF53A9]" />
+                <Lock className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-[#FF53A9]" />
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
@@ -201,7 +201,7 @@ export default function AdminLoginForm() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••"
                   autoComplete="current-password"
-                  className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-11 text-sm text-foreground outline-none transition-all focus:border-[***REMOVED***FF53A9] focus:ring-2 focus:ring-[***REMOVED***FF53A9]/20 hover:border-[***REMOVED***FF53A9]/40 placeholder:text-muted-foreground/70"
+                  className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-11 text-sm text-foreground outline-none transition-all focus:border-[#FF53A9] focus:ring-2 focus:ring-[#FF53A9]/20 hover:border-[#FF53A9]/40 placeholder:text-muted-foreground/70"
                 />
                 <button
                   type="button"
@@ -229,13 +229,13 @@ export default function AdminLoginForm() {
               <label className="flex items-center gap-2 text-muted-foreground cursor-pointer select-none">
                 <input
                   type="checkbox"
-                  className="size-3.5 rounded border-border accent-[***REMOVED***FF53A9]"
+                  className="size-3.5 rounded border-border accent-[#FF53A9]"
                 />
                 Remember me
               </label>
               <Link
                 href="/admin/forgot-password"
-                className="text-[***REMOVED***C2185B] hover:text-[***REMOVED***9F1245] dark:text-[***REMOVED***FF8AC4] dark:hover:text-[***REMOVED***FF53A9] hover:underline font-medium transition-colors"
+                className="text-[#C2185B] hover:text-[#9F1245] dark:text-[#FF8AC4] dark:hover:text-[#FF53A9] hover:underline font-medium transition-colors"
               >
                 Forgot password?
               </Link>
@@ -277,7 +277,7 @@ export default function AdminLoginForm() {
 
           {/* Security notice — theme-aware surface */}
           <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-border bg-muted/50 p-3.5 text-xs text-muted-foreground">
-            <Fingerprint className="size-4 shrink-0 text-[***REMOVED***FF53A9] dark:text-[***REMOVED***FF8AC4] mt-0.5" />
+            <Fingerprint className="size-4 shrink-0 text-[#FF53A9] dark:text-[#FF8AC4] mt-0.5" />
             <div>
               <div className="font-semibold text-foreground mb-0.5">
                 Authorized access only
@@ -294,7 +294,7 @@ export default function AdminLoginForm() {
             Don&apos;t have an account?{" "}
             <Link
               href="/admin/create-admin"
-              className="text-[***REMOVED***C2185B] hover:text-[***REMOVED***9F1245] dark:text-[***REMOVED***FF8AC4] dark:hover:text-[***REMOVED***FF53A9] hover:underline font-medium transition-colors"
+              className="text-[#C2185B] hover:text-[#9F1245] dark:text-[#FF8AC4] dark:hover:text-[#FF53A9] hover:underline font-medium transition-colors"
             >
               Request access
             </Link>
@@ -312,7 +312,7 @@ export default function AdminLoginForm() {
             Encrypted at rest
           </div>
           <div className="flex items-center gap-1.5">
-            <Shield className="size-3.5 text-[***REMOVED***136DFF] dark:text-[***REMOVED***4A90D9]" />
+            <Shield className="size-3.5 text-[#136DFF] dark:text-[#4A90D9]" />
             Audit logged
           </div>
         </div>

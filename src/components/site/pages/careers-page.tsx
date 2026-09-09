@@ -477,7 +477,7 @@ export function CareerDetailPage({ role }: { role: CareerRole }) {
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
-              href={`/careers?role=${role.slug}***REMOVED***careers-application-form`}
+              href={`/careers?role=${role.slug}#careers-application-form`}
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition"
             >
               Apply now <Send className="h-4 w-4" />
@@ -568,7 +568,7 @@ export function CareerDetailPage({ role }: { role: CareerRole }) {
                 </div>
               </dl>
               <Link
-                href={`/careers?role=${role.slug}***REMOVED***careers-application-form`}
+                href={`/careers?role=${role.slug}#careers-application-form`}
                 className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan px-4 py-2.5 text-xs font-semibold text-white shadow-lg hover:scale-105 transition"
               >
                 Apply now <Send className="h-3.5 w-3.5" />

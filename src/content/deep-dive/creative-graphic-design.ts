@@ -45,7 +45,7 @@ export const graphicDesignDeepDive: DeepDiveContent = {
       {
         title: "Brand drift across channels",
         description:
-          "Three months after a rebrand, the website uses ***REMOVED***1E40AF blue, the social posts use ***REMOVED***2563EB and the print brochure uses ***REMOVED***2056C9. Without a documented color system and design tokens, drift compounds with every new designer who touches the brand.",
+          "Three months after a rebrand, the website uses #1E40AF blue, the social posts use #2563EB and the print brochure uses #2056C9. Without a documented color system and design tokens, drift compounds with every new designer who touches the brand.",
       },
       {
         title: "Every asset starts from a blank canvas",
@@ -82,7 +82,7 @@ export const graphicDesignDeepDive: DeepDiveContent = {
           "The output is a 40–80 page brand book (PDF) plus a Figma library with all components tokenised. Color values ship in hex, RGB, HSL and OKLCH. Typography ships with font files (WOFF2, OTF), fallback stacks and variable-font axes. Logo files ship in SVG, PDF, PNG (transparent + on light + on dark) and a favicon set (16/32/48/180/512). Every decision references a measurable constraint — contrast ratio, legibility at 12px, print-reproduction safety — not personal taste.",
         ],
         jargon: [
-          { term: "Design token", def: "A named design decision (color/brand/blue-500 = ***REMOVED***2563EB) stored as a single source of truth and exported to CSS variables, Figma variables, Tailwind config and JSON for engineering. One change propagates across every asset and every screen." },
+          { term: "Design token", def: "A named design decision (color/brand/blue-500 = #2563EB) stored as a single source of truth and exported to CSS variables, Figma variables, Tailwind config and JSON for engineering. One change propagates across every asset and every screen." },
           { term: "WCAG 2.2 AA contrast", def: "Web Content Accessibility Guidelines requirement that text-on-background contrast ratios hit 4.5:1 (normal text) or 3:1 (large text). Brand colors that miss this bar fail accessibility audits and exclude ~15% of users." },
           { term: "Vector source", def: "An editable file (.fig, .ai, .svg) that preserves paths, layers and type — as opposed to a flattened .png. Without vector source, you cannot resize a logo without quality loss or modify it without rebuilding it." },
         ],

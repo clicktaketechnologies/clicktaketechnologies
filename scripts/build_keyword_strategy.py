@@ -24,19 +24,19 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-***REMOVED*** ── Config ────────────────────────────────────────────────────────────────
+# ── Config ────────────────────────────────────────────────────────────────
 CSV_IN = "/home/z/my-project/upload/all_categories-web_design_services-en-gb-02-08-2026.csv"
 XLSX_OUT = "/home/z/my-project/download/keyword-strategy-web-design-services.xlsx"
 
-***REMOVED*** ── Styles ────────────────────────────────────────────────────────────────
+# ── Styles ────────────────────────────────────────────────────────────────
 HEAD_FILL = PatternFill("solid", fgColor="0F172A")
 HEAD_FONT = Font(bold=True, color="FFFFFF", size=11)
 SUBHEAD_FILL = PatternFill("solid", fgColor="FF53A9")
 SUBHEAD_FONT = Font(bold=True, color="FFFFFF", size=11)
-HIGH_FILL = PatternFill("solid", fgColor="FECACA")   ***REMOVED*** red tint
-MED_FILL = PatternFill("solid", fgColor="FEF3C7")    ***REMOVED*** amber tint
-LOW_FILL = PatternFill("solid", fgColor="DCFCE7")    ***REMOVED*** green tint
-NEW_FILL = PatternFill("solid", fgColor="E0E7FF")    ***REMOVED*** indigo tint
+HIGH_FILL = PatternFill("solid", fgColor="FECACA")   # red tint
+MED_FILL = PatternFill("solid", fgColor="FEF3C7")    # amber tint
+LOW_FILL = PatternFill("solid", fgColor="DCFCE7")    # green tint
+NEW_FILL = PatternFill("solid", fgColor="E0E7FF")    # indigo tint
 WRAP = Alignment(wrap_text=True, vertical="top")
 CENTER = Alignment(horizontal="center", vertical="center")
 THIN = Side(border_style="thin", color="CBD5E1")
@@ -70,13 +70,13 @@ def auto_width(ws, max_w=60):
         max_len = 0
         for cell in ws[letter]:
             if cell.value:
-                ***REMOVED*** Account for line-wrapped cells — use first line length
+                # Account for line-wrapped cells — use first line length
                 v = str(cell.value).split("\n")[0]
                 max_len = max(max_len, len(v))
         ws.column_dimensions[letter].width = min(max(12, max_len + 3), max_w)
 
 
-***REMOVED*** ── Load keywords ──────────────────────────────────────────────────────────
+# ── Load keywords ──────────────────────────────────────────────────────────
 rows = []
 with open(CSV_IN, "r", encoding="utf-8-sig") as f:
     reader = csv.DictReader(f)
@@ -97,10 +97,10 @@ with open(CSV_IN, "r", encoding="utf-8-sig") as f:
             "mod": r["Modifier"],
         })
 
-***REMOVED*** ── Keyword → page mapping logic ──────────────────────────────────────────
-***REMOVED*** Existing pages on clicktaketech.com that already match keyword themes.
+# ── Keyword → page mapping logic ──────────────────────────────────────────
+# Existing pages on clicktaketech.com that already match keyword themes.
 EXISTING_PAGE_MAP = [
-    ***REMOVED*** (regex, target_url, target_slot, notes)
+    # (regex, target_url, target_slot, notes)
     (r"^web design services?$|^web design agency services$|^web design services company$|^best web design services$|^expert web design services$|^professional web design services$|^custom web design services$|^bespoke web design services$",
      "/services/creative/web-design", "Title, Meta, H1, H2, Body",
      "Existing /services/creative/web-design — broaden meta to capture head term + agency/company/professional modifiers"),
@@ -157,24 +157,24 @@ EXISTING_PAGE_MAP = [
      "Question-type keywords → FAQ sections on relevant pages + FAQPage JSON-LD"),
 ]
 
-***REMOVED*** ── Helper: classify a keyword ────────────────────────────────────────────
+# ── Helper: classify a keyword ────────────────────────────────────────────
 import re
 
 def classify(kw):
     kw_l = kw.lower()
-    ***REMOVED*** Skip Instagram / unrelated
+    # Skip Instagram / unrelated
     for pattern, page, slot, notes in EXISTING_PAGE_MAP:
         if re.search(pattern, kw_l):
             return page, slot, notes
-    ***REMOVED*** Default fallback — fold into /services/creative/web-design or flag gap
+    # Default fallback — fold into /services/creative/web-design or flag gap
     return "GAP", "—", "No good existing page — fold into /services/creative/web-design or create new"
 
 
-***REMOVED*** ── Build keyword map sheet data ──────────────────────────────────────────
+# ── Build keyword map sheet data ──────────────────────────────────────────
 kw_rows = []
 for r in rows:
     page, slot, notes = classify(r["kw"])
-    ***REMOVED*** Priority: vol >= 200 → High; 50-199 → Med; 1-49 → Low; 0 → Skip
+    # Priority: vol >= 200 → High; 50-199 → Med; 1-49 → Low; 0 → Skip
     if r["vol"] >= 200:
         pri = "High"
     elif r["vol"] >= 50:
@@ -195,17 +195,17 @@ for r in rows:
         "Notes": notes,
     })
 
-***REMOVED*** Sort: High first, then by vol desc
+# Sort: High first, then by vol desc
 kw_rows.sort(key=lambda x: (
     {"High": 0, "Med": 1, "Low": 2, "Skip": 3}[x["Priority"]],
     -x["Search Vol."],
 ))
 
 
-***REMOVED*** ── Build workbook ────────────────────────────────────────────────────────
+# ── Build workbook ────────────────────────────────────────────────────────
 wb = Workbook()
 
-***REMOVED*** ── Sheet 1: Summary ──────────────────────────────────────────────────────
+# ── Sheet 1: Summary ──────────────────────────────────────────────────────
 ws = wb.active
 ws.title = "Summary"
 
@@ -218,7 +218,7 @@ ws["A2"] = "Source: all_categories-web_design_services-en-gb-02-08-2026.csv  |  
 ws["A2"].font = Font(italic=True, color="64748B", size=10)
 ws.merge_cells("A2:D2")
 
-***REMOVED*** Stats block
+# Stats block
 ws["A4"] = "Dataset Overview"
 ws["A4"].font = SUBHEAD_FONT
 ws["A4"].fill = SUBHEAD_FILL
@@ -242,7 +242,7 @@ for i, (label, val) in enumerate(stats, start=5):
     ws.cell(row=i, column=1).border = BORDER
     ws.cell(row=i, column=2).border = BORDER
 
-***REMOVED*** Top opportunities
+# Top opportunities
 start_row = 5 + len(stats) + 2
 ws.cell(row=start_row, column=1, value="Top 25 Opportunities (by Vol × CPC commercial intent)").font = SUBHEAD_FONT
 ws.cell(row=start_row, column=1).fill = SUBHEAD_FILL
@@ -275,7 +275,7 @@ for i, r in enumerate(top25, start=start_row + 2):
         for c in range(1, 5):
             ws.cell(row=i, column=c).fill = MED_FILL
 
-***REMOVED*** Page-by-page edit summary
+# Page-by-page edit summary
 start_row = start_row + 2 + len(top25) + 2
 ws.cell(row=start_row, column=1, value="Page-by-Page Edit Summary").font = SUBHEAD_FONT
 ws.cell(row=start_row, column=1).fill = SUBHEAD_FILL
@@ -325,16 +325,16 @@ for i, (url, name, status, summary) in enumerate(page_summary, start=start_row +
             ws.cell(row=i, column=c).fill = NEW_FILL
     ws.row_dimensions[i].height = 38
 
-***REMOVED*** Set column widths
+# Set column widths
 ws.column_dimensions["A"].width = 42
 ws.column_dimensions["B"].width = 28
 ws.column_dimensions["C"].width = 12
 ws.column_dimensions["D"].width = 75
 
 
-***REMOVED*** ── Sheet 2: Keyword Map ──────────────────────────────────────────────────
+# ── Sheet 2: Keyword Map ──────────────────────────────────────────────────
 ws2 = wb.create_sheet("Keyword Map")
-hdr2 = ["***REMOVED***", "Keyword", "Vol", "CPC", "Mod Type", "Target Page", "Target Slot", "Priority", "Notes"]
+hdr2 = ["#", "Keyword", "Vol", "CPC", "Mod Type", "Target Page", "Target Slot", "Priority", "Notes"]
 for c, h in enumerate(hdr2, start=1):
     cell = ws2.cell(row=1, column=c, value=h)
     cell.fill = HEAD_FILL
@@ -359,7 +359,7 @@ for i, r in enumerate(kw_rows, start=2):
         cell = ws2.cell(row=i, column=c, value=v)
         cell.alignment = WRAP if c == 9 else Alignment(vertical="top")
         cell.border = BORDER
-    ***REMOVED*** Priority tint
+    # Priority tint
     pri = r["Priority"]
     fill = {"High": HIGH_FILL, "Med": MED_FILL, "Low": LOW_FILL}.get(pri)
     if fill:
@@ -375,7 +375,7 @@ for i, w in enumerate(widths2, start=1):
 ws2.freeze_panes = "A2"
 
 
-***REMOVED*** ── Sheet 3: Page Edits ───────────────────────────────────────────────────
+# ── Sheet 3: Page Edits ───────────────────────────────────────────────────
 ws3 = wb.create_sheet("Page Edits")
 hdr3 = ["Page URL", "Slot", "Current Value", "New Value", "Rationale"]
 for c, h in enumerate(hdr3, start=1):
@@ -387,7 +387,7 @@ for c, h in enumerate(hdr3, start=1):
 ws3.row_dimensions[1].height = 32
 
 page_edits = [
-    ***REMOVED*** ── Homepage (/) ─────────────────────────────────────────────────────
+    # ── Homepage (/) ─────────────────────────────────────────────────────
     ("/", "Title", "ClickTake — AI-Powered Digital Agency",
      "Web Design Services UK · AI-Powered Websites — ClickTake",
      "Capture 'web design services UK' (320 vol) + brand. Keep brand-led but front-load target kw."),
@@ -404,7 +404,7 @@ page_edits = [
      "Add 3 Q&As: 'What are web design services?', 'How much do web design services cost?', 'How to choose a web design services agency?' — inject as FAQPage JSON-LD.",
      "Captures Question-type kws (10 vol each) + featured snippet eligibility."),
 
-    ***REMOVED*** ── /services index ─────────────────────────────────────────────────
+    # ── /services index ─────────────────────────────────────────────────
     ("/services", "Title", "Services — AI · Web · Marketing",
      "Web Design Services & Digital Agency — AI · Web · Marketing | ClickTake",
      "Front-load 'web design services' head kw."),
@@ -416,7 +416,7 @@ page_edits = [
      "Add: 'web design services', 'web design agency services', 'professional web design services', 'web design services UK', 'web design services company'",
      "Meta keywords array additions for top-vol variants."),
 
-    ***REMOVED*** ── /services/creative/web-design (head term) ───────────────────────
+    # ── /services/creative/web-design (head term) ───────────────────────
     ("/services/creative/web-design", "Title", "(needs read)",
      "Web Design Services — Professional · Custom · Bespoke | ClickTake",
      "Capture 'professional web design services' (320) + 'custom' (110) + 'bespoke' (70) kws in single title."),
@@ -431,7 +431,7 @@ page_edits = [
      "5 Q&As: 'What are web design services?', 'How much do web design services cost in the UK?', 'How long does a web design project take?', 'Do you offer custom web design services?', 'Are your websites responsive and mobile-friendly?' — FAQPage JSON-LD.",
      "Captures Question kws + 'responsive' (170) kw + pricing long-tail."),
 
-    ***REMOVED*** ── /services/web/wordpress ─────────────────────────────────────────
+    # ── /services/web/wordpress ─────────────────────────────────────────
     ("/services/web/wordpress", "Title", "(uses generateMetadata template)",
      "WordPress Web Design Services — Custom Themes · Headless WP | ClickTake",
      "Capture 'wordpress web design services' (390 vol, $19.41 CPC) head kw."),
@@ -446,7 +446,7 @@ page_edits = [
      "Add 3 Q&As: 'How much do WordPress web design services cost?', 'Do you offer WordPress maintenance after launch?', 'Can you migrate my existing WordPress site?' — append to existing FAQ.",
      "Long-tail + featured snippet capture."),
 
-    ***REMOVED*** ── /services/web/ecommerce ─────────────────────────────────────────
+    # ── /services/web/ecommerce ─────────────────────────────────────────
     ("/services/web/ecommerce", "Title", "(uses generateMetadata template)",
      "Ecommerce Web Design Services — Shopify · WooCommerce · Headless | ClickTake",
      "Capture 'ecommerce web design services' (210) + 'shopify web design services' (170) in single title."),
@@ -458,7 +458,7 @@ page_edits = [
      "Add 3 Q&As: 'Shopify vs WooCommerce — which is better for ecommerce web design?', 'How much do ecommerce web design services cost?', 'Do you migrate existing stores?'",
      "Captures comparison + cost long-tail."),
 
-    ***REMOVED*** ── /services/web/maintenance + /services/web/domain-hosting ────────
+    # ── /services/web/maintenance + /services/web/domain-hosting ────────
     ("/services/web/maintenance", "Title", "(uses generateMetadata template)",
      "Website Maintenance & Web Design Hosting Services | ClickTake",
      "Capture 'web design hosting services' (720 vol)."),
@@ -467,7 +467,7 @@ page_edits = [
      "Web design hosting services: managed cloud hosting (Vercel, Cloudflare, AWS), SSL, CDN, DNS, 24/7 monitoring. Bundled with every ClickTake build or standalone.",
      "Front-load 'web design hosting services' (720 vol) kw."),
 
-    ***REMOVED*** ── /pricing ────────────────────────────────────────────────────────
+    # ── /pricing ────────────────────────────────────────────────────────
     ("/pricing", "Title", "Pricing — Starter · Growth · Scale · Custom",
      "Affordable Web Design Services Pricing — Starter · Growth · Scale | ClickTake",
      "Capture 'affordable web design services' (140) + 'web design services cost' kws."),
@@ -482,7 +482,7 @@ page_edits = [
      "Add 2 Q&As: 'How much do web design services cost in the UK?', 'Do you offer affordable web design services for small businesses?'",
      "Capture cost/affordable question kws + featured snippet eligibility."),
 
-    ***REMOVED*** ── /cities/london ──────────────────────────────────────────────────
+    # ── /cities/london ──────────────────────────────────────────────────
     ("/cities/london", "Title (verify)", "(composed by composeCityHubContent)",
      "Verify title contains 'web design services london' (390 vol) — adjust composer if not.",
      "Highest-vol UK city kw."),
@@ -505,7 +505,7 @@ for i, w in enumerate(widths3, start=1):
 ws3.freeze_panes = "A2"
 
 
-***REMOVED*** ── Sheet 4: New Pages ────────────────────────────────────────────────────
+# ── Sheet 4: New Pages ────────────────────────────────────────────────────
 ws4 = wb.create_sheet("New Pages")
 hdr4 = ["URL Slug", "Page Title (target kw)", "H1", "Meta Description (≤155 char)", "Target Keywords (vol)", "Body Sections", "Internal Links Out", "Schema"]
 for c, h in enumerate(hdr4, start=1):
@@ -574,7 +574,7 @@ for i, w in enumerate(widths4, start=1):
 ws4.freeze_panes = "A2"
 
 
-***REMOVED*** ── Sheet 5: FAQs ─────────────────────────────────────────────────────────
+# ── Sheet 5: FAQs ─────────────────────────────────────────────────────────
 ws5 = wb.create_sheet("FAQs")
 hdr5 = ["Target Page", "Question", "Answer (concise, 1-3 sentences)", "Source Keyword", "Schema Type"]
 for c, h in enumerate(hdr5, start=1):
@@ -619,7 +619,7 @@ for i, w in enumerate(widths5, start=1):
 ws5.freeze_panes = "A2"
 
 
-***REMOVED*** ── Sheet 6: Internal Links ───────────────────────────────────────────────
+# ── Sheet 6: Internal Links ───────────────────────────────────────────────
 ws6 = wb.create_sheet("Internal Links")
 hdr6 = ["From Page", "To Page", "Anchor Text", "Context / Placement", "Priority"]
 for c, h in enumerate(hdr6, start=1):
@@ -696,7 +696,7 @@ for i, w in enumerate(widths6, start=1):
 ws6.freeze_panes = "A2"
 
 
-***REMOVED*** ── Save ──────────────────────────────────────────────────────────────────
+# ── Save ──────────────────────────────────────────────────────────────────
 Path(XLSX_OUT).parent.mkdir(parents=True, exist_ok=True)
 wb.save(XLSX_OUT)
 print(f"✓ Strategy xlsx written to {XLSX_OUT}")

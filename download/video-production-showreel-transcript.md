@@ -1,4 +1,4 @@
-***REMOVED*** Video Production Showreel — Production-Ready Transcript
+# Video Production Showreel — Production-Ready Transcript
 
 > Purpose: This is the verbatim voiceover script for the hero showreel embedded on
 > `/services/creative/video-production`. It is structured by scene with timecodes
@@ -12,7 +12,7 @@
 
 ---
 
-***REMOVED******REMOVED*** Showreel spec
+## Showreel spec
 
 | Field | Value |
 |---|---|
@@ -27,7 +27,7 @@
 
 ---
 
-***REMOVED******REMOVED*** Transcript (scene + timecode + voiceover)
+## Transcript (scene + timecode + voiceover)
 
 **[00:00–00:03] Hook — cold open on the metric**
 
@@ -97,7 +97,7 @@
 
 ---
 
-***REMOVED******REMOVED*** SRT format (for sidecar caption file)
+## SRT format (for sidecar caption file)
 
 ```srt
 1
@@ -163,7 +163,7 @@ ClickTake Technologies. Book your free video strategy call today.
 
 ---
 
-***REMOVED******REMOVED*** Plain-text version (for `VideoObject.transcript` JSON-LD field)
+## Plain-text version (for `VideoObject.transcript` JSON-LD field)
 
 Paste the following single-string version into the `transcript` field of the
 `VideoObject` JSON-LD block. It is the same content as the SRT above, flattened
@@ -176,7 +176,7 @@ indexer and LLM extractors both parse cleanly.
 
 ---
 
-***REMOVED******REMOVED*** How to use this file
+## How to use this file
 
 1. **For JSON-LD deploy (Step B/C of the next-steps plan):** Copy the plain-text
    version above into the `transcript` field of the `VideoObject` schema block

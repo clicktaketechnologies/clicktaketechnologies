@@ -72,7 +72,7 @@ export function ComparisonTable({
       <table className="w-full border-collapse text-sm">
         {caption && <caption className="sr-only">{caption}</caption>}
         <thead>
-          <tr className="bg-[***REMOVED***FF53A9]/10">
+          <tr className="bg-[#FF53A9]/10">
             {headers.map((h, i) => (
               <th
                 key={i}
@@ -123,8 +123,8 @@ export function PullQuote({
   attribution?: string
 }) {
   return (
-    <blockquote className="relative my-8 rounded-2xl border-l-4 border-[***REMOVED***FF53A9] bg-gradient-to-r from-[***REMOVED***FF53A9]/10 to-transparent px-6 py-5 sm:px-8 sm:py-6">
-      <Quote className="absolute top-4 right-4 h-6 w-6 text-[***REMOVED***FF53A9]/40" />
+    <blockquote className="relative my-8 rounded-2xl border-l-4 border-[#FF53A9] bg-gradient-to-r from-[#FF53A9]/10 to-transparent px-6 py-5 sm:px-8 sm:py-6">
+      <Quote className="absolute top-4 right-4 h-6 w-6 text-[#FF53A9]/40" />
       <div className="text-lg sm:text-xl font-semibold nx-text leading-relaxed pr-8">
         {children}
       </div>
@@ -163,7 +163,7 @@ export function StarCaseStudy({
     <article className="rounded-2xl border nx-bd nx-surface-alt p-6 sm:p-8">
       <header className="flex items-center justify-between mb-5">
         <h4 className="text-lg font-bold nx-text">{client}</h4>
-        <span className="rounded-full bg-[***REMOVED***FF53A9]/15 px-3 py-1 text-xs font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)]">
+        <span className="rounded-full bg-[#FF53A9]/15 px-3 py-1 text-xs font-mono uppercase tracking-wider text-[var(--nx-brand-pink-deep)]">
           Case Study
         </span>
       </header>
@@ -200,9 +200,9 @@ export function UseCaseCard({
   result: string
 }) {
   return (
-    <article className="group relative rounded-2xl border nx-bd nx-surface-alt p-6 hover:border-[***REMOVED***FF53A9]/40 hover:bg-[var(--nx-foreground)]/[0.04] transition">
+    <article className="group relative rounded-2xl border nx-bd nx-surface-alt p-6 hover:border-[#FF53A9]/40 hover:bg-[var(--nx-foreground)]/[0.04] transition">
       <div className="flex items-center gap-2 mb-4">
-        <span className="h-2 w-2 rounded-full bg-[***REMOVED***FF53A9]" />
+        <span className="h-2 w-2 rounded-full bg-[#FF53A9]" />
         <h4 className="text-base font-bold nx-text">{industry}</h4>
       </div>
       <dl className="space-y-3 text-sm">
@@ -246,11 +246,11 @@ export function MethodologyStep({
     <div className="relative grid sm:grid-cols-[auto_1fr] gap-4 sm:gap-6">
       {/* Timeline marker */}
       <div className="flex sm:flex-col items-center sm:items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[***REMOVED***FF53A9] to-[***REMOVED***136DFF] text-sm font-black text-white shadow-[0_0_20px_rgba(255,83,169,0.3)]">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#FF53A9] to-[#136DFF] text-sm font-black text-white shadow-[0_0_20px_rgba(255,83,169,0.3)]">
           {index}
         </div>
         {!isLast && (
-          <div className="hidden sm:block w-px h-full bg-gradient-to-b from-[***REMOVED***FF53A9]/40 to-transparent ml-5" />
+          <div className="hidden sm:block w-px h-full bg-gradient-to-b from-[#FF53A9]/40 to-transparent ml-5" />
         )}
       </div>
       <div className="pb-8">

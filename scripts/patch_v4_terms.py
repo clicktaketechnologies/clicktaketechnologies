@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """Patch Terms page to match product standard."""
 import re
 from pathlib import Path
@@ -12,7 +12,7 @@ NEW_TERMS = '''PAGE_TERMS = \'\'\'
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-7xl mx-auto px-5 lg:px-8">
           <nav class="crumb text-xs font-mono text-ckbody/70 mb-6" aria-label="Breadcrumb">
-            <a href="***REMOVED***home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Terms of Service</span>
+            <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Terms of Service</span>
           </nav>
           <div class="grid lg:grid-cols-3 gap-10 items-start">
             <div class="lg:col-span-2 reveal">
@@ -25,7 +25,7 @@ NEW_TERMS = '''PAGE_TERMS = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***7B2FBE);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#136DFF,#7B2FBE);">
                         <span class="font-display font-bold text-white text-sm">1</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Acceptance of terms</h2>
@@ -37,7 +37,7 @@ NEW_TERMS = '''PAGE_TERMS = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***7B2FBE);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#FF53A9,#7B2FBE);">
                         <span class="font-display font-bold text-white text-sm">2</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Services</h2>
@@ -50,7 +50,7 @@ NEW_TERMS = '''PAGE_TERMS = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***7B2FBE,***REMOVED***136DFF);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#7B2FBE,#136DFF);">
                         <span class="font-display font-bold text-white text-sm">3</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Intellectual property</h2>
@@ -63,7 +63,7 @@ NEW_TERMS = '''PAGE_TERMS = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#136DFF,#FF53A9);">
                         <span class="font-display font-bold text-white text-sm">4</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Warranty disclaimers</h2>
@@ -75,7 +75,7 @@ NEW_TERMS = '''PAGE_TERMS = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***136DFF);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#FF53A9,#136DFF);">
                         <span class="font-display font-bold text-white text-sm">5</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Limitation of liability</h2>
@@ -87,7 +87,7 @@ NEW_TERMS = '''PAGE_TERMS = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***7B2FBE,***REMOVED***FF53A9);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#7B2FBE,#FF53A9);">
                         <span class="font-display font-bold text-white text-sm">6</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Governing law</h2>
@@ -99,7 +99,7 @@ NEW_TERMS = '''PAGE_TERMS = \'\'\'
                 <div class="tilt-card glass rounded-2xl p-7 reveal">
                   <div class="tilt-layer">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#136DFF,#FF53A9);">
                         <span class="font-display font-bold text-white text-sm">7</span>
                       </div>
                       <h2 class="font-display text-2xl font-bold text-ckheading">Contact</h2>
@@ -118,12 +118,12 @@ NEW_TERMS = '''PAGE_TERMS = \'\'\'
                 </div>
                 <h3 class="font-display font-bold text-ckheading mb-2">Quick nav</h3>
                 <ul class="space-y-2 text-sm">
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Acceptance of terms</a></li>
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Services</a></li>
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Intellectual property</a></li>
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Warranty disclaimers</a></li>
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Limitation of liability</a></li>
-                  <li><a href="***REMOVED***" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Governing law</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Acceptance of terms</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Services</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Intellectual property</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Warranty disclaimers</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Limitation of liability</a></li>
+                  <li><a href="#" class="text-ckbody hover:text-ckheading transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-ckblue"></i>Governing law</a></li>
                 </ul>
               </div>
 
@@ -157,7 +157,7 @@ NEW_TERMS = '''PAGE_TERMS = \'\'\'
               <div class="glass rounded-3xl p-6 text-center">
                 <h3 class="font-display font-bold text-ckheading mb-2 text-sm">Have questions?</h3>
                 <p class="text-xs text-ckbody mb-4">Reach out before signing.</p>
-                <a href="***REMOVED***contact" data-nav="contact" class="glow-btn rounded-xl px-4 py-2.5 font-display font-semibold text-sm w-full inline-flex items-center justify-center gap-2"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i>Talk to us</a>
+                <a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-4 py-2.5 font-display font-semibold text-sm w-full inline-flex items-center justify-center gap-2"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i>Talk to us</a>
               </div>
             </aside>
           </div>

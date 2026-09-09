@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
     data: {
       name,
       description: description || "",
-      color: color || "***REMOVED***136DFF",
+      color: color || "#136DFF",
       isSystem: false,
       permissions: {
         create: (permissions || []).map((key: string) => ({

@@ -39,13 +39,13 @@ export default function ForgotPasswordPage() {
 
   // Hard-coded brand gradient — always renders regardless of Tailwind v4
   // gradient utility quirks. See admin/login/login-form.tsx for full rationale.
-  const brandGradient = "linear-gradient(135deg, ***REMOVED***FF53A9 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%)";
+  const brandGradient = "linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%)";
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-12">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 left-1/2 size-[28rem] -translate-x-1/2 rounded-full bg-[***REMOVED***136DFF]/15 blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-0 size-[22rem] rounded-full bg-[***REMOVED***FF53A9]/15 blur-3xl animate-pulse [animation-delay:1s]" />
+        <div className="absolute -top-40 left-1/2 size-[28rem] -translate-x-1/2 rounded-full bg-[#136DFF]/15 blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-0 size-[22rem] rounded-full bg-[#FF53A9]/15 blur-3xl animate-pulse [animation-delay:1s]" />
       </div>
 
       <motion.div
@@ -90,7 +90,7 @@ export default function ForgotPasswordPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="admin@clicktaketech.com"
                     autoComplete="email"
-                    className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-sm text-foreground outline-none transition-colors focus:border-[***REMOVED***FF53A9] focus:ring-2 focus:ring-[***REMOVED***FF53A9]/20 placeholder:text-muted-foreground/70"
+                    className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-sm text-foreground outline-none transition-colors focus:border-[#FF53A9] focus:ring-2 focus:ring-[#FF53A9]/20 placeholder:text-muted-foreground/70"
                   />
                 </div>
               </div>

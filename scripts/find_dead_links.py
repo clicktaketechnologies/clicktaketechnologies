@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Cross-reference every /blog/, /case-studies/, /careers/, /resources/ href in
 hub-spoke-map.ts against the actual slugs exported from site-data.ts.
@@ -18,28 +18,28 @@ SITE_DATA = SRC / "lib/site-data.ts"
 hub_text = HUB.read_text()
 site_text = SITE_DATA.read_text()
 
-***REMOVED*** Extract all slugs from hub-spoke-map.ts grouped by route prefix
+# Extract all slugs from hub-spoke-map.ts grouped by route prefix
 dead_by_pattern = {"blog": [], "case-studies": [], "careers": [], "resources": []}
 all_hrefs = []
 for m in re.finditer(r'href:\s*"/(blog|case-studies|careers|resources)/([a-z0-9-]+)"', hub_text):
     prefix, slug = m.group(1), m.group(2)
-    ***REMOVED*** Capture line for context
+    # Capture line for context
     line_start = hub_text.rfind("\n", 0, m.start()) + 1
     line_end = hub_text.find("\n", m.end())
     line = hub_text[line_start:line_end].strip()
     all_hrefs.append({"prefix": prefix, "slug": slug, "line": line})
-    ***REMOVED*** We'll mark as "potentially dead" and verify next
+    # We'll mark as "potentially dead" and verify next
     dead_by_pattern[prefix].append(slug)
 
-***REMOVED*** Extract actual slugs from site-data.ts
-***REMOVED*** BLOG_POSTS — find export, then slugs
+# Extract actual slugs from site-data.ts
+# BLOG_POSTS — find export, then slugs
 def extract_slugs_in_export(text, export_name, start_offset=0):
     pat = rf'export\s+const\s+{export_name}\b'
     m = re.search(pat, text[start_offset:])
     if not m:
         return []
     start = start_offset + m.end()
-    ***REMOVED*** Find next "export const" to bound the array
+    # Find next "export const" to bound the array
     nxt = re.search(r'\nexport\s+const\s+', text[start:])
     end = start + (nxt.start() if nxt else len(text) - start)
     block = text[start:end]
@@ -57,7 +57,7 @@ print(f"  CAREER_ROLES: {len(career_slugs)} slugs")
 print(f"  RESOURCES: {len(resource_slugs)} slugs")
 print()
 
-***REMOVED*** Now check each href in hub-spoke-map.ts
+# Now check each href in hub-spoke-map.ts
 dead = {"blog": [], "case-studies": [], "careers": [], "resources": []}
 alive = {"blog": [], "case-studies": [], "careers": [], "resources": []}
 for h in all_hrefs:
@@ -75,7 +75,7 @@ for h in all_hrefs:
     else:
         dead[prefix].append(h)
 
-***REMOVED*** Dedupe by slug
+# Dedupe by slug
 def dedupe(items):
     seen = set()
     out = []
@@ -101,7 +101,7 @@ print("=" * 70)
 print(f"TOTAL distinct dead links: {total_dead}")
 print("=" * 70)
 
-***REMOVED*** Save the full list with line context for the edit
+# Save the full list with line context for the edit
 out = {
     "dead_links": {
         prefix: [{"slug": d["slug"], "line": d["line"]} for d in dedupe(dead[prefix])]

@@ -59,7 +59,7 @@ export async function PATCH(
   for (const f of ["items","results","differentiators","deliverables","faq","processSteps","pricingPackages"]) {
     if (body[f] !== undefined) data[f] = JSON.stringify(body[f]);
   }
-  // Phase 3 ***REMOVED***2 — persist AI-generated deep-dive content.
+  // Phase 3 #2 — persist AI-generated deep-dive content.
   if (body.deepDive !== undefined) data.deepDive = JSON.stringify(body.deepDive);
 
   const updated = await prisma.service.update({ where: { id }, data });

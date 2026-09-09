@@ -18,46 +18,46 @@ export const NX_DESIGN_KEY = "nx_design";
 
 // Default token values — match the values defined in globals.css.
 // Used when no admin override has been saved yet.
-// Brand: ClickTake — ***REMOVED***136DFF (blue), ***REMOVED***FF53A9 (pink), ***REMOVED***9B3DFF (purple).
-// Dark palette: ***REMOVED***0A0612 / ***REMOVED***100820 / ***REMOVED***16102A.
+// Brand: ClickTake — #136DFF (blue), #FF53A9 (pink), #9B3DFF (purple).
+// Dark palette: #0A0612 / #100820 / #16102A.
 export const NX_DEFAULTS = {
   // Brand accents — pink primary, blue secondary, purple tertiary
-  "--nx-orange": "***REMOVED***FF53A9",            // alias of --nx-brand-pink (primary CTA)
-  "--nx-orange-soft": "***REMOVED***FF8AC4",       // alias of --nx-brand-pink-soft
-  "--nx-orange-deep": "***REMOVED***E0197A",       // alias of --nx-brand-pink-deep (hover)
-  "--nx-electric": "***REMOVED***136DFF",          // alias of --nx-brand-blue
-  "--nx-electric-soft": "***REMOVED***4A90D9",     // alias of --nx-brand-blue-soft
+  "--nx-orange": "#FF53A9",            // alias of --nx-brand-pink (primary CTA)
+  "--nx-orange-soft": "#FF8AC4",       // alias of --nx-brand-pink-soft
+  "--nx-orange-deep": "#E0197A",       // alias of --nx-brand-pink-deep (hover)
+  "--nx-electric": "#136DFF",          // alias of --nx-brand-blue
+  "--nx-electric-soft": "#4A90D9",     // alias of --nx-brand-blue-soft
   // Dark hero/footer palette (always-dark sections)
-  "--nx-navy-900": "***REMOVED***0A0612",
-  "--nx-navy-800": "***REMOVED***100820",
-  "--nx-navy-700": "***REMOVED***16102A",
-  "--nx-navy-600": "***REMOVED***1E1640",
+  "--nx-navy-900": "#0A0612",
+  "--nx-navy-800": "#100820",
+  "--nx-navy-700": "#16102A",
+  "--nx-navy-600": "#1E1640",
   // Light-mode surfaces (default when no .dark class)
   light: {
-    "--nx-surface": "***REMOVED***FFFFFF",
-    "--nx-surface-alt": "***REMOVED***F8F6FC",
-    "--nx-surface-muted": "***REMOVED***F1EDF8",
-    "--nx-border": "***REMOVED***E5E0EE",
-    "--nx-border-strong": "***REMOVED***CBD0E1",
-    "--nx-ink": "***REMOVED***0A0612",
-    "--nx-ink-soft": "***REMOVED***4A3B5C",
-    "--nx-ink-muted": "***REMOVED***8C7B95",
+    "--nx-surface": "#FFFFFF",
+    "--nx-surface-alt": "#F8F6FC",
+    "--nx-surface-muted": "#F1EDF8",
+    "--nx-border": "#E5E0EE",
+    "--nx-border-strong": "#CBD0E1",
+    "--nx-ink": "#0A0612",
+    "--nx-ink-soft": "#4A3B5C",
+    "--nx-ink-muted": "#8C7B95",
   },
   // Dark-mode surfaces (when html.dark is applied)
   dark: {
-    "--nx-surface": "***REMOVED***100820",
-    "--nx-surface-alt": "***REMOVED***16102A",
-    "--nx-surface-muted": "***REMOVED***1E1640",
+    "--nx-surface": "#100820",
+    "--nx-surface-alt": "#16102A",
+    "--nx-surface-muted": "#1E1640",
     "--nx-border": "rgba(255, 255, 255, 0.08)",
     "--nx-border-strong": "rgba(255, 255, 255, 0.16)",
-    "--nx-ink": "***REMOVED***F4F0FF",
-    "--nx-ink-soft": "***REMOVED***B5A8C8",
-    "--nx-ink-muted": "***REMOVED***7A6B95",
+    "--nx-ink": "#F4F0FF",
+    "--nx-ink-soft": "#B5A8C8",
+    "--nx-ink-muted": "#7A6B95",
   },
   // Status accents
-  "--nx-green": "***REMOVED***10B981",
-  "--nx-yellow": "***REMOVED***F59E0B",
-  "--nx-pink": "***REMOVED***FF53A9",
+  "--nx-green": "#10B981",
+  "--nx-yellow": "#F59E0B",
+  "--nx-pink": "#FF53A9",
 } as const;
 
 export type NxDesignConfig = typeof NX_DEFAULTS;

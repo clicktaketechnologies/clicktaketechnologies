@@ -1,14 +1,14 @@
-***REMOVED***!/bin/bash
-***REMOVED*** Build for Cloudflare with stub db.ts to keep the bundle under 3 MiB free-plan limit.
-***REMOVED***
-***REMOVED*** The CF Worker only serves public pages + proxies /api/* and /admin/* to the
-***REMOVED*** Render backend (configured via BACKEND_URL env var). It never actually
-***REMOVED*** executes DB code, so we swap in a stub db.ts at build time.
-***REMOVED***
-***REMOVED*** Usage:
-***REMOVED***   bash scripts/build-cloudflare.sh   ***REMOVED*** builds with stub
-***REMOVED***
-***REMOVED*** After build, the real db.ts is restored automatically.
+#!/bin/bash
+# Build for Cloudflare with stub db.ts to keep the bundle under 3 MiB free-plan limit.
+#
+# The CF Worker only serves public pages + proxies /api/* and /admin/* to the
+# Render backend (configured via BACKEND_URL env var). It never actually
+# executes DB code, so we swap in a stub db.ts at build time.
+#
+# Usage:
+#   bash scripts/build-cloudflare.sh   # builds with stub
+#
+# After build, the real db.ts is restored automatically.
 
 set -e
 

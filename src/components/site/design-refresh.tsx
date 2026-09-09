@@ -15,7 +15,7 @@
  *      spotlight overlay (defined in CSS) follows the cursor.
  *
  *   3. Smooth anchor scroll — intercepts clicks on in-page anchor links
- *      (***REMOVED***...) and uses window.scrollTo with smooth behavior + the
+ *      (#...) and uses window.scrollTo with smooth behavior + the
  *      scroll-margin-top defined in CSS, so the sticky navbar never
  *      covers the section heading.
  *
@@ -112,10 +112,10 @@ export function DesignRefresh() {
 
     const onClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement
-      const link = target.closest('a[href^="***REMOVED***"]') as HTMLAnchorElement | null
+      const link = target.closest('a[href^="#"]') as HTMLAnchorElement | null
       if (!link) return
       const href = link.getAttribute("href")
-      if (!href || href === "***REMOVED***" || href.length < 2) return
+      if (!href || href === "#" || href.length < 2) return
 
       const dest = document.querySelector(href)
       if (!dest) return

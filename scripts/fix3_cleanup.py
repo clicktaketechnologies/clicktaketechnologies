@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Fix two issues from the FIX-3 script:
 1. `images: [DEFAULT_OG_IMAGE],title:` → add newline (14 files)
@@ -9,19 +9,19 @@ from pathlib import Path
 
 SRC = Path("/home/z/my-project/src/app")
 
-***REMOVED*** Issue 1: Fix merged-line formatting
-***REMOVED*** Pattern: `images: [DEFAULT_OG_IMAGE],title:` → `images: [DEFAULT_OG_IMAGE],\n    title:`
-***REMOVED*** Need to detect the indentation level
+# Issue 1: Fix merged-line formatting
+# Pattern: `images: [DEFAULT_OG_IMAGE],title:` → `images: [DEFAULT_OG_IMAGE],\n    title:`
+# Need to detect the indentation level
 fixed_formatting = 0
 for page_file in SRC.rglob("page.tsx"):
     text = page_file.read_text()
     if "images: [DEFAULT_OG_IMAGE],title:" not in text:
         continue
-    ***REMOVED*** Replace `images: [DEFAULT_OG_IMAGE],title:` with `images: [DEFAULT_OG_IMAGE],\n    title:`
-    ***REMOVED*** But preserve the original indentation (4 or 6 spaces typically)
+    # Replace `images: [DEFAULT_OG_IMAGE],title:` with `images: [DEFAULT_OG_IMAGE],\n    title:`
+    # But preserve the original indentation (4 or 6 spaces typically)
     def fix_line(m):
-        indent = "    "  ***REMOVED*** default
-        ***REMOVED*** Try to detect from context — look at the line before
+        indent = "    "  # default
+        # Try to detect from context — look at the line before
         return f"images: [DEFAULT_OG_IMAGE],\n{indent}title:"
 
     new_text = re.sub(
@@ -36,7 +36,7 @@ for page_file in SRC.rglob("page.tsx"):
 
 print(f"\nFixed formatting in {fixed_formatting} files")
 
-***REMOVED*** Issue 2: Replace {TITLE} and {DESC} in legal pages
+# Issue 2: Replace {TITLE} and {DESC} in legal pages
 LEGAL_FIXES = {
     "legal/privacy/page.tsx": {
         "title": "Privacy Policy",
@@ -60,7 +60,7 @@ for rel_path, values in LEGAL_FIXES.items():
         continue
     text = text.replace('"{{TITLE}}"', f'"{values["title"]}"')
     text = text.replace('"{{DESC}}"', f'"{values["description"]}"')
-    ***REMOVED*** Also handle the case where placeholders weren't wrapped in quotes
+    # Also handle the case where placeholders weren't wrapped in quotes
     text = text.replace("{TITLE}", values["title"])
     text = text.replace("{DESC}", values["description"])
     fpath.write_text(text)

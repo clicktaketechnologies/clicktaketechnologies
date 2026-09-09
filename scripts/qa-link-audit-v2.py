@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 QA AUDIT v2 — Comprehensive Link Integrity (source-level)
 1. Extracts nav/footer/data-driven links from site-data.ts + all components
@@ -12,17 +12,17 @@ from collections import defaultdict
 ROOT = "/home/z/my-project"
 SRC = os.path.join(ROOT, "src")
 
-***REMOVED*** ─── 1. Build actual route tree from filesystem ───
+# ─── 1. Build actual route tree from filesystem ───
 app_dir = os.path.join(SRC, "app")
 fs_routes = set()
-dynamic_routes = []  ***REMOVED*** routes with [slug] / [[...slug]] params
+dynamic_routes = []  # routes with [slug] / [[...slug]] params
 
 for dirpath, dirnames, filenames in os.walk(app_dir):
     if not ("page.tsx" in filenames or "route.ts" in filenames):
         continue
     rel = os.path.relpath(dirpath, app_dir)
     parts = [] if rel == "." else rel.split(os.sep)
-    ***REMOVED*** Skip API routes and private folders
+    # Skip API routes and private folders
     joined = "/".join(parts)
     if "/api" in joined or parts[:1] == ["api"]:
         continue
@@ -43,10 +43,10 @@ def route_matches(fs_route: str, link: str) -> bool:
     while fi < len(fs_parts):
         seg = fs_parts[fi]
         if re.fullmatch(r"\[\[\.\.\.\w+\]\]", seg):
-            ***REMOVED*** optional catch-all — matches remainder or nothing
+            # optional catch-all — matches remainder or nothing
             return True
         if re.fullmatch(r"\[\.\.\.\w+\]", seg):
-            ***REMOVED*** required catch-all — needs at least one more segment
+            # required catch-all — needs at least one more segment
             return i < len(link_parts)
         if i >= len(link_parts):
             return False
@@ -57,15 +57,15 @@ def route_matches(fs_route: str, link: str) -> bool:
         i += 1; fi += 1
     return i == len(link_parts)
 
-***REMOVED*** ─── 2. Extract links from ALL source files (broader patterns) ───
+# ─── 2. Extract links from ALL source files (broader patterns) ───
 link_re = re.compile(r'''["'`](/[a-zA-Z0-9][a-zA-Z0-9/_\-.]*?)["'`]''')
 skip_prefixes = ("/api/", "/_next/", "/images/", "/icons/", "/videos/", "/fonts/")
 skip_ext = re.compile(r"\.(png|jpg|jpeg|svg|webp|ico|xml|txt|css|js|json|mp4|webm|pdf|md|ts|tsx|woff2?)$")
-skip_exact = {"/admin"}  ***REMOVED*** handled separately
+skip_exact = {"/admin"}  # handled separately
 
 links = defaultdict(set)
 for dirpath, dirnames, filenames in os.walk(SRC):
-    ***REMOVED*** Skip admin components for public audit but keep admin links flagged
+    # Skip admin components for public audit but keep admin links flagged
     for fn in filenames:
         if not fn.endswith((".tsx", ".ts")):
             continue
@@ -76,26 +76,26 @@ for dirpath, dirnames, filenames in os.walk(SRC):
                 content = f.read()
         except Exception:
             continue
-        ***REMOVED*** Find href="/..." and href={`/...`} and href='/...'
+        # Find href="/..." and href={`/...`} and href='/...'
         for m in re.finditer(r'''href\s*=\s*["'`]\s*(/[^"'`\s]*)["'`]''', content):
-            link = m.group(1).split("?")[0].split("***REMOVED***")[0] or "/"
+            link = m.group(1).split("?")[0].split("#")[0] or "/"
             links[link].add(rel)
-        ***REMOVED*** Template literals: href={`/blog/${slug}`} — capture static prefix
+        # Template literals: href={`/blog/${slug}`} — capture static prefix
         for m in re.finditer(r'''href\s*=\s*\{\s*[`"'](/[^"'`]*)[`"']\s*\}''', content):
-            raw = m.group(1).split("?")[0].split("***REMOVED***")[0] or "/"
-            ***REMOVED*** Replace ${...} with [slug]
+            raw = m.group(1).split("?")[0].split("#")[0] or "/"
+            # Replace ${...} with [slug]
             link = re.sub(r"\$\{[^}]*\}", "*", raw)
             links[link].add(rel)
-        ***REMOVED*** Link imports in data files: href: "/..."
+        # Link imports in data files: href: "/..."
         for m in re.finditer(r'''["']?href["']?\s*:\s*["'`](/[^"'`\s]*)["'`]''', content):
-            link = m.group(1).split("?")[0].split("***REMOVED***")[0] or "/"
+            link = m.group(1).split("?")[0].split("#")[0] or "/"
             links[link].add(rel)
-        ***REMOVED*** router.push("/...") / redirect("/...")
+        # router.push("/...") / redirect("/...")
         for m in re.finditer(r'''(?:router\.(?:push|replace)|redirect)\(\s*["'`](/[^"'`\s]*)["'`]''', content):
-            link = m.group(1).split("?")[0].split("***REMOVED***")[0] or "/"
+            link = m.group(1).split("?")[0].split("#")[0] or "/"
             links[link].add(rel)
 
-***REMOVED*** ─── 3. Verify every link ───
+# ─── 3. Verify every link ───
 broken = []
 ok_count = 0
 for link, files in sorted(links.items()):
@@ -106,7 +106,7 @@ for link, files in sorted(links.items()):
         ok_count += 1
         continue
     if "$" in link or "*" in link:
-        ***REMOVED*** dynamic — verify the static prefix matches a dynamic route
+        # dynamic — verify the static prefix matches a dynamic route
         prefix = link.split("*")[0].rstrip("/") or "/"
         matched = any(route_matches(dr, prefix) or route_matches(dr, link.replace("*", "x"))
                       for dr in dynamic_routes)

@@ -1,16 +1,16 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """QA — dead component detector v2: exact import-statement matching."""
 import os, re
 
 ROOT = "/home/z/my-project"
 SITE_DIR = os.path.join(ROOT, "src", "components", "site")
 
-***REMOVED*** import/require/dynamic patterns: from '...X', from "...X", import('...X')
+# import/require/dynamic patterns: from '...X', from "...X", import('...X')
 IMPORT_RE = re.compile(
     r"""(?:from\s+|import\s*\(\s*|require\s*\(\s*)["']([^"']+)["']"""
 )
 
-sources = {}  ***REMOVED*** file -> [import paths]
+sources = {}  # file -> [import paths]
 for dirpath, dirnames, filenames in os.walk(os.path.join(ROOT, "src")):
     for fn in filenames:
         if not fn.endswith((".tsx", ".ts")):
@@ -39,7 +39,7 @@ def resolves(import_path: str, importer_path: str, target_stem: str) -> bool:
     return False
 
 site_components = [fn[:-4] for fn in os.listdir(SITE_DIR) if fn.endswith(".tsx")]
-***REMOVED*** also subdirectory index components
+# also subdirectory index components
 subdirs = [d for d in os.listdir(SITE_DIR)
            if os.path.isdir(os.path.join(SITE_DIR, d))
            and os.path.exists(os.path.join(SITE_DIR, d, "index.tsx"))]
@@ -49,7 +49,7 @@ for stem in sorted(site_components + subdirs):
     imported_by = []
     for path, imports in sources.items():
         if os.path.join(SITE_DIR, stem + ".tsx") == path:
-            continue  ***REMOVED*** self
+            continue  # self
         for imp in imports:
             if resolves(imp, path, stem):
                 imported_by.append(os.path.relpath(path, ROOT))

@@ -37,9 +37,9 @@ export function SkipToContent() {
 
   return (
     <a
-      href="***REMOVED***main-content"
+      href="#main-content"
       onClick={handleClick}
-      className="sr-only z-[300] rounded-lg bg-[***REMOVED***FF53A9] px-4 py-2 text-sm font-bold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:shadow-lg"
+      className="sr-only z-[300] rounded-lg bg-[#FF53A9] px-4 py-2 text-sm font-bold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:shadow-lg"
     >
       Skip to main content
     </a>

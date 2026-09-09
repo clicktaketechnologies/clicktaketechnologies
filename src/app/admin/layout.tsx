@@ -39,9 +39,9 @@ import "./admin-globals.css";
  *  - Main content area with 24px padding
  *
  * Brand:
- *  - Pink ***REMOVED***FF53A9 primary (replaces AWIAP cyan)
- *  - Blue ***REMOVED***136DFF + Purple ***REMOVED***9B3DFF secondaries
- *  - Dark backgrounds: ***REMOVED***03000D / ***REMOVED***070018 / ***REMOVED***0D0025 / ***REMOVED***1E1640
+ *  - Pink #FF53A9 primary (replaces AWIAP cyan)
+ *  - Blue #136DFF + Purple #9B3DFF secondaries
+ *  - Dark backgrounds: #03000D / #070018 / #0D0025 / #1E1640
  *  - Fonts: Syne (head) + JetBrains Mono (data)
  */
 

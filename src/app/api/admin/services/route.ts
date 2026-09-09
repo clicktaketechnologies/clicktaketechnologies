@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
       faq: JSON.stringify(faq || []),
       processSteps: JSON.stringify(processSteps || []),
       pricingPackages: JSON.stringify(pricingPackages || []),
-      // Phase 3 ***REMOVED***2 — persist AI-generated deep-dive content (12-section Ultimate Guide).
+      // Phase 3 #2 — persist AI-generated deep-dive content (12-section Ultimate Guide).
       deepDive: deepDive ? JSON.stringify(deepDive) : "{}",
       displayOrder: displayOrder || 0,
       isPublished: isPublished !== false,

@@ -22,7 +22,7 @@ import {
  *  - Recent leads + activity log (2-col grid)
  *
  * Uses .ct-admin-* classes from admin-globals.css. Brand colors:
- *   Pink ***REMOVED***FF53A9 primary, Blue ***REMOVED***136DFF + Purple ***REMOVED***9B3DFF secondaries
+ *   Pink #FF53A9 primary, Blue #136DFF + Purple #9B3DFF secondaries
  */
 
 // ─── Inline SVG chart helpers (zero-dep) ─────────────────────────────────
@@ -50,8 +50,8 @@ function MiniLineChart({ data, height = 220 }: { data: { date: string; count: nu
     <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" className="h-full w-full">
       <defs>
         <linearGradient id="leadGradient" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="5%" stopColor="***REMOVED***FF53A9" stopOpacity="0.4" />
-          <stop offset="95%" stopColor="***REMOVED***9B3DFF" stopOpacity="0.05" />
+          <stop offset="5%" stopColor="#FF53A9" stopOpacity="0.4" />
+          <stop offset="95%" stopColor="#9B3DFF" stopOpacity="0.05" />
         </linearGradient>
       </defs>
       {/* Grid */}
@@ -65,11 +65,11 @@ function MiniLineChart({ data, height = 220 }: { data: { date: string; count: nu
         );
       })}
       {/* Area + line */}
-      <path d={areaD} fill="url(***REMOVED***leadGradient)" />
-      <path d={pathD} fill="none" stroke="***REMOVED***FF53A9" strokeWidth="2" />
+      <path d={areaD} fill="url(#leadGradient)" />
+      <path d={pathD} fill="none" stroke="#FF53A9" strokeWidth="2" />
       {/* Dots */}
       {points.map((p, i) => (
-        <circle key={i} cx={p.x} cy={p.y} r="3" fill="***REMOVED***136DFF" />
+        <circle key={i} cx={p.x} cy={p.y} r="3" fill="#136DFF" />
       ))}
       {/* X labels */}
       {[0, Math.floor(data.length / 2), data.length - 1].map((idx, i) => {
@@ -110,7 +110,7 @@ function MiniDonutChart({ data, size = 160 }: { data: { name: string; value: num
     const yi1 = cy + inner * Math.sin(a0);
     const large = slice > Math.PI ? 1 : 0;
     const path = `M ${x0} ${y0} A ${radius} ${radius} 0 ${large} 1 ${x1} ${y1} L ${xi0} ${yi0} A ${inner} ${inner} 0 ${large} 0 ${xi1} ${yi1} Z`;
-    return { path, color: STATUS_COLORS[d.name] || "***REMOVED***7A6B95", name: d.name, value: d.value };
+    return { path, color: STATUS_COLORS[d.name] || "#7A6B95", name: d.name, value: d.value };
   });
   return (
     <svg viewBox={`0 0 ${size} ${size}`} className="h-full w-full">
@@ -119,7 +119,7 @@ function MiniDonutChart({ data, size = 160 }: { data: { name: string; value: num
           <title>{`${s.name}: ${s.value}`}</title>
         </path>
       ))}
-      <text x={cx} y={cy - 4} textAnchor="middle" fontSize="20" fontWeight="700" fill="***REMOVED***F0EBF8">{total}</text>
+      <text x={cx} y={cy - 4} textAnchor="middle" fontSize="20" fontWeight="700" fill="#F0EBF8">{total}</text>
       <text x={cx} y={cy + 14} textAnchor="middle" fontSize="10" fill="rgba(240,235,248,0.5)">total</text>
     </svg>
   );
@@ -145,12 +145,12 @@ type Props = {
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  New: "***REMOVED***136DFF",
-  Contacted: "***REMOVED***FF53A9",
-  Qualified: "***REMOVED***22c55e",
-  Proposal: "***REMOVED***f59e0b",
-  Converted: "***REMOVED***9B3DFF",
-  Closed: "***REMOVED***7A6B95",
+  New: "#136DFF",
+  Contacted: "#FF53A9",
+  Qualified: "#22c55e",
+  Proposal: "#f59e0b",
+  Converted: "#9B3DFF",
+  Closed: "#7A6B95",
 };
 
 export function AdminDashboardClient({
@@ -275,7 +275,7 @@ export function AdminDashboardClient({
                   <span className="flex items-center gap-2" style={{ color: "var(--cta-muted2)" }}>
                     <span
                       className="inline-block h-2 w-2 rounded-full"
-                      style={{ backgroundColor: STATUS_COLORS[s.name] || "***REMOVED***7A6B95" }}
+                      style={{ backgroundColor: STATUS_COLORS[s.name] || "#7A6B95" }}
                     />
                     {s.name}
                   </span>
@@ -387,7 +387,7 @@ export function AdminDashboardClient({
                         className="ct-admin-ana-fill"
                         style={{
                           width: `${pct}%`,
-                          background: STATUS_COLORS[s.name] || "***REMOVED***7A6B95",
+                          background: STATUS_COLORS[s.name] || "#7A6B95",
                         }}
                       />
                     </div>

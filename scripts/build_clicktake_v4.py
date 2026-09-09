@@ -1,4 +1,4 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 ClickTake Technologies — v4 Multi-Page SPA Generator
 Builds a self-contained dark-mode futuristic site with:
@@ -15,15 +15,15 @@ from textwrap import dedent
 
 OUT = Path("/home/z/my-project/download/clicktake-landing.html")
 
-***REMOVED*** ============================================================================
-***REMOVED*** HEAD — meta, Tailwind config, fonts, Lucide, JSON-LD, embedded <style>
-***REMOVED*** ============================================================================
+# ============================================================================
+# HEAD — meta, Tailwind config, fonts, Lucide, JSON-LD, embedded <style>
+# ============================================================================
 HEAD = '''<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="***REMOVED***03000D" />
+  <meta name="theme-color" content="#03000D" />
 
   <!-- Default SEO (overridden per-page by SPA router) -->
   <title>ClickTake Technologies — Software · AI Agents · Cloud Architecture</title>
@@ -59,15 +59,15 @@ HEAD = '''<!DOCTYPE html>
       theme: {
         extend: {
           colors: {
-            midnight: '***REMOVED***03000D',
-            navy: '***REMOVED***070018',
-            charcoal: '***REMOVED***0D0025',
-            ckblue: '***REMOVED***136DFF',
-            ckpink: '***REMOVED***FF53A9',
-            ckpinkdeep: '***REMOVED***E0197A',
-            ckpurple: '***REMOVED***7B2FBE',
-            ckheading: '***REMOVED***F0EBF8',
-            ckbody: '***REMOVED***9A8CB5',
+            midnight: '#03000D',
+            navy: '#070018',
+            charcoal: '#0D0025',
+            ckblue: '#136DFF',
+            ckpink: '#FF53A9',
+            ckpinkdeep: '#E0197A',
+            ckpurple: '#7B2FBE',
+            ckheading: '#F0EBF8',
+            ckbody: '#9A8CB5',
           },
           fontFamily: {
             display: ['"Space Grotesk"', 'sans-serif'],
@@ -115,15 +115,15 @@ HEAD = '''<!DOCTYPE html>
 
   <style>
     :root {
-      --midnight: ***REMOVED***03000D;
-      --navy: ***REMOVED***070018;
-      --charcoal: ***REMOVED***0D0025;
-      --blue: ***REMOVED***136DFF;
-      --pink: ***REMOVED***FF53A9;
-      --pink-deep: ***REMOVED***E0197A;
-      --purple: ***REMOVED***7B2FBE;
-      --heading: ***REMOVED***F0EBF8;
-      --body: ***REMOVED***9A8CB5;
+      --midnight: #03000D;
+      --navy: #070018;
+      --charcoal: #0D0025;
+      --blue: #136DFF;
+      --pink: #FF53A9;
+      --pink-deep: #E0197A;
+      --purple: #7B2FBE;
+      --heading: #F0EBF8;
+      --body: #9A8CB5;
       --glass-bg: rgba(13, 0, 37, 0.55);
       --glass-border: rgba(19, 109, 255, 0.30);
     }
@@ -134,20 +134,20 @@ HEAD = '''<!DOCTYPE html>
       radial-gradient(1200px 800px at 10% 0%, rgba(123,47,190,0.18), transparent 60%),
       radial-gradient(1000px 700px at 90% 10%, rgba(19,109,255,0.14), transparent 60%),
       radial-gradient(900px 600px at 50% 100%, rgba(255,83,169,0.10), transparent 60%),
-      linear-gradient(180deg, ***REMOVED***03000D 0%, ***REMOVED***070018 50%, ***REMOVED***0D0025 100%);
+      linear-gradient(180deg, #03000D 0%, #070018 50%, #0D0025 100%);
       background-attachment: fixed;
     }
 
     h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', sans-serif; color: var(--heading); letter-spacing: -0.02em; }
-    ::selection { background: rgba(255,83,169,0.35); color: ***REMOVED***fff; }
+    ::selection { background: rgba(255,83,169,0.35); color: #fff; }
 
     /* Scrollbar */
     ::-webkit-scrollbar { width: 10px; height: 10px; }
-    ::-webkit-scrollbar-track { background: ***REMOVED***070018; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, ***REMOVED***136DFF, ***REMOVED***FF53A9); border-radius: 6px; }
+    ::-webkit-scrollbar-track { background: #070018; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #136DFF, #FF53A9); border-radius: 6px; }
 
     /* Canvas particle background */
-    ***REMOVED***particle-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.6; }
+    #particle-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.6; }
 
     /* Mesh ambient blobs */
     .mesh-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; pointer-events: none; z-index: 1; }
@@ -165,7 +165,7 @@ HEAD = '''<!DOCTYPE html>
     .glass::before {
       content: ''; position: absolute; inset: 0; padding: 1px; border-radius: inherit;
       background: linear-gradient(135deg, rgba(19,109,255,0.45), rgba(255,83,169,0.30));
-      -webkit-mask: linear-gradient(***REMOVED***000 0 0) content-box, linear-gradient(***REMOVED***000 0 0);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite: xor; mask-composite: exclude;
       pointer-events: none;
     }
@@ -178,19 +178,19 @@ HEAD = '''<!DOCTYPE html>
 
     /* Gradient text */
     .grad-text {
-      background: linear-gradient(135deg, ***REMOVED***136DFF 0%, ***REMOVED***FF53A9 100%);
+      background: linear-gradient(135deg, #136DFF 0%, #FF53A9 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .grad-text-violet {
-      background: linear-gradient(135deg, ***REMOVED***7B2FBE 0%, ***REMOVED***136DFF 50%, ***REMOVED***FF53A9 100%);
+      background: linear-gradient(135deg, #7B2FBE 0%, #136DFF 50%, #FF53A9 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
 
     /* Glow button with radial follow */
     .glow-btn {
       position: relative; overflow: hidden;
-      background: linear-gradient(135deg, ***REMOVED***136DFF, ***REMOVED***FF53A9);
-      color: ***REMOVED***fff; border: none; cursor: pointer;
+      background: linear-gradient(135deg, #136DFF, #FF53A9);
+      color: #fff; border: none; cursor: pointer;
       box-shadow: 0 8px 24px rgba(19,109,255,0.35), 0 8px 24px rgba(255,83,169,0.20);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
       --mx: 50%; --my: 50%;
@@ -250,13 +250,13 @@ HEAD = '''<!DOCTYPE html>
     .nav-link:hover, .nav-link.active { color: var(--heading); }
     .nav-link::after {
       content:''; position:absolute; left:0; bottom:-6px; width:0; height:2px;
-      background: linear-gradient(90deg, ***REMOVED***136DFF, ***REMOVED***FF53A9); transition: width 0.3s;
+      background: linear-gradient(90deg, #136DFF, #FF53A9); transition: width 0.3s;
     }
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
     /* Holographic ring */
     .holo-ring {
-      background: conic-gradient(from 0deg, ***REMOVED***136DFF, ***REMOVED***FF53A9, ***REMOVED***7B2FBE, ***REMOVED***136DFF);
+      background: conic-gradient(from 0deg, #136DFF, #FF53A9, #7B2FBE, #136DFF);
       animation: spin 8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -270,7 +270,7 @@ HEAD = '''<!DOCTYPE html>
     /* Tag chip */
     .tag { display:inline-flex; align-items:center; gap:6px; padding: 4px 12px; border-radius: 999px;
       background: rgba(19,109,255,0.12); border: 1px solid rgba(19,109,255,0.30);
-      color: ***REMOVED***B4D1FF; font-size: 12px; font-weight: 500; font-family: 'JetBrains Mono', monospace; }
+      color: #B4D1FF; font-size: 12px; font-weight: 500; font-family: 'JetBrains Mono', monospace; }
 
     /* Marquee */
     @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -298,17 +298,17 @@ HEAD = '''<!DOCTYPE html>
     /* Step indicator */
     .step-dot { width: 36px; height: 36px; border-radius: 50%; display:flex; align-items:center; justify-content:center;
       font-weight: 700; font-family: 'Space Grotesk'; transition: all 0.3s; }
-    .step-dot.active { background: linear-gradient(135deg, ***REMOVED***136DFF, ***REMOVED***FF53A9); color:***REMOVED***fff; box-shadow: 0 0 20px rgba(19,109,255,0.5); }
-    .step-dot.done { background: rgba(19,109,255,0.20); color: ***REMOVED***B4D1FF; border:1px solid rgba(19,109,255,0.40); }
+    .step-dot.active { background: linear-gradient(135deg, #136DFF, #FF53A9); color:#fff; box-shadow: 0 0 20px rgba(19,109,255,0.5); }
+    .step-dot.done { background: rgba(19,109,255,0.20); color: #B4D1FF; border:1px solid rgba(19,109,255,0.40); }
     .step-dot.idle { background: rgba(240,235,248,0.05); color: rgba(154,140,181,0.5); border:1px solid rgba(240,235,248,0.08); }
     .step-line { flex:1; height: 2px; background: rgba(240,235,248,0.08); position: relative; }
-    .step-line.done { background: linear-gradient(90deg, ***REMOVED***136DFF, ***REMOVED***FF53A9); }
+    .step-line.done { background: linear-gradient(90deg, #136DFF, #FF53A9); }
 
     /* Calendar widget */
     .cal-day { aspect-ratio: 1; display:flex; align-items:center; justify-content:center; border-radius: 8px;
       font-size: 14px; font-family: 'Space Grotesk'; cursor: pointer; transition: all 0.15s; color: var(--body); }
     .cal-day:hover { background: rgba(19,109,255,0.15); color: var(--heading); }
-    .cal-day.selected { background: linear-gradient(135deg, ***REMOVED***136DFF, ***REMOVED***FF53A9); color: ***REMOVED***fff; }
+    .cal-day.selected { background: linear-gradient(135deg, #136DFF, #FF53A9); color: #fff; }
     .cal-day.disabled { opacity: 0.25; cursor: not-allowed; }
     .cal-day.today { border: 1px solid rgba(255,83,169,0.5); }
 
@@ -327,9 +327,9 @@ HEAD = '''<!DOCTYPE html>
 </head>
 '''
 
-***REMOVED*** ============================================================================
-***REMOVED*** CANVAS + AMBIENT MESH
-***REMOVED*** ============================================================================
+# ============================================================================
+# CANVAS + AMBIENT MESH
+# ============================================================================
 AMBIENT = '''
 <body class="font-body relative">
   <!-- Particle ambient canvas -->
@@ -337,26 +337,26 @@ AMBIENT = '''
 
   <!-- Ambient mesh blobs (decorative, fixed) -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-    <div class="mesh-blob" style="width:520px;height:520px;background:***REMOVED***7B2FBE;top:-120px;left:-80px;"></div>
-    <div class="mesh-blob" style="width:480px;height:480px;background:***REMOVED***136DFF;top:30%;right:-120px;opacity:0.35;"></div>
-    <div class="mesh-blob" style="width:420px;height:420px;background:***REMOVED***FF53A9;bottom:-100px;left:30%;opacity:0.30;"></div>
+    <div class="mesh-blob" style="width:520px;height:520px;background:#7B2FBE;top:-120px;left:-80px;"></div>
+    <div class="mesh-blob" style="width:480px;height:480px;background:#136DFF;top:30%;right:-120px;opacity:0.35;"></div>
+    <div class="mesh-blob" style="width:420px;height:420px;background:#FF53A9;bottom:-100px;left:30%;opacity:0.30;"></div>
   </div>
 
   <div class="relative z-10">
 '''
 
-***REMOVED*** ============================================================================
-***REMOVED*** UNIVERSAL STICKY GLASS HEADER
-***REMOVED*** ============================================================================
+# ============================================================================
+# UNIVERSAL STICKY GLASS HEADER
+# ============================================================================
 HEADER = '''
     <!-- Universal Sticky Glass Header -->
     <header id="site-header" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
       <div class="max-w-7xl mx-auto px-5 lg:px-8">
         <div class="mt-3 glass rounded-2xl px-5 py-3 flex items-center justify-between">
           <!-- Logo -->
-          <a href="***REMOVED***home" data-nav="home" class="flex items-center gap-2.5 group" aria-label="ClickTake home">
-            <span class="relative inline-flex h-9 w-9 items-center justify-center rounded-xl" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);">
-              <span class="absolute inset-0 rounded-xl blur-md opacity-60" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);"></span>
+          <a href="#home" data-nav="home" class="flex items-center gap-2.5 group" aria-label="ClickTake home">
+            <span class="relative inline-flex h-9 w-9 items-center justify-center rounded-xl" style="background:linear-gradient(135deg,#136DFF,#FF53A9);">
+              <span class="absolute inset-0 rounded-xl blur-md opacity-60" style="background:linear-gradient(135deg,#136DFF,#FF53A9);"></span>
               <svg class="relative w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
               </svg>
@@ -366,19 +366,19 @@ HEADER = '''
 
           <!-- Desktop Nav -->
           <nav class="hidden lg:flex items-center gap-7 text-sm" aria-label="Primary">
-            <a href="***REMOVED***home" data-nav="home" class="nav-link">Home</a>
-            <a href="***REMOVED***services" data-nav="services" class="nav-link">Services</a>
-            <a href="***REMOVED***solutions" data-nav="solutions" class="nav-link">Solutions</a>
-            <a href="***REMOVED***cases" data-nav="cases" class="nav-link">Case Studies</a>
-            <a href="***REMOVED***about" data-nav="about" class="nav-link">About</a>
-            <a href="***REMOVED***blog" data-nav="blog" class="nav-link">Blog</a>
-            <a href="***REMOVED***careers" data-nav="careers" class="nav-link">Careers</a>
-            <a href="***REMOVED***contact" data-nav="contact" class="nav-link">Contact</a>
+            <a href="#home" data-nav="home" class="nav-link">Home</a>
+            <a href="#services" data-nav="services" class="nav-link">Services</a>
+            <a href="#solutions" data-nav="solutions" class="nav-link">Solutions</a>
+            <a href="#cases" data-nav="cases" class="nav-link">Case Studies</a>
+            <a href="#about" data-nav="about" class="nav-link">About</a>
+            <a href="#blog" data-nav="blog" class="nav-link">Blog</a>
+            <a href="#careers" data-nav="careers" class="nav-link">Careers</a>
+            <a href="#contact" data-nav="contact" class="nav-link">Contact</a>
           </nav>
 
           <!-- CTA -->
           <div class="hidden lg:flex items-center gap-3">
-            <a href="***REMOVED***contact" data-nav="contact" class="glow-btn rounded-xl px-5 py-2.5 text-sm font-semibold font-display">Book a Demo</a>
+            <a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-5 py-2.5 text-sm font-semibold font-display">Book a Demo</a>
           </div>
 
           <!-- Mobile toggle -->
@@ -395,118 +395,118 @@ HEADER = '''
         <i data-lucide="x" class="w-6 h-6"></i>
       </button>
       <nav class="flex flex-col gap-4 text-base" aria-label="Mobile">
-        <a href="***REMOVED***home" data-nav="home" class="nav-link mobile-link">Home</a>
-        <a href="***REMOVED***services" data-nav="services" class="nav-link mobile-link">Services</a>
-        <a href="***REMOVED***solutions" data-nav="solutions" class="nav-link mobile-link">Solutions</a>
-        <a href="***REMOVED***cases" data-nav="cases" class="nav-link mobile-link">Case Studies</a>
-        <a href="***REMOVED***about" data-nav="about" class="nav-link mobile-link">About</a>
-        <a href="***REMOVED***blog" data-nav="blog" class="nav-link mobile-link">Blog</a>
-        <a href="***REMOVED***careers" data-nav="careers" class="nav-link mobile-link">Careers</a>
-        <a href="***REMOVED***contact" data-nav="contact" class="nav-link mobile-link">Contact</a>
-        <a href="***REMOVED***privacy" data-nav="privacy" class="nav-link mobile-link text-xs mt-4 opacity-60">Privacy Policy</a>
-        <a href="***REMOVED***terms" data-nav="terms" class="nav-link mobile-link text-xs opacity-60">Terms of Service</a>
-        <a href="***REMOVED***contact" data-nav="contact" class="glow-btn mobile-link rounded-xl px-5 py-3 text-center font-display font-semibold mt-4">Book a Demo</a>
+        <a href="#home" data-nav="home" class="nav-link mobile-link">Home</a>
+        <a href="#services" data-nav="services" class="nav-link mobile-link">Services</a>
+        <a href="#solutions" data-nav="solutions" class="nav-link mobile-link">Solutions</a>
+        <a href="#cases" data-nav="cases" class="nav-link mobile-link">Case Studies</a>
+        <a href="#about" data-nav="about" class="nav-link mobile-link">About</a>
+        <a href="#blog" data-nav="blog" class="nav-link mobile-link">Blog</a>
+        <a href="#careers" data-nav="careers" class="nav-link mobile-link">Careers</a>
+        <a href="#contact" data-nav="contact" class="nav-link mobile-link">Contact</a>
+        <a href="#privacy" data-nav="privacy" class="nav-link mobile-link text-xs mt-4 opacity-60">Privacy Policy</a>
+        <a href="#terms" data-nav="terms" class="nav-link mobile-link text-xs opacity-60">Terms of Service</a>
+        <a href="#contact" data-nav="contact" class="glow-btn mobile-link rounded-xl px-5 py-3 text-center font-display font-semibold mt-4">Book a Demo</a>
       </nav>
     </div>
 '''
 
-***REMOVED*** ============================================================================
-***REMOVED*** MASCOTS — CSS/SVG-built 3D cartoon mascots
-***REMOVED*** ============================================================================
+# ============================================================================
+# MASCOTS — CSS/SVG-built 3D cartoon mascots
+# ============================================================================
 MASCOT_DEV = '''
 <!-- Mascot 1: Dev Mascot with VR headset + holographic tablet -->
 <svg class="mascot-dev w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D developer mascot wearing VR headset" role="img">
   <defs>
     <radialGradient id="devSkin" cx="40%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="***REMOVED***FFD9B8"/><stop offset="60%" stop-color="***REMOVED***F4B58C"/><stop offset="100%" stop-color="***REMOVED***C98A66"/>
+      <stop offset="0%" stop-color="#FFD9B8"/><stop offset="60%" stop-color="#F4B58C"/><stop offset="100%" stop-color="#C98A66"/>
     </radialGradient>
     <linearGradient id="devShirt" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="***REMOVED***1E3A8A"/><stop offset="100%" stop-color="***REMOVED***0A1746"/>
+      <stop offset="0%" stop-color="#1E3A8A"/><stop offset="100%" stop-color="#0A1746"/>
     </linearGradient>
     <linearGradient id="vrBody" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="***REMOVED***136DFF"/><stop offset="50%" stop-color="***REMOVED***7B2FBE"/><stop offset="100%" stop-color="***REMOVED***FF53A9"/>
+      <stop offset="0%" stop-color="#136DFF"/><stop offset="50%" stop-color="#7B2FBE"/><stop offset="100%" stop-color="#FF53A9"/>
     </linearGradient>
     <linearGradient id="holoTab" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="***REMOVED***136DFF" stop-opacity="0.85"/><stop offset="100%" stop-color="***REMOVED***FF53A9" stop-opacity="0.70"/>
+      <stop offset="0%" stop-color="#136DFF" stop-opacity="0.85"/><stop offset="100%" stop-color="#FF53A9" stop-opacity="0.70"/>
     </linearGradient>
     <filter id="softGlow"><feGaussianBlur stdDeviation="4"/></filter>
   </defs>
 
   <!-- Ambient glow disk -->
-  <ellipse cx="200" cy="440" rx="140" ry="20" fill="***REMOVED***136DFF" opacity="0.25" filter="url(***REMOVED***softGlow)"/>
+  <ellipse cx="200" cy="440" rx="140" ry="20" fill="#136DFF" opacity="0.25" filter="url(#softGlow)"/>
 
   <!-- Body / shoulders -->
-  <path d="M110 380 Q200 320 290 380 L290 460 Q200 440 110 460 Z" fill="url(***REMOVED***devShirt)"/>
-  <path d="M150 360 Q200 340 250 360 L255 410 Q200 395 145 410 Z" fill="***REMOVED***0A1746" opacity="0.6"/>
+  <path d="M110 380 Q200 320 290 380 L290 460 Q200 440 110 460 Z" fill="url(#devShirt)"/>
+  <path d="M150 360 Q200 340 250 360 L255 410 Q200 395 145 410 Z" fill="#0A1746" opacity="0.6"/>
   <!-- Neck -->
-  <rect x="180" y="240" width="40" height="60" rx="14" fill="url(***REMOVED***devSkin)"/>
-  <ellipse cx="200" cy="300" rx="22" ry="8" fill="***REMOVED***000" opacity="0.20"/>
+  <rect x="180" y="240" width="40" height="60" rx="14" fill="url(#devSkin)"/>
+  <ellipse cx="200" cy="300" rx="22" ry="8" fill="#000" opacity="0.20"/>
 
   <!-- Head -->
-  <ellipse cx="200" cy="190" rx="78" ry="86" fill="url(***REMOVED***devSkin)"/>
+  <ellipse cx="200" cy="190" rx="78" ry="86" fill="url(#devSkin)"/>
   <!-- Ears -->
-  <ellipse cx="125" cy="200" rx="14" ry="20" fill="url(***REMOVED***devSkin)"/>
-  <ellipse cx="275" cy="200" rx="14" ry="20" fill="url(***REMOVED***devSkin)"/>
+  <ellipse cx="125" cy="200" rx="14" ry="20" fill="url(#devSkin)"/>
+  <ellipse cx="275" cy="200" rx="14" ry="20" fill="url(#devSkin)"/>
 
   <!-- Hair tuft -->
-  <path d="M140 130 Q170 95 200 100 Q230 95 260 130 Q255 105 200 95 Q145 105 140 130 Z" fill="***REMOVED***2D1B4E"/>
-  <path d="M170 115 Q200 105 230 115 Q220 95 200 95 Q180 95 170 115 Z" fill="***REMOVED***1A0F33"/>
+  <path d="M140 130 Q170 95 200 100 Q230 95 260 130 Q255 105 200 95 Q145 105 140 130 Z" fill="#2D1B4E"/>
+  <path d="M170 115 Q200 105 230 115 Q220 95 200 95 Q180 95 170 115 Z" fill="#1A0F33"/>
 
   <!-- VR Headset main body -->
   <g class="float-b" style="transform-origin: 200px 190px;">
-    <rect x="115" y="155" width="170" height="80" rx="22" fill="url(***REMOVED***vrBody)"/>
-    <rect x="125" y="160" width="150" height="70" rx="18" fill="***REMOVED***0A0118" opacity="0.55"/>
+    <rect x="115" y="155" width="170" height="80" rx="22" fill="url(#vrBody)"/>
+    <rect x="125" y="160" width="150" height="70" rx="18" fill="#0A0118" opacity="0.55"/>
     <!-- Lens ring left -->
-    <circle cx="160" cy="195" r="20" fill="***REMOVED***0A0118"/>
-    <circle cx="160" cy="195" r="16" fill="url(***REMOVED***vrBody)" opacity="0.85"/>
-    <circle cx="160" cy="195" r="10" fill="***REMOVED***136DFF"/>
-    <circle cx="156" cy="191" r="4" fill="***REMOVED***fff" opacity="0.85"/>
+    <circle cx="160" cy="195" r="20" fill="#0A0118"/>
+    <circle cx="160" cy="195" r="16" fill="url(#vrBody)" opacity="0.85"/>
+    <circle cx="160" cy="195" r="10" fill="#136DFF"/>
+    <circle cx="156" cy="191" r="4" fill="#fff" opacity="0.85"/>
     <!-- Lens ring right -->
-    <circle cx="240" cy="195" r="20" fill="***REMOVED***0A0118"/>
-    <circle cx="240" cy="195" r="16" fill="url(***REMOVED***vrBody)" opacity="0.85"/>
-    <circle cx="240" cy="195" r="10" fill="***REMOVED***FF53A9"/>
-    <circle cx="236" cy="191" r="4" fill="***REMOVED***fff" opacity="0.85"/>
+    <circle cx="240" cy="195" r="20" fill="#0A0118"/>
+    <circle cx="240" cy="195" r="16" fill="url(#vrBody)" opacity="0.85"/>
+    <circle cx="240" cy="195" r="10" fill="#FF53A9"/>
+    <circle cx="236" cy="191" r="4" fill="#fff" opacity="0.85"/>
     <!-- Strap -->
-    <path d="M115 175 Q90 180 80 200 Q90 220 115 215" stroke="***REMOVED***0A0118" stroke-width="8" fill="none" stroke-linecap="round"/>
-    <path d="M285 175 Q310 180 320 200 Q310 220 285 215" stroke="***REMOVED***0A0118" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M115 175 Q90 180 80 200 Q90 220 115 215" stroke="#0A0118" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M285 175 Q310 180 320 200 Q310 220 285 215" stroke="#0A0118" stroke-width="8" fill="none" stroke-linecap="round"/>
     <!-- Top glow line -->
-    <rect x="135" y="150" width="130" height="3" rx="1.5" fill="***REMOVED***FF53A9" opacity="0.8"/>
+    <rect x="135" y="150" width="130" height="3" rx="1.5" fill="#FF53A9" opacity="0.8"/>
   </g>
 
   <!-- Smile peeking below -->
-  <path d="M175 232 Q200 248 225 232" stroke="***REMOVED***7A3B23" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M175 232 Q200 248 225 232" stroke="#7A3B23" stroke-width="3" fill="none" stroke-linecap="round"/>
 
   <!-- Arms holding tablet -->
-  <path d="M115 380 Q90 350 130 320 L170 330 L150 380 Z" fill="url(***REMOVED***devShirt)"/>
-  <path d="M285 380 Q310 350 270 320 L230 330 L250 380 Z" fill="url(***REMOVED***devShirt)"/>
+  <path d="M115 380 Q90 350 130 320 L170 330 L150 380 Z" fill="url(#devShirt)"/>
+  <path d="M285 380 Q310 350 270 320 L230 330 L250 380 Z" fill="url(#devShirt)"/>
   <!-- Hands -->
-  <circle cx="140" cy="325" r="14" fill="url(***REMOVED***devSkin)"/>
-  <circle cx="260" cy="325" r="14" fill="url(***REMOVED***devSkin)"/>
+  <circle cx="140" cy="325" r="14" fill="url(#devSkin)"/>
+  <circle cx="260" cy="325" r="14" fill="url(#devSkin)"/>
 
   <!-- Holographic tablet -->
   <g class="float-a" style="transform-origin: 200px 310px;">
-    <rect x="140" y="290" width="120" height="80" rx="10" fill="url(***REMOVED***holoTab)" opacity="0.95"/>
-    <rect x="145" y="295" width="110" height="70" rx="6" fill="***REMOVED***0A0118" opacity="0.30"/>
+    <rect x="140" y="290" width="120" height="80" rx="10" fill="url(#holoTab)" opacity="0.95"/>
+    <rect x="145" y="295" width="110" height="70" rx="6" fill="#0A0118" opacity="0.30"/>
     <!-- Code lines -->
-    <rect x="152" y="305" width="40" height="3" rx="1.5" fill="***REMOVED***B4D1FF"/>
-    <rect x="152" y="313" width="60" height="3" rx="1.5" fill="***REMOVED***FFB4DC"/>
-    <rect x="152" y="321" width="30" height="3" rx="1.5" fill="***REMOVED***B4D1FF"/>
-    <rect x="152" y="329" width="50" height="3" rx="1.5" fill="***REMOVED***D4B4FF"/>
-    <rect x="152" y="337" width="35" height="3" rx="1.5" fill="***REMOVED***B4D1FF"/>
+    <rect x="152" y="305" width="40" height="3" rx="1.5" fill="#B4D1FF"/>
+    <rect x="152" y="313" width="60" height="3" rx="1.5" fill="#FFB4DC"/>
+    <rect x="152" y="321" width="30" height="3" rx="1.5" fill="#B4D1FF"/>
+    <rect x="152" y="329" width="50" height="3" rx="1.5" fill="#D4B4FF"/>
+    <rect x="152" y="337" width="35" height="3" rx="1.5" fill="#B4D1FF"/>
     <!-- Mini chart -->
-    <rect x="200" y="320" width="6" height="20" fill="***REMOVED***FFB4DC"/>
-    <rect x="210" y="312" width="6" height="28" fill="***REMOVED***B4D1FF"/>
-    <rect x="220" y="318" width="6" height="22" fill="***REMOVED***D4B4FF"/>
-    <rect x="230" y="308" width="6" height="32" fill="***REMOVED***FFB4DC"/>
+    <rect x="200" y="320" width="6" height="20" fill="#FFB4DC"/>
+    <rect x="210" y="312" width="6" height="28" fill="#B4D1FF"/>
+    <rect x="220" y="318" width="6" height="22" fill="#D4B4FF"/>
+    <rect x="230" y="308" width="6" height="32" fill="#FFB4DC"/>
     <!-- Tablet glow underline -->
-    <rect x="140" y="370" width="120" height="3" rx="1.5" fill="***REMOVED***FF53A9" opacity="0.6"/>
+    <rect x="140" y="370" width="120" height="3" rx="1.5" fill="#FF53A9" opacity="0.6"/>
   </g>
 
   <!-- Floating code particles -->
   <g class="float-c" opacity="0.8">
-    <text x="60" y="100" font-family="JetBrains Mono" font-size="12" fill="***REMOVED***136DFF">&lt;/&gt;</text>
-    <text x="320" y="140" font-family="JetBrains Mono" font-size="10" fill="***REMOVED***FF53A9">{ }</text>
-    <text x="340" y="280" font-family="JetBrains Mono" font-size="11" fill="***REMOVED***7B2FBE">01</text>
+    <text x="60" y="100" font-family="JetBrains Mono" font-size="12" fill="#136DFF">&lt;/&gt;</text>
+    <text x="320" y="140" font-family="JetBrains Mono" font-size="10" fill="#FF53A9">{ }</text>
+    <text x="340" y="280" font-family="JetBrains Mono" font-size="11" fill="#7B2FBE">01</text>
   </g>
 </svg>
 '''
@@ -516,97 +516,97 @@ MASCOT_AI = '''
 <svg class="mascot-ai w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D AI agent robot mascot with glowing LED eyes" role="img">
   <defs>
     <linearGradient id="aiBody" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="***REMOVED***E8E2F0"/><stop offset="50%" stop-color="***REMOVED***9A8CB5"/><stop offset="100%" stop-color="***REMOVED***5A4D78"/>
+      <stop offset="0%" stop-color="#E8E2F0"/><stop offset="50%" stop-color="#9A8CB5"/><stop offset="100%" stop-color="#5A4D78"/>
     </linearGradient>
     <linearGradient id="aiHead" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="***REMOVED***F4EEFB"/><stop offset="100%" stop-color="***REMOVED***7A6F94"/>
+      <stop offset="0%" stop-color="#F4EEFB"/><stop offset="100%" stop-color="#7A6F94"/>
     </linearGradient>
     <radialGradient id="aiHeart" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="***REMOVED***FF53A9"/><stop offset="60%" stop-color="***REMOVED***136DFF"/><stop offset="100%" stop-color="***REMOVED***7B2FBE"/>
+      <stop offset="0%" stop-color="#FF53A9"/><stop offset="60%" stop-color="#136DFF"/><stop offset="100%" stop-color="#7B2FBE"/>
     </radialGradient>
     <radialGradient id="aiEye" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="***REMOVED***FFFFFF"/><stop offset="40%" stop-color="***REMOVED***136DFF"/><stop offset="100%" stop-color="***REMOVED***0A1746"/>
+      <stop offset="0%" stop-color="#FFFFFF"/><stop offset="40%" stop-color="#136DFF"/><stop offset="100%" stop-color="#0A1746"/>
     </radialGradient>
     <filter id="aiGlow"><feGaussianBlur stdDeviation="6"/></filter>
   </defs>
 
   <!-- Ambient hover glow -->
-  <ellipse cx="200" cy="440" rx="130" ry="18" fill="***REMOVED***7B2FBE" opacity="0.30" filter="url(***REMOVED***aiGlow)"/>
+  <ellipse cx="200" cy="440" rx="130" ry="18" fill="#7B2FBE" opacity="0.30" filter="url(#aiGlow)"/>
 
   <!-- Hover thruster -->
-  <ellipse cx="200" cy="410" rx="60" ry="10" fill="***REMOVED***136DFF" opacity="0.45" filter="url(***REMOVED***aiGlow)"/>
-  <ellipse cx="200" cy="410" rx="40" ry="6" fill="***REMOVED***FF53A9" opacity="0.55"/>
+  <ellipse cx="200" cy="410" rx="60" ry="10" fill="#136DFF" opacity="0.45" filter="url(#aiGlow)"/>
+  <ellipse cx="200" cy="410" rx="40" ry="6" fill="#FF53A9" opacity="0.55"/>
 
   <!-- Body -->
   <g class="float-b" style="transform-origin: 200px 280px;">
     <!-- Antenna -->
-    <line x1="200" y1="80" x2="200" y2="50" stroke="***REMOVED***9A8CB5" stroke-width="3"/>
-    <circle cx="200" cy="46" r="8" fill="***REMOVED***FF53A9"/>
-    <circle cx="200" cy="46" r="12" fill="***REMOVED***FF53A9" opacity="0.30" filter="url(***REMOVED***aiGlow)"/>
+    <line x1="200" y1="80" x2="200" y2="50" stroke="#9A8CB5" stroke-width="3"/>
+    <circle cx="200" cy="46" r="8" fill="#FF53A9"/>
+    <circle cx="200" cy="46" r="12" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
 
     <!-- Head -->
-    <rect x="135" y="90" width="130" height="110" rx="32" fill="url(***REMOVED***aiHead)"/>
-    <rect x="145" y="100" width="110" height="90" rx="24" fill="***REMOVED***0A0118" opacity="0.20"/>
+    <rect x="135" y="90" width="130" height="110" rx="32" fill="url(#aiHead)"/>
+    <rect x="145" y="100" width="110" height="90" rx="24" fill="#0A0118" opacity="0.20"/>
     <!-- Head seam -->
-    <line x1="200" y1="90" x2="200" y2="105" stroke="***REMOVED***5A4D78" stroke-width="2"/>
+    <line x1="200" y1="90" x2="200" y2="105" stroke="#5A4D78" stroke-width="2"/>
 
     <!-- Eyes (LED) -->
-    <circle cx="170" cy="145" r="16" fill="***REMOVED***0A0118"/>
-    <circle cx="170" cy="145" r="13" fill="url(***REMOVED***aiEye)"/>
-    <circle cx="166" cy="141" r="4" fill="***REMOVED***fff"/>
+    <circle cx="170" cy="145" r="16" fill="#0A0118"/>
+    <circle cx="170" cy="145" r="13" fill="url(#aiEye)"/>
+    <circle cx="166" cy="141" r="4" fill="#fff"/>
 
-    <circle cx="230" cy="145" r="16" fill="***REMOVED***0A0118"/>
-    <circle cx="230" cy="145" r="13" fill="url(***REMOVED***aiEye)" />
-    <circle cx="226" cy="141" r="4" fill="***REMOVED***fff"/>
+    <circle cx="230" cy="145" r="16" fill="#0A0118"/>
+    <circle cx="230" cy="145" r="13" fill="url(#aiEye)" />
+    <circle cx="226" cy="141" r="4" fill="#fff"/>
 
     <!-- Eye glow halos -->
-    <circle cx="170" cy="145" r="22" fill="***REMOVED***136DFF" opacity="0.25" filter="url(***REMOVED***aiGlow)"/>
-    <circle cx="230" cy="145" r="22" fill="***REMOVED***FF53A9" opacity="0.25" filter="url(***REMOVED***aiGlow)"/>
+    <circle cx="170" cy="145" r="22" fill="#136DFF" opacity="0.25" filter="url(#aiGlow)"/>
+    <circle cx="230" cy="145" r="22" fill="#FF53A9" opacity="0.25" filter="url(#aiGlow)"/>
 
     <!-- Mouth speaker grid -->
-    <rect x="178" y="175" width="44" height="14" rx="4" fill="***REMOVED***0A0118" opacity="0.6"/>
-    <circle cx="186" cy="182" r="2" fill="***REMOVED***136DFF"/>
-    <circle cx="196" cy="182" r="2" fill="***REMOVED***136DFF"/>
-    <circle cx="206" cy="182" r="2" fill="***REMOVED***FF53A9"/>
-    <circle cx="216" cy="182" r="2" fill="***REMOVED***FF53A9"/>
+    <rect x="178" y="175" width="44" height="14" rx="4" fill="#0A0118" opacity="0.6"/>
+    <circle cx="186" cy="182" r="2" fill="#136DFF"/>
+    <circle cx="196" cy="182" r="2" fill="#136DFF"/>
+    <circle cx="206" cy="182" r="2" fill="#FF53A9"/>
+    <circle cx="216" cy="182" r="2" fill="#FF53A9"/>
 
     <!-- Side ears -->
-    <rect x="120" y="130" width="15" height="30" rx="5" fill="***REMOVED***5A4D78"/>
-    <rect x="265" y="130" width="15" height="30" rx="5" fill="***REMOVED***5A4D78"/>
-    <circle cx="127" cy="145" r="4" fill="***REMOVED***FF53A9"/>
-    <circle cx="273" cy="145" r="4" fill="***REMOVED***FF53A9"/>
+    <rect x="120" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
+    <rect x="265" y="130" width="15" height="30" rx="5" fill="#5A4D78"/>
+    <circle cx="127" cy="145" r="4" fill="#FF53A9"/>
+    <circle cx="273" cy="145" r="4" fill="#FF53A9"/>
 
     <!-- Neck -->
-    <rect x="185" y="200" width="30" height="20" fill="***REMOVED***5A4D78"/>
+    <rect x="185" y="200" width="30" height="20" fill="#5A4D78"/>
 
     <!-- Torso -->
-    <path d="M130 220 Q200 200 270 220 L280 350 Q200 370 120 350 Z" fill="url(***REMOVED***aiBody)"/>
+    <path d="M130 220 Q200 200 270 220 L280 350 Q200 370 120 350 Z" fill="url(#aiBody)"/>
     <!-- Chest plate -->
-    <rect x="160" y="240" width="80" height="80" rx="16" fill="***REMOVED***0A0118" opacity="0.25"/>
+    <rect x="160" y="240" width="80" height="80" rx="16" fill="#0A0118" opacity="0.25"/>
     <!-- Heart core -->
-    <circle cx="200" cy="280" r="22" fill="url(***REMOVED***aiHeart)"/>
-    <circle cx="200" cy="280" r="22" fill="***REMOVED***FF53A9" opacity="0.40" filter="url(***REMOVED***aiGlow)"/>
-    <path d="M200 290 L188 278 Q180 270 188 262 Q200 254 200 270 Q200 254 212 262 Q220 270 212 278 Z" fill="***REMOVED***fff" opacity="0.85"/>
+    <circle cx="200" cy="280" r="22" fill="url(#aiHeart)"/>
+    <circle cx="200" cy="280" r="22" fill="#FF53A9" opacity="0.40" filter="url(#aiGlow)"/>
+    <path d="M200 290 L188 278 Q180 270 188 262 Q200 254 200 270 Q200 254 212 262 Q220 270 212 278 Z" fill="#fff" opacity="0.85"/>
 
     <!-- Arms -->
-    <rect x="100" y="240" width="22" height="80" rx="11" fill="url(***REMOVED***aiBody)"/>
-    <rect x="278" y="240" width="22" height="80" rx="11" fill="url(***REMOVED***aiBody)"/>
-    <circle cx="111" cy="330" r="14" fill="***REMOVED***5A4D78"/>
-    <circle cx="289" cy="330" r="14" fill="***REMOVED***5A4D78"/>
+    <rect x="100" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
+    <rect x="278" y="240" width="22" height="80" rx="11" fill="url(#aiBody)"/>
+    <circle cx="111" cy="330" r="14" fill="#5A4D78"/>
+    <circle cx="289" cy="330" r="14" fill="#5A4D78"/>
 
     <!-- Circuit lines -->
-    <line x1="160" y1="335" x2="240" y2="335" stroke="***REMOVED***136DFF" stroke-width="1.5" opacity="0.6"/>
-    <line x1="170" y1="345" x2="230" y2="345" stroke="***REMOVED***FF53A9" stroke-width="1.5" opacity="0.6"/>
+    <line x1="160" y1="335" x2="240" y2="335" stroke="#136DFF" stroke-width="1.5" opacity="0.6"/>
+    <line x1="170" y1="345" x2="230" y2="345" stroke="#FF53A9" stroke-width="1.5" opacity="0.6"/>
   </g>
 
   <!-- Floating data orbs -->
   <g class="float-a" opacity="0.85">
-    <circle cx="60" cy="200" r="6" fill="***REMOVED***136DFF"/>
-    <circle cx="60" cy="200" r="10" fill="***REMOVED***136DFF" opacity="0.30" filter="url(***REMOVED***aiGlow)"/>
+    <circle cx="60" cy="200" r="6" fill="#136DFF"/>
+    <circle cx="60" cy="200" r="10" fill="#136DFF" opacity="0.30" filter="url(#aiGlow)"/>
   </g>
   <g class="float-c" opacity="0.85">
-    <circle cx="345" cy="250" r="5" fill="***REMOVED***FF53A9"/>
-    <circle cx="345" cy="250" r="9" fill="***REMOVED***FF53A9" opacity="0.30" filter="url(***REMOVED***aiGlow)"/>
+    <circle cx="345" cy="250" r="5" fill="#FF53A9"/>
+    <circle cx="345" cy="250" r="9" fill="#FF53A9" opacity="0.30" filter="url(#aiGlow)"/>
   </g>
 </svg>
 '''
@@ -616,103 +616,103 @@ MASCOT_DATA = '''
 <svg class="mascot-data w-full h-full max-w-md" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-label="3D data analyst mascot holding floating bar charts" role="img">
   <defs>
     <radialGradient id="daSkin" cx="40%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="***REMOVED***FFE0C2"/><stop offset="60%" stop-color="***REMOVED***E8A884"/><stop offset="100%" stop-color="***REMOVED***B47952"/>
+      <stop offset="0%" stop-color="#FFE0C2"/><stop offset="60%" stop-color="#E8A884"/><stop offset="100%" stop-color="#B47952"/>
     </radialGradient>
     <linearGradient id="daShirt" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="***REMOVED***7B2FBE"/><stop offset="100%" stop-color="***REMOVED***3D1666"/>
+      <stop offset="0%" stop-color="#7B2FBE"/><stop offset="100%" stop-color="#3D1666"/>
     </linearGradient>
     <linearGradient id="barGrad" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="***REMOVED***FF53A9"/><stop offset="100%" stop-color="***REMOVED***136DFF"/>
+      <stop offset="0%" stop-color="#FF53A9"/><stop offset="100%" stop-color="#136DFF"/>
     </linearGradient>
     <linearGradient id="barGrad2" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="***REMOVED***136DFF"/><stop offset="100%" stop-color="***REMOVED***7B2FBE"/>
+      <stop offset="0%" stop-color="#136DFF"/><stop offset="100%" stop-color="#7B2FBE"/>
     </linearGradient>
     <filter id="daGlow"><feGaussianBlur stdDeviation="4"/></filter>
   </defs>
 
   <!-- Ambient glow -->
-  <ellipse cx="200" cy="440" rx="130" ry="18" fill="***REMOVED***7B2FBE" opacity="0.30" filter="url(***REMOVED***daGlow)"/>
+  <ellipse cx="200" cy="440" rx="130" ry="18" fill="#7B2FBE" opacity="0.30" filter="url(#daGlow)"/>
 
   <!-- Body / coat -->
-  <path d="M115 370 Q200 310 285 370 L290 460 Q200 440 110 460 Z" fill="url(***REMOVED***daShirt)"/>
-  <path d="M170 360 L200 410 L230 360 L225 420 L175 420 Z" fill="***REMOVED***3D1666"/>
+  <path d="M115 370 Q200 310 285 370 L290 460 Q200 440 110 460 Z" fill="url(#daShirt)"/>
+  <path d="M170 360 L200 410 L230 360 L225 420 L175 420 Z" fill="#3D1666"/>
   <!-- Lapels -->
-  <path d="M170 360 L200 410 L195 360 Z" fill="***REMOVED***5A1A99"/>
-  <path d="M230 360 L200 410 L205 360 Z" fill="***REMOVED***5A1A99"/>
+  <path d="M170 360 L200 410 L195 360 Z" fill="#5A1A99"/>
+  <path d="M230 360 L200 410 L205 360 Z" fill="#5A1A99"/>
   <!-- Tie -->
-  <path d="M195 360 L205 360 L208 410 L192 410 Z" fill="***REMOVED***FF53A9"/>
+  <path d="M195 360 L205 360 L208 410 L192 410 Z" fill="#FF53A9"/>
 
   <!-- Neck -->
-  <rect x="180" y="240" width="40" height="55" rx="14" fill="url(***REMOVED***daSkin)"/>
+  <rect x="180" y="240" width="40" height="55" rx="14" fill="url(#daSkin)"/>
 
   <!-- Head -->
-  <ellipse cx="200" cy="195" rx="74" ry="82" fill="url(***REMOVED***daSkin)"/>
+  <ellipse cx="200" cy="195" rx="74" ry="82" fill="url(#daSkin)"/>
   <!-- Ears -->
-  <ellipse cx="128" cy="200" rx="12" ry="18" fill="url(***REMOVED***daSkin)"/>
-  <ellipse cx="272" cy="200" rx="12" ry="18" fill="url(***REMOVED***daSkin)"/>
+  <ellipse cx="128" cy="200" rx="12" ry="18" fill="url(#daSkin)"/>
+  <ellipse cx="272" cy="200" rx="12" ry="18" fill="url(#daSkin)"/>
   <!-- Glasses -->
-  <circle cx="170" cy="190" r="22" fill="none" stroke="***REMOVED***136DFF" stroke-width="3"/>
-  <circle cx="230" cy="190" r="22" fill="none" stroke="***REMOVED***136DFF" stroke-width="3"/>
-  <line x1="192" y1="190" x2="208" y2="190" stroke="***REMOVED***136DFF" stroke-width="3"/>
+  <circle cx="170" cy="190" r="22" fill="none" stroke="#136DFF" stroke-width="3"/>
+  <circle cx="230" cy="190" r="22" fill="none" stroke="#136DFF" stroke-width="3"/>
+  <line x1="192" y1="190" x2="208" y2="190" stroke="#136DFF" stroke-width="3"/>
   <!-- Glass reflection -->
-  <path d="M160 180 Q170 175 178 180" stroke="***REMOVED***fff" stroke-width="2" fill="none" opacity="0.7"/>
-  <path d="M220 180 Q230 175 238 180" stroke="***REMOVED***fff" stroke-width="2" fill="none" opacity="0.7"/>
+  <path d="M160 180 Q170 175 178 180" stroke="#fff" stroke-width="2" fill="none" opacity="0.7"/>
+  <path d="M220 180 Q230 175 238 180" stroke="#fff" stroke-width="2" fill="none" opacity="0.7"/>
   <!-- Eyes -->
-  <circle cx="170" cy="190" r="6" fill="***REMOVED***2D1B4E"/>
-  <circle cx="230" cy="190" r="6" fill="***REMOVED***2D1B4E"/>
+  <circle cx="170" cy="190" r="6" fill="#2D1B4E"/>
+  <circle cx="230" cy="190" r="6" fill="#2D1B4E"/>
   <!-- Smile -->
-  <path d="M175 232 Q200 248 225 232" stroke="***REMOVED***7A3B23" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M175 232 Q200 248 225 232" stroke="#7A3B23" stroke-width="3" fill="none" stroke-linecap="round"/>
   <!-- Hair / beard -->
-  <path d="M135 140 Q170 100 200 105 Q230 100 265 140 Q260 110 200 100 Q140 110 135 140 Z" fill="***REMOVED***3D2860"/>
-  <path d="M165 240 Q200 260 235 240 Q230 270 200 275 Q170 270 165 240 Z" fill="***REMOVED***3D2860" opacity="0.85"/>
+  <path d="M135 140 Q170 100 200 105 Q230 100 265 140 Q260 110 200 100 Q140 110 135 140 Z" fill="#3D2860"/>
+  <path d="M165 240 Q200 260 235 240 Q230 270 200 275 Q170 270 165 240 Z" fill="#3D2860" opacity="0.85"/>
 
   <!-- Arms raised holding chart -->
-  <path d="M115 370 Q90 320 130 280 L165 295 L150 370 Z" fill="url(***REMOVED***daShirt)"/>
-  <path d="M285 370 Q310 320 270 280 L235 295 L250 370 Z" fill="url(***REMOVED***daShirt)"/>
-  <circle cx="140" cy="280" r="13" fill="url(***REMOVED***daSkin)"/>
-  <circle cx="260" cy="280" r="13" fill="url(***REMOVED***daSkin)"/>
+  <path d="M115 370 Q90 320 130 280 L165 295 L150 370 Z" fill="url(#daShirt)"/>
+  <path d="M285 370 Q310 320 270 280 L235 295 L250 370 Z" fill="url(#daShirt)"/>
+  <circle cx="140" cy="280" r="13" fill="url(#daSkin)"/>
+  <circle cx="260" cy="280" r="13" fill="url(#daSkin)"/>
 
   <!-- Floating bar chart widget -->
   <g class="float-a" style="transform-origin: 200px 240px;">
     <rect x="135" y="220" width="130" height="90" rx="14" fill="rgba(13,0,37,0.85)" stroke="rgba(19,109,255,0.40)" stroke-width="1.5"/>
-    <text x="145" y="240" font-family="Space Grotesk" font-size="10" fill="***REMOVED***9A8CB5">REVENUE / Q</text>
-    <text x="145" y="258" font-family="Space Grotesk" font-size="18" font-weight="700" fill="***REMOVED***F0EBF8">$2.4M</text>
+    <text x="145" y="240" font-family="Space Grotesk" font-size="10" fill="#9A8CB5">REVENUE / Q</text>
+    <text x="145" y="258" font-family="Space Grotesk" font-size="18" font-weight="700" fill="#F0EBF8">$2.4M</text>
     <!-- Bars -->
-    <rect x="148" y="282" width="14" height="18" rx="2" fill="url(***REMOVED***barGrad2)"/>
-    <rect x="168" y="272" width="14" height="28" rx="2" fill="url(***REMOVED***barGrad)"/>
-    <rect x="188" y="262" width="14" height="38" rx="2" fill="url(***REMOVED***barGrad2)"/>
-    <rect x="208" y="252" width="14" height="48" rx="2" fill="url(***REMOVED***barGrad)"/>
-    <rect x="228" y="242" width="14" height="58" rx="2" fill="url(***REMOVED***barGrad2)"/>
+    <rect x="148" y="282" width="14" height="18" rx="2" fill="url(#barGrad2)"/>
+    <rect x="168" y="272" width="14" height="28" rx="2" fill="url(#barGrad)"/>
+    <rect x="188" y="262" width="14" height="38" rx="2" fill="url(#barGrad2)"/>
+    <rect x="208" y="252" width="14" height="48" rx="2" fill="url(#barGrad)"/>
+    <rect x="228" y="242" width="14" height="58" rx="2" fill="url(#barGrad2)"/>
     <!-- Up arrow -->
-    <path d="M250 290 L256 280 L262 290 Z" fill="***REMOVED***FF53A9"/>
+    <path d="M250 290 L256 280 L262 290 Z" fill="#FF53A9"/>
   </g>
 
   <!-- Floating mini glass metric -->
   <g class="float-c" style="transform-origin: 320px 200px;">
     <rect x="290" y="170" width="80" height="60" rx="10" fill="rgba(13,0,37,0.85)" stroke="rgba(255,83,169,0.40)" stroke-width="1.5"/>
-    <text x="298" y="188" font-family="Space Grotesk" font-size="8" fill="***REMOVED***9A8CB5">CONVERSION</text>
-    <text x="298" y="208" font-family="Space Grotesk" font-size="16" font-weight="700" fill="***REMOVED***FF53A9">+38%</text>
+    <text x="298" y="188" font-family="Space Grotesk" font-size="8" fill="#9A8CB5">CONVERSION</text>
+    <text x="298" y="208" font-family="Space Grotesk" font-size="16" font-weight="700" fill="#FF53A9">+38%</text>
     <!-- Sparkline -->
-    <polyline points="298,222 308,218 318,214 328,208 338,202 348,196 358,188" stroke="***REMOVED***FF53A9" stroke-width="1.5" fill="none"/>
+    <polyline points="298,222 308,218 318,214 328,208 338,202 348,196 358,188" stroke="#FF53A9" stroke-width="1.5" fill="none"/>
   </g>
 
   <!-- Floating mini donut -->
   <g class="float-b" style="transform-origin: 80px 200px;">
     <circle cx="80" cy="190" r="22" fill="none" stroke="rgba(19,109,255,0.20)" stroke-width="6"/>
-    <circle cx="80" cy="190" r="22" fill="none" stroke="***REMOVED***136DFF" stroke-width="6" stroke-dasharray="100 60" transform="rotate(-90 80 190)"/>
-    <text x="73" y="195" font-family="Space Grotesk" font-size="10" font-weight="700" fill="***REMOVED***F0EBF8">62%</text>
+    <circle cx="80" cy="190" r="22" fill="none" stroke="#136DFF" stroke-width="6" stroke-dasharray="100 60" transform="rotate(-90 80 190)"/>
+    <text x="73" y="195" font-family="Space Grotesk" font-size="10" font-weight="700" fill="#F0EBF8">62%</text>
   </g>
 </svg>
 '''
 
-***REMOVED*** Save mascots in a dict for use across pages
+# Save mascots in a dict for use across pages
 MASCOTS = {"dev": MASCOT_DEV, "ai": MASCOT_AI, "data": MASCOT_DATA}
 
 print("Part 1 (head + ambient + header + mascots) prepared.")
 
-***REMOVED*** ============================================================================
-***REMOVED*** PAGE 1: HOME
-***REMOVED*** ============================================================================
+# ============================================================================
+# PAGE 1: HOME
+# ============================================================================
 PAGE_HOME = '''
     <!-- ========== PAGE: HOME ========== -->
     <section data-page="home" class="page active">
@@ -737,8 +737,8 @@ PAGE_HOME = '''
               ClickTake Technologies ships production-grade software, autonomous AI agents, and cloud architecture for global enterprises — trusted by 150+ teams across 4 continents with 99.9% uptime and 10M+ API requests served every day.
             </p>
             <div class="flex flex-wrap items-center gap-4">
-              <a href="***REMOVED***contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-base shine">Book a Demo <i data-lucide="arrow-right" class="inline w-4 h-4 ml-1"></i></a>
-              <a href="***REMOVED***cases" data-nav="cases" class="ghost-btn rounded-xl px-7 py-3.5 font-display font-semibold text-base">View Case Studies</a>
+              <a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold text-base shine">Book a Demo <i data-lucide="arrow-right" class="inline w-4 h-4 ml-1"></i></a>
+              <a href="#cases" data-nav="cases" class="ghost-btn rounded-xl px-7 py-3.5 font-display font-semibold text-base">View Case Studies</a>
             </div>
             <!-- Trust strip -->
             <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-ckbody/70 font-mono">
@@ -765,7 +765,7 @@ PAGE_HOME = '''
               <div class="font-display font-bold text-2xl text-ckheading mt-1">98<span class="text-ckblue">%</span></div>
               <div class="text-[11px] text-ckbody/70 mt-0.5">Test coverage</div>
               <div class="h-1 bg-ckbody/15 rounded-full mt-2 overflow-hidden">
-                <div class="h-full w-[98%] rounded-full" style="background:linear-gradient(90deg,***REMOVED***136DFF,***REMOVED***FF53A9);"></div>
+                <div class="h-full w-[98%] rounded-full" style="background:linear-gradient(90deg,#136DFF,#FF53A9);"></div>
               </div>
             </div>
             <!-- Floating metric chip 2 -->
@@ -881,7 +881,7 @@ PAGE_HOME = '''
         </div>
 
         <div class="text-center mt-10 reveal">
-          <a href="***REMOVED***services" data-nav="services" class="ghost-btn rounded-xl px-6 py-3 font-display font-semibold text-sm inline-flex items-center gap-2">Explore all services <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+          <a href="#services" data-nav="services" class="ghost-btn rounded-xl px-6 py-3 font-display font-semibold text-sm inline-flex items-center gap-2">Explore all services <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
         </div>
       </div>
 
@@ -892,7 +892,7 @@ PAGE_HOME = '''
             <span class="tag mb-4 inline-flex"><i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i>Production Impact</span>
             <h2 class="font-display text-4xl font-bold text-ckheading mb-4">Numbers that <span class="grad-text">compounded</span>.</h2>
             <p class="text-ckbody mb-6">Three real client outcomes from the past 18 months. Each metric is measured against the client's pre-engagement baseline and verified by their analytics team.</p>
-            <a href="***REMOVED***cases" data-nav="cases" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-sm">Read full case studies</a>
+            <a href="#cases" data-nav="cases" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-sm">Read full case studies</a>
           </div>
           <div class="lg:col-span-2 grid sm:grid-cols-3 gap-4 reveal">
             <div class="glass rounded-2xl p-6">
@@ -900,7 +900,7 @@ PAGE_HOME = '''
               <div class="font-display font-bold text-3xl text-ckheading">−72%</div>
               <div class="text-xs text-ckbody mt-1">p99 API latency</div>
               <div class="mt-4 h-1.5 bg-ckbody/15 rounded-full overflow-hidden">
-                <div class="h-full w-[72%] rounded-full" style="background:linear-gradient(90deg,***REMOVED***136DFF,***REMOVED***FF53A9);"></div>
+                <div class="h-full w-[72%] rounded-full" style="background:linear-gradient(90deg,#136DFF,#FF53A9);"></div>
               </div>
             </div>
             <div class="glass rounded-2xl p-6">
@@ -908,7 +908,7 @@ PAGE_HOME = '''
               <div class="font-display font-bold text-3xl text-ckheading">+38%</div>
               <div class="text-xs text-ckbody mt-1">Checkout conversion</div>
               <div class="mt-4 h-1.5 bg-ckbody/15 rounded-full overflow-hidden">
-                <div class="h-full w-[38%] rounded-full" style="background:linear-gradient(90deg,***REMOVED***FF53A9,***REMOVED***7B2FBE);"></div>
+                <div class="h-full w-[38%] rounded-full" style="background:linear-gradient(90deg,#FF53A9,#7B2FBE);"></div>
               </div>
             </div>
             <div class="glass rounded-2xl p-6">
@@ -916,7 +916,7 @@ PAGE_HOME = '''
               <div class="font-display font-bold text-3xl text-ckheading">−$1.4M</div>
               <div class="text-xs text-ckbody mt-1">Annual cloud spend</div>
               <div class="mt-4 h-1.5 bg-ckbody/15 rounded-full overflow-hidden">
-                <div class="h-full w-[58%] rounded-full" style="background:linear-gradient(90deg,***REMOVED***7B2FBE,***REMOVED***136DFF);"></div>
+                <div class="h-full w-[58%] rounded-full" style="background:linear-gradient(90deg,#7B2FBE,#136DFF);"></div>
               </div>
             </div>
           </div>
@@ -927,8 +927,8 @@ PAGE_HOME = '''
       <div class="max-w-7xl mx-auto px-5 lg:px-8 py-16">
         <div class="glass rounded-3xl overflow-hidden relative">
           <div class="absolute inset-0 opacity-30" aria-hidden="true">
-            <div class="absolute top-0 right-0 w-80 h-80 rounded-full" style="background:radial-gradient(circle,***REMOVED***7B2FBE,transparent 70%);"></div>
-            <div class="absolute bottom-0 left-1/3 w-72 h-72 rounded-full" style="background:radial-gradient(circle,***REMOVED***FF53A9,transparent 70%);"></div>
+            <div class="absolute top-0 right-0 w-80 h-80 rounded-full" style="background:radial-gradient(circle,#7B2FBE,transparent 70%);"></div>
+            <div class="absolute bottom-0 left-1/3 w-72 h-72 rounded-full" style="background:radial-gradient(circle,#FF53A9,transparent 70%);"></div>
           </div>
           <div class="relative grid lg:grid-cols-5 items-center gap-8 p-8 lg:p-12">
             <div class="lg:col-span-3 reveal">
@@ -937,7 +937,7 @@ PAGE_HOME = '''
               </h2>
               <p class="text-ckbody text-lg max-w-xl mb-6">Book a 30-minute architecture review. We'll map your roadmap, identify the highest-ROI automation, and ship a working PoC within 6 weeks.</p>
               <div class="flex flex-wrap items-center gap-4">
-                <a href="***REMOVED***contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold">Book a Demo</a>
+                <a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold">Book a Demo</a>
                 <a href="mailto:info@clicktaketech.com" class="ghost-btn rounded-xl px-7 py-3.5 font-display font-semibold text-sm inline-flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i>info@clicktaketech.com</a>
               </div>
             </div>
@@ -972,16 +972,16 @@ PAGE_HOME = '''
     </section>
 '''
 
-***REMOVED*** ============================================================================
-***REMOVED*** PAGE 2: SERVICES
-***REMOVED*** ============================================================================
+# ============================================================================
+# PAGE 2: SERVICES
+# ============================================================================
 PAGE_SERVICES = '''
     <!-- ========== PAGE: SERVICES ========== -->
     <section data-page="services" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-7xl mx-auto px-5 lg:px-8">
           <nav class="crumb text-xs font-mono text-ckbody/70 mb-6" aria-label="Breadcrumb">
-            <a href="***REMOVED***home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Services</span>
+            <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Services</span>
           </nav>
           <div class="max-w-3xl reveal">
             <span class="tag mb-4 inline-flex"><i data-lucide="wrench" class="w-3.5 h-3.5"></i>What we build</span>
@@ -1140,7 +1140,7 @@ PAGE_SERVICES = '''
           <div class="tilt-card glass rounded-2xl p-6 reveal relative">
             <div class="tilt-layer">
               <div class="text-xs font-mono text-ckblue mb-4">STEP 01</div>
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***7B2FBE);">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,#136DFF,#7B2FBE);">
                 <i data-lucide="search" class="w-6 h-6 text-white"></i>
               </div>
               <h3 class="font-display font-bold text-xl text-ckheading mb-2">Discovery</h3>
@@ -1151,7 +1151,7 @@ PAGE_SERVICES = '''
           <div class="tilt-card glass rounded-2xl p-6 reveal relative">
             <div class="tilt-layer">
               <div class="text-xs font-mono text-ckpink mb-4">STEP 02</div>
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***7B2FBE);">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,#FF53A9,#7B2FBE);">
                 <i data-lucide="box" class="w-6 h-6 text-white"></i>
               </div>
               <h3 class="font-display font-bold text-xl text-ckheading mb-2">3D Prototyping</h3>
@@ -1162,7 +1162,7 @@ PAGE_SERVICES = '''
           <div class="tilt-card glass rounded-2xl p-6 reveal relative">
             <div class="tilt-layer">
               <div class="text-xs font-mono text-ckpurple mb-4">STEP 03</div>
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,***REMOVED***7B2FBE,***REMOVED***136DFF);">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,#7B2FBE,#136DFF);">
                 <i data-lucide="git-merge" class="w-6 h-6 text-white"></i>
               </div>
               <h3 class="font-display font-bold text-xl text-ckheading mb-2">Agile Sprints</h3>
@@ -1173,7 +1173,7 @@ PAGE_SERVICES = '''
           <div class="tilt-card glass rounded-2xl p-6 reveal relative">
             <div class="tilt-layer">
               <div class="text-xs font-mono text-ckblue mb-4">STEP 04</div>
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,#136DFF,#FF53A9);">
                 <i data-lucide="rocket" class="w-6 h-6 text-white"></i>
               </div>
               <h3 class="font-display font-bold text-xl text-ckheading mb-2">Deploy & Scale</h3>
@@ -1201,16 +1201,16 @@ PAGE_SERVICES = '''
 
 print("Part 2 (home + services) prepared.")
 
-***REMOVED*** ============================================================================
-***REMOVED*** PAGE 3: SOLUTIONS / AI PLATFORM
-***REMOVED*** ============================================================================
+# ============================================================================
+# PAGE 3: SOLUTIONS / AI PLATFORM
+# ============================================================================
 PAGE_SOLUTIONS = '''
     <!-- ========== PAGE: SOLUTIONS / AI PLATFORM ========== -->
     <section data-page="solutions" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-7xl mx-auto px-5 lg:px-8">
           <nav class="crumb text-xs font-mono text-ckbody/70 mb-6" aria-label="Breadcrumb">
-            <a href="***REMOVED***home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Solutions</span>
+            <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Solutions</span>
           </nav>
           <div class="grid lg:grid-cols-2 gap-12 items-center">
             <div class="reveal">
@@ -1220,8 +1220,8 @@ PAGE_SOLUTIONS = '''
               </h1>
               <p class="text-lg text-ckbody leading-relaxed mb-6">Three layered capabilities that turn frontier LLMs into business infrastructure. Multi-agent orchestration routes work between specialized agents. Enterprise RAG grounds every answer in your private data. Custom fine-tuning compresses cost and latency for your highest-volume workflows.</p>
               <div class="flex flex-wrap gap-3">
-                <a href="***REMOVED***contact" data-nav="contact" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-sm">Request architecture review</a>
-                <a href="***REMOVED***cases" data-nav="cases" class="ghost-btn rounded-xl px-6 py-3 font-display font-semibold text-sm">See it in production</a>
+                <a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-sm">Request architecture review</a>
+                <a href="#cases" data-nav="cases" class="ghost-btn rounded-xl px-6 py-3 font-display font-semibold text-sm">See it in production</a>
               </div>
             </div>
             <div class="relative h-80 reveal">
@@ -1307,7 +1307,7 @@ PAGE_SOLUTIONS = '''
           <div class="tilt-layer grid lg:grid-cols-2 gap-10 items-center">
             <div>
               <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***7B2FBE);">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#136DFF,#7B2FBE);">
                   <i data-lucide="network" class="w-5 h-5 text-white"></i>
                 </div>
                 <span class="font-mono text-xs text-ckblue uppercase tracking-wider">Capability 01</span>
@@ -1326,7 +1326,7 @@ PAGE_SOLUTIONS = '''
               <div class="absolute inset-0 perspective-grid opacity-20 rounded-2xl"></div>
               <div class="relative h-full flex flex-col items-center justify-center gap-3">
                 <!-- Router node -->
-                <div class="px-5 py-3 rounded-xl text-center" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);box-shadow:0 0 30px rgba(19,109,255,0.5);">
+                <div class="px-5 py-3 rounded-xl text-center" style="background:linear-gradient(135deg,#136DFF,#FF53A9);box-shadow:0 0 30px rgba(19,109,255,0.5);">
                   <div class="text-[10px] font-mono text-white/80 uppercase">Router</div>
                   <div class="font-display font-bold text-white">Orchestrator</div>
                 </div>
@@ -1372,42 +1372,42 @@ PAGE_SOLUTIONS = '''
                   <i data-lucide="file-text" class="w-5 h-5 text-ckpink flex-shrink-0"></i>
                   <div class="flex-1">
                     <div class="text-[10px] font-mono text-ckbody">Source: 10M+ docs</div>
-                    <div class="h-1.5 bg-ckbody/15 rounded-full mt-1 overflow-hidden"><div class="h-full w-[85%]" style="background:linear-gradient(90deg,***REMOVED***FF53A9,***REMOVED***7B2FBE);"></div></div>
+                    <div class="h-1.5 bg-ckbody/15 rounded-full mt-1 overflow-hidden"><div class="h-full w-[85%]" style="background:linear-gradient(90deg,#FF53A9,#7B2FBE);"></div></div>
                   </div>
                 </div>
                 <div class="glass rounded-lg p-3 flex items-center gap-3">
                   <i data-lucide="scissors" class="w-5 h-5 text-ckblue flex-shrink-0"></i>
                   <div class="flex-1">
                     <div class="text-[10px] font-mono text-ckbody">Chunk + embed</div>
-                    <div class="h-1.5 bg-ckbody/15 rounded-full mt-1 overflow-hidden"><div class="h-full w-[92%]" style="background:linear-gradient(90deg,***REMOVED***136DFF,***REMOVED***FF53A9);"></div></div>
+                    <div class="h-1.5 bg-ckbody/15 rounded-full mt-1 overflow-hidden"><div class="h-full w-[92%]" style="background:linear-gradient(90deg,#136DFF,#FF53A9);"></div></div>
                   </div>
                 </div>
                 <div class="glass rounded-lg p-3 flex items-center gap-3">
                   <i data-lucide="search" class="w-5 h-5 text-ckpurple flex-shrink-0"></i>
                   <div class="flex-1">
                     <div class="text-[10px] font-mono text-ckbody">Hybrid: BM25 + vector</div>
-                    <div class="h-1.5 bg-ckbody/15 rounded-full mt-1 overflow-hidden"><div class="h-full w-[78%]" style="background:linear-gradient(90deg,***REMOVED***7B2FBE,***REMOVED***136DFF);"></div></div>
+                    <div class="h-1.5 bg-ckbody/15 rounded-full mt-1 overflow-hidden"><div class="h-full w-[78%]" style="background:linear-gradient(90deg,#7B2FBE,#136DFF);"></div></div>
                   </div>
                 </div>
                 <div class="glass rounded-lg p-3 flex items-center gap-3">
                   <i data-lucide="filter" class="w-5 h-5 text-ckpink flex-shrink-0"></i>
                   <div class="flex-1">
                     <div class="text-[10px] font-mono text-ckbody">Rerank (cross-encoder)</div>
-                    <div class="h-1.5 bg-ckbody/15 rounded-full mt-1 overflow-hidden"><div class="h-full w-[88%]" style="background:linear-gradient(90deg,***REMOVED***FF53A9,***REMOVED***136DFF);"></div></div>
+                    <div class="h-1.5 bg-ckbody/15 rounded-full mt-1 overflow-hidden"><div class="h-full w-[88%]" style="background:linear-gradient(90deg,#FF53A9,#136DFF);"></div></div>
                   </div>
                 </div>
                 <div class="glass rounded-lg p-3 flex items-center gap-3">
                   <i data-lucide="quote" class="w-5 h-5 text-ckblue flex-shrink-0"></i>
                   <div class="flex-1">
                     <div class="text-[10px] font-mono text-ckbody">Cited answer + sources</div>
-                    <div class="h-1.5 bg-ckbody/15 rounded-full mt-1 overflow-hidden"><div class="h-full w-[96%]" style="background:linear-gradient(90deg,***REMOVED***136DFF,***REMOVED***FF53A9);"></div></div>
+                    <div class="h-1.5 bg-ckbody/15 rounded-full mt-1 overflow-hidden"><div class="h-full w-[96%]" style="background:linear-gradient(90deg,#136DFF,#FF53A9);"></div></div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="order-1 lg:order-2">
               <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***7B2FBE);">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#FF53A9,#7B2FBE);">
                   <i data-lucide="database" class="w-5 h-5 text-white"></i>
                 </div>
                 <span class="font-mono text-xs text-ckpink uppercase tracking-wider">Capability 02</span>
@@ -1430,7 +1430,7 @@ PAGE_SOLUTIONS = '''
           <div class="tilt-layer grid lg:grid-cols-2 gap-10 items-center">
             <div>
               <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***7B2FBE,***REMOVED***136DFF);">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#7B2FBE,#136DFF);">
                   <i data-lucide="sliders-horizontal" class="w-5 h-5 text-white"></i>
                 </div>
                 <span class="font-mono text-xs text-ckpurple uppercase tracking-wider">Capability 03</span>
@@ -1455,21 +1455,21 @@ PAGE_SOLUTIONS = '''
                     <span class="text-ckbody">GPT-4 baseline</span>
                     <span class="text-ckheading">$30.00</span>
                   </div>
-                  <div class="h-3 bg-ckbody/15 rounded-full overflow-hidden"><div class="h-full w-full" style="background:linear-gradient(90deg,***REMOVED***7A6F94,***REMOVED***9A8CB5);"></div></div>
+                  <div class="h-3 bg-ckbody/15 rounded-full overflow-hidden"><div class="h-full w-full" style="background:linear-gradient(90deg,#7A6F94,#9A8CB5);"></div></div>
                 </div>
                 <div>
                   <div class="flex justify-between text-xs font-mono mb-1">
                     <span class="text-ckbody">Fine-tuned Llama 3 70B (LoRA)</span>
                     <span class="text-ckheading">$4.20</span>
                   </div>
-                  <div class="h-3 bg-ckbody/15 rounded-full overflow-hidden"><div class="h-full w-[14%]" style="background:linear-gradient(90deg,***REMOVED***136DFF,***REMOVED***FF53A9);"></div></div>
+                  <div class="h-3 bg-ckbody/15 rounded-full overflow-hidden"><div class="h-full w-[14%]" style="background:linear-gradient(90deg,#136DFF,#FF53A9);"></div></div>
                 </div>
                 <div>
                   <div class="flex justify-between text-xs font-mono mb-1">
                     <span class="text-ckbody">Fine-tuned Mistral 7B (QLoRA)</span>
                     <span class="text-ckheading">$0.80</span>
                   </div>
-                  <div class="h-3 bg-ckbody/15 rounded-full overflow-hidden"><div class="h-full w-[3%]" style="background:linear-gradient(90deg,***REMOVED***7B2FBE,***REMOVED***136DFF);"></div></div>
+                  <div class="h-3 bg-ckbody/15 rounded-full overflow-hidden"><div class="h-full w-[3%]" style="background:linear-gradient(90deg,#7B2FBE,#136DFF);"></div></div>
                 </div>
               </div>
               <div class="mt-6 text-center text-xs font-mono text-ckpink">↓ 37× cost reduction · 4× latency improvement</div>
@@ -1526,16 +1526,16 @@ PAGE_SOLUTIONS = '''
 
 print("Part 3 (solutions) prepared.")
 
-***REMOVED*** ============================================================================
-***REMOVED*** PAGE 4: CASE STUDIES
-***REMOVED*** ============================================================================
+# ============================================================================
+# PAGE 4: CASE STUDIES
+# ============================================================================
 PAGE_CASES = '''
     <!-- ========== PAGE: CASE STUDIES ========== -->
     <section data-page="cases" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-7xl mx-auto px-5 lg:px-8">
           <nav class="crumb text-xs font-mono text-ckbody/70 mb-6" aria-label="Breadcrumb">
-            <a href="***REMOVED***home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Case Studies</span>
+            <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Case Studies</span>
           </nav>
           <div class="max-w-3xl reveal">
             <span class="tag mb-4 inline-flex"><i data-lucide="award" class="w-3.5 h-3.5"></i>Production Impact</span>
@@ -1745,13 +1745,13 @@ PAGE_CASES = '''
       <div class="max-w-7xl mx-auto px-5 lg:px-8 py-12">
         <div class="glass rounded-3xl p-8 lg:p-12 text-center reveal relative overflow-hidden">
           <div class="absolute inset-0 opacity-30 pointer-events-none" aria-hidden="true">
-            <div class="absolute top-0 left-1/4 w-72 h-72 rounded-full" style="background:radial-gradient(circle,***REMOVED***136DFF,transparent 70%);"></div>
-            <div class="absolute bottom-0 right-1/4 w-72 h-72 rounded-full" style="background:radial-gradient(circle,***REMOVED***FF53A9,transparent 70%);"></div>
+            <div class="absolute top-0 left-1/4 w-72 h-72 rounded-full" style="background:radial-gradient(circle,#136DFF,transparent 70%);"></div>
+            <div class="absolute bottom-0 right-1/4 w-72 h-72 rounded-full" style="background:radial-gradient(circle,#FF53A9,transparent 70%);"></div>
           </div>
           <div class="relative">
             <h3 class="font-display text-3xl lg:text-4xl font-bold text-ckheading mb-3">Your case study is next.</h3>
             <p class="text-ckbody max-w-xl mx-auto mb-6">Book a 30-minute architecture review. We'll whiteboard your highest-ROI automation and ship a working PoC within 6 weeks.</p>
-            <a href="***REMOVED***contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold inline-flex items-center gap-2">Book a Demo <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            <a href="#contact" data-nav="contact" class="glow-btn rounded-xl px-7 py-3.5 font-display font-semibold inline-flex items-center gap-2">Book a Demo <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
           </div>
         </div>
       </div>
@@ -1760,16 +1760,16 @@ PAGE_CASES = '''
 
 print("Part 4 (cases) prepared.")
 
-***REMOVED*** ============================================================================
-***REMOVED*** PAGE 5: CONTACT & BOOK DEMO (Multi-step form + calendar)
-***REMOVED*** ============================================================================
+# ============================================================================
+# PAGE 5: CONTACT & BOOK DEMO (Multi-step form + calendar)
+# ============================================================================
 PAGE_CONTACT = '''
     <!-- ========== PAGE: CONTACT ========== -->
     <section data-page="contact" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-7xl mx-auto px-5 lg:px-8">
           <nav class="crumb text-xs font-mono text-ckbody/70 mb-6" aria-label="Breadcrumb">
-            <a href="***REMOVED***home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Contact</span>
+            <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Contact</span>
           </nav>
           <div class="max-w-3xl reveal">
             <span class="tag mb-4 inline-flex"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>Book a Demo</span>
@@ -1849,11 +1849,11 @@ PAGE_CONTACT = '''
                 <div>
                   <label class="text-xs font-mono text-ckbody uppercase tracking-wider mb-2 block">Budget range *</label>
                   <select class="glass-input">
-                    <option style="background:***REMOVED***0D0025;">Under $25k</option>
-                    <option style="background:***REMOVED***0D0025;">$25k – $75k</option>
-                    <option style="background:***REMOVED***0D0025;">$75k – $150k</option>
-                    <option style="background:***REMOVED***0D0025;">$150k – $500k</option>
-                    <option style="background:***REMOVED***0D0025;">$500k+</option>
+                    <option style="background:#0D0025;">Under $25k</option>
+                    <option style="background:#0D0025;">$25k – $75k</option>
+                    <option style="background:#0D0025;">$75k – $150k</option>
+                    <option style="background:#0D0025;">$150k – $500k</option>
+                    <option style="background:#0D0025;">$500k+</option>
                   </select>
                 </div>
                 <div>
@@ -1901,7 +1901,7 @@ PAGE_CONTACT = '''
                 <button id="submit-booking" class="glow-btn rounded-xl px-6 py-3 font-display font-semibold text-sm">Confirm booking <i data-lucide="check" class="inline w-4 h-4 ml-1"></i></button>
               </div>
               <div id="booking-success" class="hidden mt-6 glass-soft rounded-xl p-5 text-center">
-                <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);">
+                <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background:linear-gradient(135deg,#136DFF,#FF53A9);">
                   <i data-lucide="check" class="w-6 h-6 text-white"></i>
                 </div>
                 <h3 class="font-display font-bold text-ckheading text-lg mb-1">Booking received!</h3>
@@ -1920,7 +1920,7 @@ PAGE_CONTACT = '''
               <p class="text-sm text-ckbody mb-5">Prefer email? Reach out directly — we read every message.</p>
               <div class="space-y-3">
                 <a href="mailto:info@clicktaketech.com" class="flex items-center gap-3 glass-soft rounded-xl p-4 hover:border-ckblue/40 transition-colors">
-                  <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***7B2FBE);">
+                  <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#136DFF,#7B2FBE);">
                     <i data-lucide="mail" class="w-5 h-5 text-white"></i>
                   </div>
                   <div class="flex-1 min-w-0">
@@ -1930,7 +1930,7 @@ PAGE_CONTACT = '''
                   <i data-lucide="arrow-up-right" class="w-4 h-4 text-ckbody"></i>
                 </a>
                 <a href="tel:+18005550100" class="flex items-center gap-3 glass-soft rounded-xl p-4 hover:border-ckpink/40 transition-colors">
-                  <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***7B2FBE);">
+                  <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#FF53A9,#7B2FBE);">
                     <i data-lucide="phone" class="w-5 h-5 text-white"></i>
                   </div>
                   <div class="flex-1 min-w-0">
@@ -1940,7 +1940,7 @@ PAGE_CONTACT = '''
                   <i data-lucide="arrow-up-right" class="w-4 h-4 text-ckbody"></i>
                 </a>
                 <div class="flex items-center gap-3 glass-soft rounded-xl p-4">
-                  <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,***REMOVED***7B2FBE,***REMOVED***136DFF);">
+                  <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#7B2FBE,#136DFF);">
                     <i data-lucide="map-pin" class="w-5 h-5 text-white"></i>
                   </div>
                   <div class="flex-1 min-w-0">
@@ -1955,21 +1955,21 @@ PAGE_CONTACT = '''
               <h3 class="font-display text-lg font-bold text-ckheading mb-4">What happens next?</h3>
               <ol class="space-y-4">
                 <li class="flex gap-3">
-                  <div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-display font-bold" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);color:***REMOVED***fff;">1</div>
+                  <div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-display font-bold" style="background:linear-gradient(135deg,#136DFF,#FF53A9);color:#fff;">1</div>
                   <div>
                     <div class="text-sm text-ckheading font-medium">Senior engineer reviews your brief</div>
                     <div class="text-xs text-ckbody mt-1">Within 4 hours during business days.</div>
                   </div>
                 </li>
                 <li class="flex gap-3">
-                  <div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-display font-bold" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);color:***REMOVED***fff;">2</div>
+                  <div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-display font-bold" style="background:linear-gradient(135deg,#136DFF,#FF53A9);color:#fff;">2</div>
                   <div>
                     <div class="text-sm text-ckheading font-medium">30-minute architecture call</div>
                     <div class="text-xs text-ckbody mt-1">We bring a draft architecture + ballpark estimate.</div>
                   </div>
                 </li>
                 <li class="flex gap-3">
-                  <div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-display font-bold" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);color:***REMOVED***fff;">3</div>
+                  <div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-display font-bold" style="background:linear-gradient(135deg,#136DFF,#FF53A9);color:#fff;">3</div>
                   <div>
                     <div class="text-sm text-ckheading font-medium">Working PoC in 6 weeks</div>
                     <div class="text-xs text-ckbody mt-1">Fixed-scope, fixed-fee. No long-term contract required.</div>
@@ -1985,16 +1985,16 @@ PAGE_CONTACT = '''
 
 print("Part 5 (contact) prepared.")
 
-***REMOVED*** ============================================================================
-***REMOVED*** PAGE 6: ABOUT
-***REMOVED*** ============================================================================
+# ============================================================================
+# PAGE 6: ABOUT
+# ============================================================================
 PAGE_ABOUT = '''
     <!-- ========== PAGE: ABOUT ========== -->
     <section data-page="about" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-7xl mx-auto px-5 lg:px-8">
           <nav class="crumb text-xs font-mono text-ckbody/70 mb-6" aria-label="Breadcrumb">
-            <a href="***REMOVED***home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">About</span>
+            <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">About</span>
           </nav>
           <div class="grid lg:grid-cols-2 gap-12 items-center">
             <div class="reveal">
@@ -2022,7 +2022,7 @@ PAGE_ABOUT = '''
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="tilt-card glass rounded-2xl p-6 reveal">
             <div class="tilt-layer">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***7B2FBE);">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,#136DFF,#7B2FBE);">
                 <i data-lucide="hammer" class="w-6 h-6 text-white"></i>
               </div>
               <h3 class="font-display font-bold text-lg text-ckheading mb-2">Ship over polish</h3>
@@ -2031,7 +2031,7 @@ PAGE_ABOUT = '''
           </div>
           <div class="tilt-card glass rounded-2xl p-6 reveal">
             <div class="tilt-layer">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,***REMOVED***FF53A9,***REMOVED***7B2FBE);">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,#FF53A9,#7B2FBE);">
                 <i data-lucide="eye" class="w-6 h-6 text-white"></i>
               </div>
               <h3 class="font-display font-bold text-lg text-ckheading mb-2">Radical transparency</h3>
@@ -2040,7 +2040,7 @@ PAGE_ABOUT = '''
           </div>
           <div class="tilt-card glass rounded-2xl p-6 reveal">
             <div class="tilt-layer">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,***REMOVED***7B2FBE,***REMOVED***136DFF);">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,#7B2FBE,#136DFF);">
                 <i data-lucide="git-fork" class="w-6 h-6 text-white"></i>
               </div>
               <h3 class="font-display font-bold text-lg text-ckheading mb-2">No vendor lock-in</h3>
@@ -2049,7 +2049,7 @@ PAGE_ABOUT = '''
           </div>
           <div class="tilt-card glass rounded-2xl p-6 reveal">
             <div class="tilt-layer">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,***REMOVED***136DFF,***REMOVED***FF53A9);">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,#136DFF,#FF53A9);">
                 <i data-lucide="graduation-cap" class="w-6 h-6 text-white"></i>
               </div>
               <h3 class="font-display font-bold text-lg text-ckheading mb-2">Senior-only benches</h3>
@@ -2126,16 +2126,16 @@ PAGE_ABOUT = '''
     </section>
 '''
 
-***REMOVED*** ============================================================================
-***REMOVED*** PAGE 7: BLOG
-***REMOVED*** ============================================================================
+# ============================================================================
+# PAGE 7: BLOG
+# ============================================================================
 PAGE_BLOG = '''
     <!-- ========== PAGE: BLOG ========== -->
     <section data-page="blog" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-7xl mx-auto px-5 lg:px-8">
           <nav class="crumb text-xs font-mono text-ckbody/70 mb-6" aria-label="Breadcrumb">
-            <a href="***REMOVED***home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Blog</span>
+            <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Blog</span>
           </nav>
           <div class="max-w-3xl reveal">
             <span class="tag mb-4 inline-flex"><i data-lucide="rss" class="w-3.5 h-3.5"></i>Engineering Notes</span>
@@ -2149,11 +2149,11 @@ PAGE_BLOG = '''
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
           <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="***REMOVED***blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,***REMOVED***136DFF 0%,***REMOVED***7B2FBE 60%,***REMOVED***FF53A9 100%);">
+            <a href="#blog" class="block tilt-layer">
+              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#136DFF 0%,#7B2FBE 60%,#FF53A9 100%);">
                 <div class="absolute inset-0 perspective-grid opacity-30"></div>
                 <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:***REMOVED***fff;">AI Architecture</span>
+                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">AI Architecture</span>
                 </div>
               </div>
               <div class="p-6">
@@ -2168,11 +2168,11 @@ PAGE_BLOG = '''
           </article>
 
           <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="***REMOVED***blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,***REMOVED***FF53A9 0%,***REMOVED***7B2FBE 60%,***REMOVED***136DFF 100%);">
+            <a href="#blog" class="block tilt-layer">
+              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#FF53A9 0%,#7B2FBE 60%,#136DFF 100%);">
                 <div class="absolute inset-0 perspective-grid opacity-30"></div>
                 <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:***REMOVED***fff;">RAG</span>
+                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">RAG</span>
                 </div>
               </div>
               <div class="p-6">
@@ -2187,11 +2187,11 @@ PAGE_BLOG = '''
           </article>
 
           <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="***REMOVED***blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,***REMOVED***7B2FBE 0%,***REMOVED***136DFF 60%,***REMOVED***FF53A9 100%);">
+            <a href="#blog" class="block tilt-layer">
+              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#7B2FBE 0%,#136DFF 60%,#FF53A9 100%);">
                 <div class="absolute inset-0 perspective-grid opacity-30"></div>
                 <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:***REMOVED***fff;">DevOps</span>
+                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">DevOps</span>
                 </div>
               </div>
               <div class="p-6">
@@ -2206,11 +2206,11 @@ PAGE_BLOG = '''
           </article>
 
           <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="***REMOVED***blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,***REMOVED***136DFF 0%,***REMOVED***FF53A9 60%,***REMOVED***7B2FBE 100%);">
+            <a href="#blog" class="block tilt-layer">
+              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#136DFF 0%,#FF53A9 60%,#7B2FBE 100%);">
                 <div class="absolute inset-0 perspective-grid opacity-30"></div>
                 <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:***REMOVED***fff;">Frontend</span>
+                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">Frontend</span>
                 </div>
               </div>
               <div class="p-6">
@@ -2225,11 +2225,11 @@ PAGE_BLOG = '''
           </article>
 
           <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="***REMOVED***blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,***REMOVED***FF53A9 0%,***REMOVED***136DFF 60%,***REMOVED***7B2FBE 100%);">
+            <a href="#blog" class="block tilt-layer">
+              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#FF53A9 0%,#136DFF 60%,#7B2FBE 100%);">
                 <div class="absolute inset-0 perspective-grid opacity-30"></div>
                 <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:***REMOVED***fff;">Security</span>
+                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">Security</span>
                 </div>
               </div>
               <div class="p-6">
@@ -2244,11 +2244,11 @@ PAGE_BLOG = '''
           </article>
 
           <article class="tilt-card glass rounded-2xl overflow-hidden reveal">
-            <a href="***REMOVED***blog" class="block tilt-layer">
-              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,***REMOVED***7B2FBE 0%,***REMOVED***FF53A9 60%,***REMOVED***136DFF 100%);">
+            <a href="#blog" class="block tilt-layer">
+              <div class="h-48 relative overflow-hidden" style="background:linear-gradient(135deg,#7B2FBE 0%,#FF53A9 60%,#136DFF 100%);">
                 <div class="absolute inset-0 perspective-grid opacity-30"></div>
                 <div class="absolute bottom-4 left-4 right-4">
-                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:***REMOVED***fff;">LLM</span>
+                  <span class="tag" style="background:rgba(0,0,0,0.40);border-color:rgba(255,255,255,0.30);color:#fff;">LLM</span>
                 </div>
               </div>
               <div class="p-6">
@@ -2269,16 +2269,16 @@ PAGE_BLOG = '''
 
 print("Part 6 (about + blog) prepared.")
 
-***REMOVED*** ============================================================================
-***REMOVED*** PAGE 8: CAREERS
-***REMOVED*** ============================================================================
+# ============================================================================
+# PAGE 8: CAREERS
+# ============================================================================
 PAGE_CAREERS = '''
     <!-- ========== PAGE: CAREERS ========== -->
     <section data-page="careers" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-7xl mx-auto px-5 lg:px-8">
           <nav class="crumb text-xs font-mono text-ckbody/70 mb-6" aria-label="Breadcrumb">
-            <a href="***REMOVED***home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Careers</span>
+            <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Careers</span>
           </nav>
           <div class="grid lg:grid-cols-2 gap-12 items-center">
             <div class="reveal">
@@ -2439,16 +2439,16 @@ PAGE_CAREERS = '''
     </section>
 '''
 
-***REMOVED*** ============================================================================
-***REMOVED*** PAGE 9: PRIVACY POLICY
-***REMOVED*** ============================================================================
+# ============================================================================
+# PAGE 9: PRIVACY POLICY
+# ============================================================================
 PAGE_PRIVACY = '''
     <!-- ========== PAGE: PRIVACY ========== -->
     <section data-page="privacy" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-4xl mx-auto px-5 lg:px-8">
           <nav class="crumb text-xs font-mono text-ckbody/70 mb-6" aria-label="Breadcrumb">
-            <a href="***REMOVED***home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Privacy Policy</span>
+            <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Privacy Policy</span>
           </nav>
           <div class="reveal">
             <span class="tag mb-4 inline-flex"><i data-lucide="lock" class="w-3.5 h-3.5"></i>Legal</span>
@@ -2495,16 +2495,16 @@ PAGE_PRIVACY = '''
     </section>
 '''
 
-***REMOVED*** ============================================================================
-***REMOVED*** PAGE 10: TERMS OF SERVICE
-***REMOVED*** ============================================================================
+# ============================================================================
+# PAGE 10: TERMS OF SERVICE
+# ============================================================================
 PAGE_TERMS = '''
     <!-- ========== PAGE: TERMS ========== -->
     <section data-page="terms" class="page">
       <div class="pt-32 lg:pt-40 pb-12">
         <div class="max-w-4xl mx-auto px-5 lg:px-8">
           <nav class="crumb text-xs font-mono text-ckbody/70 mb-6" aria-label="Breadcrumb">
-            <a href="***REMOVED***home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Terms of Service</span>
+            <a href="#home" data-nav="home">Home</a> <span class="mx-2">/</span> <span class="text-ckheading">Terms of Service</span>
           </nav>
           <div class="reveal">
             <span class="tag mb-4 inline-flex"><i data-lucide="file-text" class="w-3.5 h-3.5"></i>Legal</span>

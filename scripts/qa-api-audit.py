@@ -1,11 +1,11 @@
-***REMOVED***!/usr/bin/env python3
+#!/usr/bin/env python3
 """QA — verify all /api/* fetch targets in client code have corresponding route.ts files"""
 import os, re
 
 ROOT = "/home/z/my-project"
 SRC = os.path.join(ROOT, "src")
 
-***REMOVED*** 1. Collect actual API route files
+# 1. Collect actual API route files
 api_routes = set()
 api_dir = os.path.join(SRC, "app", "api")
 for dirpath, dirnames, filenames in os.walk(api_dir):
@@ -13,11 +13,11 @@ for dirpath, dirnames, filenames in os.walk(api_dir):
         continue
     rel = os.path.relpath(dirpath, api_dir)
     parts = [] if rel == "." else rel.split(os.sep)
-    ***REMOVED*** Convert [id] -> *
+    # Convert [id] -> *
     pattern = "/api/" + "/".join("*" if re.fullmatch(r"\[.+\]", p) else p for p in parts)
     api_routes.add(pattern.rstrip("/"))
 
-***REMOVED*** 2. Extract fetch/axios targets from client code
+# 2. Extract fetch/axios targets from client code
 fetch_re = re.compile(r'''["'`](/api/[^"'`\s]*)["'`]''')
 used = {}
 for dirpath, dirnames, filenames in os.walk(SRC):
