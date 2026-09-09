@@ -162,7 +162,7 @@ export function AdminDashboardClient({
 }: Props) {
   return (
     <div>
-      {/* Page header */}
+      {/* Page header — dual CTA pattern (Gadget Doctor style) */}
       <div className="ct-admin-page-header">
         <div>
           <h1 className="ct-admin-page-title">Dashboard Overview</h1>
@@ -170,9 +170,59 @@ export function AdminDashboardClient({
             Welcome back — here&apos;s what&apos;s happening across ClickTake.
           </div>
         </div>
-        <Link href="/admin/cms?new=1" className="ct-admin-btn ct-admin-btn-primary">
-          <Sparkles className="h-3.5 w-3.5" /> New Page
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link href="/" target="_blank" className="ct-admin-btn ct-admin-btn-sm">
+            <Activity className="h-3.5 w-3.5" /> View Site ↗
+          </Link>
+          <Link href="/admin/cms?new=1" className="ct-admin-btn ct-admin-btn-primary">
+            <Sparkles className="h-3.5 w-3.5" /> New Page
+          </Link>
+        </div>
+      </div>
+
+      {/* ─── TRUST BADGE ROW (Gadget Doctor pattern) ─────────────────────
+          4-column compact stat cards with icon-circle + value + label.
+          Mirrors the homepage hero trust badges so the admin dashboard
+          feels like a continuation of the same design system. Uses the
+          .gd-* component classes imported via globals.css (scoped to
+          .theme-nx which wraps the whole site). */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+        <div className="gd-card-compact gd-trust-badge">
+          <div className="gd-icon-circle gd-icon-blue" style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem" }}>
+            <Users className="h-4 w-4" />
+          </div>
+          <div>
+            <div className="gd-trust-value text-base">{stats.leadsCount}</div>
+            <div className="gd-trust-label">Total Leads</div>
+          </div>
+        </div>
+        <div className="gd-card-compact gd-trust-badge">
+          <div className="gd-icon-circle" style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem" }}>
+            <FileText className="h-4 w-4" />
+          </div>
+          <div>
+            <div className="gd-trust-value text-base">{stats.pagesCount}</div>
+            <div className="gd-trust-label">CMS Pages</div>
+          </div>
+        </div>
+        <div className="gd-card-compact gd-trust-badge">
+          <div className="gd-icon-circle gd-icon-purple" style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem" }}>
+            <Package className="h-4 w-4" />
+          </div>
+          <div>
+            <div className="gd-trust-value text-base">{stats.servicesCount}</div>
+            <div className="gd-trust-label">Services</div>
+          </div>
+        </div>
+        <div className="gd-card-compact gd-trust-badge">
+          <div className="gd-icon-circle gd-icon-blue" style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem" }}>
+            <Mail className="h-4 w-4" />
+          </div>
+          <div>
+            <div className="gd-trust-value text-base">{stats.emailSentCount}</div>
+            <div className="gd-trust-label">Emails Sent</div>
+          </div>
+        </div>
       </div>
 
       {/* Stat grid */}

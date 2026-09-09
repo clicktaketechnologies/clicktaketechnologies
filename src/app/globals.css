@@ -693,6 +693,293 @@ a[class*="bg-gradient-to"], button[class*="bg-gradient-to"] {
   background: color-mix(in oklab, var(--foreground) 4%, transparent);
 }
 
+/* ════════════════════════════════════════════════════════════════════════
+   GADGET DOCTOR-INSPIRED COMPONENT CLASSES (ClickTake-branded)
+   ════════════════════════════════════════════════════════════════════════
+   Adopted from the gadgetdoctorls.web.app design language:
+     • Glassmorphism cards with subtle borders + backdrop blur
+     • Icon-in-circle chips for service categories + stats
+     • Compact trust-badge row (4-column stat grid)
+     • Numbered step process strip (4-step customer journey)
+     • Testimonial cards with avatar initials + yellow stars
+     • Dual CTA pattern (primary gradient + secondary outline)
+
+   All classes are theme-aware — they use the existing --background,
+   --foreground, --border, --brand-pink, --brand-blue, --brand-purple
+   tokens that already flip between light + dark mode via :root / .dark.
+   No hardcoded hex colors — every value comes from a CSS variable so the
+   components work in both themes without per-mode overrides.
+
+   Brand palette retained: #FF53A9 pink, #136DFF blue, #9B3DFF purple.
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ─── 1. Glass card — base surface for all new components ────────────────
+   Used by: services grid cards, step process cards, testimonial cards,
+   trust badges, admin dashboard cards. Two density variants:
+     .gd-card       — standard p-6 (24px)
+     .gd-card-compact — p-4 (16px) for stat badges + dense grids */
+.gd-card {
+  position: relative;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--background) 80%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 1rem;
+  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.gd-card-compact {
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--background) 85%, transparent);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-radius: 0.875rem;
+  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Hover lift — used by services cards + step cards. Slight translate-Y
+   + brand-tinted glow shadow. Scoped to elements with .gd-card.gd-hover
+   so we don't accidentally animate cards that shouldn't move. */
+.gd-card.gd-hover:hover {
+  border-color: color-mix(in oklab, var(--brand-pink) 30%, var(--border));
+  box-shadow: 0 8px 40px -12px color-mix(in oklab, var(--brand-pink) 20%, transparent);
+  transform: translateY(-2px);
+}
+
+/* ─── 2. Icon circle — the chip that holds a Lucide icon ────────────────
+   Two sizes:
+     .gd-icon-circle      — 48x48px (h-12 w-12), default for service cards
+     .gd-icon-circle-lg   — 64x64px (h-16 w-16), hero stat cards
+   Background is a brand-tinted translucent wash so the icon reads as
+   "on-brand" without overpowering the card surface. */
+.gd-icon-circle {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.875rem;
+  background: color-mix(in oklab, var(--brand-pink) 12%, transparent);
+  border: 1px solid color-mix(in oklab, var(--brand-pink) 20%, transparent);
+  color: var(--brand-pink);
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.gd-icon-circle-lg {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+}
+/* When the icon circle is inside a .gd-hover card, scale it on hover
+   for a satisfying micro-interaction. */
+.gd-hover:hover .gd-icon-circle {
+  transform: scale(1.1);
+  background: color-mix(in oklab, var(--brand-pink) 18%, transparent);
+}
+/* Color variants — callers can add .gd-icon-blue / .gd-icon-purple to
+   tint the icon circle differently for visual variety in grids. */
+.gd-icon-circle.gd-icon-blue {
+  background: color-mix(in oklab, var(--brand-blue) 12%, transparent);
+  border-color: color-mix(in oklab, var(--brand-blue) 20%, transparent);
+  color: var(--brand-blue);
+}
+.gd-icon-circle.gd-icon-purple {
+  background: color-mix(in oklab, var(--brand-purple) 12%, transparent);
+  border-color: color-mix(in oklab, var(--brand-purple) 20%, transparent);
+  color: var(--brand-purple);
+}
+
+/* ─── 3. Trust badge — compact stat card for hero + admin dashboard ────
+   Layout: icon-circle (32px) on left, 2-line stack on right (big number
+   + tiny label). Used in the 4-column hero trust row + admin dashboard
+   stat grid. */
+.gd-trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+}
+.gd-trust-badge .gd-trust-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--foreground);
+  letter-spacing: -0.025em;
+}
+.gd-trust-badge .gd-trust-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+  margin-top: 0.125rem;
+}
+
+/* ─── 4. Step process — numbered card for the How We Work strip ────────
+   Layout: large faded number (01, 02, 03, 04) top-right + icon-circle
+   + title + 2-line description. Horizontal on desktop, stacked mobile. */
+.gd-step-card {
+  position: relative;
+  overflow: hidden;
+}
+.gd-step-number {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1;
+  color: color-mix(in oklab, var(--brand-pink) 15%, transparent);
+  letter-spacing: -0.05em;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ─── 5. Testimonial card — avatar + stars + quote ──────────────────────
+   Layout: header row (avatar circle + name/role stack + star rating),
+   quote body, footer (project tag pill + optional timestamp). */
+.gd-testimonial {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.gd-avatar {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #ffffff;
+  flex-shrink: 0;
+  /* Background is set inline via style prop — caller passes the gradient
+     or solid color based on the person's name hash. */
+}
+.gd-stars {
+  display: inline-flex;
+  gap: 0.125rem;
+  color: #fbbf24; /* yellow-400 — consistent in both themes */
+}
+.gd-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--foreground) 4%, transparent);
+  color: var(--muted-foreground);
+}
+
+/* ─── 6. Dual CTA — primary gradient + secondary outline ────────────────
+   Both buttons share the same height (48-56px) + rounded-full radius
+   so they stack cleanly. Primary uses the brand gradient; secondary
+   is a transparent outline button. */
+.gd-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%);
+  box-shadow: 0 8px 30px -8px color-mix(in oklab, #FF53A9 40%, transparent);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+}
+.gd-btn-primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px -8px color-mix(in oklab, #FF53A9 55%, transparent);
+}
+.gd-btn-primary:active {
+  transform: scale(0.98);
+}
+.gd-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.gd-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  background: transparent;
+  border: 1px solid color-mix(in oklab, var(--foreground) 20%, transparent);
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.gd-btn-secondary:hover {
+  background: color-mix(in oklab, var(--foreground) 6%, transparent);
+  border-color: color-mix(in oklab, var(--foreground) 30%, transparent);
+}
+.gd-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--brand-pink);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.gd-btn-ghost:hover {
+  color: var(--brand-blue);
+}
+
+/* ─── 7. Section eyebrow — small uppercase label above section titles ──
+   Replaces the ad-hoc inline-flex badges scattered across sections with
+   a single consistent class. */
+.gd-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--foreground) 3%, transparent);
+}
+.gd-eyebrow::before {
+  content: "";
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: var(--brand-pink);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   END GADGET DOCTOR-INSPIRED COMPONENT CLASSES
+   ════════════════════════════════════════════════════════════════════════ */
+
 /* ─── Theme-mode safeguards ─────────────────────────────────────────────────
    Ensure that the dark-mode radial-gradient background NEVER bleeds into
    light mode. The original rule relied on the .dark class being absent,

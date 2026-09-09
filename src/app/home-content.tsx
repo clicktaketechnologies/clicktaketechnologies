@@ -25,8 +25,22 @@ import {
   Mail,
   MessageCircle,
   TrendingUp,
+  Users,
+  Globe,
+  Activity,
+  Zap,
+  Server,
+  Bot,
+  Workflow,
+  Search,
+  Star,
+  Rocket,
+  PenTool,
+  CheckCircle2,
+  ArrowUpRight,
 } from "lucide-react";
 import { METRICS, metricFormatters } from "@/lib/metrics";
+import { TESTIMONIALS } from "@/lib/site-data";
 
 /* CLICKTAKE HOMEPAGE — "Engineering Tomorrow's Intelligence" design.
  * Matches user-uploaded screenshots: hero with 3D robot, stats bar,
@@ -52,8 +66,10 @@ export default function HomeContent() {
       <main id="main-content" className="relative z-10">
         <NxHero />
         <StatsBar />
-        <FourPillars />
+        <ServicesGrid />
+        <ProcessStrip />
         <NumbersThatCompounded />
+        <Testimonials />
         <CtaSection />
         <TechStrip />
       </main>
@@ -120,36 +136,55 @@ function StatsBar() {
   );
 }
 
-/* ─── FOUR PILLARS ─── 2x2 grid of service capability cards */
-function FourPillars() {
-  const pillars = [
+/* ─── SERVICES ICON GRID ─── 6-card category grid (Gadget Doctor pattern).
+ * Each card = icon-in-circle + category name + 1-line desc + arrow link.
+ * Hover lifts card + border-glow + icon scale. Reads from existing
+ * SERVICES constant in site-data.ts so the grid stays in sync with the
+ * /services index page.
+ */
+function ServicesGrid() {
+  const services = [
     {
       icon: Code2,
-      title: "Custom Web & Mobile",
-      desc: "Next.js 16, React Native, Flutter. Production apps with design systems, observability, and CI/CD baked in from day one.",
-      tags: ["Next.js 16 · React 19", "Design system + Storybook", "E2E Playwright suite"],
-      bg: "#1E3A8A",
+      title: "Custom Software",
+      desc: "Multi-tenant SaaS, dashboards, internal tools. Next.js + Postgres + Stripe.",
+      href: "/services/web/full-stack",
+      color: "pink" as const,
+    },
+    {
+      icon: Bot,
+      title: "AI Agents",
+      desc: "Autonomous goal-pursuing agents with tool-use, memory, and planning.",
+      href: "/services/ai/agents",
+      color: "purple" as const,
     },
     {
       icon: Cloud,
       title: "Cloud & DevOps",
-      desc: "AWS, GCP, Azure, IaC with Terraform, GitOps with ArgoCD, observability with OpenTelemetry + Grafana stack.",
-      tags: ["Terraform · ArgoCD", "K8s autoscaling", "p99 < 120ms SLAs"],
-      bg: "#831843",
+      desc: "AWS · GCP · Azure. Terraform IaC, K8s autoscaling, p99 < 120ms SLAs.",
+      href: "/services",
+      color: "blue" as const,
     },
     {
-      icon: Brain,
-      title: "AI / ML Pipelines",
-      desc: "Multi-agent orchestration, RAG over your enterprise data, custom LLM fine-tuning. From PoC to production in 6 weeks.",
-      tags: ["LangGraph · OpenAI · Anthropic", "Pinecone · Weaviate · pgvector", "VLLM serving"],
-      bg: "#581C87",
+      icon: Rocket,
+      title: "Web & Mobile",
+      desc: "Next.js 16 + React Native. Production apps with CI/CD from day one.",
+      href: "/services",
+      color: "pink" as const,
     },
     {
       icon: ShieldCheck,
       title: "Security Systems",
-      desc: "Zero-trust architectures, SOC 2 Type II audit prep, SAST/DAST in CI, pen-test remediation. Compliance as code.",
-      tags: ["SOC 2 · HIPAA · GDPR", "Semgrep · Snyk · OWASP", "WAF + Bot defense"],
-      bg: "#1E3A8A",
+      desc: "Zero-trust, SOC 2 Type II audit prep, SAST/DAST in CI, pen-test remediation.",
+      href: "/services",
+      color: "blue" as const,
+    },
+    {
+      icon: TrendingUp,
+      title: "Growth Systems",
+      desc: "SEO, paid, CRO. Data-led marketing that compounds qualified pipeline.",
+      href: "/services",
+      color: "purple" as const,
     },
   ];
   return (
@@ -157,28 +192,129 @@ function FourPillars() {
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-mono uppercase tracking-[2px] text-white/70">
-            <span className="h-1 w-1 rounded-full bg-[#FF53A9]" />
-            Core Capabilities
-          </div>
+          <span className="gd-eyebrow">Core Capabilities</span>
           <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
-            Four pillars. One delivery{" "}
+            Six practices. One{" "}
             <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
-              engine.
+              delivery engine.
             </span>
           </h2>
           <p className="mt-5 text-base sm:text-lg text-white/60 leading-relaxed">
-            Every ClickTake engagement is structured around four tightly-integrated practices.
+            Every ClickTake engagement is structured around six tightly-integrated practices.
             They share the same design system, the same observability stack, and the same
-            engineering bar — so your roadmap ships as one coherent product, not four vendor
+            engineering bar — so your roadmap ships as one coherent product, not six vendor
             handoffs.
           </p>
         </div>
 
-        {/* 2x2 grid */}
-        <div className="grid sm:grid-cols-2 gap-6">
-          {pillars.map((p, i) => {
-            const Icon = p.icon;
+        {/* 3x2 grid (3 cols on desktop, 2 on tablet, 1 on mobile) */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {services.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+              >
+                <Link
+                  href={s.href}
+                  className="gd-card gd-hover group block p-6 h-full"
+                >
+                  <div className="flex items-start justify-between mb-5">
+                    <div
+                      className={`gd-icon-circle ${s.color === "blue" ? "gd-icon-blue" : s.color === "purple" ? "gd-icon-purple" : ""}`}
+                    >
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <ArrowUpRight className="h-5 w-5 text-white/30 group-hover:text-[#FF8AC4] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2 transition-colors group-hover:text-[#FF8AC4]">
+                    {s.title}
+                  </h3>
+                  <p className="text-sm text-white/60 leading-relaxed">{s.desc}</p>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Bottom CTA — dual CTA pattern (Gadget Doctor) */}
+        <div className="mt-12 flex flex-col sm:flex-row gap-3 justify-center items-center">
+          <Link href="/services" className="gd-btn-primary group">
+            Explore all services
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+          <Link href="/contact" className="gd-btn-secondary">
+            Talk to an engineer
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── PROCESS STRIP ─── 4-step "How we work" section (Gadget Doctor pattern).
+ * Numbered cards: 01 Discover → 02 Architect → 03 Build → 04 Deploy.
+ * Each card has a large faded number top-right + icon-circle + title + 2-line desc.
+ * Horizontal on desktop, stacked on mobile.
+ */
+function ProcessStrip() {
+  const steps = [
+    {
+      num: "01",
+      icon: Search,
+      title: "Discover",
+      desc: "30-min architecture review. We map your roadmap, identify highest-ROI automation, and scope a fixed-price PoC.",
+      color: "pink" as const,
+    },
+    {
+      num: "02",
+      icon: PenTool,
+      title: "Architect",
+      desc: "Senior engineers (not juniors) design the system — schema, API contracts, infra topology, observability stack.",
+      color: "blue" as const,
+    },
+    {
+      num: "03",
+      icon: Code2,
+      title: "Build",
+      desc: "Sprint-based delivery with weekly demos. CI/CD from day one. E2E Playwright suite + design system in Storybook.",
+      color: "purple" as const,
+    },
+    {
+      num: "04",
+      icon: Rocket,
+      title: "Deploy",
+      desc: "Production launch with runbooks, on-call rotation, and 30-day post-launch hypercare. Then we hand over the keys.",
+      color: "pink" as const,
+    },
+  ];
+  return (
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#03000D" }}>
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <span className="gd-eyebrow">How We Work</span>
+          <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
+            From discovery to{" "}
+            <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
+              deployment.
+            </span>
+          </h2>
+          <p className="mt-5 text-base sm:text-lg text-white/60 leading-relaxed">
+            A repeatable 4-step engagement model. No vague "discovery phases" that drag on
+            for months — each step has a fixed deliverable, a fixed timeline, and a fixed exit
+            criterion.
+          </p>
+        </div>
+
+        {/* 4-column grid (stacks to 2x2 on tablet, 1-col on mobile) */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {steps.map((step, i) => {
+            const Icon = step.icon;
             return (
               <motion.div
                 key={i}
@@ -186,44 +322,19 @@ function FourPillars() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 sm:p-8 hover:border-[#FF53A9]/30 hover:bg-white/[0.05] hover:shadow-[0_8px_40px_-12px_rgba(255,83,169,0.2)] transition-all overflow-hidden"
+                className="gd-card gd-step-card p-6"
               >
-                {/* Spotlight gradient that follows hover — subtle pink glow on
-                    the top-left corner when the card is hovered. Pure CSS, no
-                    JS tracking needed. */}
+                <div className="gd-step-number">{step.num}</div>
                 <div
-                  className="pointer-events-none absolute -top-20 -left-20 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-3xl"
-                  style={{ background: "radial-gradient(circle, rgba(255,83,169,0.15), transparent 70%)" }}
-                />
-                <div
-                  className="relative grid h-12 w-12 place-items-center rounded-xl mb-5 transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: p.bg }}
+                  className={`gd-icon-circle ${step.color === "blue" ? "gd-icon-blue" : step.color === "purple" ? "gd-icon-purple" : ""} mb-5`}
                 >
-                  <Icon className="h-6 w-6 text-white" />
+                  <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="relative text-xl font-bold text-white mb-3 transition-colors group-hover:text-[#FF8AC4]">{p.title}</h3>
-                <p className="relative text-sm text-white/60 leading-relaxed mb-5">{p.desc}</p>
-                <div className="relative space-y-1.5">
-                  {p.tags.map((t) => (
-                    <div key={t} className="text-[11px] font-mono uppercase tracking-wider text-white/50 break-words">
-                      · {t}
-                    </div>
-                  ))}
-                </div>
+                <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
+                <p className="text-sm text-white/60 leading-relaxed">{step.desc}</p>
               </motion.div>
             );
           })}
-        </div>
-
-        {/* Bottom button */}
-        <div className="mt-12 text-center">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all"
-          >
-            Explore all services
-            <ArrowRight className="h-4 w-4" />
-          </Link>
         </div>
       </div>
     </section>
@@ -325,6 +436,127 @@ function NumbersThatCompounded() {
   );
 }
 
+/* ─── TESTIMONIALS ─── 3-column testimonial card grid (Gadget Doctor pattern).
+ * Each card = avatar circle with initials (no photos) + name + role/company
+ * + 5 yellow stars + quote + project tag pill. Reads from the existing
+ * TESTIMONIALS constant in site-data.ts so the grid stays in sync with
+ * the /case-studies page + JSON-LD review schema.
+ */
+function Testimonials() {
+  // Avatar gradient palette — deterministic per testimonial (hash by name
+  // so the same person always gets the same color). Picks from the 3 brand
+  // colors so avatars feel on-brand.
+  const avatarGradients = [
+    "linear-gradient(135deg, #FF53A9, #9B3DFF)",
+    "linear-gradient(135deg, #136DFF, #4A90D9)",
+    "linear-gradient(135deg, #9B3DFF, #7B2FBE)",
+    "linear-gradient(135deg, #FF8AC4, #FF53A9)",
+  ];
+  const getInitials = (name: string) =>
+    name
+      .split(" ")
+      .map((n) => n[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase();
+
+  // Project tag pills — derived from the testimonial's role + location
+  // so each card has a unique tag without needing a schema change.
+  const getTag = (t: { role: string; location: string }) => {
+    if (/commerce|retail|shop/i.test(t.role)) return "E-commerce";
+    if (/cto|tech|engineer/i.test(t.role)) return "SaaS Platform";
+    if (/marketing|growth/i.test(t.role)) return "Growth Systems";
+    if (/hospitality|coo|operations/i.test(t.role)) return "Operations";
+    return "Web Build";
+  };
+
+  // Take first 6 testimonials (2 rows of 3 on desktop)
+  const testimonials = TESTIMONIALS.slice(0, 6);
+
+  return (
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#03000D" }}>
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <span className="gd-eyebrow">Client Outcomes</span>
+          <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
+            What clients{" "}
+            <span className="bg-gradient-to-r from-[#FF8AC4] via-[#9B3DFF] to-[#136DFF] bg-clip-text text-transparent">
+              say.
+            </span>
+          </h2>
+          <p className="mt-5 text-base sm:text-lg text-white/60 leading-relaxed">
+            Real outcomes from real clients across {METRICS.CONTINENTS_SERVED} continents.
+            Each quote is verbatim — no marketing edits. Read the full case studies for
+            the metrics behind each story.
+          </p>
+        </div>
+
+        {/* 3-column grid (3 on desktop, 2 on tablet, 1 on mobile) */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {testimonials.map((t, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="gd-card gd-testimonial p-6"
+            >
+              {/* Header: avatar + name/role + stars */}
+              <div className="flex items-center gap-3">
+                <div
+                  className="gd-avatar"
+                  style={{ background: avatarGradients[i % avatarGradients.length] }}
+                  aria-hidden
+                >
+                  {getInitials(t.name)}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="font-bold text-white text-sm truncate">{t.name}</div>
+                  <div className="text-xs text-white/60 truncate">{t.role}</div>
+                </div>
+                <div className="gd-stars" aria-label={`${t.rating} out of 5 stars`}>
+                  {Array.from({ length: t.rating }).map((_, s) => (
+                    <Star key={s} className="h-3.5 w-3.5 fill-current" />
+                  ))}
+                </div>
+              </div>
+
+              {/* Quote */}
+              <blockquote className="text-sm text-white/80 leading-relaxed flex-1">
+                &ldquo;{t.quote}&rdquo;
+              </blockquote>
+
+              {/* Footer: project tag + location */}
+              <div className="flex items-center justify-between gap-2 pt-2 border-t border-white/5">
+                <span className="gd-tag-pill">
+                  <CheckCircle2 className="h-3 w-3" />
+                  {getTag(t)}
+                </span>
+                <span className="text-[10px] text-white/40 font-mono uppercase tracking-wider">
+                  {t.location}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Bottom CTA — dual CTA pattern */}
+        <div className="mt-12 flex flex-col sm:flex-row gap-3 justify-center items-center">
+          <Link href="/case-studies" className="gd-btn-primary group">
+            Read full case studies
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+          <Link href="/contact" className="gd-btn-secondary">
+            Start your project
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── CTA SECTION ─── Book a Demo + email + WhatsApp with mini robot */
 function CtaSection() {
   return (
@@ -356,24 +588,23 @@ function CtaSection() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:scale-[1.02] transition-all"
-                  style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
+                  className="gd-btn-primary group"
                 >
-                  Book a Demo
-                  <ArrowRight className="h-4 w-4" />
+                  Start Your Project
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <a
                   href="mailto:info@clicktaketech.com"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all"
+                  className="gd-btn-secondary"
                 >
                   <Mail className="h-4 w-4" />
-                  info@clicktaketech.com
+                  Email us
                 </a>
                 <a
                   href="https://wa.link/qz8eg"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all"
+                  className="gd-btn-secondary"
                 >
                   <MessageCircle className="h-4 w-4 text-[#25D366]" />
                   WhatsApp

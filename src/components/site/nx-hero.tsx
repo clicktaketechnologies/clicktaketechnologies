@@ -3,16 +3,16 @@
 import { useRef } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, Shield } from "lucide-react"
+import { ArrowRight, Shield, Users, Globe, Activity, Zap } from "lucide-react"
 import { SITE } from "@/lib/site-data"
 import { METRICS, metricFormatters } from "@/lib/metrics"
 import { LiveStatBadge } from "@/components/site/live-stat-badge"
 
 /* CLICKTAKE HERO — Engineering Tomorrow's Intelligence design.
- * Matches user-uploaded screenshot: split layout with 3D robot character
- * on the right, floating glass widgets, trust badges row.
+ * Gadget Doctor-inspired layout: split hero with 3D robot character
+ * on the right, 4-column trust badge row + dual CTA on the left.
  *
- * Left: badge → headline (gradient on "Intelligence,") → subtext → 2 CTAs → trust badges
+ * Left: badge → headline → subtext → 2 CTAs → 4-col trust metric grid → compliance badges
  * Right: 3D robot character (CSS/SVG-based) + 2 floating glass widgets
  *
  * Brand colors: #FF53A9 pink, #136DFF blue, #9B3DFF purple.
@@ -24,9 +24,44 @@ import { LiveStatBadge } from "@/components/site/live-stat-badge"
  * `/api/stats/github` and rendered by `<LiveStatBadge>`; all other
  * numbers (teams, continents, uptime, API req/day) come from `METRICS`
  * so the Hero stays consistent with the StatsBar and Footer.
+ *
+ * GADGET DOCTOR DESIGN PATTERNS ADOPTED:
+ *   • 4-column compact trust badge row (icon + value + label)
+ *   • Dual CTA pattern (primary gradient + secondary outline)
+ *   • Glassmorphism surfaces via .gd-card-compact / .gd-icon-circle
  */
 export function NxHero() {
   const heroRef = useRef<HTMLDivElement>(null)
+
+  // 4-column trust metric grid — Gadget Doctor pattern. Each badge has
+  // an icon, a big value, and a tiny uppercase label. Reads from METRICS
+  // so the numbers stay consistent with StatsBar + Footer.
+  const trustBadges = [
+    {
+      icon: Users,
+      value: metricFormatters.plus(METRICS.TEAMS_SERVED),
+      label: "Teams served",
+      color: "pink" as const,
+    },
+    {
+      icon: Globe,
+      value: String(METRICS.CONTINENTS_SERVED),
+      label: "Continents",
+      color: "blue" as const,
+    },
+    {
+      icon: Activity,
+      value: metricFormatters.percent(METRICS.UPTIME_SLA_PERCENT),
+      label: "Uptime SLA",
+      color: "purple" as const,
+    },
+    {
+      icon: Zap,
+      value: METRICS.API_REQUESTS_PER_DAY,
+      label: "API / day",
+      color: "pink" as const,
+    },
+  ]
 
   return (
     <section
@@ -116,7 +151,9 @@ export function NxHero() {
               every day.
             </motion.p>
 
-            {/* CTAs */}
+            {/* CTAs — Dual CTA pattern (Gadget Doctor style):
+                primary gradient "Start Your Project" + secondary outline "View Case Studies".
+                Both buttons share the same height + rounded-full so they stack cleanly. */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -125,30 +162,63 @@ export function NxHero() {
             >
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-sm sm:text-base font-bold text-white shadow-[0_8px_30px_rgba(155,61,255,0.35)] transition-all hover:shadow-[0_8px_40px_rgba(155,61,255,0.55)] hover:scale-[1.02]"
-                style={{
-                  background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)",
-                }}
+                className="gd-btn-primary group text-sm sm:text-base"
+                style={{ padding: "1rem 2rem" }}
               >
-                Book a Demo
+                Start Your Project
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="/case-studies"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md px-7 py-4 text-sm sm:text-base font-bold text-white transition-all hover:bg-white/10 hover:border-white/30"
+                className="gd-btn-secondary text-sm sm:text-base"
+                style={{ padding: "1rem 2rem" }}
               >
                 View Case Studies
               </Link>
             </motion.div>
 
-            {/* Trust badges — wraps to 2x2 on mobile (gap-x-4 = 16px,
-                tighter than the original gap-x-6 = 24px so all four
-                badges fit on one row at ≥360px). */}
+            {/* ─── 4-COLUMN TRUST BADGE ROW (Gadget Doctor pattern) ───────
+                Compact stat cards with icon-circle + value + label.
+                Reads from METRICS so the numbers stay consistent with
+                StatsBar + Footer. 2x2 on mobile, 4-col on sm+. */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
-              className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 sm:gap-x-6 gap-y-3"
+              className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl mx-auto lg:mx-0"
+            >
+              {trustBadges.map((badge, i) => {
+                const Icon = badge.icon
+                return (
+                  <div
+                    key={i}
+                    className="gd-card-compact gd-trust-badge"
+                  >
+                    <div
+                      className={`gd-icon-circle ${badge.color === "blue" ? "gd-icon-blue" : badge.color === "purple" ? "gd-icon-purple" : ""}`}
+                      style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem" }}
+                    >
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="gd-trust-value text-base sm:text-lg">
+                        {badge.value}
+                      </div>
+                      <div className="gd-trust-label">{badge.label}</div>
+                    </div>
+                  </div>
+                )
+              })}
+            </motion.div>
+
+            {/* Compliance badges — SOC 2 / AWS / GDPR row. Kept separate
+                from the metric trust badges above because these are
+                certification badges, not performance metrics. */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 sm:gap-x-6 gap-y-3"
             >
               {["SOC 2 Type II", "AWS · GCP · Azure", "99.9% SLA", "GDPR · CCPA"].map(
                 (badge) => (
