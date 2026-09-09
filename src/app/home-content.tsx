@@ -26,6 +26,7 @@ import {
   MessageCircle,
   TrendingUp,
 } from "lucide-react";
+import { METRICS, metricFormatters } from "@/lib/metrics";
 
 /* CLICKTAKE HOMEPAGE — "Engineering Tomorrow's Intelligence" design.
  * Matches user-uploaded screenshots: hero with 3D robot, stats bar,
@@ -62,13 +63,35 @@ export default function HomeContent() {
   );
 }
 
-/* ─── STATS BAR ─── 4 oversized metrics in a horizontal row */
+/* ─── STATS BAR ─── 4 oversized metrics in a horizontal row.
+ *
+ * Every value comes from `@/lib/metrics` — the single source of truth
+ * shared with <NxHero /> and <NxFooter />. Changing a metric there
+ * propagates here automatically; this component no longer owns any
+ * number, only the visual presentation.
+ */
 function StatsBar() {
   const stats = [
-    { num: "99.9%", label: "Uptime SLA", sub: "Across all production environments" },
-    { num: "150+", label: "Enterprise Apps", sub: "Shipped to production since 2019" },
-    { num: "40%", label: "AI Workflow Efficiency", sub: "Avg. lift across client base" },
-    { num: "10M+", label: "API Requests / Day", sub: "Served at p99 <120ms" },
+    {
+      num: metricFormatters.percent(METRICS.UPTIME_SLA_PERCENT),
+      label: "Uptime SLA",
+      sub: "Across all production environments",
+    },
+    {
+      num: metricFormatters.plus(METRICS.PROJECTS_SHIPPED),
+      label: "Enterprise Apps",
+      sub: `Shipped to production since ${METRICS.FOUNDED_YEAR}`,
+    },
+    {
+      num: metricFormatters.percent(METRICS.AI_EFFICIENCY_LIFT_PERCENT),
+      label: "AI Workflow Efficiency",
+      sub: "Avg. lift across client base",
+    },
+    {
+      num: METRICS.API_REQUESTS_PER_DAY,
+      label: "API Requests / Day",
+      sub: `Served at p99 <${METRICS.API_P99_LATENCY_MS}ms`,
+    },
   ];
   return (
     <section className="relative py-16 px-4 lg:px-8" style={{ background: "***REMOVED***03000D" }}>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Facebook, Instagram, Linkedin, Youtube, ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 import { SITE, NAV_LINKS } from "@/lib/site-data";
+import { METRICS, metricFormatters } from "@/lib/metrics";
 
 /* NEW FOOTER — multi-column (Itransition + Index.dev pattern).
  * Columns: Brand+blurb+socials | Services | Solutions | Company | Contact.
@@ -25,20 +26,42 @@ const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> 
   youtube: Youtube,
 };
 
+/**
+ * Footer link taxonomy — enterprise-first ordering.
+ *
+ * SERVICES column: reordered to lead with the engineering + AI work
+ * the Hero positions us for ("AI & Automation" → "Custom Software" →
+ * "Cloud & DevOps"), then the supporting practices. "Digital Marketing"
+ * drops to the bottom — it's still a real revenue line but no longer
+ * the first thing a visitor scrolling the footer sees, which would
+ * undermine the "Engineering Tomorrow's Intelligence" headline at the
+ * top of the page.
+ *
+ * SOLUTIONS column: reframed to audience-segment language that reads
+ * as enterprise-ready rather than small-business-legacy. Routes are
+ * unchanged (so existing pages keep working), but labels are renamed:
+ *   "For Local Businesses"  →  "Multi-Location Brands"
+ *   "For Repair Shops"     →  "Field Service & Logistics"
+ *   "For UK Businesses"     →  "UK & EMEA Enterprise"
+ *   "For Startups"          →  "Startups & Scale-ups"
+ *   "For E-commerce Brands" →  "E-commerce & Retail"
+ * Added "Agency Partnerships" (route already exists per SOLUTIONS list).
+ */
 const FOOTER_LINKS = {
   services: [
-    { label: "Digital Marketing", href: "/services" },
-    { label: "Web & Software", href: "/services" },
     { label: "AI & Automation", href: "/services" },
-    { label: "Creative & Brand", href: "/services" },
-    { label: "Business Essentials", href: "/services" },
+    { label: "Custom Software", href: "/services" },
+    { label: "Cloud & DevOps", href: "/services" },
+    { label: "Web & Mobile", href: "/services" },
+    { label: "Growth Systems", href: "/services" },
   ],
   solutions: [
-    { label: "For Startups", href: "/solutions/startups" },
-    { label: "For Local Businesses", href: "/solutions/local-businesses" },
-    { label: "For E-commerce Brands", href: "/solutions/ecommerce-brands" },
-    { label: "For Repair Shops", href: "/solutions/repair-shops" },
-    { label: "For UK Businesses", href: "/solutions/uk-businesses" },
+    { label: "Startups & Scale-ups", href: "/solutions/startups" },
+    { label: "Multi-Location Brands", href: "/solutions/local-businesses" },
+    { label: "E-commerce & Retail", href: "/solutions/ecommerce-brands" },
+    { label: "Field Service & Logistics", href: "/solutions/repair-shops" },
+    { label: "UK & EMEA Enterprise", href: "/solutions/uk-businesses" },
+    { label: "Agency Partnerships", href: "/solutions/agencies" },
   ],
   company: [
     { label: "About Us", href: "/about" },
@@ -103,12 +126,23 @@ export function NxFooter() {
               </span>
             </div>
 
-            {/* Tagline — v5: bumped to /70 for WCAG AA on dark footer */}
+            {/* Tagline — enterprise-aligned per brand-positioning audit.
+                Previously: "Full-stack digital agency shipping AI-powered
+                websites, SaaS platforms, mobile apps and growth systems…"
+                Conflicted with the Hero's "Engineering Tomorrow's Intelligence"
+                enterprise/AI-agent positioning. Now uses engineering-first
+                language, and pulls live values from `METRICS` so the
+                project count stays consistent with the StatsBar above. */}
             <p className="mt-5 text-sm text-white/70 leading-relaxed max-w-sm">
-              Full-stack digital agency shipping AI-powered websites, SaaS
-              platforms, mobile apps and growth systems for ambitious brands
-              across the UK, Pakistan, USA &amp; Dubai. 120+ projects delivered
-              since {SITE.founded}.
+              AI-native software engineering firm shipping production-grade
+              autonomous agents, multi-tenant SaaS platforms and cloud
+              architecture for enterprises across{" "}
+              <strong className="font-semibold text-white">
+                {METRICS.CONTINENTS_SERVED} continents
+              </strong>
+              .{" "}
+              {metricFormatters.plus(METRICS.PROJECTS_SHIPPED)} production
+              deployments shipped since {METRICS.FOUNDED_YEAR}.
             </p>
 
             {/* Socials — v5: 44px touch targets with 12px gap (WCAG 2.5.5) */}

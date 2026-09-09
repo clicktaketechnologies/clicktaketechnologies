@@ -20,29 +20,43 @@ import { SITE, TESTIMONIALS } from "@/lib/site-data";
  * Next.js renders them in the initial HTML, no hydration needed.
  */
 
+/**
+ * Home-page metadata — aligned with the Hero's enterprise / AI-agent
+ * positioning (Issue 3: Brand Positioning & Messaging Alignment).
+ *
+ * Previously this metadata targeted the "web design services UK" long-
+ * tail — conflicting with the Hero headline "Engineering Tomorrow's
+ * Intelligence, Today" and the AI/agent-focused service cards. The
+ * updated metadata keeps the regional SEO qualifiers (UK/PK/USA/Dubai)
+ * but reframes the keywords around AI-native engineering, autonomous
+ * agents, and multi-tenant SaaS — the actual high-margin work the Hero
+ * advertises. The legacy "web design" keywords remain on the dedicated
+ * `/services/web-design-services` route where they convert.
+ */
 export const metadata: Metadata = {
-  title: "Web Design Services UK · AI-Powered Websites — ClickTake",
+  title: "AI-Native Software Engineering · Multi-Agent Systems — ClickTake",
   description:
-    "Web design services for UK, Pakistan, USA & Dubai brands. Custom websites, WordPress, ecommerce, SEO & hosting. 120+ shipped. Free 30-min consult.",
+    "ClickTake Technologies ships production-grade autonomous AI agents, multi-tenant SaaS platforms and cloud architecture for global enterprises. 150+ teams across 4 continents. 99.9% uptime SLA. Book a 30-min architecture review.",
   alternates: { canonical: SITE.url },
   keywords: [
-    "web design services",
-    "web design services UK",
-    "web design services London",
-    "professional web design services",
-    "small business web design services",
-    "ecommerce web design services",
-    "wordpress web design services",
-    "seo and web design services",
-    "affordable web design services",
-    "responsive web design services",
-    "web design hosting services",
+    "AI agent development",
+    "multi-agent systems",
+    "LLM engineering",
+    "autonomous AI agents",
+    "production AI",
+    "SaaS platform engineering",
+    "multi-tenant SaaS",
+    "cloud architecture",
+    "AWS GCP Azure",
+    "DevOps consulting",
+    "AI automation agency",
+    "custom software development",
     "ClickTake Technologies",
   ],
   openGraph: {
-    title: "ClickTake Technologies — Web Design Services UK · AI-Powered Agency | UK · PK · USA · Dubai",
+    title: "ClickTake Technologies — AI-Native Software Engineering & Multi-Agent Systems",
     description:
-      "Web design services, custom websites, WordPress, ecommerce, SEO & hosting for brands in the UK, Pakistan, USA and Dubai. 120+ shipped. Free 30-min consult.",
+      "Production-grade autonomous AI agents, SaaS platforms and cloud architecture for global enterprises. 150+ teams across 4 continents. 99.9% uptime. Book a 30-min architecture review.",
     url: SITE.url,
     siteName: SITE.name,
     type: "website",
@@ -52,15 +66,15 @@ export const metadata: Metadata = {
         url: "/og-default.png",
         width: 1200,
         height: 630,
-        alt: "ClickTake Technologies — AI-Powered Digital Agency.",
+        alt: "ClickTake Technologies — AI-Native Software Engineering & Multi-Agent Systems.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ClickTake Technologies — AI-Powered Digital Agency",
+    title: "ClickTake Technologies — AI-Native Software Engineering",
     description:
-      "Custom software, AI automation and growth marketing for brands in the UK, Pakistan, USA and Dubai.",
+      "Autonomous AI agents, multi-tenant SaaS platforms and cloud architecture for global enterprises. 150+ teams across 4 continents.",
     images: ["/og-default.png"],
   },
 };

@@ -1,10 +1,12 @@
 'use client'
 
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, TrendingUp, Activity, Shield } from "lucide-react"
+import { ArrowRight, Shield } from "lucide-react"
 import { SITE } from "@/lib/site-data"
+import { METRICS, metricFormatters } from "@/lib/metrics"
+import { LiveStatBadge } from "@/components/site/live-stat-badge"
 
 /* CLICKTAKE HERO — Engineering Tomorrow's Intelligence design.
  * Matches user-uploaded screenshot: split layout with 3D robot character
@@ -15,6 +17,13 @@ import { SITE } from "@/lib/site-data"
  *
  * Brand colors: ***REMOVED***FF53A9 pink, ***REMOVED***136DFF blue, ***REMOVED***9B3DFF purple.
  * Background: deep navy with radial gradient atmosphere.
+ *
+ * METRIC SOURCING — every number in this component comes from
+ * `@/lib/metrics`, the single source of truth for platform metrics.
+ * The two LIVE badges (commits + coverage) are fetched at runtime via
+ * `/api/stats/github` and rendered by `<LiveStatBadge>`; all other
+ * numbers (teams, continents, uptime, API req/day) come from `METRICS`
+ * so the Hero stays consistent with the StatsBar and Footer.
  */
 export function NxHero() {
   const heroRef = useRef<HTMLDivElement>(null)
@@ -80,8 +89,22 @@ export function NxHero() {
               className="mt-6 mx-auto lg:mx-0 max-w-xl text-base sm:text-lg text-white/70 leading-relaxed"
             >
               ClickTake Technologies ships production-grade software, autonomous AI
-              agents, and cloud architecture for global enterprises — trusted by 150+
-              teams across 4 continents with 99.9% uptime and 10M+ API requests served
+              agents, and cloud architecture for global enterprises — trusted by{" "}
+              <strong className="font-semibold text-white">
+                {metricFormatters.plus(METRICS.TEAMS_SERVED)} teams
+              </strong>{" "}
+              across{" "}
+              <strong className="font-semibold text-white">
+                {METRICS.CONTINENTS_SERVED} continents
+              </strong>{" "}
+              with{" "}
+              <strong className="font-semibold text-white">
+                {metricFormatters.percent(METRICS.UPTIME_SLA_PERCENT)} uptime
+              </strong>{" "}
+              and{" "}
+              <strong className="font-semibold text-white">
+                {METRICS.API_REQUESTS_PER_DAY} API requests served
+              </strong>{" "}
               every day.
             </motion.p>
 
@@ -151,61 +174,24 @@ export function NxHero() {
             {/* 3D Robot Character — CSS/SVG-based stylized representation */}
             <RobotCharacter />
 
-            {/* Floating Widget 1 — Top Right: BUILD PIPELINE */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-4 -right-4 z-20 rounded-2xl p-4 backdrop-blur-md border border-white/15"
-              style={{
-                background: "rgba(16,8,32,0.85)",
-                boxShadow: "0 16px 40px rgba(0,0,0,0.5)",
-              }}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-7 w-7 rounded-lg bg-[***REMOVED***136DFF]/20 grid place-items-center">
-                  <TrendingUp className="h-4 w-4 text-[***REMOVED***4A90D9]" />
-                </div>
-                <span className="text-[10px] font-mono uppercase tracking-[1.5px] text-white/60">
-                  Build Pipeline
-                </span>
-              </div>
-              <div className="text-2xl font-black text-white">98%</div>
-              <div className="text-[10px] text-white/50 mb-2">Test coverage</div>
-              <div className="h-1.5 w-32 bg-white/10 rounded-full overflow-hidden">
-                <div
-                  className="h-full rounded-full"
-                  style={{
-                    width: "98%",
-                    background: "linear-gradient(90deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF)",
-                  }}
-                />
-              </div>
-            </motion.div>
+            {/* Floating Widget 1 — Top Right: BUILD PIPELINE (live test coverage)
+                Backed by /api/stats/github. Falls back to LIVE_STATS_FALLBACK
+                when the API is unreachable or rate-limited — the visitor
+                always sees a populated widget. Wrapped in <ErrorBoundary>
+                internally so a render-time exception in the hook degrades to
+                a static value instead of crashing the Hero. */}
+            <LiveStatBadge
+              statKey="coverage"
+              className="absolute top-4 -right-4 z-20"
+            />
 
-            {/* Floating Widget 2 — Bottom Left: LIVE DEPLOY */}
-            <motion.div
-              animate={{ y: [0, -12, 0] }}
-              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute bottom-8 -left-4 z-20 rounded-2xl p-4 backdrop-blur-md border border-white/15"
-              style={{
-                background: "rgba(16,8,32,0.85)",
-                boxShadow: "0 16px 40px rgba(0,0,0,0.5)",
-              }}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-7 w-7 rounded-lg bg-[***REMOVED***00e676]/20 grid place-items-center">
-                  <Activity className="h-4 w-4 text-[***REMOVED***00e676]" />
-                </div>
-                <span className="text-[10px] font-mono uppercase tracking-[1.5px] text-white/60">
-                  Live Deploy
-                </span>
-              </div>
-              <div className="text-2xl font-black text-white">+1,284</div>
-              <div className="flex items-center gap-1.5 text-[10px] text-white/50">
-                <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
-                commits this week
-              </div>
-            </motion.div>
+            {/* Floating Widget 2 — Bottom Left: LIVE DEPLOY (commits this week)
+                Backed by /api/stats/github. Same resilience contract as the
+                coverage badge — see comment above. */}
+            <LiveStatBadge
+              statKey="commits"
+              className="absolute bottom-8 -left-4 z-20"
+            />
           </motion.div>
         </div>
       </div>
