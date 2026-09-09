@@ -1,27 +1,27 @@
-***REMOVED*** Render Blueprint — ClickTake Technologies backend.
-***REMOVED***
-***REMOVED*** Deploys the full Next.js app (API routes + admin pages + DB access) as a
-***REMOVED*** Node.js Web Service on Render. Pair with the Cloudflare Worker frontend,
-***REMOVED*** which proxies /api/* and /admin/* to this service via `BACKEND_URL`.
-***REMOVED***
-***REMOVED*** Setup:
-***REMOVED***   1. Push this repo to GitHub.
-***REMOVED***   2. In Render dashboard → New → Blueprint → pick the repo.
-***REMOVED***   3. Render detects render.yaml and creates the service.
-***REMOVED***   4. Set the env vars below in Render (Database URL is the most important).
-***REMOVED***   5. Once deployed, copy the Render URL (e.g. https://clicktake-api.onrender.com)
-***REMOVED***      and set it as `BACKEND_URL` on the Cloudflare Worker:
-***REMOVED***        bunx wrangler secret put BACKEND_URL
-***REMOVED***
-***REMOVED*** Free tier: yes, but the service sleeps after 15 min idle. Starter tier
-***REMOVED*** ($7/mo) is recommended for an admin panel that should always be reachable.
+# Render Blueprint — ClickTake Technologies backend.
+#
+# Deploys the full Next.js app (API routes + admin pages + DB access) as a
+# Node.js Web Service on Render. Pair with the Cloudflare Worker frontend,
+# which proxies /api/* and /admin/* to this service via `BACKEND_URL`.
+#
+# Setup:
+#   1. Push this repo to GitHub.
+#   2. In Render dashboard → New → Blueprint → pick the repo.
+#   3. Render detects render.yaml and creates the service.
+#   4. Set the env vars below in Render (Database URL is the most important).
+#   5. Once deployed, copy the Render URL (e.g. https://clicktake-api.onrender.com)
+#      and set it as `BACKEND_URL` on the Cloudflare Worker:
+#        bunx wrangler secret put BACKEND_URL
+#
+# Free tier: yes, but the service sleeps after 15 min idle. Starter tier
+# ($7/mo) is recommended for an admin panel that should always be reachable.
 
 services:
   - type: web
     name: clicktake-api
     runtime: node
-    plan: starter  ***REMOVED*** free | starter | standard
-    region: oregon  ***REMOVED*** closest to your users
+    plan: starter  # free | starter | standard
+    region: oregon  # closest to your users
     branch: main
     repo: https://github.com/clicktaketechnologies/clicktaketechnologies
     autoDeploy: true
@@ -34,22 +34,22 @@ services:
       - key: NODE_VERSION
         value: 20.18.0
       - key: NEXTAUTH_URL
-        value: https://clicktake-api.onrender.com  ***REMOVED*** UPDATE to your Render URL
+        value: https://clicktake-api.onrender.com  # UPDATE to your Render URL
       - key: NEXTAUTH_SECRET
-        sync: false  ***REMOVED*** set in Render dashboard — generate with `openssl rand -base64 32`
+        sync: false  # set in Render dashboard — generate with `openssl rand -base64 32`
       - key: DATABASE_URL
-        sync: false  ***REMOVED*** set in Render dashboard — your Supabase Postgres connection string
+        sync: false  # set in Render dashboard — your Supabase Postgres connection string
       - key: DIRECT_URL
-        sync: false  ***REMOVED*** same as DATABASE_URL (Supabase direct connection)
+        sync: false  # same as DATABASE_URL (Supabase direct connection)
       - key: SUPERADMIN_EMAIL
         value: admin@clicktaketech.com
       - key: SUPERADMIN_PASSWORD
-        sync: false  ***REMOVED*** set in Render dashboard
+        sync: false  # set in Render dashboard
       - key: PROVIDER_CREDENTIALS_ENCRYPTION_KEY
-        sync: false  ***REMOVED*** generate with `openssl rand -hex 32`
+        sync: false  # generate with `openssl rand -hex 32`
       - key: MAIL_FROM
         value: ClickTake <noreply@clicktaketech.com>
       - key: MIGRATE_KEY
-        sync: false  ***REMOVED*** generate with `openssl rand -hex 12` and prefix with `migrate_`
+        sync: false  # generate with `openssl rand -hex 12` and prefix with `migrate_`
       - key: PORT
         value: 10000

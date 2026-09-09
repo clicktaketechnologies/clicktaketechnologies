@@ -1,6 +1,6 @@
-***REMOVED*** Lightweight proxy config for clicktake-web
-***REMOVED*** Replaces the heavy OpenNext bundle to stay under the 3 MiB free-plan limit.
-***REMOVED*** All traffic is proxied to Vercel (BACKEND_URL env var / secret).
+# Lightweight proxy config for clicktake-web
+# Replaces the heavy OpenNext bundle to stay under the 3 MiB free-plan limit.
+# All traffic is proxied to Vercel (BACKEND_URL env var / secret).
 
 name = "clicktake-web"
 main = "scripts/full-proxy-worker.js"

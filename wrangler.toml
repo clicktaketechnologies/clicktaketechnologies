@@ -1,59 +1,59 @@
-***REMOVED*** Cloudflare Pages deployment config for the ClickTake Next.js app.
-***REMOVED***
-***REMOVED*** Uses @opennextjs/cloudflare to deploy the App Router + API routes + ISR
-***REMOVED*** as a single Cloudflare Worker (workers + static assets).
-***REMOVED***
-***REMOVED*** First-time setup:
-***REMOVED***   bun add -D @opennextjs/cloudflare wrangler
-***REMOVED***   bunx opennextjs-cloudflare build        ***REMOVED*** produces .open-next/
-***REMOVED***   bunx wrangler deploy                    ***REMOVED*** publishes .open-next/ to Cloudflare
-***REMOVED***
-***REMOVED*** Re-deploy:
-***REMOVED***   bun run deploy:cloudflare
-***REMOVED***
-***REMOVED*** Stream logs:
-***REMOVED***   bunx wrangler tail
+# Cloudflare Pages deployment config for the ClickTake Next.js app.
+#
+# Uses @opennextjs/cloudflare to deploy the App Router + API routes + ISR
+# as a single Cloudflare Worker (workers + static assets).
+#
+# First-time setup:
+#   bun add -D @opennextjs/cloudflare wrangler
+#   bunx opennextjs-cloudflare build        # produces .open-next/
+#   bunx wrangler deploy                    # publishes .open-next/ to Cloudflare
+#
+# Re-deploy:
+#   bun run deploy:cloudflare
+#
+# Stream logs:
+#   bunx wrangler tail
 
 name = "clicktake-web"
 main = ".open-next/worker.js"
 compatibility_date = "2026-01-01"
 compatibility_flags = ["nodejs_compat"]
 
-***REMOVED*** Custom domains — managed manually via Cloudflare dashboard or API,
-***REMOVED*** NOT via wrangler deploy. This is because the apex domain's DNS A record
-***REMOVED*** points to Vercel (not Cloudflare), and we route traffic to the Worker
-***REMOVED*** via a Worker Route on the wildcard pattern below + Cloudflare's "flare"-style
-***REMOVED*** proxy. Wrangler's `custom_domain = true` option fights with this setup.
-***REMOVED***
-***REMOVED*** To re-attach the custom domain after a fresh deploy, use the Cloudflare API:
-***REMOVED***   POST /accounts/{acct}/workers/domains
-***REMOVED***   { "environment": "production", "hostname": "clicktaketech.com",
-***REMOVED***     "zone_id": "...", "service": "clicktake-web" }
-***REMOVED***
-***REMOVED*** For now, the Worker is reachable at:
-***REMOVED***   https://clicktake-web.<account-subdomain>.workers.dev
-***REMOVED*** (kept alive by `workers_dev = true` below)
+# Custom domains — managed manually via Cloudflare dashboard or API,
+# NOT via wrangler deploy. This is because the apex domain's DNS A record
+# points to Vercel (not Cloudflare), and we route traffic to the Worker
+# via a Worker Route on the wildcard pattern below + Cloudflare's "flare"-style
+# proxy. Wrangler's `custom_domain = true` option fights with this setup.
+#
+# To re-attach the custom domain after a fresh deploy, use the Cloudflare API:
+#   POST /accounts/{acct}/workers/domains
+#   { "environment": "production", "hostname": "clicktaketech.com",
+#     "zone_id": "...", "service": "clicktake-web" }
+#
+# For now, the Worker is reachable at:
+#   https://clicktake-web.<account-subdomain>.workers.dev
+# (kept alive by `workers_dev = true` below)
 
 routes = [
   { pattern = "clicktaketech.com/*", zone_name = "clicktaketech.com" },
   { pattern = "www.clicktaketech.com/*", zone_name = "clicktaketech.com" },
 ]
 
-***REMOVED*** Keep the workers.dev URL accessible too (useful for testing + as a
-***REMOVED*** fallback if the custom domain has issues). Comment out to disable.
+# Keep the workers.dev URL accessible too (useful for testing + as a
+# fallback if the custom domain has issues). Comment out to disable.
 workers_dev = true
 
-***REMOVED*** Assets (static files from .open-next/assets) are served directly by Cloudflare
-***REMOVED*** without invoking the Worker — fast + free.
+# Assets (static files from .open-next/assets) are served directly by Cloudflare
+# without invoking the Worker — fast + free.
 [assets]
 directory = ".open-next/assets"
 binding = "ASSETS"
 
-***REMOVED*** Observability — enable logs + analytics
+# Observability — enable logs + analytics
 [observability]
 enabled = true
 
-***REMOVED*** Public env vars (inlined at build time, safe to expose to client)
+# Public env vars (inlined at build time, safe to expose to client)
 [vars]
 NEXT_PUBLIC_SUPABASE_URL = "https://crejzifwpcnjqghlbbdf.supabase.co"
 NEXT_PUBLIC_SUPABASE_ANON_KEY = "***REDACTED_SUPABASE_ANON_KEY***"
@@ -61,29 +61,29 @@ NEXT_PUBLIC_TURNSTILE_SITE_KEY = "0x4AAAAAADpHuqrF417pgTBa"
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = "dwioesu97"
 NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET = "contact_uploads"
 
-***REMOVED*** Production environment — set via dashboard or `wrangler secret put`.
-***REMOVED*** Required vars:
-***REMOVED***   - DATABASE_URL                (Supabase Postgres connection string)
-***REMOVED***   - NEXTAUTH_SECRET             (random 32+ char string)
-***REMOVED***   - NEXTAUTH_URL                (https://clicktaketech.com)
-***REMOVED***   - PROVIDER_CREDENTIALS_ENCRYPTION_KEY  (64-char hex — generate with `openssl rand -hex 32`)
-***REMOVED***   - MAIL_FROM                   ("ClickTake <noreply@clicktaketech.com>")
-***REMOVED***
-***REMOVED*** Optional (depending on which integrations you use):
-***REMOVED***   - TURNSTILE_SECRET_KEY, NEXT_PUBLIC_TURNSTILE_SITE_KEY
-***REMOVED***   - SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
-***REMOVED***   - GITHUB_ID, GITHUB_SECRET (for OAuth)
-***REMOVED***   - GOOGLE_ID, GOOGLE_SECRET
-***REMOVED***
-***REMOVED*** Use `wrangler secret put <NAME>` for each — values are encrypted at rest.
+# Production environment — set via dashboard or `wrangler secret put`.
+# Required vars:
+#   - DATABASE_URL                (Supabase Postgres connection string)
+#   - NEXTAUTH_SECRET             (random 32+ char string)
+#   - NEXTAUTH_URL                (https://clicktaketech.com)
+#   - PROVIDER_CREDENTIALS_ENCRYPTION_KEY  (64-char hex — generate with `openssl rand -hex 32`)
+#   - MAIL_FROM                   ("ClickTake <noreply@clicktaketech.com>")
+#
+# Optional (depending on which integrations you use):
+#   - TURNSTILE_SECRET_KEY, NEXT_PUBLIC_TURNSTILE_SITE_KEY
+#   - SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+#   - GITHUB_ID, GITHUB_SECRET (for OAuth)
+#   - GOOGLE_ID, GOOGLE_SECRET
+#
+# Use `wrangler secret put <NAME>` for each — values are encrypted at rest.
 
-***REMOVED*** Staging environment — mirrors prod with its own DB / secrets.
-***REMOVED*** Uncomment after the first deploy succeeds and you've set up staging secrets.
-***REMOVED*** [env.staging]
-***REMOVED*** name = "clicktake-web-staging"
+# Staging environment — mirrors prod with its own DB / secrets.
+# Uncomment after the first deploy succeeds and you've set up staging secrets.
+# [env.staging]
+# name = "clicktake-web-staging"
 
-***REMOVED*** Cron triggers — scheduled provider health checks every 5 minutes.
-***REMOVED*** Hits /api/cron/provider-health which probes every configured provider
-***REMOVED*** and sends an alert email if any are degraded/down.
+# Cron triggers — scheduled provider health checks every 5 minutes.
+# Hits /api/cron/provider-health which probes every configured provider
+# and sends an alert email if any are degraded/down.
 [triggers]
 crons = ["*/5 * * * *"]

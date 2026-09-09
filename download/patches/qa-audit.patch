@@ -13,13 +13,13 @@ index e355dd4..abed92c 100755
 +++ b/worklog.md
 @@ -783,3 +783,30 @@ Stage Summary:
  - Hero gradient base now matches page body — seamless deep dark canvas from top of hero through footer
- - All legacy dark hexes (***REMOVED***030014/***REMOVED***0A0A14/***REMOVED***050510/***REMOVED***050518) purged from page components, replaced with v5 spec ***REMOVED***03000D/***REMOVED***070018
+ - All legacy dark hexes (#030014/#0A0A14/#050510/#050518) purged from page components, replaced with v5 spec #03000D/#070018
  - Build green; Vercel deploy in progress; CDN edge cache will be purged automatically on deploy completion
 +
 +---
 +Task ID: theme-toggle-light-spec
 +Agent: main
-+Task: Fix broken light/dark mode switcher + enforce full system light theme (***REMOVED***FAFAFC / white canvas)
++Task: Fix broken light/dark mode switcher + enforce full system light theme (#FAFAFC / white canvas)
 +
 +Work Log:
 +- Inspected src/components/site/theme-toggle.tsx — confirmed ThemeToggle component is fully functional: uses useTheme() from next-themes, calls setTheme('light' | 'dark' | 'system' | 'custom' | 'elite') on click, has proper mounted check to avoid hydration mismatch, applies theme-elite / theme-custom classes for non-standard modes
@@ -27,19 +27,19 @@ index e355dd4..abed92c 100755
 +- Identified root cause: previous commit (d7cbcbd) set forcedTheme="dark" on ThemeProvider, which makes setTheme() calls no-ops — next-themes ignores user-set theme when forcedTheme is provided
 +- layout.tsx: removed forcedTheme="dark"; restored enableSystem so setTheme() actually flips the .dark class on <html>
 +- layout.tsx: restored FOUC themeInitScript to read localStorage.theme + prefers-color-scheme and apply .dark class based on user/system preference (was hardcoded to always add .dark)
-+- globals.css :root tokens: --foreground ***REMOVED***0a0e1a -> ***REMOVED***0F172A (deep slate, 17.9:1 on ***REMOVED***FAFAFC, AAA); --card -> rgba(255,255,255,0.85) for glass card on white canvas; --card-foreground / --popover-foreground / --sidebar-foreground all aligned to ***REMOVED***0F172A
-+- globals.css .theme-nx light block: --nx-ink ***REMOVED***0A0612 -> ***REMOVED***0F172A; --nx-ink-soft ***REMOVED***4A3B5C -> ***REMOVED***334155; --nx-ink-muted ***REMOVED***6E5F80 -> ***REMOVED***475569 (7.1:1 on ***REMOVED***FAFAFC, AAA); --nx-surface ***REMOVED***FFFFFF -> ***REMOVED***FAFAFC; --card -> rgba(255,255,255,0.85)
++- globals.css :root tokens: --foreground #0a0e1a -> #0F172A (deep slate, 17.9:1 on #FAFAFC, AAA); --card -> rgba(255,255,255,0.85) for glass card on white canvas; --card-foreground / --popover-foreground / --sidebar-foreground all aligned to #0F172A
++- globals.css .theme-nx light block: --nx-ink #0A0612 -> #0F172A; --nx-ink-soft #4A3B5C -> #334155; --nx-ink-muted #6E5F80 -> #475569 (7.1:1 on #FAFAFC, AAA); --nx-surface #FFFFFF -> #FAFAFC; --card -> rgba(255,255,255,0.85)
 +- globals.css :root nx-* design-system block: aligned --nx-ink / --nx-ink-soft / --nx-ink-muted to same slate family for consistency
 +- globals.css .theme-nx-light backward-compat block: aligned to same tokens
-+- Verified the LIGHT MODE ADAPTATION LAYER (lines 3736+) catches all dark-authored patterns when html:not(.dark) is active: section[style*="***REMOVED***03000D"] → --nx-surface-alt; div[style*="***REMOVED***03000D"] → --nx-surface; bg-white/[0.0X] glass → --nx-surface; border-white/10 → --nx-border; text-white → --nx-ink; navbar transparent state over hero gets a carve-out to keep white text; gradient buttons get a carve-out to keep white text on the gradient bg
-+- Verified VISIBILITY SAFETY NET: @supports not (background-clip:text) fallback for gradient headings; print styles force ***REMOVED***000; paragraphs/headings without explicit color classes default to var(--foreground)
++- Verified the LIGHT MODE ADAPTATION LAYER (lines 3736+) catches all dark-authored patterns when html:not(.dark) is active: section[style*="#03000D"] → --nx-surface-alt; div[style*="#03000D"] → --nx-surface; bg-white/[0.0X] glass → --nx-surface; border-white/10 → --nx-border; text-white → --nx-ink; navbar transparent state over hero gets a carve-out to keep white text; gradient buttons get a carve-out to keep white text on the gradient bg
++- Verified VISIBILITY SAFETY NET: @supports not (background-clip:text) fallback for gradient headings; print styles force #000; paragraphs/headings without explicit color classes default to var(--foreground)
 +- Clean build: purged .next / .turbo / node_modules/.cache; npm run build compiled successfully in 30.4s with 0 errors
 +- Committed (ebbd450) and pushed to main — Vercel auto-deploy triggered
 +
 +Stage Summary:
 +- ThemeToggle in navbar is now fully functional — clicking Light applies html:not(.dark), Dark applies html.dark, System follows prefers-color-scheme
-+- Light mode: ***REMOVED***FAFAFC canvas, rgba(255,255,255,0.85) glass cards with backdrop-blur-md, ***REMOVED***0F172A primary text (17.9:1 AAA), ***REMOVED***475569 secondary text (7.1:1 AAA), slate-200 borders, gradient headings remain visible (4-stop ***REMOVED***FF8AC4 → ***REMOVED***9B3DFF → ***REMOVED***136DFF sufficient contrast on white)
-+- Dark mode: v5 Dark Premium Cyberpunk canvas (***REMOVED***03000D) preserved — no regression
++- Light mode: #FAFAFC canvas, rgba(255,255,255,0.85) glass cards with backdrop-blur-md, #0F172A primary text (17.9:1 AAA), #475569 secondary text (7.1:1 AAA), slate-200 borders, gradient headings remain visible (4-stop #FF8AC4 → #9B3DFF → #136DFF sufficient contrast on white)
++- Dark mode: v5 Dark Premium Cyberpunk canvas (#03000D) preserved — no regression
 +- FOUC script prevents flash of wrong theme on first paint
 +- Build green; Vercel deploy in progress
 -- 
@@ -164,14 +164,14 @@ index 0000000..dc7942a
 --- /dev/null
 +++ b/scripts/qa-api-audit.py
 @@ -0,0 +1,64 @@
-+***REMOVED***!/usr/bin/env python3
++#!/usr/bin/env python3
 +"""QA — verify all /api/* fetch targets in client code have corresponding route.ts files"""
 +import os, re
 +
 +ROOT = "/home/z/my-project"
 +SRC = os.path.join(ROOT, "src")
 +
-+***REMOVED*** 1. Collect actual API route files
++# 1. Collect actual API route files
 +api_routes = set()
 +api_dir = os.path.join(SRC, "app", "api")
 +for dirpath, dirnames, filenames in os.walk(api_dir):
@@ -179,11 +179,11 @@ index 0000000..dc7942a
 +        continue
 +    rel = os.path.relpath(dirpath, api_dir)
 +    parts = [] if rel == "." else rel.split(os.sep)
-+    ***REMOVED*** Convert [id] -> *
++    # Convert [id] -> *
 +    pattern = "/api/" + "/".join("*" if re.fullmatch(r"\[.+\]", p) else p for p in parts)
 +    api_routes.add(pattern.rstrip("/"))
 +
-+***REMOVED*** 2. Extract fetch/axios targets from client code
++# 2. Extract fetch/axios targets from client code
 +fetch_re = re.compile(r'''["'`](/api/[^"'`\s]*)["'`]''')
 +used = {}
 +for dirpath, dirnames, filenames in os.walk(SRC):
@@ -234,20 +234,20 @@ index 0000000..d17df23
 --- /dev/null
 +++ b/scripts/qa-color-audit.py
 @@ -0,0 +1,75 @@
-+***REMOVED***!/usr/bin/env python3
++#!/usr/bin/env python3
 +"""QA — Color palette consistency audit.
 +Flags hex colors in components that are OUTSIDE the v5 brand palette.
 +
 +V5 brand palette (approved):
-+  Canvas dark : ***REMOVED***03000D ***REMOVED***070018 ***REMOVED***0D0025 (body gradient stops)
-+  Canvas light: ***REMOVED***FAFAFC ***REMOVED***F8F6FC ***REMOVED***F1EDF8 (light surfaces)
-+  Brand pink  : ***REMOVED***FF53A9 ***REMOVED***FF8AC4 ***REMOVED***E0197A (primary/deep variants)
-+  Brand purple: ***REMOVED***9B3DFF ***REMOVED***B27CFF
-+  Brand blue  : ***REMOVED***136DFF ***REMOVED***4A90D9 ***REMOVED***0E58D6
-+  Text dark   : ***REMOVED***F4F0FF ***REMOVED***F0EBF8 (on dark)
-+  Text light  : ***REMOVED***0F172A ***REMOVED***0A0612 ***REMOVED***334155 ***REMOVED***475569 (on light)
-+  Accents     : ***REMOVED***10B981 (green) ***REMOVED***F59E0B (amber) ***REMOVED***22d3ee (cyan) ***REMOVED***FFD782 (gold)
-+                ***REMOVED***C2185B (accessible pink) ***REMOVED***7B2FBE (purple deep) ***REMOVED***dc2626 (destructive)
++  Canvas dark : #03000D #070018 #0D0025 (body gradient stops)
++  Canvas light: #FAFAFC #F8F6FC #F1EDF8 (light surfaces)
++  Brand pink  : #FF53A9 #FF8AC4 #E0197A (primary/deep variants)
++  Brand purple: #9B3DFF #B27CFF
++  Brand blue  : #136DFF #4A90D9 #0E58D6
++  Text dark   : #F4F0FF #F0EBF8 (on dark)
++  Text light  : #0F172A #0A0612 #334155 #475569 (on light)
++  Accents     : #10B981 (green) #F59E0B (amber) #22d3ee (cyan) #FFD782 (gold)
++                #C2185B (accessible pink) #7B2FBE (purple deep) #dc2626 (destructive)
 +"""
 +import os, re
 +from collections import defaultdict
@@ -256,25 +256,25 @@ index 0000000..d17df23
 +SRC = os.path.join(ROOT, "src")
 +
 +APPROVED = {
-+    ***REMOVED*** dark canvas
-+    "03000D", "070018", "0D0025", "030014", "0A0A14", "050510", "050518",  ***REMOVED*** legacy variants tolerated in CSS catch rules
-+    ***REMOVED*** light canvas
++    # dark canvas
++    "03000D", "070018", "0D0025", "030014", "0A0A14", "050510", "050518",  # legacy variants tolerated in CSS catch rules
++    # light canvas
 +    "FAFAFC", "F8F6FC", "F1EDF8", "FFFFFF", "ffffff", "E5E0EE", "CBD0E1",
-+    ***REMOVED*** pink family
++    # pink family
 +    "FF53A9", "FF8AC4", "E0197A", "C2185B", "ff6bb5",
-+    ***REMOVED*** purple family
++    # purple family
 +    "9B3DFF", "B27CFF", "7B2FBE", "c12bff", "d04bff",
-+    ***REMOVED*** blue family
++    # blue family
 +    "136DFF", "4A90D9", "0E58D6", "4d8dff", "4be3ff", "22d3ee",
-+    ***REMOVED*** text
++    # text
 +    "F4F0FF", "F0EBF8", "0F172A", "0A0612", "334155", "475569", "9B8AB8", "6E5F80", "4A3B5C",
-+    ***REMOVED*** accents
++    # accents
 +    "10B981", "F59E0B", "FFD782", "dc2626", "ef4444",
-+    ***REMOVED*** misc one-off approved
++    # misc one-off approved
 +    "000000", "1E1640", "100820", "0A1124",
 +}
 +
-+hex_re = re.compile(r"***REMOVED***([0-9a-fA-F]{6})\b")
++hex_re = re.compile(r"#([0-9a-fA-F]{6})\b")
 +off_palette = defaultdict(list)
 +
 +for dirpath, dirnames, filenames in os.walk(SRC):
@@ -283,7 +283,7 @@ index 0000000..d17df23
 +            continue
 +        path = os.path.join(dirpath, fn)
 +        rel = os.path.relpath(path, ROOT)
-+        if rel.startswith("src/app/admin"):  ***REMOVED*** admin has its own palette
++        if rel.startswith("src/app/admin"):  # admin has its own palette
 +            continue
 +        try:
 +            with open(path, encoding="utf-8", errors="ignore") as f:
@@ -303,7 +303,7 @@ index 0000000..d17df23
 +total = sum(len(v) for v in off_palette.values())
 +print(f"Unique off-palette hexes: {len(off_palette)}  |  total occurrences: {total}\n")
 +for h, occ in sorted(off_palette.items(), key=lambda x: -len(x[1])):
-+    print(f"  ***REMOVED***{h}  ({len(occ)}×)")
++    print(f"  #{h}  ({len(occ)}×)")
 +    for rel, ln, line in occ[:3]:
 +        print(f"      ↳ {rel}:{ln}")
 +        print(f"          {line}")
@@ -315,19 +315,19 @@ index 0000000..ef650a3
 --- /dev/null
 +++ b/scripts/qa-dead-components-v2.py
 @@ -0,0 +1,66 @@
-+***REMOVED***!/usr/bin/env python3
++#!/usr/bin/env python3
 +"""QA — dead component detector v2: exact import-statement matching."""
 +import os, re
 +
 +ROOT = "/home/z/my-project"
 +SITE_DIR = os.path.join(ROOT, "src", "components", "site")
 +
-+***REMOVED*** import/require/dynamic patterns: from '...X', from "...X", import('...X')
++# import/require/dynamic patterns: from '...X', from "...X", import('...X')
 +IMPORT_RE = re.compile(
 +    r"""(?:from\s+|import\s*\(\s*|require\s*\(\s*)["']([^"']+)["']"""
 +)
 +
-+sources = {}  ***REMOVED*** file -> [import paths]
++sources = {}  # file -> [import paths]
 +for dirpath, dirnames, filenames in os.walk(os.path.join(ROOT, "src")):
 +    for fn in filenames:
 +        if not fn.endswith((".tsx", ".ts")):
@@ -356,7 +356,7 @@ index 0000000..ef650a3
 +    return False
 +
 +site_components = [fn[:-4] for fn in os.listdir(SITE_DIR) if fn.endswith(".tsx")]
-+***REMOVED*** also subdirectory index components
++# also subdirectory index components
 +subdirs = [d for d in os.listdir(SITE_DIR)
 +           if os.path.isdir(os.path.join(SITE_DIR, d))
 +           and os.path.exists(os.path.join(SITE_DIR, d, "index.tsx"))]
@@ -366,7 +366,7 @@ index 0000000..ef650a3
 +    imported_by = []
 +    for path, imports in sources.items():
 +        if os.path.join(SITE_DIR, stem + ".tsx") == path:
-+            continue  ***REMOVED*** self
++            continue  # self
 +        for imp in imports:
 +            if resolves(imp, path, stem):
 +                imported_by.append(os.path.relpath(path, ROOT))
@@ -387,14 +387,14 @@ index 0000000..8a0203e
 --- /dev/null
 +++ b/scripts/qa-dead-components.py
 @@ -0,0 +1,54 @@
-+***REMOVED***!/usr/bin/env python3
++#!/usr/bin/env python3
 +"""QA — dead component detector: find site components never imported anywhere."""
 +import os, re
 +
 +ROOT = "/home/z/my-project"
 +SITE_DIR = os.path.join(ROOT, "src", "components", "site")
 +
-+***REMOVED*** Collect ALL import sources across src/
++# Collect ALL import sources across src/
 +import_content = ""
 +for dirpath, dirnames, filenames in os.walk(os.path.join(ROOT, "src")):
 +    for fn in filenames:
@@ -412,9 +412,9 @@ index 0000000..8a0203e
 +for fn in sorted(os.listdir(SITE_DIR)):
 +    if not fn.endswith(".tsx"):
 +        continue
-+    comp_dir = os.path.join(SITE_DIR, fn, "__init__")  ***REMOVED*** placeholder
++    comp_dir = os.path.join(SITE_DIR, fn, "__init__")  # placeholder
 +    name = fn.replace(".tsx", "")
-+    ***REMOVED*** Check if anything imports this file (by path stem)
++    # Check if anything imports this file (by path stem)
 +    patterns = [
 +        f'from "./{name}"',
 +        f'from "../{name}"',
@@ -423,18 +423,18 @@ index 0000000..8a0203e
 +        f'site/{name}"',
 +        f'site/{name}/',
 +    ]
-+    ***REMOVED*** Exclude self-references
++    # Exclude self-references
 +    self_path = os.path.join(SITE_DIR, fn)
 +    imported = False
 +    for p in patterns:
-+        ***REMOVED*** crude check: count occurrences, subtract self-occurrence
++        # crude check: count occurrences, subtract self-occurrence
 +        if p in import_content:
 +            imported = True
 +            break
-+    ***REMOVED*** also dynamic imports
++    # also dynamic imports
 +    if f'"{name}"' in import_content and f'components/site/{name}' in import_content:
 +        imported = True
-+    ***REMOVED*** enhanced/ and pages/ subdirs
++    # enhanced/ and pages/ subdirs
 +    (dead if not imported else alive).append(name)
 +
 +print("DEAD COMPONENTS (not imported anywhere):")
@@ -447,7 +447,7 @@ index 0000000..2625de0
 --- /dev/null
 +++ b/scripts/qa-link-audit-v2.py
 @@ -0,0 +1,144 @@
-+***REMOVED***!/usr/bin/env python3
++#!/usr/bin/env python3
 +"""
 +QA AUDIT v2 — Comprehensive Link Integrity (source-level)
 +1. Extracts nav/footer/data-driven links from site-data.ts + all components
@@ -461,17 +461,17 @@ index 0000000..2625de0
 +ROOT = "/home/z/my-project"
 +SRC = os.path.join(ROOT, "src")
 +
-+***REMOVED*** ─── 1. Build actual route tree from filesystem ───
++# ─── 1. Build actual route tree from filesystem ───
 +app_dir = os.path.join(SRC, "app")
 +fs_routes = set()
-+dynamic_routes = []  ***REMOVED*** routes with [slug] / [[...slug]] params
++dynamic_routes = []  # routes with [slug] / [[...slug]] params
 +
 +for dirpath, dirnames, filenames in os.walk(app_dir):
 +    if not ("page.tsx" in filenames or "route.ts" in filenames):
 +        continue
 +    rel = os.path.relpath(dirpath, app_dir)
 +    parts = [] if rel == "." else rel.split(os.sep)
-+    ***REMOVED*** Skip API routes and private folders
++    # Skip API routes and private folders
 +    joined = "/".join(parts)
 +    if "/api" in joined or parts[:1] == ["api"]:
 +        continue
@@ -492,10 +492,10 @@ index 0000000..2625de0
 +    while fi < len(fs_parts):
 +        seg = fs_parts[fi]
 +        if re.fullmatch(r"\[\[\.\.\.\w+\]\]", seg):
-+            ***REMOVED*** optional catch-all — matches remainder or nothing
++            # optional catch-all — matches remainder or nothing
 +            return True
 +        if re.fullmatch(r"\[\.\.\.\w+\]", seg):
-+            ***REMOVED*** required catch-all — needs at least one more segment
++            # required catch-all — needs at least one more segment
 +            return i < len(link_parts)
 +        if i >= len(link_parts):
 +            return False
@@ -506,15 +506,15 @@ index 0000000..2625de0
 +        i += 1; fi += 1
 +    return i == len(link_parts)
 +
-+***REMOVED*** ─── 2. Extract links from ALL source files (broader patterns) ───
++# ─── 2. Extract links from ALL source files (broader patterns) ───
 +link_re = re.compile(r'''["'`](/[a-zA-Z0-9][a-zA-Z0-9/_\-.]*?)["'`]''')
 +skip_prefixes = ("/api/", "/_next/", "/images/", "/icons/", "/videos/", "/fonts/")
 +skip_ext = re.compile(r"\.(png|jpg|jpeg|svg|webp|ico|xml|txt|css|js|json|mp4|webm|pdf|md|ts|tsx|woff2?)$")
-+skip_exact = {"/admin"}  ***REMOVED*** handled separately
++skip_exact = {"/admin"}  # handled separately
 +
 +links = defaultdict(set)
 +for dirpath, dirnames, filenames in os.walk(SRC):
-+    ***REMOVED*** Skip admin components for public audit but keep admin links flagged
++    # Skip admin components for public audit but keep admin links flagged
 +    for fn in filenames:
 +        if not fn.endswith((".tsx", ".ts")):
 +            continue
@@ -525,26 +525,26 @@ index 0000000..2625de0
 +                content = f.read()
 +        except Exception:
 +            continue
-+        ***REMOVED*** Find href="/..." and href={`/...`} and href='/...'
++        # Find href="/..." and href={`/...`} and href='/...'
 +        for m in re.finditer(r'''href\s*=\s*["'`]\s*(/[^"'`\s]*)["'`]''', content):
-+            link = m.group(1).split("?")[0].split("***REMOVED***")[0] or "/"
++            link = m.group(1).split("?")[0].split("#")[0] or "/"
 +            links[link].add(rel)
-+        ***REMOVED*** Template literals: href={`/blog/${slug}`} — capture static prefix
++        # Template literals: href={`/blog/${slug}`} — capture static prefix
 +        for m in re.finditer(r'''href\s*=\s*\{\s*[`"'](/[^"'`]*)[`"']\s*\}''', content):
-+            raw = m.group(1).split("?")[0].split("***REMOVED***")[0] or "/"
-+            ***REMOVED*** Replace ${...} with [slug]
++            raw = m.group(1).split("?")[0].split("#")[0] or "/"
++            # Replace ${...} with [slug]
 +            link = re.sub(r"\$\{[^}]*\}", "*", raw)
 +            links[link].add(rel)
-+        ***REMOVED*** Link imports in data files: href: "/..."
++        # Link imports in data files: href: "/..."
 +        for m in re.finditer(r'''["']?href["']?\s*:\s*["'`](/[^"'`\s]*)["'`]''', content):
-+            link = m.group(1).split("?")[0].split("***REMOVED***")[0] or "/"
++            link = m.group(1).split("?")[0].split("#")[0] or "/"
 +            links[link].add(rel)
-+        ***REMOVED*** router.push("/...") / redirect("/...")
++        # router.push("/...") / redirect("/...")
 +        for m in re.finditer(r'''(?:router\.(?:push|replace)|redirect)\(\s*["'`](/[^"'`\s]*)["'`]''', content):
-+            link = m.group(1).split("?")[0].split("***REMOVED***")[0] or "/"
++            link = m.group(1).split("?")[0].split("#")[0] or "/"
 +            links[link].add(rel)
 +
-+***REMOVED*** ─── 3. Verify every link ───
++# ─── 3. Verify every link ───
 +broken = []
 +ok_count = 0
 +for link, files in sorted(links.items()):
@@ -555,7 +555,7 @@ index 0000000..2625de0
 +        ok_count += 1
 +        continue
 +    if "$" in link or "*" in link:
-+        ***REMOVED*** dynamic — verify the static prefix matches a dynamic route
++        # dynamic — verify the static prefix matches a dynamic route
 +        prefix = link.split("*")[0].rstrip("/") or "/"
 +        matched = any(route_matches(dr, prefix) or route_matches(dr, link.replace("*", "x"))
 +                      for dr in dynamic_routes)
@@ -597,7 +597,7 @@ index 0000000..b8ab12b
 --- /dev/null
 +++ b/scripts/qa-link-audit.py
 @@ -0,0 +1,141 @@
-+***REMOVED***!/usr/bin/env python3
++#!/usr/bin/env python3
 +"""
 +QA AUDIT — Link Integrity Checker
 +Extracts all internal hrefs from src/ (tsx/ts files) and checks them against
@@ -612,26 +612,26 @@ index 0000000..b8ab12b
 +ROOT = "/home/z/my-project"
 +SRC = os.path.join(ROOT, "src")
 +
-+***REMOVED*** 1. Extract route manifest from .next build output
++# 1. Extract route manifest from .next build output
 +app_paths_dir = os.path.join(ROOT, ".next", "server", "app")
 +routes = set()
 +
-+***REMOVED*** Static routes from filesystem
++# Static routes from filesystem
 +app_dir = os.path.join(SRC, "app")
 +for dirpath, dirnames, filenames in os.walk(app_dir):
-+    ***REMOVED*** Skip api routes (checked separately)
++    # Skip api routes (checked separately)
 +    if "/api" in dirpath.replace(app_dir, ""):
 +        continue
 +    rel = os.path.relpath(dirpath, app_dir)
 +    if rel == ".":
 +        continue
-+    ***REMOVED*** Normalize: [[...slug]] = optional catch-all, [slug] = dynamic
++    # Normalize: [[...slug]] = optional catch-all, [slug] = dynamic
 +    parts = rel.split(os.sep)
 +    route = "/" + "/".join(parts)
 +    if "page.tsx" in filenames or "route.ts" in filenames:
 +        routes.add(route)
 +
-+***REMOVED*** Expand dynamic routes from build manifest if available
++# Expand dynamic routes from build manifest if available
 +build_routes = set()
 +manifest_path = os.path.join(ROOT, ".next", "app-path-routes-manifest.json")
 +if os.path.exists(manifest_path):
@@ -642,7 +642,7 @@ index 0000000..b8ab12b
 +    except Exception:
 +        pass
 +
-+***REMOVED*** From prerender manifest (has actual generated dynamic paths)
++# From prerender manifest (has actual generated dynamic paths)
 +prerender_path = os.path.join(ROOT, ".next", "prerender-manifest.json")
 +dynamic_paths = set()
 +if os.path.exists(prerender_path):
@@ -654,16 +654,16 @@ index 0000000..b8ab12b
 +    except Exception:
 +        pass
 +
-+***REMOVED*** 2. Extract all internal hrefs from source files
-+href_pattern = re.compile(r'''(?:href|redirect|push|replace)\s*[=(]\s*["'`](/[^"'`\s?***REMOVED***]*)["'`]''')
++# 2. Extract all internal hrefs from source files
++href_pattern = re.compile(r'''(?:href|redirect|push|replace)\s*[=(]\s*["'`](/[^"'`\s?#]*)["'`]''')
 +href_tpl_pattern = re.compile(r'''href=\{?\s*[`"](/[^`"\}]*\{[^}]*\}[^`"\}]*)[`"]''')
 +
-+links = defaultdict(list)  ***REMOVED*** link -> [files]
++links = defaultdict(list)  # link -> [files]
 +for dirpath, dirnames, filenames in os.walk(SRC):
 +    for fn in filenames:
 +        if not fn.endswith((".tsx", ".ts")):
 +            continue
-+        ***REMOVED*** Skip node_modules, api internals
++        # Skip node_modules, api internals
 +        path = os.path.join(dirpath, fn)
 +        try:
 +            with open(path, encoding="utf-8", errors="ignore") as f:
@@ -672,15 +672,15 @@ index 0000000..b8ab12b
 +            continue
 +        for m in href_pattern.finditer(content):
 +            link = m.group(1)
-+            ***REMOVED*** Skip non-page links
++            # Skip non-page links
 +            if link.startswith(("/api/", "/_next/", "/og-", "/clicktake-logo")):
 +                continue
-+            ***REMOVED*** Skip static assets with extensions
++            # Skip static assets with extensions
 +            if re.search(r"\.(png|jpg|jpeg|svg|webp|ico|xml|txt|css|js|json|mp4|webm|pdf)$", link):
 +                continue
 +            links[link].append(os.path.relpath(path, ROOT))
 +
-+***REMOVED*** 3. Check each link
++# 3. Check each link
 +def normalize(r):
 +    return r.rstrip("/") or "/"
 +
@@ -694,7 +694,7 @@ index 0000000..b8ab12b
 +for p in dynamic_paths:
 +    known_routes.add(normalize(p))
 +
-+***REMOVED*** Known valid special routes
++# Known valid special routes
 +special = {"/", "/sitemap.xml", "/robots.txt", "/rss.xml", "/llms.txt",
 +           "/openapi.json", "/auth.md", "/admin", "/admin/login",
 +           "/legal", "/legal/privacy", "/legal/terms", "/legal/cookies"}
@@ -706,15 +706,15 @@ index 0000000..b8ab12b
 +    if norm in checked:
 +        continue
 +    checked.add(norm)
-+    ***REMOVED*** Dynamic template links like /blog/${slug} — skip (runtime-generated)
++    # Dynamic template links like /blog/${slug} — skip (runtime-generated)
 +    if "${" in link or "{" in link:
 +        continue
-+    ***REMOVED*** Has query or hash — strip for check
-+    base = link.split("?")[0].split("***REMOVED***")[0] or "/"
++    # Has query or hash — strip for check
++    base = link.split("?")[0].split("#")[0] or "/"
 +    nb = normalize(base)
 +    if nb in special or nb in known_routes:
 +        continue
-+    ***REMOVED*** Check prefix match for catch-all routes
++    # Check prefix match for catch-all routes
 +    prefix_ok = False
 +    for kr in known_routes:
 +        if kr != "/" and (nb.startswith(kr + "/") or nb == kr):
@@ -744,14 +744,14 @@ index 0000000..627a379
 --- /dev/null
 +++ b/scripts/qa-seo-audit.py
 @@ -0,0 +1,52 @@
-+***REMOVED***!/usr/bin/env python3
++#!/usr/bin/env python3
 +"""QA — SEO metadata audit: verify title/description/OG/twitter/canonical on every public page."""
 +import os, re
 +
 +ROOT = "/home/z/my-project"
 +app_dir = os.path.join(ROOT, "src", "app")
 +
-+***REMOVED*** Page files to audit (public routes only)
++# Page files to audit (public routes only)
 +PAGES = []
 +for dirpath, dirnames, filenames in os.walk(app_dir):
 +    if "page.tsx" not in filenames:
@@ -769,14 +769,14 @@ index 0000000..627a379
 +    with open(fp, encoding="utf-8", errors="ignore") as f:
 +        c = f.read()
 +    issues = []
-+    ***REMOVED*** Metadata can be `export const metadata` or `export async function generateMetadata`
++    # Metadata can be `export const metadata` or `export async function generateMetadata`
 +    has_title = bool(re.search(r"title\s*:", c)) or "generateMetadata" in c
 +    has_desc = bool(re.search(r"description\s*:", c))
 +    has_canonical = bool(re.search(r"alternates\s*:\s*\{", c)) or re.search(r"canonical\s*:", c)
-+    ***REMOVED*** Root layout provides site-wide OG/twitter defaults — page-level override optional
-+    ***REMOVED*** but a page exporting its own metadata SHOULD carry OG images (falls back to layout default which HAS og-default)
++    # Root layout provides site-wide OG/twitter defaults — page-level override optional
++    # but a page exporting its own metadata SHOULD carry OG images (falls back to layout default which HAS og-default)
 +    has_jsonld = "JsonLd" in c or "json-ld" in c or "application/ld+json" in c
-+    ***REMOVED*** layout.tsx provides Organization + WebSite + LocalBusiness globally
++    # layout.tsx provides Organization + WebSite + LocalBusiness globally
 +    if not has_title: issues.append("no title")
 +    if not has_desc: issues.append("no description")
 +    if not has_canonical: issues.append("no canonical/alternates")
@@ -802,7 +802,7 @@ index 0000000..a0bb84a
 --- /dev/null
 +++ b/scripts/qa-sitemap-audit.py
 @@ -0,0 +1,102 @@
-+***REMOVED***!/usr/bin/env python3
++#!/usr/bin/env python3
 +"""QA — sitemap vs routes cross-check + sitemap internal consistency"""
 +import os
 +import re
@@ -810,11 +810,11 @@ index 0000000..a0bb84a
 +ROOT = "/home/z/my-project"
 +SITE_URL = "https://clicktaketech.com"
 +
-+***REMOVED*** 1. Parse sitemap.ts for route paths
++# 1. Parse sitemap.ts for route paths
 +with open(os.path.join(ROOT, "src", "app", "sitemap.ts")) as f:
 +    content = f.read()
 +
-+***REMOVED*** Extract all path literals: path: "/..." or url: `${SITE.url}/...`
++# Extract all path literals: path: "/..." or url: `${SITE.url}/...`
 +paths = set()
 +for m in re.finditer(r'''path\s*:\s*["'`](/[^"'`]*)["']''', content):
 +    paths.add(m.group(1))
@@ -822,7 +822,7 @@ index 0000000..a0bb84a
 +    p = m.group(1).rstrip("/")
 +    paths.add(p if p else "/")
 +
-+***REMOVED*** 2. Build fs routes (same logic as link audit)
++# 2. Build fs routes (same logic as link audit)
 +app_dir = os.path.join(ROOT, "src", "app")
 +fs_routes = set()
 +for dirpath, dirnames, filenames in os.walk(app_dir):
@@ -838,7 +838,7 @@ index 0000000..a0bb84a
 +    route = "/" + "/".join(parts) if parts else "/"
 +    fs_routes.add(route.rstrip("/") or "/")
 +
-+***REMOVED*** Dynamic content routes (from DB — known slugs used in sitemap)
++# Dynamic content routes (from DB — known slugs used in sitemap)
 +print("=" * 70)
 +print("SITEMAP AUDIT")
 +print("=" * 70)
@@ -861,9 +861,9 @@ index 0000000..a0bb84a
 +        i += 1; fi += 1
 +    return i == len(link_parts)
 +
-+***REMOVED*** Expand dynamic slugs from content files
++# Expand dynamic slugs from content files
 +known_slugs = set()
-+***REMOVED*** Blog slugs from prerender list in build log — check content dirs
++# Blog slugs from prerender list in build log — check content dirs
 +for sub in ("blog", "resources", "careers", "case-studies", "solutions"):
 +    subdir = os.path.join(ROOT, "src", "content", sub)
 +    if os.path.isdir(subdir):
@@ -873,7 +873,7 @@ index 0000000..a0bb84a
 +broken_sitemap = []
 +for p in sorted(paths):
 +    norm = p.rstrip("/") or "/"
-+    ***REMOVED*** strip dynamic template markers
++    # strip dynamic template markers
 +    if "${" in norm or "{" in norm:
 +        continue
 +    if norm in fs_routes:
@@ -888,7 +888,7 @@ index 0000000..a0bb84a
 +for p in broken_sitemap:
 +    print(f"  ✗ {p}")
 +
-+***REMOVED*** 3. Check routes NOT in sitemap (missing SEO coverage)
++# 3. Check routes NOT in sitemap (missing SEO coverage)
 +public_prefixes = ("/", "/about", "/blog", "/careers", "/case-studies",
 +                   "/cities", "/contact", "/legal", "/portfolio", "/pricing",
 +                   "/resources", "/services", "/solutions", "/team")
@@ -896,7 +896,7 @@ index 0000000..a0bb84a
 +for r in sorted(fs_routes):
 +    if r == "/" or r.startswith("/admin") or ".well-known" in r:
 +        continue
-+    if "[" in r and "cities" not in r:  ***REMOVED*** dynamic leaf routes use DB slugs
++    if "[" in r and "cities" not in r:  # dynamic leaf routes use DB slugs
 +        continue
 +    if r not in paths and not any(r.startswith(p) for p in paths):
 +        missing.append(r)
@@ -948,7 +948,7 @@ index 9b933b7..0000000
 -          <div>
 -            <SectionReveal variant="fadeUp">
 -              <div className="inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-4 py-1.5 text-xs font-medium text-muted-foreground">
--                <span className="h-1.5 w-1.5 rounded-full bg-[***REMOVED***FF53A9]" />
+-                <span className="h-1.5 w-1.5 rounded-full bg-[#FF53A9]" />
 -                About ClickTake
 -              </div>
 -            </SectionReveal>
@@ -1036,10 +1036,10 @@ index 4855f94..0000000
 -/* Light mode uses darker, more saturated brand colors so they read
 -   clearly against the near-white background. */
 -const LIGHT_PALETTE: [number, number, number][] = [
--  [19, 109, 255],   // brand-blue ***REMOVED***136DFF
--  [255, 83, 169],   // brand-pink ***REMOVED***FF53A9
--  [193, 43, 255],   // brand-magenta ***REMOVED***c12bff
--  [34, 211, 238],   // brand-cyan ***REMOVED***22d3ee
+-  [19, 109, 255],   // brand-blue #136DFF
+-  [255, 83, 169],   // brand-pink #FF53A9
+-  [193, 43, 255],   // brand-magenta #c12bff
+-  [34, 211, 238],   // brand-cyan #22d3ee
 -];
 -
 -const DARK_PALETTE: [number, number, number][] = [
@@ -1205,7 +1205,7 @@ index 4855f94..0000000
 -      }
 -
 -      if (dark) {
--        bCtx.fillStyle = "***REMOVED***03000D";
+-        bCtx.fillStyle = "#03000D";
 -        bCtx.fillRect(0, 0, W, H);
 -        const g1 = bCtx.createRadialGradient(W * 0.15, H * 0.1, 0, W * 0.15, H * 0.1, H * 0.65);
 -        g1.addColorStop(0, "rgba(19,109,255,0.18)");
@@ -1233,9 +1233,9 @@ index 4855f94..0000000
 -        }
 -      } else {
 -        const lg = bCtx.createLinearGradient(0, 0, W * 0.6, H);
--        lg.addColorStop(0, "***REMOVED***f0f6ff");
--        lg.addColorStop(0.5, "***REMOVED***eaf2fb");
--        lg.addColorStop(1, "***REMOVED***e4eef8");
+-        lg.addColorStop(0, "#f0f6ff");
+-        lg.addColorStop(0.5, "#eaf2fb");
+-        lg.addColorStop(1, "#e4eef8");
 -        bCtx.fillStyle = lg;
 -        bCtx.fillRect(0, 0, W, H);
 -
@@ -1437,11 +1437,11 @@ index 4855f94..0000000
 -          ctx.drawImage(bgCanvas, 0, 0);
 -        } catch {
 -          bgReady = false;
--          ctx.fillStyle = darkRef.current ? "***REMOVED***03000D" : "***REMOVED***f0f6ff";
+-          ctx.fillStyle = darkRef.current ? "#03000D" : "#f0f6ff";
 -          ctx.fillRect(0, 0, W, H);
 -        }
 -      } else {
--        ctx.fillStyle = darkRef.current ? "***REMOVED***03000D" : "***REMOVED***f0f6ff";
+-        ctx.fillStyle = darkRef.current ? "#03000D" : "#f0f6ff";
 -        ctx.fillRect(0, 0, W, H);
 -      }
 -
@@ -1560,14 +1560,14 @@ index bda0119..0000000
 -    <section id="contact" className="relative py-20 sm:py-28 lg:py-32">
 -      {/* Ambient gradient backdrop */}
 -      <div className="absolute inset-0 -z-10 pointer-events-none">
--        <div className="absolute top-0 right-1/4 h-[32rem] w-[32rem] rounded-full bg-[***REMOVED***136DFF]/10 blur-[120px]" />
--        <div className="absolute bottom-0 left-1/4 h-[28rem] w-[28rem] rounded-full bg-[***REMOVED***FF53A9]/10 blur-[120px]" />
+-        <div className="absolute top-0 right-1/4 h-[32rem] w-[32rem] rounded-full bg-[#136DFF]/10 blur-[120px]" />
+-        <div className="absolute bottom-0 left-1/4 h-[28rem] w-[28rem] rounded-full bg-[#FF53A9]/10 blur-[120px]" />
 -      </div>
 -
 -      <div className="mx-auto max-w-4xl px-4 text-center">
 -        <SectionReveal variant="fadeUp">
 -          <div className="inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-4 py-1.5 text-xs font-medium text-muted-foreground">
--            <span className="h-1.5 w-1.5 rounded-full bg-[***REMOVED***136DFF]" />
+-            <span className="h-1.5 w-1.5 rounded-full bg-[#136DFF]" />
 -            Let&apos;s talk
 -          </div>
 -        </SectionReveal>
@@ -1599,7 +1599,7 @@ index bda0119..0000000
 -              href="https://wa.me/447391653377"
 -              target="_blank"
 -              rel="noopener noreferrer"
--              className="nx-wa-btn-v5 group inline-flex items-center justify-center gap-2 rounded-xl bg-[***REMOVED***25D366] px-7 py-4 text-sm sm:text-base font-bold text-white shadow-xl transition-transform duration-200 hover:scale-[1.03] active:scale-95"
+-              className="nx-wa-btn-v5 group inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-7 py-4 text-sm sm:text-base font-bold text-white shadow-xl transition-transform duration-200 hover:scale-[1.03] active:scale-95"
 -            >
 -              <MessageCircle className="h-4 w-4 transition-transform group-hover:rotate-[-8deg]" />
 -              WhatsApp Us
@@ -2004,21 +2004,21 @@ index ae777e0..0000000
 -        <div
 -          className="absolute left-1/4 top-1/4 h-48 w-48 rounded-full opacity-60 blur-3xl"
 -          style={{
--            background: "radial-gradient(circle, ***REMOVED***136DFF 0%, transparent 70%)",
+-            background: "radial-gradient(circle, #136DFF 0%, transparent 70%)",
 -            animation: "heroFloat1 8s ease-in-out infinite",
 -          }}
 -        />
 -        <div
 -          className="absolute right-1/4 top-1/3 h-56 w-56 rounded-full opacity-50 blur-3xl"
 -          style={{
--            background: "radial-gradient(circle, ***REMOVED***FF53A9 0%, transparent 70%)",
+-            background: "radial-gradient(circle, #FF53A9 0%, transparent 70%)",
 -            animation: "heroFloat2 10s ease-in-out infinite",
 -          }}
 -        />
 -        <div
 -          className="absolute left-1/2 bottom-1/4 h-40 w-40 rounded-full opacity-40 blur-3xl"
 -          style={{
--            background: "radial-gradient(circle, ***REMOVED***8B5CF6 0%, transparent 70%)",
+-            background: "radial-gradient(circle, #8B5CF6 0%, transparent 70%)",
 -            animation: "heroFloat3 12s ease-in-out infinite",
 -          }}
 -        />
@@ -2039,7 +2039,7 @@ index ae777e0..0000000
 -      {/* Center pulse — the "core" */}
 -      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
 -        <div
--          className="h-32 w-32 rounded-full bg-gradient-to-tr from-[***REMOVED***136DFF] to-[***REMOVED***FF53A9] opacity-80 blur-2xl"
+-          className="h-32 w-32 rounded-full bg-gradient-to-tr from-[#136DFF] to-[#FF53A9] opacity-80 blur-2xl"
 -          style={{ animation: "heroPulse 3s ease-in-out infinite" }}
 -        />
 -        <div
@@ -2094,7 +2094,7 @@ index ba39648..0000000
 -  ssr: false,
 -  loading: () => (
 -    <div className="grid h-full w-full place-items-center">
--      <div className="h-32 w-32 rounded-full bg-gradient-to-tr from-[***REMOVED***136DFF]/30 to-[***REMOVED***FF53A9]/30 blur-2xl animate-pulse-glow" />
+-      <div className="h-32 w-32 rounded-full bg-gradient-to-tr from-[#136DFF]/30 to-[#FF53A9]/30 blur-2xl animate-pulse-glow" />
 -    </div>
 -  ),
 -});
@@ -2110,9 +2110,9 @@ index ba39648..0000000
 -          pressure on integrated graphics. */}
 -      <div className="absolute inset-0 -z-10 pointer-events-none">
 -        <div className="absolute inset-0 grid-bg opacity-30" />
--        <div className="absolute -top-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-[***REMOVED***136DFF]/20 blur-[60px] animate-pulse-glow" />
+-        <div className="absolute -top-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-[#136DFF]/20 blur-[60px] animate-pulse-glow" />
 -        <div
--          className="absolute top-1/3 -right-32 h-[24rem] w-[24rem] rounded-full bg-[***REMOVED***FF53A9]/20 blur-[60px] animate-pulse-glow"
+-          className="absolute top-1/3 -right-32 h-[24rem] w-[24rem] rounded-full bg-[#FF53A9]/20 blur-[60px] animate-pulse-glow"
 -          style={{ animationDelay: "1.5s" }}
 -        />
 -        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background" />
@@ -2141,7 +2141,7 @@ index ba39648..0000000
 -          <h1 className="mt-6 sm:mt-8 text-4xl leading-[1.05] sm:text-6xl sm:leading-[1.05] lg:text-7xl lg:leading-[1.02] font-black tracking-tight">
 -            <span className="block text-foreground">Build, Market &amp; Scale</span>
 -            <span className="block text-foreground">Your Business with</span>
--            <span className="block bg-gradient-to-r from-brand-cyan via-brand-blue to-[***REMOVED***136DFF] bg-clip-text text-transparent animate-gradient">
+-            <span className="block bg-gradient-to-r from-brand-cyan via-brand-blue to-[#136DFF] bg-clip-text text-transparent animate-gradient">
 -              ClickTake Technologies
 -            </span>
 -          </h1>
@@ -2356,9 +2356,9 @@ index 8e5ef5c..0000000
 -            variant="primary"
 -            strength={18}
 -            radius={90}
--            className="!bg-white !text-[***REMOVED***E0197A] !px-7 !py-4 !text-sm sm:!text-base !font-black !shadow-xl"
+-            className="!bg-white !text-[#E0197A] !px-7 !py-4 !text-sm sm:!text-base !font-black !shadow-xl"
 -          >
--            {/* Phase 3 ***REMOVED***3 — A/B test the primary CTA copy. Variants are
+-            {/* Phase 3 #3 — A/B test the primary CTA copy. Variants are
 -                defined here; admin enables the test via /admin/ab-tests
 -                with experimentKey="cta-section-primary". */}
 -            <AbTest
@@ -2523,20 +2523,20 @@ index 5e74f1e..0000000
 -                viewport={{ once: true, margin: "-50px" }}
 -                transition={{ duration: 0.3, delay: i * 0.04 }}
 -                className={`relative p-5 sm:p-6 rounded-2xl border nx-surface overflow-hidden transition-colors ${
--                  isOpen ? "border-[***REMOVED***FF53A9]/40" : "nx-bd"
+-                  isOpen ? "border-[#FF53A9]/40" : "nx-bd"
 -                }`}
 -              >
 -                <button
 -                  onClick={() => setOpen(isOpen ? null : i)}
 -                  className="w-full flex items-center justify-between gap-4 text-left group"
 -                >
--                  <h3 className="text-base sm:text-lg font-bold nx-text group-hover:text-[***REMOVED***FF53A9] transition">
+-                  <h3 className="text-base sm:text-lg font-bold nx-text group-hover:text-[#FF53A9] transition">
 -                    {f.q}
 -                  </h3>
 -                  <div
 -                    className={`h-8 w-8 rounded-full grid place-items-center shrink-0 transition-colors ${
 -                      isOpen
--                        ? "bg-[***REMOVED***FF53A9] text-white"
+-                        ? "bg-[#FF53A9] text-white"
 -                        : "nx-surface-muted nx-text-soft"
 -                    }`}
 -                  >
@@ -2807,7 +2807,7 @@ index 10f5806..0000000
 -    title: "Discovery & Audit",
 -    duration: "Week 1",
 -    body: "We map your goals, competitors, and current stack. You leave with a written technical spec, scope, and fixed quote — no NDA-walled sales meetings.",
--    color: "***REMOVED***FF53A9",
+-    color: "#FF53A9",
 -  },
 -  {
 -    n: "02",
@@ -2815,7 +2815,7 @@ index 10f5806..0000000
 -    title: "Design & Prototype",
 -    duration: "Week 1–2",
 -    body: "Wireframes → Figma → clickable prototype in 5 business days. You sign off on every screen before any code is written.",
--    color: "***REMOVED***FF53A9",
+-    color: "#FF53A9",
 -  },
 -  {
 -    n: "03",
@@ -2823,7 +2823,7 @@ index 10f5806..0000000
 -    title: "Build Sprint",
 -    duration: "Week 2–4",
 -    body: "Senior engineers ship in 2-week sprints. You get a Friday demo every week, access to the GitHub repo, and a dedicated Slack channel.",
--    color: "***REMOVED***136DFF",
+-    color: "#136DFF",
 -  },
 -  {
 -    n: "04",
@@ -2831,7 +2831,7 @@ index 10f5806..0000000
 -    title: "Launch & QA",
 -    duration: "Week 4",
 -    body: "Staging → UAT → production. We handle DNS, SSL, analytics, and SEO redirects. Zero-downtime deploys via Vercel + Cloudflare.",
--    color: "***REMOVED***10B981",
+-    color: "#10B981",
 -  },
 -  {
 -    n: "05",
@@ -2839,7 +2839,7 @@ index 10f5806..0000000
 -    title: "Grow & Optimize",
 -    duration: "Month 2+",
 -    body: "Post-launch we move into growth mode — A/B tests, SEO content sprints, paid acquisition, conversion rate optimization. Monthly KPI reviews.",
--    color: "***REMOVED***F59E0B",
+-    color: "#F59E0B",
 -  },
 -  {
 -    n: "06",
@@ -2847,7 +2847,7 @@ index 10f5806..0000000
 -    title: "Iterate Forever",
 -    duration: "Ongoing",
 -    body: "Most clients stay with us for 12+ months. We do monthly roadmap reviews, quarterly business reviews, and proactive tech-debt cleanup.",
--    color: "***REMOVED***8B5CF6",
+-    color: "#8B5CF6",
 -  },
 -];
 -
@@ -2856,8 +2856,8 @@ index 10f5806..0000000
 -    <section className="relative py-24 sm:py-32 nx-navy-gradient overflow-hidden">
 -      {/* Decorative dot grid + orb */}
 -      <div className="absolute inset-0 nx-dot-grid opacity-30 pointer-events-none" />
--      <div className="absolute top-1/4 -right-20 h-96 w-96 rounded-full bg-[***REMOVED***FF53A9]/10 blur-3xl pointer-events-none" />
--      <div className="absolute bottom-1/4 -left-20 h-96 w-96 rounded-full bg-[***REMOVED***136DFF]/10 blur-3xl pointer-events-none" />
+-      <div className="absolute top-1/4 -right-20 h-96 w-96 rounded-full bg-[#FF53A9]/10 blur-3xl pointer-events-none" />
+-      <div className="absolute bottom-1/4 -left-20 h-96 w-96 rounded-full bg-[#136DFF]/10 blur-3xl pointer-events-none" />
 -
 -      <div className="relative mx-auto max-w-6xl px-4 lg:px-8">
 -        {/* Header */}
@@ -2866,9 +2866,9 @@ index 10f5806..0000000
 -            initial={{ opacity: 0, y: 12 }}
 -            whileInView={{ opacity: 1, y: 0 }}
 -            viewport={{ once: true }}
--            className="inline-flex items-center gap-2 nx-eyebrow text-[***REMOVED***FF8AC4]"
+-            className="inline-flex items-center gap-2 nx-eyebrow text-[#FF8AC4]"
 -          >
--            <span className="h-1 w-8 rounded-full bg-[***REMOVED***FF53A9]" />
+-            <span className="h-1 w-8 rounded-full bg-[#FF53A9]" />
 -            How we work
 -          </motion.div>
 -          <motion.h2
@@ -2916,7 +2916,7 @@ index 10f5806..0000000
 -                  {/* Node on the line */}
 -                  <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 z-10">
 -                    <div
--                      className="h-3 w-3 rounded-full ring-4 ring-[***REMOVED***100820]"
+-                      className="h-3 w-3 rounded-full ring-4 ring-[#100820]"
 -                      style={{ background: s.color }}
 -                    />
 -                  </div>
@@ -3053,11 +3053,11 @@ index 6b22563..0000000
 -  return useMemo(() => {
 -    if (typeof document === 'undefined') {
 -      return {
--        pink: '***REMOVED***FF53A9',
--        purple: '***REMOVED***9B3DFF',
--        blue: '***REMOVED***136DFF',
--        cyan: '***REMOVED***22d3ee',
--        gold: '***REMOVED***FFD782',
+-        pink: '#FF53A9',
+-        purple: '#9B3DFF',
+-        blue: '#136DFF',
+-        cyan: '#22d3ee',
+-        gold: '#FFD782',
 -      }
 -    }
 -    const read = (v: string, fb: string) => {
@@ -3065,11 +3065,11 @@ index 6b22563..0000000
 -      return val || fb
 -    }
 -    return {
--      pink: read('--ct-pink', '***REMOVED***FF53A9'),
--      purple: read('--ct-purple', '***REMOVED***9B3DFF'),
--      blue: read('--ct-blue', '***REMOVED***136DFF'),
--      cyan: read('--ct-cyan', '***REMOVED***22d3ee'),
--      gold: read('--ct-gold', '***REMOVED***FFD782'),
+-      pink: read('--ct-pink', '#FF53A9'),
+-      purple: read('--ct-purple', '#9B3DFF'),
+-      blue: read('--ct-blue', '#136DFF'),
+-      cyan: read('--ct-cyan', '#22d3ee'),
+-      gold: read('--ct-gold', '#FFD782'),
 -    }
 -  }, [])
 -}
@@ -3083,26 +3083,26 @@ index 6b22563..0000000
 -      {/* Left eye */}
 -      <mesh position={[-0.22, 0.18, 0]}>
 -        <sphereGeometry args={[0.08, 16, 16]} />
--        <meshStandardMaterial color="***REMOVED***0a0e1a" emissive="***REMOVED***0a0e1a" emissiveIntensity={0.3} />
+-        <meshStandardMaterial color="#0a0e1a" emissive="#0a0e1a" emissiveIntensity={0.3} />
 -      </mesh>
 -      {/* Right eye */}
 -      <mesh position={[0.22, 0.18, 0]}>
 -        <sphereGeometry args={[0.08, 16, 16]} />
--        <meshStandardMaterial color="***REMOVED***0a0e1a" emissive="***REMOVED***0a0e1a" emissiveIntensity={0.3} />
+-        <meshStandardMaterial color="#0a0e1a" emissive="#0a0e1a" emissiveIntensity={0.3} />
 -      </mesh>
 -      {/* Eye glow */}
 -      <mesh position={[-0.22, 0.20, 0.02]}>
 -        <sphereGeometry args={[0.025, 12, 12]} />
--        <meshBasicMaterial color="***REMOVED***ffffff" />
+-        <meshBasicMaterial color="#ffffff" />
 -      </mesh>
 -      <mesh position={[0.22, 0.20, 0.02]}>
 -        <sphereGeometry args={[0.025, 12, 12]} />
--        <meshBasicMaterial color="***REMOVED***ffffff" />
+-        <meshBasicMaterial color="#ffffff" />
 -      </mesh>
 -      {/* Smile — a thin torus arc */}
 -      <mesh position={[0, -0.15, 0]} rotation={[0, 0, 0]}>
 -        <torusGeometry args={[0.18, 0.025, 8, 16, Math.PI]} />
--        <meshStandardMaterial color="***REMOVED***0a0e1a" />
+-        <meshStandardMaterial color="#0a0e1a" />
 -      </mesh>
 -    </group>
 -  )
@@ -3178,11 +3178,11 @@ index 6b22563..0000000
 -          {/* Code symbol overlay — small "<>" braces as boxes */}
 -          <mesh position={[-0.2, 0, 0.51]}>
 -            <boxGeometry args={[0.05, 0.25, 0.01]} />
--            <meshStandardMaterial color="***REMOVED***ffffff" emissive="***REMOVED***ffffff" emissiveIntensity={0.4} />
+-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.4} />
 -          </mesh>
 -          <mesh position={[0.2, 0, 0.51]}>
 -            <boxGeometry args={[0.05, 0.25, 0.01]} />
--            <meshStandardMaterial color="***REMOVED***ffffff" emissive="***REMOVED***ffffff" emissiveIntensity={0.4} />
+-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.4} />
 -          </mesh>
 -          <Face z={0.55} scale={0.9} />
 -        </group>
@@ -3231,11 +3231,11 @@ index 6b22563..0000000
 -          {/* Checkmark */}
 -          <mesh position={[-0.18, -0.05, 0.13]} rotation={[0, 0, Math.PI / 4]}>
 -            <boxGeometry args={[0.08, 0.3, 0.02]} />
--            <meshStandardMaterial color="***REMOVED***ffffff" emissive="***REMOVED***ffffff" emissiveIntensity={0.5} />
+-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.5} />
 -          </mesh>
 -          <mesh position={[0.12, -0.15, 0.13]} rotation={[0, 0, -Math.PI / 4]}>
 -            <boxGeometry args={[0.08, 0.5, 0.02]} />
--            <meshStandardMaterial color="***REMOVED***ffffff" emissive="***REMOVED***ffffff" emissiveIntensity={0.5} />
+-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.5} />
 -          </mesh>
 -          <Face z={0.15} scale={0.85} />
 -        </group>
@@ -3288,7 +3288,7 @@ index 6b22563..0000000
 -          {/* Star */}
 -          <mesh position={[0, 0.25, 0.4]}>
 -            <icosahedronGeometry args={[0.18, 0]} />
--            <meshStandardMaterial color="***REMOVED***ffffff" emissive="***REMOVED***ffffff" emissiveIntensity={0.5} />
+-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.5} />
 -          </mesh>
 -          {/* Stem */}
 -          <mesh position={[0, -0.3, 0]}>
@@ -3318,11 +3318,11 @@ index 6b22563..0000000
 -          {/* Page lines */}
 -          <mesh position={[-0.3, 0.04, 0]} rotation={[0, Math.PI / 8, 0]}>
 -            <boxGeometry args={[0.35, 0.005, 0.5]} />
--            <meshStandardMaterial color="***REMOVED***ffffff" />
+-            <meshStandardMaterial color="#ffffff" />
 -          </mesh>
 -          <mesh position={[0.3, 0.04, 0]} rotation={[0, -Math.PI / 8, 0]}>
 -            <boxGeometry args={[0.35, 0.005, 0.5]} />
--            <meshStandardMaterial color="***REMOVED***ffffff" />
+-            <meshStandardMaterial color="#ffffff" />
 -          </mesh>
 -          <Face z={0.4} scale={0.75} />
 -        </group>
@@ -3351,15 +3351,15 @@ index 6b22563..0000000
 -          {/* Dots inside bubble */}
 -          <mesh position={[-0.2, 0, 0.27]}>
 -            <sphereGeometry args={[0.07, 16, 16]} />
--            <meshBasicMaterial color="***REMOVED***ffffff" />
+-            <meshBasicMaterial color="#ffffff" />
 -          </mesh>
 -          <mesh position={[0, 0, 0.27]}>
 -            <sphereGeometry args={[0.07, 16, 16]} />
--            <meshBasicMaterial color="***REMOVED***ffffff" />
+-            <meshBasicMaterial color="#ffffff" />
 -          </mesh>
 -          <mesh position={[0.2, 0, 0.27]}>
 -            <sphereGeometry args={[0.07, 16, 16]} />
--            <meshBasicMaterial color="***REMOVED***ffffff" />
+-            <meshBasicMaterial color="#ffffff" />
 -          </mesh>
 -          <Face z={0.3} scale={0.7} />
 -        </group>
@@ -3381,7 +3381,7 @@ index 6b22563..0000000
 -          {/* Hole */}
 -          <mesh position={[-0.4, 0.3, 0]} rotation={[Math.PI / 2, 0, 0]}>
 -            <cylinderGeometry args={[0.1, 0.1, 0.25, 16]} />
--            <meshStandardMaterial color="***REMOVED***000000" />
+-            <meshStandardMaterial color="#000000" />
 -          </mesh>
 -          {/* String */}
 -          <mesh position={[-0.4, 0.5, 0]}>
@@ -3391,7 +3391,7 @@ index 6b22563..0000000
 -          {/* $ symbol — vertical bar */}
 -          <mesh position={[0, 0, 0.12]}>
 -            <boxGeometry args={[0.06, 0.4, 0.02]} />
--            <meshStandardMaterial color="***REMOVED***ffffff" emissive="***REMOVED***ffffff" emissiveIntensity={0.4} />
+-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.4} />
 -          </mesh>
 -          <Face z={0.15} scale={0.85} />
 -        </group>
@@ -3407,7 +3407,7 @@ index 6b22563..0000000
 -          {/* Inner screen */}
 -          <mesh position={[0, 0, 0.09]}>
 -            <boxGeometry args={[1.0, 0.7, 0.02]} />
--            <meshStandardMaterial color="***REMOVED***000000" emissive={secondary} emissiveIntensity={0.3} />
+-            <meshStandardMaterial color="#000000" emissive={secondary} emissiveIntensity={0.3} />
 -          </mesh>
 -          {/* Stand */}
 -          <mesh position={[0, -0.6, 0]}>
@@ -3474,15 +3474,15 @@ index 6b22563..0000000
 -          {/* Scale of justice — small balance bar */}
 -          <mesh position={[0, 0.25, 0.32]} rotation={[0, 0, Math.PI / 2]}>
 -            <cylinderGeometry args={[0.02, 0.02, 0.5, 8]} />
--            <meshStandardMaterial color="***REMOVED***ffffff" emissive="***REMOVED***ffffff" emissiveIntensity={0.5} />
+-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.5} />
 -          </mesh>
 -          <mesh position={[-0.2, 0.15, 0.32]}>
 -            <sphereGeometry args={[0.06, 16, 16]} />
--            <meshStandardMaterial color="***REMOVED***ffffff" emissive="***REMOVED***ffffff" emissiveIntensity={0.4} />
+-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.4} />
 -          </mesh>
 -          <mesh position={[0.2, 0.15, 0.32]}>
 -            <sphereGeometry args={[0.06, 16, 16]} />
--            <meshStandardMaterial color="***REMOVED***ffffff" emissive="***REMOVED***ffffff" emissiveIntensity={0.4} />
+-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.4} />
 -          </mesh>
 -          <Face z={0.32} scale={0.85} />
 -        </group>
@@ -3503,7 +3503,7 @@ index 6b22563..0000000
 -          {/* Center hole */}
 -          <mesh position={[0, 0, 0.1]} rotation={[Math.PI / 2, 0, 0]}>
 -            <cylinderGeometry args={[0.18, 0.18, 0.3, 16]} />
--            <meshStandardMaterial color="***REMOVED***000000" />
+-            <meshStandardMaterial color="#000000" />
 -          </mesh>
 -          <Face z={0.7} scale={0.8} />
 -        </group>
@@ -3637,7 +3637,7 @@ index 6b22563..0000000
 -            scale={5}
 -            blur={2.5}
 -            far={3}
--            color="***REMOVED***000000"
+-            color="#000000"
 -          />
 -        </Suspense>
 -      </Canvas>
@@ -3820,11 +3820,11 @@ index 21abb35..0000000
 -type TabId = "marketing" | "web" | "ai" | "creative" | "essentials";
 -
 -const TABS: { id: TabId; label: string; icon: string; color: string }[] = [
--  { id: "marketing",  label: "Digital Marketing",  icon: "Megaphone",  color: "***REMOVED***10B981" },
--  { id: "web",        label: "Web & Software",     icon: "Code2",      color: "***REMOVED***136DFF" },
--  { id: "ai",         label: "AI & Automation",    icon: "Brain",      color: "***REMOVED***FF53A9" },
--  { id: "creative",   label: "Creative & Brand",   icon: "Palette",    color: "***REMOVED***FF53A9" },
--  { id: "essentials", label: "Business Essentials",icon: "Rocket",     color: "***REMOVED***F59E0B" },
+-  { id: "marketing",  label: "Digital Marketing",  icon: "Megaphone",  color: "#10B981" },
+-  { id: "web",        label: "Web & Software",     icon: "Code2",      color: "#136DFF" },
+-  { id: "ai",         label: "AI & Automation",    icon: "Brain",      color: "#FF53A9" },
+-  { id: "creative",   label: "Creative & Brand",   icon: "Palette",    color: "#FF53A9" },
+-  { id: "essentials", label: "Business Essentials",icon: "Rocket",     color: "#F59E0B" },
 -];
 -
 -function matchesTab(s: ServiceItem, tab: TabId): boolean {
@@ -3936,7 +3936,7 @@ index 21abb35..0000000
 -                  className={isFeatured ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}
 -                >
 -                  <TiltCard
--                    className={`group/tilt h-full p-6 flex flex-col rounded-2xl nx-bd nx-surface hover:border-[***REMOVED***FF53A9]/40 transition-colors ${
+-                    className={`group/tilt h-full p-6 flex flex-col rounded-2xl nx-bd nx-surface hover:border-[#FF53A9]/40 transition-colors ${
 -                      isFeatured ? "min-h-[280px]" : ""
 -                    }`}
 -                    glow={true}
@@ -4010,10 +4010,10 @@ index cb574dd..0000000
 -/* STATS BANNER — oversized numerals (Index.dev / Vention pattern).
 - * Light section with 4 huge stat tiles separated by hairline dividers. */
 -const STATS = [
--  { value: "120+", label: "Projects shipped", sub: "Across 4 continents since 2019", icon: Rocket, color: "***REMOVED***FF53A9" },
--  { value: "5.0★", label: "Clutch rating", sub: "From 40+ verified reviews", icon: Award, color: "***REMOVED***136DFF" },
--  { value: "30", label: "Day average MVP", sub: "From kickoff to launch", icon: TrendingUp, color: "***REMOVED***10B981" },
--  { value: "4", label: "Global offices", sub: "UK · Pakistan · USA · Dubai", icon: Users, color: "***REMOVED***FF53A9" },
+-  { value: "120+", label: "Projects shipped", sub: "Across 4 continents since 2019", icon: Rocket, color: "#FF53A9" },
+-  { value: "5.0★", label: "Clutch rating", sub: "From 40+ verified reviews", icon: Award, color: "#136DFF" },
+-  { value: "30", label: "Day average MVP", sub: "From kickoff to launch", icon: TrendingUp, color: "#10B981" },
+-  { value: "4", label: "Global offices", sub: "UK · Pakistan · USA · Dubai", icon: Users, color: "#FF53A9" },
 -];
 -
 -export function NxStats() {
@@ -4085,7 +4085,7 @@ index 7f7d40d..0000000
 -    role: "CEO, FinTech Startup",
 -    location: "London, UK",
 -    avatar: "SM",
--    color: "***REMOVED***FF53A9",
+-    color: "#FF53A9",
 -    rating: 5,
 -  },
 -  {
@@ -4095,7 +4095,7 @@ index 7f7d40d..0000000
 -    role: "COO, E-commerce Group",
 -    location: "Dubai, UAE",
 -    avatar: "AR",
--    color: "***REMOVED***136DFF",
+-    color: "#136DFF",
 -    rating: 5,
 -  },
 -  {
@@ -4105,7 +4105,7 @@ index 7f7d40d..0000000
 -    role: "Founder, B2B SaaS",
 -    location: "Austin, TX",
 -    avatar: "MC",
--    color: "***REMOVED***10B981",
+-    color: "#10B981",
 -    rating: 5,
 -  },
 -  {
@@ -4115,7 +4115,7 @@ index 7f7d40d..0000000
 -    role: "CTO, HealthTech",
 -    location: "Multan, PK",
 -    avatar: "FK",
--    color: "***REMOVED***FF53A9",
+-    color: "#FF53A9",
 -    rating: 5,
 -  },
 -  {
@@ -4125,17 +4125,17 @@ index 7f7d40d..0000000
 -    role: "VP Marketing, SaaS",
 -    location: "Manchester, UK",
 -    avatar: "JP",
--    color: "***REMOVED***F59E0B",
+-    color: "#F59E0B",
 -    rating: 5,
 -  },
 -  {
 -    quote:
--      "The mobile app they shipped hit ***REMOVED***4 in App Store productivity within 2 weeks. The team thinks like product people, not just code monkeys.",
+-      "The mobile app they shipped hit #4 in App Store productivity within 2 weeks. The team thinks like product people, not just code monkeys.",
 -    name: "Priya Sharma",
 -    role: "Product Lead, Startup",
 -    location: "Remote, USA",
 -    avatar: "PS",
--    color: "***REMOVED***8B5CF6",
+-    color: "#8B5CF6",
 -    rating: 5,
 -  },
 -];
@@ -4174,7 +4174,7 @@ index 7f7d40d..0000000
 -          >
 -            <div className="flex items-center gap-0.5">
 -              {[1, 2, 3, 4, 5].map((i) => (
--                <Star key={i} className="h-4 w-4 fill-[***REMOVED***FF53A9] text-[***REMOVED***FF53A9]" />
+-                <Star key={i} className="h-4 w-4 fill-[#FF53A9] text-[#FF53A9]" />
 -              ))}
 -            </div>
 -            <span>5.0 average on Clutch, GoodFirms &amp; Google</span>
@@ -4192,7 +4192,7 @@ index 7f7d40d..0000000
 -              transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
 -            >
 -              <TiltCard
--                className="group/tilt h-full p-6 sm:p-7 rounded-2xl nx-bd nx-surface hover:border-[***REMOVED***FF53A9]/40 transition-colors flex flex-col"
+-                className="group/tilt h-full p-6 sm:p-7 rounded-2xl nx-bd nx-surface hover:border-[#FF53A9]/40 transition-colors flex flex-col"
 -                glow={true}
 -                shine={true}
 -                maxTilt={10}
@@ -4207,7 +4207,7 @@ index 7f7d40d..0000000
 -                    {Array.from({ length: t.rating }).map((_, idx) => (
 -                      <Star
 -                        key={idx}
--                        className="h-3.5 w-3.5 fill-[***REMOVED***FF53A9] text-[***REMOVED***FF53A9]"
+-                        className="h-3.5 w-3.5 fill-[#FF53A9] text-[#FF53A9]"
 -                      />
 -                    ))}
 -                  </div>
@@ -4262,7 +4262,7 @@ index dded4af..0000000
 -    id: "delivery",
 -    title: "Faster Delivery",
 -    short: "Ship in weeks, not quarters",
--    color: "***REMOVED***FF53A9",
+-    color: "#FF53A9",
 -    headline: "From kickoff to launch in 30 days.",
 -    body: "Sprint-based delivery with weekly demos. Senior engineers only — no juniors learning on your dime. We use reusable starter kits (auth, billing, admin) so 60% of the boilerplate is already done before we write a single line of your business logic.",
 -    points: [
@@ -4276,7 +4276,7 @@ index dded4af..0000000
 -    id: "ai",
 -    title: "AI-First Engineering",
 -    short: "Automation built into the stack",
--    color: "***REMOVED***136DFF",
+-    color: "#136DFF",
 -    headline: "Every project ships with AI baked in.",
 -    body: "We don't bolt on a chatbot at the end. Our default stack includes RAG pipelines, vector search, LLM-powered content workflows and agentic automations — so your product is ready for the next decade, not the last one.",
 -    points: [
@@ -4290,7 +4290,7 @@ index dded4af..0000000
 -    id: "value",
 -    title: "Transparent Pricing",
 -    short: "Fixed scope · No surprises",
--    color: "***REMOVED***10B981",
+-    color: "#10B981",
 -    headline: "Fixed-scope sprints. Weekly invoices. No retainer lock-in.",
 -    body: "You see every line item before we start. Pay per sprint, pause anytime, keep all the code. We publish our rates publicly and quote in writing within 48 hours of the discovery call — no sales funnels, no SDR sequences.",
 -    points: [
@@ -4304,7 +4304,7 @@ index dded4af..0000000
 -    id: "global",
 -    title: "Global Delivery",
 -    short: "UK PM · Pakistan engineering",
--    color: "***REMOVED***FF53A9",
+-    color: "#FF53A9",
 -    headline: "UK-based PMs. Pakistan-based engineers. 24/7 progress.",
 -    body: "You get a Birmingham-based account manager who speaks your timezone and a Multan-based engineering team that ships while you sleep. Four offices across UK, Pakistan, USA and Dubai mean there's always someone awake on your project.",
 -    points: [
@@ -4890,8 +4890,8 @@ index 4b0965e..0000000
 -    <section id="work" className="relative py-24 sm:py-32 overflow-hidden">
 -      {/* Glow orbs */}
 -      <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
--        <div className="absolute left-1/4 top-0 h-[28rem] w-[28rem] rounded-full bg-[***REMOVED***136DFF]/10 blur-[120px]" />
--        <div className="absolute bottom-0 right-0 h-[28rem] w-[28rem] rounded-full bg-[***REMOVED***FF53A9]/10 blur-[120px]" />
+-        <div className="absolute left-1/4 top-0 h-[28rem] w-[28rem] rounded-full bg-[#136DFF]/10 blur-[120px]" />
+-        <div className="absolute bottom-0 right-0 h-[28rem] w-[28rem] rounded-full bg-[#FF53A9]/10 blur-[120px]" />
 -      </div>
 -
 -      <div className="mx-auto max-w-7xl px-4">
@@ -4899,7 +4899,7 @@ index 4b0965e..0000000
 -          <div className="max-w-2xl">
 -            <SectionReveal variant="fadeUp">
 -              <div className="inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-4 py-1.5 text-xs font-medium text-muted-foreground">
--                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[***REMOVED***136DFF]" />
+-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#136DFF]" />
 -                Featured work
 -              </div>
 -            </SectionReveal>
@@ -4912,7 +4912,7 @@ index 4b0965e..0000000
 -          <SectionReveal variant="slideRight" delay={0.15}>
 -            <Link
 -              href="/portfolio"
--              className="group inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-5 py-2.5 text-sm font-medium backdrop-blur-xl transition-all duration-300 hover:border-[***REMOVED***136DFF]/30 ct-hover"
+-              className="group inline-flex items-center gap-2 rounded-full border ct-divider ct-surface px-5 py-2.5 text-sm font-medium backdrop-blur-xl transition-all duration-300 hover:border-[#136DFF]/30 ct-hover"
 -            >
 -              View all projects
 -              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -5142,7 +5142,7 @@ index abed92c..4ffd11c 100755
 --- a/worklog.md
 +++ b/worklog.md
 @@ -810,3 +810,26 @@ Stage Summary:
- - Dark mode: v5 Dark Premium Cyberpunk canvas (***REMOVED***03000D) preserved — no regression
+ - Dark mode: v5 Dark Premium Cyberpunk canvas (#03000D) preserved — no regression
  - FOUC script prevents flash of wrong theme on first paint
  - Build green; Vercel deploy in progress
 +
@@ -5155,7 +5155,7 @@ index abed92c..4ffd11c 100755
 +- Created and ran 7 QA audit scripts (scripts/qa-*.py): link-integrity (v1+v2), sitemap, API endpoints, color palette, dead components (v1+v2), SEO metadata
 +- LINK INTEGRITY: 90 unique internal links across src/ checked against 57 filesystem routes + 7 dynamic patterns → 0 broken; 17 admin nav links → all resolve; 44 referenced /api/* endpoints → all have route.ts; all 7 dynamic routes call notFound(); sitemap entries all map to real routes
 +- BRANDING: "ClickTake Technologies" consistent (112 occurrences, variants contextual); logo mark consistent (C on nx-brand-gradient in navbar + footer); SITE config accurate (phones, locations, socials)
-+- COLORS: 153 off-palette hexes flagged → triaged all: email-template HTML (own palette), 3D character illustration colors (robot outfit ***REMOVED***1E3A8A→***REMOVED***1E1B4B, skin ***REMOVED***F5C9A6→***REMOVED***D4A574), theme presets, elite variants, admin DB seeds, content text quotes — ALL legitimate, zero UI chrome violations
++- COLORS: 153 off-palette hexes flagged → triaged all: email-template HTML (own palette), 3D character illustration colors (robot outfit #1E3A8A→#1E1B4B, skin #F5C9A6→#D4A574), theme presets, elite variants, admin DB seeds, content text quotes — ALL legitimate, zero UI chrome violations
 +- SEO: 23/23 public pages pass title/description/canonical/JSON-LD checks; no lorem/placeholder content (matches are intentional copy or API docs); not-found branded + noindex; all img elements carry alt
 +- FIX 1 (SEO-critical): public/robots.txt (bare static file, missing Sitemap directive + Content-Signal headers) was SHADOWING the dynamic /robots.txt route (Next.js serves public/ before app routes). Also found duplicate src/app/robots.ts creating route ambiguity. Deleted both; canonical src/app/robots.txt/route.ts now serves with Content-Signal + AI crawler allow-list + Sitemap directive
 +- FIX 2: deleted 27 dead components (25 never-imported + 2 dead-chain deps hero-3d & nx-r3f-character only imported by dead parents) + 4 untracked legacy leftovers (footer/navbar/process/testimonials.tsx). Verified via exact import-statement resolution before deletion; production build passed after
@@ -5189,60 +5189,60 @@ index 0000000000000000000000000000000000000000..224f74c5075fdc9f8a11ee393488179b
 GIT binary patch
 literal 16832
 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
-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
+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
-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
+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
-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
+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
-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
+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
-z_***REMOVED***TW}@1k7qsYCDH6-AN$dEX`;VT=tgZEZxWP1c~$wXwHmFK<p)D***REMOVED******REMOVED***71@N{r0BB2Z)
+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
-z-h4u}e-x~Dpwa99^VcceFsE1&***REMOVED***L1?y+fXyz2HJ&PS`cyT2boiX$&%M&t!A4io8(K!
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-zDs6!xL(DMTsG>n49x}(<&;iQvp{U>UlvNyNK$on5^~Ez***REMOVED***+K15fzAh$QORc<AEyf2H
-z>n&2W3jcgfpht+Yrm***REMOVED***MgG+zX)xRctLGr-zmSm(~v(sRn@&~$tDs9B0c^)Q***REMOVED***^0uH`~
+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
-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
+zWyupzZk@N%aKaE###cE^ZoDN4JBN*m8>!veXO-2>w$rj0bZL<o6R)Li40V><{r&wp
+z+y8aJV-@pX=>Ebj1|mMBmm+H&mbB^a{(nhJ&PcL`U6uNbmei#nbft1srTZXBJI+Y|
+zn_#Hm10goSPsC3`tafd=CRr)54*axJy0~ygHj&=mJ_ZfEKpRvk92K>c&gz)8zB>4Z
+zxT3Y%x-pYiN?T+C3X<S)lAe7~WDFHCC`!Ho#hWD>Pnw25snr+C4qa_xQ<JWFC24+;
 zRd@o~X&f3tZSpI!mf<f&vO4>YiTR7gqsSmQ9ROcqRkXF|XolSs5Ydp-IWi!<glKGZ
 zoTM|<_8u`<tbep^+y0PapuKVV;g&+ar6YB2Q=Oqk``O^j{y5vdmL4OLSii<ky(Svu
 zMV^ufcs7pfwChWrqun&%xixWs&|wcm;{wfPN1J*U?uq<IDnH>2ds@4$-mN^Xj|&<T
@@ -5253,265 +5253,265 @@ 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
-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
+z#=EbUz>3OJ6dRV<BLiR>@l8}g5{U;GLBr`fjx)pg+;Q9i&NIj9cwjAxWDEBqN-_)%
 zl`P82K3eD5{ZgWJ=;LpS^C0Zg>;|)N02b{-wH9d<Gcug$lrsJRDr^{fU4N+Nfj{j*
-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
+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
-zt&eD88rN4-+$yS88OdeqW07%7sh@***REMOVED***aiP*Fa!@s<|n!gKXsP***REMOVED***n0YUo15geh7vH5^Se
-z(tsq1AW0JLx;>J7$KOky<GId3QWoeqXZH~@t40vWB4;9!EK***REMOVED***JIUSDHS881Psb5`wh
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-z;Y>v5KmT%Zd9}PeLm~zeawsd{5yQt|O***REMOVED***Fu_nP1zZPr>rqetpgH<5TOrTZ?&oxZv~O
-z@$<;PQ$moe)f<z8Mfk@j***REMOVED***tvAC@a*^vo43iL(Cs2BG0lZEw3^Th1_YQ!y6s<?RFtUu
-zth(j<5+=md^CqlPkwtGF4(O33Q`+Hq0;;h0(ycj<6K5YN!}***REMOVED***5!bWg68lWGI~Ci***REMOVED***9|
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+z_%|%fVpL$M<i#SOdSNNskiu$2{?svR8QN&lNRxj;O+>ogOGX>_lW;uw)JW_eua;;P
+zE&L5IMZ89ro|CW$;^}5%mh!OOGR{uxEYl`he;aqtub#}qd5B&|20eBr8_J4GA(p3@
 z2uD=7sZ%sa36@8^z?`7i!c-@`1{?%awJ6|J*sy+3n@*PpG!g8lnhVUMp(X`m2|8UN
 zDv`v3UNFc@!J3wEpE3=GoooEQZXCXuZthR+<MTSg<m*$S%s?t4prYzwKKQzP&^iXa
-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
+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
-zs97TAhHmaW@Ty|5{***REMOVED***em3Tdd{fVtvKVt2HuQU+39cU8{90<@zK2l*Kx){zM1zb(N&+
-zJXtG=KiBK4GEJZF``eu;LUIZ***REMOVED***R6WUg;oeeQFEK(gMnOXTR<Z2HaSYni{^a3dFZaKw
-z72{A~1I;!yEwndxnOanzXE;Gcb;1>***REMOVED****9tBeYmQo{XVGH85>t?nA}t1;deV<l>h@{T
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-z5=QtO^&p$e*Q}6@0***REMOVED***c%%K7E>;og%|lGpHa?_P44v%WbGl>C`-%jFTCD***REMOVED***ZRwiNj~`m
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+zLhadx(ck0kGIKY$L;dje)*sxf!Gn{%&Hn>BAFeO3kpXy|omI_l8#fTX?^8_a%Wf=b
+z6QpPh1v;p(;WTifG*ZxmZP?T<SE5ak3zBO^aSh}h(o@kxpUqFwA-O-2qFgG#FuC*p
+z%{RlNAJWR`bk1eU<UN!dyHxUJL<sqP3{PMFg6Zi5R?O0zS_-tvxgEki)4bS#<yNpX
 zXC~9Uv|Pz_a+caPx0dNNqf$wpQ2|N<LyHZR)m-olO1fYJ3=r{Esk8-UdZ1YpeV9yU
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+z(paIAJ3#SdQI*=V(zGQlJn!QC{E{6p9xcm4M88GF-9e?xPa?708=qW`u0CA+jQvY%
+zD>ICuB$vs`#w%e(vJ8{5;GVa~4ny`n)<(1(LTgx7>V_w)V!JfnjkHTvRzmru39%{s
+zR7&L|fdS)2CmcR;RpDn1!-Igu05<d({9s409SelAP>VSA16+M{YjvDh7Uwyw#d4Ug
+z<J=6XI)vSYVaOQ}s&zhOAD`ai)<UQ}V9!U77y_yh79f#%0bzsyg_%?-qWOA%e;<cU
 z&9fo=pYZ*UGe4UAir;4eRA(??&@v1fzJwdbY3di@0)kQbhrxf~PoGYS*%YZw9~}JD
 zzyjOAf$$nO)W&LA`8?vmqqRX28H^S=91wLw%)SZPaV_(dWu2OQ6BmNz<w7PH@?5GF
-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
+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
-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
+ztPxc+2X`(~${F5-flz{$G1Vr+!x>^tAS#m2P<lMVBJQ9;*g<~_LRv`GU_9yxZ$zFS
 ztW<de{ky_JDM)O=BOY<?R_nw;bGkDm`B1ShuVy!mj^5nCS%6^L%xtxk>9SyNj>)))
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
+zET(Gmf-LcJh9v{{)FW3eGZAnF&NbR&%3pr#Ueu^;PJNXmYO-Zs+B#sc-<?%LXGR|-
 zz1AFee1my-!NKOD_3vvJ|H@u1W;Blsj)b0ixKv7>XPT;cA_I@1&J?SW*(6VEevYGy
-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
+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
-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
+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
-zL?d6V<vBcqBMNk=WDI85+M>Cng3J(E+_=5)d_I3DkVAJg)ZUI8TAW{+***REMOVED***99{Mvj?1}
-zN`W?Ch7<c)9ha?+f47WK`0f`n&K`G<_YRNW?a<9***REMOVED***rj1kRWIC1MFh$@8SbCFDVPfNe
-zQE5S}s4&d6GaLCC3mpr***REMOVED****J0<J1uUPBwF(Eaq+D9P%Q)vA***REMOVED***qbN}***REMOVED***kycM01x6qYV2@w
-zc)IT|W&`91C$cuEWJ4q***REMOVED***$Fjs_***REMOVED***>1mgVGM2JX!_yN!^bB@hg$7TR9HVKaRWLym***REMOVED****>***REMOVED***
+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
-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
+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
-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
+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
-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
+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
-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
+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
-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
-D6H***REMOVED***xP
+z=@G#G&!<UGPpVF9)9ulm#h_x(D))g2$3|0PjXlsHt}{Pp(dN1T549Bcm)7^~<`)70
+D6H#xP
 
 literal 0
 HcmV?d00001

@@ -143,8 +143,8 @@ model CmsTheme {
   id         String   @id @default(cuid())
   name       String   @unique
   mode       String   @default("dark")
-  primary    String   @default("***REMOVED***136DFF")
-  accent     String   @default("***REMOVED***FF53A9")
+  primary    String   @default("#136DFF")
+  accent     String   @default("#FF53A9")
   background String?
   foreground String?
   muted      String?
@@ -442,7 +442,7 @@ model AdminRole {
   id          String           @id @default(cuid())
   name        String           @unique
   description String           @default("")
-  color       String           @default("***REMOVED***136DFF")
+  color       String           @default("#136DFF")
   isSystem    Boolean          @default(false) @map("is_system")
   createdAt   DateTime         @default(now()) @map("created_at")
   updatedAt   DateTime         @updatedAt @map("updated_at")
@@ -573,7 +573,7 @@ model Service {
   faq                 String   @default("[]")
   processSteps        String   @default("[]")
   pricingPackages     String   @default("[]")
-  // Phase 3 ***REMOVED***2 — full 12-section deep-dive content from the Master
+  // Phase 3 #2 — full 12-section deep-dive content from the Master
   // Copywriting prompt. JSON-stringified blob (DeepDiveContent shape).
   deepDive            String   @default("{}")
   displayOrder        Int      @default(0) @map("display_order")
