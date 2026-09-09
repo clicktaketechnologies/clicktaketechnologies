@@ -6,8 +6,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body, var(--font-geist-sans));
+  --font-display: var(--font-display, "Space Grotesk", sans-serif);
+  --font-body: var(--font-body, "Plus Jakarta Sans", sans-serif);
+  --font-mono: var(--font-mono, var(--font-geist-mono));
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -41,6 +43,16 @@
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-accent: var(--brand-accent);
   --color-brand-accent-foreground: var(--brand-accent-foreground);
+  /* ClickTake reference design tokens — enables bg-ck-midnight, text-ck-pink, etc. */
+  --color-ck-midnight: var(--ck-midnight);
+  --color-ck-navy: var(--ck-navy);
+  --color-ck-charcoal: var(--ck-charcoal);
+  --color-ck-blue: var(--ck-blue);
+  --color-ck-pink: var(--ck-pink);
+  --color-ck-pink-deep: var(--ck-pink-deep);
+  --color-ck-purple: var(--ck-purple);
+  --color-ck-heading: var(--ck-heading);
+  --color-ck-body: var(--ck-body);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -58,6 +70,27 @@
      pink-as-text and white-text-on-pink-button uses. */
   --brand-accent: #C2185B;
   --brand-accent-foreground: #ffffff;
+
+  /* ─── ClickTake reference design tokens (from clicktake-landing.html) ───
+     These mirror the Tailwind config in the reference HTML so components
+     can use var(--ck-midnight), var(--ck-pink), etc. directly. Both
+     light + dark mode use the same brand accent colors; only the
+     surface + ink tokens flip via .dark. */
+  --ck-midnight: #03000D;
+  --ck-navy: #070018;
+  --ck-charcoal: #0D0025;
+  --ck-blue: #136DFF;
+  --ck-pink: #FF53A9;
+  --ck-pink-deep: #E0197A;
+  --ck-purple: #7B2FBE;
+  --ck-heading: #F0EBF8;
+  --ck-body: #9A8CB5;
+
+  /* Font family variables — set by next/font/google in layout.tsx.
+     Used by the font-family utilities below. */
+  --font-display: var(--font-display, "Space Grotesk", sans-serif);
+  --font-body: var(--font-body, "Plus Jakarta Sans", sans-serif);
+  --font-mono: var(--font-mono, "JetBrains Mono", monospace);
 
   /* Multi-stop brand ramp for animations (used by BackgroundScene, CustomCursor, etc.) */
   --brand-pink: #FF53A9;
@@ -190,6 +223,9 @@
   body {
     overflow-x: hidden;
     @apply bg-background text-foreground;
+    /* Use Plus Jakarta Sans as the default body font (from reference design).
+       Falls back to Geist Sans (already loaded) if --font-body isn't set. */
+    font-family: var(--font-body, var(--font-geist-sans, system-ui, sans-serif));
     font-feature-settings: "rlig" 1, "calt" 1;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -201,6 +237,20 @@
        is the primary defence; this is the catch-all backstop.
        Declared FIRST (before @apply) so Tailwind/LightningCSS doesn't strip
        it as a duplicate of any subsequent @apply-merged rule. */
+  }
+  /* Heading font utility — use Space Grotesk for display headings.
+     Apply via className="font-display" or on h1-h6 automatically.
+     The reference design uses Space Grotesk for all headings + big
+     numbers; body text uses Plus Jakarta Sans (set on body above). */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display, var(--font-geist-sans, system-ui, sans-serif));
+    letter-spacing: -0.02em;
+  }
+  /* Monospace font utility — use JetBrains Mono for data, metrics, code,
+     badges. Apply via className="font-mono" (already a Tailwind utility,
+     but this ensures it resolves to JetBrains Mono first). */
+  .font-mono, code, pre, kbd, samp {
+    font-family: var(--font-mono, var(--font-geist-mono, ui-monospace, monospace));
   }
   /* In dark mode, layer the ClickTake tri-stop gradient under everything.
      The BackgroundScene canvas (when present) paints its own animated orbs

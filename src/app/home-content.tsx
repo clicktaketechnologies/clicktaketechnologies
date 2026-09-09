@@ -41,6 +41,7 @@ import {
 } from "lucide-react";
 import { METRICS, metricFormatters } from "@/lib/metrics";
 import { TESTIMONIALS } from "@/lib/site-data";
+import { ClickTakeMascot } from "@/components/site/clicktake-mascot";
 
 /* CLICKTAKE HOMEPAGE — "Engineering Tomorrow's Intelligence" design.
  * Matches user-uploaded screenshots: hero with 3D robot, stats bar,
@@ -612,9 +613,9 @@ function CtaSection() {
               </div>
             </div>
 
-            {/* Right: mini robot */}
+            {/* Right: AI Agent mascot (from reference design) */}
             <div className="hidden lg:flex justify-center">
-              <MiniRobot />
+              <ClickTakeMascot variant="ai" className="w-64" />
             </div>
           </div>
         </div>
@@ -624,85 +625,6 @@ function CtaSection() {
 }
 
 /* Mini robot for CTA section — simpler version */
-function MiniRobot() {
-  return (
-    <div className="relative" style={{ width: "180px", height: "220px" }}>
-      {/* Glow */}
-      <div
-        className="absolute inset-0 rounded-full blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(255,83,169,0.2) 0%, transparent 70%)" }}
-      />
-      {/* Body */}
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-[40px] rounded-b-[30px]"
-        style={{
-          width: "110px",
-          height: "120px",
-          background: "linear-gradient(180deg, #1E3A8A, #1E1B4B)",
-          border: "1px solid rgba(255,255,255,0.08)",
-        }}
-      >
-        <div
-          className="absolute top-6 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full grid place-items-center"
-          style={{ background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)" }}
-        >
-          <span className="text-white text-[10px]">♥</span>
-        </div>
-      </div>
-      {/* Head */}
-      <div
-        className="absolute left-1/2 -translate-x-1/2 rounded-full"
-        style={{
-          top: "0",
-          width: "90px",
-          height: "85px",
-          background: "linear-gradient(180deg, #F5C9A6, #D4A574)",
-        }}
-      >
-        {/* Goggles */}
-        <div
-          className="absolute left-1/2 -translate-x-1/2 rounded-xl"
-          style={{
-            top: "25px",
-            width: "72px",
-            height: "28px",
-            background: "linear-gradient(135deg, #7C3AED, #4F46E5)",
-          }}
-        >
-          <div className="absolute left-1.5 top-1.5 w-5 h-5 rounded-full" style={{ background: "#1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "#FF8AC4" }} />
-          </div>
-          <div className="absolute right-1.5 top-1.5 w-5 h-5 rounded-full" style={{ background: "#1E1B4B" }}>
-            <div className="absolute inset-1 rounded-full" style={{ background: "#136DFF" }} />
-          </div>
-        </div>
-      </div>
-      {/* Floating particles */}
-      {[
-        { top: "10%", left: "-10%", color: "#FF53A9" },
-        { top: "40%", right: "-10%", color: "#136DFF" },
-        { bottom: "20%", left: "-15%", color: "#9B3DFF" },
-      ].map((p, i) => (
-        <motion.div
-          key={i}
-          animate={{ y: [0, -10, 0], opacity: [0.4, 0.8, 0.4] }}
-          transition={{ duration: 3 + i, repeat: Infinity, delay: i * 0.5 }}
-          className="absolute rounded-full"
-          style={{
-            top: p.top,
-            bottom: p.bottom,
-            left: p.left,
-            right: p.right,
-            width: "6px",
-            height: "6px",
-            background: p.color,
-            boxShadow: `0 0 8px ${p.color}`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
 
 /* ─── TECH STRIP ─── horizontal scrolling tech logos */
 function TechStrip() {

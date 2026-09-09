@@ -7,6 +7,7 @@ import { ArrowRight, Shield, Users, Globe, Activity, Zap } from "lucide-react"
 import { SITE } from "@/lib/site-data"
 import { METRICS, metricFormatters } from "@/lib/metrics"
 import { LiveStatBadge } from "@/components/site/live-stat-badge"
+import { ClickTakeMascot } from "@/components/site/clicktake-mascot"
 
 /* CLICKTAKE HERO — Engineering Tomorrow's Intelligence design.
  * Gadget Doctor-inspired layout: split hero with 3D robot character
@@ -234,7 +235,7 @@ export function NxHero() {
             </motion.div>
           </div>
 
-          {/* ─── RIGHT: 3D Robot Character + Floating Widgets ─── */}
+          {/* ─── RIGHT: 3D Mascot + Floating HUD Widgets ─── */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -242,7 +243,7 @@ export function NxHero() {
             className="relative hidden lg:flex items-center justify-center"
             style={{ minHeight: "500px" }}
           >
-            {/* Glow behind character */}
+            {/* Glow behind mascot */}
             <div
               className="absolute inset-0 rounded-full blur-3xl pointer-events-none"
               style={{
@@ -251,8 +252,8 @@ export function NxHero() {
               }}
             />
 
-            {/* 3D Robot Character — CSS/SVG-based stylized representation */}
-            <RobotCharacter />
+            {/* 3D Mascot — detailed SVG from reference design (VR headset + tablet) */}
+            <ClickTakeMascot variant="dev" className="relative z-10 w-full max-w-md" />
 
             {/* Floating Widget 1 — Top Right: BUILD PIPELINE (live test coverage)
                 Backed by /api/stats/github. Falls back to LIVE_STATS_FALLBACK
@@ -298,234 +299,3 @@ export function NxHero() {
   )
 }
 
-/* ─── 3D Robot Character (CSS/SVG-based) ───
- * Stylized cute robot with VR goggles holding a tablet.
- * Uses CSS shapes + gradients to approximate the 3D render from the screenshot. */
-function RobotCharacter() {
-  return (
-    <div className="relative z-10" style={{ width: "320px", height: "400px" }}>
-      {/* Body shadow */}
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-6 rounded-full blur-md"
-        style={{ background: "rgba(0,0,0,0.4)" }}
-      />
-
-      {/* Body — dark blue outfit */}
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-[60px] rounded-b-[40px]"
-        style={{
-          width: "200px",
-          height: "220px",
-          background: "linear-gradient(180deg, #1E3A8A 0%, #1E1B4B 100%)",
-          boxShadow:
-            "inset 0 -20px 40px rgba(0,0,0,0.3), inset 0 4px 8px rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.4)",
-          border: "1px solid rgba(255,255,255,0.08)",
-        }}
-      >
-        {/* Heart emblem on chest */}
-        <div className="absolute top-12 left-1/2 -translate-x-1/2">
-          <div
-            className="w-10 h-10 rounded-full grid place-items-center"
-            style={{
-              background: "linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%)",
-              boxShadow: "0 0 20px rgba(155,61,255,0.6)",
-            }}
-          >
-            <span className="text-white text-lg">♥</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Tablet — held at chest level */}
-      <div
-        className="absolute left-1/2 -translate-x-1/2 rounded-xl p-2 backdrop-blur-md"
-        style={{
-          bottom: "120px",
-          width: "140px",
-          height: "90px",
-          background: "rgba(15,10,30,0.9)",
-          border: "1px solid rgba(255,255,255,0.15)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
-        }}
-      >
-        {/* Tablet UI — bar chart */}
-        <div className="flex items-end justify-between h-full gap-1 px-1">
-          {[40, 65, 50, 80, 70, 90, 60].map((h, i) => (
-            <motion.div
-              key={i}
-              animate={{ height: [`${h}%`, `${h + 10}%`, `${h}%`] }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: i * 0.1,
-              }}
-              className="flex-1 rounded-t"
-              style={{
-                height: `${h}%`,
-                background:
-                  i % 2 === 0
-                    ? "linear-gradient(180deg, #FF53A9, #9B3DFF)"
-                    : "linear-gradient(180deg, #136DFF, #4A90D9)",
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Arms — holding tablet */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          bottom: "140px",
-          left: "40px",
-          width: "60px",
-          height: "20px",
-          background: "linear-gradient(180deg, #1E3A8A, #1E1B4B)",
-          transform: "rotate(15deg)",
-        }}
-      />
-      <div
-        className="absolute rounded-full"
-        style={{
-          bottom: "140px",
-          right: "40px",
-          width: "60px",
-          height: "20px",
-          background: "linear-gradient(180deg, #1E3A8A, #1E1B4B)",
-          transform: "rotate(-15deg)",
-        }}
-      />
-
-      {/* Head — round, peach/tan tone */}
-      <div
-        className="absolute left-1/2 -translate-x-1/2 rounded-full"
-        style={{
-          top: "20px",
-          width: "160px",
-          height: "150px",
-          background:
-            "linear-gradient(180deg, #F5C9A6 0%, #E8B88C 60%, #D4A574 100%)",
-          boxShadow:
-            "inset 0 -10px 20px rgba(0,0,0,0.15), inset 0 8px 12px rgba(255,255,255,0.2), 0 10px 30px rgba(0,0,0,0.3)",
-        }}
-      >
-        {/* VR Goggles — purple/blue frames */}
-        <div
-          className="absolute left-1/2 -translate-x-1/2 rounded-2xl"
-          style={{
-            top: "40px",
-            width: "130px",
-            height: "50px",
-            background: "linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%)",
-            boxShadow: "0 4px 12px rgba(79,70,229,0.4), inset 0 2px 4px rgba(255,255,255,0.2)",
-          }}
-        >
-          {/* Left eye lens */}
-          <div
-            className="absolute rounded-full grid place-items-center"
-            style={{
-              left: "10px",
-              top: "8px",
-              width: "42px",
-              height: "34px",
-              background: "linear-gradient(135deg, #1E1B4B, #0F0A1E)",
-              border: "2px solid rgba(255,255,255,0.1)",
-            }}
-          >
-            <div
-              className="rounded-full"
-              style={{
-                width: "16px",
-                height: "16px",
-                background: "radial-gradient(circle at 30% 30%, #60A5FA, #3B82F6)",
-                boxShadow: "0 0 8px rgba(96,165,250,0.6)",
-              }}
-            />
-          </div>
-          {/* Right eye lens */}
-          <div
-            className="absolute rounded-full grid place-items-center"
-            style={{
-              right: "10px",
-              top: "8px",
-              width: "42px",
-              height: "34px",
-              background: "linear-gradient(135deg, #1E1B4B, #0F0A1E)",
-              border: "2px solid rgba(255,255,255,0.1)",
-            }}
-          >
-            <div
-              className="rounded-full"
-              style={{
-                width: "16px",
-                height: "16px",
-                background: "radial-gradient(circle at 30% 30%, #F472B6, #EC4899)",
-                boxShadow: "0 0 8px rgba(244,114,182,0.6)",
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Smile */}
-        <div
-          className="absolute left-1/2 -translate-x-1/2 rounded-full"
-          style={{
-            bottom: "30px",
-            width: "40px",
-            height: "12px",
-            background: "rgba(0,0,0,0.3)",
-            borderRadius: "0 0 20px 20px",
-          }}
-        />
-
-        {/* Antenna */}
-        <div
-          className="absolute left-1/2 -translate-x-1/2"
-          style={{
-            top: "-15px",
-            width: "3px",
-            height: "20px",
-            background: "rgba(255,255,255,0.3)",
-          }}
-        >
-          <motion.div
-            animate={{ scale: [1, 1.3, 1], opacity: [0.7, 1, 0.7] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="absolute -top-1 -left-1.5 rounded-full"
-            style={{
-              width: "8px",
-              height: "8px",
-              background: "#FF53A9",
-              boxShadow: "0 0 12px rgba(255,83,169,0.8)",
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Floating particles around character */}
-      {[
-        { top: "10%", left: "-5%", color: "#FF53A9", delay: 0 },
-        { top: "30%", right: "-5%", color: "#136DFF", delay: 1 },
-        { bottom: "20%", left: "-8%", color: "#9B3DFF", delay: 2 },
-        { bottom: "10%", right: "-3%", color: "#EC4899", delay: 0.5 },
-      ].map((p, i) => (
-        <motion.div
-          key={i}
-          animate={{ y: [0, -15, 0], opacity: [0.4, 0.8, 0.4] }}
-          transition={{ duration: 3 + i, repeat: Infinity, delay: p.delay }}
-          className="absolute rounded-full"
-          style={{
-            top: p.top,
-            bottom: p.bottom,
-            left: p.left,
-            right: p.right,
-            width: "8px",
-            height: "8px",
-            background: p.color,
-            boxShadow: `0 0 10px ${p.color}`,
-          }}
-        />
-      ))}
-    </div>
-  )
-}
