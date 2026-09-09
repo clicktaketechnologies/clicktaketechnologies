@@ -170,7 +170,7 @@ export function NxHero() {
               </Link>
               <Link
                 href="/case-studies"
-                className="gd-btn-secondary text-sm sm:text-base"
+                className="gd-btn-secondary gd-btn-on-dark text-sm sm:text-base"
                 style={{ padding: "1rem 2rem" }}
               >
                 View Case Studies

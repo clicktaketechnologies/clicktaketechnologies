@@ -931,6 +931,21 @@ a[class*="bg-gradient-to"], button[class*="bg-gradient-to"] {
   background: color-mix(in oklab, var(--foreground) 6%, transparent);
   border-color: color-mix(in oklab, var(--foreground) 30%, transparent);
 }
+/* Modifier for secondary buttons placed on ALWAYS-DARK surfaces (hero,
+   CTA banners with dark backgrounds, dark section strips). Forces white
+   text + white-tinted border so the button is visible regardless of the
+   global theme. Use: <Link className="gd-btn-secondary gd-btn-on-dark"> */
+.gd-btn-secondary.gd-btn-on-dark {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.gd-btn-secondary.gd-btn-on-dark:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.4);
+}
 .gd-btn-ghost {
   display: inline-flex;
   align-items: center;

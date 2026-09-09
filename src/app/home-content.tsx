@@ -110,7 +110,7 @@ function StatsBar() {
     },
   ];
   return (
-    <section className="relative py-16 px-4 lg:px-8" style={{ background: "#03000D" }}>
+    <section className="relative py-16 px-4 lg:px-8" style={{ background: "var(--nx-surface)" }}>
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/10" style={{ background: "rgba(255,255,255,0.06)" }}>
           {stats.map((s, i) => (
@@ -188,7 +188,7 @@ function ServicesGrid() {
     },
   ];
   return (
-    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#03000D" }}>
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "var(--nx-surface)" }}>
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
@@ -293,7 +293,7 @@ function ProcessStrip() {
     },
   ];
   return (
-    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#03000D" }}>
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "var(--nx-surface)" }}>
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
@@ -367,7 +367,7 @@ function NumbersThatCompounded() {
     },
   ];
   return (
-    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#03000D" }}>
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "var(--nx-surface)" }}>
       <div className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-5 gap-12 items-center">
           {/* Left: text */}
@@ -474,7 +474,7 @@ function Testimonials() {
   const testimonials = TESTIMONIALS.slice(0, 6);
 
   return (
-    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "#03000D" }}>
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8" style={{ background: "var(--nx-surface)" }}>
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
@@ -560,7 +560,7 @@ function Testimonials() {
 /* ─── CTA SECTION ─── Book a Demo + email + WhatsApp with mini robot */
 function CtaSection() {
   return (
-    <section className="relative py-24 sm:py-32 px-4 lg:px-8 overflow-hidden" style={{ background: "#03000D" }}>
+    <section className="relative py-24 sm:py-32 px-4 lg:px-8 overflow-hidden" style={{ background: "var(--nx-surface)" }}>
       {/* Purple radial gradient bg */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -711,7 +711,7 @@ function TechStrip() {
     "Terraform", "Next.js 16", "LangGraph", "Anthropic", "Kubernetes", "Redis",
   ];
   return (
-    <section className="py-12 border-y border-white/5" style={{ background: "#03000D" }}>
+    <section className="py-12 border-y border-white/5" style={{ background: "var(--nx-surface)" }}>
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="text-center mb-6">
           <div className="text-[10px] font-mono uppercase tracking-[2px] text-white/60">
