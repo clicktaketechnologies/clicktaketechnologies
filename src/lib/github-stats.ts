@@ -266,14 +266,12 @@ export async function fetchGitHubStats(): Promise<LiveStats> {
   // a populated badge.
   if (process.env.NODE_ENV !== "production") {
     if (!commitsOk) {
-      // eslint-disable-next-line no-console
       console.warn(
         "[github-stats] commits fetch failed, using fallback:",
         (commitsResult as PromiseRejectedResult).reason,
       );
     }
     if (!coverageOk) {
-      // eslint-disable-next-line no-console
       console.warn(
         "[github-stats] coverage fetch failed, using fallback:",
         (coverageResult as PromiseRejectedResult).reason,

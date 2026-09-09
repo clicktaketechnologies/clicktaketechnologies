@@ -180,13 +180,27 @@
   }
   html {
     scroll-behavior: smooth;
+    /* Defensive overflow-x clamp — paired with the body rule below. Both
+       html and body need overflow-x: hidden to fully prevent horizontal
+       scroll: html clips the root scroll container, body clips its own
+       content. Without html's clamp, body's overflow-x: hidden has no
+       effect on the actual page scrollbar. */
+    overflow-x: hidden;
   }
   body {
+    overflow-x: hidden;
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Defensive overflow-x clamp — catches any absolutely-positioned decorative
+       child (orbs, gradients, floating badges with negative offsets) that
+       extends past the viewport on small screens, preventing the 4-8px
+       horizontal scroll that breaks mobile UX. Section-level overflow-hidden
+       is the primary defence; this is the catch-all backstop.
+       Declared FIRST (before @apply) so Tailwind/LightningCSS doesn't strip
+       it as a duplicate of any subsequent @apply-merged rule. */
   }
   /* In dark mode, layer the ClickTake tri-stop gradient under everything.
      The BackgroundScene canvas (when present) paints its own animated orbs

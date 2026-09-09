@@ -186,7 +186,7 @@ function FourPillars() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 sm:p-8 hover:border-white/20 hover:bg-white/[0.05] transition-all"
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 sm:p-8 hover:border-white/20 hover:bg-white/[0.05] transition-all overflow-hidden"
               >
                 <div
                   className="grid h-12 w-12 place-items-center rounded-xl mb-5"
@@ -198,7 +198,7 @@ function FourPillars() {
                 <p className="text-sm text-white/60 leading-relaxed mb-5">{p.desc}</p>
                 <div className="space-y-1.5">
                   {p.tags.map((t) => (
-                    <div key={t} className="text-[11px] font-mono uppercase tracking-wider text-white/50">
+                    <div key={t} className="text-[11px] font-mono uppercase tracking-wider text-white/50 break-words">
                       · {t}
                     </div>
                   ))}

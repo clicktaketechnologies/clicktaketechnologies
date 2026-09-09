@@ -32,6 +32,9 @@ export function NxHero() {
     <section
       ref={heroRef}
       className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden nx-surface nx-hero-bg"
+      // `overflow-hidden` on the section catches any absolutely-positioned
+      // decorative children (orbs, gradients) that extend past the viewport
+      // so they don't trigger horizontal scroll on mobile.
       style={{
         background:
           "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.15) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 100% 50%, rgba(19,109,255,0.08) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 0% 50%, rgba(255,83,169,0.08) 0%, transparent 50%), ***REMOVED***050510",
@@ -47,9 +50,14 @@ export function NxHero() {
         }}
       />
 
-      {/* Floating orbs */}
-      <div className="absolute top-1/4 -left-20 h-96 w-96 rounded-full bg-[***REMOVED***9B3DFF]/20 blur-3xl nx-orb pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 h-96 w-96 rounded-full bg-[***REMOVED***FF53A9]/15 blur-3xl nx-orb pointer-events-none" style={{ animationDelay: "3s" }} />
+      {/* Floating orbs — pointer-events-none + hidden on mobile to prevent
+          horizontal overflow from the -left-20 / -right-20 offsets. The orbs
+          are purely decorative; on small screens they'd cause a 4px horizontal
+          scroll because their absolutely-positioned bounds extend past the
+          viewport. We clamp with `inset-x-0` parent + `overflow-hidden` on the
+          section, AND hide the orbs below `sm:` as a belt-and-braces measure. */}
+      <div className="absolute top-1/4 -left-20 h-96 w-96 rounded-full bg-[***REMOVED***9B3DFF]/20 blur-3xl nx-orb pointer-events-none hidden sm:block" />
+      <div className="absolute bottom-1/4 -right-20 h-96 w-96 rounded-full bg-[***REMOVED***FF53A9]/15 blur-3xl nx-orb pointer-events-none hidden sm:block" style={{ animationDelay: "3s" }} />
 
       <div className="relative mx-auto max-w-7xl px-4 lg:px-8" style={{ zIndex: 2 }}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -133,18 +141,20 @@ export function NxHero() {
               </Link>
             </motion.div>
 
-            {/* Trust badges */}
+            {/* Trust badges — wraps to 2x2 on mobile (gap-x-4 = 16px,
+                tighter than the original gap-x-6 = 24px so all four
+                badges fit on one row at ≥360px). */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
-              className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3"
+              className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 sm:gap-x-6 gap-y-3"
             >
               {["SOC 2 Type II", "AWS · GCP · Azure", "99.9% SLA", "GDPR · CCPA"].map(
                 (badge) => (
                   <div
                     key={badge}
-                    className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-white/60"
+                    className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-white/60"
                   >
                     <Shield className="h-3.5 w-3.5 text-[***REMOVED***60A5FA]" />
                     {badge}

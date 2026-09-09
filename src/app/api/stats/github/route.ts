@@ -67,7 +67,6 @@ export async function GET() {
     // truly unexpected happens (e.g. JSON serialization of an unhandled
     // error type), we still want to return a valid payload so the
     // client hook doesn't crash.
-    // eslint-disable-next-line no-console
     console.error("[/api/stats/github] unhandled error:", error);
 
     return NextResponse.json(
