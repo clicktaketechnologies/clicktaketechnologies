@@ -186,17 +186,24 @@ function FourPillars() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 sm:p-8 hover:border-white/20 hover:bg-white/[0.05] transition-all overflow-hidden"
+                className="group relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 sm:p-8 hover:border-[#FF53A9]/30 hover:bg-white/[0.05] hover:shadow-[0_8px_40px_-12px_rgba(255,83,169,0.2)] transition-all overflow-hidden"
               >
+                {/* Spotlight gradient that follows hover — subtle pink glow on
+                    the top-left corner when the card is hovered. Pure CSS, no
+                    JS tracking needed. */}
                 <div
-                  className="grid h-12 w-12 place-items-center rounded-xl mb-5"
+                  className="pointer-events-none absolute -top-20 -left-20 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-3xl"
+                  style={{ background: "radial-gradient(circle, rgba(255,83,169,0.15), transparent 70%)" }}
+                />
+                <div
+                  className="relative grid h-12 w-12 place-items-center rounded-xl mb-5 transition-transform duration-300 group-hover:scale-110"
                   style={{ background: p.bg }}
                 >
                   <Icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{p.title}</h3>
-                <p className="text-sm text-white/60 leading-relaxed mb-5">{p.desc}</p>
-                <div className="space-y-1.5">
+                <h3 className="relative text-xl font-bold text-white mb-3 transition-colors group-hover:text-[#FF8AC4]">{p.title}</h3>
+                <p className="relative text-sm text-white/60 leading-relaxed mb-5">{p.desc}</p>
+                <div className="relative space-y-1.5">
                   {p.tags.map((t) => (
                     <div key={t} className="text-[11px] font-mono uppercase tracking-wider text-white/50 break-words">
                       · {t}
@@ -287,16 +294,16 @@ function NumbersThatCompounded() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 hover:border-white/20 transition-all"
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 hover:border-[#9B3DFF]/30 hover:bg-white/[0.05] hover:shadow-[0_8px_30px_-12px_rgba(155,61,255,0.2)] transition-all"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="text-[10px] font-mono uppercase tracking-[1.5px] text-white/50">
                     {c.cat}
                   </div>
-                  <TrendingUp className="h-4 w-4 text-white/30" />
+                  <TrendingUp className="h-4 w-4 text-white/30 group-hover:text-[#9B3DFF] transition-colors" />
                 </div>
                 <div className="flex items-baseline gap-3 mb-3">
-                  <div className="text-4xl font-black text-white">{c.metric}</div>
+                  <div className="text-4xl font-black text-white transition-transform group-hover:scale-105 origin-left">{c.metric}</div>
                   <div className="text-sm text-white/60">{c.detail}</div>
                 </div>
                 <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
@@ -476,13 +483,16 @@ function TechStrip() {
     <section className="py-12 border-y border-white/5" style={{ background: "#03000D" }}>
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="text-center mb-6">
-          <div className="text-[10px] font-mono uppercase tracking-[2px] text-white/40">
+          <div className="text-[10px] font-mono uppercase tracking-[2px] text-white/60">
             Production Stack
           </div>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
           {techs.map((t) => (
-            <span key={t} className="text-sm font-mono text-white/40 hover:text-white/70 transition-colors">
+            <span
+              key={t}
+              className="text-sm font-mono text-white/60 hover:text-[#FF8AC4] hover:scale-110 transition-all cursor-default"
+            >
               {t}
             </span>
           ))}

@@ -1,7 +1,7 @@
 /**
  * Use CDP to dump the matched CSS rules for the subtitle element on the
  * admin login page in LIGHT mode. This will tell us exactly which rule
- * is forcing the color to ***REMOVED***F4F0FF.
+ * is forcing the color to #F4F0FF.
  */
 
 const { chromium } = require("playwright");
@@ -87,7 +87,7 @@ const { chromium } = require("playwright");
   console.log("=== DOM walk (subtitle → root) ===");
   for (const node of result.chain) {
     console.log(
-      `  <${node.tag}${node.id ? " ***REMOVED***" + node.id : ""}${
+      `  <${node.tag}${node.id ? " #" + node.id : ""}${
         node.classes ? " ." + node.classes : ""
       }>  color=${node.computedColor}`,
     );

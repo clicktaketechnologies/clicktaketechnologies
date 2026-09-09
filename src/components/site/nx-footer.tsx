@@ -167,7 +167,7 @@ export function NxFooter() {
 
           {/* Links columns */}
           <div className="lg:col-span-2">
-            <h4 className="nx-eyebrow text-white/40 mb-4">Services</h4>
+            <h4 className="nx-eyebrow text-white/60 mb-4">Services</h4>
             <ul className="space-y-3">
               {FOOTER_LINKS.services.map((l) => (
                 <li key={l.label}>
@@ -183,7 +183,7 @@ export function NxFooter() {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="nx-eyebrow text-white/40 mb-4">Solutions</h4>
+            <h4 className="nx-eyebrow text-white/60 mb-4">Solutions</h4>
             <ul className="space-y-3">
               {FOOTER_LINKS.solutions.map((l) => (
                 <li key={l.label}>
@@ -199,7 +199,7 @@ export function NxFooter() {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="nx-eyebrow text-white/40 mb-4">Company</h4>
+            <h4 className="nx-eyebrow text-white/60 mb-4">Company</h4>
             <ul className="space-y-3">
               {FOOTER_LINKS.company.map((l) => (
                 <li key={l.label}>
@@ -215,7 +215,7 @@ export function NxFooter() {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="nx-eyebrow text-white/40 mb-4">Contact</h4>
+            <h4 className="nx-eyebrow text-white/60 mb-4">Contact</h4>
             <ul className="space-y-4">
               <li>
                 <a
@@ -234,7 +234,7 @@ export function NxFooter() {
                   >
                     <Phone className="h-4 w-4 text-[#FF8AC4] mt-0.5 shrink-0" />
                     <span>
-                      <span className="block text-xs text-white/40">{p.label}</span>
+                      <span className="block text-xs text-white/70">{p.label}</span>
                       {p.value}
                     </span>
                   </a>

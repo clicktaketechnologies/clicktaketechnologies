@@ -1,40 +1,40 @@
-***REMOVED*** Cloudflare Worker — Media CDN Failover Router
-***REMOVED***
-***REMOVED*** Deploy:
-***REMOVED***   cd workers/cloudflare
-***REMOVED***   npx wrangler deploy
-***REMOVED***
-***REMOVED*** Required env vars (set via `wrangler secret put` or dashboard):
-***REMOVED***   MEDIA_CONFIG  JSON string with provider chain (see example below)
-***REMOVED***
-***REMOVED*** Required bindings:
-***REMOVED***   R2_BUCKET         R2 bucket used as last-resort fallback (media-failover-fallback)
-***REMOVED***   MEDIA_CONFIG_KV   Optional KV namespace for hot-reloadable provider chain
+# Cloudflare Worker — Media CDN Failover Router
+#
+# Deploy:
+#   cd workers/cloudflare
+#   npx wrangler deploy
+#
+# Required env vars (set via `wrangler secret put` or dashboard):
+#   MEDIA_CONFIG  JSON string with provider chain (see example below)
+#
+# Required bindings:
+#   R2_BUCKET         R2 bucket used as last-resort fallback (media-failover-fallback)
+#   MEDIA_CONFIG_KV   Optional KV namespace for hot-reloadable provider chain
 
 name = "media-failover"
 main = "media-failover-router.ts"
 compatibility_date = "2026-01-01"
 compatibility_flags = ["nodejs_compat"]
 
-***REMOVED*** Route: bind media.clicktaketech.com to this worker (configure in dashboard
-***REMOVED*** or uncomment + edit after the worker is deployed).
-***REMOVED*** routes = [
-***REMOVED***   { pattern = "media.clicktaketech.com/*", zone_name = "clicktaketech.com" }
-***REMOVED*** ]
+# Route: bind media.clicktaketech.com to this worker (configure in dashboard
+# or uncomment + edit after the worker is deployed).
+# routes = [
+#   { pattern = "media.clicktaketech.com/*", zone_name = "clicktaketech.com" }
+# ]
 
-***REMOVED*** R2 bucket as last-resort fallback when every CDN origin is unreachable.
+# R2 bucket as last-resort fallback when every CDN origin is unreachable.
 [[r2_buckets]]
 binding = "R2_BUCKET"
 bucket_name = "media-failover-fallback"
 preview_bucket_name = "media-failover-fallback-preview"
 
-***REMOVED*** Optional KV namespace — lets you update the provider chain without redeploying.
+# Optional KV namespace — lets you update the provider chain without redeploying.
 [[kv_namespaces]]
 binding = "MEDIA_CONFIG_KV"
 id = "b48ccba32738438f875569b5870ffb57"
 
-***REMOVED*** Default provider chain (overridable via KV at runtime).
-***REMOVED*** Edit this JSON to match your active CDN providers (priority: lower = tried first).
+# Default provider chain (overridable via KV at runtime).
+# Edit this JSON to match your active CDN providers (priority: lower = tried first).
 [vars]
 MEDIA_CONFIG = """
 {
@@ -69,11 +69,11 @@ MEDIA_CONFIG = """
 }
 """
 
-***REMOVED*** Observability — enable logs + analytics
+# Observability — enable logs + analytics
 [observability]
 enabled = true
 
-***REMOVED*** Smart placement — run the worker close to the origin (Cloudflare Images / R2)
-***REMOVED*** when those are the dominant backends.
+# Smart placement — run the worker close to the origin (Cloudflare Images / R2)
+# when those are the dominant backends.
 [placement]
 mode = "smart"

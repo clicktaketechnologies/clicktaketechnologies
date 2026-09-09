@@ -49,129 +49,129 @@
 
 :root {
   --radius: 0.75rem;
-  /* ClickTake brand: Primary ***REMOVED***136DFF, Accent ***REMOVED***FF53A9 */
-  --brand: ***REMOVED***136DFF;
-  --brand-foreground: ***REMOVED***ffffff;
-  /* Accessible pink — ***REMOVED***FF53A9 itself only reaches 2.97:1 on white (fails WCAG AA).
-     ***REMOVED***C2185B is the same hue family but hits 5.87:1 on white and 5.09:1 on the
-     tinted surface ***REMOVED***F1EDF8, so it stays on-brand while passing AA for both
+  /* ClickTake brand: Primary #136DFF, Accent #FF53A9 */
+  --brand: #136DFF;
+  --brand-foreground: #ffffff;
+  /* Accessible pink — #FF53A9 itself only reaches 2.97:1 on white (fails WCAG AA).
+     #C2185B is the same hue family but hits 5.87:1 on white and 5.09:1 on the
+     tinted surface #F1EDF8, so it stays on-brand while passing AA for both
      pink-as-text and white-text-on-pink-button uses. */
-  --brand-accent: ***REMOVED***C2185B;
-  --brand-accent-foreground: ***REMOVED***ffffff;
+  --brand-accent: #C2185B;
+  --brand-accent-foreground: #ffffff;
 
   /* Multi-stop brand ramp for animations (used by BackgroundScene, CustomCursor, etc.) */
-  --brand-pink: ***REMOVED***FF53A9;
-  --brand-magenta: ***REMOVED***c12bff;
-  --brand-blue: ***REMOVED***136DFF;
-  --brand-cyan: ***REMOVED***22d3ee;
+  --brand-pink: #FF53A9;
+  --brand-magenta: #c12bff;
+  --brand-blue: #136DFF;
+  --brand-cyan: #22d3ee;
 
   /* Auxiliary palette tokens (per ClickTake brand spec)
      — used by gradient overlays + accent components */
-  --ct-pink: ***REMOVED***E0197A;
-  --ct-purple: ***REMOVED***7B2FBE;
-  --ct-blue: ***REMOVED***4A90D9;
-  --ct-cyan: ***REMOVED***22d3ee;
-  --ct-gold: ***REMOVED***FFD782;
-  --ct-text: ***REMOVED***F0EBF8;
-  --ct-muted: ***REMOVED***7A6B95;
+  --ct-pink: #E0197A;
+  --ct-purple: #7B2FBE;
+  --ct-blue: #4A90D9;
+  --ct-cyan: #22d3ee;
+  --ct-gold: #FFD782;
+  --ct-text: #F0EBF8;
+  --ct-muted: #7A6B95;
 
   /* ─── LIGHT MODE CANVAS (per v5 light-theme spec) ─────────────────────
-     Canvas  : ***REMOVED***FAFAFC (off-white, slight cool tint differentiates from
+     Canvas  : #FAFAFC (off-white, slight cool tint differentiates from
                         pure-white cards — gives the page a softer feel)
      Card    : rgba(255, 255, 255, 0.85) — glassmorphic white card on top
-               of ***REMOVED***FAFAFC canvas; combined with backdrop-blur-md gives the
+               of #FAFAFC canvas; combined with backdrop-blur-md gives the
                frosted-glass look in light mode
-     Text    : ***REMOVED***0F172A (deep slate / near-black) — 17.9:1 on ***REMOVED***FAFAFC (AAA)
-     Muted   : ***REMOVED***475569 (dark slate) — 7.1:1 on ***REMOVED***FAFAFC (AAA)
+     Text    : #0F172A (deep slate / near-black) — 17.9:1 on #FAFAFC (AAA)
+     Muted   : #475569 (dark slate) — 7.1:1 on #FAFAFC (AAA)
      Borders : slate-200 / slate-300 family — soft grey for separation
      ──────────────────────────────────────────────────────────────────── */
-  --background: ***REMOVED***FAFAFC;
-  --foreground: ***REMOVED***0F172A;
+  --background: #FAFAFC;
+  --foreground: #0F172A;
   --card: rgba(255, 255, 255, 0.85);
-  --card-foreground: ***REMOVED***0F172A;
-  --popover: ***REMOVED***ffffff;
-  --popover-foreground: ***REMOVED***0F172A;
-  --primary: ***REMOVED***136DFF;
-  --primary-foreground: ***REMOVED***ffffff;
-  --secondary: ***REMOVED***f1f5f9;
-  --secondary-foreground: ***REMOVED***0F172A;
-  --muted: ***REMOVED***f1f5f9;
-  /* ***REMOVED***475569 reaches 7.1:1 on ***REMOVED***FAFAFC canvas (AAA). */
-  --muted-foreground: ***REMOVED***475569;
+  --card-foreground: #0F172A;
+  --popover: #ffffff;
+  --popover-foreground: #0F172A;
+  --primary: #136DFF;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0F172A;
+  --muted: #f1f5f9;
+  /* #475569 reaches 7.1:1 on #FAFAFC canvas (AAA). */
+  --muted-foreground: #475569;
   /* Accessible accent pink — see --brand-accent note above. */
-  --accent: ***REMOVED***C2185B;
-  --accent-foreground: ***REMOVED***ffffff;
-  /* ***REMOVED***dc2626 hits 4.83:1 on white (AA). Previous ***REMOVED***ef4444 was 3.76:1 (AA-LARGE-ONLY). */
-  --destructive: ***REMOVED***dc2626;
-  --border: ***REMOVED***e2e8f0;
-  --input: ***REMOVED***e2e8f0;
-  --ring: ***REMOVED***136DFF;
-  --chart-1: ***REMOVED***136DFF;
-  --chart-2: ***REMOVED***FF53A9;
-  --chart-3: ***REMOVED***8b5cf6;
-  --chart-4: ***REMOVED***10b981;
-  --chart-5: ***REMOVED***f59e0b;
-  --sidebar: ***REMOVED***ffffff;
-  --sidebar-foreground: ***REMOVED***0F172A;
-  --sidebar-primary: ***REMOVED***136DFF;
-  --sidebar-primary-foreground: ***REMOVED***ffffff;
-  --sidebar-accent: ***REMOVED***f1f5f9;
-  --sidebar-accent-foreground: ***REMOVED***0F172A;
-  --sidebar-border: ***REMOVED***e2e8f0;
-  --sidebar-ring: ***REMOVED***136DFF;
+  --accent: #C2185B;
+  --accent-foreground: #ffffff;
+  /* #dc2626 hits 4.83:1 on white (AA). Previous #ef4444 was 3.76:1 (AA-LARGE-ONLY). */
+  --destructive: #dc2626;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #136DFF;
+  --chart-1: #136DFF;
+  --chart-2: #FF53A9;
+  --chart-3: #8b5cf6;
+  --chart-4: #10b981;
+  --chart-5: #f59e0b;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0F172A;
+  --sidebar-primary: #136DFF;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f5f9;
+  --sidebar-accent-foreground: #0F172A;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #136DFF;
 }
 
 .dark {
   /* ClickTake custom dark theme — tri-stop radial gradient palette:
-       base ***REMOVED***03000D, mid ***REMOVED***070018, deep ***REMOVED***0D0025
-     Applied as a single solid color (***REMOVED***03000D) here so the BackgroundScene
+       base #03000D, mid #070018, deep #0D0025
+     Applied as a single solid color (#03000D) here so the BackgroundScene
      canvas can overlay its own gradient orbs on top. The full tri-stop
      gradient is also available as a utility class (.ct-bg-gradient) below. */
-  --background: ***REMOVED***03000D;
-  --foreground: ***REMOVED***F0EBF8;
-  --card: ***REMOVED***0D0025;
-  --card-foreground: ***REMOVED***F0EBF8;
-  --popover: ***REMOVED***0D0025;
-  --popover-foreground: ***REMOVED***F0EBF8;
-  --primary: ***REMOVED***136DFF;
-  --primary-foreground: ***REMOVED***ffffff;
-  --secondary: ***REMOVED***070018;
-  --secondary-foreground: ***REMOVED***F0EBF8;
-  --muted: ***REMOVED***070018;
-  /* ***REMOVED***9B8AB8 hits 6.44–6.66:1 on dark surfaces (AA). Previous ***REMOVED***7A6B95 was only
+  --background: #03000D;
+  --foreground: #F0EBF8;
+  --card: #0D0025;
+  --card-foreground: #F0EBF8;
+  --popover: #0D0025;
+  --popover-foreground: #F0EBF8;
+  --primary: #136DFF;
+  --primary-foreground: #ffffff;
+  --secondary: #070018;
+  --secondary-foreground: #F0EBF8;
+  --muted: #070018;
+  /* #9B8AB8 hits 6.44–6.66:1 on dark surfaces (AA). Previous #7A6B95 was only
      4.05–4.32:1 (AA-LARGE-ONLY). */
-  --muted-foreground: ***REMOVED***9B8AB8;
-  /* ***REMOVED***E0197A gives 4.58:1 for white-on-pink button (AA) and ~4.5:1 as pink text
-     on dark backgrounds. Previous ***REMOVED***FF53A9 was 2.97:1 for white-on-pink (FAIL). */
-  --accent: ***REMOVED***E0197A;
-  --accent-foreground: ***REMOVED***ffffff;
-  --destructive: ***REMOVED***ef4444;
+  --muted-foreground: #9B8AB8;
+  /* #E0197A gives 4.58:1 for white-on-pink button (AA) and ~4.5:1 as pink text
+     on dark backgrounds. Previous #FF53A9 was 2.97:1 for white-on-pink (FAIL). */
+  --accent: #E0197A;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
   --border: rgba(240, 235, 248, 0.08);
   --input: rgba(240, 235, 248, 0.1);
-  --ring: ***REMOVED***4A90D9;
-  --chart-1: ***REMOVED***4A90D9;
-  --chart-2: ***REMOVED***E0197A;
-  --chart-3: ***REMOVED***7B2FBE;
-  --chart-4: ***REMOVED***10b981;
-  --chart-5: ***REMOVED***f59e0b;
-  --sidebar: ***REMOVED***0D0025;
-  --sidebar-foreground: ***REMOVED***F0EBF8;
-  --sidebar-primary: ***REMOVED***136DFF;
-  --sidebar-primary-foreground: ***REMOVED***ffffff;
-  --sidebar-accent: ***REMOVED***070018;
-  --sidebar-accent-foreground: ***REMOVED***F0EBF8;
+  --ring: #4A90D9;
+  --chart-1: #4A90D9;
+  --chart-2: #E0197A;
+  --chart-3: #7B2FBE;
+  --chart-4: #10b981;
+  --chart-5: #f59e0b;
+  --sidebar: #0D0025;
+  --sidebar-foreground: #F0EBF8;
+  --sidebar-primary: #136DFF;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #070018;
+  --sidebar-accent-foreground: #F0EBF8;
   --sidebar-border: rgba(240, 235, 248, 0.08);
-  --sidebar-ring: ***REMOVED***4A90D9;
+  --sidebar-ring: #4A90D9;
 
   /* In dark mode, push the brand ramp brighter so the animations pop on near-black bg */
-  --brand-pink: ***REMOVED***ff6bb5;
-  --brand-magenta: ***REMOVED***d04bff;
-  --brand-blue: ***REMOVED***4d8dff;
-  --brand-cyan: ***REMOVED***4be3ff;
-  /* Dark-mode brand accent overrides the light-mode ***REMOVED***C2185B with ***REMOVED***E0197A,
+  --brand-pink: #ff6bb5;
+  --brand-magenta: #d04bff;
+  --brand-blue: #4d8dff;
+  --brand-cyan: #4be3ff;
+  /* Dark-mode brand accent overrides the light-mode #C2185B with #E0197A,
      which gives 4.58:1 for white-on-pink buttons in dark UI. */
-  --brand-accent: ***REMOVED***E0197A;
-  --brand-accent-foreground: ***REMOVED***ffffff;
+  --brand-accent: #E0197A;
+  --brand-accent-foreground: #ffffff;
 }
 
 @layer base {
@@ -217,7 +217,7 @@
     background:
       radial-gradient(ellipse at 18% 12%, rgba(74, 144, 217, 0.10) 0%, transparent 55%),
       radial-gradient(ellipse at 82% 88%, rgba(224, 25, 122, 0.10) 0%, transparent 55%),
-      linear-gradient(180deg, ***REMOVED***03000D 0%, ***REMOVED***070018 55%, ***REMOVED***0D0025 100%);
+      linear-gradient(180deg, #03000D 0%, #070018 55%, #0D0025 100%);
   }
 
   /* Hide native cursor on fine-pointer devices — custom cursor takes over.
@@ -232,7 +232,7 @@
   /* Smooth transitions on interactive elements.
      IMPORTANT: avoid `transition: all` — it forces the compositor to repaint
      every animatable property on every hover state change during scroll,
-     which is the ***REMOVED***1 cause of scroll jank on this site. Scope transitions
+     which is the #1 cause of scroll jank on this site. Scope transitions
      to only the properties that actually animate. */
   a, button {
     transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
@@ -264,19 +264,19 @@
 
 @layer utilities {
   .gradient-text {
-    @apply bg-gradient-to-r from-[***REMOVED***136DFF] to-[***REMOVED***FF53A9] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[#136DFF] to-[#FF53A9] bg-clip-text text-transparent;
   }
   .gradient-bg {
-    background: linear-gradient(135deg, ***REMOVED***136DFF 0%, ***REMOVED***FF53A9 100%);
+    background: linear-gradient(135deg, #136DFF 0%, #FF53A9 100%);
   }
-  /* ClickTake tri-stop dark background — base ***REMOVED***03000D → mid ***REMOVED***070018 → deep ***REMOVED***0D0025.
+  /* ClickTake tri-stop dark background — base #03000D → mid #070018 → deep #0D0025.
      Use on body / page wrappers to get the layered radial-gradient look the brand
      spec calls for, on top of which the BackgroundScene canvas paints its orbs. */
   .ct-bg-gradient {
     background:
       radial-gradient(ellipse at 18% 12%, rgba(74, 144, 217, 0.18) 0%, transparent 55%),
       radial-gradient(ellipse at 82% 88%, rgba(224, 25, 122, 0.18) 0%, transparent 55%),
-      linear-gradient(180deg, ***REMOVED***03000D 0%, ***REMOVED***070018 55%, ***REMOVED***0D0025 100%);
+      linear-gradient(180deg, #03000D 0%, #070018 55%, #0D0025 100%);
   }
   /* Glass surfaces adapt to theme — light gets white tint, dark gets black tint */
   .glass {
@@ -415,7 +415,7 @@ html:not(.dark) .input-base {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.68) 100%);
   border-color: rgba(15, 23, 42, 0.14);
-  color: ***REMOVED***0a0e1a;
+  color: #0a0e1a;
   box-shadow:
     0 4px 14px rgba(15, 23, 42, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
@@ -468,47 +468,47 @@ html:not(.dark) .theme-elite .input-base {
   /* Default custom palette — overridden by inline custom vars from Theme Editor.
      These mirror .dark so the site is never broken if the admin hasn't saved
      custom tokens yet. */
-  --background: ***REMOVED***03000D;
-  --foreground: ***REMOVED***F0EBF8;
-  --card: ***REMOVED***0D0025;
-  --card-foreground: ***REMOVED***F0EBF8;
-  --popover: ***REMOVED***0D0025;
-  --popover-foreground: ***REMOVED***F0EBF8;
-  --primary: ***REMOVED***136DFF;
-  --primary-foreground: ***REMOVED***ffffff;
-  --secondary: ***REMOVED***070018;
-  --secondary-foreground: ***REMOVED***F0EBF8;
-  --muted: ***REMOVED***070018;
-  /* ***REMOVED***9B8AB8 hits 6.44–6.66:1 on dark surfaces (AA). Previous ***REMOVED***7A6B95 was only
+  --background: #03000D;
+  --foreground: #F0EBF8;
+  --card: #0D0025;
+  --card-foreground: #F0EBF8;
+  --popover: #0D0025;
+  --popover-foreground: #F0EBF8;
+  --primary: #136DFF;
+  --primary-foreground: #ffffff;
+  --secondary: #070018;
+  --secondary-foreground: #F0EBF8;
+  --muted: #070018;
+  /* #9B8AB8 hits 6.44–6.66:1 on dark surfaces (AA). Previous #7A6B95 was only
      4.05–4.32:1 (AA-LARGE-ONLY). */
-  --muted-foreground: ***REMOVED***9B8AB8;
-  /* ***REMOVED***E0197A gives 4.58:1 for white-on-pink button (AA) in dark UI.
-     Previous ***REMOVED***FF53A9 was 2.97:1 (FAIL). */
-  --accent: ***REMOVED***E0197A;
-  --accent-foreground: ***REMOVED***ffffff;
-  --destructive: ***REMOVED***ef4444;
+  --muted-foreground: #9B8AB8;
+  /* #E0197A gives 4.58:1 for white-on-pink button (AA) in dark UI.
+     Previous #FF53A9 was 2.97:1 (FAIL). */
+  --accent: #E0197A;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
   --border: rgba(240, 235, 248, 0.10);
   --input: rgba(240, 235, 248, 0.12);
-  --ring: ***REMOVED***4A90D9;
+  --ring: #4A90D9;
 }
 
 /* When the admin Theme Editor saves light custom tokens, the inline style on
    <html> sets --background to a light value. We detect this via a marker
    class .theme-custom-light that the editor toggles alongside .theme-custom. */
 .theme-custom.theme-custom-light {
-  --background: ***REMOVED***ffffff;
-  --foreground: ***REMOVED***0a0e1a;
-  --card: ***REMOVED***ffffff;
-  --card-foreground: ***REMOVED***0a0e1a;
-  --popover: ***REMOVED***ffffff;
-  --popover-foreground: ***REMOVED***0a0e1a;
-  --secondary: ***REMOVED***f1f5f9;
-  --secondary-foreground: ***REMOVED***0a0e1a;
-  --muted: ***REMOVED***f1f5f9;
-  /* Accessible muted text: ***REMOVED***475569 = 6.92:1 on muted (AA/AAA). */
-  --muted-foreground: ***REMOVED***475569;
-  --border: ***REMOVED***e2e8f0;
-  --input: ***REMOVED***e2e8f0;
+  --background: #ffffff;
+  --foreground: #0a0e1a;
+  --card: #ffffff;
+  --card-foreground: #0a0e1a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0e1a;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0a0e1a;
+  --muted: #f1f5f9;
+  /* Accessible muted text: #475569 = 6.92:1 on muted (AA/AAA). */
+  --muted-foreground: #475569;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
 }
 
 /* Ensure .theme-custom body still gets the dark gradient overlay if the
@@ -518,7 +518,7 @@ html:not(.dark) .theme-elite .input-base {
   background:
     radial-gradient(ellipse at 18% 12%, rgba(74, 144, 217, 0.10) 0%, transparent 55%),
     radial-gradient(ellipse at 82% 88%, rgba(224, 25, 122, 0.10) 0%, transparent 55%),
-    linear-gradient(180deg, ***REMOVED***03000D 0%, ***REMOVED***070018 55%, ***REMOVED***0D0025 100%);
+    linear-gradient(180deg, #03000D 0%, #070018 55%, #0D0025 100%);
 }
 
 /* ─── Text-visibility safety net (light/dark/system/custom) ────────────────
@@ -557,7 +557,7 @@ h1[class*="text-white/"], h2[class*="text-white/"], h3[class*="text-white/"],
 h4[class*="text-white/"], h5[class*="text-white/"], h6[class*="text-white/"],
 p[class*="text-white/"], li[class*="text-white/"], span[class*="text-white/"],
 div[class*="text-white/"], a[class*="text-white/"] {
-  color: ***REMOVED***ffffff !important;
+  color: #ffffff !important;
 }
 /* Slightly dimmed white variants — keep the alpha, force white base */
 h1[class*="text-white/70"], h2[class*="text-white/70"], h3[class*="text-white/70"],
@@ -608,7 +608,7 @@ input::placeholder, textarea::placeholder {
 */
 a.gradient-bg, button.gradient-bg,
 a[class*="bg-gradient-to"], button[class*="bg-gradient-to"] {
-  color: ***REMOVED***ffffff;
+  color: #ffffff;
 }
 /* Same guarantee for the Radix Button component's primary/destructive variants */
 [data-slot="button"].bg-primary, [data-slot="button"].bg-destructive {
@@ -708,55 +708,55 @@ html:not(.dark).theme-custom-light body {
 
 
 /* ─── NEW DESIGN SYSTEM (ClickTake Brand — blue + pink + purple) ──────────
-   Brand colors: ***REMOVED***136DFF (blue), ***REMOVED***FF53A9 (pink), ***REMOVED***9B3DFF (purple).
-   Dark palette: ***REMOVED***0A0612 / ***REMOVED***100820 / ***REMOVED***16102A (with surface variants).
+   Brand colors: #136DFF (blue), #FF53A9 (pink), #9B3DFF (purple).
+   Dark palette: #0A0612 / #100820 / #16102A (with surface variants).
    Light palette: clean white surfaces with dark ink text.
    Inspired by the clicktake-final.html design — gradient text, 3D floating
    cards, particle canvas, pink/blue/purple accent system. */
 
 :root {
   /* Dark hero / always-dark section backgrounds — tri-stop dark palette */
-  --nx-navy-900: ***REMOVED***0A0612;
-  --nx-navy-800: ***REMOVED***100820;
-  --nx-navy-700: ***REMOVED***16102A;
-  --nx-navy-600: ***REMOVED***1E1640;
+  --nx-navy-900: #0A0612;
+  --nx-navy-800: #100820;
+  --nx-navy-700: #16102A;
+  --nx-navy-600: #1E1640;
   /* Brand accents — pink primary, blue secondary, purple tertiary */
-  --nx-brand-pink: ***REMOVED***FF53A9;
-  --nx-brand-pink-soft: ***REMOVED***FF8AC4;
-  --nx-brand-pink-deep: ***REMOVED***E0197A;
-  --nx-brand-blue: ***REMOVED***136DFF;
-  --nx-brand-blue-soft: ***REMOVED***4A90D9;
-  --nx-brand-blue-deep: ***REMOVED***0E58D6;
-  --nx-brand-purple: ***REMOVED***9B3DFF;
+  --nx-brand-pink: #FF53A9;
+  --nx-brand-pink-soft: #FF8AC4;
+  --nx-brand-pink-deep: #E0197A;
+  --nx-brand-blue: #136DFF;
+  --nx-brand-blue-soft: #4A90D9;
+  --nx-brand-blue-deep: #0E58D6;
+  --nx-brand-purple: #9B3DFF;
   /* Backward-compat aliases (so existing components keep working) */
-  --nx-orange: ***REMOVED***FF53A9;
-  --nx-orange-soft: ***REMOVED***FF8AC4;
-  --nx-orange-deep: ***REMOVED***E0197A;
-  --nx-electric: ***REMOVED***136DFF;
-  --nx-electric-soft: ***REMOVED***4A90D9;
+  --nx-orange: #FF53A9;
+  --nx-orange-soft: #FF8AC4;
+  --nx-orange-deep: #E0197A;
+  --nx-electric: #136DFF;
+  --nx-electric-soft: #4A90D9;
   /* Surface tokens for cards on light bg */
-  --nx-surface: ***REMOVED***FAFAFC;
-  --nx-surface-alt: ***REMOVED***F8F6FC;
-  --nx-surface-muted: ***REMOVED***F1EDF8;
-  --nx-border: ***REMOVED***E5E0EE;
-  --nx-border-strong: ***REMOVED***CBD0E1;
-  /* Text — V5 light-theme spec: ***REMOVED***0F172A deep slate (17.9:1 on ***REMOVED***FAFAFC canvas, AAA).
-     Previous ***REMOVED***0A0612 was 19.5:1 (marginally higher but visually identical); using
+  --nx-surface: #FAFAFC;
+  --nx-surface-alt: #F8F6FC;
+  --nx-surface-muted: #F1EDF8;
+  --nx-border: #E5E0EE;
+  --nx-border-strong: #CBD0E1;
+  /* Text — V5 light-theme spec: #0F172A deep slate (17.9:1 on #FAFAFC canvas, AAA).
+     Previous #0A0612 was 19.5:1 (marginally higher but visually identical); using
      slate family for harmony with --foreground / --muted-foreground tokens. */
-  --nx-ink: ***REMOVED***0F172A;
-  --nx-ink-soft: ***REMOVED***334155;
-  /* Accessible: ***REMOVED***475569 hits 7.1:1 on ***REMOVED***FAFAFC canvas (AAA). Previous ***REMOVED***6E5F80
+  --nx-ink: #0F172A;
+  --nx-ink-soft: #334155;
+  /* Accessible: #475569 hits 7.1:1 on #FAFAFC canvas (AAA). Previous #6E5F80
      was 5.04–5.81:1 (AA only). */
-  --nx-ink-muted: ***REMOVED***475569;
+  --nx-ink-muted: #475569;
   /* Success / accents */
-  --nx-green: ***REMOVED***10B981;
-  --nx-yellow: ***REMOVED***F59E0B;
-  --nx-pink: ***REMOVED***FF53A9;
+  --nx-green: #10B981;
+  --nx-yellow: #F59E0B;
+  --nx-pink: #FF53A9;
   /* Gradients — used by hero text, buttons, accent borders */
-  --nx-grad-brand: linear-gradient(135deg, ***REMOVED***FF53A9 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%);
-  --nx-grad-pink-blue: linear-gradient(135deg, ***REMOVED***FF53A9 0%, ***REMOVED***136DFF 100%);
-  --nx-grad-blue-purple: linear-gradient(135deg, ***REMOVED***136DFF 0%, ***REMOVED***9B3DFF 100%);
-  --nx-grad-hero-text: linear-gradient(135deg, ***REMOVED***FFFFFF 0%, rgba(200, 190, 255, 0.9) 100%);
+  --nx-grad-brand: linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%);
+  --nx-grad-pink-blue: linear-gradient(135deg, #FF53A9 0%, #136DFF 100%);
+  --nx-grad-blue-purple: linear-gradient(135deg, #136DFF 0%, #9B3DFF 100%);
+  --nx-grad-hero-text: linear-gradient(135deg, #FFFFFF 0%, rgba(200, 190, 255, 0.9) 100%);
   /* Glow shadows */
   --nx-glow-pink: 0 6px 24px rgba(255, 83, 169, 0.35);
   --nx-glow-blue: 0 6px 24px rgba(19, 109, 255, 0.35);
@@ -764,70 +764,70 @@ html:not(.dark).theme-custom-light body {
 }
 
 .dark {
-  --nx-surface: ***REMOVED***03000D;
-  --nx-surface-alt: ***REMOVED***070018;
-  --nx-surface-muted: ***REMOVED***0D0025;
+  --nx-surface: #03000D;
+  --nx-surface-alt: #070018;
+  --nx-surface-muted: #0D0025;
   --nx-border: rgba(255, 255, 255, 0.08);
   --nx-border-strong: rgba(255, 255, 255, 0.16);
-  --nx-ink: ***REMOVED***F4F0FF;
-  --nx-ink-soft: ***REMOVED***B5A8C8;
-  /* ***REMOVED***9B8AB8 hits 6.32–6.70:1 on dark surfaces (AA). Previous ***REMOVED***7A6B95 was
+  --nx-ink: #F4F0FF;
+  --nx-ink-soft: #B5A8C8;
+  /* #9B8AB8 hits 6.32–6.70:1 on dark surfaces (AA). Previous #7A6B95 was
      3.51–4.05:1 (AA-LARGE-ONLY). */
-  --nx-ink-muted: ***REMOVED***9B8AB8;
+  --nx-ink-muted: #9B8AB8;
   /* Dark-mode overrides for brand accents used as TEXT on dark surfaces.
      The base (light) values fail in dark mode because they were tuned for
      white backgrounds:
-       - --nx-brand-pink-deep ***REMOVED***E0197A -> 4.26:1 (AA-LARGE-ONLY) on ***REMOVED***100820;
-         overriding to ***REMOVED***FF53A9 gives 6.55:1 (AA).
-       - --nx-brand-blue-deep ***REMOVED***0E58D6 -> 2.97:1 (FAIL) on ***REMOVED***16102A;
-         overriding to ***REMOVED***4A90D9 gives 5.50:1 (AA).
-       - --nx-brand-purple ***REMOVED***9B3DFF -> 3.95:1 (AA-LARGE-ONLY) on ***REMOVED***16102A;
-         overriding to ***REMOVED***B27CFF gives 6.32:1 (AA).
+       - --nx-brand-pink-deep #E0197A -> 4.26:1 (AA-LARGE-ONLY) on #100820;
+         overriding to #FF53A9 gives 6.55:1 (AA).
+       - --nx-brand-blue-deep #0E58D6 -> 2.97:1 (FAIL) on #16102A;
+         overriding to #4A90D9 gives 5.50:1 (AA).
+       - --nx-brand-purple #9B3DFF -> 3.95:1 (AA-LARGE-ONLY) on #16102A;
+         overriding to #B27CFF gives 6.32:1 (AA).
      These overrides only apply when the brand color is used as text on dark
      backgrounds. For use as button backgrounds with white text, the original
-     darker values are appropriate (white on ***REMOVED***E0197A = 4.58:1 AA, etc.) — those
+     darker values are appropriate (white on #E0197A = 4.58:1 AA, etc.) — those
      usages should reference the explicit hex or --ct-* tokens instead. */
-  --nx-brand-pink-deep: ***REMOVED***FF53A9;
-  --nx-brand-blue-deep: ***REMOVED***4A90D9;
-  --nx-brand-purple: ***REMOVED***B27CFF;
+  --nx-brand-pink-deep: #FF53A9;
+  --nx-brand-blue-deep: #4A90D9;
+  --nx-brand-purple: #B27CFF;
   /* Match the backward-compat aliases so dark-mode text uses are consistent. */
-  --nx-orange-deep: ***REMOVED***FF53A9;
-  --nx-electric-soft: ***REMOVED***4A90D9;
+  --nx-orange-deep: #FF53A9;
+  --nx-electric-soft: #4A90D9;
 
   /* Dark-mode brand tokens — brightened for use as text on dark surfaces.
-     The light-mode values (***REMOVED***E0197A, ***REMOVED***7B2FBE, ***REMOVED***4A90D9) are tuned for white
+     The light-mode values (#E0197A, #7B2FBE, #4A90D9) are tuned for white
      backgrounds and fail WCAG AA on dark navy. The dark-mode overrides
      here are brighter so they remain legible as text accents. */
-  --ct-pink: ***REMOVED***FF6BB5;
-  --ct-purple: ***REMOVED***B27CFF;
-  --ct-blue: ***REMOVED***4F9BFF;
-  --ct-cyan: ***REMOVED***78F0FF;
-  --ct-gold: ***REMOVED***FFD782;
-  --ct-text: ***REMOVED***F5EFFF;
-  --ct-muted: ***REMOVED***9B8AB8;
+  --ct-pink: #FF6BB5;
+  --ct-purple: #B27CFF;
+  --ct-blue: #4F9BFF;
+  --ct-cyan: #78F0FF;
+  --ct-gold: #FFD782;
+  --ct-text: #F5EFFF;
+  --ct-muted: #9B8AB8;
 }
 
 @layer utilities {
   /* Hero background — tri-stop dark with pink/blue/purple radial glows.
-     V5 spec: base canvas is ***REMOVED***03000D (was ***REMOVED***0A0612) so the hero seamlessly
+     V5 spec: base canvas is #03000D (was #0A0612) so the hero seamlessly
      blends into the body's deep dark canvas. */
   .nx-hero-bg {
     background:
       radial-gradient(ellipse 60% 50% at 20% 0%, rgba(255, 83, 169, 0.18) 0%, transparent 60%),
       radial-gradient(ellipse 50% 60% at 100% 30%, rgba(19, 109, 255, 0.22) 0%, transparent 60%),
       radial-gradient(ellipse 40% 50% at 50% 100%, rgba(155, 61, 255, 0.15) 0%, transparent 60%),
-      linear-gradient(180deg, ***REMOVED***03000D 0%, ***REMOVED***070018 100%);
+      linear-gradient(180deg, #03000D 0%, #070018 100%);
   }
   /* Pink → blue brand gradient for CTA banners */
   .nx-orange-gradient {
-    background: linear-gradient(135deg, ***REMOVED***FF53A9 0%, ***REMOVED***E0197A 100%);
+    background: linear-gradient(135deg, #FF53A9 0%, #E0197A 100%);
   }
   .nx-brand-gradient {
-    background: linear-gradient(135deg, ***REMOVED***FF53A9 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%);
+    background: linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%);
   }
   /* Dark → deep gradient for dark sections */
   .nx-navy-gradient {
-    background: linear-gradient(180deg, ***REMOVED***070018 0%, ***REMOVED***03000D 100%);
+    background: linear-gradient(180deg, #070018 0%, #03000D 100%);
   }
   /* Card with hover lift */
   .nx-card {
@@ -856,22 +856,22 @@ html:not(.dark).theme-custom-light body {
   }
   /* Pill button — pink primary CTA */
   .nx-btn-orange {
-    background: linear-gradient(135deg, ***REMOVED***FF53A9 0%, ***REMOVED***E0197A 100%);
-    color: ***REMOVED***ffffff;
+    background: linear-gradient(135deg, #FF53A9 0%, #E0197A 100%);
+    color: #ffffff;
     border-radius: 9999px;
     font-weight: 700;
     transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 10px 30px -10px rgba(255, 83, 169, 0.5);
   }
   .nx-btn-orange:hover {
-    background: linear-gradient(135deg, ***REMOVED***E0197A 0%, ***REMOVED***136DFF 100%);
+    background: linear-gradient(135deg, #E0197A 0%, #136DFF 100%);
     transform: translateY(-1px);
     box-shadow: 0 14px 36px -10px rgba(255, 83, 169, 0.65);
   }
   /* Outline button — for use on dark backgrounds */
   .nx-btn-outline-light {
     background: transparent;
-    color: ***REMOVED***ffffff;
+    color: #ffffff;
     border: 1.5px solid rgba(255, 255, 255, 0.3);
     border-radius: 9999px;
     font-weight: 700;
@@ -883,24 +883,24 @@ html:not(.dark).theme-custom-light body {
     background: rgba(19, 109, 255, 0.08);
     transform: translateY(-1px);
   }
-  /* Canonical 4-stop brand gradient (per v5 spec: ***REMOVED***FF8AC4 → ***REMOVED***9B3DFF → ***REMOVED***136DFF).
+  /* Canonical 4-stop brand gradient (per v5 spec: #FF8AC4 → #9B3DFF → #136DFF).
      Replaces the legacy "orange" name — class kept for backwards compatibility. */
   .nx-text-orange-grad {
-    background: linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%);
+    background: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent !important;
   }
-  /* Canonical 4-stop brand gradient (per v5 spec: ***REMOVED***FF8AC4 → ***REMOVED***9B3DFF → ***REMOVED***136DFF) */
+  /* Canonical 4-stop brand gradient (per v5 spec: #FF8AC4 → #9B3DFF → #136DFF) */
   .nx-text-brand-grad {
-    background: linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%);
+    background: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent !important;
   }
   /* Hero text — white → soft lavender gradient (matches h1-line1 from design) */
   .nx-text-hero-grad {
-    background: linear-gradient(135deg, ***REMOVED***FFFFFF 0%, rgba(200, 190, 255, 0.9) 100%);
+    background: linear-gradient(135deg, #FFFFFF 0%, rgba(200, 190, 255, 0.9) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent !important;
@@ -915,7 +915,7 @@ html:not(.dark).theme-custom-light body {
     font-weight: 900;
     letter-spacing: -0.04em;
     line-height: 1;
-    background: linear-gradient(135deg, ***REMOVED***FF53A9, ***REMOVED***136DFF);
+    background: linear-gradient(135deg, #FF53A9, #136DFF);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -930,7 +930,7 @@ html:not(.dark).theme-custom-light body {
 
   /* ─── Light/dark adaptive surface utilities (theme-aware) ──────────
      These map to --nx-* CSS vars which are overridden under html.dark.
-     Use these instead of `bg-white` / `text-[***REMOVED***0A1124]` so the new design
+     Use these instead of `bg-white` / `text-[#0A1124]` so the new design
      renders correctly in BOTH light and dark modes. */
 
   .nx-surface { background-color: var(--nx-surface); }
@@ -975,26 +975,26 @@ html:not(.dark).theme-custom-light body {
    It does NOT force light mode — it only sets base tokens that adapt. */
 .theme-nx {
   /* Adaptive surface/text tokens — these are overridden by html.dark below. */
-  --nx-surface: ***REMOVED***FAFAFC;
-  --nx-surface-alt: ***REMOVED***F8F6FC;
-  --nx-surface-muted: ***REMOVED***F1EDF8;
-  --nx-border: ***REMOVED***E5E0EE;
-  --nx-border-strong: ***REMOVED***CBD0E1;
-  /* V5 light-theme spec: deep slate ***REMOVED***0F172A (was ***REMOVED***0A0612).
-     17.9:1 on ***REMOVED***FAFAFC canvas (AAA). */
-  --nx-ink: ***REMOVED***0F172A;
-  --nx-ink-soft: ***REMOVED***334155;
-  /* Accessible: ***REMOVED***475569 = 7.1:1 on ***REMOVED***FAFAFC canvas (AAA). */
-  --nx-ink-muted: ***REMOVED***475569;
-  /* Light mode canvas — ***REMOVED***FAFAFC per brand spec (was ***REMOVED***FFFFFF). */
-  --background: ***REMOVED***FAFAFC;
-  --foreground: ***REMOVED***0F172A;
+  --nx-surface: #FAFAFC;
+  --nx-surface-alt: #F8F6FC;
+  --nx-surface-muted: #F1EDF8;
+  --nx-border: #E5E0EE;
+  --nx-border-strong: #CBD0E1;
+  /* V5 light-theme spec: deep slate #0F172A (was #0A0612).
+     17.9:1 on #FAFAFC canvas (AAA). */
+  --nx-ink: #0F172A;
+  --nx-ink-soft: #334155;
+  /* Accessible: #475569 = 7.1:1 on #FAFAFC canvas (AAA). */
+  --nx-ink-muted: #475569;
+  /* Light mode canvas — #FAFAFC per brand spec (was #FFFFFF). */
+  --background: #FAFAFC;
+  --foreground: #0F172A;
   --card: rgba(255, 255, 255, 0.85);
-  --card-foreground: ***REMOVED***0F172A;
-  --muted: ***REMOVED***F1EDF8;
-  /* Accessible: ***REMOVED***475569 = 7.1:1 on ***REMOVED***FAFAFC (AAA). */
-  --muted-foreground: ***REMOVED***475569;
-  --border: ***REMOVED***E5E0EE;
+  --card-foreground: #0F172A;
+  --muted: #F1EDF8;
+  /* Accessible: #475569 = 7.1:1 on #FAFAFC (AAA). */
+  --muted-foreground: #475569;
+  --border: #E5E0EE;
   min-height: 100vh;
 }
 
@@ -1002,44 +1002,44 @@ html:not(.dark).theme-custom-light body {
    so the new design renders with proper contrast (dark cards + light text).
 
    V5 CYBERPUNK ENFORCEMENT: per the global dark-canvas spec, the deep dark
-   background is ***REMOVED***03000D (was ***REMOVED***0A0612). This matches the body's .dark
+   background is #03000D (was #0A0612). This matches the body's .dark
    --background token and the radial-gradient base in `.dark body`. Inner
    pages and home page now share the EXACT same deep canvas — no more
-   visible seam between hero (which used ***REMOVED***03000D via the body gradient) and
-   page body (which used ***REMOVED***0A0612 via this token). */
+   visible seam between hero (which used #03000D via the body gradient) and
+   page body (which used #0A0612 via this token). */
 html.dark .theme-nx {
-  --nx-surface: ***REMOVED***03000D;
-  --nx-surface-alt: ***REMOVED***070018;
-  --nx-surface-muted: ***REMOVED***0D0025;
+  --nx-surface: #03000D;
+  --nx-surface-alt: #070018;
+  --nx-surface-muted: #0D0025;
   --nx-border: rgba(255, 255, 255, 0.08);
   --nx-border-strong: rgba(255, 255, 255, 0.16);
-  --nx-ink: ***REMOVED***F4F0FF;
-  --nx-ink-soft: ***REMOVED***B5A8C8;
-  /* Accessible: ***REMOVED***9B8AB8 = 6.32–6.70:1 on dark surfaces (AA). */
-  --nx-ink-muted: ***REMOVED***9B8AB8;
-  --background: ***REMOVED***03000D;
-  --foreground: ***REMOVED***F4F0FF;
-  --card: ***REMOVED***0D0025;
-  --card-foreground: ***REMOVED***F4F0FF;
-  --muted: ***REMOVED***0D0025;
-  /* Accessible: ***REMOVED***9B8AB8 = 6.44–6.66:1 on dark surfaces (AA). */
-  --muted-foreground: ***REMOVED***9B8AB8;
+  --nx-ink: #F4F0FF;
+  --nx-ink-soft: #B5A8C8;
+  /* Accessible: #9B8AB8 = 6.32–6.70:1 on dark surfaces (AA). */
+  --nx-ink-muted: #9B8AB8;
+  --background: #03000D;
+  --foreground: #F4F0FF;
+  --card: #0D0025;
+  --card-foreground: #F4F0FF;
+  --muted: #0D0025;
+  /* Accessible: #9B8AB8 = 6.44–6.66:1 on dark surfaces (AA). */
+  --muted-foreground: #9B8AB8;
   --border: rgba(255, 255, 255, 0.08);
-  background: ***REMOVED***03000D;
-  color: ***REMOVED***F4F0FF;
+  background: #03000D;
+  color: #F4F0FF;
 }
 
 /* Backward compat: legacy class name from previous version */
 .theme-nx-light {
-  --nx-surface: ***REMOVED***FAFAFC;
-  --nx-surface-alt: ***REMOVED***F8F6FC;
-  --nx-surface-muted: ***REMOVED***F1EDF8;
-  --nx-border: ***REMOVED***E5E0EE;
-  --nx-border-strong: ***REMOVED***CBD0E1;
-  --nx-ink: ***REMOVED***0F172A;
-  --nx-ink-soft: ***REMOVED***334155;
-  /* Accessible: ***REMOVED***475569 = 7.1:1 on ***REMOVED***FAFAFC canvas (AAA). */
-  --nx-ink-muted: ***REMOVED***475569;
+  --nx-surface: #FAFAFC;
+  --nx-surface-alt: #F8F6FC;
+  --nx-surface-muted: #F1EDF8;
+  --nx-border: #E5E0EE;
+  --nx-border-strong: #CBD0E1;
+  --nx-ink: #0F172A;
+  --nx-ink-soft: #334155;
+  /* Accessible: #475569 = 7.1:1 on #FAFAFC canvas (AAA). */
+  --nx-ink-muted: #475569;
 }
 
 /* ─── TiltCard — 3D cursor-following card (clicktake-3d-v3 reference) ─── */
@@ -1065,7 +1065,7 @@ html.dark .theme-nx {
   position: absolute;
   inset: -1px;
   border-radius: 21px;
-  background: linear-gradient(135deg, ***REMOVED***E0197A, ***REMOVED***7B2FBE, ***REMOVED***4A90D9, ***REMOVED***E0197A);
+  background: linear-gradient(135deg, #E0197A, #7B2FBE, #4A90D9, #E0197A);
   background-size: 300% 300%;
   animation: ct-tilt-glow-anim 4s ease infinite;
   z-index: -1;
@@ -1116,7 +1116,7 @@ html.dark .theme-nx {
   top: 0;
   left: 0;
   height: 2px;
-  background: linear-gradient(135deg, ***REMOVED***E0197A, ***REMOVED***7B2FBE);
+  background: linear-gradient(135deg, #E0197A, #7B2FBE);
   z-index: 200;
   width: 0%;
   transition: width 0.1s ease-out;
@@ -1128,7 +1128,7 @@ html.dark .theme-nx {
   position: relative;
   z-index: 1;
   padding: 0.9rem 0;
-  background: linear-gradient(135deg, ***REMOVED***E0197A, ***REMOVED***7B2FBE);
+  background: linear-gradient(135deg, #E0197A, #7B2FBE);
   overflow: hidden;
   white-space: nowrap;
 }
@@ -1190,17 +1190,17 @@ html.dark .theme-nx {
 
 html.theme-elite {
   /* Deeper, richer background — pure black with hint of magenta */
-  --background: ***REMOVED***02000A;
-  --foreground: ***REMOVED***F5EFFF;
+  --background: #02000A;
+  --foreground: #F5EFFF;
 
   /* Brand glow amplified */
-  --brand-pink: ***REMOVED***FF6BB5;
-  --brand-pink-deep: ***REMOVED***FF2D9C;
-  --brand-blue: ***REMOVED***4F9BFF;
-  --brand-purple: ***REMOVED***B366FF;
+  --brand-pink: #FF6BB5;
+  --brand-pink-deep: #FF2D9C;
+  --brand-blue: #4F9BFF;
+  --brand-purple: #B366FF;
 
   /* Stronger ring + input glow */
-  --ring: ***REMOVED***FF53A9;
+  --ring: #FF53A9;
   --input: rgba(255, 83, 169, 0.18);
 }
 
@@ -1267,10 +1267,10 @@ html.theme-elite .ct-elite-border::before {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF, ***REMOVED***4F9BFF, ***REMOVED***FF53A9);
+  background: linear-gradient(135deg, #FF53A9, #9B3DFF, #4F9BFF, #FF53A9);
   background-size: 300% 300%;
   animation: ct-elite-border-anim 6s linear infinite;
-  -webkit-mask: linear-gradient(***REMOVED***fff 0 0) content-box, linear-gradient(***REMOVED***fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
   pointer-events: none;
@@ -1305,7 +1305,7 @@ html.theme-elite a[class*="bg-gradient"]:hover {
 
 /* Elite text gradient — for headlines */
 html.theme-elite .ct-elite-text {
-  background: linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***FF53A9 30%, ***REMOVED***B366FF 60%, ***REMOVED***4F9BFF 100%);
+  background: linear-gradient(135deg, #FF8AC4 0%, #FF53A9 30%, #B366FF 60%, #4F9BFF 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -1453,7 +1453,7 @@ html.theme-elite .ct-elite-badge {
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: ***REMOVED***fff;
+  color: #fff;
   background:
     linear-gradient(135deg, rgba(255, 215, 130, 0.95), rgba(255, 83, 169, 0.95), rgba(179, 102, 255, 0.95));
   background-size: 200% 200%;
@@ -1481,7 +1481,7 @@ html.theme-elite h3 {
 }
 html.theme-elite .ct-elite-h1,
 html.theme-elite .ct-elite-h2 {
-  background: linear-gradient(135deg, ***REMOVED***FFE9B3 0%, ***REMOVED***FF8AC4 30%, ***REMOVED***B366FF 60%, ***REMOVED***4F9BFF 100%);
+  background: linear-gradient(135deg, #FFE9B3 0%, #FF8AC4 30%, #B366FF 60%, #4F9BFF 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -1492,7 +1492,7 @@ html.theme-elite .ct-elite-h2 {
 
 /* Elite stat numbers — large gradient-clipped display numbers */
 html.theme-elite .ct-elite-stat {
-  background: linear-gradient(135deg, ***REMOVED***FFD782 0%, ***REMOVED***FF8AC4 50%, ***REMOVED***B366FF 100%);
+  background: linear-gradient(135deg, #FFD782 0%, #FF8AC4 50%, #B366FF 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1559,7 +1559,7 @@ html.theme-elite .ct-elite-list li::before {
   top: 0.55em;
   width: 10px;
   height: 10px;
-  background: linear-gradient(135deg, ***REMOVED***FFD782, ***REMOVED***FF53A9, ***REMOVED***B366FF);
+  background: linear-gradient(135deg, #FFD782, #FF53A9, #B366FF);
   transform: rotate(45deg);
   box-shadow: 0 0 12px rgba(255, 83, 169, 0.6);
 }
@@ -1576,7 +1576,7 @@ html.theme-elite .ct-elite-progress::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, ***REMOVED***FFD782, ***REMOVED***FF53A9, ***REMOVED***B366FF, ***REMOVED***4F9BFF);
+  background: linear-gradient(90deg, #FFD782, #FF53A9, #B366FF, #4F9BFF);
   background-size: 200% 100%;
   animation: ct-elite-progress-flow 3s linear infinite;
   border-radius: inherit;
@@ -1592,7 +1592,7 @@ html.theme-elite .ct-elite-progress::after {
 
 /* Elite "premium" toggle — gold-pink switch when on */
 html.theme-elite .ct-elite-switch[data-on="true"] {
-  background: linear-gradient(135deg, ***REMOVED***FFD782, ***REMOVED***FF53A9);
+  background: linear-gradient(135deg, #FFD782, #FF53A9);
   box-shadow: 0 0 20px rgba(255, 83, 169, 0.45);
 }
 
@@ -1629,9 +1629,9 @@ html.theme-elite input:-webkit-autofill:focus,
 html.theme-elite textarea:-webkit-autofill,
 html.theme-elite textarea:-webkit-autofill:hover,
 html.theme-elite textarea:-webkit-autofill:focus {
-  -webkit-text-fill-color: ***REMOVED***F5EFFF;
+  -webkit-text-fill-color: #F5EFFF;
   -webkit-box-shadow: 0 0 0 1000px rgba(8, 4, 20, 0.85) inset;
-  caret-color: ***REMOVED***FF53A9;
+  caret-color: #FF53A9;
   transition: background-color 9999s ease-in-out 0s;
 }
 
@@ -1644,18 +1644,18 @@ html.theme-elite ::-webkit-scrollbar-track {
   background: rgba(2, 0, 10, 0.5);
 }
 html.theme-elite ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, ***REMOVED***FF53A9, ***REMOVED***B366FF);
+  background: linear-gradient(180deg, #FF53A9, #B366FF);
   border-radius: 999px;
   border: 2px solid rgba(2, 0, 10, 0.5);
 }
 html.theme-elite ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, ***REMOVED***FF8AC4, ***REMOVED***B366FF);
+  background: linear-gradient(180deg, #FF8AC4, #B366FF);
 }
 
 /* Elite mode selection — gradient highlight */
 html.theme-elite ::selection {
   background: rgba(255, 83, 169, 0.35);
-  color: ***REMOVED***ffffff;
+  color: #ffffff;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
@@ -1710,7 +1710,7 @@ html.theme-elite *:focus-visible {
   border-radius: 12px;
   padding: 20px 16px 8px;
   font-size: 14px;
-  color: var(--foreground, ***REMOVED***F0EBF8);
+  color: var(--foreground, #F0EBF8);
   outline: none;
   transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
   font-family: inherit;
@@ -1747,7 +1747,7 @@ html.theme-elite *:focus-visible {
   top: 0;
   transform: translateY(-50%) scale(0.85);
   left: 12px;
-  color: ***REMOVED***FF8AC4;
+  color: #FF8AC4;
   background: linear-gradient(180deg, transparent 45%, rgba(8, 4, 20, 0.95) 45%, rgba(8, 4, 20, 0.95) 100%);
 }
 
@@ -1781,7 +1781,7 @@ html.theme-elite *:focus-visible {
   opacity: 0;
   transition: opacity 0.25s;
   mix-blend-mode: screen;
-  -webkit-mask: linear-gradient(***REMOVED***fff 0 0) content-box, linear-gradient(***REMOVED***fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
   padding: 1px;
@@ -1803,7 +1803,7 @@ html:not(.dark) .ct-fx-textbox-field {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.65) 100%);
   border-color: rgba(15, 23, 42, 0.14);
-  color: ***REMOVED***0a0e1a;
+  color: #0a0e1a;
   box-shadow:
     0 4px 14px rgba(15, 23, 42, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
@@ -1814,7 +1814,7 @@ html:not(.dark) .ct-fx-textbox-label {
 html:not(.dark) .ct-fx-textbox-field:focus + .ct-fx-textbox-label,
 html:not(.dark) .ct-fx-textbox-field:not(:placeholder-shown) + .ct-fx-textbox-label {
   background: linear-gradient(180deg, transparent 45%, rgba(255, 255, 255, 0.95) 45%);
-  color: ***REMOVED***C2185B;
+  color: #C2185B;
 }
 html:not(.dark) .ct-fx-textbox-field:focus {
   border-color: rgba(224, 25, 122, 0.55);
@@ -1973,14 +1973,14 @@ html:not(.dark) .ct-fx-textbox[data-state="success"] .ct-fx-textbox-field {
 .ct-fx-textbox-field:-webkit-autofill,
 .ct-fx-textbox-field:-webkit-autofill:hover,
 .ct-fx-textbox-field:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--foreground, ***REMOVED***F0EBF8);
+  -webkit-text-fill-color: var(--foreground, #F0EBF8);
   -webkit-box-shadow: 0 0 0 1000px rgba(8, 4, 20, 0.65) inset;
   transition: background-color 9999s ease-in-out 0s;
 }
 html:not(.dark) .ct-fx-textbox-field:-webkit-autofill,
 html:not(.dark) .ct-fx-textbox-field:-webkit-autofill:hover,
 html:not(.dark) .ct-fx-textbox-field:-webkit-autofill:focus {
-  -webkit-text-fill-color: ***REMOVED***0a0e1a;
+  -webkit-text-fill-color: #0a0e1a;
   -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.95) inset;
 }
 
@@ -2175,7 +2175,7 @@ html.theme-elite .ct-story-floater {
   position: absolute;
   inset: 30%;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, ***REMOVED***FF8AC4, ***REMOVED***FF53A9 50%, ***REMOVED***9B3DFF 100%);
+  background: radial-gradient(circle at 35% 35%, #FF8AC4, #FF53A9 50%, #9B3DFF 100%);
   box-shadow:
     0 0 50px rgba(255, 83, 169, 0.55),
     inset 0 0 30px rgba(255, 255, 255, 0.25);
@@ -2199,11 +2199,11 @@ html.theme-elite .ct-story-floater {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: ***REMOVED***FF8AC4;
+  background: #FF8AC4;
   box-shadow: 0 0 20px rgba(255, 138, 196, 0.8);
 }
-.ct-story-home .ct-story-orbit:nth-child(2)::after { background: ***REMOVED***4F9BFF; box-shadow: 0 0 20px rgba(75, 155, 255, 0.8); }
-.ct-story-home .ct-story-orbit:nth-child(3)::after { background: ***REMOVED***B366FF; box-shadow: 0 0 20px rgba(179, 102, 255, 0.8); }
+.ct-story-home .ct-story-orbit:nth-child(2)::after { background: #4F9BFF; box-shadow: 0 0 20px rgba(75, 155, 255, 0.8); }
+.ct-story-home .ct-story-orbit:nth-child(3)::after { background: #B366FF; box-shadow: 0 0 20px rgba(179, 102, 255, 0.8); }
 @keyframes ct-story-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes ct-story-pulse {
   0%, 100% { transform: scale(1); box-shadow: 0 0 50px rgba(255, 83, 169, 0.55), inset 0 0 30px rgba(255, 255, 255, 0.25); }
@@ -2238,7 +2238,7 @@ html.theme-elite .ct-story-floater {
 .ct-story-about .ct-story-cube {
   position: absolute;
   inset: 30%;
-  background: linear-gradient(135deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF);
+  background: linear-gradient(135deg, #FF53A9, #9B3DFF);
   border-radius: 14px;
   transform-style: preserve-3d;
   animation: ct-story-rotate3d 18s linear infinite;
@@ -2271,7 +2271,7 @@ html.theme-elite .ct-story-floater {
   position: absolute;
   inset: 42%;
   border-radius: 50%;
-  background: radial-gradient(circle, ***REMOVED***FF8AC4, ***REMOVED***FF53A9);
+  background: radial-gradient(circle, #FF8AC4, #FF53A9);
   box-shadow: 0 0 40px rgba(255, 83, 169, 0.7);
   animation: ct-story-pulse 2.5s ease-in-out infinite;
 }
@@ -2304,7 +2304,7 @@ html.theme-elite .ct-story-floater {
 .ct-story-pricing .ct-story-tag {
   position: absolute;
   inset: 30%;
-  background: linear-gradient(135deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF);
+  background: linear-gradient(135deg, #FF53A9, #9B3DFF);
   border-radius: 14px;
   transform: rotate(45deg);
   animation: ct-story-float-spin 7s ease-in-out infinite;
@@ -2327,16 +2327,16 @@ html.theme-elite .ct-story-floater {
 .ct-story-default .ct-story-shape {
   position: absolute;
   inset: 30%;
-  background: linear-gradient(135deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF);
+  background: linear-gradient(135deg, #FF53A9, #9B3DFF);
   border-radius: 16px;
   animation: ct-story-rotate3d 16s linear infinite;
   box-shadow: 0 0 50px rgba(255, 83, 169, 0.45);
 }
 
 /* Story scene ambient orbs — three soft glow blobs per page */
-.ct-story-scene .ct-story-orb-1 { width: 380px; height: 380px; top: -10%; left: -8%;  background: radial-gradient(circle, ***REMOVED***FF53A9, transparent 70%); }
-.ct-story-scene .ct-story-orb-2 { width: 460px; height: 460px; bottom: -15%; right: -10%; background: radial-gradient(circle, ***REMOVED***4F9BFF, transparent 70%); }
-.ct-story-scene .ct-story-orb-3 { width: 320px; height: 320px; top: 40%; left: 50%; background: radial-gradient(circle, ***REMOVED***9B3DFF, transparent 70%); animation: ct-story-orb-drift 14s ease-in-out infinite; }
+.ct-story-scene .ct-story-orb-1 { width: 380px; height: 380px; top: -10%; left: -8%;  background: radial-gradient(circle, #FF53A9, transparent 70%); }
+.ct-story-scene .ct-story-orb-2 { width: 460px; height: 460px; bottom: -15%; right: -10%; background: radial-gradient(circle, #4F9BFF, transparent 70%); }
+.ct-story-scene .ct-story-orb-3 { width: 320px; height: 320px; top: 40%; left: 50%; background: radial-gradient(circle, #9B3DFF, transparent 70%); animation: ct-story-orb-drift 14s ease-in-out infinite; }
 @keyframes ct-story-orb-drift {
   0%, 100% { transform: translate(-50%, -50%); }
   50%      { transform: translate(-40%, -55%); }
@@ -2371,14 +2371,14 @@ html.theme-elite .ct-story-floater {
   background-clip: text;
 }
 .nx-glitch-text::before {
-  color: ***REMOVED***FF53A9;
-  -webkit-text-fill-color: ***REMOVED***FF53A9;
+  color: #FF53A9;
+  -webkit-text-fill-color: #FF53A9;
   z-index: -1;
   animation: nx-glitch-1 2.5s infinite linear alternate-reverse;
 }
 .nx-glitch-text::after {
-  color: ***REMOVED***136DFF;
-  -webkit-text-fill-color: ***REMOVED***136DFF;
+  color: #136DFF;
+  -webkit-text-fill-color: #136DFF;
   z-index: -2;
   animation: nx-glitch-2 3s infinite linear alternate-reverse;
 }
@@ -2416,7 +2416,7 @@ html.theme-elite .ct-story-floater {
   box-shadow: 0 12px 40px -8px rgba(255, 83, 169, 0.4);
 }
 .nx-magnetic-primary {
-  background: linear-gradient(135deg, ***REMOVED***FF53A9 0%, ***REMOVED***9B3DFF 100%);
+  background: linear-gradient(135deg, #FF53A9 0%, #9B3DFF 100%);
   box-shadow: 0 8px 24px -6px rgba(255, 83, 169, 0.45);
 }
 .nx-magnetic-primary:hover {
@@ -2429,14 +2429,14 @@ html.theme-elite .ct-story-floater {
 .nx-magnetic-border {
   background: conic-gradient(
     from var(--nx-magnetic-angle, 0deg),
-    ***REMOVED***FF53A9,
-    ***REMOVED***9B3DFF,
-    ***REMOVED***136DFF,
-    ***REMOVED***FF53A9
+    #FF53A9,
+    #9B3DFF,
+    #136DFF,
+    #FF53A9
   );
   animation: nx-magnetic-border-spin 3s linear infinite;
-  mask: linear-gradient(***REMOVED***fff 0 0) content-box, linear-gradient(***REMOVED***fff 0 0);
-  -webkit-mask: linear-gradient(***REMOVED***fff 0 0) content-box, linear-gradient(***REMOVED***fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
   padding: 1px;
@@ -2452,7 +2452,7 @@ html.theme-elite .ct-story-floater {
 /* Fallback for browsers without @property */
 @supports not (background: conic-gradient(from 0deg, red, blue)) {
   .nx-magnetic-border {
-    background: linear-gradient(135deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF, ***REMOVED***136DFF);
+    background: linear-gradient(135deg, #FF53A9, #9B3DFF, #136DFF);
     animation: none;
   }
 }
@@ -2510,7 +2510,7 @@ html.theme-elite .ct-story-floater {
 
 /* ── Focus ring polish ─────────────────────────────────────────── */
 *:focus-visible {
-  outline: 2px solid ***REMOVED***FF53A9;
+  outline: 2px solid #FF53A9;
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -2707,7 +2707,7 @@ html.theme-elite .ct-story-floater {
 
   /* ─── Smooth scroll margin for anchor navigation ───
      Prevents sticky navbar (h-20 = 5rem) from covering section titles
-     when jumping to ***REMOVED***anchors. */
+     when jumping to #anchors. */
   .theme-nx [id],
   .theme-nx section[id] {
     scroll-margin-top: 6rem;
@@ -2721,7 +2721,7 @@ html.theme-elite .ct-story-floater {
   .theme-nx textarea:focus-visible,
   .theme-nx select:focus-visible,
   .theme-nx [tabindex]:focus-visible {
-    outline: 2px solid var(--nx-brand-pink, ***REMOVED***FF53A9);
+    outline: 2px solid var(--nx-brand-pink, #FF53A9);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -2787,7 +2787,7 @@ html.theme-elite .ct-story-floater {
      Inline links inside .nx-text blocks get a subtle underline sweep. */
   .theme-nx .nx-text a:not(.nx-btn-orange):not(.nx-btn-outline-light):not([class*="btn"]):not([class*="nav"]) {
     position: relative;
-    color: var(--nx-brand-blue-deep, ***REMOVED***136DFF);
+    color: var(--nx-brand-blue-deep, #136DFF);
     text-decoration: underline;
     text-decoration-color: rgba(19, 109, 255, 0.35);
     text-underline-offset: 3px;
@@ -2795,8 +2795,8 @@ html.theme-elite .ct-story-floater {
     transition: color 0.2s ease, text-decoration-color 0.2s ease;
   }
   .theme-nx .nx-text a:not(.nx-btn-orange):not(.nx-btn-outline-light):not([class*="btn"]):not([class*="nav"]):hover {
-    color: var(--nx-brand-pink-deep, ***REMOVED***E0197A);
-    text-decoration-color: var(--nx-brand-pink, ***REMOVED***FF53A9);
+    color: var(--nx-brand-pink-deep, #E0197A);
+    text-decoration-color: var(--nx-brand-pink, #FF53A9);
   }
 
   /* ─── Scroll reveal: fade-in-up on intersection ───
@@ -2980,10 +2980,10 @@ html.theme-elite .ct-story-floater {
   .theme-nx .nx-btn-orange {
     background: linear-gradient(
       135deg,
-      ***REMOVED***FF53A9 0%,
-      ***REMOVED***FF8AC4 25%,
-      ***REMOVED***9B3DFF 60%,
-      ***REMOVED***136DFF 100%
+      #FF53A9 0%,
+      #FF8AC4 25%,
+      #9B3DFF 60%,
+      #136DFF 100%
     ) !important;
     background-size: 200% 200% !important;
     animation: nx-btn-gradient-shift 4s ease infinite !important;
@@ -3035,7 +3035,7 @@ html.theme-elite .ct-story-floater {
     border: 1.5px solid transparent !important;
     background-image:
       linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)),
-      linear-gradient(135deg, ***REMOVED***FF53A9 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%) !important;
+      linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%) !important;
     background-origin: border-box !important;
     background-clip: padding-box, border-box !important;
     box-shadow:
@@ -3047,7 +3047,7 @@ html.theme-elite .ct-story-floater {
   .theme-nx .nx-btn-outline-light:hover {
     background-image:
       linear-gradient(rgba(255, 83, 169, 0.12), rgba(19, 109, 255, 0.12)),
-      linear-gradient(135deg, ***REMOVED***FF53A9 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%) !important;
+      linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%) !important;
     transform: translateY(-2px) !important;
     box-shadow:
       0 12px 30px -8px rgba(255, 83, 169, 0.4),
@@ -3081,10 +3081,10 @@ html.theme-elite .ct-story-floater {
   .theme-nx .nx-stat-num {
     background: linear-gradient(
       135deg,
-      ***REMOVED***FF53A9 0%,
-      ***REMOVED***FF8AC4 25%,
-      ***REMOVED***9B3DFF 60%,
-      ***REMOVED***4A90D9 100%
+      #FF53A9 0%,
+      #FF8AC4 25%,
+      #9B3DFF 60%,
+      #4A90D9 100%
     ) !important;
     background-size: 200% 200% !important;
     animation: nx-stat-gradient-shift 6s ease infinite !important;
@@ -3104,14 +3104,14 @@ html.theme-elite .ct-story-floater {
       radial-gradient(ellipse 50% 60% at 100% 30%, rgba(19, 109, 255, 0.28) 0%, transparent 60%),
       radial-gradient(ellipse 40% 50% at 50% 100%, rgba(155, 61, 255, 0.18) 0%, transparent 60%),
       radial-gradient(ellipse 30% 30% at 80% 80%, rgba(255, 138, 196, 0.12) 0%, transparent 50%),
-      linear-gradient(180deg, ***REMOVED***0A0612 0%, ***REMOVED***100820 60%, ***REMOVED***16102A 100%) !important;
+      linear-gradient(180deg, #0A0612 0%, #100820 60%, #16102A 100%) !important;
   }
 
   .theme-nx .nx-navy-gradient {
     background:
       radial-gradient(ellipse 50% 40% at 30% 0%, rgba(255, 83, 169, 0.10) 0%, transparent 60%),
       radial-gradient(ellipse 40% 50% at 80% 100%, rgba(19, 109, 255, 0.12) 0%, transparent 60%),
-      linear-gradient(180deg, ***REMOVED***100820 0%, ***REMOVED***0A0612 50%, ***REMOVED***100820 100%) !important;
+      linear-gradient(180deg, #100820 0%, #0A0612 50%, #100820 100%) !important;
   }
 
   /* ─── 7. New Eyebrow Pill Style ─── */
@@ -3193,11 +3193,11 @@ html.theme-elite .ct-story-floater {
   .theme-nx .nx-brand-gradient {
     background: linear-gradient(
       135deg,
-      ***REMOVED***FF53A9 0%,
-      ***REMOVED***FF8AC4 20%,
-      ***REMOVED***9B3DFF 50%,
-      ***REMOVED***4A90D9 80%,
-      ***REMOVED***136DFF 100%
+      #FF53A9 0%,
+      #FF8AC4 20%,
+      #9B3DFF 50%,
+      #4A90D9 80%,
+      #136DFF 100%
     ) !important;
     background-size: 200% 200% !important;
     animation: nx-btn-gradient-shift 5s ease infinite !important;
@@ -3223,7 +3223,7 @@ html.theme-elite .ct-story-floater {
   }
 
   /* ─── 13. Pill Badge Glow (for hero badge) ─── */
-  .theme-nx .nx-hero-bg [class*="rounded-full"][class*="border-[***REMOVED***FF53A9]"] {
+  .theme-nx .nx-hero-bg [class*="rounded-full"][class*="border-[#FF53A9]"] {
     background: linear-gradient(
       135deg,
       rgba(255, 83, 169, 0.15),
@@ -3255,7 +3255,7 @@ html.theme-elite .ct-story-floater {
     width: 60px;
     height: 3px;
     border-radius: 2px;
-    background: linear-gradient(90deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF, ***REMOVED***136DFF);
+    background: linear-gradient(90deg, #FF53A9, #9B3DFF, #136DFF);
     box-shadow: 0 0 16px rgba(255, 83, 169, 0.4);
   }
 
@@ -3360,29 +3360,29 @@ html.theme-elite .ct-story-floater {
   /* ─── 4. Body text contrast bump on dark surfaces ─── */
   /* The audit flagged "minor text contrast issues in body paragraphs on
      dark backgrounds for extended reading". The dark mode token
-     --nx-ink-muted was ***REMOVED***9B8AB8 (6.4:1 on dark — passes AA but feels faint
+     --nx-ink-muted was #9B8AB8 (6.4:1 on dark — passes AA but feels faint
      on long paragraphs). v5 introduces a dedicated reading color for
      <p> elements inside .nx-text blocks that's slightly brighter, while
      keeping --nx-ink-muted for tight metadata (timestamps, captions). */
   html.dark & {
-    --nx-ink-reading: ***REMOVED***C8BBD8; /* 8.0:1 on ***REMOVED***100820 — passes AAA */
+    --nx-ink-reading: #C8BBD8; /* 8.0:1 on #100820 — passes AAA */
   }
   /* Reading paragraphs inside .nx-text containers (DeepDiveLayout body,
      NxPageLayout sections) get the brighter reading color. */
   html.dark & .nx-text p,
   html.dark & .ck-prose p,
   html.dark & .nx-text-soft {
-    color: var(--nx-ink-reading, ***REMOVED***C8BBD8);
+    color: var(--nx-ink-reading, #C8BBD8);
   }
   /* Headings stay bright white for hierarchy. */
   html.dark & .nx-text h2,
   html.dark & .nx-text h3,
   html.dark & .nx-text h4 {
-    color: ***REMOVED***F4F0FF;
+    color: #F4F0FF;
   }
   /* Tech-stack chips + metric labels — bump from /60 to /85 for AA on dark */
   html.dark & .text-muted-foreground {
-    color: ***REMOVED***B5A8C8 !important; /* matches --nx-ink-soft, 7.5:1 on ***REMOVED***100820 */
+    color: #B5A8C8 !important; /* matches --nx-ink-soft, 7.5:1 on #100820 */
   }
 
   /* ─── 5. Mobile density — reduce card padding on small screens ─── */
@@ -3432,9 +3432,9 @@ html.theme-elite .ct-story-floater {
    ────────────────────────────────────────────────────────────────────────
    Purpose: Permanently lock the entire site to the Dark Premium Cyberpunk /
    Web3 (v5) design system. This layer:
-     1. Forces the deep dark canvas ***REMOVED***03000D with ambient orb scenes.
+     1. Forces the deep dark canvas #03000D with ambient orb scenes.
      2. Standardizes all gradient text + CTA buttons + badges to the canonical
-        4-stop brand gradient: ***REMOVED***FF8AC4 → ***REMOVED***9B3DFF → ***REMOVED***136DFF.
+        4-stop brand gradient: #FF8AC4 → #9B3DFF → #136DFF.
      3. Restores glassmorphism (backdrop-blur-md + thin borders + neon
         drop-shadows) on all cards.
      4. Forces rounded-full pill geometry on all CTA buttons + gradient fills
@@ -3443,29 +3443,29 @@ html.theme-elite .ct-story-floater {
    This layer is scoped to .theme-nx so admin pages keep their own look.
    ════════════════════════════════════════════════════════════════════════ */
 .theme-nx {
-  /* ─── 1. Deep dark canvas (***REMOVED***03000D) with ambient gradient atmosphere ─── */
-  background-color: ***REMOVED***03000D !important;
+  /* ─── 1. Deep dark canvas (#03000D) with ambient gradient atmosphere ─── */
+  background-color: #03000D !important;
   background-image:
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124, 58, 237, 0.12) 0%, transparent 60%),
     radial-gradient(ellipse 60% 80% at 100% 50%, rgba(19, 109, 255, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse 60% 80% at 0% 50%, rgba(255, 138, 196, 0.06) 0%, transparent 50%),
-    linear-gradient(180deg, ***REMOVED***03000D 0%, ***REMOVED***070018 55%, ***REMOVED***0D0025 100%) !important;
+    linear-gradient(180deg, #03000D 0%, #070018 55%, #0D0025 100%) !important;
   background-attachment: fixed;
-  color: ***REMOVED***F4F0FF;
+  color: #F4F0FF;
 }
 
-/* Kill any inline solid ***REMOVED***050510 / ***REMOVED***030014 section backgrounds so the ambient
+/* Kill any inline solid #050510 / #030014 section backgrounds so the ambient
    gradient atmosphere shows through consistently on every page. */
-.theme-nx section[style*="***REMOVED***050510"],
-.theme-nx section[style*="***REMOVED***030014"],
-.theme-nx section[style*="***REMOVED***03000D"] {
+.theme-nx section[style*="#050510"],
+.theme-nx section[style*="#030014"],
+.theme-nx section[style*="#03000D"] {
   background: transparent !important;
 }
 
-/* ─── 2. Canonical 4-stop gradient: ***REMOVED***FF8AC4 → ***REMOVED***9B3DFF → ***REMOVED***136DFF ─── */
+/* ─── 2. Canonical 4-stop gradient: #FF8AC4 → #9B3DFF → #136DFF ─── */
 /* Force EVERY gradient-clipped text span to the brand 4-stop gradient.
-   Catches: from-[***REMOVED***EC4899]...to-[***REMOVED***6366F1], from-[***REMOVED***3B82F6]...to-[***REMOVED***60A5FA],
-   from-[***REMOVED***EC4899]...to-[***REMOVED***F472B6], from-brand-cyan...to-[***REMOVED***136DFF], etc. */
+   Catches: from-[#EC4899]...to-[#6366F1], from-[#3B82F6]...to-[#60A5FA],
+   from-[#EC4899]...to-[#F472B6], from-brand-cyan...to-[#136DFF], etc. */
 .theme-nx [class*="bg-clip-text"][class*="text-transparent"],
 .theme-nx span[class*="bg-gradient-to-"][class*="bg-clip-text"],
 .theme-nx .gradient-text,
@@ -3474,7 +3474,7 @@ html.theme-elite .ct-story-floater {
 .theme-nx .nx-text-orange-grad,
 .theme-nx .nx-text-pink-grad,
 .theme-nx .nx-text-blue-grad {
-  background-image: linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%) !important;
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
@@ -3483,37 +3483,37 @@ html.theme-elite .ct-story-floater {
 
 /* Force every gradient CTA button (currently 2-stop blue→pink) to the
    canonical 4-stop brand gradient. Catches inline-style buttons using
-   linear-gradient(135deg, ***REMOVED***3B82F6 0%, ***REMOVED***EC4899 100%) and similar. */
+   linear-gradient(135deg, #3B82F6 0%, #EC4899 100%) and similar. */
 .theme-nx a[class*="rounded-full"][style*="linear-gradient"][style*="135deg"],
 .theme-nx button[class*="rounded-full"][style*="linear-gradient"][style*="135deg"],
-.theme-nx a[style*="linear-gradient(135deg, ***REMOVED***3B82F6"],
-.theme-nx a[style*="linear-gradient(135deg,***REMOVED***3B82F6"],
-.theme-nx button[style*="linear-gradient(135deg, ***REMOVED***3B82F6"],
-.theme-nx a[style*="linear-gradient(135deg, ***REMOVED***FF53A9"],
-.theme-nx button[style*="linear-gradient(135deg, ***REMOVED***FF53A9"] {
-  background-image: linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%) !important;
+.theme-nx a[style*="linear-gradient(135deg, #3B82F6"],
+.theme-nx a[style*="linear-gradient(135deg,#3B82F6"],
+.theme-nx button[style*="linear-gradient(135deg, #3B82F6"],
+.theme-nx a[style*="linear-gradient(135deg, #FF53A9"],
+.theme-nx button[style*="linear-gradient(135deg, #FF53A9"] {
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
   box-shadow: 0 8px 30px rgba(155, 61, 255, 0.35), 0 0 20px rgba(255, 138, 196, 0.25) !important;
 }
 
 /* Step-indicator circles, badge dots, icon chips using 2-stop blue→pink
    also get the canonical 4-stop gradient. */
-.theme-nx [class*="bg-gradient-to-br"][class*="from-[***REMOVED***3B82F6]"][class*="to-[***REMOVED***EC4899]"],
-.theme-nx [class*="bg-gradient-to-br"][class*="from-[***REMOVED***3B82F6]"][class*="to-[***REMOVED***60A5FA]"],
-.theme-nx [class*="bg-gradient-to-r"][class*="from-[***REMOVED***3B82F6]"][class*="to-[***REMOVED***60A5FA]"],
-.theme-nx [class*="bg-gradient-to-r"][class*="from-[***REMOVED***EC4899]"][class*="to-[***REMOVED***F472B6]"],
-.theme-nx [class*="bg-gradient-to-r"][class*="from-[***REMOVED***EC4899]"][class*="to-[***REMOVED***9B3DFF]"] {
-  background-image: linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%) !important;
+.theme-nx [class*="bg-gradient-to-br"][class*="from-[#3B82F6]"][class*="to-[#EC4899]"],
+.theme-nx [class*="bg-gradient-to-br"][class*="from-[#3B82F6]"][class*="to-[#60A5FA]"],
+.theme-nx [class*="bg-gradient-to-r"][class*="from-[#3B82F6]"][class*="to-[#60A5FA]"],
+.theme-nx [class*="bg-gradient-to-r"][class*="from-[#EC4899]"][class*="to-[#F472B6]"],
+.theme-nx [class*="bg-gradient-to-r"][class*="from-[#EC4899]"][class*="to-[#9B3DFF]"] {
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
 }
 
 /* Pink-only "compounded" / "extraordinary" / "intelligence," gradient
    headlines — unify to the 4-stop brand gradient. */
-.theme-nx h1 span[class*="bg-gradient-to-r"][class*="from-[***REMOVED***EC4899]"],
-.theme-nx h2 span[class*="bg-gradient-to-r"][class*="from-[***REMOVED***EC4899]"],
-.theme-nx h3 span[class*="bg-gradient-to-r"][class*="from-[***REMOVED***EC4899]"],
-.theme-nx h1 span[class*="bg-gradient-to-r"][class*="from-[***REMOVED***3B82F6]"],
-.theme-nx h2 span[class*="bg-gradient-to-r"][class*="from-[***REMOVED***3B82F6]"],
-.theme-nx h3 span[class*="bg-gradient-to-r"][class*="from-[***REMOVED***3B82F6]"] {
-  background-image: linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%) !important;
+.theme-nx h1 span[class*="bg-gradient-to-r"][class*="from-[#EC4899]"],
+.theme-nx h2 span[class*="bg-gradient-to-r"][class*="from-[#EC4899]"],
+.theme-nx h3 span[class*="bg-gradient-to-r"][class*="from-[#EC4899]"],
+.theme-nx h1 span[class*="bg-gradient-to-r"][class*="from-[#3B82F6]"],
+.theme-nx h2 span[class*="bg-gradient-to-r"][class*="from-[#3B82F6]"],
+.theme-nx h3 span[class*="bg-gradient-to-r"][class*="from-[#3B82F6]"] {
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
 }
 
 /* ─── 3. Glassmorphism on all cards (backdrop-blur-md + thin border + neon shadow) ─── */
@@ -3609,11 +3609,11 @@ html.theme-elite .ct-story-floater {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.theme-nx input[class*="focus:border-[***REMOVED***EC4899]"],
-.theme-nx textarea[class*="focus:border-[***REMOVED***EC4899]"],
-.theme-nx select[class*="focus:border-[***REMOVED***EC4899]"],
-.theme-nx input[class*="focus:ring-[***REMOVED***EC4899]"],
-.theme-nx textarea[class*="focus:ring-[***REMOVED***EC4899]"] {
+.theme-nx input[class*="focus:border-[#EC4899]"],
+.theme-nx textarea[class*="focus:border-[#EC4899]"],
+.theme-nx select[class*="focus:border-[#EC4899]"],
+.theme-nx input[class*="focus:ring-[#EC4899]"],
+.theme-nx textarea[class*="focus:ring-[#EC4899]"] {
   /* Unify focus color to brand purple. */
   --tw-ring-color: rgba(155, 61, 255, 0.25) !important;
 }
@@ -3646,13 +3646,13 @@ html.theme-elite .ct-story-floater {
 .theme-nx [class*="bg-gradient-to-"][class*="from-brand-magenta"],
 .theme-nx [class*="bg-gradient-to-"][class*="from-brand-pink"],
 .theme-nx [class*="bg-gradient-to-"][class*="from-brand-purple"] {
-  background-image: linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%) !important;
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
 }
 
-/* Also catch any from-[***REMOVED***FF53A9] (legacy pink variant) on non-text spans. */
-.theme-nx [class*="bg-gradient-to-"][class*="from-[***REMOVED***FF53A9]"],
-.theme-nx [class*="bg-gradient-to-"][class*="from-[***REMOVED***ff53a9]"] {
-  background-image: linear-gradient(135deg, ***REMOVED***FF8AC4 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%) !important;
+/* Also catch any from-[#FF53A9] (legacy pink variant) on non-text spans. */
+.theme-nx [class*="bg-gradient-to-"][class*="from-[#FF53A9]"],
+.theme-nx [class*="bg-gradient-to-"][class*="from-[#ff53a9]"] {
+  background-image: linear-gradient(135deg, #FF8AC4 0%, #9B3DFF 50%, #136DFF 100%) !important;
 }
 
 /* ─── 9. Reduce-motion safety ─── */
@@ -3707,8 +3707,8 @@ html.theme-elite .ct-story-floater {
   .theme-nx .nx-text-pink-grad,
   .theme-nx .nx-text-blue-grad,
   .theme-nx .nx-text-hero-grad {
-    -webkit-text-fill-color: ***REMOVED***000 !important;
-    color: ***REMOVED***000 !important;
+    -webkit-text-fill-color: #000 !important;
+    color: #000 !important;
     background-image: none !important;
   }
 }
@@ -3723,20 +3723,20 @@ html.theme-elite .ct-story-floater {
    Chromium it triggers a different custom-property resolution path:
    `var(--foreground)` substitutes correctly to the cascade-winner
    value, but `rgb(var(--foreground))` returns the value from a stale
-   `html.dark .theme-nx { --foreground: ***REMOVED***F4F0FF }` rule even when the
+   `html.dark .theme-nx { --foreground: #F4F0FF }` rule even when the
    html element does NOT have the .dark class. This made every text-
-   muted-foreground element render as near-white (***REMOVED***F4F0FF) on a white
+   muted-foreground element render as near-white (#F4F0FF) on a white
    card in light mode = invisible. The fix is to drop the redundant
    `rgb()` wrapper and reference `var(--foreground)` directly, which is
    already a valid <color> and resolves to the correct cascade winner
-   (***REMOVED***0F172A in light mode, ***REMOVED***F4F0FF in dark mode). */
+   (#0F172A in light mode, #F4F0FF in dark mode). */
 .theme-nx p:not([class*="text-"]):not([style*="color"]),
 .theme-nx li:not([class*="text-"]):not([style*="color"]) {
   color: var(--foreground);
 }
 .theme-nx .text-muted-foreground {
   /* Tailwind's `.text-muted-foreground` already sets `color: var(--muted-foreground)`
-     which is `***REMOVED***475569` in light mode (7.1:1 on white — AAA). We do NOT need to
+     which is `#475569` in light mode (7.1:1 on white — AAA). We do NOT need to
      override it. The previous `color-mix(in oklab, rgb(var(--foreground)) 72%, transparent)`
      rule broke in light mode (see comment above) and is removed entirely to
      let Tailwind's utility apply cleanly. */
@@ -3766,7 +3766,7 @@ html.theme-elite .ct-story-floater {
    ════════════════════════════════════════════════════════════════════════
    The v5 Dark Premium Cyberpunk design was authored for dark mode — many
    page components use hardcoded `text-white`, `bg-white/[0.03]` glass
-   cards, `border-white/10`, and `style={{ background: "***REMOVED***030014" }}` dark
+   cards, `border-white/10`, and `style={{ background: "#030014" }}` dark
    section backgrounds. In dark mode these render perfectly. In LIGHT mode
    they would render as invisible white-on-white.
 
@@ -3790,49 +3790,49 @@ html.theme-elite .ct-story-floater {
       dark backgrounds inside hero are preserved by the .nx-hero-bg carve-out.
       Excludes .nx-hero-bg / .nx-orange-gradient / .nx-navy-gradient sections
       (always-dark hero/CTA banners that should remain dark for visual impact). */
-html:not(.dark) .theme-nx section[style*="***REMOVED***030014"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
-html:not(.dark) .theme-nx section[style*="***REMOVED***050510"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
-html:not(.dark) .theme-nx section[style*="***REMOVED***03000D"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
-html:not(.dark) .theme-nx section[style*="***REMOVED***050518"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
-html:not(.dark) .theme-nx section[style*="***REMOVED***0A0A14"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient) {
+html:not(.dark) .theme-nx section[style*="#030014"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
+html:not(.dark) .theme-nx section[style*="#050510"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
+html:not(.dark) .theme-nx section[style*="#03000D"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
+html:not(.dark) .theme-nx section[style*="#050518"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient),
+html:not(.dark) .theme-nx section[style*="#0A0A14"]:not(.nx-hero-bg):not(.nx-orange-gradient):not(.nx-navy-gradient) {
   background: var(--nx-surface-alt) !important;
 }
 
 /* 1a. Divs with hardcoded dark inline backgrounds (stat tiles, icon chips,
       accent panels) → light surface. Catches the homepage stats bar tiles
       and similar small dark surfaces inside (now-light) sections. */
-html:not(.dark) .theme-nx div[style*="***REMOVED***030014"],
-html:not(.dark) .theme-nx div[style*="***REMOVED***050510"],
-html:not(.dark) .theme-nx div[style*="***REMOVED***03000D"],
-html:not(.dark) .theme-nx div[style*="***REMOVED***050518"],
-html:not(.dark) .theme-nx div[style*="***REMOVED***0A0A14"] {
+html:not(.dark) .theme-nx div[style*="#030014"],
+html:not(.dark) .theme-nx div[style*="#050510"],
+html:not(.dark) .theme-nx div[style*="#03000D"],
+html:not(.dark) .theme-nx div[style*="#050518"],
+html:not(.dark) .theme-nx div[style*="#0A0A14"] {
   background: var(--nx-surface) !important;
 }
 
 /* 1b. CARVE-OUT: divs inside always-dark containers — restore dark surface.
        Without this, dark accent panels inside hero/CTA banners would be
        flipped to white, breaking the visual hierarchy. */
-html:not(.dark) .theme-nx .nx-hero-bg div[style*="***REMOVED***030014"],
-html:not(.dark) .theme-nx .nx-hero-bg div[style*="***REMOVED***050510"],
-html:not(.dark) .theme-nx .nx-hero-bg div[style*="***REMOVED***03000D"],
-html:not(.dark) .theme-nx .nx-hero-bg div[style*="***REMOVED***050518"],
-html:not(.dark) .theme-nx .nx-hero-bg div[style*="***REMOVED***0A0A14"],
-html:not(.dark) .theme-nx .nx-orange-gradient div[style*="***REMOVED***030014"],
-html:not(.dark) .theme-nx .nx-orange-gradient div[style*="***REMOVED***050510"],
-html:not(.dark) .theme-nx .nx-orange-gradient div[style*="***REMOVED***0A0A14"],
-html:not(.dark) .theme-nx .nx-navy-gradient div[style*="***REMOVED***030014"],
-html:not(.dark) .theme-nx .nx-navy-gradient div[style*="***REMOVED***050510"],
-html:not(.dark) .theme-nx .nx-navy-gradient div[style*="***REMOVED***0A0A14"],
-html:not(.dark) .theme-nx .nx-card-dark div[style*="***REMOVED***030014"],
-html:not(.dark) .theme-nx .nx-card-dark div[style*="***REMOVED***050510"],
-html:not(.dark) .theme-nx .nx-card-dark div[style*="***REMOVED***0A0A14"] {
-  background: ***REMOVED***0A0A14 !important;
+html:not(.dark) .theme-nx .nx-hero-bg div[style*="#030014"],
+html:not(.dark) .theme-nx .nx-hero-bg div[style*="#050510"],
+html:not(.dark) .theme-nx .nx-hero-bg div[style*="#03000D"],
+html:not(.dark) .theme-nx .nx-hero-bg div[style*="#050518"],
+html:not(.dark) .theme-nx .nx-hero-bg div[style*="#0A0A14"],
+html:not(.dark) .theme-nx .nx-orange-gradient div[style*="#030014"],
+html:not(.dark) .theme-nx .nx-orange-gradient div[style*="#050510"],
+html:not(.dark) .theme-nx .nx-orange-gradient div[style*="#0A0A14"],
+html:not(.dark) .theme-nx .nx-navy-gradient div[style*="#030014"],
+html:not(.dark) .theme-nx .nx-navy-gradient div[style*="#050510"],
+html:not(.dark) .theme-nx .nx-navy-gradient div[style*="#0A0A14"],
+html:not(.dark) .theme-nx .nx-card-dark div[style*="#030014"],
+html:not(.dark) .theme-nx .nx-card-dark div[style*="#050510"],
+html:not(.dark) .theme-nx .nx-card-dark div[style*="#0A0A14"] {
+  background: #0A0A14 !important;
 }
 
 /* 2. Glass card backgrounds (bg-white/[0.0X], bg-white/5, bg-white/10,
       bg-white/20) → solid light surface so the card is visible.
       Card sits on the (now-light) section bg, so we use --nx-surface (white)
-      to differentiate from --nx-surface-alt (***REMOVED***F8F6FC). */
+      to differentiate from --nx-surface-alt (#F8F6FC). */
 html:not(.dark) .theme-nx [class*="bg-white/[0.0"],
 html:not(.dark) .theme-nx [class*="bg-white/5"],
 html:not(.dark) .theme-nx [class*="bg-white/10"],
@@ -3872,7 +3872,7 @@ html:not(.dark) .theme-nx .nx-btn-outline-light .text-white,
 html:not(.dark) .theme-nx .nx-btn-outline-light[class*="text-white"],
 html:not(.dark) .theme-nx .nx-card-dark .text-white,
 html:not(.dark) .theme-nx .nx-card-dark [class*="text-white/"] {
-  color: ***REMOVED***ffffff !important;
+  color: #ffffff !important;
 }
 
 /* 4b. CARVE-OUT: gradient buttons (Tailwind bg-gradient-to-* or inline
@@ -3887,7 +3887,7 @@ html:not(.dark) .theme-nx [class*="bg-gradient-to-"][class*="text-white/"],
 html:not(.dark) .theme-nx [class*="bg-gradient-to-"] [class*="text-white/"],
 html:not(.dark) .theme-nx [style*="linear-gradient"][class*="text-white/"],
 html:not(.dark) .theme-nx [style*="linear-gradient"] [class*="text-white/"] {
-  color: ***REMOVED***ffffff !important;
+  color: #ffffff !important;
 }
 
 /* 4c. CARVE-OUT: navbar transparent state (over dark homepage hero).
@@ -3895,7 +3895,7 @@ html:not(.dark) .theme-nx [style*="linear-gradient"] [class*="text-white/"] {
        White text on transparent navbar over dark hero = correct in both modes. */
 html:not(.dark) .theme-nx header.bg-transparent .text-white,
 html:not(.dark) .theme-nx header.bg-transparent [class*="text-white/"] {
-  color: ***REMOVED***ffffff !important;
+  color: #ffffff !important;
 }
 
 /* 4d. CARVE-OUT: navbar transparent state also needs its bg-white/10 hover
@@ -3940,12 +3940,12 @@ html:not(.dark) .theme-nx select:focus {
   outline: none !important;
 }
 
-/* 7. Dark hex utility backgrounds (bg-[***REMOVED***030014] etc.) → light surface. */
-html:not(.dark) .theme-nx [class*="bg-[***REMOVED***030014]"],
-html:not(.dark) .theme-nx [class*="bg-[***REMOVED***050510]"],
-html:not(.dark) .theme-nx [class*="bg-[***REMOVED***03000D]"],
-html:not(.dark) .theme-nx [class*="bg-[***REMOVED***050518]"],
-html:not(.dark) .theme-nx [class*="bg-[***REMOVED***0A0A14]"] {
+/* 7. Dark hex utility backgrounds (bg-[#030014] etc.) → light surface. */
+html:not(.dark) .theme-nx [class*="bg-[#030014]"],
+html:not(.dark) .theme-nx [class*="bg-[#050510]"],
+html:not(.dark) .theme-nx [class*="bg-[#03000D]"],
+html:not(.dark) .theme-nx [class*="bg-[#050518]"],
+html:not(.dark) .theme-nx [class*="bg-[#0A0A14]"] {
   background-color: var(--nx-surface-alt) !important;
 }
 

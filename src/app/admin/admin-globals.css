@@ -1,9 +1,9 @@
 /* ─── ClickTake Admin — AWIAP-inspired dashboard theme ────────────────────
  *
  * Adapted from AWIAP_full_platform.html, retuned for ClickTake brand colors:
- *   Primary:   ***REMOVED***FF53A9 (pink) — replaces AWIAP cyan
- *   Secondary: ***REMOVED***136DFF (blue) — used for blue badges
- *   Tertiary:  ***REMOVED***9B3DFF (purple) — used for purple badges
+ *   Primary:   #FF53A9 (pink) — replaces AWIAP cyan
+ *   Secondary: #136DFF (blue) — used for blue badges
+ *   Tertiary:  #9B3DFF (purple) — used for purple badges
  *
  * Layout pattern: Fixed 240px sidebar + sticky 56px topbar + content area.
  * Fonts: Syne for headings (matches ClickTake brand), JetBrains Mono for data.
@@ -38,20 +38,20 @@
   --cta-font-head: 'Syne', 'Inter', system-ui, sans-serif;
   --cta-font-mono: 'JetBrains Mono', 'Geist Mono', ui-monospace, monospace;
   /* Status colors — same in both modes (saturated enough for both backgrounds) */
-  --cta-green: ***REMOVED***22c55e;
+  --cta-green: #22c55e;
   --cta-green-bg: rgba(34, 197, 94, 0.12);
-  --cta-amber: ***REMOVED***f59e0b;
+  --cta-amber: #f59e0b;
   --cta-amber-bg: rgba(245, 158, 11, 0.12);
-  --cta-red: ***REMOVED***ef4444;
+  --cta-red: #ef4444;
   --cta-red-bg: rgba(239, 68, 68, 0.12);
   /* Brand accents — ClickTake pink/blue/purple (consistent across modes) */
-  --cta-accent: ***REMOVED***FF53A9;
-  --cta-accent2: ***REMOVED***E0197A;
+  --cta-accent: #FF53A9;
+  --cta-accent2: #E0197A;
   --cta-accent-bg: rgba(255, 83, 169, 0.10);
-  --cta-blue: ***REMOVED***136DFF;
-  --cta-blue-soft: ***REMOVED***4A90D9;
+  --cta-blue: #136DFF;
+  --cta-blue-soft: #4A90D9;
   --cta-blue-bg: rgba(19, 109, 255, 0.10);
-  --cta-purple: ***REMOVED***9B3DFF;
+  --cta-purple: #9B3DFF;
   --cta-purple-bg: rgba(155, 61, 255, 0.10);
 
   font-family: var(--cta-font-head);
@@ -67,34 +67,34 @@
    with dark base. Mirrors the original always-dark admin look. */
 html.dark .ct-admin,
 html.theme-custom .ct-admin:not(.theme-custom-light) {
-  --cta-bg: ***REMOVED***03000D;
-  --cta-bg2: ***REMOVED***070018;
-  --cta-bg3: ***REMOVED***0D0025;
-  --cta-bg4: ***REMOVED***1E1640;
+  --cta-bg: #03000D;
+  --cta-bg2: #070018;
+  --cta-bg3: #0D0025;
+  --cta-bg4: #1E1640;
   --cta-border: rgba(255, 255, 255, 0.06);
   --cta-border2: rgba(255, 255, 255, 0.1);
-  --cta-text: ***REMOVED***F0EBF8;
-  --cta-muted: ***REMOVED***7A6B95;
-  --cta-muted2: ***REMOVED***B5A8C8;
+  --cta-text: #F0EBF8;
+  --cta-muted: #7A6B95;
+  --cta-muted2: #B5A8C8;
 
-  --background: ***REMOVED***03000D;
-  --foreground: ***REMOVED***F0EBF8;
-  --card: ***REMOVED***0D0025;
-  --card-foreground: ***REMOVED***F0EBF8;
-  --popover: ***REMOVED***0D0025;
-  --popover-foreground: ***REMOVED***F0EBF8;
-  --primary: ***REMOVED***FF53A9;
-  --primary-foreground: ***REMOVED***ffffff;
-  --secondary: ***REMOVED***1E1640;
-  --secondary-foreground: ***REMOVED***F0EBF8;
-  --muted: ***REMOVED***1E1640;
-  --muted-foreground: ***REMOVED***9B8AB8;
-  --accent: ***REMOVED***E0197A;
-  --accent-foreground: ***REMOVED***ffffff;
-  --destructive: ***REMOVED***ef4444;
+  --background: #03000D;
+  --foreground: #F0EBF8;
+  --card: #0D0025;
+  --card-foreground: #F0EBF8;
+  --popover: #0D0025;
+  --popover-foreground: #F0EBF8;
+  --primary: #FF53A9;
+  --primary-foreground: #ffffff;
+  --secondary: #1E1640;
+  --secondary-foreground: #F0EBF8;
+  --muted: #1E1640;
+  --muted-foreground: #9B8AB8;
+  --accent: #E0197A;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
   --border: rgba(255, 255, 255, 0.06);
   --input: rgba(255, 255, 255, 0.1);
-  --ring: ***REMOVED***FF53A9;
+  --ring: #FF53A9;
 
   color-scheme: dark;
 }
@@ -104,34 +104,34 @@ html.theme-custom .ct-admin:not(.theme-custom-light) {
    with light base. Clean white surfaces with dark ink text. */
 html:not(.dark) .ct-admin,
 html.theme-custom-light .ct-admin {
-  --cta-bg: ***REMOVED***f8fafc;
-  --cta-bg2: ***REMOVED***ffffff;
-  --cta-bg3: ***REMOVED***f1f5f9;
-  --cta-bg4: ***REMOVED***e2e8f0;
+  --cta-bg: #f8fafc;
+  --cta-bg2: #ffffff;
+  --cta-bg3: #f1f5f9;
+  --cta-bg4: #e2e8f0;
   --cta-border: rgba(15, 23, 42, 0.10);
   --cta-border2: rgba(15, 23, 42, 0.16);
-  --cta-text: ***REMOVED***0a0e1a;
-  --cta-muted: ***REMOVED***475569;
-  --cta-muted2: ***REMOVED***334155;
+  --cta-text: #0a0e1a;
+  --cta-muted: #475569;
+  --cta-muted2: #334155;
 
-  --background: ***REMOVED***ffffff;
-  --foreground: ***REMOVED***0a0e1a;
-  --card: ***REMOVED***ffffff;
-  --card-foreground: ***REMOVED***0a0e1a;
-  --popover: ***REMOVED***ffffff;
-  --popover-foreground: ***REMOVED***0a0e1a;
-  --primary: ***REMOVED***E0197A;
-  --primary-foreground: ***REMOVED***ffffff;
-  --secondary: ***REMOVED***f1f5f9;
-  --secondary-foreground: ***REMOVED***0a0e1a;
-  --muted: ***REMOVED***f1f5f9;
-  --muted-foreground: ***REMOVED***334155;
-  --accent: ***REMOVED***C2185B;
-  --accent-foreground: ***REMOVED***ffffff;
-  --destructive: ***REMOVED***dc2626;
-  --border: ***REMOVED***e2e8f0;
-  --input: ***REMOVED***e2e8f0;
-  --ring: ***REMOVED***E0197A;
+  --background: #ffffff;
+  --foreground: #0a0e1a;
+  --card: #ffffff;
+  --card-foreground: #0a0e1a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0e1a;
+  --primary: #E0197A;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0a0e1a;
+  --muted: #f1f5f9;
+  --muted-foreground: #334155;
+  --accent: #C2185B;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #E0197A;
 
   color-scheme: light;
 }
@@ -147,22 +147,22 @@ html:not(.dark) .ct-admin .text-white,
 html:not(.dark) .ct-admin .text-white\/90,
 html:not(.dark) .ct-admin .text-white\/80,
 html:not(.dark) .ct-admin .text-white\/70,
-html:not(.dark) .ct-admin .text-white\/60 { color: ***REMOVED***0a0e1a !important; }
+html:not(.dark) .ct-admin .text-white\/60 { color: #0a0e1a !important; }
 
 html:not(.dark) .ct-admin .text-gray-50,
 html:not(.dark) .ct-admin .text-gray-100,
-html:not(.dark) .ct-admin .text-gray-200 { color: ***REMOVED***0a0e1a !important; }
-html:not(.dark) .ct-admin .text-gray-300 { color: ***REMOVED***1e293b !important; }
-html:not(.dark) .ct-admin .text-gray-400 { color: ***REMOVED***334155 !important; }
-html:not(.dark) .ct-admin .text-gray-500 { color: ***REMOVED***475569 !important; }
+html:not(.dark) .ct-admin .text-gray-200 { color: #0a0e1a !important; }
+html:not(.dark) .ct-admin .text-gray-300 { color: #1e293b !important; }
+html:not(.dark) .ct-admin .text-gray-400 { color: #334155 !important; }
+html:not(.dark) .ct-admin .text-gray-500 { color: #475569 !important; }
 html:not(.dark) .ct-admin .text-gray-600,
-html:not(.dark) .ct-admin .text-gray-700 { color: ***REMOVED***1e293b !important; }
+html:not(.dark) .ct-admin .text-gray-700 { color: #1e293b !important; }
 
 html:not(.dark) .ct-admin .text-slate-100,
-html:not(.dark) .ct-admin .text-slate-200 { color: ***REMOVED***0a0e1a !important; }
-html:not(.dark) .ct-admin .text-slate-300 { color: ***REMOVED***1e293b !important; }
-html:not(.dark) .ct-admin .text-slate-400 { color: ***REMOVED***334155 !important; }
-html:not(.dark) .ct-admin .text-slate-500 { color: ***REMOVED***475569 !important; }
+html:not(.dark) .ct-admin .text-slate-200 { color: #0a0e1a !important; }
+html:not(.dark) .ct-admin .text-slate-300 { color: #1e293b !important; }
+html:not(.dark) .ct-admin .text-slate-400 { color: #334155 !important; }
+html:not(.dark) .ct-admin .text-slate-500 { color: #475569 !important; }
 
 /* Borders that were tuned for dark canvas — make them visible in light */
 html:not(.dark) .ct-admin .border-white\/5,
@@ -224,78 +224,78 @@ html:not(.dark) .ct-admin textarea::placeholder {
 /* Placeholders and helper text often set via Tailwind text-white/60 */
 html:not(.dark) .ct-admin input::placeholder,
 html:not(.dark) .ct-admin textarea::placeholder,
-html:not(.dark) .ct-admin .placeholder-white\/60 { color: ***REMOVED***64748b !important; }
+html:not(.dark) .ct-admin .placeholder-white\/60 { color: #64748b !important; }
 
 /* ─── STATUS / ACCENT COLOR overrides for light mode ─────────────────────
    Tailwind -400 / -500 shades look fine on dark surfaces but become
    washed-out / unreadable on white. Map each common status color to
    a darker shade (-600 / -700 / -800) so it stays accessible. */
 html:not(.dark) .ct-admin .text-red-300,
-html:not(.dark) .ct-admin .text-red-400 { color: ***REMOVED***b91c1c !important; }
-html:not(.dark) .ct-admin .text-red-500 { color: ***REMOVED***dc2626 !important; }
-html:not(.dark) .ct-admin .text-red-600 { color: ***REMOVED***b91c1c !important; }
+html:not(.dark) .ct-admin .text-red-400 { color: #b91c1c !important; }
+html:not(.dark) .ct-admin .text-red-500 { color: #dc2626 !important; }
+html:not(.dark) .ct-admin .text-red-600 { color: #b91c1c !important; }
 
 html:not(.dark) .ct-admin .text-emerald-300,
-html:not(.dark) .ct-admin .text-emerald-400 { color: ***REMOVED***047857 !important; }
-html:not(.dark) .ct-admin .text-emerald-500 { color: ***REMOVED***059669 !important; }
-html:not(.dark) .ct-admin .text-emerald-600 { color: ***REMOVED***047857 !important; }
+html:not(.dark) .ct-admin .text-emerald-400 { color: #047857 !important; }
+html:not(.dark) .ct-admin .text-emerald-500 { color: #059669 !important; }
+html:not(.dark) .ct-admin .text-emerald-600 { color: #047857 !important; }
 html:not(.dark) .ct-admin .text-green-300,
-html:not(.dark) .ct-admin .text-green-400 { color: ***REMOVED***047857 !important; }
+html:not(.dark) .ct-admin .text-green-400 { color: #047857 !important; }
 html:not(.dark) .ct-admin .text-green-500,
-html:not(.dark) .ct-admin .text-green-600 { color: ***REMOVED***047857 !important; }
+html:not(.dark) .ct-admin .text-green-600 { color: #047857 !important; }
 
 html:not(.dark) .ct-admin .text-amber-300,
-html:not(.dark) .ct-admin .text-amber-400 { color: ***REMOVED***b45309 !important; }
-html:not(.dark) .ct-admin .text-amber-500 { color: ***REMOVED***d97706 !important; }
-html:not(.dark) .ct-admin .text-amber-600 { color: ***REMOVED***b45309 !important; }
+html:not(.dark) .ct-admin .text-amber-400 { color: #b45309 !important; }
+html:not(.dark) .ct-admin .text-amber-500 { color: #d97706 !important; }
+html:not(.dark) .ct-admin .text-amber-600 { color: #b45309 !important; }
 html:not(.dark) .ct-admin .text-yellow-400,
-html:not(.dark) .ct-admin .text-yellow-500 { color: ***REMOVED***b45309 !important; }
-html:not(.dark) .ct-admin .text-yellow-600 { color: ***REMOVED***a16207 !important; }
+html:not(.dark) .ct-admin .text-yellow-500 { color: #b45309 !important; }
+html:not(.dark) .ct-admin .text-yellow-600 { color: #a16207 !important; }
 
 html:not(.dark) .ct-admin .text-blue-300,
-html:not(.dark) .ct-admin .text-blue-400 { color: ***REMOVED***1d4ed8 !important; }
-html:not(.dark) .ct-admin .text-blue-500 { color: ***REMOVED***2563eb !important; }
-html:not(.dark) .ct-admin .text-blue-600 { color: ***REMOVED***1d4ed8 !important; }
+html:not(.dark) .ct-admin .text-blue-400 { color: #1d4ed8 !important; }
+html:not(.dark) .ct-admin .text-blue-500 { color: #2563eb !important; }
+html:not(.dark) .ct-admin .text-blue-600 { color: #1d4ed8 !important; }
 html:not(.dark) .ct-admin .text-sky-300,
-html:not(.dark) .ct-admin .text-sky-400 { color: ***REMOVED***0369a1 !important; }
-html:not(.dark) .ct-admin .text-sky-500 { color: ***REMOVED***0284c7 !important; }
+html:not(.dark) .ct-admin .text-sky-400 { color: #0369a1 !important; }
+html:not(.dark) .ct-admin .text-sky-500 { color: #0284c7 !important; }
 html:not(.dark) .ct-admin .text-cyan-300,
-html:not(.dark) .ct-admin .text-cyan-400 { color: ***REMOVED***0e7490 !important; }
-html:not(.dark) .ct-admin .text-cyan-500 { color: ***REMOVED***0891b2 !important; }
+html:not(.dark) .ct-admin .text-cyan-400 { color: #0e7490 !important; }
+html:not(.dark) .ct-admin .text-cyan-500 { color: #0891b2 !important; }
 
 html:not(.dark) .ct-admin .text-purple-300,
-html:not(.dark) .ct-admin .text-purple-400 { color: ***REMOVED***7e22ce !important; }
-html:not(.dark) .ct-admin .text-purple-500 { color: ***REMOVED***9333ea !important; }
+html:not(.dark) .ct-admin .text-purple-400 { color: #7e22ce !important; }
+html:not(.dark) .ct-admin .text-purple-500 { color: #9333ea !important; }
 html:not(.dark) .ct-admin .text-violet-300,
-html:not(.dark) .ct-admin .text-violet-400 { color: ***REMOVED***6d28d9 !important; }
-html:not(.dark) .ct-admin .text-violet-500 { color: ***REMOVED***7c3aed !important; }
+html:not(.dark) .ct-admin .text-violet-400 { color: #6d28d9 !important; }
+html:not(.dark) .ct-admin .text-violet-500 { color: #7c3aed !important; }
 html:not(.dark) .ct-admin .text-fuchsia-300,
-html:not(.dark) .ct-admin .text-fuchsia-400 { color: ***REMOVED***a21caf !important; }
-html:not(.dark) .ct-admin .text-fuchsia-500 { color: ***REMOVED***c026d3 !important; }
+html:not(.dark) .ct-admin .text-fuchsia-400 { color: #a21caf !important; }
+html:not(.dark) .ct-admin .text-fuchsia-500 { color: #c026d3 !important; }
 html:not(.dark) .ct-admin .text-pink-300,
-html:not(.dark) .ct-admin .text-pink-400 { color: ***REMOVED***be185d !important; }
-html:not(.dark) .ct-admin .text-pink-500 { color: ***REMOVED***db2777 !important; }
+html:not(.dark) .ct-admin .text-pink-400 { color: #be185d !important; }
+html:not(.dark) .ct-admin .text-pink-500 { color: #db2777 !important; }
 
 html:not(.dark) .ct-admin .text-indigo-300,
-html:not(.dark) .ct-admin .text-indigo-400 { color: ***REMOVED***4338ca !important; }
-html:not(.dark) .ct-admin .text-indigo-500 { color: ***REMOVED***4f46e5 !important; }
+html:not(.dark) .ct-admin .text-indigo-400 { color: #4338ca !important; }
+html:not(.dark) .ct-admin .text-indigo-500 { color: #4f46e5 !important; }
 html:not(.dark) .ct-admin .text-rose-300,
-html:not(.dark) .ct-admin .text-rose-400 { color: ***REMOVED***be123c !important; }
-html:not(.dark) .ct-admin .text-rose-500 { color: ***REMOVED***e11d48 !important; }
+html:not(.dark) .ct-admin .text-rose-400 { color: #be123c !important; }
+html:not(.dark) .ct-admin .text-rose-500 { color: #e11d48 !important; }
 
 /* Zinc / neutral often used for muted text on dark — keep readable on light */
 html:not(.dark) .ct-admin .text-zinc-100,
-html:not(.dark) .ct-admin .text-zinc-200 { color: ***REMOVED***0a0e1a !important; }
-html:not(.dark) .ct-admin .text-zinc-300 { color: ***REMOVED***1e293b !important; }
-html:not(.dark) .ct-admin .text-zinc-400 { color: ***REMOVED***334155 !important; }
-html:not(.dark) .ct-admin .text-zinc-500 { color: ***REMOVED***475569 !important; }
+html:not(.dark) .ct-admin .text-zinc-200 { color: #0a0e1a !important; }
+html:not(.dark) .ct-admin .text-zinc-300 { color: #1e293b !important; }
+html:not(.dark) .ct-admin .text-zinc-400 { color: #334155 !important; }
+html:not(.dark) .ct-admin .text-zinc-500 { color: #475569 !important; }
 html:not(.dark) .ct-admin .text-zinc-600,
-html:not(.dark) .ct-admin .text-zinc-700 { color: ***REMOVED***1e293b !important; }
+html:not(.dark) .ct-admin .text-zinc-700 { color: #1e293b !important; }
 html:not(.dark) .ct-admin .text-neutral-100,
-html:not(.dark) .ct-admin .text-neutral-200 { color: ***REMOVED***0a0e1a !important; }
-html:not(.dark) .ct-admin .text-neutral-300 { color: ***REMOVED***1e293b !important; }
-html:not(.dark) .ct-admin .text-neutral-400 { color: ***REMOVED***334155 !important; }
-html:not(.dark) .ct-admin .text-neutral-500 { color: ***REMOVED***475569 !important; }
+html:not(.dark) .ct-admin .text-neutral-200 { color: #0a0e1a !important; }
+html:not(.dark) .ct-admin .text-neutral-300 { color: #1e293b !important; }
+html:not(.dark) .ct-admin .text-neutral-400 { color: #334155 !important; }
+html:not(.dark) .ct-admin .text-neutral-500 { color: #475569 !important; }
 
 /* Background tints that came from translucent dark colors — keep readable */
 html:not(.dark) .ct-admin .bg-amber-500\/10,
@@ -310,7 +310,7 @@ html:not(.dark) .ct-admin .bg-purple-500\/10,
 html:not(.dark) .ct-admin .bg-purple-500\/15 { background-color: rgba(126, 34, 206, 0.10) !important; }
 
 /* Generic catch-all: any remaining translucent-white text on light bg */
-html:not(.dark) .ct-admin [class*="text-white"] { color: ***REMOVED***0a0e1a !important; }
+html:not(.dark) .ct-admin [class*="text-white"] { color: #0a0e1a !important; }
 
 /* Headings / strong text — make sure weight doesn't combine with a faint color */
 html:not(.dark) .ct-admin h1,
@@ -322,17 +322,17 @@ html:not(.dark) .ct-admin h6 {
   color: var(--cta-text);
 }
 html:not(.dark) .ct-admin a {
-  color: var(--cta-link, ***REMOVED***1d4ed8);
+  color: var(--cta-link, #1d4ed8);
 }
 html:not(.dark) .ct-admin a:hover {
-  color: var(--cta-link-hover, ***REMOVED***1e40af);
+  color: var(--cta-link-hover, #1e40af);
 }
 
 /* Code / pre blocks often inherit a translucent surface — restore solid light bg */
 html:not(.dark) .ct-admin pre,
 html:not(.dark) .ct-admin code {
-  background-color: ***REMOVED***f1f5f9;
-  color: ***REMOVED***0a0e1a;
+  background-color: #f1f5f9;
+  color: #0a0e1a;
 }
 html:not(.dark) .ct-admin pre {
   border: 1px solid var(--cta-border2);
@@ -362,7 +362,7 @@ html:not(.dark) .ct-admin button.bg-gradient-to-r .text-white,
 html:not(.dark) .ct-admin button.bg-gradient-to-br .text-white,
 html:not(.dark) .ct-admin a.bg-gradient-to-r .text-white,
 html:not(.dark) .ct-admin a.bg-gradient-to-br .text-white {
-  color: ***REMOVED***ffffff !important;
+  color: #ffffff !important;
 }
 
 /* Status badges — small colored pills that need readable ink on light */
@@ -400,14 +400,14 @@ html:not(.dark) .ct-admin [class*="bg-"][class*="/"][class*="text-"] {
 .ct-admin-logo {
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, ***REMOVED***FF53A9 0%, ***REMOVED***9B3DFF 50%, ***REMOVED***136DFF 100%);
+  background: linear-gradient(135deg, #FF53A9 0%, #9B3DFF 50%, #136DFF 100%);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   font-weight: 800;
-  color: ***REMOVED***ffffff;
+  color: #ffffff;
   flex-shrink: 0;
   letter-spacing: -0.5px;
 }
@@ -472,7 +472,7 @@ html:not(.dark) .ct-admin [class*="bg-"][class*="/"][class*="text-"] {
 .ct-admin-nav-badge {
   margin-left: auto;
   background: var(--cta-accent);
-  color: ***REMOVED***000;
+  color: #000;
   font-size: 9px;
   font-weight: 700;
   padding: 1px 5px;
@@ -481,7 +481,7 @@ html:not(.dark) .ct-admin [class*="bg-"][class*="/"][class*="text-"] {
 }
 .ct-admin-nav-badge.red {
   background: var(--cta-red);
-  color: ***REMOVED***fff;
+  color: #fff;
 }
 .ct-admin-nav-dot {
   width: 6px;
@@ -561,13 +561,13 @@ html:not(.dark) .ct-admin [class*="bg-"][class*="/"][class*="text-"] {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF);
+  background: linear-gradient(135deg, #FF53A9, #9B3DFF);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
   font-weight: 700;
-  color: ***REMOVED***fff;
+  color: #fff;
   cursor: pointer;
 }
 .ct-admin-role-bar {
@@ -592,7 +592,7 @@ html:not(.dark) .ct-admin [class*="bg-"][class*="/"][class*="text-"] {
 }
 .ct-admin-role-btn.active {
   background: var(--cta-accent);
-  color: ***REMOVED***000;
+  color: #000;
 }
 
 /* ─── CONTENT ──────────────────────────────────────────────────────────── */
@@ -623,13 +623,13 @@ html:not(.dark) .ct-admin [class*="bg-"][class*="/"][class*="text-"] {
   background: var(--cta-bg4);
 }
 .ct-admin-btn-primary {
-  background: linear-gradient(135deg, ***REMOVED***FF53A9, ***REMOVED***E0197A);
-  color: ***REMOVED***ffffff;
-  border-color: ***REMOVED***FF53A9;
+  background: linear-gradient(135deg, #FF53A9, #E0197A);
+  color: #ffffff;
+  border-color: #FF53A9;
 }
 .ct-admin-btn-primary:hover {
   opacity: 0.92;
-  background: linear-gradient(135deg, ***REMOVED***E0197A, ***REMOVED***FF53A9);
+  background: linear-gradient(135deg, #E0197A, #FF53A9);
 }
 .ct-admin-btn-sm {
   padding: 4px 10px;
@@ -841,14 +841,14 @@ html:not(.dark) .ct-admin [class*="bg-"][class*="/"][class*="text-"] {
   font-size: 11px;
   font-weight: 700;
   flex-shrink: 0;
-  color: ***REMOVED***fff;
+  color: #fff;
 }
-.ct-admin-avatar-sm.av1 { background: linear-gradient(135deg, ***REMOVED***FF53A9, ***REMOVED***E0197A); }
-.ct-admin-avatar-sm.av2 { background: linear-gradient(135deg, ***REMOVED***9B3DFF, ***REMOVED***7B2FBE); }
-.ct-admin-avatar-sm.av3 { background: linear-gradient(135deg, ***REMOVED***136DFF, ***REMOVED***4A90D9); }
-.ct-admin-avatar-sm.av4 { background: linear-gradient(135deg, ***REMOVED***22c55e, ***REMOVED***16a34a); color: ***REMOVED***000; }
-.ct-admin-avatar-sm.av5 { background: linear-gradient(135deg, ***REMOVED***f59e0b, ***REMOVED***d97706); color: ***REMOVED***000; }
-.ct-admin-avatar-sm.av6 { background: linear-gradient(135deg, ***REMOVED***ef4444, ***REMOVED***dc2626); }
+.ct-admin-avatar-sm.av1 { background: linear-gradient(135deg, #FF53A9, #E0197A); }
+.ct-admin-avatar-sm.av2 { background: linear-gradient(135deg, #9B3DFF, #7B2FBE); }
+.ct-admin-avatar-sm.av3 { background: linear-gradient(135deg, #136DFF, #4A90D9); }
+.ct-admin-avatar-sm.av4 { background: linear-gradient(135deg, #22c55e, #16a34a); color: #000; }
+.ct-admin-avatar-sm.av5 { background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; }
+.ct-admin-avatar-sm.av6 { background: linear-gradient(135deg, #ef4444, #dc2626); }
 
 /* ─── PROGRESS BAR ─────────────────────────────────────────────────────── */
 .ct-admin-progress {
@@ -863,7 +863,7 @@ html:not(.dark) .ct-admin [class*="bg-"][class*="/"][class*="text-"] {
 .ct-admin-progress-fill {
   height: 100%;
   border-radius: 3px;
-  background: linear-gradient(90deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF);
+  background: linear-gradient(90deg, #FF53A9, #9B3DFF);
 }
 
 /* ─── SCORE RING ───────────────────────────────────────────────────────── */
@@ -1039,7 +1039,7 @@ html:not(.dark) .ct-admin [class*="bg-"][class*="/"][class*="text-"] {
 .ct-admin-check-box.done {
   background: var(--cta-green);
   border-color: var(--cta-green);
-  color: ***REMOVED***000;
+  color: #000;
 }
 .ct-admin-check-text {
   font-size: 12px;
@@ -1221,7 +1221,7 @@ html:not(.dark) .ct-admin [class*="bg-"][class*="/"][class*="text-"] {
   font-size: 64px;
   font-weight: 800;
   font-family: var(--cta-font-mono);
-  background: linear-gradient(135deg, ***REMOVED***FF53A9, ***REMOVED***9B3DFF);
+  background: linear-gradient(135deg, #FF53A9, #9B3DFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

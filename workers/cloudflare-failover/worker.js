@@ -58,7 +58,7 @@ function markPrimarySuccess() {
 
 function markPrimaryFailure(reason) {
   state.failureCount = Math.min(state.failureCount + 1, MAX_FAILURE_COUNT);
-  console.log(`[failover] primary failure ***REMOVED***${state.failureCount}: ${reason}`);
+  console.log(`[failover] primary failure #${state.failureCount}: ${reason}`);
   if (state.failureCount >= FAILURE_THRESHOLD && !state.circuitOpen) {
     state.circuitOpen = true;
     state.openedAt = nowMs();
